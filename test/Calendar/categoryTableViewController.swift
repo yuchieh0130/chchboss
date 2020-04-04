@@ -11,6 +11,8 @@ import UIKit
 
 class categoryTableViewController: UITableViewController{
     
+    var showCategory = [CategoryModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if DBManager.getInstance().getCategory() != nil{
@@ -20,16 +22,24 @@ class categoryTableViewController: UITableViewController{
         }
         tableView.reloadData()
     }
-     var showCategory = [CategoryModel]()
+    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        let VC = segue.destination as? addViewController
+    //        VC?.category = category
+    //        print(category?.categoryId)
+    //    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showCategory.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       let cell: categoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "categoryTableViewCell", for: indexPath)as! categoryTableViewCell
+        let cell: categoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "categoryTableViewCell", for: indexPath)as! categoryTableViewCell
         cell.categoryName?.text = showCategory[indexPath.row].categoryName
         //set color
         return cell
+    }
+    
+    @IBAction override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }

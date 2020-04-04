@@ -37,7 +37,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         myLocationManager.startUpdatingLocation()
-
+        
         
         // Map
         // 設置委任對象
@@ -67,13 +67,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func startLocationManager(){
-          myLocationManager.delegate = self
-          myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-          myLocationManager.activityType = CLActivityType.fitness
-          myLocationManager.distanceFilter = 50
-          myLocationManager.startUpdatingLocation()
+        myLocationManager.delegate = self
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+        myLocationManager.activityType = CLActivityType.fitness
+        myLocationManager.distanceFilter = 50
+        myLocationManager.startUpdatingLocation()
     }
-
+    
     var searchQuerys = ["store", "shop", "coffee",]
     var searchResults = [MKMapItem]()
     var searchAllResults = [MKMapItem]()
@@ -100,7 +100,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         // 設定時區(台灣)
-        dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
+        dateFormatter.timeZone = TimeZone.ReferenceType.system
         let dateFormatString: String = dateFormatter.string(from: currentTime)
         print("dateFormatString: \(dateFormatString)")
         
@@ -136,10 +136,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
                 // 所有關鍵字得到的資料放入searchAllResults
                 self.searchAllResults.append(contentsOf: searchResponse.mapItems)
-                                
+                
                 // 再把searchAllResults存入searchResults
                 self.searchResults = self.searchAllResults
-                                
+                
                 var i = 0
                 while self.searchResults.count > i{
                     let locationName: String? = self.searchResults[i].name
@@ -154,7 +154,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 self.tblView.reloadData()
                 
             }
-        
+            
         }
         myLocationManager.stopUpdatingLocation()
         

@@ -19,12 +19,15 @@
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
 		4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */; };
 		4B792599241FC521005337CA /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B792597241FC521005337CA /* eventTableViewCell.swift */; };
-		4B79259E2422755B005337CA /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79259D2422755B005337CA /* ColorModel.swift */; };
 		4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */; };
 		4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */; };
 		4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF5242B07FA001B80C7 /* CategoryModel.swift */; };
 		4B855CF8242B0840001B80C7 /* categoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF7242B0840001B80C7 /* categoryTableViewController.swift */; };
 		4B855CFA242B0C88001B80C7 /* categoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */; };
+		4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0B2438477C001B80C7 /* tabBarController.swift */; };
+		4B855D0E243847B8001B80C7 /* autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0D243847B8001B80C7 /* autoRecordViewController.swift */; };
+		4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0F243847E3001B80C7 /* taskViewController.swift */; };
+		4B855D1224385724001B80C7 /* taskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D1124385724001B80C7 /* taskTableViewCell.swift */; };
 		4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B97DF9124176AB8005BD787 /* DBManager.swift */; };
 		4B9EBD542417799400162A77 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD532417799400162A77 /* EventModel.swift */; };
 		4B9EBD562417A7CE00162A77 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD552417A7CE00162A77 /* Util.swift */; };
@@ -32,6 +35,7 @@
 		4BBA43BC2427B66600FD953D /* eventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBA43BB2427B66600FD953D /* eventTableViewCell.xib */; };
 		582341EE242B5F1000FFC83B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582341ED242B5F1000FFC83B /* MapViewController.swift */; };
 		582341F0242BB0DA00FFC83B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582341EF242BB0DA00FFC83B /* SceneDelegate.swift */; };
+		58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D91DC824325783002DD7B2 /* LocationModel.swift */; };
 		6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1AF225FAD04006F384C /* AppDelegate.swift */; };
 		6B6BB1B2225FAD04006F384C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1B1225FAD04006F384C /* ViewController.swift */; };
 		6B6BB1B5225FAD04006F384C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6BB1B3225FAD04006F384C /* Main.storyboard */; };
@@ -60,12 +64,15 @@
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePopupViewController.swift; path = test/DatePopupViewController.swift; sourceTree = SOURCE_ROOT; };
 		4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(old)addEventViewController.swift"; sourceTree = "<group>"; };
 		4B792597241FC521005337CA /* eventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
-		4B79259D2422755B005337CA /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 		4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewController.swift; sourceTree = "<group>"; };
 		4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewCell.swift; sourceTree = "<group>"; };
 		4B855CF5242B07FA001B80C7 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		4B855CF7242B0840001B80C7 /* categoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryTableViewController.swift; sourceTree = "<group>"; };
 		4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryTableViewCell.swift; sourceTree = "<group>"; };
+		4B855D0B2438477C001B80C7 /* tabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabBarController.swift; sourceTree = "<group>"; };
+		4B855D0D243847B8001B80C7 /* autoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autoRecordViewController.swift; sourceTree = "<group>"; };
+		4B855D0F243847E3001B80C7 /* taskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskViewController.swift; sourceTree = "<group>"; };
+		4B855D1124385724001B80C7 /* taskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskTableViewCell.swift; sourceTree = "<group>"; };
 		4B97DF80241769B7005BD787 /* test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-Bridging-Header.h"; sourceTree = "<group>"; };
 		4B97DF9124176AB8005BD787 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		4B9EBD532417799400162A77 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
@@ -74,6 +81,7 @@
 		4BBA43BB2427B66600FD953D /* eventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = eventTableViewCell.xib; sourceTree = "<group>"; };
 		582341ED242B5F1000FFC83B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = test/Map/MapViewController.swift; sourceTree = SOURCE_ROOT; };
 		582341EF242BB0DA00FFC83B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		58D91DC824325783002DD7B2 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		6B6BB1AC225FAD04006F384C /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B6BB1AF225FAD04006F384C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B6BB1B1225FAD04006F384C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -120,8 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				4B9EBD532417799400162A77 /* EventModel.swift */,
-				4B79259D2422755B005337CA /* ColorModel.swift */,
 				4B855CF5242B07FA001B80C7 /* CategoryModel.swift */,
+				58D91DC824325783002DD7B2 /* LocationModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -131,17 +139,21 @@
 			children = (
 				6B6BB1C1225FE06B006F384C /* DateCell.swift */,
 				4B1C31062415696600875B74 /* DateHeader.swift */,
+				6B6BB1B1225FAD04006F384C /* ViewController.swift */,
 				4B052674242C9CE50048DB8D /* addCell.swift */,
 				4B052676242C9CF40048DB8D /* addViewController.swift */,
 				4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */,
 				4B792597241FC521005337CA /* eventTableViewCell.swift */,
 				4BBA43BB2427B66600FD953D /* eventTableViewCell.xib */,
-				6B6BB1B1225FAD04006F384C /* ViewController.swift */,
 				4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */,
 				4B855CF7242B0840001B80C7 /* categoryTableViewController.swift */,
 				4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */,
 				4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */,
 				4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */,
+				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
+				4B855D0D243847B8001B80C7 /* autoRecordViewController.swift */,
+				4B855D0F243847E3001B80C7 /* taskViewController.swift */,
+				4B855D1124385724001B80C7 /* taskTableViewCell.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -176,18 +188,18 @@
 			isa = PBXGroup;
 			children = (
 				4B97DF7F24176957005BD787 /* fmdb */,
-				6B6BB1B3225FAD04006F384C /* Main.storyboard */,
-				582341EF242BB0DA00FFC83B /* SceneDelegate.swift */,
 				6B6BB1B6225FAD05006F384C /* Assets.xcassets */,
-				6B6BB1B8225FAD05006F384C /* LaunchScreen.storyboard */,
-				6B6BB1BB225FAD05006F384C /* Info.plist */,
 				6B6BB1AF225FAD04006F384C /* AppDelegate.swift */,
-				4B97DF9124176AB8005BD787 /* DBManager.swift */,
+				582341EF242BB0DA00FFC83B /* SceneDelegate.swift */,
+				6B6BB1BB225FAD05006F384C /* Info.plist */,
+				6B6BB1B8225FAD05006F384C /* LaunchScreen.storyboard */,
+				6B6BB1B3225FAD04006F384C /* Main.storyboard */,
 				4B9EBD552417A7CE00162A77 /* Util.swift */,
 				4B9EBD572417AEC900162A77 /* project.db */,
+				4B97DF9124176AB8005BD787 /* DBManager.swift */,
+				582341EA242B5C5C00FFC83B /* model */,
 				58D91DC72431CEE2002DD7B2 /* Map */,
 				582341EC242B5CF400FFC83B /* Calendar */,
-				582341EA242B5C5C00FFC83B /* model */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -312,6 +324,7 @@
 				6B6BB1B2225FAD04006F384C /* ViewController.swift in Sources */,
 				4B351A4A24188BE9003A474A /* FMDatabasePool.m in Sources */,
 				4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */,
+				4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */,
 				4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */,
 				4B351A4724188BE9003A474A /* FMDatabase.m in Sources */,
 				6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */,
@@ -325,9 +338,12 @@
 				4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */,
 				4B792599241FC521005337CA /* eventTableViewCell.swift in Sources */,
 				4B9EBD562417A7CE00162A77 /* Util.swift in Sources */,
+				4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */,
 				582341EE242B5F1000FFC83B /* MapViewController.swift in Sources */,
-				4B79259E2422755B005337CA /* ColorModel.swift in Sources */,
+				4B855D1224385724001B80C7 /* taskTableViewCell.swift in Sources */,
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
+				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,
+				4B855D0E243847B8001B80C7 /* autoRecordViewController.swift in Sources */,
 				4B1C31072415696600875B74 /* DateHeader.swift in Sources */,
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* categoryTableViewController.swift in Sources */,

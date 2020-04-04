@@ -12,22 +12,20 @@ import UIKit
 var shareInstance = DBManager()
 
 class DBManager: NSObject {
-   
-    var database: FMDatabase? = nil //FMDatabase object
     
+    var database: FMDatabase? = nil //FMDatabase object
     override init() {
         super.init()
     }
     
-   /*enable code in other class call DBManager Function*/
+    /*enable code in other class call DBManager Function*/
     class func getInstance() -> DBManager{
         if shareInstance.database == nil{
             shareInstance.database = FMDatabase(path: Util.getPath("project.db"))
         }
         return shareInstance
     }
-
-    /*write in database function*/
+    
     func saveEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
         let isSave = shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
@@ -36,21 +34,27 @@ class DBManager: NSObject {
         return isSave!
     }
     
-    
-    func deleteEvent(String: String) -> Bool{
+    func deleteEvent(id: Int32) -> Bool{
         shareInstance.database?.open()
-        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM event WHERE event_id = '\(String)'", withArgumentsIn:[String])
+        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM event WHERE event_id = \(id)", withArgumentsIn:[id])
         shareInstance.database?.close()
         return isDeleted!
     }
     
-    func modifyEvent(String: String) -> Bool{
+    //    func deleteEvent(String: String) -> Bool{
+    //        shareInstance.database?.open()
+    //        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM event WHERE event_id = '\(String)'", withArgumentsIn:[String])
+    //        shareInstance.database?.close()
+    //        return isDeleted!
+    //    }
+    
+    
+    func modifyEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
-        let isReplaced = shareInstance.database?.executeUpdate("INSERT or REPLACE INTO event WHERE event_id = '\(String)'", withArgumentsIn:[String])
+        let isModified = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
         shareInstance.database?.close()
-        return isReplaced!
+        return isModified!
     }
-      
     
     func getEvent(String: String) -> [EventModel]!{
         
@@ -60,7 +64,6 @@ class DBManager: NSObject {
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
-            
             let i = set?.int(forColumn: "event_id")
             let a = set?.string(forColumn: "event_name")!
             let b = set?.string(forColumn: "start_date")!
@@ -80,15 +83,12 @@ class DBManager: NSObject {
                 event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!)
             }
             
-            
-
             if events == nil{
                 events = [EventModel]()
             }
             events.append(event)
         }
         set?.close()
-        
         return events
     }
     
@@ -96,7 +96,7 @@ class DBManager: NSObject {
         
         var categories : [CategoryModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT category_name,color FROM category";
+        let sqlString = "SELECT category_id,category_name,color FROM category";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -116,22 +116,30 @@ class DBManager: NSObject {
         return categories
     }
     
-//    func getColor() -> [String:String]{
-//
-//        var result = [String:String]()
-//        shareInstance.database?.open()
-//        let sqlString = "SELECT category_name,color FROM category";
-//        let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
-//
-//        while ((set?.next())!) {
-//            let a = set?.string(forColumn: "category_name")!
-//            let b = set?.string(forColumn: "color")!
-//            result[a ?? "AA"] = b ?? "BB"
-//        }
-//        set?.close()
-//        print(result)
-//        return result
-//
-//    }
-   
+    //    func getColor() -> [String:String]{
+    //
+    //        var result = [String:String]()
+    //        shareInstance.database?.open()
+    //        let sqlString = "SELECT category_name,color FROM category";
+    //        let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
+    //
+    //        while ((set?.next())!) {
+    //            let a = set?.string(forColumn: "category_name")!
+    //            let b = set?.string(forColumn: "color")!
+    //            result[a ?? "AA"] = b ?? "BB"
+    //        }
+    //        set?.close()
+    //        print(result)
+    //        return result
+    //
+    //    }
+    
+    func saveLocation(_ modelInfo: LocationModel) -> Bool{
+        shareInstance.database?.open()
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,location_category,location_name) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.lantitude,modelInfo.startTime,modelInfo.endTime,modelInfo.locationCategory,modelInfo.locationName])
+        
+        shareInstance.database?.close()
+        return isSave!
+    }
+    
 }

@@ -32,10 +32,14 @@ class allDayCell: UITableViewCell {
     
 }
 
-class autoTimeCell: UITableViewCell {
+class autoStartCell: UITableViewCell {
     @IBOutlet var txtAutoStart: UILabel!
-    @IBOutlet var txtAutoEnd: UILabel!
+    
+}
 
+class autoEndCell: UITableViewCell {
+    @IBOutlet var txtAutoEnd: UILabel!
+    
 }
 
 class autoCategoryCell: UITableViewCell {
@@ -47,7 +51,7 @@ class autoLocationCell: UITableViewCell {
 }
 
 class taskTimeCell: UITableViewCell {
-      
-      @IBOutlet var txtTaskTime: UILabel!
+    
+    @IBOutlet var txtTaskTime: UILabel!
 }
 

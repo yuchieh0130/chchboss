@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
-     
+    
     var numberOfRows = 6
     
     @IBOutlet var tableView: UITableView!
@@ -22,32 +22,32 @@ class ViewController: UIViewController {
     
     /*func performSegue,prepare: use segue to trans to new page*/
     /*need to set segue identifier*/
-//    open override func performSegue(withIdentifier identifier: String, sender: Any?){
-//    }
+    //    open override func performSegue(withIdentifier identifier: String, sender: Any?){
+    //    }
     
     /*use button tag to judge whic object to triggle the button*/
-   override func prepare(for segue: UIStoryboardSegue, sender:Any?){
-    //        if let button = sender as? UIButton{
-    //            if button.tag == 0 {
-    //            }else{
-    //            }
-    //        }
-            if let editVC = segue.destination as? addViewController{
-                editVC.event = event
-            }
+    override func prepare(for segue: UIStoryboardSegue, sender:Any?){
+        //        if let button = sender as? UIButton{
+        //            if button.tag == 0 {
+        //            }else{
+        //            }
+        //        }
+        if let editVC = segue.destination as? addViewController{
+            editVC.event = event
         }
+    }
     
     /*button to add event*/
     /*OR: self.presentViewController(controllername(), animated: true, completion: nil)，要切換的畫面、過場動畫、切換完成後執行的動作*/
     @IBAction func addEvent(_ sender: Any){
         performSegue(withIdentifier: "addEvent", sender: sender)
     }
-
+    
     
     /*viewcontroller viewdidload*/
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         calendarView.scrollingMode = .stopAtEachCalendarFrame //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
@@ -55,6 +55,8 @@ class ViewController: UIViewController {
         
         //註冊.xib檔
         self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
+        
+        title = "Calendar"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,37 +64,37 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-         super.viewDidAppear(animated)
-      }
-
+        super.viewDidAppear(animated)
+    }
+    
     
     
     /*cell view setting*/
-     func configureCell(view: JTAppleCell?, cellState: CellState){
-         guard let cell = view as? DateCell else {return}
-         cell.dateLabel.text = cellState.text
-         handleCellTextColor(cell: cell, cellState: cellState)
-         handleCellSelected(cell: cell, cellState: cellState)
-         showDotView(cell: cell, cellState: cellState)
-     }
+    func configureCell(view: JTAppleCell?, cellState: CellState){
+        guard let cell = view as? DateCell else {return}
+        cell.dateLabel.text = cellState.text
+        handleCellTextColor(cell: cell, cellState: cellState)
+        handleCellSelected(cell: cell, cellState: cellState)
+        showDotView(cell: cell, cellState: cellState)
+    }
     
-     /*inDates and outDates cell setting*/
-     //list of dateBelongsTo:thisMonth, previousMonthWithinboundary, previousMonthOutsideboundary, followingMonthWithinboundary, followingMonthOutsideboundary*/
-     //hidden inDates and outDates: cell.isHidden = false/true
-     func handleCellTextColor(cell:DateCell, cellState: CellState){
-         if cellState.dateBelongsTo == .thisMonth{
-             cell.dateLabel.textColor = UIColor.black
-         }else{
-             cell.dateLabel.textColor = UIColor.gray
-         }
-     }
+    /*inDates and outDates cell setting*/
+    //list of dateBelongsTo:thisMonth, previousMonthWithinboundary, previousMonthOutsideboundary, followingMonthWithinboundary, followingMonthOutsideboundary*/
+    //hidden inDates and outDates: cell.isHidden = false/true
+    func handleCellTextColor(cell:DateCell, cellState: CellState){
+        if cellState.dateBelongsTo == .thisMonth{
+            cell.dateLabel.textColor = UIColor.black
+        }else{
+            cell.dateLabel.textColor = UIColor.gray
+        }
+    }
     
-     var selectedDay:String = ""
-     var showEvent = [EventModel]()
+    var selectedDay:String = ""
+    var showEvent = [EventModel]()
     
-     /*selected cell setting*/
-     func handleCellSelected(cell: DateCell, cellState: CellState){
-         if cellState.isSelected{
+    /*selected cell setting*/
+    func handleCellSelected(cell: DateCell, cellState: CellState){
+        if cellState.isSelected{
             cell.selectedView.isHidden = false
             selectedDay = formatter.string(from: cellState.date)
             if DBManager.getInstance().getEvent(String: selectedDay) != nil{
@@ -101,13 +103,13 @@ class ViewController: UIViewController {
                 showEvent = [EventModel]()
             }
             tableView.reloadData()
-         }else{
-             cell.selectedView.isHidden = true
+        }else{
+            cell.selectedView.isHidden = true
             
-         }
-     }
+        }
+    }
     
-  /*dot view*/
+    /*dot view*/
     func showDotView(cell: DateCell, cellState: CellState) {
         if DBManager.getInstance().getEvent(String: formatter.string(from: cellState.date)) != nil{
             cell.dotView.isHidden = false
@@ -117,36 +119,36 @@ class ViewController: UIViewController {
     }
     
     /*func to change color*/
-//    func hexStringToUIColor (hex:String) -> UIColor {
-//        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-//
-//        if (cString.hasPrefix("#")) {
-//            cString.remove(at: cString.startIndex)
-//        }
-//
-//        if ((cString.count) != 6) {
-//            return UIColor.gray
-//        }
-//
-//        var rgbValue:UInt64 = 0
-//        Scanner(string: cString).scanHexInt64(&rgbValue)
-//
-//        return UIColor(
-//            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-//            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-//            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-//            alpha: CGFloat(1.0)
-//        )
-//    }
+    //    func hexStringToUIColor (hex:String) -> UIColor {
+    //        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    //
+    //        if (cString.hasPrefix("#")) {
+    //            cString.remove(at: cString.startIndex)
+    //        }
+    //
+    //        if ((cString.count) != 6) {
+    //            return UIColor.gray
+    //        }
+    //
+    //        var rgbValue:UInt64 = 0
+    //        Scanner(string: cString).scanHexInt64(&rgbValue)
+    //
+    //        return UIColor(
+    //            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+    //            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+    //            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+    //            alpha: CGFloat(1.0)
+    //        )
+    //    }
     
-//    func color(cell: DateCell, cellState: CellState){
-//        for _ in calendarDataSource.keys{
-//            if cellState.day == .monday {
-//                cell.dotView.backgroundColor = hexStringToUIColor(hex:"ff5f5b")
-//                //print(calendarDataSource[a])
-//            }
-//        }
-//    }
+    //    func color(cell: DateCell, cellState: CellState){
+    //        for _ in calendarDataSource.keys{
+    //            if cellState.day == .monday {
+    //                cell.dotView.backgroundColor = hexStringToUIColor(hex:"ff5f5b")
+    //                //print(calendarDataSource[a])
+    //            }
+    //        }
+    //    }
     
     /*button to change between week and month*/
     @IBAction func toogle(_ sender: Any){
@@ -169,7 +171,7 @@ class ViewController: UIViewController {
             })
         }
     }
-
+    
 }
 
 
@@ -177,7 +179,7 @@ extension ViewController: JTAppleCalendarViewDataSource {
     
     /*configureCalendar full parameter list: startDate, endDate, numberOfRows, calendar(region/timezone/Arabic), generateInDates(last month day), generateOutDates(next month day), firstDatOfWeek, hasStrictBoundaries(control month boundaries, true/false)*/
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-
+        
         let startDate = Date()-(60*60*24*365)
         let endDate = Date()+(60*60*24*365)
         
@@ -248,14 +250,16 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         if showEvent[indexPath.row].startTime != nil && showEvent[indexPath.row].endTime != nil{
             let time = showEvent[indexPath.row].startTime! + "-" + showEvent[indexPath.row].endTime!
             cell.eventTime?.text = time
+        }else{
+            cell.eventTime?.text = nil
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           event = showEvent[indexPath.row]
-           performSegue(withIdentifier: "editEvent", sender: nil)
-       }
+        event = showEvent[indexPath.row]
+        performSegue(withIdentifier: "editEvent", sender: nil)
+    }
     
 }
 
