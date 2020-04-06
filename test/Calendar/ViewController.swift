@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     /*button to add event*/
     /*OR: self.presentViewController(controllername(), animated: true, completion: nil)，要切換的畫面、過場動畫、切換完成後執行的動作*/
     @IBAction func addEvent(_ sender: Any){
+        event = nil
         performSegue(withIdentifier: "addEvent", sender: sender)
     }
     

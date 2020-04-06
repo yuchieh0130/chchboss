@@ -14,7 +14,7 @@ struct cellConfig{
     var title = String()
 }
 
-class addViewController : UIViewController {
+class addViewController : UIViewController{
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAdd: UIButton!
@@ -137,7 +137,6 @@ class addViewController : UIViewController {
     //離開頁面前重新更新第一頁日曆
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         if let firstVC = presentingViewController as? ViewController {
             DispatchQueue.main.async {
                 firstVC.calendarView.reloadData()
@@ -270,6 +269,8 @@ class addViewController : UIViewController {
     @IBAction func addEventButton(_ sender: UIButton){
         //save to db
         // check 若endDateTime不為空值且小於startDateTime，顯示警告訊息
+        self.view.endEditing(true)
+        
         if endDate != "" && endDate < startDate {
             let controller = UIAlertController(title: "wrong", message: "invalid EndTime", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -289,6 +290,8 @@ class addViewController : UIViewController {
     }
     
     @IBAction func editEventButton(_ sender: UIButton){
+        self.view.endEditing(true)
+        
         if allDay == true{
             startTime = nil
             endTime = nil
@@ -296,6 +299,7 @@ class addViewController : UIViewController {
         let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
         let isEdited = DBManager.getInstance().editEvent(modelInfo)
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func deleteEventButton(_ sender: UIButton){
@@ -308,7 +312,7 @@ class addViewController : UIViewController {
 }
 
 
-extension addViewController: UITableViewDataSource,UITableViewDelegate , UITextFieldDelegate {
+extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate  {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 7
@@ -544,7 +548,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate , UITextF
     }
     
     
-    
     //點擊空白處鍵盤消失
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -554,19 +557,11 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate , UITextF
         textField.resignFirstResponder()
         return true
     }
-    //
-    //    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    //        name = textField.text!
-    //        print(name)
-    //        return true
-    //    }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         name = textField.text!
-        //名字還沒處理好
-        return true
-        
     }
+    
     
 }
 

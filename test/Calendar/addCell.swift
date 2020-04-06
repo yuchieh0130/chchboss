@@ -14,9 +14,9 @@ class addCell: UITableViewCell{
 }
 
 class nameCell: UITableViewCell {
-    
+
     @IBOutlet var txtEventName: UITextField!
-    
+
 }
 
 class startCell: UITableViewCell {

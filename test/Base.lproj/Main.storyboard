@@ -701,7 +701,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="txtEventName" destination="aDJ-ou-t3G" id="B4k-qz-AZ8"/>
+                                            <outlet property="txtEventName" destination="aDJ-ou-t3G" id="Tlo-Am-mYD"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="startCell" id="qhU-RV-92i" customClass="startCell" customModule="test" customModuleProvider="target">
@@ -985,7 +985,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0Zj-Xy-h2I">
                                 <rect key="frame" x="292" y="35" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Edit"/>
+                                <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="editEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="eny-hI-hmC"/>
                                 </connections>

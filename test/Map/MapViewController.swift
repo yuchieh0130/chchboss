@@ -19,12 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBAction func btnCancel(_ sender: Any) {
         self.dismiss(animated: true, completion:nil)
     }
-    
-    
-    
-    
-    
-    
+
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
     var searchResult = [String]()
