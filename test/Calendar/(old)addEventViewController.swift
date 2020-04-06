@@ -316,7 +316,7 @@ class addEventViewController : UIViewController, UITextFieldDelegate{
             }
             //insert to database
             let modelInfo = EventModel(eventId: id, eventName: txtEventName.text!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
-            let isSave = DBManager.getInstance().saveEvent(modelInfo)
+            let isAdded = DBManager.getInstance().addEvent(modelInfo)
             self.dismiss(animated: true, completion: nil)
         }
     }

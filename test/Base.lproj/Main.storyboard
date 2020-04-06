@@ -671,9 +671,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mFJ-4m-FXl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mFJ-4m-FXl">
                                 <rect key="frame" x="0.0" y="73" width="375" height="739"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="2VT-Ti-rql" customClass="nameCell" customModule="test" customModuleProvider="target">
@@ -968,9 +967,8 @@
                                     <outlet property="delegate" destination="9iT-4D-ttn" id="UiI-2m-MH5"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syV-Bo-71f">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syV-Bo-71f">
                                 <rect key="frame" x="0.0" y="29" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -1000,9 +998,8 @@
                                     <action selector="cancel:" destination="9iT-4D-ttn" eventType="touchUpInside" id="aTW-pa-LBi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCZ-1q-wnd">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCZ-1q-wnd">
                                 <rect key="frame" x="257" y="36" width="45" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="deleteEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="7S7-oV-1cM"/>
@@ -1010,6 +1007,19 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mFJ-4m-FXl" firstAttribute="leading" secondItem="syV-Bo-71f" secondAttribute="leading" id="3zF-Vn-qa0"/>
+                            <constraint firstItem="mFJ-4m-FXl" firstAttribute="trailing" secondItem="syV-Bo-71f" secondAttribute="trailing" id="8lX-MB-7jG"/>
+                            <constraint firstItem="mFJ-4m-FXl" firstAttribute="top" secondItem="5vo-Ib-cXn" secondAttribute="bottom" constant="8" symbolic="YES" id="97L-ay-l2Q"/>
+                            <constraint firstAttribute="bottom" secondItem="mFJ-4m-FXl" secondAttribute="bottom" id="9cj-0T-zWw"/>
+                            <constraint firstItem="mFJ-4m-FXl" firstAttribute="top" secondItem="syV-Bo-71f" secondAttribute="bottom" id="IlE-2b-5GP"/>
+                            <constraint firstItem="mFJ-4m-FXl" firstAttribute="top" secondItem="syV-Bo-71f" secondAttribute="bottom" id="Qig-Pu-lhm"/>
+                            <constraint firstItem="mFJ-4m-FXl" firstAttribute="trailing" secondItem="QcQ-FN-gn1" secondAttribute="trailing" id="X3T-dT-7OB"/>
+                            <constraint firstItem="syV-Bo-71f" firstAttribute="centerY" secondItem="CCZ-1q-wnd" secondAttribute="centerY" id="dHl-ks-Krd"/>
+                            <constraint firstItem="mFJ-4m-FXl" firstAttribute="leading" secondItem="cSf-ZS-Qg3" secondAttribute="leading" id="nIg-MM-w9z"/>
+                            <constraint firstItem="syV-Bo-71f" firstAttribute="centerY" secondItem="cSf-ZS-Qg3" secondAttribute="centerY" id="txb-Nd-WWt"/>
+                            <constraint firstItem="QcQ-FN-gn1" firstAttribute="trailing" secondItem="CCZ-1q-wnd" secondAttribute="trailing" constant="73" id="wsr-6S-egs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="QcQ-FN-gn1"/>
                     </view>
                     <navigationItem key="navigationItem" id="J6r-YJ-idI"/>

@@ -26,12 +26,12 @@ class DBManager: NSObject {
         return shareInstance
     }
     
-    func saveEvent(_ modelInfo: EventModel) -> Bool{
+    func addEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
         
         shareInstance.database?.close()
-        return isSave!
+        return isAdded!
     }
     
     func deleteEvent(id: Int32) -> Bool{
@@ -49,11 +49,11 @@ class DBManager: NSObject {
     //    }
     
     
-    func modifyEvent(_ modelInfo: EventModel) -> Bool{
+    func editEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
-        let isModified = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
         shareInstance.database?.close()
-        return isModified!
+        return isEdited!
     }
     
     func getEvent(String: String) -> [EventModel]!{

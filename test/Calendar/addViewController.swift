@@ -17,7 +17,7 @@ struct cellConfig{
 class addViewController : UIViewController {
     
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var btnSave: UIButton!
+    @IBOutlet var btnAdd: UIButton!
     @IBOutlet var btnEdit: UIButton!
     
     //tableView Item
@@ -91,7 +91,7 @@ class addViewController : UIViewController {
         //檢查是要新增還是編輯event
         if event != nil{
             loadData()
-            btnSave.isHidden = true
+            btnAdd.isHidden = true
             btnEdit.isHidden = false
         }else{
             //初始化日期
@@ -103,7 +103,7 @@ class addViewController : UIViewController {
             endTime = showTimeformatter.string(for: Date()+3600)!
             showEnd = endDate+" "+endTime!
             
-            btnSave.isHidden = false
+            btnAdd.isHidden = false
             btnEdit.isHidden = true
         }
         
@@ -283,7 +283,7 @@ class addViewController : UIViewController {
             }
             //insert to database
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
-            let isSave = DBManager.getInstance().saveEvent(modelInfo)
+            let isAdded = DBManager.getInstance().addEvent(modelInfo)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -294,13 +294,13 @@ class addViewController : UIViewController {
             endTime = nil
         }
         let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
-        let isEdit = DBManager.getInstance().modifyEvent(modelInfo)
+        let isEdited = DBManager.getInstance().editEvent(modelInfo)
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func deleteEventButton(_ sender: UIButton){
         let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
-        let isDelete = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
+        let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
         self.dismiss(animated: true, completion: nil)
     }
     
