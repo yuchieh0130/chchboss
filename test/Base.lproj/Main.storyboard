@@ -1024,8 +1024,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="J6r-YJ-idI"/>
                     <connections>
+                        <outlet property="btnAdd" destination="5vo-Ib-cXn" id="hKG-NW-ysA"/>
                         <outlet property="btnEdit" destination="0Zj-Xy-h2I" id="jSi-mT-VPe"/>
-                        <outlet property="btnSave" destination="5vo-Ib-cXn" id="EH9-I9-MIY"/>
                         <outlet property="tableView" destination="mFJ-4m-FXl" id="X2l-y1-yUS"/>
                         <segue destination="QZ3-Qn-K2X" kind="show" identifier="Map" id="L2r-0Q-vWp"/>
                         <segue destination="BE7-d3-ijd" kind="show" identifier="Category" id="bYl-n4-cbK"/>
