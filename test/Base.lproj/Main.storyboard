@@ -572,7 +572,7 @@
                                 </connections>
                             </searchBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HZS-gy-hc6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="284"/>
+                                <rect key="frame" x="0.0" y="25" width="375" height="259"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="QZ3-Qn-K2X" id="cZw-Os-lt3"/>
@@ -597,6 +597,14 @@
                                     <outlet property="delegate" destination="QZ3-Qn-K2X" id="zsy-zH-HS5"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-jU-cX1">
+                                <rect key="frame" x="10" y="0.0" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="btnCancel:" destination="QZ3-Qn-K2X" eventType="touchUpInside" id="4AR-op-lVe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="dsk-lh-RQS"/>
@@ -610,7 +618,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UoF-C5-DzF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="758" y="909"/>
+            <point key="canvasLocation" x="757.60000000000002" y="908.86699507389164"/>
         </scene>
         <!--Category Table View Controller-->
         <scene sceneID="OdE-MQ-AKz">

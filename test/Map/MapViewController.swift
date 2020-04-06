@@ -16,6 +16,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var myMapView: MKMapView!
+    @IBAction func btnCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion:nil)
+    }
+    
+    
+    
+    
+    
     
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
@@ -37,44 +45,46 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         myLocationManager.startUpdatingLocation()
-        
+
         
         // Map
         // 設置委任對象
-        // myMapView.delegate = self as MKMapViewDelegate
+         myMapView.delegate = self as MKMapViewDelegate
         
         // 地圖樣式
         myMapView.mapType = .standard
         
         // 顯示自身定位位置
-        myMapView.showsUserLocation = true
+//        myMapView.showsUserLocation = true
         
         // 允許縮放地圖
         myMapView.isZoomEnabled = true
-        
+        setMap(latitude: 25.035915, longitude: 121.563619)
         //
-        guard let coordinate = self.myMapView.userLocation.location?.coordinate else{
-            return
-        }
-        myMapView.setCenter(coordinate, animated: true)
+//        guard let coordinate = self.myMapView.userLocation.location?.coordinate else{
+//            return
+//        }
+//        myMapView.setCenter(®coordinate, animated: true)
+//        let center = CLLocationCoordinate2D(latitude: 25.035915, longitude: 121.563619)
+//        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+//        let region = MKCoordinateRegion(center: center, span: span)
+//        myMapView.setRegion(region, animated: true)
+//        tblView.delegate = self
         
-        let center = coordinate
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: center, span: span)
-        myMapView.setRegion(region, animated: true)
-        tblView.delegate = self
+        
         
     }
     
     func startLocationManager(){
-        myLocationManager.delegate = self
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        myLocationManager.activityType = CLActivityType.fitness
-        myLocationManager.distanceFilter = 50
-        myLocationManager.startUpdatingLocation()
+          myLocationManager.delegate = self
+          myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+          myLocationManager.activityType = CLActivityType.fitness
+          myLocationManager.distanceFilter = 50
+          myLocationManager.startUpdatingLocation()
+//        myLocationManager.requestLocation()
     }
-    
-    var searchQuerys = ["store", "shop", "coffee",]
+
+    var searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
     var searchResults = [MKMapItem]()
     var searchAllResults = [MKMapItem]()
     var location_arr = [String]()
@@ -93,6 +103,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
         print("\(currentLocation.latitude)")
         print("\(currentLocation.longitude)")
+
         
         //    取得時間
         let currentTime = Date()
@@ -100,26 +111,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         // 設定時區(台灣)
-        dateFormatter.timeZone = TimeZone.ReferenceType.system
+        dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
         let dateFormatString: String = dateFormatter.string(from: currentTime)
         print("dateFormatString: \(dateFormatString)")
         
-        //將map中心點定在目前所在的位置
-        //span是地圖zoom in, zoom out的級距
-        let _span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005);
-        self.myMapView.setRegion(MKCoordinateRegion(center: currentLocation, span: _span), animated: true);
-        
-        // 加入到畫面中
-        self.view.addSubview(myMapView)
+//        //將map中心點定在目前所在的位置
+//        //span是地圖zoom in, zoom out的級距
+//        let _span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005);
+//        self.myMapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 25.035915, longitude: 121.563619), span: _span), animated: true);
+//
+//        // 加入到畫面中
+//        self.view.addSubview(myMapView)
         
         
         // 確保didUpdateLocations只呼叫一次
-        // manager.delegate = nil
+         manager.delegate = nil
+        print("first")
+        searchLocation(latitude: 25.035915, longitude: 121.563619)
+        myLocationManager.stopUpdatingLocation()
+        
+    }
+    
+    
+    func searchLocation(latitude: Double, longitude:Double ){
         
         let request = MKLocalSearch.Request()
-        
+        print("hello")
         // 搜尋附近地點的範圍
-        request.region = MKCoordinateRegion(center: locations[0].coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+//        request.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 25.035915, longitude: 121.563619), latitudinalMeters: 10000, longitudinalMeters: 10000)
+
+        request.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), latitudinalMeters: 10000, longitudinalMeters: 10000)
         
         for searchQuery in searchQuerys {
             
@@ -136,29 +157,63 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
                 // 所有關鍵字得到的資料放入searchAllResults
                 self.searchAllResults.append(contentsOf: searchResponse.mapItems)
-                
+                                
                 // 再把searchAllResults存入searchResults
                 self.searchResults = self.searchAllResults
-                
+                                
                 var i = 0
                 while self.searchResults.count > i{
                     let locationName: String? = self.searchResults[i].name
                     self.location_arr.append(locationName!)
-                    let distance = CLLocation(latitude: (self.searchResults[i].placemark.coordinate.latitude), longitude: (self.searchResults[i].placemark.coordinate.longitude)).distance(from: CLLocation(latitude: (currentLocation.latitude), longitude: (currentLocation.longitude)))
-                    self.locationDic[distance] = locationName
+                    let distance = CLLocation(latitude: (self.searchResults[i].placemark.coordinate.latitude), longitude: (self.searchResults[i].placemark.coordinate.longitude)).distance(from: CLLocation(latitude: (25.035915), longitude: (121.563619)))
+                    if distance <= 1000{
+                        self.locationDic[distance] = locationName
+                    }
                     i += 1
+                    
                 }
-                
                 self.searchAllResults.removeAll()
                 self.searchResults.removeAll()
                 self.tblView.reloadData()
                 
             }
-            
+
+        
         }
-        myLocationManager.stopUpdatingLocation()
+        print(self.location_arr)
+        self.location_arr.removeAll()
         
     }
+    
+    
+    func setMap(latitude: Double, longitude:Double){
+        let pin = MKPointAnnotation()
+        pin.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        pin.title = ""
+
+        myMapView.addAnnotation(pin)
+        //將map中心點定在目前所在的位置
+        //span是地圖zoom in, zoom out的級距
+        let _span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001);
+        self.myMapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: _span), animated: true);
+        self.view.addSubview(myMapView)
+        
+        //circle
+        let circle = MKCircle(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), radius: 35)
+        self.myMapView.addOverlay(circle)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let circleRenderer = MKCircleRenderer(overlay: overlay)
+        circleRenderer.strokeColor = UIColor(red:52/255, green:152/255, blue:219/255,alpha: 1)
+        circleRenderer.lineWidth = 1.0
+        return circleRenderer
+    }
+    
+    
+
+
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -170,7 +225,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 extension MapViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
         //sort by distance
         var sortedLocation = locationDic.sorted { firstDictionary, secondDictionary in
             return firstDictionary.0 < secondDictionary.0 // 由小到大排序
@@ -179,7 +233,6 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
         for each in sortedLocation{
             sortedArr.append(each.value+"  "+String(Int(each.key))+"m")
         }
-        
         sortedLocation.removeAll()
         if searching{
             return searchResult.count
@@ -207,6 +260,7 @@ extension MapViewController: UISearchBarDelegate{
     func searchBar(_ searchBar : UISearchBar, textDidChange searchText: String){
         //        searchResult = sortedArr.filter({$0.lowercased().contains(searchText.lowercased())})
         searching = true
+        print("happy")
         locationDic.removeAll()
         if let btnCancel = searchBar.value(forKey: "cancelButton") as? UIButton {
             btnCancel.isEnabled = true
@@ -214,10 +268,10 @@ extension MapViewController: UISearchBarDelegate{
         if searching == true{
             searchQuerys.removeAll()
             searchQuerys.append(searchText)
-            startLocationManager()
+            searchLocation(latitude: 25.035915, longitude: 121.563619)
             print(searchQuerys)
             searching = false
-            tblView.reloadData()
+//            tblView.reloadData()
         }
         
     }
@@ -226,10 +280,13 @@ extension MapViewController: UISearchBarDelegate{
         searching = false
         searchBar.text = ""
         sortedArr.removeAll()
-        searchQuerys = ["store", "shop", "coffee"]
-        startLocationManager()
+        searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
         tblView.reloadData()
+//        startLocationManager()
+        searchLocation(latitude: 25.035915, longitude: 121.563619)
         self.searchBar.endEditing(true)
     }
 }
+
+
 
