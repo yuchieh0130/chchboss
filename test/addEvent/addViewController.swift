@@ -190,13 +190,17 @@ class addViewController : UIViewController{
         tag = VC?.tag
         if tag == "startDate"{
             handletime()
+            dayConstraint(s: "start")
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
             if autoRecord{
                 tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
             }
         }else if tag == "endDate"{
             handletime()
+            dayConstraint(s: "end")
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
             if autoRecord{
                 tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
             }
@@ -249,19 +253,35 @@ class addViewController : UIViewController{
         }else if tag == "taskTime"{
             taskTime = showTimeformatter.string(from: date)
         }
-        //時間條件
-        //        if showTimeformatter.date(from: startTime!) > showTimeformatter.date(from: endTime!){
-        //            print("aaaa")
-        //        }
-        //        var result1: ComparisonResult = showDayformatter.date(from: startDate!)!.compare(showDayformatter.date(from: endDate!)!)
-        //        var result2: ComparisonResult = showTimeformatter.date(from: startTime!)!.compare(showTimeformatter.date(from: endTime!)!)
-        //        if result1 == .orderedDescending{
-        //               endDate = startDate
-        //        }else{
-        //            if result2 == .orderedDescending{
-        //                endTime = startTime
-        //            }
-        //        }
+    }
+    
+    func dayConstraint(s:String){
+        
+        let i = startDate.compare(endDate)
+        let i1 = endDate.compare(startDate)
+        let j = startTime!.compare(endTime!)
+        let j1 = endTime!.compare(startTime!)
+        switch s {
+        case "start":
+            if i == .orderedDescending{
+                endDate = startDate
+                print(endDate)
+            }else if i != .orderedDescending && j == .orderedDescending{
+                endTime = startTime
+                print(endTime)
+            }
+        case "end":
+            if i1 == .orderedAscending{
+                startDate = endDate
+                print(startDate)
+            }else if i1 != .orderedAscending && j1 == .orderedAscending{
+                startTime = endTime
+                print(startTime)
+            }
+        default:
+            print("")
+        }
+        
     }
     
     
