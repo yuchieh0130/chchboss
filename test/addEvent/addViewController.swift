@@ -47,10 +47,14 @@ class addViewController : UIViewController{
     //variable for handling from DatePopViewController
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
-    var strdate: String? //send current data to DatePopViewController
+    //var strdate: String? //send current data to DatePopViewController
     var showStart: String = "" //format show out on storyboard
     var showEnd: String = "" //format show out on storyboard
     var autoLocation: String = ""
+    
+    //拿來處理dayconstraint
+    var s = Date()
+    var e = Date()+3600
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -98,11 +102,16 @@ class addViewController : UIViewController{
             //初始化日期
             startDate = showDayformatter.string(for: Date())!
             startTime = showTimeformatter.string(for: Date())!
-            showStart = startDate+" "+startTime!
+            showStart = startDate+""+startTime!
             
             endDate = showDayformatter.string(for: Date())!
-            endTime = showTimeformatter.string(for: Date()+3600)!
-            showEnd = endDate+" "+endTime!
+            if startTime?.compare("23:00") == .orderedDescending{
+                endDate = showDayformatter.string(for: Date()+60*60*24)!
+            }else{
+                endDate = showDayformatter.string(for: Date())!
+            }
+            endTime = showTimeformatter.string(for: Date()+60*60)!
+            showEnd = endDate+""+endTime!
             
             btnAdd.isHidden = false
             btnEdit.isHidden = true
@@ -117,35 +126,32 @@ class addViewController : UIViewController{
         name = event?.eventName
         startDate = event?.startDate
         endDate = event?.endDate
-        if startTime == nil{
+        if event?.startTime == nil{
             startTime = showTimeformatter.string(from: Date())
             endTime = showTimeformatter.string(from: Date()+3600)
         }else{
             startTime = event?.startTime
             endTime = event?.endTime
         }
+        s = showDateformatter.date(from: startDate+" "+startTime!)!
+        e = showDateformatter.date(from: endDate+" "+endTime!)!
         allDay = event?.allDay
-        autoRecord = event?.autoRecord
+        //編輯事件的autorecord還沒處理好
+        //autoRecord = event?.autoRecord
+        autoRecord = false
         task = event?.task
         reminder = event?.reminder
-        if allDay{
-            showStart = startDate
-            showEnd = endDate
-        }else{
-            showStart = startDate+" "+startTime!
-            showEnd = endDate+" "+endTime!
-        }
     }
     
     //離開頁面前重新更新第一頁日曆
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if let firstVC = presentingViewController as? ViewController {
-            DispatchQueue.main.async {
-                firstVC.calendarView.reloadData()
-            }
-        }
-    }
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        super.viewWillDisappear(animated)
+    //        if let firstVC = presentingViewController as? ViewController {
+    //            DispatchQueue.main.async {
+    //                firstVC.calendarView.reloadData()
+    //            }
+    //        }
+    //    }
     
     //判斷觸發哪個segue,把需要的variable傳過去destination Controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -155,23 +161,23 @@ class addViewController : UIViewController{
             if let VC = segue.destination as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "startDate"
-                VC.showDate = showStart
+                VC.showDate = s
             }
         case "editEndDate":
             if let VC = segue.destination as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "endDate"
-                VC.showDate = showEnd
+                VC.showDate = e
             }
         case "editAutoStart":
             if let VC = segue.destination as? DatePopupViewController{
                 VC.tag = "autoStart"
-                VC.showDate = startTime
+                VC.showDate = s
             }
         case "editAutoEnd":
             if let VC = segue.destination as? DatePopupViewController{
                 VC.tag = "autoEnd"
-                VC.showDate = endTime
+                VC.showDate = e
             }
         case "editTaskTime":
             if let VC = segue.destination as? DatePopupViewController{
@@ -190,31 +196,31 @@ class addViewController : UIViewController{
         tag = VC?.tag
         if tag == "startDate"{
             handletime()
-            dayConstraint(s: "start")
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
             if autoRecord{
                 tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
+                tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
             }
         }else if tag == "endDate"{
             handletime()
-            dayConstraint(s: "end")
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
             if autoRecord{
+                tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
                 tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
             }
         }else if tag == "autoStart"{
             handletime()
-            if allDay != true{
-                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
-            }
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
             tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
         }else if tag == "autoEnd"{
             handletime()
-            if allDay != true{
-                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
-            }
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
             tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
         }else if tag == "taskTime"{
             handletime()
@@ -233,50 +239,42 @@ class addViewController : UIViewController{
     //handle date object from DatePopupViewController
     func handletime(){
         if tag == "startDate"{
-            if allDay == true{
-                startDate = showDayformatter.string(from: date)
-            }else{
-                startDate = showDayformatter.string(for: date)
-                startTime = showTimeformatter.string(for: date)!
-            }
+            s = date
+            dayConstraint(i: "start")
         }else if tag == "endDate"{
-            if allDay == true{
-                endDate = showDayformatter.string(from: date)
-            }else{
-                endDate = showDayformatter.string(for: date)
-                endTime = showTimeformatter.string(for: date)!
-            }
+            e = date
+            dayConstraint(i: "end")
         }else if tag == "autoStart"{
-            startTime = showTimeformatter.string(from: date)
+            s = date
+            dayConstraint(i: "start")
         }else if tag == "autoEnd"{
-            endTime = showTimeformatter.string(from: date)
+            e = date
+            dayConstraint(i: "end")
         }else if tag == "taskTime"{
             taskTime = showTimeformatter.string(from: date)
         }
+        startDate = showDayformatter.string(for: s)
+        startTime = showTimeformatter.string(for: s)!
+        endDate = showDayformatter.string(for: e)
+        endTime = showTimeformatter.string(for: e)!
+        
     }
     
-    func dayConstraint(s:String){
+    func dayConstraint(i:String){
         
-        let i = startDate.compare(endDate)
-        let i1 = endDate.compare(startDate)
-        let j = startTime!.compare(endTime!)
-        let j1 = endTime!.compare(startTime!)
-        switch s {
+        let c1 = s.compare(e)
+        let c2 = e.compare(s)
+        let interval = showTimeformatter.date(from: endTime!)?.timeIntervalSince(showTimeformatter.date(from: startTime!)!)
+        
+        switch i {
         case "start":
-            if i == .orderedDescending{
-                endDate = startDate
-                print(endDate)
-            }else if i != .orderedDescending && j == .orderedDescending{
-                endTime = startTime
-                print(endTime)
+            if c1 == .orderedDescending{
+                e = s + interval!
+                print(e)
             }
         case "end":
-            if i1 == .orderedAscending{
-                startDate = endDate
-                print(startDate)
-            }else if i1 != .orderedAscending && j1 == .orderedAscending{
-                startTime = endTime
-                print(startTime)
+            if c2 == .orderedAscending{
+                s = e - interval!
             }
         default:
             print("")
@@ -394,18 +392,19 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             return cell
         case [4,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "autoStartCell", for: indexPath) as! autoStartCell
-            if allDay{
-                startTime = "09:00"
-            }
-            cell.txtAutoStart.text = startTime
+            //            if allDay{
+            //
+            //                startTime = "09:00"
+            //            }
+            cell.txtAutoStart.text = showDateformatter.string(from: s)
             cell.selectionStyle = .none
             return cell
         case [4,2]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "autoEndCell", for: indexPath) as! autoEndCell
-            if allDay{
-                endTime = "17:00"
-            }
-            cell.txtAutoEnd.text = endTime
+            //            if allDay{
+            //                endTime = "17:00"
+            //            }
+            cell.txtAutoEnd.text = showDateformatter.string(from: e)
             cell.selectionStyle = .none
             return cell
         case [4,3]:
@@ -422,7 +421,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath)
             cell.accessoryView = switchtask
             switchtask.setOn(task, animated: .init())
-            //switchtask.setOn(task, animated: false)
             cell.selectionStyle = .none
             return cell
         case [5,1]:

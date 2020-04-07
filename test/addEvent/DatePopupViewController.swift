@@ -17,7 +17,7 @@ class DatePopupViewController: UIViewController {
     @IBOutlet var btnSave: UIButton!
     
     var allDay: Bool?
-    var showDate: String?
+    var showDate = Date()
     var taskTime: String?
     var tag: String?
     
@@ -50,17 +50,17 @@ class DatePopupViewController: UIViewController {
             datePicker.datePickerMode = .countDownTimer
             datePicker.date = showTimeformatter.date(from: taskTime!)!
         }else if tag == "autoStart"{
-            datePicker.datePickerMode = .time
-            datePicker.date = showTimeformatter.date(from: showDate!)!
+            datePicker.datePickerMode = .dateAndTime
+            datePicker.date = showDate
         }else if tag == "autoEnd"{
-            datePicker.datePickerMode = .time
-            datePicker.date = showTimeformatter.date(from: showDate!)!
+            datePicker.datePickerMode = .dateAndTime
+            datePicker.date = showDate
         }else if allDay == true{
             datePicker.datePickerMode = .date
-            datePicker.date = showDayformatter.date(from: showDate!)!
+            datePicker.date = showDate
         }else{
             datePicker.datePickerMode = .dateAndTime
-            datePicker.date = showDateformatter.date(from: showDate!)!
+            datePicker.date = showDate
         }
         
     }
