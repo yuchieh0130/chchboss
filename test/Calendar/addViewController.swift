@@ -138,14 +138,14 @@ class addViewController : UIViewController{
     }
     
     //離開頁面前重新更新第一頁日曆
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        if let firstVC = presentedViewController as? ViewController {
-//                DispatchQueue.main.async {
-//                firstVC.calendarView.reloadData()
-//            }
-//        }
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let firstVC = presentingViewController as? ViewController {
+            DispatchQueue.main.async {
+                firstVC.calendarView.reloadData()
+            }
+        }
+    }
     
     //判斷觸發哪個segue,把需要的variable傳過去destination Controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -190,17 +190,13 @@ class addViewController : UIViewController{
         tag = VC?.tag
         if tag == "startDate"{
             handletime()
-            dayConstraint(s: "start")
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
             if autoRecord{
                 tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
             }
         }else if tag == "endDate"{
             handletime()
-            dayConstraint(s: "end")
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
             if autoRecord{
                 tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
             }
@@ -253,36 +249,21 @@ class addViewController : UIViewController{
         }else if tag == "taskTime"{
             taskTime = showTimeformatter.string(from: date)
         }
+        //時間條件
+        //        if showTimeformatter.date(from: startTime!) > showTimeformatter.date(from: endTime!){
+        //            print("aaaa")
+        //        }
+        //        var result1: ComparisonResult = showDayformatter.date(from: startDate!)!.compare(showDayformatter.date(from: endDate!)!)
+        //        var result2: ComparisonResult = showTimeformatter.date(from: startTime!)!.compare(showTimeformatter.date(from: endTime!)!)
+        //        if result1 == .orderedDescending{
+        //               endDate = startDate
+        //        }else{
+        //            if result2 == .orderedDescending{
+        //                endTime = startTime
+        //            }
+        //        }
     }
     
-    func dayConstraint(s:String){
-        
-        let i = startDate.compare(endDate)
-        let i1 = endDate.compare(startDate)
-        let j = startTime!.compare(endTime!)
-        let j1 = endTime!.compare(startTime!)
-        switch s {
-        case "start":
-            if i == .orderedDescending{
-                endDate = startDate
-                print(endDate)
-            }else if i != .orderedDescending && j == .orderedDescending{
-                endTime = startTime
-                print(endTime)
-            }
-        case "end":
-            if i1 == .orderedAscending{
-                startDate = endDate
-                print(startDate)
-            }else if i1 != .orderedAscending && j1 == .orderedAscending{
-                startTime = endTime
-                print(startTime)
-            }
-        default:
-            print("")
-        }
-        
-    }
     
     @IBAction func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
@@ -290,11 +271,11 @@ class addViewController : UIViewController{
     
     @IBAction func addEventButton(_ sender: UIButton){
         //save to db
-        // check 若名字為空值且小於startDateTime，顯示警告訊息
+        // check 若endDateTime不為空值且小於startDateTime，顯示警告訊息
         self.view.endEditing(true)
         
-        if name == nil {
-            let controller = UIAlertController(title: "wrong", message: "Need to insert a name", preferredStyle: .alert)
+        if endDate != "" && endDate < startDate {
+            let controller = UIAlertController(title: "wrong", message: "invalid EndTime", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             controller.addAction(okAction)
             present(controller, animated: true, completion: nil)
@@ -307,7 +288,7 @@ class addViewController : UIViewController{
             //insert to database
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
             let isAdded = DBManager.getInstance().addEvent(modelInfo)
-            //self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -320,14 +301,14 @@ class addViewController : UIViewController{
         }
         let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
         let isEdited = DBManager.getInstance().editEvent(modelInfo)
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
     }
     
     @IBAction func deleteEventButton(_ sender: UIButton){
         let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
         let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     

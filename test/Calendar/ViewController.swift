@@ -27,13 +27,14 @@ class ViewController: UIViewController {
     
     /*use button tag to judge whic object to triggle the button*/
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
+        //        if let button = sender as? UIButton{
+        //            if button.tag == 0 {
+        //            }else{
+        //            }
+        //        }
         if let editVC = segue.destination as? addViewController{
             editVC.event = event
         }
-    }
-    
-    @IBAction func EventSegueBack(segue: UIStoryboardSegue){
-        calendarView.reloadData()
     }
     
     /*button to add event*/
