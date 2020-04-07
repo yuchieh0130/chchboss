@@ -10,8 +10,8 @@ import Foundation
 
 struct LocationModel{
     let locationId: Int32?
-    let longitude: String
-    let lantitude: String
+    let longitude: Double
+    let latitude: Double
     let startTime: String
     let endTime: String?
     let locationCategory: String?

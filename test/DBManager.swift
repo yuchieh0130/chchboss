@@ -136,7 +136,7 @@ class DBManager: NSObject {
     
     func saveLocation(_ modelInfo: LocationModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,location_category,location_name) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.lantitude,modelInfo.startTime,modelInfo.endTime,modelInfo.locationCategory,modelInfo.locationName])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,location_category,location_name) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.locationCategory,modelInfo.locationName])
         
         shareInstance.database?.close()
         return isSave!
