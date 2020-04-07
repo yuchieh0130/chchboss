@@ -12,7 +12,7 @@ import UIKit
 class tabBarController: UITabBarController{
     override func viewDidLoad() {
         tabBar.items?[0].title = "Calendar"
-        tabBar.items?[1].title = "Auto Record"
+        tabBar.items?[1].title = "Track"
         tabBar.items?[2].title = "Task"
     }
     

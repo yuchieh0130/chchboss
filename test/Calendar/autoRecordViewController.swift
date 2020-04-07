@@ -11,7 +11,7 @@ import UIKit
 
 class autoRecordViewController: UIViewController{
     override func viewDidLoad() {
-        title = "Auto Record"
+        title = "Track"
     }
     
 }
