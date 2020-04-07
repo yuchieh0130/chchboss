@@ -19,6 +19,7 @@ class addViewController : UIViewController{
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAdd: UIButton!
     @IBOutlet var btnEdit: UIButton!
+    @IBOutlet var btnDelete: UIButton!
     
     //tableView Item
     var tableViewData = [cellConfig]()
@@ -105,6 +106,8 @@ class addViewController : UIViewController{
             
             btnAdd.isHidden = false
             btnEdit.isHidden = true
+            btnDelete.isHidden = true
+            
         }
         
     }

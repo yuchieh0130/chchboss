@@ -975,7 +975,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5vo-Ib-cXn">
-                                <rect key="frame" x="292" y="35" width="83" height="30"/>
+                                <rect key="frame" x="319" y="35" width="32" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
@@ -983,7 +983,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0Zj-Xy-h2I">
-                                <rect key="frame" x="292" y="35" width="83" height="30"/>
+                                <rect key="frame" x="319" y="35" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
@@ -999,7 +999,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCZ-1q-wnd">
-                                <rect key="frame" x="257" y="36" width="45" height="30"/>
+                                <rect key="frame" x="261" y="36" width="45" height="30"/>
                                 <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="deleteEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="7S7-oV-1cM"/>
@@ -1013,18 +1013,20 @@
                             <constraint firstItem="mFJ-4m-FXl" firstAttribute="top" secondItem="5vo-Ib-cXn" secondAttribute="bottom" constant="8" symbolic="YES" id="97L-ay-l2Q"/>
                             <constraint firstAttribute="bottom" secondItem="mFJ-4m-FXl" secondAttribute="bottom" id="9cj-0T-zWw"/>
                             <constraint firstItem="mFJ-4m-FXl" firstAttribute="top" secondItem="syV-Bo-71f" secondAttribute="bottom" id="IlE-2b-5GP"/>
+                            <constraint firstItem="5vo-Ib-cXn" firstAttribute="leading" secondItem="CCZ-1q-wnd" secondAttribute="trailing" constant="13" id="MsV-5M-NFY"/>
                             <constraint firstItem="mFJ-4m-FXl" firstAttribute="top" secondItem="syV-Bo-71f" secondAttribute="bottom" id="Qig-Pu-lhm"/>
                             <constraint firstItem="mFJ-4m-FXl" firstAttribute="trailing" secondItem="QcQ-FN-gn1" secondAttribute="trailing" id="X3T-dT-7OB"/>
                             <constraint firstItem="syV-Bo-71f" firstAttribute="centerY" secondItem="CCZ-1q-wnd" secondAttribute="centerY" id="dHl-ks-Krd"/>
+                            <constraint firstItem="0Zj-Xy-h2I" firstAttribute="leading" secondItem="CCZ-1q-wnd" secondAttribute="trailing" constant="13" id="hM0-eQ-nXL"/>
                             <constraint firstItem="mFJ-4m-FXl" firstAttribute="leading" secondItem="cSf-ZS-Qg3" secondAttribute="leading" id="nIg-MM-w9z"/>
                             <constraint firstItem="syV-Bo-71f" firstAttribute="centerY" secondItem="cSf-ZS-Qg3" secondAttribute="centerY" id="txb-Nd-WWt"/>
-                            <constraint firstItem="QcQ-FN-gn1" firstAttribute="trailing" secondItem="CCZ-1q-wnd" secondAttribute="trailing" constant="73" id="wsr-6S-egs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QcQ-FN-gn1"/>
                     </view>
                     <navigationItem key="navigationItem" id="J6r-YJ-idI"/>
                     <connections>
                         <outlet property="btnAdd" destination="5vo-Ib-cXn" id="hKG-NW-ysA"/>
+                        <outlet property="btnDelete" destination="CCZ-1q-wnd" id="jYd-R2-46J"/>
                         <outlet property="btnEdit" destination="0Zj-Xy-h2I" id="jSi-mT-VPe"/>
                         <outlet property="tableView" destination="mFJ-4m-FXl" id="X2l-y1-yUS"/>
                         <segue destination="QZ3-Qn-K2X" kind="show" identifier="Map" id="L2r-0Q-vWp"/>
