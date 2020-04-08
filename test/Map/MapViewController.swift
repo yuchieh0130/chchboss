@@ -78,7 +78,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var location_arr = [String]()
     var sortedArr = [String]()
     var locationDic = [Double: String]()
-   
+    
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
         
@@ -132,6 +132,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             request.naturalLanguageQuery = searchQuery
             
             let search = MKLocalSearch(request: request)
+            var locationList = [String]()
             
             // 搜尋附近地點的結果
             search.start { (response, error) in
@@ -150,14 +151,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     let locationName: String? = self.searchResults[i].name
                     self.location_arr.append(locationName!)
                     let distance = CLLocation(latitude: (self.searchResults[i].placemark.coordinate.latitude), longitude: (self.searchResults[i].placemark.coordinate.longitude)).distance(from: CLLocation(latitude: (25.035915), longitude: (121.563619)))
+                    locationList.append(locationName)
+                    locationList.append(searchQuery)
                     if distance <= 1000{
-                        self.locationDic[distance] = locationName
+                        self.locationDic[distance] = locationList
                     }
                     i += 1
                     
                 }
                 self.searchAllResults.removeAll()
                 self.searchResults.removeAll()
+                locationList.removeAll()
                 self.tblView.reloadData()
                 
             }
@@ -215,7 +219,7 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
         }
         sortedArr.removeAll()
         for each in sortedLocation{
-            sortedArr.append(each.value+"  "+String(Int(each.key))+"m")
+            sortedArr.append(each.value[1]+ each.value[0]+"  "+String(Int(each.key))+"m")
         }
         sortedLocation.removeAll()
         if searching{
