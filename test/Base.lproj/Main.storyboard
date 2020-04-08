@@ -1156,6 +1156,7 @@
                                     <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qve-jf-98p">
                                         <rect key="frame" x="0.0" y="37" width="343" height="134"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <locale key="locale" localeIdentifier="zh_TW"/>
                                     </datePicker>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meq-8x-R8w">
                                         <rect key="frame" x="45" y="174" width="48" height="30"/>
@@ -1284,6 +1285,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="2v3-r9-Jbk"/>
-        <segue reference="9x5-zz-Dnp"/>
+        <segue reference="LXQ-mP-1aP"/>
     </inferredMetricsTieBreakers>
 </document>
