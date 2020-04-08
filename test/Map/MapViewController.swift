@@ -48,7 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         myLocationManager.startUpdatingLocation()
-        
+
         
         // Map
         // 設置委任對象
@@ -246,18 +246,28 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
 extension MapViewController: UISearchBarDelegate{
     
     func searchBar(_ searchBar : UISearchBar, textDidChange searchText: String){
-        
         searching = true
         locationDic.removeAll()
         if let btnCancel = searchBar.value(forKey: "cancelButton") as? UIButton {
             btnCancel.isEnabled = true
         }
+        
         if searching == true{
             searchQuerys.removeAll()
             searchQuerys.append(searchText)
             searchLocation(latitude: 25.035915, longitude: 121.563619)
             print(searchQuerys)
             searching = false
+        }
+        
+        if searchText == "" {
+            searching = false
+            searchBar.text = ""
+            sortedArr.removeAll()
+            searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
+            tblView.reloadData()
+            searchLocation(latitude: 25.035915, longitude: 121.563619)
+            self.searchBar.endEditing(true)
         }
         
     }
