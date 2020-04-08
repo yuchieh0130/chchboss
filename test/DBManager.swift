@@ -136,7 +136,38 @@ class DBManager: NSObject {
     
     func saveLocation(_ modelInfo: LocationModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,location_category,location_name) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.locationCategory,modelInfo.locationName])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,location_category,location_name,nearest_name,nearest_category) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.nearestName,modelInfo.nearestCategory])
+        
+        shareInstance.database?.close()
+        return isSave!
+    }
+    
+    func getLocation(String: String) -> LocationModel!{
+        
+        var location : LocationModel!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM location WHERE longtitude = '\(String)' ";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "location_id")
+            let a = set?.double(forColumn: "longitude")
+            let b = set?.double(forColumn: "latitude")
+            let c = set?.string(forColumn: "start_time")!
+            let d = set?.string(forColumn: "end_time")!
+            let e = set?.string(forColumn: "nearest_name")
+            let f = set?.string(forColumn: "nearest_category")
+            
+            location = LocationModel(locationId: i!, longitude: a!, latitude: b!, startTime: c!, endTime: d!, nearestName: e!, nearestCategory: f!)
+        }
+        
+        set?.close()
+        return location
+    }
+    
+    func savePlace(_ modelInfo: LocationModel) -> Bool{
+        shareInstance.database?.open()
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,location_category,location_name,nearest_name,nearest_category) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.nearestName,modelInfo.nearestCategory])
         
         shareInstance.database?.close()
         return isSave!
