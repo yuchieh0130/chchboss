@@ -18,6 +18,10 @@ class addTaskViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAddTask: UIButton!
     
+    @IBAction func cancel(_ sender: UIButton){
+         self.dismiss(animated: true, completion: nil)
+     }
+    
     //db
     var taskName: String?
     var addTaskTime: String?
