@@ -286,8 +286,13 @@ class addViewController : UIViewController{
                 endTime = nil
             }
             //insert to database
-            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
-            let isAdded = DBManager.getInstance().addEvent(modelInfo)
+            let modelInfo1 = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
+            let isAdded1 = DBManager.getInstance().addEvent(modelInfo1)
+            
+            if task == true{
+                let modelInfo2 = TaskModel(taskId: id, taskName: name!, taskTime: taskTime!, taskDeadline: endDate, taskReminder: reminder, taskLocation: "defalt")
+                let isAdded2 = DBManager.getInstance().addTask(modelInfo2)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
