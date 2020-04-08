@@ -40,10 +40,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.viewDidLoad()
         
         myLocationManager = CLLocationManager()
-        
-        // 設置委任對象
         myLocationManager.delegate = self
-        
         
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -51,14 +48,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         // Map
-        // 設置委任對象
+
         myMapView.delegate = self as MKMapViewDelegate
-        
-        // 地圖樣式
         myMapView.mapType = .standard
-        
-        
-        // 允許縮放地圖
         myMapView.isZoomEnabled = true
         setMap(latitude: 25.035915, longitude: 121.563619)
         
@@ -184,11 +176,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return circleRenderer
     }
     
-    
-    
-    
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -262,15 +249,15 @@ extension MapViewController: UISearchBarDelegate{
         
     }
     
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        searching = false
-//        searchBar.text = ""
-//        sortedArr.removeAll()
-//        searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
-//        tblView.reloadData()
-//        searchLocation(latitude: 25.035915, longitude: 121.563619)
-//        self.searchBar.endEditing(true)
-//    }
+    //    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    //        searching = false
+    //        searchBar.text = ""
+    //        sortedArr.removeAll()
+    //        searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
+    //        tblView.reloadData()
+    //        searchLocation(latitude: 25.035915, longitude: 121.563619)
+    //        self.searchBar.endEditing(true)
+    //    }
 }
 
 
