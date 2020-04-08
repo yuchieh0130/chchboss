@@ -31,8 +31,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var latitude: Double! = 0
     var startTime: String! = ""
     var endTime: String = ""
-    var locationCategory: String = ""
-    var locationName: String = ""
+    var nearestName: String = ""
+    var nearestCategory: String = ""
     
     var location : LocationModel?
     
@@ -108,7 +108,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         longitude = currentLocation.longitude
         startTime = dateFormatString
         
-        let modelInfo = LocationModel(locationId: locationId, longitude: longitude!, latitude: latitude!, startTime: startTime!, endTime: endTime, locationCategory: locationCategory, locationName: locationName)
+        let modelInfo = LocationModel(locationId: locationId, longitude: longitude!, latitude: latitude!, startTime: startTime!, endTime: endTime, nearestName: nearestName, nearestCategory: nearestCategory)
         
         let isSaved = DBManager.getInstance().saveLocation(modelInfo)
         print(isSaved)
