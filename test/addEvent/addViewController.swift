@@ -47,7 +47,6 @@ class addViewController : UIViewController{
     //variable for handling from DatePopViewController
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
-    //var strdate: String? //send current data to DatePopViewController
     var showStart: String = "" //format show out on storyboard
     var showEnd: String = "" //format show out on storyboard
     var autoLocation: String = ""
@@ -103,9 +102,7 @@ class addViewController : UIViewController{
         if event != nil{
             loadData()
             btnAdd.isHidden = true
-            btnEdit.isHidden = false
         }else{
-            btnAdd.isHidden = false
             btnEdit.isHidden = true
             btnDelete.isHidden = true
         }
@@ -222,43 +219,41 @@ class addViewController : UIViewController{
         var interval = e.timeIntervalSince(s)
         if tag == "startDate"{
             s = date
+            if dayConstraint(i: "start") == 2 { e = s}
             if dayConstraint(i: "start") == 1 { e = s + interval}
+            
         }else if tag == "endDate"{
             e = date
-            if dayConstraint(i: "end") == 1 { e = s - interval}
+            if dayConstraint(i: "end") == 2 { s = e}
+            if dayConstraint(i: "end") == 1 { s = e - interval}
         }else if tag == "autoStart"{
             s = date
             if dayConstraint(i: "start") == 1 { e = s + interval}
         }else if tag == "autoEnd"{
             e = date
-            if dayConstraint(i: "start") == 1 { e = s - interval}
+            if dayConstraint(i: "start") == 1 { s = e - interval}
         }else if tag == "taskTime"{
             taskTime = showTimeformatter.string(from: date)
         }
-        startDate = showDayformatter.string(for: s)
-        startTime = showTimeformatter.string(for: s)!
-        endDate = showDayformatter.string(for: e)
-        endTime = showTimeformatter.string(for: e)!
-        
     }
     
     func dayConstraint(i:String) -> Int{
-        
         let c1 = s.compare(e)
         let c2 = e.compare(s)
-        var c = 1
+        let c3 = showDayformatter.string(from: s).compare(showDayformatter.string(from: e))
+        let c4 = showDayformatter.string(from: e).compare(showDayformatter.string(from: s))
+        var c = 0
         switch i {
         case "start":
-            if c1 == .orderedDescending{
-               c = 1
-            }
+            if allDay == true && c3 == .orderedSame {c = 2}
+            else if c1 == .orderedDescending {c = 1}
         case "end":
-            if c2 == .orderedAscending{
-               c = 1
-            }
+            if allDay == true && c4 == .orderedSame {c = 2}
+            else if c2 == .orderedAscending {c = 1}
         default:
             c = 0
         }
+        print(c)
         return c
     }
     
@@ -271,12 +266,19 @@ class addViewController : UIViewController{
         //save to db
         // check 若endDateTime不為空值且小於startDateTime，顯示警告訊息
         self.view.endEditing(true)
+        startDate = showDayformatter.string(for: s)
+        startTime = showTimeformatter.string(for: s)!
+        endDate = showDayformatter.string(for: e)
+        endTime = showTimeformatter.string(for: e)!
         
-        if endDate != "" && endDate < startDate {
-            let controller = UIAlertController(title: "wrong", message: "invalid EndTime", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        if name == nil{
+            
+            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default){_ in
+                controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)
-            present(controller, animated: true, completion: nil)
+            self.present(controller, animated: true,completion: .none)
+            print(self)
         }else {
             //若是all day，startTime、endTime儲存為nil
             if allDay == true{
@@ -292,7 +294,10 @@ class addViewController : UIViewController{
     
     @IBAction func editEventButton(_ sender: UIButton){
         self.view.endEditing(true)
-        
+        startDate = showDayformatter.string(for: s)
+        startTime = showTimeformatter.string(for: s)!
+        endDate = showDayformatter.string(for: e)
+        endTime = showTimeformatter.string(for: e)!
         if allDay == true{
             startTime = nil
             endTime = nil
@@ -343,7 +348,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         case [1,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! startCell
             if allDay == true{
-                //showStart = startDate
                 showStart = showWeekdayformatter.string(from: s)
             }else{
                 showStart = "\(showWeekdayformatter.string(from: s)) \(showTimeformatter.string(from: s))"
@@ -353,7 +357,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         case [2,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! endCell
             if allDay == true{
-                //showEnd = endDate
                 showEnd = showWeekdayformatter.string(from: e)
             }else{
                 showEnd = "\(showWeekdayformatter.string(from: e)) \(showTimeformatter.string(from: e))"
@@ -428,12 +431,8 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     @objc func allDayOpen(_ sender: UISwitch){
         if sender.isOn == true{
             allDay = true
-            //showStart = startDate
-            //showEnd = endDate
         }else{
             allDay = false
-            //showStart = startDate+" "+startTime!
-            //showEnd = endDate+" "+endTime!
         }
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
@@ -466,14 +465,12 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         if sender.isOn == false{
             task = false
             tableViewData[5].opened = false
-            //tableView.deleteRows(at: indexT, with: .fade)
             changeRow(i: "task", j: "delete")
             taskTime = nil
         }else{
             task = true
             tableViewData[5].opened = true
             changeRow(i: "task", j: "insert")
-            //tableView.insertRows(at: indexT, with: .fade)
             taskTime = "01:00"
             tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
             if autoRecord == true {
@@ -514,7 +511,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         case ["task","delete"]:
             tableView.deleteRows(at: indexT, with: .fade)
         default:
-            print("default")
+            print("")
         }
     }
     
