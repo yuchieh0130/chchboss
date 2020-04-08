@@ -41,14 +41,6 @@ class DBManager: NSObject {
         return isDeleted!
     }
     
-    //    func deleteEvent(String: String) -> Bool{
-    //        shareInstance.database?.open()
-    //        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM event WHERE event_id = '\(String)'", withArgumentsIn:[String])
-    //        shareInstance.database?.close()
-    //        return isDeleted!
-    //    }
-    
-    
     func editEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
         let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
@@ -60,7 +52,7 @@ class DBManager: NSObject {
         
         var events: [EventModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM event WHERE start_date = '\(String)' ";
+        let sqlString = "SELECT * FROM event WHERE start_date <= '\(String)' and end_date >= '\(String)'";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -165,12 +157,59 @@ class DBManager: NSObject {
         return location
     }
     
-    func savePlace(_ modelInfo: LocationModel) -> Bool{
+    func savePlace(_ modelInfo: PlaceModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,location_category,location_name,nearest_name,nearest_category) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.nearestName,modelInfo.nearestCategory])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longtitude,place_lantitude) VALUES (?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongtitude,modelInfo.placeLantitude])
         
         shareInstance.database?.close()
         return isSave!
+    }
+    
+    func addTask(_ modelInfo: TaskModel) -> Bool{
+        shareInstance.database?.open()
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
+        
+        shareInstance.database?.close()
+        return isAdded!
+    }
+    
+    func deleteTask(id: Int32) -> Bool{
+        shareInstance.database?.open()
+        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM task WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.close()
+        return isDeleted!
+    }
+    
+    func editTask(_ modelInfo: TaskModel) -> Bool{
+        shareInstance.database?.open()
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
+        shareInstance.database?.close()
+        return isEdited!
+    }
+    
+    func getTask() -> [TaskModel]!{
+        
+        var tasks: [TaskModel]!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM task";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "task_id")
+            let a = set?.string(forColumn: "task_name")!
+            let b = set?.string(forColumn: "task_time")
+            let c = set?.string(forColumn: "task_deadline")!
+            let d = set?.bool(forColumn: "hasReminder")
+            let e = set?.string(forColumn: "task_location")
+            
+            let task: TaskModel
+            
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, taskReminder: d!, taskLocation: e)
+            
+            tasks.append(task)
+        }
+        set?.close()
+        return tasks
     }
     
 }

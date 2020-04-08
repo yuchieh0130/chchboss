@@ -12,6 +12,7 @@ struct TaskModel{
     let taskId: Int32?
     let taskName: String
     let taskTime: String?
+    let taskDeadline: String?
     let taskReminder: Bool
-    //let taskLocation
+    let taskLocation: String?
 }
