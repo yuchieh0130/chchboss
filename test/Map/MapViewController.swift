@@ -48,7 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         myLocationManager.startUpdatingLocation()
-
+        
         
         // Map
         // 設置委任對象
@@ -61,7 +61,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // 允許縮放地圖
         myMapView.isZoomEnabled = true
         setMap(latitude: 25.035915, longitude: 121.563619)
-  
+        
     }
     
     func startLocationManager(){
@@ -78,10 +78,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var location_arr = [String]()
     var sortedArr = [String]()
     var locationDic = [Double: String]()
-   
+    
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
-        
         //取得目前的座標位置
         let c = locations[0] as CLLocation;
         //c.coordinate.latitude 目前緯度
@@ -102,7 +101,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         searchLocation(latitude: 25.035915, longitude: 121.563619)
         myLocationManager.stopUpdatingLocation()
         
-        
         //DB
         latitude = currentLocation.latitude
         longitude = currentLocation.longitude
@@ -112,17 +110,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         let isSaved = DBManager.getInstance().saveLocation(modelInfo)
         print(isSaved)
-        
-        
-        
     }
     
     
     func searchLocation(latitude: Double, longitude:Double ){
         
         let request = MKLocalSearch.Request()
-        
-        
         
         request.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), latitudinalMeters: 10000, longitudinalMeters: 10000)
         
@@ -159,10 +152,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 self.searchAllResults.removeAll()
                 self.searchResults.removeAll()
                 self.tblView.reloadData()
-                
             }
-            
-            
         }
         print(self.location_arr)
         self.location_arr.removeAll()
@@ -262,8 +252,8 @@ extension MapViewController: UISearchBarDelegate{
         
         if searchText == "" {
             searching = false
-            searchBar.text = ""
-            sortedArr.removeAll()
+            //searchBar.text = ""
+            //sortedArr.removeAll()
             searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
             tblView.reloadData()
             searchLocation(latitude: 25.035915, longitude: 121.563619)
@@ -272,16 +262,15 @@ extension MapViewController: UISearchBarDelegate{
         
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searching = false
-        searchBar.text = ""
-        sortedArr.removeAll()
-        searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
-        tblView.reloadData()
-        searchLocation(latitude: 25.035915, longitude: 121.563619)
-        self.searchBar.endEditing(true)
-    }
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        searching = false
+//        searchBar.text = ""
+//        sortedArr.removeAll()
+//        searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
+//        tblView.reloadData()
+//        searchLocation(latitude: 25.035915, longitude: 121.563619)
+//        self.searchBar.endEditing(true)
+//    }
 }
-
 
 
