@@ -52,7 +52,7 @@ class DBManager: NSObject {
         
         var events: [EventModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM event WHERE start_date = '\(String)' ";
+        let sqlString = "SELECT * FROM event WHERE start_date <= '\(String)' and end_date >= '\(String)'";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -165,12 +165,26 @@ class DBManager: NSObject {
         return isSave!
     }
     
-    func saveTask(_ modelInfo: TaskModel) -> Bool{
+    func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
         
         shareInstance.database?.close()
-        return isSave!
+        return isAdded!
+    }
+    
+    func deleteTask(id: Int32) -> Bool{
+        shareInstance.database?.open()
+        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM task WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.close()
+        return isDeleted!
+    }
+    
+    func editTask(_ modelInfo: TaskModel) -> Bool{
+        shareInstance.database?.open()
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
+        shareInstance.database?.close()
+        return isEdited!
     }
     
     func getTask() -> [TaskModel]!{
