@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0CAD819C558DE5736BFE8FC5 /* libPods-test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DB2DB3C1874A0E1B58E48A0 /* libPods-test.a */; };
+		4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4B7243D61630087DB4C /* TaskModel.swift */; };
+		4B02C4BA243D64A70087DB4C /* addTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */; };
+		4B02C4BC243D6B440087DB4C /* addTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4BB243D6B440087DB4C /* addTaskCell.swift */; };
 		4B052675242C9CE50048DB8D /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052674242C9CE50048DB8D /* addCell.swift */; };
 		4B052677242C9CF40048DB8D /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052676242C9CF40048DB8D /* addViewController.swift */; };
 		4B1C31072415696600875B74 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C31062415696600875B74 /* DateHeader.swift */; };
@@ -47,6 +50,9 @@
 /* Begin PBXFileReference section */
 		0DB2DB3C1874A0E1B58E48A0 /* libPods-test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A1E3837C06747579167C49 /* Pods-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.debug.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.debug.xcconfig"; sourceTree = "<group>"; };
+		4B02C4B7243D61630087DB4C /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTaskViewController.swift; sourceTree = "<group>"; };
+		4B02C4BB243D6B440087DB4C /* addTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTaskCell.swift; sourceTree = "<group>"; };
 		4B052674242C9CE50048DB8D /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
 		4B052676242C9CF40048DB8D /* addViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
 		4B1C31062415696600875B74 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
@@ -137,6 +143,8 @@
 			children = (
 				4B855D0F243847E3001B80C7 /* taskViewController.swift */,
 				4B855D1124385724001B80C7 /* taskTableViewCell.swift */,
+				4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */,
+				4B02C4BB243D6B440087DB4C /* addTaskCell.swift */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				4B9EBD532417799400162A77 /* EventModel.swift */,
 				4B855CF5242B07FA001B80C7 /* CategoryModel.swift */,
 				58D91DC824325783002DD7B2 /* LocationModel.swift */,
+				4B02C4B7243D61630087DB4C /* TaskModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -353,14 +362,17 @@
 				4B351A4724188BE9003A474A /* FMDatabase.m in Sources */,
 				6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */,
 				4B351A4B24188BE9003A474A /* FMResultSet.m in Sources */,
+				4B02C4BC243D6B440087DB4C /* addTaskCell.swift in Sources */,
 				582341F0242BB0DA00FFC83B /* SceneDelegate.swift in Sources */,
 				4B855CFA242B0C88001B80C7 /* categoryTableViewCell.swift in Sources */,
 				4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */,
 				4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */,
+				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
 				4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */,
 				4B052677242C9CF40048DB8D /* addViewController.swift in Sources */,
 				4B9EBD542417799400162A77 /* EventModel.swift in Sources */,
 				4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */,
+				4B02C4BA243D64A70087DB4C /* addTaskViewController.swift in Sources */,
 				4B9EBD562417A7CE00162A77 /* Util.swift in Sources */,
 				4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */,
 				582341EE242B5F1000FFC83B /* MapViewController.swift in Sources */,
