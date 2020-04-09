@@ -138,7 +138,7 @@ class DBManager: NSObject {
         
         var location : LocationModel!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location WHERE longtitude = '\(String)' ";
+        let sqlString = "SELECT * FROM location WHERE location_id = '\(String)' ";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
