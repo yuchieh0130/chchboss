@@ -48,7 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         // Map
-
+        
         myMapView.delegate = self as MKMapViewDelegate
         myMapView.mapType = .standard
         myMapView.isZoomEnabled = true
@@ -139,7 +139,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         self.locationDic[distance] = locationName
                     }
                     i += 1
-                    
                 }
                 self.searchAllResults.removeAll()
                 self.searchResults.removeAll()
@@ -148,7 +147,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         print(self.location_arr)
         self.location_arr.removeAll()
-        
     }
     
     
@@ -200,7 +198,6 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
         }else{
             return sortedArr.count
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -210,7 +207,6 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
         }else{
             cell?.textLabel?.text = String(sortedArr[indexPath.row])
         }
-        
         return cell!
     }
     
@@ -220,14 +216,11 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
 }
 
 
-extension MapViewController: UISearchBarDelegate{
+extension MapViewController: UISearchBarDelegate, UITextFieldDelegate{
     
     func searchBar(_ searchBar : UISearchBar, textDidChange searchText: String){
         searching = true
         locationDic.removeAll()
-        if let btnCancel = searchBar.value(forKey: "cancelButton") as? UIButton {
-            btnCancel.isEnabled = true
-        }
         
         if searching == true{
             searchQuerys.removeAll()
@@ -235,29 +228,28 @@ extension MapViewController: UISearchBarDelegate{
             searchLocation(latitude: 25.035915, longitude: 121.563619)
             print(searchQuerys)
             searching = false
+        }else{
+            searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
+            searchLocation(latitude: 25.035915, longitude: 121.563619)
+            tblView.reloadData()
         }
         
         if searchText == "" {
-            searching = false
-            //searchBar.text = ""
-            //sortedArr.removeAll()
+            
             searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
-            tblView.reloadData()
             searchLocation(latitude: 25.035915, longitude: 121.563619)
-            self.searchBar.endEditing(true)
+            tblView.reloadData()
         }
-        
     }
     
-    //    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-    //        searching = false
-    //        searchBar.text = ""
-    //        sortedArr.removeAll()
-    //        searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
-    //        tblView.reloadData()
-    //        searchLocation(latitude: 25.035915, longitude: 121.563619)
-    //        self.searchBar.endEditing(true)
-    //    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
 }
 
 
