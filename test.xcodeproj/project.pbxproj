@@ -23,6 +23,8 @@
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
 		4B4F014B243CC7A300A98C65 /* eventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F014A243CC7A300A98C65 /* eventTableViewCell.xib */; };
 		4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */; };
+		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
+		4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */; };
 		4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */; };
 		4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */; };
 		4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */; };
@@ -72,6 +74,8 @@
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
 		4B4F014A243CC7A300A98C65 /* eventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = eventTableViewCell.xib; sourceTree = "<group>"; };
 		4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = autoRecordViewController.swift; sourceTree = "<group>"; };
+		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
+		4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewCell.swift; sourceTree = "<group>"; };
 		4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(old)addEventViewController.swift"; sourceTree = "<group>"; };
 		4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewController.swift; sourceTree = "<group>"; };
 		4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewCell.swift; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 				4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */,
 				4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */,
 				4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */,
+				4B4F0153243F12FD00A98C65 /* categoryViewController.swift */,
+				4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */,
 			);
 			path = addEvent;
 			sourceTree = "<group>";
@@ -361,6 +367,7 @@
 				4B351A4A24188BE9003A474A /* FMDatabasePool.m in Sources */,
 				4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */,
 				4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */,
+				4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */,
 				4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */,
 				4B351A4724188BE9003A474A /* FMDatabase.m in Sources */,
 				6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */,
@@ -373,6 +380,7 @@
 				4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */,
 				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
 				4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */,
+				4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */,
 				4B052677242C9CF40048DB8D /* addViewController.swift in Sources */,
 				4B9EBD542417799400162A77 /* EventModel.swift in Sources */,
 				4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */,

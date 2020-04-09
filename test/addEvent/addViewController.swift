@@ -42,7 +42,7 @@ class addViewController : UIViewController{
     var id: Int32 = 0
     
     var event : EventModel?
-    var category = CategoryModel(categoryId: 1, categoryName: "lesson", color: "Grey")
+    var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
     
     //variable for handling from DatePopViewController
     var tag: String? //which? (startDate,EndDate,editTask)
@@ -163,7 +163,7 @@ class addViewController : UIViewController{
                 VC.taskTime = taskTime
             }
         default:
-            print("default")
+            print("")
         }
         
     }
@@ -207,12 +207,20 @@ class addViewController : UIViewController{
         
     }
     
-    @IBAction func categorySegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? categoryTableViewController
-        let i = VC?.tableView.indexPathForSelectedRow
-        category = (VC?.showCategory[i!.row])!
-        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
-    }
+//    @IBAction func categorySegueBack(segue: UIStoryboardSegue){
+//        let VC = segue.source as? categoryTableViewController
+//        let i = VC?.tableView.indexPathForSelectedRow
+//        category = (VC?.showCategory[i!.row])!
+//        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
+//    }
+    
+        @IBAction func categorySegueBack(segue: UIStoryboardSegue){
+            let VC = segue.source as? categoryViewController
+            let i = VC?.collectionView.indexPathsForSelectedItems
+            category = (VC?.showCategory[i![0].row])!
+            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
+        }
+    
     
     //handle date object from DatePopupViewController
     func handletime(){
@@ -539,7 +547,8 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         case [4,2]:
             performSegue(withIdentifier: "editAutoEnd", sender: self)
         case [4,3]:
-            performSegue(withIdentifier: "Category", sender: self)
+            //performSegue(withIdentifier: "Category", sender: self)
+            performSegue(withIdentifier: "NewCategory", sender: self)
         case [4,4]:
             performSegue(withIdentifier: "Map", sender: self)
         //        case [5,0]:

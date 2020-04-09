@@ -88,16 +88,17 @@ class DBManager: NSObject {
         
         var categories : [CategoryModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT category_id,category_name,color FROM category";
+        let sqlString = "SELECT category_id,category_name,category_color,category_image FROM category";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
             let i = set?.int(forColumn: "category_id")
             let a = set?.string(forColumn: "category_name")!
-            let b = set?.string(forColumn: "color")!
+            let b = set?.string(forColumn: "category_color")!
+            let c = set?.string(forColumn: "category_image")!
             
             let category: CategoryModel
-            category = CategoryModel(categoryId: i!, categoryName: a!, color: b!)
+            category = CategoryModel(categoryId: i!, categoryName: a!, categoryColor: b!, category_image: c!)
             
             if categories == nil{
                 categories = [CategoryModel]()
