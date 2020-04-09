@@ -165,6 +165,26 @@ class DBManager: NSObject {
         return isSave!
     }
     
+    func getPlace() -> PlaceModel!{
+           
+           var place : PlaceModel!
+           shareInstance.database?.open()
+           let sqlString = "SELECT * FROM savedPlace ";
+           let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+           
+           while ((set?.next())!) {
+               let i = set?.int(forColumn: "place_id")
+               let a = set?.string(forColumn: "place_name")
+               let b = set?.string(forColumn: "place_category")
+               let c = set?.double(forColumn: "place_longtitude")
+               let d = set?.double(forColumn: "place_lantitude")
+               
+               place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongtitude: c!, placeLantitude: d!)
+           }
+           set?.close()
+           return place
+    }
+    
     func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
         let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
