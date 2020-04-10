@@ -11,5 +11,6 @@ import Foundation
 struct CategoryModel {
     let categoryId:Int32?
     let categoryName:String
-    let color:String
+    let categoryColor:String
+    let category_image:String
 }
