@@ -20,7 +20,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     //db variables
     var name: String?
-    var endDate: String! = ""
+    var deadline: String! = ""
     var addTaskTime: String! = ""
     var reminder: Bool! = false
     var id: Int32 = 0
@@ -29,10 +29,10 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var tag: String?
     var date = Date()
-    var showEnd: String = ""
+    var showDate: String = ""
     var taskLocation: String = ""
     
-    var e = Date()
+    var e = Date()+3600
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -62,15 +62,17 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addTaskTime = "01:00"
+        deadline = "\(showWeekdayformatter.string(from: date)) \(showTimeformatter.string(from: date + 3600)) "
+        
         switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
     }
     
     func loadData(){
         id = (task?.taskId)!
         name = task?.taskName
-        endDate = task?.taskDeadline
         addTaskTime = task?.addTaskTime
-        e = showDateformatter.date(from: endDate!)!
+        deadline = task?.taskDeadline
         reminder = task?.taskReminder
     }
     
@@ -111,7 +113,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if tag == "addTaskTime"{
             addTaskTime = showTimeformatter.string(from: date)
         }else if tag == "deadline"{
-            e = date
+            deadline = "\(showWeekdayformatter.string(from: date)) \(showTimeformatter.string(from: date))"
         }
     }
     
@@ -155,8 +157,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         case [2,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "deadlineCell", for: indexPath) as! deadlineCell
-                //showEnd = "showWeekdayformatter.string + showTimeformatter.string"
-            cell.txtDeadline.text = showEnd
+            cell.txtDeadline.text = deadline
             return cell
         case [3,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskLocationCell", for: indexPath) as! taskLocationCell
