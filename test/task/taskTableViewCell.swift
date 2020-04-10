@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class taskTableViewCell: UITableViewCell{
-    @IBOutlet var taskName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
