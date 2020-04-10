@@ -40,6 +40,7 @@ class addViewController : UIViewController{
     var taskTime: String?
     var reminder: Bool! = false
     var id: Int32 = 0
+    var addTaskTime: String?
     
     var event : EventModel?
     var category = CategoryModel(categoryId: 1, categoryName: "lesson", color: "Grey")
@@ -92,7 +93,7 @@ class addViewController : UIViewController{
                          cellConfig(opened: false, title: "Task"),
                          cellConfig(opened: false, title: "Reminder")]
         
-        //func for asseccoryView
+        //func for accessoryView
         switchallDay.addTarget(self, action: #selector(self.allDayOpen(_ :)), for: .valueChanged)
         switchauto.addTarget(self, action: #selector(self.autoOpen(_ :)), for: .valueChanged)
         switchtask.addTarget(self, action: #selector(self.taskOpen(_ :)), for: .valueChanged)
@@ -290,7 +291,7 @@ class addViewController : UIViewController{
             let isAdded1 = DBManager.getInstance().addEvent(modelInfo1)
             
             if task == true{
-                let modelInfo2 = TaskModel(taskId: id, taskName: name!, taskTime: taskTime!, taskDeadline: endDate, taskReminder: reminder, taskLocation: "defalt")
+                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: addTaskTime!, taskDeadline: endDate, taskReminder: reminder, taskLocation: "default")
                 let isAdded2 = DBManager.getInstance().addTask(modelInfo2)
             }
             self.dismiss(animated: true, completion: nil)

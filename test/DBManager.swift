@@ -187,7 +187,7 @@ class DBManager: NSObject {
     
     func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.addTaskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
         
         shareInstance.database?.close()
         return isAdded!
@@ -202,7 +202,7 @@ class DBManager: NSObject {
     
     func editTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.addTaskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
         shareInstance.database?.close()
         return isEdited!
     }
@@ -224,7 +224,7 @@ class DBManager: NSObject {
             
             let task: TaskModel
             
-            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, taskReminder: d!, taskLocation: e)
+            task = TaskModel(taskId: i!, taskName: a!, addTaskTime: b, taskDeadline: c, taskReminder: d!, taskLocation: e)
             
             tasks.append(task)
         }

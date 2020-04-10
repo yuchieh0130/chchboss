@@ -25,7 +25,7 @@ class taskViewController: UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let editVC = segue.destination as? addTaskViewController{
-            //editVC.task = task
+            editVC.task = task
         }
     }
 
