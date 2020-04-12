@@ -340,7 +340,7 @@ class addViewController : UIViewController{
     //alert message
     func alertMessage(){
         if name == nil{
-            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default){_ in
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)

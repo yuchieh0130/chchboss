@@ -137,27 +137,28 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         self.view.endEditing(true)
         deadline = showDayformatter.string(for: e)
         if taskName == nil{
-            let controller = UIAlertController(title: "Error", message: "Name should not be blank", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default){_ in
-                    controller.dismiss(animated: true, completion: nil)}
-                controller.addAction(okAction)
-                self.present(controller, animated: true,completion: nil)
-                print(self)
+            alertMessage()
+        }else{
+            let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+            let isAdded = DBManager.getInstance().addTask(modelInfo)
+            self.dismiss(animated: true, completion: nil)
         }
         
-//        let modelInfo = TaskModel(taskId: id, taskName: name!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
-//        let isAdded = DBManager.getInstance().addTask(modelInfo)
-        //self.dismiss(animated: true, completion: nil)
+        
     }
     
     //還要寫edit 跟delete
     @IBAction func editTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
+        if taskName == nil{
+            alertMessage()
+        }else{
             deadline = showDayformatter.string(for: e)
             
             let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
             let isEdited = DBManager.getInstance().editTask(modelInfo)
             self.dismiss(animated: true, completion: nil)
+        }
             
         }
     
@@ -166,6 +167,19 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         let isDeleted = DBManager.getInstance().deleteTask(id: modelInfo.taskId!)
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func alertMessage(){
+            if taskName == nil{
+                let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default){_ in
+                    controller.dismiss(animated: true, completion: nil)}
+                controller.addAction(okAction)
+                self.present(controller, animated: true,completion: .none)
+            }
+        
+    }
+    
+    
     
     
     
