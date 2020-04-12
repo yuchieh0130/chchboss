@@ -136,7 +136,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func addTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
         deadline = showDayformatter.string(for: e)
-        if taskName == nil{
+        if taskName == nil || taskName == ""{
             alertMessage()
         }else{
             let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
@@ -150,7 +150,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     //還要寫edit 跟delete
     @IBAction func editTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
-        if taskName == nil{
+        if taskName == nil || taskName == ""{
             alertMessage()
         }else{
             deadline = showDayformatter.string(for: e)
@@ -169,7 +169,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func alertMessage(){
-            if taskName == nil{
+            if taskName == nil || taskName == ""{
                 let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default){_ in
                     controller.dismiss(animated: true, completion: nil)}
