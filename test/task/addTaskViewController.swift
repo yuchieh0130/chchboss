@@ -15,13 +15,15 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAddTask: UIButton!
+    @IBOutlet var btnEditTask: UIButton!
+    @IBOutlet var btnDeleteTask: UIButton!
     
     let switchreminder = UISwitch()
     
     //db variables
-    var name: String?
+    var taskName: String?
     var deadline: String! = ""
-    var addTaskTime: String! = ""
+    var addTaskTime: String?
     var reminder: Bool! = false
     var id: Int32 = 0
     
@@ -66,11 +68,19 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         deadline = "\(showWeekdayformatter.string(from: date)) \(showTimeformatter.string(from: date + 3600)) "
         
         switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
+        
+        if task != nil{
+                   loadData()
+                   btnAddTask.isHidden = true
+               }else{
+                   btnEditTask.isHidden = true
+                   btnDeleteTask.isHidden = true
+               }
     }
     
     func loadData(){
         id = (task?.taskId)!
-        name = task?.taskName
+        taskName = task?.taskName
         addTaskTime = task?.addTaskTime
         deadline = task?.taskDeadline
         reminder = task?.taskReminder
@@ -113,6 +123,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if tag == "addTaskTime"{
             addTaskTime = showTimeformatter.string(from: date)
         }else if tag == "deadline"{
+            e = date
             deadline = "\(showWeekdayformatter.string(from: date)) \(showTimeformatter.string(from: date))"
         }
     }
@@ -123,7 +134,40 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
     @IBAction func addTaskButton(_ sender: UIButton) {
+        self.view.endEditing(true)
+        deadline = showDayformatter.string(for: e)
+        if taskName == nil{
+            let controller = UIAlertController(title: "Error", message: "Name should not be blank", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default){_ in
+                    controller.dismiss(animated: true, completion: nil)}
+                controller.addAction(okAction)
+                self.present(controller, animated: true,completion: nil)
+                print(self)
+        }
+        
+//        let modelInfo = TaskModel(taskId: id, taskName: name!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+//        let isAdded = DBManager.getInstance().addTask(modelInfo)
+        //self.dismiss(animated: true, completion: nil)
     }
+    
+    //還要寫edit 跟delete
+    @IBAction func editTaskButton(_ sender: UIButton) {
+        self.view.endEditing(true)
+            deadline = showDayformatter.string(for: e)
+            
+            let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+            let isEdited = DBManager.getInstance().editTask(modelInfo)
+            self.dismiss(animated: true, completion: nil)
+            
+        }
+    
+    @IBAction func deleteTaskButton(_ sender: UIButton) {
+        let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+        let isDeleted = DBManager.getInstance().deleteTask(id: modelInfo.taskId!)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     
     //reminder Switch
     @objc func reminderOpen(_ sender: UISwitch){
@@ -147,7 +191,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         switch indexPath {
         case [0,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskNameCell", for: indexPath) as! taskNameCell
-            cell.txtTaskName.text = name
+            cell.txtTaskName.text = taskName
             cell.selectionStyle = .none
             return cell
         case [1,0]:
@@ -174,6 +218,31 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
                 return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch indexPath{
+        case[1,0]:
+            performSegue(withIdentifier: "addTaskTime", sender: self)
+        case[2,0]:
+            performSegue(withIdentifier: "deadline", sender: self)
+        default:
+            print("")
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        taskName = textField.text!
     }
     
     

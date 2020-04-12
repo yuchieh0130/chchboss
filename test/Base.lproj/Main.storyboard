@@ -750,10 +750,30 @@
                                     <action selector="addTaskButton:" destination="zxG-pM-74g" eventType="touchUpInside" id="c3K-W9-O5O"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hms-Y2-cr1">
+                                <rect key="frame" x="315" y="53" width="40" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="editTaskButton:" destination="zxG-pM-74g" eventType="touchUpInside" id="XXV-Tg-SS9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQl-hz-exl">
+                                <rect key="frame" x="231" y="53" width="53" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteTaskButton:" destination="zxG-pM-74g" eventType="touchUpInside" id="72n-vP-87K"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="IKy-dc-lUk" firstAttribute="trailing" secondItem="i60-NJ-ICJ" secondAttribute="trailing" constant="-20" id="5hA-in-anA"/>
+                            <constraint firstItem="FQl-hz-exl" firstAttribute="top" secondItem="i60-NJ-ICJ" secondAttribute="top" constant="53" id="EAf-TP-yGg"/>
+                            <constraint firstItem="hms-Y2-cr1" firstAttribute="trailing" secondItem="i60-NJ-ICJ" secondAttribute="trailing" constant="-20" id="OV3-4g-2wW"/>
+                            <constraint firstItem="hms-Y2-cr1" firstAttribute="leading" secondItem="FQl-hz-exl" secondAttribute="trailing" constant="31" id="WKV-x3-lyS"/>
+                            <constraint firstItem="hms-Y2-cr1" firstAttribute="top" secondItem="i60-NJ-ICJ" secondAttribute="top" constant="53" id="ZJU-aL-eXC"/>
                             <constraint firstItem="i60-NJ-ICJ" firstAttribute="leading" secondItem="agU-eL-VgM" secondAttribute="leading" constant="-20" id="a7f-OJ-hRu"/>
                             <constraint firstItem="agU-eL-VgM" firstAttribute="top" secondItem="i60-NJ-ICJ" secondAttribute="top" constant="53" id="p2y-UN-xVj"/>
                             <constraint firstItem="IKy-dc-lUk" firstAttribute="top" secondItem="i60-NJ-ICJ" secondAttribute="top" constant="53" id="zRB-Jk-eWa"/>
@@ -763,6 +783,8 @@
                     <navigationItem key="navigationItem" id="7w9-cT-KtV"/>
                     <connections>
                         <outlet property="btnAddTask" destination="IKy-dc-lUk" id="A1W-3f-LgZ"/>
+                        <outlet property="btnDeleteTask" destination="FQl-hz-exl" id="nRg-gN-D2O"/>
+                        <outlet property="btnEditTask" destination="hms-Y2-cr1" id="3dP-aF-zEo"/>
                         <outlet property="tableView" destination="jG7-bq-or0" id="eeD-Cv-yrI"/>
                     </connections>
                 </viewController>

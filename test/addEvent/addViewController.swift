@@ -40,7 +40,6 @@ class addViewController : UIViewController{
     var taskTime: String?
     var reminder: Bool! = false
     var id: Int32 = 0
-    var addTaskTime: String?
     var deadline: String! = ""
     
     var event : EventModel?
@@ -287,7 +286,7 @@ class addViewController : UIViewController{
             let okAction = UIAlertAction(title: "OK", style: .default){_ in
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)
-            self.present(controller, animated: true,completion: .none)
+            self.present(controller, animated: true,completion: nil)
             print(self)
         }else {
             //若是all day，startTime、endTime儲存為nil
@@ -300,7 +299,7 @@ class addViewController : UIViewController{
             let isAdded1 = DBManager.getInstance().addEvent(modelInfo1)
             
             if task == true{
-                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
                 let isAdded2 = DBManager.getInstance().addTask(modelInfo2)
             }
             self.dismiss(animated: true, completion: nil)
