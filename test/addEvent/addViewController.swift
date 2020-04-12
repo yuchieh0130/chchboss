@@ -40,7 +40,6 @@ class addViewController : UIViewController{
     var taskTime: String?
     var reminder: Bool! = false
     var id: Int32 = 0
-    var addTaskTime: String?
     var deadline: String! = ""
     
     var event : EventModel?
@@ -304,7 +303,7 @@ class addViewController : UIViewController{
             let isAdded1 = DBManager.getInstance().addEvent(modelInfo1)
             
             if task == true{
-                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
                 let isAdded2 = DBManager.getInstance().addTask(modelInfo2)
                 
             }

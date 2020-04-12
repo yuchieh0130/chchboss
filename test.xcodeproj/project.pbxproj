@@ -11,6 +11,8 @@
 		4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4B7243D61630087DB4C /* TaskModel.swift */; };
 		4B02C4BA243D64A70087DB4C /* addTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */; };
 		4B02C4BC243D6B440087DB4C /* addTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4BB243D6B440087DB4C /* addTaskCell.swift */; };
+		4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */; };
+		4B02C4C02442C8390087DB4C /* taskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B02C4BE2442C8390087DB4C /* taskTableViewCell.xib */; };
 		4B052675242C9CE50048DB8D /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052674242C9CE50048DB8D /* addCell.swift */; };
 		4B052677242C9CF40048DB8D /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052676242C9CF40048DB8D /* addViewController.swift */; };
 		4B1C31072415696600875B74 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C31062415696600875B74 /* DateHeader.swift */; };
@@ -33,7 +35,6 @@
 		4B855CFA242B0C88001B80C7 /* categoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */; };
 		4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0B2438477C001B80C7 /* tabBarController.swift */; };
 		4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0F243847E3001B80C7 /* taskViewController.swift */; };
-		4B855D1224385724001B80C7 /* taskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D1124385724001B80C7 /* taskTableViewCell.swift */; };
 		4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B97DF9124176AB8005BD787 /* DBManager.swift */; };
 		4B9EBD542417799400162A77 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD532417799400162A77 /* EventModel.swift */; };
 		4B9EBD562417A7CE00162A77 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD552417A7CE00162A77 /* Util.swift */; };
@@ -56,6 +57,8 @@
 		4B02C4B7243D61630087DB4C /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTaskViewController.swift; sourceTree = "<group>"; };
 		4B02C4BB243D6B440087DB4C /* addTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTaskCell.swift; sourceTree = "<group>"; };
+		4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskTableViewCell.swift; sourceTree = "<group>"; };
+		4B02C4BE2442C8390087DB4C /* taskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = taskTableViewCell.xib; sourceTree = "<group>"; };
 		4B052674242C9CE50048DB8D /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
 		4B052676242C9CF40048DB8D /* addViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
 		4B1C31062415696600875B74 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
@@ -84,7 +87,6 @@
 		4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryTableViewCell.swift; sourceTree = "<group>"; };
 		4B855D0B2438477C001B80C7 /* tabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabBarController.swift; sourceTree = "<group>"; };
 		4B855D0F243847E3001B80C7 /* taskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskViewController.swift; sourceTree = "<group>"; };
-		4B855D1124385724001B80C7 /* taskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskTableViewCell.swift; sourceTree = "<group>"; };
 		4B97DF80241769B7005BD787 /* test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-Bridging-Header.h"; sourceTree = "<group>"; };
 		4B97DF9124176AB8005BD787 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		4B9EBD532417799400162A77 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
@@ -148,9 +150,10 @@
 			isa = PBXGroup;
 			children = (
 				4B855D0F243847E3001B80C7 /* taskViewController.swift */,
-				4B855D1124385724001B80C7 /* taskTableViewCell.swift */,
 				4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */,
 				4B02C4BB243D6B440087DB4C /* addTaskCell.swift */,
+				4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */,
+				4B02C4BE2442C8390087DB4C /* taskTableViewCell.xib */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B02C4C02442C8390087DB4C /* taskTableViewCell.xib in Resources */,
 				6B6BB1BA225FAD05006F384C /* LaunchScreen.storyboard in Resources */,
 				4B9EBD582417AEC900162A77 /* project.db in Resources */,
 				6B6BB1B7225FAD05006F384C /* Assets.xcassets in Resources */,
@@ -387,8 +391,8 @@
 				4B02C4BA243D64A70087DB4C /* addTaskViewController.swift in Sources */,
 				4B9EBD562417A7CE00162A77 /* Util.swift in Sources */,
 				4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */,
+				4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */,
 				582341EE242B5F1000FFC83B /* MapViewController.swift in Sources */,
-				4B855D1224385724001B80C7 /* taskTableViewCell.swift in Sources */,
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
 				4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */,
 				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,
