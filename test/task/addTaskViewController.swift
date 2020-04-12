@@ -124,7 +124,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             addTaskTime = showTimeformatter.string(from: date)
         }else if tag == "deadline"{
             e = date
-            deadline = "\(showWeekdayformatter.string(from: date)) \(showTimeformatter.string(from: date))"
+            deadline = "\(showWeekdayformatter.string(from: e)) \(showTimeformatter.string(from: e))"
         }
     }
     
