@@ -290,7 +290,7 @@ class addViewController : UIViewController{
         endDate = showDayformatter.string(for: e)
         endTime = showTimeformatter.string(for: e)!
         
-        if name == nil{
+        if name == nil || name == ""{
             alertMessage()
         }else {
             //若是all day，startTime、endTime儲存為nil
@@ -314,7 +314,7 @@ class addViewController : UIViewController{
     @IBAction func editEventButton(_ sender: UIButton){
         self.view.endEditing(true)
         
-        if name == nil{
+        if name == nil || name == ""{
             alertMessage()
         }else{
         startDate = showDayformatter.string(for: s)
@@ -339,7 +339,7 @@ class addViewController : UIViewController{
     
     //alert message
     func alertMessage(){
-        if name == nil{
+        if name == nil || name == ""{
             let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default){_ in
                 controller.dismiss(animated: true, completion: nil)}

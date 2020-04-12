@@ -1353,7 +1353,6 @@
                                 <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="deleteEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="7S7-oV-1cM"/>
-                                    <segue destination="5Wz-DA-yQG" kind="unwind" unwindAction="EventSegueBackWithSegue:" id="1O3-oR-XLg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vo-Ib-cXn">
@@ -1368,7 +1367,6 @@
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="editEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="eny-hI-hmC"/>
-                                    <segue destination="5Wz-DA-yQG" kind="unwind" unwindAction="EventSegueBackWithSegue:" id="dgt-Or-DcS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1408,7 +1406,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUU-YI-2se" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="5Wz-DA-yQG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1991.2" y="113.79310344827587"/>
         </scene>
@@ -1658,7 +1655,7 @@
         <image name="timer" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ppd-gm-Fyg"/>
+        <segue reference="Nye-bg-dEe"/>
         <segue reference="9x5-zz-Dnp"/>
     </inferredMetricsTieBreakers>
 </document>
