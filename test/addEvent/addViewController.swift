@@ -44,6 +44,7 @@ class addViewController : UIViewController{
     var deadline: String! = ""
     
     var event : EventModel?
+    var selectedDay: [Date] = []
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
     
     //variable for handling from DatePopViewController
@@ -104,9 +105,19 @@ class addViewController : UIViewController{
         if event != nil{
             loadData()
             btnAdd.isHidden = true
-        }else{
+        }else {
             btnEdit.isHidden = true
             btnDelete.isHidden = true
+        }
+        //print(selectedDay)
+        if selectedDay.isEmpty == false{
+            //時間？
+            let st = showTimeformatter.string(from: Date())
+            let et = showTimeformatter.string(from: Date()+3600)
+            let sd = showDayformatter.string(from: selectedDay[0])
+            let ed = showDayformatter.string(from: selectedDay[selectedDay.count-1])
+            s = showDateformatter.date(from: sd+" "+st)!
+            e = showDateformatter.date(from: ed+" "+et)!
         }
         
     }
@@ -209,12 +220,11 @@ class addViewController : UIViewController{
         
     }
     
-//    @IBAction func categorySegueBack(segue: UIStoryboardSegue){
-//        let VC = segue.source as? categoryTableViewController
-//        let i = VC?.tableView.indexPathForSelectedRow
-//        category = (VC?.showCategory[i!.row])!
-//        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        event = nil
+        selectedDay = []
+    }
     
         @IBAction func categorySegueBack(segue: UIStoryboardSegue){
             let VC = segue.source as? categoryViewController
@@ -282,13 +292,7 @@ class addViewController : UIViewController{
         endTime = showTimeformatter.string(for: e)!
         
         if name == nil{
-            
-            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default){_ in
-                controller.dismiss(animated: true, completion: nil)}
-            controller.addAction(okAction)
-            self.present(controller, animated: true,completion: .none)
-            print(self)
+            alertMessage()
         }else {
             //若是all day，startTime、endTime儲存為nil
             if allDay == true{
@@ -302,6 +306,7 @@ class addViewController : UIViewController{
             if task == true{
                 let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
                 let isAdded2 = DBManager.getInstance().addTask(modelInfo2)
+                
             }
             self.dismiss(animated: true, completion: nil)
         }
@@ -309,6 +314,10 @@ class addViewController : UIViewController{
     
     @IBAction func editEventButton(_ sender: UIButton){
         self.view.endEditing(true)
+        
+        if name == nil{
+            alertMessage()
+        }else{
         startDate = showDayformatter.string(for: s)
         startTime = showTimeformatter.string(for: s)!
         endDate = showDayformatter.string(for: e)
@@ -320,7 +329,7 @@ class addViewController : UIViewController{
         let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!)
         let isEdited = DBManager.getInstance().editEvent(modelInfo)
         self.dismiss(animated: true, completion: nil)
-        
+        }
     }
     
     @IBAction func deleteEventButton(_ sender: UIButton){
@@ -329,6 +338,16 @@ class addViewController : UIViewController{
         self.dismiss(animated: true, completion: nil)
     }
     
+    //alert message
+    func alertMessage(){
+        if name == nil{
+            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default){_ in
+                controller.dismiss(animated: true, completion: nil)}
+            controller.addAction(okAction)
+            self.present(controller, animated: true,completion: .none)
+        }
+    }
     
 }
 

@@ -1339,7 +1339,6 @@
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="zJv-Al-iWf"/>
-                                    <segue destination="5Wz-DA-yQG" kind="unwind" unwindAction="EventSegueBackWithSegue:" id="8Vn-6D-Xiz"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zj-Xy-h2I">
@@ -1637,7 +1636,7 @@
         <image name="timer" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rqd-Ri-36b"/>
-        <segue reference="LXQ-mP-1aP"/>
+        <segue reference="Ppd-gm-Fyg"/>
+        <segue reference="9x5-zz-Dnp"/>
     </inferredMetricsTieBreakers>
 </document>

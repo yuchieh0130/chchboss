@@ -19,6 +19,10 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var eventId :Int32?
     var event: EventModel?
+
+    var selectedDay:String = ""
+    var showEvent = [EventModel]()
+    
     
     /*func performSegue,prepare: use segue to trans to new page*/
     /*need to set segue identifier*/
@@ -27,13 +31,20 @@ class ViewController: UIViewController {
     
     /*use button tag to judge whic object to triggle the button*/
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
-        //        if let button = sender as? UIButton{
-        //            if button.tag == 0 {
-        //            }else{
-        //            }
-        //        }
-        if let editVC = segue.destination as? addViewController{
-            editVC.event = event
+        switch segue.identifier {
+        case "addEvent":
+            if let addVC = segue.destination as? addViewController{
+                if calendarView.selectedDates.isEmpty == false{
+                    addVC.selectedDay = calendarView.selectedDates
+                    print(calendarView.selectedDates)
+                }
+            }
+        case "editEvent":
+            if let editVC = segue.destination as? addViewController{
+                editVC.event = event
+            }
+        default:
+            print("")
         }
     }
     
@@ -66,10 +77,10 @@ class ViewController: UIViewController {
         title = "Calendar"
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
+    override func viewWillAppear(_ animated: Bool){
+           calendarView.reloadData()
+       }
+       
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -95,9 +106,6 @@ class ViewController: UIViewController {
             cell.dateLabel.textColor = UIColor.gray
         }
     }
-    
-    var selectedDay:String = ""
-    var showEvent = [EventModel]()
     
     /*selected cell setting*/
     func handleCellSelected(cell: DateCell, cellState: CellState){
@@ -211,6 +219,7 @@ extension ViewController: JTAppleCalendarViewDelegate {
         configureCell(view: cell, cellState: cellState)
     }
     
+     //To-Do: 長按可以一次選好幾天、可以反選、預設今天為第一天？
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState){
         configureCell(view: cell, cellState: cellState)
     }
