@@ -145,9 +145,9 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
                 print(self)
         }
         
-        let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
-        let isAdded = DBManager.getInstance().addTask(modelInfo)
-        self.dismiss(animated: true, completion: nil)
+//        let modelInfo = TaskModel(taskId: id, taskName: name!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+//        let isAdded = DBManager.getInstance().addTask(modelInfo)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     //還要寫edit 跟delete
