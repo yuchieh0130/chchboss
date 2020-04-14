@@ -21,6 +21,27 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selectedTask: String = ""
     var showTask: [TaskModel]?
     
+    var formatter1: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    
+    var formatter2: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    
+    var formatter3: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "addTask":
@@ -62,7 +83,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else{
         showTask = [TaskModel]()
         }
-        print("aaaa")
         tableView.reloadData()
      }
      
@@ -80,9 +100,9 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
+        let d = formatter1.date(from: showTask![indexPath.row].addTaskTime!)
         cell.taskName?.text = showTask![indexPath.row].taskName
-        cell.addTaskTime.text = showTask![indexPath.row].addTaskTime
-        
+        cell.addTaskTime.text = "\(formatter2.string(from: d!)) hr \(formatter3.string(from: d!)) min"
         return cell
         }
     

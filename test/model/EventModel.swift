@@ -19,5 +19,6 @@ struct EventModel{
     let autoRecord: Bool
     let task: Bool
     let reminder: Bool
+    let taskId: Int32?
 }
 

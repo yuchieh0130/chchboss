@@ -12,6 +12,8 @@ class taskTableViewCell: UITableViewCell {
     
     @IBOutlet var taskName: UILabel!
     @IBOutlet var addTaskTime: UILabel!
+    @IBOutlet var taskDeadline: UILabel!
+    @IBOutlet var recommemd: UIImageView!
     @IBOutlet var taskShowButton: UIButton!
     
 }

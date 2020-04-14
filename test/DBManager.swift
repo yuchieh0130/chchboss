@@ -66,13 +66,14 @@ class DBManager: NSObject {
             let g = set?.bool(forColumn: "isAutomated")
             let h = set?.bool(forColumn: "isTask")
             let j = set?.bool(forColumn: "hasReminder")
+            let k = set?.int(forColumn: "task_id")
             
             let event: EventModel
             
             if c == nil && e == nil{
-                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!)
+                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!,taskId: k!)
             }else{
-                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!)
+                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!,taskId: k!)
             }
             
             if events == nil{
