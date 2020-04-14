@@ -12,7 +12,6 @@
 		4B02C4BA243D64A70087DB4C /* addTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */; };
 		4B02C4BC243D6B440087DB4C /* addTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4BB243D6B440087DB4C /* addTaskCell.swift */; };
 		4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */; };
-		4B02C4C02442C8390087DB4C /* taskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B02C4BE2442C8390087DB4C /* taskTableViewCell.xib */; };
 		4B052675242C9CE50048DB8D /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052674242C9CE50048DB8D /* addCell.swift */; };
 		4B052677242C9CF40048DB8D /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052676242C9CF40048DB8D /* addViewController.swift */; };
 		4B1C31072415696600875B74 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C31062415696600875B74 /* DateHeader.swift */; };
@@ -23,7 +22,6 @@
 		4B351A4B24188BE9003A474A /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B351A4624188BE9003A474A /* FMResultSet.m */; };
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
-		4B4F014B243CC7A300A98C65 /* eventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F014A243CC7A300A98C65 /* eventTableViewCell.xib */; };
 		4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */; };
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
 		4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */; };
@@ -58,7 +56,6 @@
 		4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTaskViewController.swift; sourceTree = "<group>"; };
 		4B02C4BB243D6B440087DB4C /* addTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTaskCell.swift; sourceTree = "<group>"; };
 		4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskTableViewCell.swift; sourceTree = "<group>"; };
-		4B02C4BE2442C8390087DB4C /* taskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = taskTableViewCell.xib; sourceTree = "<group>"; };
 		4B052674242C9CE50048DB8D /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
 		4B052676242C9CF40048DB8D /* addViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
 		4B1C31062415696600875B74 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
@@ -75,7 +72,6 @@
 		4B351A4624188BE9003A474A /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
-		4B4F014A243CC7A300A98C65 /* eventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = eventTableViewCell.xib; sourceTree = "<group>"; };
 		4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = autoRecordViewController.swift; sourceTree = "<group>"; };
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
 		4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewCell.swift; sourceTree = "<group>"; };
@@ -153,7 +149,6 @@
 				4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */,
 				4B02C4BB243D6B440087DB4C /* addTaskCell.swift */,
 				4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */,
-				4B02C4BE2442C8390087DB4C /* taskTableViewCell.xib */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -191,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */,
-				4B4F014A243CC7A300A98C65 /* eventTableViewCell.xib */,
 				6B6BB1C1225FE06B006F384C /* DateCell.swift */,
 				4B1C31062415696600875B74 /* DateHeader.swift */,
 				6B6BB1B1225FAD04006F384C /* ViewController.swift */,
@@ -326,12 +320,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B02C4C02442C8390087DB4C /* taskTableViewCell.xib in Resources */,
 				6B6BB1BA225FAD05006F384C /* LaunchScreen.storyboard in Resources */,
 				4B9EBD582417AEC900162A77 /* project.db in Resources */,
 				6B6BB1B7225FAD05006F384C /* Assets.xcassets in Resources */,
 				6B6BB1B5225FAD04006F384C /* Main.storyboard in Resources */,
-				4B4F014B243CC7A300A98C65 /* eventTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

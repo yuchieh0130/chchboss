@@ -203,7 +203,7 @@ class DBManager: NSObject {
     
     func editTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.addTaskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId,modelInfo.taskName ,modelInfo.addTaskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
         shareInstance.database?.close()
         return isEdited!
     }
@@ -225,8 +225,11 @@ class DBManager: NSObject {
             
             let task: TaskModel
             
+            if tasks == nil{
+                tasks = [TaskModel]()
+            }
             task = TaskModel(taskId: i!, taskName: a!, addTaskTime: b, taskDeadline: c, taskReminder: d!, taskLocation: e)
-            
+
             tasks.append(task)
         }
         set?.close()

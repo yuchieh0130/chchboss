@@ -143,8 +143,6 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             let isAdded = DBManager.getInstance().addTask(modelInfo)
             self.dismiss(animated: true, completion: nil)
         }
-        
-        
     }
     
     //還要寫edit 跟delete

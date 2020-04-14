@@ -36,7 +36,6 @@ class ViewController: UIViewController {
             if let addVC = segue.destination as? addViewController{
                 if calendarView.selectedDates.isEmpty == false{
                     addVC.selectedDay = calendarView.selectedDates
-                    print(calendarView.selectedDates)
                 }
             }
         case "editEvent":
@@ -66,7 +65,7 @@ class ViewController: UIViewController {
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
         //註冊.xib檔
-        self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
+        //self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
         
         title = "Calendar"
     }
