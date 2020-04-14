@@ -26,13 +26,28 @@ class DBManager: NSObject {
         return shareInstance
     }
     
-    func addEvent(_ modelInfo: EventModel) -> Bool{
+    func addEvent(_ modelInfo: EventModel) -> Int32{
         shareInstance.database?.open()
         let isAdded = shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
         
-        shareInstance.database?.close()
-        return isAdded!
+        
+        var id: Int32!
+        let sqlString = "SELECT event_id FROM event order by event_id desc limit 1";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        while ((set?.next())!) {
+            id = set?.int(forColumn: "event_id")
+        }
+        set?.close()
+        print(id!)
+        return id!
     }
+    
+    //    func addEventTaskId(_ modelInfo1: EventModel, _ modelInfo2: TaskModel) ->Bool{
+    //        shareInstance.database?.open()
+    //        let a = shareInstance.database?.executeUpdate("REPLACE INTO event (task_id) VALUES (?)", withArgumentsIn:[modelInfo2.taskId])
+    //        shareInstance.database?.close()
+    //        return a!
+    //    }
     
     func deleteEvent(id: Int32) -> Bool{
         shareInstance.database?.open()
@@ -43,7 +58,7 @@ class DBManager: NSObject {
     
     func editEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder])
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,isTask,hasReminder,task_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.task,modelInfo.reminder,modelInfo.taskId])
         shareInstance.database?.close()
         return isEdited!
     }
@@ -71,9 +86,9 @@ class DBManager: NSObject {
             let event: EventModel
             
             if c == nil && e == nil{
-                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!,taskId: k!)
+                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!, taskId: k!)
             }else{
-                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!,taskId: k!)
+                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, task: h!, reminder: j!, taskId: k!)
             }
             
             if events == nil{
@@ -83,6 +98,16 @@ class DBManager: NSObject {
         }
         set?.close()
         return events
+    }
+    
+    func connectEventTask(a: Int32, b: Int32) -> Bool{
+        shareInstance.database?.open()
+            
+        let sqlString = "SELECT event_id FROM event where event_id = \(a) ";
+        let isEdited = try?shareInstance.database?.executeUpdate("INSERT INTO event (task_id) VALUES (?)", withArgumentsIn:[b])
+        
+        shareInstance.database?.close()
+        return isEdited!
     }
     
     func getCategory() -> [CategoryModel]!{
@@ -168,31 +193,38 @@ class DBManager: NSObject {
     }
     
     func getPlace() -> PlaceModel!{
-           
-           var place : PlaceModel!
-           shareInstance.database?.open()
-           let sqlString = "SELECT * FROM savedPlace ";
-           let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
-           
-           while ((set?.next())!) {
-               let i = set?.int(forColumn: "place_id")
-               let a = set?.string(forColumn: "place_name")
-               let b = set?.string(forColumn: "place_category")
-               let c = set?.double(forColumn: "place_longtitude")
-               let d = set?.double(forColumn: "place_lantitude")
-               
-               place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongtitude: c!, placeLantitude: d!)
-           }
-           set?.close()
-           return place
+        
+        var place : PlaceModel!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM savedPlace ";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "place_id")
+            let a = set?.string(forColumn: "place_name")
+            let b = set?.string(forColumn: "place_category")
+            let c = set?.double(forColumn: "place_longtitude")
+            let d = set?.double(forColumn: "place_lantitude")
+            
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongtitude: c!, placeLantitude: d!)
+        }
+        set?.close()
+        return place
     }
     
-    func addTask(_ modelInfo: TaskModel) -> Bool{
+    func addTask(_ modelInfo: TaskModel) -> Int32!{
         shareInstance.database?.open()
         let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.addTaskTime,modelInfo.taskDeadline,modelInfo.taskReminder,modelInfo.taskLocation])
         
-        shareInstance.database?.close()
-        return isAdded!
+        var id: Int32!
+        let sqlString = "SELECT task_id FROM task order by task_id desc limit 1";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        while ((set?.next())!) {
+            id = set?.int(forColumn: "task_id")
+        }
+        set?.close()
+        print(id!)
+        return id!
     }
     
     func deleteTask(id: Int32) -> Bool{
@@ -230,7 +262,7 @@ class DBManager: NSObject {
                 tasks = [TaskModel]()
             }
             task = TaskModel(taskId: i!, taskName: a!, addTaskTime: b, taskDeadline: c, taskReminder: d!, taskLocation: e)
-
+            
             tasks.append(task)
         }
         set?.close()

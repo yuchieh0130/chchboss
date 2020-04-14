@@ -303,13 +303,14 @@ class addViewController : UIViewController{
                 endTime = nil
             }
             //insert to database
-            let modelInfo1 = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!,taskId: id)
-            let isAdded1 = DBManager.getInstance().addEvent(modelInfo1)
+
+            let modelInfo1 = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
+            let eventId = DBManager.getInstance().addEvent(modelInfo1)
             
             if task == true{
                 let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
-                let isAdded2 = DBManager.getInstance().addTask(modelInfo2)
-                
+                let taskId = DBManager.getInstance().addTask(modelInfo2)
+                let connected = DBManager.getInstance().connectEventTask(a: eventId, b: taskId!)
             }
             self.dismiss(animated: true, completion: nil)
         }
@@ -329,14 +330,16 @@ class addViewController : UIViewController{
             startTime = nil
             endTime = nil
         }
-        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!,taskId: id)
+
+        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
         let isEdited = DBManager.getInstance().editEvent(modelInfo)
         self.dismiss(animated: true, completion: nil)
         }
     }
     
     @IBAction func deleteEventButton(_ sender: UIButton){
-        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!,taskId: id)
+
+        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
         let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
         self.dismiss(animated: true, completion: nil)
     }
