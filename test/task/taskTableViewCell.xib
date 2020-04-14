@@ -40,9 +40,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addTaskTime" destination="FYB-Mm-raI" id="mCe-Bk-nNs"/>
                 <outlet property="taskName" destination="i5Y-EV-44M" id="9MI-nr-NUo"/>
                 <outlet property="taskShowButton" destination="1mt-An-D6D" id="CR7-fo-G5W"/>
-                <outlet property="taskTime" destination="FYB-Mm-raI" id="2vT-iz-cEX"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="101.78571428571428"/>
         </tableViewCell>

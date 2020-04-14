@@ -1596,8 +1596,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="zxG-pM-74g" kind="show" identifier="editTask" id="tTA-lh-HpJ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="MCe-u7-tnl" id="K3W-KW-HzM"/>
+                                    <outlet property="delegate" destination="MCe-u7-tnl" id="evy-6i-T8K"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89g-sw-5at">
                                 <rect key="frame" x="319" y="62" width="36" height="36"/>
@@ -1660,5 +1667,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Nye-bg-dEe"/>
         <segue reference="9x5-zz-Dnp"/>
+        <segue reference="tTA-lh-HpJ"/>
     </inferredMetricsTieBreakers>
 </document>
