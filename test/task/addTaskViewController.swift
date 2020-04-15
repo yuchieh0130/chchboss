@@ -161,9 +161,14 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     
     @IBAction func deleteTaskButton(_ sender: UIButton) {
+        delete()
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func delete(){
         let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
         let isDeleted = DBManager.getInstance().deleteTask(id: modelInfo.taskId!)
-        self.dismiss(animated: true, completion: nil)
     }
     
     func alertMessage(){
