@@ -20,7 +20,11 @@ class taskNameCell: UITableViewCell{
 class addTaskTimeCell: UITableViewCell{
     @IBOutlet var txtAddTaskTime: UILabel!
 }
+
 class deadlineCell: UITableViewCell{
+}
+
+class deadlineTimeCell: UITableViewCell{
     @IBOutlet var txtDeadline: UILabel!
 }
 class reminderCell: UITableViewCell{

@@ -252,7 +252,7 @@ class DBManager: NSObject {
             let i = set?.int(forColumn: "task_id")
             let a = set?.string(forColumn: "task_name")!
             let b = set?.string(forColumn: "task_time")
-            let c = set?.string(forColumn: "task_deadline")!
+            let c = set?.string(forColumn: "task_deadline")
             let d = set?.bool(forColumn: "hasReminder")
             let e = set?.string(forColumn: "task_location")
             

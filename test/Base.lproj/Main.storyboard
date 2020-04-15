@@ -679,10 +679,27 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NtK-PG-PxJ">
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="E9f-fa-pLt" firstAttribute="leading" secondItem="Qdi-6K-ith" secondAttribute="leadingMargin" constant="10" id="Oqr-AN-jhj"/>
+                                                <constraint firstItem="E9f-fa-pLt" firstAttribute="centerY" secondItem="Qdi-6K-ith" secondAttribute="centerY" id="yQi-7B-zaI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="nNZ-yj-YqY" kind="show" identifier="deadline" id="rqd-Ri-36b"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="deadlineTimeCell" id="mvx-c2-RAi" customClass="deadlineTimeCell" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="223" width="375" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mvx-c2-RAi" id="g7g-0P-r1A">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-P3-Hfa">
                                                     <rect key="frame" x="160" y="22" width="200" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="200" id="3gS-Ez-nSA"/>
+                                                        <constraint firstAttribute="width" constant="200" id="qz2-BC-b8B"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
@@ -690,19 +707,16 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="E9f-fa-pLt" firstAttribute="leading" secondItem="Qdi-6K-ith" secondAttribute="leadingMargin" constant="10" id="Oqr-AN-jhj"/>
-                                                <constraint firstItem="NtK-PG-PxJ" firstAttribute="centerY" secondItem="Qdi-6K-ith" secondAttribute="centerY" id="dTr-ar-Aka"/>
-                                                <constraint firstItem="NtK-PG-PxJ" firstAttribute="trailing" secondItem="Qdi-6K-ith" secondAttribute="trailing" constant="-15" id="vZs-tm-q0m"/>
-                                                <constraint firstItem="E9f-fa-pLt" firstAttribute="centerY" secondItem="Qdi-6K-ith" secondAttribute="centerY" id="yQi-7B-zaI"/>
+                                                <constraint firstItem="mDq-P3-Hfa" firstAttribute="centerY" secondItem="g7g-0P-r1A" secondAttribute="centerY" id="NCx-tQ-P7Y"/>
+                                                <constraint firstItem="mDq-P3-Hfa" firstAttribute="trailing" secondItem="g7g-0P-r1A" secondAttribute="trailing" constant="-15" id="aEs-to-tnl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="txtDeadline" destination="NtK-PG-PxJ" id="OH2-F4-7aP"/>
-                                            <segue destination="nNZ-yj-YqY" kind="show" identifier="deadline" id="rqd-Ri-36b"/>
+                                            <outlet property="txtDeadline" destination="mDq-P3-Hfa" id="pXW-F0-JfU"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskLocationCell" id="MTO-bh-P3a" customClass="taskLocationCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="223" width="375" height="65"/>
+                                        <rect key="frame" x="0.0" y="288" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MTO-bh-P3a" id="c4U-MV-jNR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
@@ -736,7 +750,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" id="1xb-bN-Rhe" customClass="reminderCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="288" width="375" height="65"/>
+                                        <rect key="frame" x="0.0" y="353" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1xb-bN-Rhe" id="NnN-zG-oui">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>

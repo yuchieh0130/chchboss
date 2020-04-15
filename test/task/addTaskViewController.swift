@@ -12,6 +12,7 @@ import UIKit
 
 class addTaskViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
+    var tableViewData = [cellConfig]()
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAddTask: UIButton!
@@ -19,6 +20,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet var btnDeleteTask: UIButton!
     
     let switchreminder = UISwitch()
+    let switchdeadline = UISwitch()
     
     //db variables
     var taskName: String?
@@ -29,6 +31,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var task : TaskModel?
     
+    var d: Bool = false //check deadline true of false
     var tag: String?
     var date = Date()
     var showDate: String = ""
@@ -56,13 +59,16 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     var showWeekdayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd EEE"
+        formatter.dateFormat = "MM-dd EEE"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableViewData = [cellConfig(opened: false, title: "daealine")]
+        switchdeadline.addTarget(self, action: #selector(self.deadlineOpen(_ :)), for: .valueChanged)
         
         addTaskTime = "01:00"
         deadline = "\(showWeekdayformatter.string(from: date)) \(showTimeformatter.string(from: date + 3600)) "
@@ -82,7 +88,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         id = (task?.taskId)!
         taskName = task?.taskName
         addTaskTime = task?.addTaskTime
-        deadline = task?.taskDeadline
+        if deadline != nil{ deadline = task?.taskDeadline }
         reminder = task?.taskReminder
     }
     
@@ -135,7 +141,11 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func addTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
-        deadline = showDayformatter.string(for: e)
+        if d == true{
+        deadline = showDateformatter.string(for: e)
+        }else{
+        deadline = nil
+        }
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
@@ -195,7 +205,11 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return 1
+        if tableViewData[0].opened == true && section == 2{
+            return 2
+        }else{
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -213,7 +227,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         case [2,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "deadlineCell", for: indexPath) as! deadlineCell
-            cell.txtDeadline.text = deadline
+            cell.accessoryView = switchdeadline
+            switchdeadline.setOn(d, animated: .init())
+            return cell
+        case [2,1]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "deadlineTimeCell", for: indexPath) as! deadlineTimeCell
+             cell.txtDeadline.text = deadline
             return cell
         case [3,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskLocationCell", for: indexPath) as! taskLocationCell
@@ -229,6 +248,20 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
                 return cell
+        }
+    }
+    
+    @objc func deadlineOpen(_ sender: UISwitch){
+        var indexA = [IndexPath]()
+        indexA.append([2,1])
+        if sender.isOn == true{
+            d = true
+            tableViewData[0].opened = true
+            tableView.insertRows(at: indexA, with: .fade)
+        }else{
+            d = false
+            tableViewData[0].opened = false
+            tableView.deleteRows(at: indexA, with: .fade)
         }
     }
     
