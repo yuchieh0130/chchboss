@@ -907,7 +907,7 @@
             <objects>
                 <tableViewController id="BE7-d3-ijd" customClass="categoryTableViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UCX-ut-8Ky">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
@@ -943,7 +943,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g38-fD-hZZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="7Km-kX-v9k" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2882.4000000000001" y="113.79310344827587"/>
+            <point key="canvasLocation" x="3687" y="85"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="59x-bQ-Z0v">
@@ -1423,7 +1423,6 @@
                         <outlet property="btnEdit" destination="0Zj-Xy-h2I" id="jSi-mT-VPe"/>
                         <outlet property="tableView" destination="mFJ-4m-FXl" id="X2l-y1-yUS"/>
                         <segue destination="QZ3-Qn-K2X" kind="show" identifier="Map" id="L2r-0Q-vWp"/>
-                        <segue destination="BE7-d3-ijd" kind="show" identifier="Category" id="bYl-n4-cbK"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editStartDate" id="Nye-bg-dEe"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editEndDate" id="2v3-r9-Jbk"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editTaskTime" id="Oha-jz-VQu"/>
@@ -1598,7 +1597,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw5-Da-Wcw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="6Jn-Cc-GCu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3855.1999999999998" y="983.49753694581284"/>
+            <point key="canvasLocation" x="2783" y="114"/>
         </scene>
         <!--Task View Controller-->
         <scene sceneID="QCE-co-9iR">
