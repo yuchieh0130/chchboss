@@ -117,8 +117,8 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if DBManager.getInstance().getTask() != nil{
-        showTask = DBManager.getInstance().getTask()
+        if DBManager.getInstance().getAllTask() != nil{
+        showTask = DBManager.getInstance().getAllTask()
         }else{
         showTask = [TaskModel]()
         }

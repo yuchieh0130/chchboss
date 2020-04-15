@@ -42,13 +42,6 @@ class DBManager: NSObject {
         return id!
     }
     
-    //    func addEventTaskId(_ modelInfo1: EventModel, _ modelInfo2: TaskModel) ->Bool{
-    //        shareInstance.database?.open()
-    //        let a = shareInstance.database?.executeUpdate("REPLACE INTO event (task_id) VALUES (?)", withArgumentsIn:[modelInfo2.taskId])
-    //        shareInstance.database?.close()
-    //        return a!
-    //    }
-    
     func deleteEvent(id: Int32) -> Bool{
         shareInstance.database?.open()
         let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM event WHERE event_id = \(id)", withArgumentsIn:[id])
@@ -102,7 +95,7 @@ class DBManager: NSObject {
     
     func connectEventTask(a: Int32, b: Int32) -> Bool{
         shareInstance.database?.open()
-            
+        
         let sqlString = "SELECT event_id FROM event where event_id = \(a) ";
         let isEdited = try?shareInstance.database?.executeUpdate("INSERT INTO event (task_id) VALUES (?)", withArgumentsIn:[b])
         
@@ -241,7 +234,28 @@ class DBManager: NSObject {
         return isEdited!
     }
     
-    func getTask() -> [TaskModel]!{
+    func getTask(id: Int32) -> TaskModel!{
+        
+        var task: TaskModel!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM task where task_id = \(id)";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "task_id")
+            let a = set?.string(forColumn: "task_name")!
+            let b = set?.string(forColumn: "task_time")
+            let c = set?.string(forColumn: "task_deadline")
+            let d = set?.bool(forColumn: "hasReminder")
+            let e = set?.string(forColumn: "task_location")
+            
+            task = TaskModel(taskId: i!, taskName: a!, addTaskTime: b!, taskDeadline: c!, taskReminder: d!, taskLocation: e!)
+        }
+        set?.close()
+        return task
+    }
+    
+    func getAllTask() -> [TaskModel]!{
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
