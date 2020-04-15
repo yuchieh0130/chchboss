@@ -10,6 +10,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
+import GooglePlaces
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
@@ -22,7 +24,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
-    var searchResult = [String]()
+    var placesClient: GMSPlacesClient!
+    var filterList = [String]()
     var searching = false
     
     //DB variables
@@ -34,12 +37,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var nearestName: String = ""
     var nearestCategory: String = ""
     
+    // An array to hold the list of likely places.
+    var likelyPlaces: [GMSPlace] = []
+    // The currently selected place.
+    var selectedPlace: GMSPlace?
+    
+    
     var location : LocationModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        myLocationManager.distanceFilter = 50
+        placesClient = GMSPlacesClient.shared()
+        
         myLocationManager = CLLocationManager()
+//        myLocationManager.startMonitoringVisits()
         myLocationManager.delegate = self
         
         // 取得自身定位位置的精確度
@@ -53,7 +66,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         myMapView.mapType = .standard
         myMapView.isZoomEnabled = true
         setMap(latitude: 25.035915, longitude: 121.563619)
-        
+        self.tblView.reloadData()
     }
     
     func startLocationManager(){
@@ -64,12 +77,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         myLocationManager.startUpdatingLocation()
     }
     
-    var searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
-    var searchResults = [MKMapItem]()
-    var searchAllResults = [MKMapItem]()
-    var location_arr = [String]()
-    var sortedArr = [String]()
-    var locationDic = [Double: String]()
+    // Populate the array with the list of likely places.
+    func listLikelyPlaces() {
+      // Clean up from previous sessions.
+      likelyPlaces.removeAll()
+
+      placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
+        if let error = error {
+          // TODO: Handle the error.
+          print("Current Place error: \(error.localizedDescription)")
+          return
+        }
+
+        // Get likely places and add to the list.
+        if let likelihoodList = placeLikelihoods {
+          for likelihood in likelihoodList.likelihoods {
+            let place = likelihood.place
+            self.likelyPlaces.append(place)
+            self.tblView.reloadData()
+          }
+        }
+      })
+    }
+
+    
+
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
@@ -89,66 +121,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         // 確保didUpdateLocations只呼叫一次
         manager.delegate = nil
+        listLikelyPlaces()
         
-        searchLocation(latitude: 25.035915, longitude: 121.563619)
-        myLocationManager.stopUpdatingLocation()
+
         
         //DB
         latitude = currentLocation.latitude
         longitude = currentLocation.longitude
         startTime = dateFormatString
-        
+
         let modelInfo = LocationModel(locationId: locationId, longitude: longitude!, latitude: latitude!, startTime: startTime!, endTime: endTime, nearestName: nearestName, nearestCategory: nearestCategory)
-        
+
         let isSaved = DBManager.getInstance().saveLocation(modelInfo)
-        print(isSaved)
+        print("save in DB :", isSaved)
     }
     
     
-    func searchLocation(latitude: Double, longitude:Double ){
-        
-        let request = MKLocalSearch.Request()
-        
-        request.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), latitudinalMeters: 10000, longitudinalMeters: 10000)
-        
-        for searchQuery in searchQuerys {
-            
-            // 搜尋附近地點類型的關鍵字(ex. store,hotel,coffee...)，place為所有類型
-            request.naturalLanguageQuery = searchQuery
-            
-            let search = MKLocalSearch(request: request)
-            
-            // 搜尋附近地點的結果
-            search.start { (response, error) in
-                guard let searchResponse = response else {
-                    return
-                }
-                
-                // 所有關鍵字得到的資料放入searchAllResults
-                self.searchAllResults.append(contentsOf: searchResponse.mapItems)
-                
-                // 再把searchAllResults存入searchResults
-                self.searchResults = self.searchAllResults
-                
-                var i = 0
-                while self.searchResults.count > i{
-                    let locationName: String? = self.searchResults[i].name
-                    self.location_arr.append(locationName!)
-                    let distance = CLLocation(latitude: (self.searchResults[i].placemark.coordinate.latitude), longitude: (self.searchResults[i].placemark.coordinate.longitude)).distance(from: CLLocation(latitude: (25.035915), longitude: (121.563619)))
-                    if distance <= 1000{
-                        self.locationDic[distance] = locationName
-                    }
-                    i += 1
-                }
-                self.searchAllResults.removeAll()
-                self.searchResults.removeAll()
-                self.tblView.reloadData()
-            }
-        }
-        print(self.location_arr)
-        self.location_arr.removeAll()
-    }
-    
+
     
     func setMap(latitude: Double, longitude:Double){
         let pin = MKPointAnnotation()
@@ -179,34 +168,33 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
 }
-
+var collectionArr = [String]()
 
 extension MapViewController: UITableViewDataSource, UITableViewDelegate{
     
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        //sort by distance
-        var sortedLocation = locationDic.sorted { firstDictionary, secondDictionary in
-            return firstDictionary.0 < secondDictionary.0 // 由小到大排序
-        }
-        sortedArr.removeAll()
-        for each in sortedLocation{
-            sortedArr.append(each.value+"  "+String(Int(each.key))+"m")
-        }
-        sortedLocation.removeAll()
+        filterList  = collectionArr.filter { $0.contains(searchBar.text!) }
         if searching{
-            return searchResult.count
+            return filterList.count
         }else{
-            return sortedArr.count
+            return likelyPlaces.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        let collectionItem = likelyPlaces[indexPath.row]
+        collectionArr.append(collectionItem.name!)
+        print("search??",searching)
         if searching{
-            cell?.textLabel?.text = String(searchResult[indexPath.row])
+            cell?.textLabel?.text = String(filterList[indexPath.row])
         }else{
-            cell?.textLabel?.text = String(sortedArr[indexPath.row])
+            cell?.textLabel?.text = collectionItem.name
         }
+        
         return cell!
     }
     
@@ -218,33 +206,21 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
 
 extension MapViewController: UISearchBarDelegate, UITextFieldDelegate{
     
+    
     func searchBar(_ searchBar : UISearchBar, textDidChange searchText: String){
         searching = true
-        locationDic.removeAll()
-        
-        if searching == true{
-            searchQuerys.removeAll()
-            searchQuerys.append(searchText)
-            searchLocation(latitude: 25.035915, longitude: 121.563619)
-            print(searchQuerys)
+        if searchBar.text == ""{
             searching = false
-        }else{
-            searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
-            searchLocation(latitude: 25.035915, longitude: 121.563619)
-            tblView.reloadData()
         }
-        
-        if searchText == "" {
-            
-            searchQuerys = ["store", "shop", "coffee", "restaurant", "hospital", "bank" ,"library","museum","park", "hotel", "school", "police"]
-            searchLocation(latitude: 25.035915, longitude: 121.563619)
-            tblView.reloadData()
-        }
+        print(searching)
+        self.tblView.reloadData()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()

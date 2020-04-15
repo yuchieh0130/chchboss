@@ -1,6 +1,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -12,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Util.copyDatabase("project.db")
         locationManager.requestWhenInUseAuthorization()
+        let googleApiKey = "AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
+        GMSPlacesClient.provideAPIKey(googleApiKey)
+        GMSServices.provideAPIKey(googleApiKey)
         return true
     }
     
