@@ -89,7 +89,9 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("Do It Now")
         completionHandler(true)
         }
-        return UISwipeActionsConfiguration(actions: [doItNowAction])
+        let configuration = UISwipeActionsConfiguration(actions: [doItNowAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
     }
     
     //往左滑
@@ -107,7 +109,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         deleteAction.backgroundColor = UIColor.red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction])
-              configuration.performsFirstActionWithFullSwipe = false
+        configuration.performsFirstActionWithFullSwipe = false
         return configuration
     }
     
