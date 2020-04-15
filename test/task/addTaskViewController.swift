@@ -171,8 +171,15 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     
     @IBAction func deleteTaskButton(_ sender: UIButton) {
-        delete()
-        self.dismiss(animated: true, completion: nil)
+        let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the event", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            controller.dismiss(animated: true, completion: nil); self.dismiss(animated: true, completion: nil); self.delete()}
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){_ in controller.dismiss(animated: true, completion: nil)}
+        controller.addAction(okAction)
+        controller.addAction(cancelAction)
+        
+        self.present(controller, animated: true,completion: .none)
+        
         
     }
     
@@ -275,7 +282,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         switch indexPath{
         case[1,0]:
             performSegue(withIdentifier: "addTaskTime", sender: self)
-        case[2,0]:
+        case[2,1]:
             performSegue(withIdentifier: "deadline", sender: self)
         default:
             print("")

@@ -11,11 +11,17 @@ import UIKit
 
 class taskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
+    //db variables
+    var taskName: String?
+    var deadline: String! = ""
+    var addTaskTime: String?
+    var reminder: Bool! = false
+    var id: Int32 = 0
     
     @IBOutlet var addTaskButton: UIButton!
     
     @IBOutlet var tableView: UITableView!
-    var taskId :Int32?
+    //var taskId :Int32?
     var task: TaskModel?
     
     var selectedTask: String = ""
@@ -97,11 +103,14 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     //往左滑
     @available(iOS 11.0, *)
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let id =  showTask?[indexPath.row].taskId
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
             self.showTask!.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            let isDeleted = DBManager.getInstance().deleteTask(id: id!)
+            self.dismiss(animated: true, completion: nil)
         }
         let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
         print("Done")
@@ -112,7 +121,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
     }
-    
     
     
     override func viewWillAppear(_ animated: Bool) {
