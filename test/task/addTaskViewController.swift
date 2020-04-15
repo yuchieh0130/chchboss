@@ -21,6 +21,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     let switchreminder = UISwitch()
     let switchdeadline = UISwitch()
+    let switchcalendar = UISwitch()
     
     //db variables
     var taskName: String?
@@ -32,6 +33,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     var task : TaskModel?
     
     var d: Bool = false //check deadline true of false
+    var addToCal : Bool = false
     var tag: String?
     var date = Date()
     var showDate: String = ""
@@ -74,6 +76,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         deadline = "\(showWeekdayformatter.string(from: date)) \(showTimeformatter.string(from: date + 3600)) "
         
         switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
+        switchcalendar.addTarget(self, action: #selector(self.calendarOpen(_ :)), for: .valueChanged)
         
         if task != nil{
                    loadData()
@@ -211,7 +214,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableViewData[0].opened == true && section == 2{
-            return 2
+            return 3
         }else{
             return 1
         }
@@ -239,17 +242,23 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "deadlineTimeCell", for: indexPath) as! deadlineTimeCell
              cell.txtDeadline.text = deadline
             return cell
+        case [2,2]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
+            cell.accessoryView = switchreminder
+            switchreminder.setOn(reminder, animated: .init())
+            cell.selectionStyle = .none
+            return cell
         case [3,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskLocationCell", for: indexPath) as! taskLocationCell
             cell.txtTaskLocation.text = taskLocation
             cell.selectionStyle = .none
             return cell
         case [4,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
-                cell.accessoryView = switchreminder
-                switchreminder.setOn(reminder, animated: .init())
-                cell.selectionStyle = .none
-                return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addToCalendarCell", for: indexPath)
+            cell.accessoryView = switchcalendar
+            switchcalendar.setOn(addToCal, animated: .init())
+            cell.selectionStyle = .none
+            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
                 return cell
@@ -259,6 +268,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     @objc func deadlineOpen(_ sender: UISwitch){
         var indexA = [IndexPath]()
         indexA.append([2,1])
+        indexA.append([2,2])
         if sender.isOn == true{
             d = true
             tableViewData[0].opened = true
@@ -267,6 +277,23 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             d = false
             tableViewData[0].opened = false
             tableView.deleteRows(at: indexA, with: .fade)
+        }
+    }
+    
+    @objc func calendarOpen(_ sender: UISwitch){
+        var indexA = [IndexPath]()
+        indexA.append([2,1])
+        indexA.append([2,2])
+        if sender.isOn == true{
+            addToCal = true
+            if d == false{
+                d = true
+                switchdeadline.isOn = true
+                tableViewData[0].opened = true
+                tableView.insertRows(at: indexA, with: .fade)
+            }
+        }else{
+            addToCal = false
         }
     }
     

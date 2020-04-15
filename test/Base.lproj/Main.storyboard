@@ -647,8 +647,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKT-kz-f3o">
-                                                    <rect key="frame" x="25.000000000000007" y="20.666666666666671" width="87.666666666666686" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKT-kz-f3o">
+                                                    <rect key="frame" x="25" y="20.666666666666671" width="74.333333333333329" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -715,8 +715,28 @@
                                             <outlet property="txtDeadline" destination="mDq-P3-Hfa" id="pXW-F0-JfU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskLocationCell" id="MTO-bh-P3a" customClass="taskLocationCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" id="1xb-bN-Rhe" customClass="reminderCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="288" width="375" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1xb-bN-Rhe" id="NnN-zG-oui">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kT8-wq-0wA">
+                                                    <rect key="frame" x="24.999999999999993" y="20.666666666666671" width="83.333333333333314" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kT8-wq-0wA" firstAttribute="centerY" secondItem="NnN-zG-oui" secondAttribute="centerY" id="4LF-Kr-mUE"/>
+                                                <constraint firstItem="kT8-wq-0wA" firstAttribute="leading" secondItem="NnN-zG-oui" secondAttribute="leadingMargin" constant="10" id="gsr-07-xZg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskLocationCell" id="MTO-bh-P3a" customClass="taskLocationCell" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="353" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MTO-bh-P3a" id="c4U-MV-jNR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
@@ -749,23 +769,23 @@
                                             <outlet property="txtTaskLocation" destination="nmz-qQ-lto" id="ZcW-Iq-BA8"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" id="1xb-bN-Rhe" customClass="reminderCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="353" width="375" height="65"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addToCalendarCell" id="k13-ai-Hou" customClass="addToCalendarCell" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="418" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1xb-bN-Rhe" id="NnN-zG-oui">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k13-ai-Hou" id="kgF-5D-N7q">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kT8-wq-0wA">
-                                                    <rect key="frame" x="24.999999999999993" y="20.666666666666671" width="83.333333333333314" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add to calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ioY-Oq-6Ax">
+                                                    <rect key="frame" x="25" y="20.666666666666671" width="135" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="kT8-wq-0wA" firstAttribute="centerY" secondItem="NnN-zG-oui" secondAttribute="centerY" id="4LF-Kr-mUE"/>
-                                                <constraint firstItem="kT8-wq-0wA" firstAttribute="leading" secondItem="NnN-zG-oui" secondAttribute="leadingMargin" constant="10" id="gsr-07-xZg"/>
+                                                <constraint firstItem="ioY-Oq-6Ax" firstAttribute="centerY" secondItem="kgF-5D-N7q" secondAttribute="centerY" id="OXF-wb-XyL"/>
+                                                <constraint firstItem="ioY-Oq-6Ax" firstAttribute="leading" secondItem="kgF-5D-N7q" secondAttribute="leadingMargin" constant="10" id="PdW-EP-7P0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1726,7 +1746,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Hsf-MU-m1g"/>
-        <segue reference="Q9x-NS-Pff"/>
+        <segue reference="LXQ-mP-1aP"/>
         <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>
     <resources>

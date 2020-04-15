@@ -512,7 +512,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             tableViewData[5].opened = true
             changeRow(i: "task", j: "insert")
             taskTime = "01:00"
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
+            //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
             if autoRecord == true {
                 tableViewData[4].opened = false
                 changeRow(i: "autoRecord", j: "delete")
