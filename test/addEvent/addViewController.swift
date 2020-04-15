@@ -338,10 +338,15 @@ class addViewController : UIViewController{
     }
     
     @IBAction func deleteEventButton(_ sender: UIButton){
+        let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the event", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            controller.dismiss(animated: true, completion: nil); self.dismiss(animated: true, completion: nil); self.delete()}
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){_ in controller.dismiss(animated: true, completion: nil)}
+        controller.addAction(okAction)
+        controller.addAction(cancelAction)
+        
+        self.present(controller, animated: true,completion: .none)
 
-        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
-        let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
-        self.dismiss(animated: true, completion: nil)
     }
     
     //alert message
@@ -353,6 +358,11 @@ class addViewController : UIViewController{
             controller.addAction(okAction)
             self.present(controller, animated: true,completion: .none)
         }
+    }
+    
+    func delete(){
+        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
+        let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
     }
     
 }
