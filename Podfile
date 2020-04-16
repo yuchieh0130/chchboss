@@ -6,5 +6,7 @@ target 'test' do
   # use_frameworks!
 
   # Pods for test
-  # pod 'JTAppleCalendar', '~> 7.1'
+  pod 'JTAppleCalendar', '~> 7.1'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 end

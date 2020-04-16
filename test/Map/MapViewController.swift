@@ -27,6 +27,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
     var searching = false
+    var collectionArr = [String]()
     
     //DB variables
     var locationId: Int32 = 0
@@ -168,7 +169,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
 }
-var collectionArr = [String]()
+
 
 extension MapViewController: UITableViewDataSource, UITableViewDelegate{
     
@@ -188,7 +189,6 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         let collectionItem = likelyPlaces[indexPath.row]
         collectionArr.append(collectionItem.name!)
-        print("search??",searching)
         if searching{
             cell?.textLabel?.text = String(filterList[indexPath.row])
         }else{
@@ -212,7 +212,6 @@ extension MapViewController: UISearchBarDelegate, UITextFieldDelegate{
         if searchBar.text == ""{
             searching = false
         }
-        print(searching)
         self.tblView.reloadData()
     }
     

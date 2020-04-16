@@ -1,16 +1,29 @@
 PODS:
+  - GoogleMaps (3.8.0):
+    - GoogleMaps/Maps (= 3.8.0)
+  - GoogleMaps/Base (3.8.0)
+  - GoogleMaps/Maps (3.8.0):
+    - GoogleMaps/Base
+  - GooglePlaces (3.8.0):
+    - GoogleMaps/Base (= 3.8.0)
   - JTAppleCalendar (7.1.8)
 
 DEPENDENCIES:
+  - GoogleMaps
+  - GooglePlaces
   - JTAppleCalendar (~> 7.1)
 
 SPEC REPOS:
   trunk:
+    - GoogleMaps
+    - GooglePlaces
     - JTAppleCalendar
 
 SPEC CHECKSUMS:
+  GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
+  GooglePlaces: d5f70c3e9e427964fdeca1301a665d276ccd8754
   JTAppleCalendar: b7fb40852f5f319fe55c8ec3861f1de0edc99cc8
 
-PODFILE CHECKSUM: ca73b61f7762b41ac98b186bb51872b28d0ea4c1
+PODFILE CHECKSUM: bf2dd2a9620067359ac1e590c6b480b1820f8a14
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.8.4
