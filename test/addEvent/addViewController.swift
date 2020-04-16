@@ -308,7 +308,7 @@ class addViewController : UIViewController{
             let eventId = DBManager.getInstance().addEvent(modelInfo1)
             
             if task == true{
-                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
                 let taskId = DBManager.getInstance().addTask(modelInfo2)
                 let connected = DBManager.getInstance().connectEventTask(a: eventId, b: taskId!)
             }
@@ -377,8 +377,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableViewData[section].opened == true && section == 4 {
             return 5
-        }else if tableViewData[section].opened == true && section == 5 {
-            return 2
         }else {
             return 1
         }
@@ -458,11 +456,11 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             switchtask.setOn(task, animated: .init())
             cell.selectionStyle = .none
             return cell
-        case [5,1]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "taskTimeCell", for: indexPath) as! taskTimeCell
-            cell.txtTaskTime.text = taskTime
-            cell.selectionStyle = .none
-            return cell
+//        case [5,1]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "taskTimeCell", for: indexPath) as! taskTimeCell
+//            cell.txtTaskTime.text = taskTime
+//            cell.selectionStyle = .none
+//            return cell
         case [6,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
             cell.accessoryView = switchreminder
@@ -514,14 +512,14 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         
         if sender.isOn == false{
             task = false
-            tableViewData[5].opened = false
-            changeRow(i: "task", j: "delete")
-            taskTime = nil
+            //tableViewData[5].opened = false
+            //changeRow(i: "task", j: "delete")
+            //taskTime = nil
         }else{
             task = true
-            tableViewData[5].opened = true
-            changeRow(i: "task", j: "insert")
-            taskTime = "01:00"
+            //tableViewData[5].opened = true
+            //changeRow(i: "task", j: "insert")
+            //taskTime = "01:00"
             //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
             if autoRecord == true {
                 tableViewData[4].opened = false

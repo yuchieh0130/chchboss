@@ -38,7 +38,6 @@ class DBManager: NSObject {
             id = set?.int(forColumn: "event_id")
         }
         set?.close()
-        print(id!)
         return id!
     }
     
@@ -216,7 +215,6 @@ class DBManager: NSObject {
             id = set?.int(forColumn: "task_id")
         }
         set?.close()
-        print(id!)
         return id!
     }
     

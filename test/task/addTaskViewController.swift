@@ -152,8 +152,15 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
-            let modelInfo = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
-            let isAdded = DBManager.getInstance().addTask(modelInfo)
+            let modelInfo1 = TaskModel(taskId: id, taskName: taskName!, addTaskTime: addTaskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+            let taskId = DBManager.getInstance().addTask(modelInfo1)
+            if addToCal == true{
+                let dd = showDayformatter.string(from: e)
+                let tt = showTimeformatter.string(from: e)
+                let modelInfo2 = EventModel(eventId: id, eventName: taskName!, startDate: dd, startTime: tt, endDate: dd, endTime: tt, allDay: false, autoRecord: false, task: true, reminder: reminder, taskId: taskId)
+                let eventId = DBManager.getInstance().addEvent(modelInfo2)
+                //let connected = DBManager.getInstance().connectEventTask(a: eventId, b: taskId!)
+            }
             self.dismiss(animated: true, completion: nil)
         }
     }
