@@ -95,8 +95,8 @@ class DBManager: NSObject {
     func connectEventTask(a: Int32, b: Int32) -> Bool{
         shareInstance.database?.open()
         
-        let sqlString = "SELECT event_id FROM event where event_id = \(a) ";
-        let isEdited = try?shareInstance.database?.executeUpdate("INSERT INTO event (task_id) VALUES (?)", withArgumentsIn:[b])
+        let sqlString = "UPDATE event SET task_id = \(b) where event_id = \(a) ";
+        let isEdited = try?shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[b])
         
         shareInstance.database?.close()
         return isEdited!
