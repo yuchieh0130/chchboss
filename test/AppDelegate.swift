@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Util.copyDatabase("project.db")
         locationManager.requestWhenInUseAuthorization()
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = false
         let googleApiKey = "AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
         GMSPlacesClient.provideAPIKey(googleApiKey)
         GMSServices.provideAPIKey(googleApiKey)
@@ -44,5 +46,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
+}
+
+extension AppDelegate: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
+    print("visitlocation update")
+    // create CLLocation from the coordinates of CLVisit
+//    let clLocation = CLLocation(latitude: visit.coordinate.latitude, longitude: visit.coordinate.longitude)
+    
+
+    // Get location description
+  }
+
+//  func newVisitReceived(_ visit: CLVisit, description: String) {
+//    let location = Location(visit: visit, descriptionString: description)
+//
+//    // Save location to disk
+//  }
 }
 

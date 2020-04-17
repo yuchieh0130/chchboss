@@ -49,12 +49,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        myLocationManager.distanceFilter = 50
+        
         placesClient = GMSPlacesClient.shared()
         
         myLocationManager = CLLocationManager()
-//        myLocationManager.startMonitoringVisits()
+        myLocationManager.startMonitoringVisits()
         myLocationManager.delegate = self
+        
+        
+//        myLocationManager.distanceaFilter = 50
         
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -62,7 +65,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         // Map
-        
         myMapView.delegate = self as MKMapViewDelegate
         myMapView.mapType = .standard
         myMapView.isZoomEnabled = true
@@ -121,9 +123,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let dateFormatString: String = dateFormatter.string(from: currentTime)
         
         // 確保didUpdateLocations只呼叫一次
-        manager.delegate = nil
+//        manager.delegate = nil
         listLikelyPlaces()
-        
+        print("location update")
+        print(c.coordinate.latitude, c.coordinate.longitude )
 
         
         //DB
@@ -175,9 +178,8 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
     
     
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        filterList  = collectionArr.filter { $0.contains(searchBar.text!) }
+        filterList  = collectionArr.filter { $0.contains(searchBar.text!)}
         if searching{
             return filterList.count
         }else{
@@ -188,7 +190,9 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         let collectionItem = likelyPlaces[indexPath.row]
+        if collectionItem.name !=  nil{
         collectionArr.append(collectionItem.name!)
+        }
         if searching{
             cell?.textLabel?.text = String(filterList[indexPath.row])
         }else{
