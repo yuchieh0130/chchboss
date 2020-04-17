@@ -13,8 +13,8 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //db variables
     var taskName: String?
-    var deadline: String! = ""
-    var addTaskTime: String?
+    var taskDeadline: String! = ""
+    var taskTime: String?
     var reminder: Bool! = false
     var id: Int32 = 0
     
@@ -26,6 +26,13 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var selectedTask: String = ""
     var showTask: [TaskModel]?
+    
+    var showDateformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     
     var formatter1: DateFormatter {
         let formatter = DateFormatter()
@@ -148,9 +155,18 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
         let task = showTask![indexPath.row]
-        let d = formatter1.date(from: showTask![indexPath.row].addTaskTime!)
         cell.taskName?.text = showTask![indexPath.row].taskName
-        cell.addTaskTime.text = "\(formatter2.string(from: d!)) hr \(formatter3.string(from: d!)) min"
+        if task.taskTime != nil{
+        let t = formatter1.date(from: showTask![indexPath.row].taskTime!)
+        cell.addTaskTime.text = " \(formatter2.string(from: t!)) hr \(formatter3.string(from: t!)) min "
+        }
+        if task.taskDeadline != nil{
+            let d = showDateformatter.date(from: task.taskDeadline!)
+            let interval = d!.timeIntervalSinceNow
+            let day = Int(interval/86400)
+            let hour = Int((Int(interval)-Int(interval/86400)*86400)/3600)
+            cell.taskDeadline.text = " \(day) day \n\(hour) hr"
+        }
         return cell
         }
     

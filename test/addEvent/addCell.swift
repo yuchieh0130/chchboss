@@ -50,8 +50,3 @@ class autoLocationCell: UITableViewCell {
     @IBOutlet weak var txtLocation: UILabel!
 }
 
-class taskTimeCell: UITableViewCell {
-    
-    @IBOutlet var txtTaskTime: UILabel!
-}
-

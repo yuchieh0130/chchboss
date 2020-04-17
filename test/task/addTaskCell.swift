@@ -17,6 +17,9 @@ class taskNameCell: UITableViewCell{
     @IBOutlet var txtTaskName: UITextField!
 }
 
+class taskTimeCell: UITableViewCell {
+}
+
 class addTaskTimeCell: UITableViewCell{
     @IBOutlet var txtAddTaskTime: UILabel!
 }

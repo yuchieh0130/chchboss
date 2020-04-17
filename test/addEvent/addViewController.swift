@@ -25,7 +25,7 @@ class addViewController : UIViewController{
     var tableViewData = [cellConfig]()
     let switchallDay = UISwitch()
     let switchauto = UISwitch()
-    let switchtask = UISwitch()
+    //let switchtask = UISwitch()
     let switchreminder = UISwitch()
     
     //db variables
@@ -36,12 +36,12 @@ class addViewController : UIViewController{
     var endTime: String?
     var allDay: Bool! = false
     var autoRecord: Bool! = false
-    var task: Bool! = false
-    var taskId: Int32?
-    var taskTime: String?
+    //var task: Bool! = false
+    //var taskId: Int32?
+    //var taskTime: String?
     var reminder: Bool! = false
     var id: Int32 = 0
-    var deadline: String! = ""
+    //var deadline: String! = ""
     
     var event : EventModel?
     var selectedDay: [Date] = []
@@ -92,13 +92,11 @@ class addViewController : UIViewController{
                          cellConfig(opened: false, title: "End"),
                          cellConfig(opened: false, title: "AllDay"),
                          cellConfig(opened: false, title: "AutoRecord"),
-                         cellConfig(opened: false, title: "Task"),
                          cellConfig(opened: false, title: "Reminder")]
         
         //func for accessoryView
         switchallDay.addTarget(self, action: #selector(self.allDayOpen(_ :)), for: .valueChanged)
         switchauto.addTarget(self, action: #selector(self.autoOpen(_ :)), for: .valueChanged)
-        switchtask.addTarget(self, action: #selector(self.taskOpen(_ :)), for: .valueChanged)
         switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
         
         //檢查是要新增還是編輯event
@@ -140,10 +138,6 @@ class addViewController : UIViewController{
         //編輯事件的autorecord還沒處理好
         //autoRecord = event?.autoRecord
         autoRecord = false
-        task = event?.task
-        tableViewData[5].opened = true
-        taskId = event?.taskId
-        //需要讀單個task的func去讀tasktime
         reminder = event?.reminder
     }
     
@@ -172,11 +166,6 @@ class addViewController : UIViewController{
             if let VC = segue.destination as? DatePopupViewController{
                 VC.tag = "autoEnd"
                 VC.showDate = e
-            }
-        case "editTaskTime":
-            if let VC = segue.destination as? DatePopupViewController{
-                VC.tag = "taskTime"
-                VC.taskTime = taskTime
             }
         default:
             print("")
@@ -216,11 +205,7 @@ class addViewController : UIViewController{
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
             tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
             tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
-        }else if tag == "taskTime"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -255,8 +240,6 @@ class addViewController : UIViewController{
         }else if tag == "autoEnd"{
             e = date
             if dayConstraint(i: "start") == 1 { s = e - interval}
-        }else if tag == "taskTime"{
-            taskTime = showTimeformatter.string(from: date)
         }
     }
     
@@ -276,7 +259,6 @@ class addViewController : UIViewController{
         default:
             c = 0
         }
-        print(c)
         return c
     }
     
@@ -304,15 +286,8 @@ class addViewController : UIViewController{
             }
             //insert to database
             
-            let modelInfo1 = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
-            let eventId = DBManager.getInstance().addEvent(modelInfo1)
-            
-            if task == true{
-                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
-                let taskId = DBManager.getInstance().addTask(modelInfo2)
-                let connected = DBManager.getInstance().connectEventTask(a: eventId, b: taskId!)
-            }
-            
+            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
+            let isAdded = DBManager.getInstance().addEvent(modelInfo)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -332,7 +307,7 @@ class addViewController : UIViewController{
                 endTime = nil
             }
             
-            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
+            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
             self.dismiss(animated: true, completion: nil)
         }
@@ -350,6 +325,12 @@ class addViewController : UIViewController{
         
     }
     
+    func delete(){
+           let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,reminder: reminder!)
+           let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
+       }
+       
+    
     //alert message
     func alertMessage(){
         if name == nil || name == ""{
@@ -359,11 +340,6 @@ class addViewController : UIViewController{
             controller.addAction(okAction)
             self.present(controller, animated: true,completion: .none)
         }
-    }
-    
-    func delete(){
-        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
-        let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
     }
     
 }
@@ -376,7 +352,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableViewData[section].opened == true && section == 4 {
+        if tableViewData[4].opened == true && section == 4 {
             return 5
         }else {
             return 1
@@ -452,17 +428,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             cell.selectionStyle = .none
             return cell
         case [5,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath)
-            cell.accessoryView = switchtask
-            switchtask.setOn(task, animated: .init())
-            cell.selectionStyle = .none
-            return cell
-            //        case [5,1]:
-            //            let cell = tableView.dequeueReusableCell(withIdentifier: "taskTimeCell", for: indexPath) as! taskTimeCell
-            //            cell.txtTaskTime.text = taskTime
-            //            cell.selectionStyle = .none
-        //            return cell
-        case [6,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
             cell.accessoryView = switchreminder
             switchreminder.setOn(reminder, animated: .init())
@@ -498,36 +463,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             tableViewData[4].opened = true
             changeRow(i: "autoRecord", j: "insert")
             autoRecord = true
-            if task == true{
-                tableViewData[5].opened = false
-                changeRow(i: "task", j: "delete")
-                task = false
-                switchtask.isOn = false
-            }
             
-        }
-    }
-    
-    //task Switch
-    @objc func taskOpen(_ sender: UISwitch){
-        
-        if sender.isOn == false{
-            task = false
-            //tableViewData[5].opened = false
-            //changeRow(i: "task", j: "delete")
-            //taskTime = nil
-        }else{
-            task = true
-            //tableViewData[5].opened = true
-            //changeRow(i: "task", j: "insert")
-            //taskTime = "01:00"
-            //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
-            if autoRecord == true {
-                tableViewData[4].opened = false
-                changeRow(i: "autoRecord", j: "delete")
-                autoRecord = false
-                switchauto.isOn = false
-            }
         }
     }
     
@@ -547,18 +483,11 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         indexA.append([4,2])
         indexA.append([4,3])
         indexA.append([4,4])
-        var indexT = [IndexPath]()
-        indexT.append([5,1])
-        
         switch [i,j]{
         case ["autoRecord","insert"]:
             tableView.insertRows(at: indexA, with: .fade)
         case ["autoRecord","delete"]:
             tableView.deleteRows(at: indexA, with: .fade)
-        case ["task","insert"]:
-            tableView.insertRows(at: indexT, with: .fade)
-        case ["task","delete"]:
-            tableView.deleteRows(at: indexT, with: .fade)
         default:
             print("")
         }
@@ -587,11 +516,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             performSegue(withIdentifier: "NewCategory", sender: self)
         case [4,4]:
             performSegue(withIdentifier: "Map", sender: self)
-        //        case [5,0]:
-        case [5,1]:
-            performSegue(withIdentifier: "editTaskTime", sender: self)
-            //       case [6,0]:
-        //            <#code#>
+        //case [5,0]: reminder
         default:
             print("")
         }

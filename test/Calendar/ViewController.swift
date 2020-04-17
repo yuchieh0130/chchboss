@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 
     var selectedDay:String = ""
     var showEvent = [EventModel]()
-    
+    var showTask = [TaskModel]()
     
     /*func performSegue,prepare: use segue to trans to new page*/
     /*need to set segue identifier*/
@@ -105,10 +105,12 @@ class ViewController: UIViewController {
         if cellState.isSelected{
             cell.selectedView.isHidden = false
             selectedDay = formatter.string(from: cellState.date)
-            if DBManager.getInstance().getEvent(String: selectedDay) != nil{
-                showEvent = DBManager.getInstance().getEvent(String: selectedDay)
+            if DBManager.getInstance().getEvents(String: selectedDay) != nil{
+                showEvent = DBManager.getInstance().getEvents(String: selectedDay)
+                //showTask = DBManager.getInstance().getTasks(String: selectedDay)
             }else{
                 showEvent = [EventModel]()
+                //showTask = [TaskModel]()
             }
             tableView.reloadData()
         }else{
@@ -119,7 +121,7 @@ class ViewController: UIViewController {
     
     /*dot view*/
     func showDotView(cell: DateCell, cellState: CellState) {
-        if DBManager.getInstance().getEvent(String: formatter.string(from: cellState.date)) != nil{
+        if DBManager.getInstance().getEvents(String: formatter.string(from: cellState.date)) != nil{
             cell.dotView.isHidden = false
         }else{
             cell.dotView.isHidden = true
@@ -217,6 +219,10 @@ extension ViewController: JTAppleCalendarViewDelegate {
         configureCell(view: cell, cellState: cellState)
     }
     
+    func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
+        return true
+    }
+    
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date,cell: JTAppleCell?, cellState: CellState){
         configureCell(view: cell, cellState: cellState)
     }
@@ -249,7 +255,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     //必要、需要幾個cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showEvent.count
+        return showTask.count+showEvent.count
     }
     
     //必要、設定cell的樣式

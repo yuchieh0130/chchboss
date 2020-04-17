@@ -62,7 +62,7 @@ class DatePopupViewController: UIViewController {
             datePicker.date = showDate
         }else if tag == "addTaskTime"{
             datePicker.datePickerMode = .countDownTimer
-            //datePicker.date = showTimeformatter.date(from: addTaskTime!)!
+            datePicker.date = showDate
         }else if tag == "deadline"{
             datePicker.datePickerMode = .dateAndTime
             datePicker.date = showDate

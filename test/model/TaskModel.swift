@@ -11,8 +11,9 @@ import Foundation
 struct TaskModel{
     let taskId: Int32?
     let taskName: String
-    let addTaskTime: String?
+    let taskTime: String?
     let taskDeadline: String?
-    let taskReminder: Bool
+    let reminder: Bool
     let taskLocation: String?
+    let addToCal: Bool
 }
