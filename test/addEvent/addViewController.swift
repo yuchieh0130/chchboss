@@ -229,12 +229,12 @@ class addViewController : UIViewController{
         selectedDay = []
     }
     
-        @IBAction func categorySegueBack(segue: UIStoryboardSegue){
-            let VC = segue.source as? categoryViewController
-            let i = VC?.collectionView.indexPathsForSelectedItems
-            category = (VC?.showCategory[i![0].row])!
-            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
-        }
+    @IBAction func categorySegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? categoryViewController
+        let i = VC?.collectionView.indexPathsForSelectedItems
+        category = (VC?.showCategory[i![0].row])!
+        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
+    }
     
     
     //handle date object from DatePopupViewController
@@ -303,15 +303,16 @@ class addViewController : UIViewController{
                 endTime = nil
             }
             //insert to database
-
+            
             let modelInfo1 = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
             let eventId = DBManager.getInstance().addEvent(modelInfo1)
             
             if task == true{
-                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime!, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
+                let modelInfo2 = TaskModel(taskId: id, taskName: name!, addTaskTime: taskTime, taskDeadline: deadline, taskReminder: reminder, taskLocation: "default")
                 let taskId = DBManager.getInstance().addTask(modelInfo2)
                 let connected = DBManager.getInstance().connectEventTask(a: eventId, b: taskId!)
             }
+            
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -322,18 +323,18 @@ class addViewController : UIViewController{
         if name == nil || name == ""{
             alertMessage()
         }else{
-        startDate = showDayformatter.string(for: s)
-        startTime = showTimeformatter.string(for: s)!
-        endDate = showDayformatter.string(for: e)
-        endTime = showTimeformatter.string(for: e)!
-        if allDay == true{
-            startTime = nil
-            endTime = nil
-        }
-
-        let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
-        let isEdited = DBManager.getInstance().editEvent(modelInfo)
-        self.dismiss(animated: true, completion: nil)
+            startDate = showDayformatter.string(for: s)
+            startTime = showTimeformatter.string(for: s)!
+            endDate = showDayformatter.string(for: e)
+            endTime = showTimeformatter.string(for: e)!
+            if allDay == true{
+                startTime = nil
+                endTime = nil
+            }
+            
+            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, task: task!, reminder: reminder!, taskId: id)
+            let isEdited = DBManager.getInstance().editEvent(modelInfo)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -346,7 +347,7 @@ class addViewController : UIViewController{
         controller.addAction(cancelAction)
         
         self.present(controller, animated: true,completion: .none)
-
+        
     }
     
     //alert message
@@ -377,8 +378,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableViewData[section].opened == true && section == 4 {
             return 5
-        }else if tableViewData[section].opened == true && section == 5 {
-            return 2
         }else {
             return 1
         }
@@ -458,11 +457,11 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             switchtask.setOn(task, animated: .init())
             cell.selectionStyle = .none
             return cell
-        case [5,1]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "taskTimeCell", for: indexPath) as! taskTimeCell
-            cell.txtTaskTime.text = taskTime
-            cell.selectionStyle = .none
-            return cell
+            //        case [5,1]:
+            //            let cell = tableView.dequeueReusableCell(withIdentifier: "taskTimeCell", for: indexPath) as! taskTimeCell
+            //            cell.txtTaskTime.text = taskTime
+            //            cell.selectionStyle = .none
+        //            return cell
         case [6,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
             cell.accessoryView = switchreminder
@@ -514,15 +513,15 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         
         if sender.isOn == false{
             task = false
-            tableViewData[5].opened = false
-            changeRow(i: "task", j: "delete")
-            taskTime = nil
+            //tableViewData[5].opened = false
+            //changeRow(i: "task", j: "delete")
+            //taskTime = nil
         }else{
             task = true
-            tableViewData[5].opened = true
-            changeRow(i: "task", j: "insert")
-            taskTime = "01:00"
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
+            //tableViewData[5].opened = true
+            //changeRow(i: "task", j: "insert")
+            //taskTime = "01:00"
+            //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 5)], with: .none)
             if autoRecord == true {
                 tableViewData[4].opened = false
                 changeRow(i: "autoRecord", j: "delete")

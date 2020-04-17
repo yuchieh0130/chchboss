@@ -34,3 +34,7 @@ class taskLocationCell: UITableViewCell{
     @IBOutlet var txtTaskLocation: UILabel!
     
 }
+
+class addToCalendarCell: UITableViewCell{
+    
+}
