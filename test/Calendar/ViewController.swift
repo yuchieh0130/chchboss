@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var eventId :Int32?
     var event: EventModel?
+    var task: TaskModel?
 
     var selectedDay:String = ""
     var showEvent = [EventModel]()
@@ -41,6 +42,10 @@ class ViewController: UIViewController {
         case "editEvent":
             if let editVC = segue.destination as? addViewController{
                 editVC.event = event
+            }
+        case "editCalTask":
+            if let editVC = segue.destination as? addTaskViewController{
+                editVC.task = task
             }
         default:
             print("")
@@ -105,7 +110,6 @@ class ViewController: UIViewController {
         if cellState.isSelected{
             cell.selectedView.isHidden = false
             selectedDay = formatter.string(from: cellState.date)
-            print(selectedDay)
             if DBManager.getInstance().getEvents(String: selectedDay) != nil{
                 showEvent = DBManager.getInstance().getEvents(String: selectedDay)
             }else{
@@ -272,9 +276,9 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             return cell1
         }else{
             let cell2 : eventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventTableViewCell", for: indexPath) as! eventTableViewCell
-            cell2.eventName?.text = showEvent[indexPath.row].eventName
-            if showEvent[indexPath.row].startTime != nil && showEvent[indexPath.row].endTime != nil{
-                let time = showEvent[indexPath.row].startTime! + "-" + showEvent[indexPath.row].endTime!
+            cell2.eventName?.text = showEvent[indexPath.row-i].eventName
+            if showEvent[indexPath.row-i].startTime != nil && showEvent[indexPath.row-i].endTime != nil{
+                let time = showEvent[indexPath.row-i].startTime! + "-" + showEvent[indexPath.row-i].endTime!
                 cell2.eventTime?.text = time
             }else{
                 cell2.eventTime?.text = nil
@@ -284,9 +288,17 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        event = showEvent[indexPath.row]
-        performSegue(withIdentifier: "editEvent", sender: nil)
-    }
+        let i = showTask.count
+        if indexPath.row < showTask.count{
+            task = showTask[indexPath.row]
+            performSegue(withIdentifier: "editCalTask", sender: nil)
+        }else{
+            event = showEvent[indexPath.row-i]
+            performSegue(withIdentifier: "editEvent", sender: nil)
+        }
+     }
+    
+    
     
 }
 
