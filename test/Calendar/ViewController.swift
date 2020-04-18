@@ -105,12 +105,16 @@ class ViewController: UIViewController {
         if cellState.isSelected{
             cell.selectedView.isHidden = false
             selectedDay = formatter.string(from: cellState.date)
+            print(selectedDay)
             if DBManager.getInstance().getEvents(String: selectedDay) != nil{
                 showEvent = DBManager.getInstance().getEvents(String: selectedDay)
-                //showTask = DBManager.getInstance().getTasks(String: selectedDay)
             }else{
                 showEvent = [EventModel]()
-                //showTask = [TaskModel]()
+            }
+            if DBManager.getInstance().getDateTasks(String: selectedDay) != nil{
+                showTask = DBManager.getInstance().getDateTasks(String: selectedDay)
+            }else{
+                 showTask = [TaskModel]()
             }
             tableView.reloadData()
         }else{
@@ -260,15 +264,23 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     //必要、設定cell的樣式
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:eventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventTableViewCell", for: indexPath) as! eventTableViewCell
-        cell.eventName?.text = showEvent[indexPath.row].eventName
-        if showEvent[indexPath.row].startTime != nil && showEvent[indexPath.row].endTime != nil{
-            let time = showEvent[indexPath.row].startTime! + "-" + showEvent[indexPath.row].endTime!
-            cell.eventTime?.text = time
+        let i = showTask.count
+        if indexPath.row < showTask.count{
+            let cell1 : calTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calTaskTableViewCell", for: indexPath) as! calTaskTableViewCell
+            cell1.taskName.text = showTask[indexPath.row].taskName
+            cell1.taskTime.text = showTask[indexPath.row].taskTime
+            return cell1
         }else{
-            cell.eventTime?.text = nil
+            let cell2 : eventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventTableViewCell", for: indexPath) as! eventTableViewCell
+            cell2.eventName?.text = showEvent[indexPath.row].eventName
+            if showEvent[indexPath.row].startTime != nil && showEvent[indexPath.row].endTime != nil{
+                let time = showEvent[indexPath.row].startTime! + "-" + showEvent[indexPath.row].endTime!
+                cell2.eventTime?.text = time
+            }else{
+                cell2.eventTime?.text = nil
+            }
+            return cell2
         }
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

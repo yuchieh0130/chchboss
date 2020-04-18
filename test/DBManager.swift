@@ -206,12 +206,12 @@ class DBManager: NSObject {
     }
     
     //get selected date當天的task
-    func getTasks(String: String) -> [TaskModel]!{
+    func getDateTasks(String: String) -> [TaskModel]!{
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
         //????????
-        let sqlString = "SELECT * FROM task where task_deadline LIKE '% \(String)%'";
+        let sqlString = "SELECT * FROM task where task_deadline LIKE '%\(String)%'";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
