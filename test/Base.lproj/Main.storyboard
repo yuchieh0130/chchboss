@@ -1723,7 +1723,7 @@
                                             <constraint firstItem="nFF-U5-ayV" firstAttribute="height" secondItem="8xJ-J0-n6n" secondAttribute="height" id="vqk-YL-egp"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="addTaskTime" destination="jSD-Z8-3xw" id="UeI-o5-heL"/>
+                                            <outlet property="addTaskTime" destination="jSD-Z8-3xw" id="BVM-Op-D3f"/>
                                             <outlet property="recommemd" destination="3te-u6-eSS" id="2uJ-jY-Hzt"/>
                                             <outlet property="taskDeadline" destination="nFF-U5-ayV" id="PI4-xR-df4"/>
                                             <outlet property="taskName" destination="1i7-Gu-xCe" id="lBR-YS-wBb"/>
@@ -1791,7 +1791,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Nye-bg-dEe"/>
         <segue reference="Q9x-NS-Pff"/>
-        <segue reference="RmA-HN-d7i"/>
+        <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.right" catalog="system" width="128" height="98"/>

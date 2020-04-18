@@ -176,6 +176,8 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     //還要寫edit 跟delete
     @IBAction func editTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
+        if d == false{ deadline = nil }
+        if t == false{ taskTime = nil }
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{

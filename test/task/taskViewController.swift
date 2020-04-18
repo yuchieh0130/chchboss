@@ -12,11 +12,11 @@ import UIKit
 class taskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     //db variables
-    var taskName: String?
-    var taskDeadline: String! = ""
-    var taskTime: String?
-    var reminder: Bool! = false
-    var id: Int32 = 0
+//    var taskName: String?
+//    var taskDeadline: String! = ""
+//    var taskTime: String?
+//    var reminder: Bool! = false
+//    var id: Int32 = 0
     
     @IBOutlet var addTaskButton: UIButton!
     
@@ -159,6 +159,8 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         if task.taskTime != nil{
         let t = formatter1.date(from: showTask![indexPath.row].taskTime!)
         cell.addTaskTime.text = " \(formatter2.string(from: t!)) hr \(formatter3.string(from: t!)) min "
+        }else{
+            cell.addTaskTime.text = nil
         }
         if task.taskDeadline != nil{
             let d = showDateformatter.date(from: task.taskDeadline!)
