@@ -288,7 +288,7 @@ class addViewController : UIViewController{
             
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isAdded = DBManager.getInstance().addEvent(modelInfo)
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
         }
     }
     

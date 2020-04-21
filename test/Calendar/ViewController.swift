@@ -75,6 +75,13 @@ class ViewController: UIViewController {
         title = "Calendar"
     }
     
+    @IBAction func eventUnwindSegue(segue: UIStoryboardSegue){
+        let VC = segue.source as? addViewController
+        var added = [Date]()
+        added.append(formatter.date(from: VC!.startDate)!)
+        calendarView.selectDates(added)
+    }
+    
     override func viewWillAppear(_ animated: Bool){
            calendarView.reloadData()
        }

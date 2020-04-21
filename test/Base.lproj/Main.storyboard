@@ -118,7 +118,6 @@
                                 <state key="normal" title="十"/>
                                 <connections>
                                     <action selector="addEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ilo-c9-Xzx"/>
-                                    <segue destination="9iT-4D-ttn" kind="show" identifier="addEvent" id="LXQ-mP-1aP"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zfT-DG-KsM">
@@ -264,6 +263,7 @@
                         <outlet property="tableView" destination="zfT-DG-KsM" id="PtL-K2-t5y"/>
                         <segue destination="9iT-4D-ttn" kind="show" identifier="editEvent" id="Q9x-NS-Pff"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="editCalTask" id="RmA-HN-d7i"/>
+                        <segue destination="9iT-4D-ttn" kind="show" identifier="addEvent" id="uiq-XP-en4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1436,6 +1436,7 @@
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="zJv-Al-iWf"/>
+                                    <segue destination="dBE-Ec-mrO" kind="unwind" unwindAction="eventUnwindSegueWithSegue:" id="nFw-wY-5Ia"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zj-Xy-h2I">
@@ -1481,6 +1482,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUU-YI-2se" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="dBE-Ec-mrO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1991.2" y="113.79310344827587"/>
         </scene>
@@ -1802,8 +1804,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Si0-bg-LgH"/>
-        <segue reference="Q9x-NS-Pff"/>
-        <segue reference="WsB-A9-R4s"/>
+        <segue reference="uiq-XP-en4"/>
+        <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
