@@ -50,3 +50,7 @@ class autoLocationCell: UITableViewCell {
     @IBOutlet weak var txtLocation: UILabel!
 }
 
+//在addTaskCell.swift裡面
+//class reminderCell: UITableViewCell{
+//    @IBOutlet var txtReminder: UILabel!
+//}

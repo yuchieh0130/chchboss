@@ -428,10 +428,15 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             cell.selectionStyle = .none
             return cell
         case [5,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
             cell.accessoryView = switchreminder
             switchreminder.setOn(reminder, animated: .init())
             cell.selectionStyle = .none
+            return cell
+        //試做reminder
+        case [6,0]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
+            cell.txtReminder.text = "還在試做ㄉreminder～～～"
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
@@ -516,7 +521,9 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             performSegue(withIdentifier: "NewCategory", sender: self)
         case [4,4]:
             performSegue(withIdentifier: "Map", sender: self)
-        //case [5,0]: reminder
+        //試做reminder
+        case [6,0]:
+            performSegue(withIdentifier: "Reminder", sender: self)
         default:
             print("")
         }

@@ -261,7 +261,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
                    cell.selectionStyle = .none
                    return cell
         case [4,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
             cell.accessoryView = switchreminder
             switchreminder.setOn(reminder, animated: .init())
             cell.selectionStyle = .none

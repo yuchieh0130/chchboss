@@ -31,8 +31,9 @@ class deadlineTimeCell: UITableViewCell{
     @IBOutlet var txtDeadline: UILabel!
 }
 class reminderCell: UITableViewCell{
-    
+    @IBOutlet var txtReminder: UILabel!
 }
+
 class taskLocationCell: UITableViewCell{
     @IBOutlet var txtTaskLocation: UILabel!
     

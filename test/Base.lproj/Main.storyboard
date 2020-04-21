@@ -601,7 +601,7 @@
             <objects>
                 <tableViewController id="889-zB-cO8" customClass="reminderTableViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oAa-rE-yS8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
@@ -635,7 +635,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a57-H5-Xkm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1700" y="909"/>
+            <point key="canvasLocation" x="1687" y="1528"/>
         </scene>
         <!--Auto Record View Controller-->
         <scene sceneID="Srp-ur-Bl1">
@@ -1380,7 +1380,7 @@
                                             <outlet property="txtLocation" destination="QCg-Sz-bsD" id="iTQ-rQ-gTJ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" id="LF4-OH-Zc1" customClass="addCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" id="LF4-OH-Zc1" customClass="reminderCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="613" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LF4-OH-Zc1" id="6mb-hO-mfy">
@@ -1396,6 +1396,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faL-CU-dTq">
+                                                    <rect key="frame" x="148" y="16" width="200" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="7uB-4c-khL" firstAttribute="centerY" secondItem="6mb-hO-mfy" secondAttribute="centerY" id="KuR-bV-aZP"/>
@@ -1403,6 +1410,9 @@
                                                 <constraint firstItem="7uB-4c-khL" firstAttribute="leading" secondItem="6mb-hO-mfy" secondAttribute="leadingMargin" constant="10" id="Xlq-BS-bfR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="txtReminder" destination="faL-CU-dTq" id="DE0-cY-QYB"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1479,6 +1489,7 @@
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editAutoStart" id="Ppd-gm-Fyg"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editAutoEnd" id="t18-xD-uQE"/>
                         <segue destination="XlI-4p-c0N" kind="show" identifier="NewCategory" id="9Rl-2J-tqH"/>
+                        <segue destination="889-zB-cO8" kind="show" identifier="Reminder" id="eT5-zA-AIS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUU-YI-2se" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1803,7 +1814,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Si0-bg-LgH"/>
+        <segue reference="2v3-r9-Jbk"/>
         <segue reference="uiq-XP-en4"/>
         <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
