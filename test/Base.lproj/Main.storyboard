@@ -1657,7 +1657,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yId-nE-s7K">
-                                <rect key="frame" x="0.0" y="101" width="375" height="628"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskTableViewCell" id="8xJ-J0-n6n" customClass="taskTableViewCell" customModule="test" customModuleProvider="target">
@@ -1736,11 +1736,19 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89g-sw-5at">
-                                <rect key="frame" x="319" y="62" width="36" height="36"/>
+                                <rect key="frame" x="319" y="59" width="36" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addTask:" destination="MCe-u7-tnl" eventType="touchUpInside" id="kfH-jQ-B8K"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNH-OI-tPQ">
+                                <rect key="frame" x="20" y="59" width="34" height="36"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="edit:" destination="MCe-u7-tnl" eventType="touchUpInside" id="Sa3-kL-wE9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1748,9 +1756,12 @@
                         <constraints>
                             <constraint firstItem="g2N-0s-GED" firstAttribute="trailing" secondItem="89g-sw-5at" secondAttribute="trailing" constant="20" id="2Ce-o6-lAp"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="bottom" secondItem="g2N-0s-GED" secondAttribute="bottom" id="Egg-pl-oUV"/>
-                            <constraint firstItem="yId-nE-s7K" firstAttribute="top" secondItem="89g-sw-5at" secondAttribute="bottom" constant="3" id="Ir7-9l-kDV"/>
+                            <constraint firstItem="yId-nE-s7K" firstAttribute="top" secondItem="89g-sw-5at" secondAttribute="bottom" constant="5" id="Ir7-9l-kDV"/>
+                            <constraint firstItem="nNH-OI-tPQ" firstAttribute="leading" secondItem="g2N-0s-GED" secondAttribute="leading" constant="20" id="T2s-mS-sTb"/>
+                            <constraint firstItem="yId-nE-s7K" firstAttribute="top" secondItem="nNH-OI-tPQ" secondAttribute="bottom" constant="5" id="XPp-zC-dow"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="leading" secondItem="g2N-0s-GED" secondAttribute="leading" id="ah1-yr-w8X"/>
-                            <constraint firstItem="89g-sw-5at" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="18" id="i6c-yy-HrD"/>
+                            <constraint firstItem="89g-sw-5at" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="15" id="i6c-yy-HrD"/>
+                            <constraint firstItem="nNH-OI-tPQ" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="15" id="iPP-gb-FTe"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="trailing" secondItem="g2N-0s-GED" secondAttribute="trailing" id="qle-SC-U7p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="g2N-0s-GED"/>
@@ -1758,6 +1769,7 @@
                     <tabBarItem key="tabBarItem" title="" image="doc.text" catalog="system" selectedImage="doc.text" id="dlq-P7-ObU"/>
                     <connections>
                         <outlet property="addTaskButton" destination="89g-sw-5at" id="nPb-Ge-4Gf"/>
+                        <outlet property="editTaskButton" destination="nNH-OI-tPQ" id="z9t-6N-bW2"/>
                         <outlet property="tableView" destination="yId-nE-s7K" id="idW-d2-fhx"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="editTask" id="WsB-A9-R4s"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="addTask" id="jtY-fE-0jz"/>
@@ -1789,7 +1801,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Nye-bg-dEe"/>
+        <segue reference="Si0-bg-LgH"/>
         <segue reference="Q9x-NS-Pff"/>
         <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>

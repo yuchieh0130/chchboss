@@ -19,6 +19,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
 //    var id: Int32 = 0
     
     @IBOutlet var addTaskButton: UIButton!
+    @IBOutlet var editTaskButton: UIButton!
     
     @IBOutlet var tableView: UITableView!
     //var taskId :Int32?
@@ -71,19 +72,23 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-//    @IBAction func EventSegueBack(segue: UIStoryboardSegue){
-//        tableView.reloadData()
-//    }
-
     @IBAction func addTask(_ sender: Any) {
         task = nil
         performSegue(withIdentifier: "addTask", sender: sender)
     }
     
+    @IBAction func edit(_ sender: Any) {
+        self.tableView.isEditing = !tableView.isEditing
+        if tableView.isEditing{
+            editTaskButton.setTitle("Done", for: .normal)
+        }else{
+            editTaskButton.setTitle("Edit", for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Task"
-    
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -129,13 +134,14 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         return configuration
     }
     
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if DBManager.getInstance().getAllTask() != nil{
-        showTask = DBManager.getInstance().getAllTask()
+            showTask = DBManager.getInstance().getAllTask()
         }else{
-        showTask = [TaskModel]()
+            showTask = [TaskModel]()
         }
         tableView.reloadData()
      }
@@ -167,7 +173,12 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let interval = d!.timeIntervalSinceNow
             let day = Int(interval/86400)
             let hour = Int((Int(interval)-Int(interval/86400)*86400)/3600)
-            cell.taskDeadline.text = " \(day) day \n\(hour) hr"
+            if day <= 0 || hour <= 0{
+                cell.taskDeadline.text = "over\ndue"
+                cell.taskDeadline.textColor = UIColor.red
+            }else{
+                cell.taskDeadline.text = " \(day) day \n\(hour) hr"
+            }
         }
         return cell
         }
@@ -177,7 +188,21 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         performSegue(withIdentifier: "editTask", sender: nil)
         }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
     
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let tomove = (self.showTask?.remove(at: sourceIndexPath.row))!
+        showTask?.insert(tomove, at: destinationIndexPath.row)
+    }
     
 }

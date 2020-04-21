@@ -33,6 +33,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     var id: Int32 = 0
     
     var task : TaskModel?
+    var modelInfo : TaskModel?
     
     var d: Bool = false //check deadline is nil or not
     var t: Bool = false //check tasktime is nil or not
@@ -158,22 +159,17 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func addTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
-        if d == true{
-            //deadline = showDateformatter.string(for: date)
-        }else{
-            deadline = nil
-        }
+        if d == false{ deadline = nil }
         if t == false{ taskTime = nil }
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
-            let modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal)
-            let isAdded = DBManager.getInstance().addTask(modelInfo)
+            modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal)
+            let isAdded = DBManager.getInstance().addTask(modelInfo!)
             self.dismiss(animated: true, completion: nil)
         }
     }
     
-    //還要寫edit 跟delete
     @IBAction func editTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
         if d == false{ deadline = nil }
@@ -181,9 +177,8 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
-            //deadline = showDayformatter.string(for: date)
-            let modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal)
-            let isEdited = DBManager.getInstance().editTask(modelInfo)
+            modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal)
+            let isEdited = DBManager.getInstance().editTask(modelInfo!)
             self.dismiss(animated: true, completion: nil)
         }
             
@@ -215,9 +210,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
                 controller.addAction(okAction)
                 self.present(controller, animated: true,completion: .none)
             }
-        
     }
-    
     
     
     func numberOfSections(in tableView: UITableView) -> Int {

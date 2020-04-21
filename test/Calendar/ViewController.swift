@@ -272,7 +272,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         if indexPath.row < showTask.count{
             let cell1 : calTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calTaskTableViewCell", for: indexPath) as! calTaskTableViewCell
             cell1.taskName.text = showTask[indexPath.row].taskName
-            cell1.taskTime.text = showTask[indexPath.row].taskTime
+            cell1.taskTime.text = showTask[indexPath.row].taskDeadline
             return cell1
         }else{
             let cell2 : eventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventTableViewCell", for: indexPath) as! eventTableViewCell
