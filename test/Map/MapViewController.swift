@@ -57,7 +57,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         myLocationManager.delegate = self
         
         
-//        myLocationManager.distanceaFilter = 50
+        //        myLocationManager.distanceaFilter = 50
         
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -72,39 +72,41 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.tblView.reloadData()
     }
     
-    func startLocationManager(){
-        myLocationManager.delegate = self
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        myLocationManager.activityType = CLActivityType.fitness
-        myLocationManager.distanceFilter = 50
-        myLocationManager.startUpdatingLocation()
-    }
+    //    func startLocationManager(){
+    //        myLocationManager.delegate = self
+    //        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+    //        myLocationManager.activityType = CLActivityType.fitness
+    //        myLocationManager.distanceFilter = 50
+    //        myLocationManager.startUpdatingLocation()
+    //    }
     
-    // Populate the array with the list of likely places.
-    func listLikelyPlaces() {
-      // Clean up from previous sessions.
-      likelyPlaces.removeAll()
-
-      placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
-        if let error = error {
-          // TODO: Handle the error.
-          print("Current Place error: \(error.localizedDescription)")
-          return
-        }
-
-        // Get likely places and add to the list.
-        if let likelihoodList = placeLikelihoods {
-          for likelihood in likelihoodList.likelihoods {
-            let place = likelihood.place
-            self.likelyPlaces.append(place)
-            self.tblView.reloadData()
-          }
-        }
-      })
-    }
-
+    //    // Populate the array with the list of likely places.
+    //    func listLikelyPlaces() {
+    //      // Clean up from previous sessions.
+    //      likelyPlaces.removeAll()
+    //
+    //      placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
+    //        if let error = error {
+    //          // TODO: Handle the error.
+    //          print("Current Place error: \(error.localizedDescription)")
+    //          return
+    //        }
+    //
+    //        // Get likely places and add to the list.
+    //        if let likelihoodList = placeLikelihoods {
+    //          for likelihood in likelihoodList.likelihoods {
+    //            let place = likelihood.place
+    //            self.likelyPlaces.append(place)
+    //            self.tblView.reloadData()
+    //          }
+    //        }
+    //        print(self.likelyPlaces[1].types![0])
+    //        print(type(of: self.likelyPlaces[1].types![0]))
+    //      })
+    //    }
     
-
+    
+    
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
@@ -123,25 +125,47 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let dateFormatString: String = dateFormatter.string(from: currentTime)
         
         // 確保didUpdateLocations只呼叫一次
-//        manager.delegate = nil
-        listLikelyPlaces()
-        print("location update")
-        print(c.coordinate.latitude, c.coordinate.longitude )
-
+        //        manager.delegate = nil
+        likelyPlaces.removeAll()
         
-        //DB
-        latitude = currentLocation.latitude
-        longitude = currentLocation.longitude
-        startTime = dateFormatString
-
-        let modelInfo = LocationModel(locationId: locationId, longitude: longitude!, latitude: latitude!, startTime: startTime!, endTime: endTime, nearestName: nearestName, nearestCategory: nearestCategory)
-
-        let isSaved = DBManager.getInstance().saveLocation(modelInfo)
-        print("save in DB :", isSaved)
+        placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
+            if let error = error {
+                // TODO: Handle the error.
+                print("Current Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            // Get likely places and add to the list.
+            if let likelihoodList = placeLikelihoods {
+                for likelihood in likelihoodList.likelihoods {
+                    let place = likelihood.place
+                    self.likelyPlaces.append(place)
+                    self.tblView.reloadData()
+                }
+            }
+            print(self.likelyPlaces[1].types![0])
+            print(type(of: self.likelyPlaces[1].types![0]))
+            
+            //DB
+            self.latitude = currentLocation.latitude
+            self.longitude = currentLocation.longitude
+            self.startTime = dateFormatString
+            self.nearestName = self.likelyPlaces[1].name!
+            self.nearestCategory = self.likelyPlaces[0].types![0]
+            
+            let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, nearestName: self.nearestName, nearestCategory: self.nearestCategory)
+            
+            let isSaved = DBManager.getInstance().saveLocation(modelInfo)
+            print("save in DB :", isSaved)
+            
+        })
+        
+        //print(self.likelyPlaces[1].types![0])
+        
     }
     
     
-
+    
     
     func setMap(latitude: Double, longitude:Double){
         let pin = MKPointAnnotation()
@@ -191,7 +215,7 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         let collectionItem = likelyPlaces[indexPath.row]
         if collectionItem.name !=  nil{
-        collectionArr.append(collectionItem.name!)
+            collectionArr.append(collectionItem.name!)
         }
         if searching{
             cell?.textLabel?.text = String(filterList[indexPath.row])
@@ -228,7 +252,7 @@ extension MapViewController: UISearchBarDelegate, UITextFieldDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-
+    
 }
 
 
