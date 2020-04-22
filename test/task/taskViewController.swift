@@ -77,15 +77,15 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         performSegue(withIdentifier: "addTask", sender: sender)
     }
     
-    @IBAction func edit(_ sender: Any) {
-        self.tableView.isEditing = !tableView.isEditing
-        if tableView.isEditing{
-            editTaskButton.setTitle("Done", for: .normal)
-        }else{
-            editTaskButton.setTitle("Edit", for: .normal)
-        }
-    }
-    
+//    @IBAction func edit(_ sender: Any) {
+//        self.tableView.isEditing = !tableView.isEditing
+//        if tableView.isEditing{
+//            editTaskButton.setTitle("Done", for: .normal)
+//        }else{
+//            editTaskButton.setTitle("Edit", for: .normal)
+//        }
+//    }
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Task"
@@ -173,7 +173,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let interval = d!.timeIntervalSinceNow
             let day = Int(interval/86400)
             let hour = Int((Int(interval)-Int(interval/86400)*86400)/3600)
-            if day <= 0 || hour <= 0{
+            if interval<0{
                 cell.taskDeadline.text = "over\ndue"
                 cell.taskDeadline.textColor = UIColor.red
             }else{
@@ -187,22 +187,22 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         task = showTask![indexPath.row]
         performSegue(withIdentifier: "editTask", sender: nil)
         }
+//    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .delete
+//    }
+//
+//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let tomove = (self.showTask?.remove(at: sourceIndexPath.row))!
-        showTask?.insert(tomove, at: destinationIndexPath.row)
-    }
+//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        let tomove = (self.showTask?.remove(at: sourceIndexPath.row))!
+//        showTask?.insert(tomove, at: destinationIndexPath.row)
+//    }
     
 }

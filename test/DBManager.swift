@@ -51,7 +51,7 @@ class DBManager: NSObject {
         
         var events: [EventModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM event WHERE start_date <= '\(String)' and end_date >= '\(String)'";
+        let sqlString = "SELECT * FROM event WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_time ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -186,7 +186,7 @@ class DBManager: NSObject {
     
     func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned) VALUES (?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned])
         shareInstance.database?.close()
         return isAdded!
     }
@@ -200,7 +200,7 @@ class DBManager: NSObject {
     
     func editTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location,addToCal) VALUES (?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId,modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal])
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId,modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned])
         shareInstance.database?.close()
         return isEdited!
     }
@@ -210,7 +210,7 @@ class DBManager: NSObject {
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM task WHERE task_deadline LIKE '%\(String)%' AND  addToCal = 1";
+        let sqlString = "SELECT * FROM task WHERE task_deadline LIKE '%\(String)%' AND addToCal = 1";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -221,13 +221,14 @@ class DBManager: NSObject {
             let d = set?.bool(forColumn: "hasReminder")
             let e = set?.string(forColumn: "task_location")
             let f = set?.bool(forColumn: "addToCal")
+            let g = set?.bool(forColumn: "isPinned")
             
             let task: TaskModel
                        
             if tasks == nil{
                tasks = [TaskModel]()
             }
-               task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!)
+               task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!)
                tasks.append(task)
             }
         set?.close()
@@ -238,7 +239,7 @@ class DBManager: NSObject {
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM task";
+        let sqlString = "SELECT * FROM task ORDER BY task_deadline ASC, isPinned DESC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -249,17 +250,25 @@ class DBManager: NSObject {
             let d = set?.bool(forColumn: "hasReminder")
             let e = set?.string(forColumn: "task_location")
             let f = set?.bool(forColumn: "addToCal")
+            let g = set?.bool(forColumn: "isPinned")
             
             let task: TaskModel
             
             if tasks == nil{
                 tasks = [TaskModel]()
             }
-            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!)
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!)
             tasks.append(task)
         }
         set?.close()
         return tasks
+    }
+    
+    func pinTask(id: Int32) -> Bool{
+        shareInstance.database?.open()
+        let isPinned = shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 1 WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.close()
+        return isPinned!
     }
     
 }

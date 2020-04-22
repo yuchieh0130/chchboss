@@ -16,4 +16,5 @@ struct TaskModel{
     let reminder: Bool
     let taskLocation: String?
     let addToCal: Bool
+    let isPinned: Bool
 }
