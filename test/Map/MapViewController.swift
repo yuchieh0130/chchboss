@@ -61,7 +61,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         myLocationManager.activityType = CLActivityType.fitness
         
         
-//        myLocationManager.distanceaFilter = 50
+        myLocationManager.distanceFilter = 50
         
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
