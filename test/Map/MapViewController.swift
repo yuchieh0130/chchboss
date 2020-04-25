@@ -53,14 +53,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         placesClient = GMSPlacesClient.shared()
         
         myLocationManager = CLLocationManager()
-        myLocationManager.startMonitoringVisits()
+//        myLocationManager.startMonitoringVisits()
         myLocationManager.delegate = self
         
+        myLocationManager.allowsBackgroundLocationUpdates = true
+        myLocationManager.pausesLocationUpdatesAutomatically = true
+        myLocationManager.activityType = CLActivityType.fitness
         
-        //        myLocationManager.distanceaFilter = 50
+        
+//        myLocationManager.distanceaFilter = 50
         
         // 取得自身定位位置的精確度
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         myLocationManager.startUpdatingLocation()
         
         
@@ -127,7 +131,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // 確保didUpdateLocations只呼叫一次
         //        manager.delegate = nil
         likelyPlaces.removeAll()
-        
+        self.tblView.reloadData()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
                 // TODO: Handle the error.
