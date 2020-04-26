@@ -101,38 +101,53 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     //往右滑
-    @available(iOS 11.0, *)
-    public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let doItNowAction = UIContextualAction(style: .normal, title: "Do It Now") { (action, view, completionHandler) in
-        print("Do It Now")
-        completionHandler(true)
-        }
-        let configuration = UISwipeActionsConfiguration(actions: [doItNowAction])
-        configuration.performsFirstActionWithFullSwipe = false
-        return configuration
-    }
-    
-    //往左滑
-    @available(iOS 11.0, *)
-    public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let id =  showTask?[indexPath.row].taskId
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
-            print("Delete")
+     @available(iOS 11.0, *)
+        public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let id = showTask?[indexPath.row].taskId
+        let pinAction = UIContextualAction(style: .normal, title: "Pin") { (action, view, completionHandler) in
+            print("Pin")
             completionHandler(true)
-            self.showTask!.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            let isDeleted = DBManager.getInstance().deleteTask(id: id!)
+            self.tableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
+            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
+            cell.taskPin.isHidden = false
+            let isPinned = DBManager.getInstance().pinTask(id: id!)
             self.dismiss(animated: true, completion: nil)
+            }
+        //if pinAction
+            let configuration = UISwipeActionsConfiguration(actions: [pinAction])
+            configuration.performsFirstActionWithFullSwipe = false
+            return configuration
         }
-        let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
-        print("Done")
-        completionHandler(true)
-        }
-        deleteAction.backgroundColor = UIColor.red
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction])
-        configuration.performsFirstActionWithFullSwipe = false
-        return configuration
+    
+    func taskPin() {
     }
+        
+        //往左滑
+        @available(iOS 11.0, *)
+        public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            let id =  showTask?[indexPath.row].taskId
+            let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
+                print("Delete")
+                completionHandler(true)
+                self.showTask!.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                let isDeleted = DBManager.getInstance().deleteTask(id: id!)
+                self.dismiss(animated: true, completion: nil)
+            }
+            let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
+            print("Done")
+            completionHandler(true)
+            }
+            let doItNowAction = UIContextualAction(style: .normal, title: "Do It Now") { (action, view, completionHandler) in
+            print("Do It Now")
+            completionHandler(true)
+            }
+            deleteAction.backgroundColor = UIColor.red
+            doneAction.backgroundColor = #colorLiteral(red: 0.2979176044, green: 0.6127660275, blue: 0.9929869771, alpha: 1)  //color literal
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction, doItNowAction])
+            configuration.performsFirstActionWithFullSwipe = false
+            return configuration
+        }
     
    
     
@@ -180,6 +195,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.taskDeadline.text = " \(day) day \n\(hour) hr"
             }
         }
+        
         return cell
         }
     
@@ -187,7 +203,8 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         task = showTask![indexPath.row]
         performSegue(withIdentifier: "editTask", sender: nil)
         }
-//    
+    
+    //
 //    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 //        return true
 //    }
