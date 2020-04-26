@@ -12,4 +12,5 @@ import UIKit
 class reminderTableViewCell: UITableViewCell {
     
     @IBOutlet var reminderTime: UILabel!
+    @IBOutlet var imgView: UIImageView!
 }
