@@ -239,7 +239,7 @@ class DBManager: NSObject {
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM task ORDER BY task_deadline ASC, isPinned DESC";
+        let sqlString = "SELECT * FROM task ORDER BY isPinned DESC , task_deadline ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
