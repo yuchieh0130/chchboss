@@ -8,10 +8,16 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 struct cellConfig{
     var opened = Bool()
     var title = String()
+}
+
+struct reminderConfig{
+    var rname = String()
+    var fireTime = Int()
 }
 
 class addViewController : UIViewController{
@@ -23,6 +29,7 @@ class addViewController : UIViewController{
     
     //tableView Item
     var tableViewData = [cellConfig]()
+    var reminderData = [reminderConfig]()
     let switchallDay = UISwitch()
     let switchauto = UISwitch()
     //let switchtask = UISwitch()
@@ -40,6 +47,7 @@ class addViewController : UIViewController{
     //var taskId: Int32?
     //var taskTime: String?
     var reminder: Bool! = false
+    var reminder_str: [Int] = [0]
     var id: Int32 = 0
     //var deadline: String! = ""
     
@@ -93,6 +101,15 @@ class addViewController : UIViewController{
                          cellConfig(opened: false, title: "AllDay"),
                          cellConfig(opened: false, title: "AutoRecord"),
                          cellConfig(opened: false, title: "Reminder")]
+        
+        reminderData = [reminderConfig( rname: "none", fireTime: 0),
+                        reminderConfig( rname: "At time of event", fireTime: 0),
+                        reminderConfig( rname: "5 minutes before", fireTime: 60*5),
+                        reminderConfig( rname: "10 minutes before", fireTime: 60*10),
+                        reminderConfig( rname: "30 minutes before", fireTime: 60*30),
+                        reminderConfig( rname: "1 hour before", fireTime: 60*60),
+                        reminderConfig( rname: "1 day before", fireTime: 60*60*24),
+                        reminderConfig( rname: "At certatian Location", fireTime: 0)]
         
         //func for accessoryView
         switchallDay.addTarget(self, action: #selector(self.allDayOpen(_ :)), for: .valueChanged)
@@ -221,6 +238,15 @@ class addViewController : UIViewController{
         tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
     }
     
+    @IBAction func reminderSegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? reminderTableViewController
+        for i in 0...(VC?.reminder_str.count)!-1{
+            reminder_str = []
+            reminder_str.append((VC?.reminder_str[i])!)
+        }
+        tableView.reloadRows(at: [IndexPath.init(row: 0, section: 6)], with: .none)
+    }
+    
     
     //handle date object from DatePopupViewController
     func handletime(){
@@ -288,7 +314,7 @@ class addViewController : UIViewController{
             
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isAdded = DBManager.getInstance().addEvent(modelInfo)
-            //self.dismiss(animated: true, completion: nil)
+            //makeNotification(action: "add")
         }
     }
     
@@ -309,6 +335,7 @@ class addViewController : UIViewController{
             
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
+            //makeNotification(action: "edit")
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -321,8 +348,8 @@ class addViewController : UIViewController{
         controller.addAction(okAction)
         controller.addAction(cancelAction)
         
+        //makeNotification(action: "delete")
         self.present(controller, animated: true,completion: .none)
-        
     }
     
     func delete(){
@@ -339,6 +366,36 @@ class addViewController : UIViewController{
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)
             self.present(controller, animated: true,completion: .none)
+        }
+    }
+    
+    func makeNotification(action: String){
+        let no = UNMutableNotificationContent()
+        //db裡最大的id+1????
+        let notifivationid = "event1"
+        var notifivationids = [String]()
+        var fireDate = e
+        if allDay{
+            fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")!
+        }
+        switch action {
+        case "add":
+            no.title = "Event Notification"
+            no.body = name! + "\nEndDate: " + endDate + " " + endTime!
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([ .hour, .minute],from: fireDate)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let request = UNNotificationRequest(identifier: notifivationid, content: no, trigger: trigger)
+            UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
+        case "delete":
+            notifivationids.append(String(id))
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
+        case "edit":
+            notifivationids.append(String(id))
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
+            
+        default:
+            print("")
         }
     }
     
@@ -436,7 +493,11 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         //試做reminder
         case [6,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
-            cell.txtReminder.text = "還在試做ㄉreminder～～～"
+            var txtReminder = ""
+            for i in 0...reminder_str.count-1{
+                txtReminder += "\(reminderData[reminder_str[i]].rname) , "
+            }
+            cell.txtReminder.text = txtReminder
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
