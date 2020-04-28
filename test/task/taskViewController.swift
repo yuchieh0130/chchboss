@@ -201,11 +201,18 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let interval = d!.timeIntervalSinceNow
             let day = Int(interval/86400)
             let hour = Int((Int(interval)-Int(interval/86400)*86400)/3600)
+            let min = Int((Int(interval)-Int(interval/86400)*86400-((Int(interval)-Int(interval/86400)*86400)/3600)*3600)/60)
             if interval<0{
                 cell.taskDeadline.text = "over\ndue"
                 cell.taskDeadline.textColor = UIColor.red
+            }else if interval<3600{
+                cell.taskDeadline.text = "\(min) mins"
+            }else if interval<86400{
+                cell.taskDeadline.text = "\(hour) hrs \n\(min) mins"
+            }else if interval>86400{
+                cell.taskDeadline.text = " \(day) days \n\(hour) hrs"
             }else{
-                cell.taskDeadline.text = " \(day) day \n\(hour) hr"
+                cell.taskDeadline.text = ""
             }
         }
         if showTask?[indexPath.row].isPinned == false{
