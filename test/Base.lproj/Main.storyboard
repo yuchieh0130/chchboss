@@ -1742,11 +1742,10 @@
                                                     <rect key="frame" x="340" y="26.999999999999993" width="20" height="21.666666666666664"/>
                                                     <color key="tintColor" red="0.80995315313339233" green="0.3595645704763471" blue="0.62670607275502499" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTX-Id-2LJ">
-                                                    <rect key="frame" x="309" y="26.666666666666671" width="21" height="22"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Jut-0g-zE4">
+                                                    <rect key="frame" x="306" y="28" width="24" height="18"/>
                                                     <color key="tintColor" red="0.89922187139999998" green="0.7762302714" blue="0.064681088789999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <state key="normal" image="calendar" catalog="system"/>
-                                                </button>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="jSD-Z8-3xw" firstAttribute="leading" secondItem="nFF-U5-ayV" secondAttribute="leading" constant="230" id="7SE-3A-TGT"/>
@@ -1754,11 +1753,11 @@
                                                 <constraint firstItem="1i7-Gu-xCe" firstAttribute="centerY" secondItem="0yv-dX-SNZ" secondAttribute="centerY" id="H85-tj-ABU"/>
                                                 <constraint firstItem="3te-u6-eSS" firstAttribute="trailing" secondItem="0yv-dX-SNZ" secondAttribute="trailing" constant="-15" id="PCB-iX-BSR"/>
                                                 <constraint firstItem="3te-u6-eSS" firstAttribute="centerY" secondItem="0yv-dX-SNZ" secondAttribute="centerY" id="jWm-ub-iN7"/>
-                                                <constraint firstItem="3te-u6-eSS" firstAttribute="leading" secondItem="GTX-Id-2LJ" secondAttribute="trailing" constant="10" id="rjY-A9-rup"/>
+                                                <constraint firstItem="Jut-0g-zE4" firstAttribute="centerY" secondItem="0yv-dX-SNZ" secondAttribute="centerY" id="qEX-RB-muO"/>
+                                                <constraint firstItem="3te-u6-eSS" firstAttribute="leading" secondItem="Jut-0g-zE4" secondAttribute="trailing" constant="10" id="sIu-47-yWT"/>
                                                 <constraint firstItem="jSD-Z8-3xw" firstAttribute="centerY" secondItem="0yv-dX-SNZ" secondAttribute="centerY" id="thM-SA-0pM"/>
                                                 <constraint firstItem="1i7-Gu-xCe" firstAttribute="leading" secondItem="nFF-U5-ayV" secondAttribute="leading" constant="80" id="v4a-9u-rjQ"/>
                                                 <constraint firstItem="nFF-U5-ayV" firstAttribute="leading" secondItem="0yv-dX-SNZ" secondAttribute="leading" id="yBj-0r-LSN"/>
-                                                <constraint firstItem="GTX-Id-2LJ" firstAttribute="centerY" secondItem="0yv-dX-SNZ" secondAttribute="centerY" id="yrL-35-diS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
@@ -1766,6 +1765,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="addTaskTime" destination="jSD-Z8-3xw" id="BVM-Op-D3f"/>
+                                            <outlet property="taskCalendar" destination="Jut-0g-zE4" id="vGE-MH-1Ab"/>
                                             <outlet property="taskDeadline" destination="nFF-U5-ayV" id="PI4-xR-df4"/>
                                             <outlet property="taskName" destination="1i7-Gu-xCe" id="lBR-YS-wBb"/>
                                             <outlet property="taskPin" destination="3te-u6-eSS" id="X8d-Kl-XoB"/>
