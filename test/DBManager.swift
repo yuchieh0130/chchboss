@@ -82,6 +82,25 @@ class DBManager: NSObject {
         return events
     }
     
+    func getMaxEvent() -> Int32{
+        
+        var id : Int32!
+        shareInstance.database?.open()
+        let sqlString = "SELECT MAX(event_id) FROM event";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let a = set?.int(forColumn: "event_id")
+            id = a
+        }
+        set?.close()
+        return id
+        
+    }
+    
+    
+    
+    
     func getCategory() -> [CategoryModel]!{
         
         var categories : [CategoryModel]!
