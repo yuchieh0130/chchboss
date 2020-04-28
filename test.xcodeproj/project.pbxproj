@@ -33,6 +33,7 @@
 		4B855CFA242B0C88001B80C7 /* categoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */; };
 		4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0B2438477C001B80C7 /* tabBarController.swift */; };
 		4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0F243847E3001B80C7 /* taskViewController.swift */; };
+		4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95704D2457FFB10067C4FB /* analysisViewController.swift */; };
 		4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B97DF9124176AB8005BD787 /* DBManager.swift */; };
 		4B9EBD542417799400162A77 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD532417799400162A77 /* EventModel.swift */; };
 		4B9EBD562417A7CE00162A77 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD552417A7CE00162A77 /* Util.swift */; };
@@ -83,6 +84,7 @@
 		4B855CF9242B0C88001B80C7 /* categoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryTableViewCell.swift; sourceTree = "<group>"; };
 		4B855D0B2438477C001B80C7 /* tabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabBarController.swift; sourceTree = "<group>"; };
 		4B855D0F243847E3001B80C7 /* taskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskViewController.swift; sourceTree = "<group>"; };
+		4B95704D2457FFB10067C4FB /* analysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = analysisViewController.swift; sourceTree = "<group>"; };
 		4B97DF80241769B7005BD787 /* test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-Bridging-Header.h"; sourceTree = "<group>"; };
 		4B97DF9124176AB8005BD787 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		4B9EBD532417799400162A77 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
@@ -121,6 +123,14 @@
 				4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */,
 			);
 			path = autoRecord;
+			sourceTree = "<group>";
+		};
+		4B95704C2457FF850067C4FB /* analysis */ = {
+			isa = PBXGroup;
+			children = (
+				4B95704D2457FFB10067C4FB /* analysisViewController.swift */,
+			);
+			path = analysis;
 			sourceTree = "<group>";
 		};
 		4B97DF7F24176957005BD787 /* fmdb */ = {
@@ -238,6 +248,7 @@
 				4BA138C5243CB24E00C46CD3 /* task */,
 				4BA138C6243CB29800C46CD3 /* addEvent */,
 				582341EC242B5CF400FFC83B /* Calendar */,
+				4B95704C2457FF850067C4FB /* analysis */,
 				4B4F0150243CCBD100A98C65 /* autoRecord */,
 			);
 			path = test;
@@ -403,6 +414,7 @@
 				4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */,
 				4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */,
 				582341EE242B5F1000FFC83B /* MapViewController.swift in Sources */,
+				4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */,
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
 				4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */,
 				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,

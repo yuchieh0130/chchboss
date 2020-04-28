@@ -14,6 +14,7 @@ class tabBarController: UITabBarController{
         tabBar.items?[0].title = "Calendar"
         tabBar.items?[1].title = "Track"
         tabBar.items?[2].title = "Task"
+        tabBar.items?[3].title = "Analysis"
     }
     
 }

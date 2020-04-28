@@ -20,6 +20,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet var addTaskButton: UIButton!
     //@IBOutlet var editTaskButton: UIButton!
+
     
     @IBOutlet var tableView: UITableView!
     //var taskId :Int32?
@@ -113,8 +114,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.showTask = DBManager.getInstance().getAllTask()
             self.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
-//            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
-//            cell.taskPin.isHidden = false
             }
         let unPinAction = UIContextualAction(style: .normal, title: "Unpin") { (action, view, completionHandler) in
             print("Unpin")
@@ -123,13 +122,16 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.showTask = DBManager.getInstance().getAllTask()
             self.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
-            
         }
         if showTask?[indexPath.row].isPinned == false{
+//            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
+//            cell.taskPin.isHidden = true
             let configuration = UISwipeActionsConfiguration(actions: [pinAction])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
         }else{
+//            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
+//            cell.taskPin.isHidden = false
             let configuration = UISwipeActionsConfiguration(actions: [unPinAction])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
