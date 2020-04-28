@@ -214,6 +214,12 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.taskPin.isHidden = false
         }
         
+        if showTask?[indexPath.row].addToCal == false{
+            cell.taskCalendar.isHidden = true
+        }else{
+            cell.taskCalendar.isHidden = false
+        }
+        
         return cell
         }
     
