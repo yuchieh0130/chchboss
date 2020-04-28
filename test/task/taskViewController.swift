@@ -20,6 +20,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet var addTaskButton: UIButton!
     //@IBOutlet var editTaskButton: UIButton!
+
     
     @IBOutlet var tableView: UITableView!
     //var taskId :Int32?
@@ -113,8 +114,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.showTask = DBManager.getInstance().getAllTask()
             self.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
-//            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
-//            cell.taskPin.isHidden = false
             }
         let unPinAction = UIContextualAction(style: .normal, title: "Unpin") { (action, view, completionHandler) in
             print("Unpin")
@@ -123,7 +122,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.showTask = DBManager.getInstance().getAllTask()
             self.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
-            
         }
         if showTask?[indexPath.row].isPinned == false{
             let configuration = UISwipeActionsConfiguration(actions: [pinAction])
@@ -209,6 +207,17 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }else{
                 cell.taskDeadline.text = " \(day) day \n\(hour) hr"
             }
+        }
+        if showTask?[indexPath.row].isPinned == false{
+            cell.taskPin.isHidden = true
+        }else{
+            cell.taskPin.isHidden = false
+        }
+        
+        if showTask?[indexPath.row].addToCal == false{
+            cell.taskCalendar.isHidden = true
+        }else{
+            cell.taskCalendar.isHidden = false
         }
         
         return cell
