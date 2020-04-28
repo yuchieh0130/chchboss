@@ -124,14 +124,10 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.dismiss(animated: true, completion: nil)
         }
         if showTask?[indexPath.row].isPinned == false{
-//            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
-//            cell.taskPin.isHidden = true
             let configuration = UISwipeActionsConfiguration(actions: [pinAction])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
         }else{
-//            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
-//            cell.taskPin.isHidden = false
             let configuration = UISwipeActionsConfiguration(actions: [unPinAction])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
@@ -211,6 +207,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }else{
                 cell.taskDeadline.text = " \(day) day \n\(hour) hr"
             }
+        }
+        if showTask?[indexPath.row].isPinned == false{
+            cell.taskPin.isHidden = true
+        }else{
+            cell.taskPin.isHidden = false
         }
         
         return cell
