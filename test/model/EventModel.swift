@@ -17,8 +17,6 @@ struct EventModel{
     let endTime: String?
     let allDay: Bool
     let autoRecord: Bool
-    //let task: Bool
-    let reminder: Bool
-    //let taskId: Int32?
+    let reminder: String
 }
 

@@ -1550,7 +1550,7 @@
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="zJv-Al-iWf"/>
-                                    <segue destination="dBE-Ec-mrO" kind="unwind" unwindAction="eventUnwindSegueWithSegue:" id="nFw-wY-5Ia"/>
+                                    <segue destination="dBE-Ec-mrO" kind="unwind" unwindAction="eventUnwindSegueWithSegue:" id="uDP-sn-OUA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zj-Xy-h2I">
@@ -1913,27 +1913,15 @@
             <point key="canvasLocation" x="136.80000000000001" y="113.79310344827587"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="arrow.right" catalog="system" width="64" height="48"/>
-        <image name="calendar" catalog="system" width="64" height="52"/>
-        <image name="chart.pie" catalog="system" width="64" height="60"/>
-        <image name="clock" catalog="system" width="64" height="60"/>
-        <image name="doc.text" catalog="system" width="56" height="64"/>
-        <image name="flag" catalog="system" width="64" height="60"/>
-        <image name="location.fill" catalog="system" width="64" height="56"/>
-        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
-        <image name="pin.fill" catalog="system" width="58" height="64"/>
-        <image name="reminder_deselect" width="96" height="96"/>
-        <image name="timer" catalog="system" width="64" height="60"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="475-AM-deT"/>
+        <segue reference="t18-xD-uQE"/>
         <segue reference="uiq-XP-en4"/>
         <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="chart.pie" catalog="system" width="128" height="121"/>
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="doc.text" catalog="system" width="115" height="128"/>
         <image name="flag" catalog="system" width="128" height="121"/>

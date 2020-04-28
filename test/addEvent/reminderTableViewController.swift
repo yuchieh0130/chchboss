@@ -11,25 +11,50 @@ import UIKit
 import JTAppleCalendar
 import UserNotifications
 
+struct reminderStatus{
+    var reminderName = String()
+    var isselected = Bool()
+}
+
 class reminderTableViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAdd: UIButton!
     @IBOutlet var btnCancel: UIButton!
     
-    var reminder_str = [Int]()
-    
-//    let datasource = ["none", "At time of event", "5 minutes before", "10 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hours before", "1 day before", "2 days before", "1 week before", "Custom"]
-    let datasource = ["none", "At time of event", "5 minutes before", "10 minutes before", "30 minutes before", "1 hour before", "1 day before", "At certatian Location"]
-    var reminder = [String]()
+    //    let datasource = ["none", "At time of event", "5 minutes before", "10 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hours before", "1 day before", "2 days before", "1 week before", "Custom"]
+    var reminderData = [reminderStatus(reminderName: "none", isselected: false),
+                       reminderStatus(reminderName: "At time of event", isselected: false),
+                       reminderStatus(reminderName: "5 minutes before", isselected: false),
+                       reminderStatus(reminderName: "10 minutes before", isselected: false),
+                       reminderStatus(reminderName: "30 minutes before", isselected: false),
+                       reminderStatus(reminderName: "1 hour before", isselected: false),
+                       reminderStatus(reminderName: "1 day before", isselected: false),
+                       reminderStatus(reminderName: "At certatian Location", isselected: false),
+    ]
+    var reminder_index = [Int]()
+   // var reminder = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.allowsMultipleSelection = true
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //應該要預設選none!!!
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        var indexp = [IndexPath]()
+        if reminder_index.count == 1 && reminder_index[0] == 0{
+            reminderData[0].isselected = true
+            indexp.append(IndexPath(row: 0, section: 0))
+        }
+        if reminder_index.count != 1 || reminder_index[0] != 0{
+            for i in 0...reminder_index.count-1{
+                reminderData[reminder_index[i]].isselected = true
+                indexp.append(IndexPath(row: reminder_index[i], section: 0))
+            }
+       tableView.reloadRows(at: indexp, with: .none)
+        }
     }
     
     @IBAction func cancel(_ sender: UIButton){
@@ -37,44 +62,49 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     }
     
     @IBAction func addReminder(_ sender: UIButton){
-        for i in 0...tableView.indexPathsForSelectedRows!.count-1{
-            let r = tableView.indexPathsForSelectedRows![i].row
-            reminder_str.append(r)
+        for i in 0...reminderData.count-1{
+            if tableView.cellForRow(at: IndexPath(row: i, section: 0))!.isSelected{
+                reminder_index.append(i)
+            }
         }
-        reminder_str.sort(by: >)
+        reminder_index = reminder_index.sorted()
     }
     
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource.count
+        return reminderData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reminderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "reminderTableViewCell") as! reminderTableViewCell
-        reminderTableViewCell.reminderTime.text = datasource[indexPath.row]
+        reminderTableViewCell.reminderTime.text = reminderData[indexPath.row].reminderName
         reminderTableViewCell.selectionStyle = .none
         reminderTableViewCell.imgView.tintColor = UIColor.gray
-//讀db看點開時哪些要選
-//        if  reminderTableViewCell.isSelected{
-//            reminderTableViewCell.imgView.image = UIImage(named: "reminder_select")
-//        }else{
-//            reminderTableViewCell.imgView.image = UIImage(named: "reminder_deselect")
-//        }
+        if reminderData[indexPath.row].isselected == true{
+            reminderTableViewCell.imgView.image = UIImage(named: "reminder_select")
+        }else{
+            reminderTableViewCell.imgView.image = UIImage(named: "reminder_deselect")
+        }
         return reminderTableViewCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)! as! reminderTableViewCell
+        reminderData[indexPath.row].isselected = true
         cell.imgView.image = UIImage(named: "reminder_select")
         if indexPath.row == 0 {
-            for i in 1...11{
-                tableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
+            for i in 1...reminderData.count-1{
                 let d = tableView.cellForRow(at: IndexPath(row: i, section: 0))  as! reminderTableViewCell
-                d.imgView.image = UIImage(named: "reminder_deselect")
+                if d.isSelected{
+                    tableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
+                    reminderData[i].isselected = false
+                    d.imgView.image = UIImage(named: "reminder_deselect")
+                }
             }
         }else{
             tableView.deselectRow(at: IndexPath(row: 0, section: 0), animated: false)
+            reminderData[0].isselected = false
             let d = tableView.cellForRow(at: IndexPath(row: 0, section: 0))  as! reminderTableViewCell
             d.imgView.image = UIImage(named: "reminder_deselect")
         }
@@ -83,6 +113,16 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)! as! reminderTableViewCell
         cell.imgView.image = UIImage(named: "reminder_deselect")
+        reminderData[indexPath.row].isselected = false
+        var ii = 0
+        for i in 0...reminderData.count-1{
+            if reminderData[i].isselected == true{ ii = ii+1 }
+        }
+        if ii == 0 {
+           reminderData[0].isselected = true
+           let d = tableView.cellForRow(at: IndexPath(row: 0, section: 0))  as! reminderTableViewCell
+           d.imgView.image = UIImage(named: "reminder_select")
+        }
     }
     
     

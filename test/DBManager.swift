@@ -63,7 +63,7 @@ class DBManager: NSObject {
             let e = set?.string(forColumn: "end_time")
             let f = set?.bool(forColumn: "isAllDay")
             let g = set?.bool(forColumn: "isAutomated")
-            let j = set?.bool(forColumn: "hasReminder")
+            let j = set?.string(forColumn: "hasReminder")
             
             let event: EventModel
             
@@ -86,16 +86,15 @@ class DBManager: NSObject {
         
         var id : Int32!
         shareInstance.database?.open()
-        let sqlString = "SELECT MAX(event_id) FROM event";
+        let sqlString = "SELECT MAX(event_id) AS Id FROM event";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
-            let a = set?.int(forColumn: "event_id")
+            let a = set?.int(forColumn: "Id")
             id = a
         }
         set?.close()
         return id
-        
     }
     
     

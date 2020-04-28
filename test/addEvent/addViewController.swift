@@ -43,17 +43,14 @@ class addViewController : UIViewController{
     var endTime: String?
     var allDay: Bool! = false
     var autoRecord: Bool! = false
-    //var task: Bool! = false
-    //var taskId: Int32?
-    //var taskTime: String?
-    var reminder: Bool! = false
-    var reminder_str: [Int] = [0]
+    var reminder: String?
     var id: Int32 = 0
     //var deadline: String! = ""
     
     var event : EventModel?
     var selectedDay: [Date] = []
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
+    var reminder_index: [Int] = [0]
     
     //variable for handling from DatePopViewController
     var tag: String? //which? (startDate,EndDate,editTask)
@@ -94,6 +91,13 @@ class addViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//查看手機內佇列的notification！！！
+//        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+//            for request in requests {
+//                print(request)
+//            }
+//        })
+        //UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
         tableViewData = [cellConfig(opened: false, title: "Name"),
                          cellConfig(opened: false, title: "Start"),
@@ -104,17 +108,17 @@ class addViewController : UIViewController{
         
         reminderData = [reminderConfig( rname: "none", fireTime: 0),
                         reminderConfig( rname: "At time of event", fireTime: 0),
-                        reminderConfig( rname: "5 minutes before", fireTime: 60*5),
-                        reminderConfig( rname: "10 minutes before", fireTime: 60*10),
-                        reminderConfig( rname: "30 minutes before", fireTime: 60*30),
-                        reminderConfig( rname: "1 hour before", fireTime: 60*60),
-                        reminderConfig( rname: "1 day before", fireTime: 60*60*24),
+                        reminderConfig( rname: "5 minutes before", fireTime: 300),
+                        reminderConfig( rname: "10 minutes before", fireTime: 600),
+                        reminderConfig( rname: "30 minutes before", fireTime: 1800),
+                        reminderConfig( rname: "1 hour before", fireTime: 3600),
+                        reminderConfig( rname: "1 day before", fireTime: 86400),
                         reminderConfig( rname: "At certatian Location", fireTime: 0)]
         
         //func for accessoryView
         switchallDay.addTarget(self, action: #selector(self.allDayOpen(_ :)), for: .valueChanged)
         switchauto.addTarget(self, action: #selector(self.autoOpen(_ :)), for: .valueChanged)
-        switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
+        //switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
         
         //檢查是要新增還是編輯event
         if event != nil{
@@ -124,7 +128,6 @@ class addViewController : UIViewController{
             btnEdit.isHidden = true
             btnDelete.isHidden = true
         }
-        //print(selectedDay)
         if selectedDay.isEmpty == false{
             //時間？
             let st = showTimeformatter.string(from: Date())
@@ -155,7 +158,7 @@ class addViewController : UIViewController{
         //編輯事件的autorecord還沒處理好
         //autoRecord = event?.autoRecord
         autoRecord = false
-        reminder = event?.reminder
+        reminder_index = event?.reminder.components(separatedBy: ",").map { Int($0)!} as! [Int]
     }
     
     //判斷觸發哪個segue,把需要的variable傳過去destination Controller
@@ -184,11 +187,22 @@ class addViewController : UIViewController{
                 VC.tag = "autoEnd"
                 VC.showDate = e
             }
+        case "Reminder":
+            if let VC = segue.destination as? reminderTableViewController{
+                VC.reminder_index = reminder_index
+            }
         default:
             print("")
         }
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+           super.viewWillDisappear(animated)
+           event = nil
+           selectedDay = []
+       }
+    
     //DatePopupViewController save回來後執行
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? DatePopupViewController
@@ -225,12 +239,6 @@ class addViewController : UIViewController{
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        event = nil
-        selectedDay = []
-    }
-    
     @IBAction func categorySegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? categoryViewController
         let i = VC?.collectionView.indexPathsForSelectedItems
@@ -239,12 +247,9 @@ class addViewController : UIViewController{
     }
     
     @IBAction func reminderSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? reminderTableViewController
-        for i in 0...(VC?.reminder_str.count)!-1{
-            reminder_str = []
-            reminder_str.append((VC?.reminder_str[i])!)
-        }
-        tableView.reloadRows(at: [IndexPath.init(row: 0, section: 6)], with: .none)
+        let VC = segue.source as! reminderTableViewController
+        reminder_index = VC.reminder_index
+        tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
     }
     
     
@@ -301,7 +306,8 @@ class addViewController : UIViewController{
         startTime = showTimeformatter.string(for: s)!
         endDate = showDayformatter.string(for: e)
         endTime = showTimeformatter.string(for: e)!
-        
+        reminder = reminder_index.map { String($0) }.joined(separator: ",")
+
         if name == nil || name == ""{
             alertMessage()
         }else {
@@ -311,10 +317,9 @@ class addViewController : UIViewController{
                 endTime = nil
             }
             //insert to database
-            
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isAdded = DBManager.getInstance().addEvent(modelInfo)
-            //makeNotification(action: "add")
+            makeNotification(action: "add")
         }
     }
     
@@ -332,7 +337,7 @@ class addViewController : UIViewController{
                 startTime = nil
                 endTime = nil
             }
-            
+            reminder = reminder_index.map { String($0) }.joined(separator: ",")
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
             //makeNotification(action: "edit")
@@ -372,7 +377,7 @@ class addViewController : UIViewController{
     func makeNotification(action: String){
         let no = UNMutableNotificationContent()
         //db裡最大的id+1????
-        let notifivationid = "event1"
+        let notifivationid = String(DBManager.getInstance().getMaxEvent())
         var notifivationids = [String]()
         var fireDate = e
         if allDay{
@@ -382,18 +387,20 @@ class addViewController : UIViewController{
         case "add":
             no.title = "Event Notification"
             no.body = name! + "\nEndDate: " + endDate + " " + endTime!
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([ .hour, .minute],from: fireDate)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let request = UNNotificationRequest(identifier: notifivationid, content: no, trigger: trigger)
-            UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
+            for i in 0...reminder_index.count-1{
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([ .hour, .minute],from: fireDate-TimeInterval(reminderData[reminder_index[i]].fireTime))
+                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                let request = UNNotificationRequest(identifier: "\(notifivationid)_\(reminder_index[i])", content: no, trigger: trigger)
+                UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
+            }
+        //刪除通知還沒做！！！
         case "delete":
             notifivationids.append(String(id))
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
         case "edit":
             notifivationids.append(String(id))
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
-            
         default:
             print("")
         }
@@ -405,7 +412,7 @@ class addViewController : UIViewController{
 extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate  {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -484,19 +491,19 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             cell.txtLocation.text = autoLocation
             cell.selectionStyle = .none
             return cell
+//        case [5,0]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
+//            cell.accessoryView = switchreminder
+//            switchreminder.setOn(reminder, animated: .init())
+//            cell.selectionStyle = .none
+//            return cell
+        //試做reminder
         case [5,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
-            cell.accessoryView = switchreminder
-            switchreminder.setOn(reminder, animated: .init())
-            cell.selectionStyle = .none
-            return cell
-        //試做reminder
-        case [6,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
             var txtReminder = ""
-            for i in 0...reminder_str.count-1{
-                txtReminder += "\(reminderData[reminder_str[i]].rname) , "
-            }
+//            for i in 0...reminder_index.count-1{
+//                txtReminder += "\(reminderData[reminder_index[i]].rname) , "
+//            }
             cell.txtReminder.text = txtReminder
             return cell
         default:
@@ -534,13 +541,13 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     }
     
     //reminder Switch
-    @objc func reminderOpen(_ sender: UISwitch){
-        if sender.isOn == true{
-            reminder = true
-        }else{
-            reminder = false
-        }
-    }
+//    @objc func reminderOpen(_ sender: UISwitch){
+//        if sender.isOn == true{
+//            reminder = true
+//        }else{
+//            reminder = false
+//        }
+//    }
     
     func changeRow(i:String,j:String){
         
@@ -583,7 +590,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         case [4,4]:
             performSegue(withIdentifier: "Map", sender: self)
         //試做reminder
-        case [6,0]:
+        case [5,0]:
             performSegue(withIdentifier: "Reminder", sender: self)
         default:
             print("")
