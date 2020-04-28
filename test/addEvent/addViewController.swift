@@ -501,9 +501,9 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         case [5,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
             var txtReminder = ""
-//            for i in 0...reminder_index.count-1{
-//                txtReminder += "\(reminderData[reminder_index[i]].rname) , "
-//            }
+            for i in 0...reminder_index.count-1{
+                txtReminder += "\(reminderData[reminder_index[i]].rname) , "
+            }
             cell.txtReminder.text = txtReminder
             return cell
         default:
