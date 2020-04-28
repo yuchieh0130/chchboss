@@ -271,4 +271,11 @@ class DBManager: NSObject {
         return isPinned!
     }
     
+    func unPinTask(id: Int32) -> Bool{
+           shareInstance.database?.open()
+           let unPinned = shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 0 WHERE task_id = \(id)", withArgumentsIn:[id])
+           shareInstance.database?.close()
+           return unPinned!
+       }
+    
 }

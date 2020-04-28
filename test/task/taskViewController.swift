@@ -104,28 +104,43 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
      @available(iOS 11.0, *)
         public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id = showTask?[indexPath.row].taskId
+        let task = showTask?[indexPath.row]
         let pinAction = UIContextualAction(style: .normal, title: "Pin") { (action, view, completionHandler) in
             print("Pin")
             completionHandler(true)
             self.tableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
-            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
-            cell.taskPin.isHidden = false
             let isPinned = DBManager.getInstance().pinTask(id: id!)
+            self.showTask = DBManager.getInstance().getAllTask()
+            self.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
+//            let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
+//            cell.taskPin.isHidden = false
             }
-        //if pinAction
+        let unPinAction = UIContextualAction(style: .normal, title: "Unpin") { (action, view, completionHandler) in
+            print("Unpin")
+            completionHandler(true)
+            let unPinned = DBManager.getInstance().unPinTask(id: id!)
+            self.showTask = DBManager.getInstance().getAllTask()
+            self.tableView.reloadData()
+            self.dismiss(animated: true, completion: nil)
+            
+        }
+        if showTask?[indexPath.row].isPinned == false{
             let configuration = UISwipeActionsConfiguration(actions: [pinAction])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
+        }else{
+            let configuration = UISwipeActionsConfiguration(actions: [unPinAction])
+            configuration.performsFirstActionWithFullSwipe = false
+            return configuration
         }
-    
-    func taskPin() {
-    }
-        
+        }
+
         //往左滑
         @available(iOS 11.0, *)
         public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
             let id =  showTask?[indexPath.row].taskId
+            let task = showTask?[indexPath.row]
             let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
                 print("Delete")
                 completionHandler(true)
