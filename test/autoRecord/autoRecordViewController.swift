@@ -21,7 +21,7 @@ class autoRecordViewController: UIViewController{
     override func viewDidLoad() {
         title = "Track"
         let auc = DBManager.getInstance().getLocName()
-        txt.text = auc!
+        txt.text = "\(txt.text!) + \(auc!)\n"
         print(auc!)
     }
     
