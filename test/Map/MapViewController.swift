@@ -40,6 +40,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     // An array to hold the list of likely places.
     var likelyPlaces: [GMSPlace] = []
+    var selectPlaces:[GMSPlace] = []
     // The currently selected place.
     var selectedPlace: GMSPlace?
     
@@ -147,15 +148,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     self.tblView.reloadData()
                 }
             }
-            print(self.likelyPlaces[1].types![0])
-            print(type(of: self.likelyPlaces[1].types![0]))
+            for i in 0...4{
+                self.selectPlaces.append(self.likelyPlaces[i])
+            }
+            print(self.selectPlaces[1].types![0])
+            print(type(of: self.selectPlaces[1].types![0]))
             
             //DB
             self.latitude = currentLocation.latitude
             self.longitude = currentLocation.longitude
             self.startTime = dateFormatString
-            self.nearestName = self.likelyPlaces[1].name!
-            self.nearestCategory = self.likelyPlaces[0].types![0]
+            self.nearestName = self.selectPlaces[1].name!
+            self.nearestCategory = self.selectPlaces[0].types![0]
             
             let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, nearestName: self.nearestName, nearestCategory: self.nearestCategory)
             
@@ -211,13 +215,13 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate{
         if searching{
             return filterList.count
         }else{
-            return likelyPlaces.count
+            return selectPlaces.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        let collectionItem = likelyPlaces[indexPath.row]
+        let collectionItem = selectPlaces[indexPath.row]
         if collectionItem.name !=  nil{
             collectionArr.append(collectionItem.name!)
         }
