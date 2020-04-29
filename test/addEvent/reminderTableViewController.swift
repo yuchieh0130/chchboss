@@ -22,7 +22,9 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     @IBOutlet var btnAdd: UIButton!
     @IBOutlet var btnCancel: UIButton!
     
-    //    let datasource = ["none", "At time of event", "5 minutes before", "10 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hours before", "1 day before", "2 days before", "1 week before", "Custom"]
+    var reminder_index = [Int]()
+    
+    //  let datasource = ["none", "At time of event", "5 minutes before", "10 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hours before", "1 day before", "2 days before", "1 week before", "Custom"]
     var reminderData = [reminderStatus(reminderName: "none", isselected: false),
                        reminderStatus(reminderName: "At time of event", isselected: false),
                        reminderStatus(reminderName: "5 minutes before", isselected: false),
@@ -32,8 +34,6 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
                        reminderStatus(reminderName: "1 day before", isselected: false),
                        reminderStatus(reminderName: "At certatian Location", isselected: false),
     ]
-    var reminder_index = [Int]()
-   // var reminder = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,17 +43,16 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        var indexp = [IndexPath]()
+        var index = [IndexPath]()
         if reminder_index.count == 1 && reminder_index[0] == 0{
             reminderData[0].isselected = true
-            indexp.append(IndexPath(row: 0, section: 0))
-        }
-        if reminder_index.count != 1 || reminder_index[0] != 0{
+            index.append(IndexPath(row: 0, section: 0))
+        }else{
             for i in 0...reminder_index.count-1{
                 reminderData[reminder_index[i]].isselected = true
-                indexp.append(IndexPath(row: reminder_index[i], section: 0))
+                index.append(IndexPath(row: reminder_index[i], section: 0))
             }
-       tableView.reloadRows(at: indexp, with: .none)
+       tableView.reloadRows(at: index, with: .none)
         }
     }
     
@@ -96,18 +95,18 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
         cell.imgView.image = UIImage(named: "reminder_select")
         if indexPath.row == 0 {
             for i in 1...reminderData.count-1{
-                let d = tableView.cellForRow(at: IndexPath(row: i, section: 0))  as! reminderTableViewCell
-                if d.isSelected{
+                let c = tableView.cellForRow(at: IndexPath(row: i, section: 0))  as! reminderTableViewCell
+                if c.isSelected{
                     tableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
                     reminderData[i].isselected = false
-                    d.imgView.image = UIImage(named: "reminder_deselect")
+                    c.imgView.image = UIImage(named: "reminder_deselect")
                 }
             }
         }else{
             tableView.deselectRow(at: IndexPath(row: 0, section: 0), animated: false)
             reminderData[0].isselected = false
-            let d = tableView.cellForRow(at: IndexPath(row: 0, section: 0))  as! reminderTableViewCell
-            d.imgView.image = UIImage(named: "reminder_deselect")
+            let c = tableView.cellForRow(at: IndexPath(row: 0, section: 0))  as! reminderTableViewCell
+            c.imgView.image = UIImage(named: "reminder_deselect")
         }
     }
     
@@ -115,14 +114,11 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
         let cell = tableView.cellForRow(at: indexPath)! as! reminderTableViewCell
         cell.imgView.image = UIImage(named: "reminder_deselect")
         reminderData[indexPath.row].isselected = false
-        var ii = 0
-        for i in 0...reminderData.count-1{
-            if reminderData[i].isselected == true{ ii = ii+1 }
-        }
-        if ii == 0 {
-           reminderData[0].isselected = true
-           let d = tableView.cellForRow(at: IndexPath(row: 0, section: 0))  as! reminderTableViewCell
-           d.imgView.image = UIImage(named: "reminder_select")
+        //var ii = 0
+        if reminderData.filter({$0.isselected}).count == 0{
+            reminderData[0].isselected = true
+            let c = tableView.cellForRow(at: IndexPath(row: 0, section: 0))  as! reminderTableViewCell
+            c.imgView.image = UIImage(named: "reminder_select")
         }
     }
     

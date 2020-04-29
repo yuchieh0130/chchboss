@@ -45,21 +45,19 @@ class addViewController : UIViewController{
     var autoRecord: Bool! = false
     var reminder: String?
     var id: Int32 = 0
-    //var deadline: String! = ""
     
     var event : EventModel?
     var selectedDay: [Date] = []
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
     var reminder_index: [Int] = [0]
     
-    //variable for handling from DatePopViewController
+    //variable for handling  DatePopViewController
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
     var showStart: String = "" //format show out on storyboard
     var showEnd: String = "" //format show out on storyboard
     var autoLocation: String = ""
-    
-    //拿來處理dayconstraint
+    //用來處理dayconstraint
     var s = Date()
     var e = Date()+3600
     
@@ -130,7 +128,6 @@ class addViewController : UIViewController{
             btnDelete.isHidden = true
         }
         if selectedDay.isEmpty == false{
-            //時間？
             let st = showTimeformatter.string(from: Date())
             let et = showTimeformatter.string(from: Date()+3600)
             let sd = showDayformatter.string(from: selectedDay[0])
@@ -300,15 +297,13 @@ class addViewController : UIViewController{
     }
     
     @IBAction func addEventButton(_ sender: UIButton){
-        //save to db
-        // check 若endDateTime不為空值且小於startDateTime，顯示警告訊息
         self.view.endEditing(true)
         startDate = showDayformatter.string(for: s)
         startTime = showTimeformatter.string(for: s)!
         endDate = showDayformatter.string(for: e)
         endTime = showTimeformatter.string(for: e)!
         reminder = reminder_index.map { String($0) }.joined(separator: ",")
-
+        // check 若endDateTime不為空值且小於startDateTime，顯示警告訊息
         if name == nil || name == ""{
             alertMessage()
         }else {
@@ -326,7 +321,7 @@ class addViewController : UIViewController{
     
     @IBAction func editEventButton(_ sender: UIButton){
         self.view.endEditing(true)
-        
+        reminder = reminder_index.map { String($0) }.joined(separator: ",")
         if name == nil || name == ""{
             alertMessage()
         }else{
@@ -338,7 +333,6 @@ class addViewController : UIViewController{
                 startTime = nil
                 endTime = nil
             }
-            reminder = reminder_index.map { String($0) }.joined(separator: ",")
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
             makeNotification(action: "delete")
@@ -354,8 +348,6 @@ class addViewController : UIViewController{
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){_ in controller.dismiss(animated: true, completion: nil)}
         controller.addAction(okAction)
         controller.addAction(cancelAction)
-        
-        makeNotification(action: "delete")
         self.present(controller, animated: true,completion: .none)
     }
     
@@ -363,6 +355,7 @@ class addViewController : UIViewController{
            reminder = reminder_index.map { String($0) }.joined(separator: ",")
            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,reminder: reminder!)
            let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
+           makeNotification(action: "delete")
        }
        
     
@@ -377,18 +370,16 @@ class addViewController : UIViewController{
         }
     }
     
+    //manage the notification
     func makeNotification(action: String){
-        let no = UNMutableNotificationContent()
-        //let notifivationid = String(DBManager.getInstance().getMaxEvent())
         var notifivationids = [String]()
         var fireDate = e
-        if allDay{
-            fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")!
-        }
+        if allDay{ fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")! }
         switch action {
         case "add":
-            no.title = "Event Notification"
-            no.body = name! + "\nEndDate: " + endDate + " " + endTime!
+            let no = UNMutableNotificationContent()
+                no.title = "Event Notification"
+                no.body = name! + "\nEndDate: " + endDate + " " + endTime!
             let notifivationid = String(DBManager.getInstance().getMaxEvent())
             for i in 0...reminder_index.count-1{
                 let calendar = Calendar.current
@@ -397,24 +388,16 @@ class addViewController : UIViewController{
                 let request = UNNotificationRequest(identifier: "event\(notifivationid)_\(reminder_index[i])", content: no, trigger: trigger)
                 UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
             }
-        //刪除通知還沒做！！！
         case "delete":
-//            for i in 0...reminder_index.count-1{
-//                notifivationids.append("event\(String(id))_\(reminder_index[i])")
-//            }
-            //filter { $0.contains(searchBar.text!)}
             UNUserNotificationCenter.current().getPendingNotificationRequests{ pendingRequests in
                 let toDelete = pendingRequests.filter{ $0.identifier.contains("event\(String(self.id))_")}
                 let identifiersToDelete = toDelete.map { $0.identifier }
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersToDelete)
             }
-            //UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
-        //case "edit":
-            //for i in 0...reminder_index.count-1{
-            //    notifivationids.append("event\(String(id))_\(reminder_index[i])")
-            //}
-            //UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
-            
+            //  for i in 0...reminder_index.count-1{
+            //      notifivationids.append("event\(String(id))_\(reminder_index[i])")
+            //  }
+            // UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
         default:
             print("")
         }
@@ -505,13 +488,13 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             cell.txtLocation.text = autoLocation
             cell.selectionStyle = .none
             return cell
+//remninder with switch
 //        case [5,0]:
 //            let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
 //            cell.accessoryView = switchreminder
 //            switchreminder.setOn(reminder, animated: .init())
 //            cell.selectionStyle = .none
 //            return cell
-        //試做reminder
         case [5,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
             var txtReminder = ""
@@ -584,15 +567,15 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath {
-            //        case [0,0]:
+        //        case [0,0]:
         //            <#code#>
         case [1,0]:
             performSegue(withIdentifier: "editStartDate", sender: self)
         case [2,0]:
             performSegue(withIdentifier: "editEndDate", sender: self)
-            //        case [3,0]:
-            //            <#code#>
-            //        case [4,0]:
+        //        case [3,0]:
+        //            <#code#>
+        //        case [4,0]:
         //            <#code#>
         case [4,1]:
             performSegue(withIdentifier: "editAutoStart", sender: self)
@@ -603,7 +586,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             performSegue(withIdentifier: "NewCategory", sender: self)
         case [4,4]:
             performSegue(withIdentifier: "Map", sender: self)
-        //試做reminder
         case [5,0]:
             performSegue(withIdentifier: "Reminder", sender: self)
         default:
