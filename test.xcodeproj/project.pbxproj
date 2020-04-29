@@ -51,6 +51,7 @@
 		6B6BB1BA225FAD05006F384C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6BB1B8225FAD05006F384C /* LaunchScreen.storyboard */; };
 		6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1C1225FE06B006F384C /* DateCell.swift */; };
 		D7EEB6892459874E00D72B63 /* searchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */; };
+		D7EEB6912459AC7800D72B63 /* NewMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6902459AC7800D72B63 /* NewMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +110,7 @@
 		6B6BB1C1225FE06B006F384C /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		829C947D900C99017F760445 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
 		D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationViewController.swift; sourceTree = "<group>"; };
+		D7EEB6902459AC7800D72B63 /* NewMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 			children = (
 				582341ED242B5F1000FFC83B /* MapViewController.swift */,
 				D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */,
+				D7EEB6902459AC7800D72B63 /* NewMapViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,
+				D7EEB6912459AC7800D72B63 /* NewMapViewController.swift in Sources */,
 				4B7926702459164B001AA0A9 /* actionViewController.swift in Sources */,
 				6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */,
 				4B351A4824188BE9003A474A /* FMDatabaseAdditions.m in Sources */,
