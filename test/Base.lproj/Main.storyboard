@@ -69,6 +69,10 @@
                         <viewLayoutGuide key="safeArea" id="fhK-K8-Q2w"/>
                     </view>
                     <navigationItem key="navigationItem" id="RfS-Vr-JUZ"/>
+                    <connections>
+                        <outlet property="tblPlaces" destination="vUl-kV-waq" id="tQx-E6-Ms2"/>
+                        <outlet property="txtSearch" destination="K2M-8C-4ff" id="quv-Qs-vFb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lBl-Ds-8at" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="ede-Yb-CrY">
@@ -890,7 +894,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="btn:" destination="svZ-ai-5oE" eventType="touchUpInside" id="01x-hT-ekX"/>
                                     <segue destination="b1c-vS-CuG" kind="show" id="oYM-Nh-pp5"/>
                                 </connections>
                             </button>
@@ -1226,6 +1229,9 @@
                         <viewLayoutGuide key="safeArea" id="nwo-YK-5GY"/>
                     </view>
                     <navigationItem key="navigationItem" id="KOn-Ey-1gw"/>
+                    <connections>
+                        <outlet property="mapView" destination="EVi-my-O3u" id="WIn-3E-Nax"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lat-Cl-r3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -10,6 +10,7 @@ import UIKit
 
 class searchLocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
     var resultsArray:[Dictionary<String, AnyObject>] = Array()

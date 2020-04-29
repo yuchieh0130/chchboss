@@ -10,13 +10,14 @@ import Foundation
 import UIKit
 import GoogleMaps
 
-class googleMapViewController: UIViewController{
+class googleMapViewController: UIViewController, GMSMapViewDelegate{
     
     @IBOutlet weak var mapView: GMSMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
         mapView.camera = camera
+        mapView.delegate = self
     }
     
     override func didReceiveMemoryWarning() {

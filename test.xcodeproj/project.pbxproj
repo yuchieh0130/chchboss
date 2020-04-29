@@ -42,6 +42,7 @@
 		582341EE242B5F1000FFC83B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582341ED242B5F1000FFC83B /* MapViewController.swift */; };
 		582341F0242BB0DA00FFC83B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582341EF242BB0DA00FFC83B /* SceneDelegate.swift */; };
 		583F59C2243E197F0018B383 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F59C1243E197F0018B383 /* PlaceModel.swift */; };
+		58AE20942459A4DD00785280 /* googleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AE20932459A4DD00785280 /* googleMapViewController.swift */; };
 		58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D91DC824325783002DD7B2 /* LocationModel.swift */; };
 		6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1AF225FAD04006F384C /* AppDelegate.swift */; };
 		6B6BB1B2225FAD04006F384C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1B1225FAD04006F384C /* ViewController.swift */; };
@@ -50,6 +51,7 @@
 		6B6BB1BA225FAD05006F384C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6BB1B8225FAD05006F384C /* LaunchScreen.storyboard */; };
 		6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1C1225FE06B006F384C /* DateCell.swift */; };
 		D7EEB6892459874E00D72B63 /* searchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */; };
+		D7EEB6912459AC7800D72B63 /* NewMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6902459AC7800D72B63 /* NewMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,7 @@
 		582341ED242B5F1000FFC83B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = test/Map/MapViewController.swift; sourceTree = SOURCE_ROOT; };
 		582341EF242BB0DA00FFC83B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		583F59C1243E197F0018B383 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
+		58AE20932459A4DD00785280 /* googleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = googleMapViewController.swift; sourceTree = "<group>"; };
 		58D91DC824325783002DD7B2 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		6B6BB1AC225FAD04006F384C /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B6BB1AF225FAD04006F384C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +110,7 @@
 		6B6BB1C1225FE06B006F384C /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		829C947D900C99017F760445 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
 		D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationViewController.swift; sourceTree = "<group>"; };
+		D7EEB6902459AC7800D72B63 /* NewMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +216,7 @@
 			children = (
 				582341ED242B5F1000FFC83B /* MapViewController.swift */,
 				D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */,
+				D7EEB6902459AC7800D72B63 /* NewMapViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				4B97DF9124176AB8005BD787 /* DBManager.swift */,
 				4B79266F2459164B001AA0A9 /* actionViewController.swift */,
 				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
+				58AE20932459A4DD00785280 /* googleMapViewController.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
 				58D91DC72431CEE2002DD7B2 /* Map */,
@@ -408,6 +414,7 @@
 				4B02C4BC243D6B440087DB4C /* addTaskCell.swift in Sources */,
 				582341F0242BB0DA00FFC83B /* SceneDelegate.swift in Sources */,
 				4B855CFA242B0C88001B80C7 /* (old)categoryTableViewCell.swift in Sources */,
+				58AE20942459A4DD00785280 /* googleMapViewController.swift in Sources */,
 				4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */,
 				4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */,
 				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
@@ -429,6 +436,7 @@
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,
+				D7EEB6912459AC7800D72B63 /* NewMapViewController.swift in Sources */,
 				4B7926702459164B001AA0A9 /* actionViewController.swift in Sources */,
 				6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */,
 				4B351A4824188BE9003A474A /* FMDatabaseAdditions.m in Sources */,
