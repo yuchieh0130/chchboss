@@ -15,3 +15,7 @@ class categoryViewCell: UICollectionViewCell{
     @IBOutlet var imageView: UIImageView!
     
 }
+
+class addCategoryViewCell: UICollectionViewCell{
+    @IBOutlet var imageView: UIImageView!
+}
