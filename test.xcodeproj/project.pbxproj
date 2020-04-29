@@ -26,6 +26,7 @@
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
 		4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */; };
 		4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */; };
+		4B7926702459164B001AA0A9 /* actionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79266F2459164B001AA0A9 /* actionViewController.swift */; };
 		4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */; };
 		4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */; };
 		4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF5242B07FA001B80C7 /* CategoryModel.swift */; };
@@ -77,6 +78,7 @@
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
 		4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewCell.swift; sourceTree = "<group>"; };
 		4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(old)addEventViewController.swift"; sourceTree = "<group>"; };
+		4B79266F2459164B001AA0A9 /* actionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = actionViewController.swift; sourceTree = "<group>"; };
 		4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewController.swift; sourceTree = "<group>"; };
 		4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewCell.swift; sourceTree = "<group>"; };
 		4B855CF5242B07FA001B80C7 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -199,7 +201,6 @@
 				6B6BB1C1225FE06B006F384C /* DateCell.swift */,
 				4B1C31062415696600875B74 /* DateHeader.swift */,
 				6B6BB1B1225FAD04006F384C /* ViewController.swift */,
-				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -242,6 +243,8 @@
 				4B9EBD552417A7CE00162A77 /* Util.swift */,
 				4B9EBD572417AEC900162A77 /* project.db */,
 				4B97DF9124176AB8005BD787 /* DBManager.swift */,
+				4B79266F2459164B001AA0A9 /* actionViewController.swift */,
+				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
 				58D91DC72431CEE2002DD7B2 /* Map */,
@@ -422,6 +425,7 @@
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,
+				4B7926702459164B001AA0A9 /* actionViewController.swift in Sources */,
 				6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */,
 				4B351A4824188BE9003A474A /* FMDatabaseAdditions.m in Sources */,
 			);
