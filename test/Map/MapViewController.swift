@@ -77,41 +77,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.tblView.reloadData()
     }
     
-    //    func startLocationManager(){
-    //        myLocationManager.delegate = self
-    //        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-    //        myLocationManager.activityType = CLActivityType.fitness
-    //        myLocationManager.distanceFilter = 50
-    //        myLocationManager.startUpdatingLocation()
-    //    }
-    
-    //    // Populate the array with the list of likely places.
-    //    func listLikelyPlaces() {
-    //      // Clean up from previous sessions.
-    //      likelyPlaces.removeAll()
-    //
-    //      placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
-    //        if let error = error {
-    //          // TODO: Handle the error.
-    //          print("Current Place error: \(error.localizedDescription)")
-    //          return
-    //        }
-    //
-    //        // Get likely places and add to the list.
-    //        if let likelihoodList = placeLikelihoods {
-    //          for likelihood in likelihoodList.likelihoods {
-    //            let place = likelihood.place
-    //            self.likelyPlaces.append(place)
-    //            self.tblView.reloadData()
-    //          }
-    //        }
-    //        print(self.likelyPlaces[1].types![0])
-    //        print(type(of: self.likelyPlaces[1].types![0]))
-    //      })
-    //    }
-    
-    
-    
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
@@ -167,8 +132,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             print("save in DB :", isSaved)
             
         })
-        
-        //print(self.likelyPlaces[1].types![0])
         
     }
     
