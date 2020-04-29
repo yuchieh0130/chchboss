@@ -62,8 +62,9 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     }
     
     @IBAction func addReminder(_ sender: UIButton){
+        reminder_index = []
         for i in 0...reminderData.count-1{
-            if tableView.cellForRow(at: IndexPath(row: i, section: 0))!.isSelected{
+            if reminderData[i].isselected{
                 reminder_index.append(i)
             }
         }

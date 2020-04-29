@@ -91,12 +91,13 @@ class addViewController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//查看手機內佇列的notification！！！
+        //查看手機內佇列的notification
 //        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
 //            for request in requests {
 //                print(request)
 //            }
 //        })
+        //查看所有已推送的notification
         //UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
         tableViewData = [cellConfig(opened: false, title: "Name"),
@@ -340,7 +341,8 @@ class addViewController : UIViewController{
             reminder = reminder_index.map { String($0) }.joined(separator: ",")
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
-            //makeNotification(action: "edit")
+            makeNotification(action: "delete")
+            makeNotification(action: "add")
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -353,11 +355,12 @@ class addViewController : UIViewController{
         controller.addAction(okAction)
         controller.addAction(cancelAction)
         
-        //makeNotification(action: "delete")
+        makeNotification(action: "delete")
         self.present(controller, animated: true,completion: .none)
     }
     
     func delete(){
+           reminder = reminder_index.map { String($0) }.joined(separator: ",")
            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,reminder: reminder!)
            let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
        }
@@ -376,8 +379,7 @@ class addViewController : UIViewController{
     
     func makeNotification(action: String){
         let no = UNMutableNotificationContent()
-        //db裡最大的id+1????
-        let notifivationid = String(DBManager.getInstance().getMaxEvent())
+        //let notifivationid = String(DBManager.getInstance().getMaxEvent())
         var notifivationids = [String]()
         var fireDate = e
         if allDay{
@@ -387,20 +389,32 @@ class addViewController : UIViewController{
         case "add":
             no.title = "Event Notification"
             no.body = name! + "\nEndDate: " + endDate + " " + endTime!
+            let notifivationid = String(DBManager.getInstance().getMaxEvent())
             for i in 0...reminder_index.count-1{
                 let calendar = Calendar.current
                 let components = calendar.dateComponents([ .hour, .minute],from: fireDate-TimeInterval(reminderData[reminder_index[i]].fireTime))
                 let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                let request = UNNotificationRequest(identifier: "\(notifivationid)_\(reminder_index[i])", content: no, trigger: trigger)
+                let request = UNNotificationRequest(identifier: "event\(notifivationid)_\(reminder_index[i])", content: no, trigger: trigger)
                 UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
             }
         //刪除通知還沒做！！！
         case "delete":
-            notifivationids.append(String(id))
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
-        case "edit":
-            notifivationids.append(String(id))
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
+//            for i in 0...reminder_index.count-1{
+//                notifivationids.append("event\(String(id))_\(reminder_index[i])")
+//            }
+            //filter { $0.contains(searchBar.text!)}
+            UNUserNotificationCenter.current().getPendingNotificationRequests{ pendingRequests in
+                let toDelete = pendingRequests.filter{ $0.identifier.contains("event\(String(self.id))_")}
+                let identifiersToDelete = toDelete.map { $0.identifier }
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersToDelete)
+            }
+            //UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
+        //case "edit":
+            //for i in 0...reminder_index.count-1{
+            //    notifivationids.append("event\(String(id))_\(reminder_index[i])")
+            //}
+            //UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notifivationids)
+            
         default:
             print("")
         }
