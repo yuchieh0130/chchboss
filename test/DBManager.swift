@@ -151,6 +151,20 @@ class DBManager: NSObject {
         return isSave!
     }
     
+    func getLocName() -> String!{
+        var location : String!
+        shareInstance.database?.open()
+        let sqlString = "SELECT nearest_name FROM location ORDER BY location_id DESC limit 1";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.string(forColumn: "nearest_name")
+            location = i
+        }
+        set?.close()
+        return location
+    }
+    
     func getLocation(String: String) -> LocationModel!{
         
         var location : LocationModel!

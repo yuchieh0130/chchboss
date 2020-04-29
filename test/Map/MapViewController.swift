@@ -158,8 +158,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.latitude = currentLocation.latitude
             self.longitude = currentLocation.longitude
             self.startTime = dateFormatString
-            self.nearestName = self.selectPlaces[1].name!
-            self.nearestCategory = self.selectPlaces[0].types![0]
+            self.nearestName = self.likelyPlaces[0].name!
+            self.nearestCategory = self.likelyPlaces[0].types![0]
             
             let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, nearestName: self.nearestName, nearestCategory: self.nearestCategory)
             
