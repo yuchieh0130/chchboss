@@ -16,6 +16,33 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
 
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
+    @IBOutlet var popover: UIView!
+    @IBAction func AddLocation(_ sender: Any) {
+        self.view.addSubview(popover)
+        popover.center = self.view.center
+        popover.center.y = 200
+        txtField.text = txtSearch.text
+        popover.layer.borderColor = UIColor.gray.cgColor
+        popover.layer.borderWidth = 1
+        popover.layer.cornerRadius = 20
+        popover.layer.shadowOffset = CGSize(width: 5,height: 5)
+        popover.layer.shadowOpacity = 0.7
+        popover.layer.shadowRadius = 20
+
+    }
+    
+    @IBOutlet weak var txtField: UITextField!
+    
+    @IBAction func CancelBtn(_ sender: Any) {
+        self.popover.removeFromSuperview()
+    }
+    @IBAction func ComfirmBtn(_ sender: Any) {
+        self.popover.removeFromSuperview()
+    }
+    
+    
+    
+    
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     let exampleArray = ["banana","apple","guava", "grape","pear"]
     
