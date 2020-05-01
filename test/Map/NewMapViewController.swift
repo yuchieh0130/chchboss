@@ -17,6 +17,9 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
+    let exampleArray = ["banana","apple","guava", "grape","pear"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -24,22 +27,36 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
         tblPlaces.estimatedRowHeight = 44.0
         tblPlaces.dataSource = self
         tblPlaces.delegate = self
+        
+        txtSearch.placeholder = "Search places..."
     }
     
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if txtSearch.text!.isEmpty{
+            return exampleArray.count
+        }else{
         return resultsArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "placecell")
+        
+        if txtSearch.text!.isEmpty{
+            let place = exampleArray[indexPath.row]
+            cell?.textLabel?.text = place
+            cell?.detailTextLabel?.isHidden = true
+        }else{
 
         if resultsArray.count>=0{
         let place = self.resultsArray[indexPath.row]
             cell?.textLabel?.text = "\(place["name"] as! String)"
+            cell?.detailTextLabel?.isHidden = false
             cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+        }
         }
 
         return cell!
@@ -96,7 +113,11 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 
 
 }
+
 
