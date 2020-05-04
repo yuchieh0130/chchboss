@@ -165,11 +165,11 @@ class DBManager: NSObject {
         return location
     }
     
-    func getLocation(String: String) -> LocationModel!{
+    func getLocation(Int: Int32) -> LocationModel!{
         
         var location : LocationModel!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location WHERE location_id = '\(String)' ";
+        let sqlString = "SELECT * FROM location WHERE location_id = '\(Int)' ";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
