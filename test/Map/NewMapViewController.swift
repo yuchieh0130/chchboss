@@ -12,7 +12,7 @@ import CoreLocation
 import GoogleMaps
 import GooglePlaces
 
-class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationManagerDelegate, UITableViewDelegate {
+class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationManagerDelegate, UITableViewDelegate,GMSMapViewDelegate{
 
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
@@ -40,7 +40,7 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
         self.popover.removeFromSuperview()
     }
     
-    
+    @IBOutlet weak var mapView: GMSMapView!
     
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
@@ -56,6 +56,15 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
         tblPlaces.delegate = self
         
         txtSearch.placeholder = "Search places..."
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
+        mapView.camera = camera
+
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
+        marker.map = mapView
+        
+        mapView.delegate = self
     }
     
     //MARK:- UITableViewDataSource and UItableViewDelegates
