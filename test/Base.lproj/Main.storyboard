@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -478,7 +478,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="9LD-VB-6Vf"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="plus.circle.fill" catalog="system" selectedImage="plus.circle.fill" id="dn4-Sp-1UQ"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="" id="dn4-Sp-1UQ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Y6-hL-N3F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -494,7 +494,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="chart.pie" catalog="system" selectedImage="chart.pie" id="EsJ-Wy-Q9H"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="" image="chart.pie" catalog="system" selectedImage="chart.pie" id="EsJ-Wy-Q9H"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -543,7 +543,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Mol-m3-8sL"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="pencil.and.ellipsis.rectangle" catalog="system" selectedImage="pencil.and.ellipsis.rectangle" id="n7Q-jf-2aU"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="" image="pencil.and.ellipsis.rectangle" catalog="system" selectedImage="pencil.and.ellipsis.rectangle" id="n7Q-jf-2aU"/>
                     <connections>
                         <outlet property="txt" destination="YgK-Uk-W4g" id="Dyk-Wu-cqm"/>
                     </connections>
@@ -1831,7 +1831,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="g2N-0s-GED"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="doc.text" catalog="system" selectedImage="doc.text" id="dlq-P7-ObU"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="" image="doc.text" catalog="system" selectedImage="doc.text" id="dlq-P7-ObU"/>
                     <connections>
                         <outlet property="addTaskButton" destination="89g-sw-5at" id="nPb-Ge-4Gf"/>
                         <outlet property="tableView" destination="yId-nE-s7K" id="idW-d2-fhx"/>
@@ -1873,12 +1873,11 @@
         <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
         <image name="pin.fill" catalog="system" width="58" height="64"/>
         <image name="plus.circle" catalog="system" width="64" height="60"/>
-        <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
         <image name="reminder_deselect" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="2v3-r9-Jbk"/>
         <segue reference="uiq-XP-en4"/>
-        <segue reference="WsB-A9-R4s"/>
+        <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
 </document>
