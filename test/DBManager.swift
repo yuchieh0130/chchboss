@@ -165,11 +165,11 @@ class DBManager: NSObject {
         return location
     }
     
-    func getLocation(String: String) -> LocationModel!{
+    func getLocation(Int: Int32) -> LocationModel!{
         
         var location : LocationModel!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location WHERE location_id = '\(String)' ";
+        let sqlString = "SELECT * FROM location WHERE location_id = '\(Int)' ";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -188,9 +188,9 @@ class DBManager: NSObject {
         return location
     }
     
-    func savePlace(_ modelInfo: PlaceModel) -> Bool{
+    func addPlace(_ modelInfo: PlaceModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longtitude,place_lantitude) VALUES (?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongtitude,modelInfo.placeLantitude])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longtitude,place_lantitude,my_place) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongtitude,modelInfo.placeLantitude,modelInfo.myPlace])
         
         shareInstance.database?.close()
         return isSave!
@@ -209,8 +209,9 @@ class DBManager: NSObject {
             let b = set?.string(forColumn: "place_category")
             let c = set?.double(forColumn: "place_longtitude")
             let d = set?.double(forColumn: "place_lantitude")
+            let e = set?.bool(forColumn: "my_place")
             
-            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongtitude: c!, placeLantitude: d!)
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongtitude: c!, placeLantitude: d!, myPlace: e!)
         }
         set?.close()
         return place

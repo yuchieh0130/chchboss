@@ -12,8 +12,9 @@ import CoreLocation
 import GoogleMaps
 import GooglePlaces
 
-class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationManagerDelegate, UITableViewDelegate {
-
+class mapViewController: UIViewController, UITableViewDataSource,CLLocationManagerDelegate, UITableViewDelegate, GMSMapViewDelegate {
+    
+    @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
     @IBOutlet var popover: UIView!
@@ -31,17 +32,38 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
 
     }
     
+    
+    //place db variables
+    var id: Int32 = 0
+    var name: String?
+    var placeName: String! = "" //Only Date
+    var placeCategory: String! = ""
+    var placeLongtitude: Double! = 0
+    var placeLantitude: Double! = 0
+    var myPlace: Bool! = false
+    
     @IBOutlet weak var txtField: UITextField!
     
-    @IBAction func CancelBtn(_ sender: Any) {
+    @IBAction func addBtn(_ sender: Any) {
+        self.popover.removeFromSuperview()
+       
+        if name == nil || name == ""{
+            // alertMessage()
+        }else {
+            
+            name = txtField.text
+            
+            let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+            let isAdded = DBManager.getInstance().addPlace(modelInfo)
+            // makeNotification(action: "add")
+        }
+        
+    }
+    
+    @IBAction func cancelBtn(_ sender: Any) {
         self.popover.removeFromSuperview()
     }
-    @IBAction func ComfirmBtn(_ sender: Any) {
-        self.popover.removeFromSuperview()
-    }
-    
-    
-    
+
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     let exampleArray = ["banana","apple","guava", "grape","pear"]
@@ -56,6 +78,15 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
         tblPlaces.delegate = self
         
         txtSearch.placeholder = "Search places..."
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
+        mapView.camera = camera
+
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
+        marker.map = mapView
+               
+        mapView.delegate = self
     }
     
     //MARK:- UITableViewDataSource and UItableViewDelegates
@@ -88,6 +119,7 @@ class NewMapViewController: UIViewController, UITableViewDataSource,CLLocationMa
 
         return cell!
     }
+
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

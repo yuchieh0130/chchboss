@@ -13,20 +13,20 @@ import CoreLocation
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class old: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
-    @IBOutlet weak var tblView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var myMapView: MKMapView!
-    @IBAction func btnCancel(_ sender: Any) {
-        self.dismiss(animated: true, completion:nil)
-    }
+//    @IBOutlet weak var tblView: UITableView!
+//    @IBOutlet weak var searchBar: UISearchBar!
+//    @IBOutlet weak var myMapView: MKMapView!
+//    @IBAction func btnCancel(_ sender: Any) {
+//        self.dismiss(animated: true, completion:nil)
+//    }
     
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
-    var searching = false
+//    var searching = false
     var collectionArr = [String]()
     
     //DB variables
@@ -70,11 +70,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         // Map
-        myMapView.delegate = self as MKMapViewDelegate
-        myMapView.mapType = .standard
-        myMapView.isZoomEnabled = true
-        setMap(latitude: 25.035915, longitude: 121.563619)
-        self.tblView.reloadData()
+//        myMapView.delegate = self as MKMapViewDelegate
+//        myMapView.mapType = .standard
+//        myMapView.isZoomEnabled = true
+//        setMap(latitude: 25.035915, longitude: 121.563619)
+//        self.tblView.reloadData()
     }
     
     
@@ -97,7 +97,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         // 確保didUpdateLocations只呼叫一次
         //        manager.delegate = nil
         likelyPlaces.removeAll()
-        self.tblView.reloadData()
+//        self.tblView.reloadData()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
                 // TODO: Handle the error.
@@ -110,7 +110,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 for likelihood in likelihoodList.likelihoods {
                     let place = likelihood.place
                     self.likelyPlaces.append(place)
-                    self.tblView.reloadData()
+//                    self.tblView.reloadData()
                 }
             }
             for i in 0...4{
@@ -137,30 +137,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     
+//
+//    func setMap(latitude: Double, longitude:Double){
+//        let pin = MKPointAnnotation()
+//        pin.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//        pin.title = ""
+//
+//        myMapView.addAnnotation(pin)
+//        //將map中心點定在目前所在的位置
+//        //span是地圖zoom in, zoom out的級距
+//        let _span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001);
+//        self.myMapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: _span), animated: true);
+//        self.view.addSubview(myMapView)
+//
+//        //circle
+//        let circle = MKCircle(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), radius: 35)
+//        self.myMapView.addOverlay(circle)
+//    }
     
-    func setMap(latitude: Double, longitude:Double){
-        let pin = MKPointAnnotation()
-        pin.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        pin.title = ""
-        
-        myMapView.addAnnotation(pin)
-        //將map中心點定在目前所在的位置
-        //span是地圖zoom in, zoom out的級距
-        let _span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001);
-        self.myMapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: _span), animated: true);
-        self.view.addSubview(myMapView)
-        
-        //circle
-        let circle = MKCircle(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), radius: 35)
-        self.myMapView.addOverlay(circle)
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let circleRenderer = MKCircleRenderer(overlay: overlay)
-        circleRenderer.strokeColor = UIColor(red:52/255, green:152/255, blue:219/255,alpha: 1)
-        circleRenderer.lineWidth = 1.0
-        return circleRenderer
-    }
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        let circleRenderer = MKCircleRenderer(overlay: overlay)
+//        circleRenderer.strokeColor = UIColor(red:52/255, green:152/255, blue:219/255,alpha: 1)
+//        circleRenderer.lineWidth = 1.0
+//        return circleRenderer
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -169,61 +169,61 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 }
 
 
-extension MapViewController: UITableViewDataSource, UITableViewDelegate{
+//extension old: UITableViewDataSource, UITableViewDelegate{
     
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        filterList  = collectionArr.filter { $0.contains(searchBar.text!)}
-        if searching{
-            return filterList.count
-        }else{
-            return selectPlaces.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        let collectionItem = selectPlaces[indexPath.row]
-        if collectionItem.name !=  nil{
-            collectionArr.append(collectionItem.name!)
-        }
-        if searching{
-            cell?.textLabel?.text = String(filterList[indexPath.row])
-        }else{
-            cell?.textLabel?.text = collectionItem.name
-        }
-        
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.dismiss(animated: true, completion:nil)
-    }
-}
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+//        filterList  = collectionArr.filter { $0.contains(searchBar.text!)}
+//        if searching{
+//            return filterList.count
+//        }else{
+//            return selectPlaces.count
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+//        let collectionItem = selectPlaces[indexPath.row]
+//        if collectionItem.name !=  nil{
+//            collectionArr.append(collectionItem.name!)
+//        }
+//        if searching{
+//            cell?.textLabel?.text = String(filterList[indexPath.row])
+//        }else{
+//            cell?.textLabel?.text = collectionItem.name
+//        }
+//
+//        return cell!
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        self.dismiss(animated: true, completion:nil)
+//    }
+//}
 
 
-extension MapViewController: UISearchBarDelegate, UITextFieldDelegate{
+//extension old: UISearchBarDelegate, UITextFieldDelegate{
     
     
-    func searchBar(_ searchBar : UISearchBar, textDidChange searchText: String){
-        searching = true
-        if searchBar.text == ""{
-            searching = false
-        }
-        self.tblView.reloadData()
-    }
+//    func searchBar(_ searchBar : UISearchBar, textDidChange searchText: String){
+//        searching = true
+//        if searchBar.text == ""{
+//            searching = false
+//        }
+//        self.tblView.reloadData()
+//    }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-    
-}
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//    }
+//
+//
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.resignFirstResponder()
+//    }
+//
+//}
 
 

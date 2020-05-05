@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -508,14 +508,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szf-Dw-S4f">
-                                <rect key="frame" x="90" y="40" width="194" height="126"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="googleMapViewController"/>
-                                <connections>
-                                    <segue destination="b1c-vS-CuG" kind="show" id="vMS-cg-A4M"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgK-Uk-W4g">
                                 <rect key="frame" x="90" y="150" width="194" height="528"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -523,18 +515,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSW-4Z-awL">
-                                <rect key="frame" x="122" y="174" width="130" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="MapViewController"/>
-                                <connections>
-                                    <segue destination="QZ3-Qn-K2X" kind="show" identifier="MapViewController" id="DhT-vu-qsC"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jx8-Gs-NYe">
-                                <rect key="frame" x="164" y="272" width="46" height="72"/>
+                                <rect key="frame" x="156" y="272" width="63" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="mapView"/>
                                 <connections>
                                     <segue destination="8yA-Sq-vnF" kind="show" id="rGC-iR-DdK"/>
                                 </connections>
@@ -830,42 +814,16 @@
             </objects>
             <point key="canvasLocation" x="1071" y="909"/>
         </scene>
-        <!--Google Map View Controller-->
-        <scene sceneID="YUi-yD-JZg">
-            <objects>
-                <viewController id="b1c-vS-CuG" customClass="googleMapViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bLE-Td-cZU" customClass="view">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EVi-my-O3u" customClass="GMSMapView">
-                                <rect key="frame" x="33" y="143" width="308" height="365"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="nwo-YK-5GY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="KOn-Ey-1gw"/>
-                    <connections>
-                        <outlet property="mapView" destination="EVi-my-O3u" id="WIn-3E-Nax"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lat-Cl-r3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2210" y="114"/>
-        </scene>
         <!--Map View Controller-->
         <scene sceneID="QYd-nb-jN0">
             <objects>
                 <viewController id="QZ3-Qn-K2X" customClass="MapViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="nd8-G2-BDI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="3ly-pu-qif">
-                                <rect key="frame" x="0.0" y="265" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="309" width="375" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Fc4-KI-cqy"/>
                                 </constraints>
@@ -875,7 +833,7 @@
                                 </connections>
                             </searchBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HZS-gy-hc6">
-                                <rect key="frame" x="0.0" y="25" width="375" height="240"/>
+                                <rect key="frame" x="0.0" y="69" width="375" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="OQX-fd-LeN"/>
                                 </constraints>
@@ -884,7 +842,7 @@
                                 </connections>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xn7-bD-F9e">
-                                <rect key="frame" x="0.0" y="325" width="375" height="463"/>
+                                <rect key="frame" x="0.0" y="369" width="375" height="463"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="463" id="BCo-tA-PNQ"/>
@@ -937,7 +895,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UoF-C5-DzF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2154" y="909"/>
+            <point key="canvasLocation" x="-2154" y="865"/>
         </scene>
         <!--Category Table View Controller-->
         <scene sceneID="OdE-MQ-AKz">
@@ -1651,8 +1609,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQQ-vc-uZ0" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="45" width="375" height="204"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Yi-Qs-8eO">
-                                <rect key="frame" x="269" y="20" width="90" height="30"/>
+                                <rect key="frame" x="269" y="7" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Location"/>
                                 <connections>
@@ -1665,6 +1628,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="4Hj-1G-4kQ"/>
                     <connections>
+                        <outlet property="mapView" destination="uQQ-vc-uZ0" id="8LW-mU-qAN"/>
                         <outlet property="popover" destination="6a2-56-baI" id="Z8o-OG-kEE"/>
                         <outlet property="tblPlaces" destination="xci-u9-Gtz" id="P7H-vO-JlZ"/>
                         <outlet property="txtField" destination="a4g-Fh-w0r" id="h11-g3-7JW"/>
@@ -1689,6 +1653,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Add"/>
                             <connections>
+                                <action selector="AddBtn:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="3Hf-nk-50Z"/>
                                 <action selector="ComfirmBtn:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="EYe-a9-vRZ"/>
                             </connections>
                         </button>
@@ -1715,7 +1680,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-943.20000000000005" y="894.82758620689663"/>
+            <point key="canvasLocation" x="-2154" y="114"/>
         </scene>
         <!--Task View Controller-->
         <scene sceneID="QCE-co-9iR">
