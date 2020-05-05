@@ -80,10 +80,11 @@ class old: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
+        
+//        let longitude = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude)
+        
         //取得目前的座標位置
         let c = locations[0] as CLLocation;
-        //c.coordinate.latitude 目前緯度
-        //c.coordinate.longitude 目前經度
         let currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
         
         //    取得時間
@@ -120,8 +121,8 @@ class old: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             print(type(of: self.selectPlaces[1].types![0]))
             
             //DB
-            self.latitude = currentLocation.latitude
-            self.longitude = currentLocation.longitude
+            self.latitude = Double(currentLocation.latitude)
+            self.longitude = Double(currentLocation.longitude)
             self.startTime = dateFormatString
             self.nearestName = self.likelyPlaces[0].name!
             self.nearestCategory = self.likelyPlaces[0].types![0]

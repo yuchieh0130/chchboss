@@ -50,7 +50,7 @@
 		6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1C1225FE06B006F384C /* DateCell.swift */; };
 		D7EEB6892459874E00D72B63 /* searchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */; };
 		D7EEB69524616EF600D72B63 /* old.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB69424616EF600D72B63 /* old.swift */; };
-		D7EEB69724616F2C00D72B63 /* mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB69624616F2C00D72B63 /* mapViewController.swift */; };
+		D7EEB6992461843F00D72B63 /* mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6982461843F00D72B63 /* mapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,7 +108,7 @@
 		829C947D900C99017F760445 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
 		D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationViewController.swift; sourceTree = "<group>"; };
 		D7EEB69424616EF600D72B63 /* old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = old.swift; sourceTree = "<group>"; };
-		D7EEB69624616F2C00D72B63 /* mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = mapViewController.swift; path = /Users/hongxinrou/Desktop/chchboss/test/Map/mapViewController.swift; sourceTree = "<absolute>"; };
+		D7EEB6982461843F00D72B63 /* mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = mapViewController.swift; path = /Users/hongxinrou/Desktop/chchboss/test/Map/mapViewController.swift; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,9 +212,9 @@
 		58D91DC72431CEE2002DD7B2 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				D7EEB6982461843F00D72B63 /* mapViewController.swift */,
 				D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */,
 				D7EEB69424616EF600D72B63 /* old.swift */,
-				D7EEB69624616F2C00D72B63 /* mapViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -418,6 +418,7 @@
 				4BF6625524613D8F0021D85E /* tabBar.swift in Sources */,
 				4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */,
 				4B052677242C9CF40048DB8D /* addViewController.swift in Sources */,
+				D7EEB6992461843F00D72B63 /* mapViewController.swift in Sources */,
 				4B9EBD542417799400162A77 /* EventModel.swift in Sources */,
 				4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */,
 				4B02C4BA243D64A70087DB4C /* addTaskViewController.swift in Sources */,
@@ -430,7 +431,6 @@
 				4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */,
 				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,
 				4B1C31072415696600875B74 /* DateHeader.swift in Sources */,
-				D7EEB69724616F2C00D72B63 /* mapViewController.swift in Sources */,
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,

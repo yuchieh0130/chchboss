@@ -520,7 +520,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="mapView"/>
                                 <connections>
-                                    <segue destination="8yA-Sq-vnF" kind="show" id="rGC-iR-DdK"/>
+                                    <segue destination="8yA-Sq-vnF" kind="show" id="vQy-DK-u17"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1637,39 +1637,52 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n3R-DZ-ELt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="6a2-56-baI">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2zu-Re-6Fa">
-                            <rect key="frame" x="130" y="89" width="84" height="30"/>
+                            <rect key="frame" x="127" y="140" width="84" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Cancel"/>
                             <connections>
-                                <action selector="CancelBtn:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="E14-Ja-0v2"/>
+                                <action selector="cancelBtn:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="jQh-gA-UeD"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHM-hq-a6f">
-                            <rect key="frame" x="65" y="89" width="30" height="30"/>
+                            <rect key="frame" x="54" y="140" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Add"/>
                             <connections>
-                                <action selector="AddBtn:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="3Hf-nk-50Z"/>
-                                <action selector="ComfirmBtn:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="EYe-a9-vRZ"/>
+                                <action selector="addBtn:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="sRH-Gf-r8v"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Name : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzZ-z3-9BT">
-                            <rect key="frame" x="15" y="33" width="107" height="37"/>
+                            <rect key="frame" x="16" y="30" width="107" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a4g-Fh-w0r">
-                            <rect key="frame" x="130" y="34" width="97" height="34"/>
+                            <rect key="frame" x="127" y="33" width="97" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add to My Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exV-SU-J83">
+                            <rect key="frame" x="16" y="101" width="125" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="igp-yS-TIY">
+                            <rect key="frame" x="162" y="96" width="49" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <connections>
+                                <action selector="addToMyPlace:" destination="8yA-Sq-vnF" eventType="valueChanged" id="fyc-GA-KoF"/>
+                            </connections>
+                        </switch>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <viewLayoutGuide key="safeArea" id="nfi-uj-49N"/>

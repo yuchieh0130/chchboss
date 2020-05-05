@@ -43,6 +43,14 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var myPlace: Bool! = false
     
     @IBOutlet weak var txtField: UITextField!
+
+    @IBAction func addToMyPlace(_ sender: UISwitch) {
+        if sender.isOn == true {
+            myPlace = true
+        }else{
+            myPlace = false
+        }
+    }
     
     @IBAction func addBtn(_ sender: Any) {
         self.popover.removeFromSuperview()
@@ -149,6 +157,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                             self.resultsArray.removeAll()
                             for dct in results {
                                 self.resultsArray.append(dct)
+                                print(dct)
+                                
                             }
                             
                             DispatchQueue.main.async {
@@ -165,6 +175,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         }
         task.resume()
     }
+    
+//    let longitude = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
+//    var CLLocationDistance distance = [secondLocation distanceFromLocation:longitude];
+    
     }
     
     

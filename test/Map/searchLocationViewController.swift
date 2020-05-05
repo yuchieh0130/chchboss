@@ -14,6 +14,16 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
+    
+    //place db variables
+    var id: Int32 = 0
+    var name: String?
+    var placeName: String! = "" //Only Date
+    var placeCategory: String! = ""
+    var placeLongtitude: Double! = 0
+    var placeLantitude: Double! = 0
+    var myPlace: Bool! = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -46,6 +56,15 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
 //        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.dismiss(animated: true, completion:nil)
+        
+        
+//        let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+//        let isAdded = DBManager.getInstance().addPlace(modelInfo)
+        
     }
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
