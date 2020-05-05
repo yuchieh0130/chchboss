@@ -42,6 +42,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var placeLantitude: Double! = 0
     var myPlace: Bool! = false
     
+    let userLocation = CLLocation(latitude: 25.034012, longitude: 121.564461)
+    var locationDic : [String: Double] = [:]
+    var sortedArr = [String]()
+    
     @IBOutlet weak var txtField: UITextField!
 
     @IBAction func addToMyPlace(_ sender: UISwitch) {
@@ -132,7 +136,6 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-//        return UITableViewAutomaticDimension
     }
     
 
@@ -155,12 +158,27 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                         if let results = dict["results"] as? [Dictionary<String, AnyObject>] {
 //                            print("json == \(results)")
                             self.resultsArray.removeAll()
+                            self.sortedArr.removeAll()
+                            self.locationDic.removeAll()
+                            
                             for dct in results {
                                 self.resultsArray.append(dct)
-                                print(dct)
+                                var lat = (dct["geometry"]!["location"]!! as AnyObject).allValues![0] as! Double
+                                var long = (dct["geometry"]!["location"]!! as AnyObject).allValues![1] as! Double
+                                let placeLocation = CLLocation(latitude: lat, longitude: long)
+                                let dist = self.userLocation.distance(from: placeLocation)
+
+                                print(dct["name"]!, dist)
+                                self.locationDic[dct["name"] as! String] = dist
+                               
                                 
                             }
+                            var sortedDic = self.locationDic.sorted { $0.1 < $1.1 }
+                            for each in sortedDic{
+                                self.sortedArr.append(each.key)
+                            }
                             
+                            print(self.sortedArr)
                             DispatchQueue.main.async {
                              self.tblPlaces.reloadData()
                             }
@@ -176,7 +194,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         task.resume()
     }
     
-//    let longitude = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
+    
 //    var CLLocationDistance distance = [secondLocation distanceFromLocation:longitude];
     
     }
