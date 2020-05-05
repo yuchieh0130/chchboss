@@ -1564,10 +1564,10 @@
             </objects>
             <point key="canvasLocation" x="2781.5999999999999" y="113.79310344827587"/>
         </scene>
-        <!--New Map View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="ePr-Ok-yXT">
             <objects>
-                <viewController id="8yA-Sq-vnF" customClass="NewMapViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8yA-Sq-vnF" customClass="mapViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nkc-cp-cTk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1610,7 +1610,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQQ-vc-uZ0" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="45" width="375" height="204"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
@@ -1680,7 +1680,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-2154" y="114"/>
+            <point key="canvasLocation" x="-2154.4000000000001" y="113.79310344827587"/>
         </scene>
         <!--Task View Controller-->
         <scene sceneID="QCE-co-9iR">
