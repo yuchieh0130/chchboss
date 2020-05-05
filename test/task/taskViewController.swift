@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class taskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class taskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate{
     
     //db variables
 //    var taskName: String?
@@ -92,6 +92,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         title = "Task"
         tableView.delegate = self
         tableView.dataSource = self
+        self.tabBarController?.delegate = self
     }
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -238,6 +239,22 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         task = showTask![indexPath.row]
         performSegue(withIdentifier: "editTask", sender: nil)
         }
+    
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        let tabBarIndex = tabBarController.selectedIndex
+//        if tabBarIndex == 2{
+//            performSegue(withIdentifier: "addTask", sender: nil)
+//        }
+//    }
+//    
+//    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//        if(item.tag == 2){
+//            performSegue(withIdentifier: "addTask", sender: nil)
+//        }
+//    }
+    
+//    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: taskViewController, to toVC: addTaskViewController) -> UIViewControllerAnimatedTransitioning? {
+//    }
     
     //
 //    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
