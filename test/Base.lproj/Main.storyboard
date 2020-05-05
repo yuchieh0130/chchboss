@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -468,21 +468,21 @@
             </objects>
             <point key="canvasLocation" x="2039" y="-683"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="9FR-gu-2Yn">
+        <!--Action View Controller-->
+        <scene sceneID="LCW-Jp-wCr">
             <objects>
-                <viewController id="Uwg-eb-HbQ" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rtf-JQ-Ahz">
+                <viewController id="aYf-cg-xyy" customClass="actionViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DUX-Zm-mVd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="lJ8-Bd-Say"/>
+                        <viewLayoutGuide key="safeArea" id="9LD-VB-6Vf"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="button_compass.png" id="yJC-QR-90p"/>
+                    <tabBarItem key="tabBarItem" title="" image="plus.circle.fill" catalog="system" selectedImage="plus.circle.fill" id="dn4-Sp-1UQ"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ng-SM-Kbf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Y6-hL-N3F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1730" y="-739"/>
+            <point key="canvasLocation" x="-2020" y="-744"/>
         </scene>
         <!--Analysis View Controller-->
         <scene sceneID="hAM-t7-DFl">
@@ -494,7 +494,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="4" title="" image="chart.pie" catalog="system" selectedImage="chart.pie" id="EsJ-Wy-Q9H"/>
+                    <tabBarItem key="tabBarItem" title="" image="chart.pie" catalog="system" selectedImage="chart.pie" id="EsJ-Wy-Q9H"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -543,7 +543,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Mol-m3-8sL"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="" image="pencil.and.ellipsis.rectangle" catalog="system" selectedImage="pencil.and.ellipsis.rectangle" id="n7Q-jf-2aU"/>
+                    <tabBarItem key="tabBarItem" title="" image="pencil.and.ellipsis.rectangle" catalog="system" selectedImage="pencil.and.ellipsis.rectangle" id="n7Q-jf-2aU"/>
                     <connections>
                         <outlet property="txt" destination="YgK-Uk-W4g" id="Dyk-Wu-cqm"/>
                     </connections>
@@ -1831,7 +1831,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="g2N-0s-GED"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="3" title="" image="doc.text" catalog="system" selectedImage="doc.text" id="dlq-P7-ObU"/>
+                    <tabBarItem key="tabBarItem" title="" image="doc.text" catalog="system" selectedImage="doc.text" id="dlq-P7-ObU"/>
                     <connections>
                         <outlet property="addTaskButton" destination="89g-sw-5at" id="nPb-Ge-4Gf"/>
                         <outlet property="tableView" destination="yId-nE-s7K" id="idW-d2-fhx"/>
@@ -1848,7 +1848,7 @@
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="FGn-vJ-0Zo" customClass="tabBarController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NQn-wG-vOh" customClass="tabBar" customModule="test" customModuleProvider="target">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NQn-wG-vOh">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1856,7 +1856,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="hcZ-Ua-xXz"/>
                         <segue destination="svZ-ai-5oE" kind="relationship" relationship="viewControllers" id="qKJ-7w-dbI"/>
-                        <segue destination="Uwg-eb-HbQ" kind="relationship" relationship="viewControllers" id="58a-ZQ-ePQ"/>
+                        <segue destination="aYf-cg-xyy" kind="relationship" relationship="viewControllers" id="quT-Ph-OOr"/>
                         <segue destination="MCe-u7-tnl" kind="relationship" relationship="viewControllers" id="YrH-Xa-OGJ"/>
                         <segue destination="3xM-0D-h9c" kind="relationship" relationship="viewControllers" id="N4z-Vr-dZN"/>
                     </connections>
@@ -1867,18 +1867,18 @@
         </scene>
     </scenes>
     <resources>
-        <image name="button_compass.png" width="40" height="40"/>
         <image name="calendar" catalog="system" width="64" height="52"/>
         <image name="chart.pie" catalog="system" width="64" height="60"/>
         <image name="doc.text" catalog="system" width="56" height="64"/>
         <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
         <image name="pin.fill" catalog="system" width="58" height="64"/>
         <image name="plus.circle" catalog="system" width="64" height="60"/>
+        <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
         <image name="reminder_deselect" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Si0-bg-LgH"/>
+        <segue reference="2v3-r9-Jbk"/>
         <segue reference="uiq-XP-en4"/>
-        <segue reference="RmA-HN-d7i"/>
+        <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>
 </document>

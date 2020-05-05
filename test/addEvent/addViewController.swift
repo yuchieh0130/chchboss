@@ -20,7 +20,7 @@ struct reminderConfig{
     var fireTime = Int()
 }
 
-class addViewController : UIViewController, UITabBarControllerDelegate{
+class addViewController : UIViewController{
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAdd: UIButton!
@@ -89,7 +89,6 @@ class addViewController : UIViewController, UITabBarControllerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.delegate = self
         //查看手機內佇列的notification
 //        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
 //            for request in requests {
@@ -608,13 +607,6 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     func textFieldDidEndEditing(_ textField: UITextField) {
         name = textField.text!
     }
-    
-//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        let tabBarIndex = tabBarController.selectedIndex
-//        if tabBarIndex == 2{
-//            performSegue(withIdentifier: "addEvent", sender: nil)
-//        }
-//    }
     
     
 }
