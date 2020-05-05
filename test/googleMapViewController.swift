@@ -13,16 +13,10 @@ import GoogleMaps
 class googleMapViewController: UIViewController, GMSMapViewDelegate{
     
     @IBOutlet weak var mapView: GMSMapView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
         mapView.camera = camera
-        
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
-        marker.map = mapView
-        
         mapView.delegate = self
     }
     
