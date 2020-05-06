@@ -43,7 +43,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCell(withIdentifier: "placecell")
 //        if let lblPlaceName = cell?.contentView.viewWithTag(102) as? UILabel {
         if resultsArray.count>=0{
-        let place = self.resultsArray[indexPath.row]
+            let place = self.resultsArray[indexPath.row]
             cell?.textLabel?.text = "\(place["name"] as! String)"
             cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
         }
