@@ -196,11 +196,11 @@ class DBManager: NSObject {
         return isSave!
     }
     
-    func getPlace() -> PlaceModel!{
+    func getPlace(Int: Int32) -> PlaceModel!{
         
         var place : PlaceModel!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM savedPlace ";
+        let sqlString = "SELECT * FROM savedPlace WHERE place_id = \(Int) ";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -215,6 +215,33 @@ class DBManager: NSObject {
         }
         set?.close()
         return place
+    }
+    
+    func getMyPlace() -> [PlaceModel]!{
+        
+        var places : [PlaceModel]!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM savedPlace ";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "place_id")
+            let a = set?.string(forColumn: "place_name")
+            let b = set?.string(forColumn: "place_category")
+            let c = set?.double(forColumn: "place_longtitude")
+            let d = set?.double(forColumn: "place_lantitude")
+            let e = set?.bool(forColumn: "my_place")
+            
+            let place: PlaceModel
+            
+            if places == nil{
+                places = [PlaceModel]()
+            }
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongtitude: c!, placeLantitude: d!, myPlace: e!)
+            places.append(place)
+        }
+        set?.close()
+        return places
     }
     
     func addTask(_ modelInfo: TaskModel) -> Bool{
