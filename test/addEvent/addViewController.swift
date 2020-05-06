@@ -91,11 +91,11 @@ class addViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //查看手機內佇列的notification
-//        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
-//            for request in requests {
-//                print(request)
-//            }
-//        })
+        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                print(request)
+            }
+        })
         //查看所有已推送的notification
         //UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
@@ -322,7 +322,7 @@ class addViewController : UIViewController{
             //insert to database
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isAdded = DBManager.getInstance().addEvent(modelInfo)
-            makeNotification(action: "add")
+            if reminder != "0" { makeNotification(action: "add")}
         }
     }
     
@@ -343,7 +343,7 @@ class addViewController : UIViewController{
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
             makeNotification(action: "delete")
-            makeNotification(action: "add")
+            if reminder != "0" {makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
         }
     }
