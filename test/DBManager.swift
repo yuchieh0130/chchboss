@@ -269,11 +269,41 @@ class DBManager: NSObject {
         return tasks
     }
     
-    func getAllTask() -> [TaskModel]!{
+    func getAllUndoneTask() -> [TaskModel]!{
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM task ORDER BY isPinned DESC , task_deadline ASC";
+        let sqlString = "SELECT * FROM task ORDER BY isPinned DESC , task_deadline ASC WHERE isDone = 0";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "task_id")
+            let a = set?.string(forColumn: "task_name")!
+            let b = set?.string(forColumn: "task_time")
+            let c = set?.string(forColumn: "task_deadline")
+            let d = set?.bool(forColumn: "hasReminder")
+            let e = set?.string(forColumn: "task_location")
+            let f = set?.bool(forColumn: "addToCal")
+            let g = set?.bool(forColumn: "isPinned")
+            let h = set?.bool(forColumn: "isDone")
+            
+            let task: TaskModel
+            
+            if tasks == nil{
+                tasks = [TaskModel]()
+            }
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
+            tasks.append(task)
+        }
+        set?.close()
+        return tasks
+    }
+    
+    func getAllDoneTask() -> [TaskModel]!{
+        
+        var tasks: [TaskModel]!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM task ORDER BY isPinned DESC , task_deadline ASC WHERE isDone = 1";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {

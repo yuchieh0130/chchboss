@@ -111,7 +111,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             completionHandler(true)
             self.tableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
             let isPinned = DBManager.getInstance().pinTask(id: id!)
-            self.showTask = DBManager.getInstance().getAllTask()
+            self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
             }
@@ -119,7 +119,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("Unpin")
             completionHandler(true)
             let unPinned = DBManager.getInstance().unPinTask(id: id!)
-            self.showTask = DBManager.getInstance().getAllTask()
+            self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
             self.dismiss(animated: true, completion: nil)
         }
@@ -166,8 +166,8 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if DBManager.getInstance().getAllTask() != nil{
-            showTask = DBManager.getInstance().getAllTask()
+        if DBManager.getInstance().getAllUndoneTask() != nil{
+            showTask = DBManager.getInstance().getAllUndoneTask()
         }else{
             showTask = [TaskModel]()
         }
