@@ -95,10 +95,10 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
         cell.imgView.image = UIImage(named: "reminder_select")
         if indexPath.row == 0 {
             for i in 1...reminderData.count-1{
-                let c = tableView.cellForRow(at: IndexPath(row: i, section: 0))  as! reminderTableViewCell
-                if c.isSelected{
+                if reminderData[indexPath.row].isselected == true{
                     tableView.deselectRow(at: IndexPath(row: i, section: 0), animated: false)
                     reminderData[i].isselected = false
+                    let c = tableView.cellForRow(at: IndexPath(row: i, section: 0))  as! reminderTableViewCell
                     c.imgView.image = UIImage(named: "reminder_deselect")
                 }
             }

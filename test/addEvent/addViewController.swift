@@ -49,6 +49,7 @@ class addViewController : UIViewController{
     var event : EventModel?
     var selectedDay: [Date] = []
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
+    var placeName : String?
     var reminder_index: [Int] = [0]
     
     //variable for handling  DatePopViewController
@@ -242,6 +243,12 @@ class addViewController : UIViewController{
         let i = VC?.collectionView.indexPathsForSelectedItems
         category = (VC?.showCategory[i![0].row])!
         tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
+    }
+    
+    @IBAction func locationSegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? searchLocationViewController
+        placeName = VC!.tblPlaces.cellForRow(at: VC!.tblPlaces.indexPathsForSelectedRows![0])?.textLabel?.text
+        tableView.reloadRows(at: [IndexPath.init(row: 4, section: 4)], with: .none)
     }
     
     @IBAction func reminderSegueBack(segue: UIStoryboardSegue){
@@ -485,7 +492,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             return cell
         case [4,4]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "autoLocationCell", for: indexPath) as! autoLocationCell
-            cell.txtLocation.text = autoLocation
+            cell.txtLocation.text = placeName
             cell.selectionStyle = .none
             return cell
 //remninder with switch
