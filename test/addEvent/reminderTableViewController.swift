@@ -12,7 +12,7 @@ import JTAppleCalendar
 import UserNotifications
 
 struct reminderStatus{
-    var reminderName = String()
+    var rname = String()
     var isselected = Bool()
 }
 
@@ -25,14 +25,14 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     var reminder_index = [Int]()
     
     //  let datasource = ["none", "At time of event", "5 minutes before", "10 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hours before", "1 day before", "2 days before", "1 week before", "Custom"]
-    var reminderData = [reminderStatus(reminderName: "none", isselected: false),
-                       reminderStatus(reminderName: "At time of event", isselected: false),
-                       reminderStatus(reminderName: "5 minutes before", isselected: false),
-                       reminderStatus(reminderName: "10 minutes before", isselected: false),
-                       reminderStatus(reminderName: "30 minutes before", isselected: false),
-                       reminderStatus(reminderName: "1 hour before", isselected: false),
-                       reminderStatus(reminderName: "1 day before", isselected: false),
-                       reminderStatus(reminderName: "At certatian Location", isselected: false),
+    var reminderData = [reminderStatus(rname: "none", isselected: false),
+                       reminderStatus(rname: "At time of event", isselected: false),
+                       reminderStatus(rname: "5 minutes before", isselected: false),
+                       reminderStatus(rname: "10 minutes before", isselected: false),
+                       reminderStatus(rname: "30 minutes before", isselected: false),
+                       reminderStatus(rname: "1 hour before", isselected: false),
+                       reminderStatus(rname: "1 day before", isselected: false),
+                       reminderStatus(rname: "At certatian Location", isselected: false),
     ]
     
     override func viewDidLoad() {
@@ -78,7 +78,7 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reminderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "reminderTableViewCell") as! reminderTableViewCell
-        reminderTableViewCell.reminderTime.text = reminderData[indexPath.row].reminderName
+        reminderTableViewCell.reminderTime.text = reminderData[indexPath.row].rname
         reminderTableViewCell.selectionStyle = .none
         reminderTableViewCell.imgView.tintColor = UIColor.gray
         if reminderData[indexPath.row].isselected == true{
