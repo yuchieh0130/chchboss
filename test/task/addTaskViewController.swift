@@ -31,6 +31,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     var reminder: Bool! = false
     var addToCal : Bool! = false
     var isPinned: Bool! = false
+    var isDone: Bool! = false
     var id: Int32 = 0
     
     var task : TaskModel?
@@ -167,7 +168,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
-            modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned)
+            modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
             let isAdded = DBManager.getInstance().addTask(modelInfo!)
             self.dismiss(animated: true, completion: nil)
         }
@@ -180,7 +181,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
-            modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned)
+            modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
             let isEdited = DBManager.getInstance().editTask(modelInfo!)
             self.dismiss(animated: true, completion: nil)
         }
@@ -201,7 +202,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func delete(){
-        let modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned)
+        let modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
         let isDeleted = DBManager.getInstance().deleteTask(id: modelInfo.taskId!)
     }
     

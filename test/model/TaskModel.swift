@@ -17,4 +17,5 @@ struct TaskModel{
     let taskLocation: String?
     let addToCal: Bool
     let isPinned: Bool
+    let isDone: Bool
 }

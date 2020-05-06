@@ -219,7 +219,7 @@ class DBManager: NSObject {
     
     func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned) VALUES (?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
         shareInstance.database?.close()
         return isAdded!
     }
@@ -233,7 +233,7 @@ class DBManager: NSObject {
     
     func editTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId,modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned])
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId,modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
         shareInstance.database?.close()
         return isEdited!
     }
@@ -255,13 +255,14 @@ class DBManager: NSObject {
             let e = set?.string(forColumn: "task_location")
             let f = set?.bool(forColumn: "addToCal")
             let g = set?.bool(forColumn: "isPinned")
+            let h = set?.bool(forColumn: "isDone")
             
             let task: TaskModel
                        
             if tasks == nil{
                tasks = [TaskModel]()
             }
-               task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!)
+               task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
                tasks.append(task)
             }
         set?.close()
@@ -284,13 +285,14 @@ class DBManager: NSObject {
             let e = set?.string(forColumn: "task_location")
             let f = set?.bool(forColumn: "addToCal")
             let g = set?.bool(forColumn: "isPinned")
+            let h = set?.bool(forColumn: "isDone")
             
             let task: TaskModel
             
             if tasks == nil{
                 tasks = [TaskModel]()
             }
-            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!)
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
             tasks.append(task)
         }
         set?.close()
@@ -310,5 +312,8 @@ class DBManager: NSObject {
            shareInstance.database?.close()
            return unPinned!
        }
+    
+    
+    
     
 }
