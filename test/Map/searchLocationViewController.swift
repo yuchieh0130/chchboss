@@ -17,8 +17,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     
     //place db variables
     var id: Int32 = 0
-    var name: String?
-    var placeName: String! = "" //Only Date
+    var placeName: String! = ""
     var placeCategory: String! = ""
     var placeLongtitude: Double! = 0
     var placeLantitude: Double! = 0
@@ -59,10 +58,12 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.dismiss(animated: true, completion:nil)
+        //存addPlace寫在這～～～
         
+        //placeName = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section))?.textLabel?.text
+        //self.dismiss(animated: true, completion:nil)
         
-//        let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+//        let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
 //        let isAdded = DBManager.getInstance().addPlace(modelInfo)
         
     }

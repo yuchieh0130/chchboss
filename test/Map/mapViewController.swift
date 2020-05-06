@@ -45,6 +45,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     let userLocation = CLLocation(latitude: 25.034012, longitude: 121.564461)
     var locationDic : [String: Double] = [:]
     var sortedArr = [String]()
+    var sortedDist = [Double]()
     
     @IBOutlet weak var txtField: UITextField!
 
@@ -107,7 +108,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         if txtSearch.text!.isEmpty{
             return exampleArray.count
         }else{
-        return resultsArray.count
+        return sortedArr.count
         }
     }
     
@@ -121,11 +122,14 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             cell?.detailTextLabel?.isHidden = true
         }else{
 
-        if resultsArray.count>=0{
-        let place = self.resultsArray[indexPath.row]
-            cell?.textLabel?.text = "\(place["name"] as! String)"
+        if sortedArr.count>=0{
+        let place = self.sortedArr[indexPath.row]
+            cell?.textLabel?.text = "\(place)"
+        let eachDistance = sortedDist[indexPath.row]
             cell?.detailTextLabel?.isHidden = false
-            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+            cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
+//            cell?.textLabel?.text = "\(place["name"] as! String)"
+//            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
         }
         }
 
@@ -160,6 +164,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                             self.resultsArray.removeAll()
                             self.sortedArr.removeAll()
                             self.locationDic.removeAll()
+                            self.sortedDist.removeAll()
                             
                             for dct in results {
                                 self.resultsArray.append(dct)
@@ -176,9 +181,12 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                             var sortedDic = self.locationDic.sorted { $0.1 < $1.1 }
                             for each in sortedDic{
                                 self.sortedArr.append(each.key)
+                                self.sortedDist.append(each.value)
                             }
                             
+                            print(sortedDic)
                             print(self.sortedArr)
+                            print(self.sortedDist)
                             DispatchQueue.main.async {
                              self.tblPlaces.reloadData()
                             }
