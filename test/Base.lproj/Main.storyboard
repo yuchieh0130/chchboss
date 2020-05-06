@@ -3,7 +3,7 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1638,6 +1638,7 @@
                         <outlet property="mapView" destination="uQQ-vc-uZ0" id="8LW-mU-qAN"/>
                         <outlet property="popover" destination="6a2-56-baI" id="Z8o-OG-kEE"/>
                         <outlet property="tblPlaces" destination="xci-u9-Gtz" id="P7H-vO-JlZ"/>
+                        <outlet property="tblView" destination="Nkc-cp-cTk" id="ehS-yQ-bKy"/>
                         <outlet property="txtField" destination="a4g-Fh-w0r" id="h11-g3-7JW"/>
                         <outlet property="txtSearch" destination="2oU-ls-1St" id="dfQ-Po-Nec"/>
                     </connections>

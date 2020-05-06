@@ -14,6 +14,7 @@ import GooglePlaces
 
 class mapViewController: UIViewController, UITableViewDataSource,CLLocationManagerDelegate, UITableViewDelegate, GMSMapViewDelegate {
     
+    @IBOutlet var tblView: UIView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
@@ -100,6 +101,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         marker.map = mapView
                
         mapView.delegate = self
+        
     }
     
     //MARK:- UITableViewDataSource and UItableViewDelegates
@@ -121,16 +123,16 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             cell?.textLabel?.text = place
             cell?.detailTextLabel?.isHidden = true
         }else{
-
-        if sortedArr.count > 0{
-            let place = self.sortedArr[indexPath.row]
-            cell?.textLabel?.text = "\(place)"
-            let eachDistance = sortedDist[indexPath.row]
-            cell?.detailTextLabel?.isHidden = false
-            cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
-//            cell?.textLabel?.text = "\(place["name"] as! String)"
-//            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
-        }
+            
+            if sortedArr.count > 0{
+                let place = self.sortedArr[indexPath.row]
+                cell?.textLabel?.text = "\(place)"
+                let eachDistance = sortedDist[indexPath.row]
+                cell?.detailTextLabel?.isHidden = false
+                cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
+    //            cell?.textLabel?.text = "\(place["name"] as! String)"
+    //            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+            }
         }
 
         return cell!
