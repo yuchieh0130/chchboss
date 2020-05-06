@@ -122,10 +122,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             cell?.detailTextLabel?.isHidden = true
         }else{
 
-        if sortedArr.count>=0{
-        let place = self.sortedArr[indexPath.row]
+        if sortedArr.count > 0{
+            let place = self.sortedArr[indexPath.row]
             cell?.textLabel?.text = "\(place)"
-        let eachDistance = sortedDist[indexPath.row]
+            let eachDistance = sortedDist[indexPath.row]
             cell?.detailTextLabel?.isHidden = false
             cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
 //            cell?.textLabel?.text = "\(place["name"] as! String)"
