@@ -80,7 +80,7 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
         let reminderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "reminderTableViewCell") as! reminderTableViewCell
         reminderTableViewCell.reminderTime.text = reminderData[indexPath.row].rname
         reminderTableViewCell.selectionStyle = .none
-        reminderTableViewCell.imgView.tintColor = UIColor.gray
+        //reminderTableViewCell.imgView.tintColor = UIColor.blue
         if reminderData[indexPath.row].isselected == true{
             reminderTableViewCell.imgView.image = UIImage(named: "reminder_select")
         }else{

@@ -21,6 +21,7 @@
 		4B351A4A24188BE9003A474A /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B351A4024188BE9003A474A /* FMDatabasePool.m */; };
 		4B351A4B24188BE9003A474A /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B351A4624188BE9003A474A /* FMResultSet.m */; };
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
+		4B4AB6232463197A00FC8A6D /* myPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* myPlaceController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
 		4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */; };
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
@@ -75,6 +76,7 @@
 		4B351A4524188BE9003A474A /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		4B351A4624188BE9003A474A /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
+		4B4AB6222463197900FC8A6D /* myPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlaceController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
 		4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = autoRecordViewController.swift; sourceTree = "<group>"; };
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				586B87D924619A7100E7E273 /* mapViewController.swift */,
+				4B4AB6222463197900FC8A6D /* myPlaceController.swift */,
 				D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */,
 				D7EEB69424616EF600D72B63 /* old.swift */,
 			);
@@ -430,6 +433,7 @@
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
 				4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */,
 				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,
+				4B4AB6232463197A00FC8A6D /* myPlaceController.swift in Sources */,
 				4B1C31072415696600875B74 /* DateHeader.swift in Sources */,
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,

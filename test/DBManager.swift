@@ -300,7 +300,7 @@ class DBManager: NSObject {
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM task ORDER BY isPinned DESC , task_deadline ASC WHERE isDone = 0";
+        let sqlString = "SELECT * FROM task WHERE isDone = 0 ORDER BY isPinned DESC , task_deadline ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -330,7 +330,7 @@ class DBManager: NSObject {
         
         var tasks: [TaskModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM task ORDER BY isPinned DESC , task_deadline ASC WHERE isDone = 1";
+        let sqlString = "SELECT * FROM task WHERE isDone = 1 ORDER BY isPinned DESC , task_deadline ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {

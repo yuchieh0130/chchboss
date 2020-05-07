@@ -18,21 +18,21 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
-    @IBOutlet var popover: UIView!
-    @IBAction func AddLocation(_ sender: Any) {
-        self.view.addSubview(popover)
-        popover.center = self.view.center
-        popover.center.y = 200
-        txtField.text = txtSearch.text
-        popover.layer.borderColor = UIColor.gray.cgColor
-        popover.layer.borderWidth = 1
-        popover.layer.cornerRadius = 20
-        popover.layer.shadowOffset = CGSize(width: 5,height: 5)
-        popover.layer.shadowOpacity = 0.7
-        popover.layer.shadowRadius = 20
-
-    }
-    
+//    @IBOutlet var popover: UIView!
+//    @IBAction func AddLocation(_ sender: Any) {
+//        self.view.addSubview(popover)
+//        popover.center = self.view.center
+//        popover.center.y = 200
+//        txtField.text = txtSearch.text
+//        popover.layer.borderColor = UIColor.gray.cgColor
+//        popover.layer.borderWidth = 1
+//        popover.layer.cornerRadius = 20
+//        popover.layer.shadowOffset = CGSize(width: 5,height: 5)
+//        popover.layer.shadowOpacity = 0.7
+//        popover.layer.shadowRadius = 20
+//
+//    }
+//    
     
     //place db variables
     var id: Int32 = 0
@@ -48,34 +48,38 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var sortedArr = [String]()
     var sortedDist = [Double]()
     
-    @IBOutlet weak var txtField: UITextField!
+//    @IBOutlet weak var txtField: UITextField!
 
-    @IBAction func addToMyPlace(_ sender: UISwitch) {
-        if sender.isOn == true {
-            myPlace = true
-        }else{
-            myPlace = false
-        }
-    }
+//    @IBAction func addToMyPlace(_ sender: UISwitch) {
+//        if sender.isOn == true {
+//            myPlace = true
+//        }else{
+//            myPlace = false
+//        }
+//    }
+//
+//    @IBAction func addBtn(_ sender: Any) {
+//        self.popover.removeFromSuperview()
+//
+//        if name == nil || name == ""{
+//            // alertMessage()
+//        }else {
+//
+//            name = txtField.text
+//
+//            let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+//            let isAdded = DBManager.getInstance().addPlace(modelInfo)
+//            // makeNotification(action: "add")
+//        }
+//
+//    }
+//
+//    @IBAction func cancelBtn(_ sender: Any) {
+//        self.popover.removeFromSuperview()
+//    }
     
-    @IBAction func addBtn(_ sender: Any) {
-        self.popover.removeFromSuperview()
-       
-        if name == nil || name == ""{
-            // alertMessage()
-        }else {
-            
-            name = txtField.text
-            
-            let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
-            let isAdded = DBManager.getInstance().addPlace(modelInfo)
-            // makeNotification(action: "add")
-        }
-        
-    }
-    
-    @IBAction func cancelBtn(_ sender: Any) {
-        self.popover.removeFromSuperview()
+    @IBAction func cancel(_ sender: Any){
+        self.dismiss(animated: false, completion: nil)
     }
 
     
@@ -108,28 +112,32 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if txtSearch.text!.isEmpty{
-            return exampleArray.count
+            return exampleArray.count+1
         }else{
-        return sortedArr.count
+        return sortedArr.count+1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "placecell")
+        let cell: UITableViewCell?
         
-        if txtSearch.text!.isEmpty{
-            let place = exampleArray[indexPath.row]
-            cell?.textLabel?.text = place
-            cell?.detailTextLabel?.isHidden = true
-        }else{
-            
-            if sortedArr.count > 0 && sortedDist.count > 0{
-                let place = self.sortedArr[indexPath.row]
-                cell?.textLabel?.text = "\(place)"
-                let eachDistance = sortedDist[indexPath.row]
-                cell?.detailTextLabel?.isHidden = false
-                cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
+        if indexPath.row == 0{ cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")}else{
+            cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
+            if txtSearch.text!.isEmpty{
+                let place = exampleArray[indexPath.row-1]
+                cell?.textLabel?.text = place
+                cell?.detailTextLabel?.isHidden = true
+            }else{
+                
+                if sortedArr.count > 0 && sortedDist.count > 0{
+                    let place = self.sortedArr[indexPath.row-1]
+                    cell?.textLabel?.text = "\(place)"
+                    let eachDistance = sortedDist[indexPath.row-1]
+                    cell?.detailTextLabel?.isHidden = false
+                    cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
+        }
+        
     //            cell?.textLabel?.text = "\(place["name"] as! String)"
     //            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
             }
@@ -220,5 +228,6 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
 
 
 }
+
 
 
