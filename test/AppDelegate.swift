@@ -10,21 +10,123 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     let locationManager = CLLocationManager()
+    var myLocationManager :CLLocationManager!
+    var myLocation :CLLocation!
+    
+    var placesClient: GMSPlacesClient!
+        var filterList = [String]()
+    //    var searching = false
+        var collectionArr = [String]()
+        
+        //DB variables
+        var locationId: Int32 = 0
+        var longitude: Double! = 0
+        var latitude: Double! = 0
+        var startTime: String! = ""
+        var endTime: String = ""
+        var nearestName: String = ""
+        var nearestCategory: String = ""
+    
+    // An array to hold the list of likely places.
+    var likelyPlaces: [GMSPlace] = []
+    var selectPlaces:[GMSPlace] = []
+    // The currently selected place.
+    var selectedPlace: GMSPlace?
+    
+    
+    var location : LocationModel?
+    
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Util.copyDatabase("project.db")
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.pausesLocationUpdatesAutomatically = false
         let googleApiKey = "AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
         GMSPlacesClient.provideAPIKey(googleApiKey)
         GMSServices.provideAPIKey(googleApiKey)
+        
+        Util.copyDatabase("project.db")
+        placesClient = GMSPlacesClient.shared()
+                
+                myLocationManager = CLLocationManager()
+        //        myLocationManager.startMonitoringVisits()
+                myLocationManager.delegate = self
+                
+                myLocationManager.allowsBackgroundLocationUpdates = true
+                myLocationManager.pausesLocationUpdatesAutomatically = true
+                myLocationManager.activityType = CLActivityType.fitness
+                
+                
+                myLocationManager.distanceFilter = 50
+                
+                // 取得自身定位位置的精確度
+                myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                myLocationManager.startUpdatingLocation()
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = false
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
 //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
         return true
     }
+    
+     func locationManager(_ manager: CLLocationManager,
+                             didUpdateLocations locations: [CLLocation]){
+            
+    //        let longitude = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude)
+            
+            //取得目前的座標位置
+            let c = locations[0] as CLLocation;
+            let currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
+            
+            //    取得時間
+            let currentTime = Date()
+            let dateFormatter: DateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+            // 設定時區(台灣)
+            dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
+            let dateFormatString: String = dateFormatter.string(from: currentTime)
+            
+            // 確保didUpdateLocations只呼叫一次
+            //        manager.delegate = nil
+            likelyPlaces.removeAll()
+    //        self.tblView.reloadData()
+            placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
+                if let error = error {
+                    // TODO: Handle the error.
+                    print("Current Place error: \(error.localizedDescription)")
+                    return
+                }
+                
+                // Get likely places and add to the list.
+                if let likelihoodList = placeLikelihoods {
+                    for likelihood in likelihoodList.likelihoods {
+                        let place = likelihood.place
+                        self.likelyPlaces.append(place)
+    //                    self.tblView.reloadData()
+                    }
+                }
+                for i in 0...4{
+                    self.selectPlaces.append(self.likelyPlaces[i])
+                }
+                print(self.selectPlaces[1].types![0])
+                print(type(of: self.selectPlaces[1].types![0]))
+                
+                //DB
+                self.latitude = Double(currentLocation.latitude)
+                self.longitude = Double(currentLocation.longitude)
+                self.startTime = dateFormatString
+                self.nearestName = self.likelyPlaces[0].name!
+                self.nearestCategory = self.likelyPlaces[0].types![0]
+                
+                let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, nearestName: self.nearestName, nearestCategory: self.nearestCategory)
+                
+                let isSaved = DBManager.getInstance().saveLocation(modelInfo)
+                print("save in DB :", isSaved)
+                
+            })
+            
+        }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
