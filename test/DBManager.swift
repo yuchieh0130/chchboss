@@ -221,7 +221,7 @@ class DBManager: NSObject {
         
         var places : [PlaceModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM savedPlace ";
+        let sqlString = "SELECT * FROM savedPlace WHERE my_place = 1";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
