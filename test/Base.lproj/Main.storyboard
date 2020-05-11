@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -137,7 +137,7 @@
             </objects>
             <point key="canvasLocation" x="2781.5999999999999" y="-683.49753694581284"/>
         </scene>
-        <!--View Controller-->
+        <!--Ib Calendar Data Source-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -568,7 +568,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ogh-Jb-0d5">
-                                                    <rect key="frame" x="160" y="15.666666666666664" width="200" height="34"/>
+                                                    <rect key="frame" x="-215" y="15.666666666666664" width="200" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="hZF-Yq-Aaa"/>
                                                     </constraints>
@@ -615,7 +615,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwW-4q-Vn9">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="pGm-to-EPR"/>
                                                     </constraints>
@@ -661,7 +661,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-P3-Hfa">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="qz2-BC-b8B"/>
                                                     </constraints>
@@ -733,7 +733,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmz-qQ-lto">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="WIL-YS-lCp"/>
                                                     </constraints>
@@ -823,7 +823,7 @@
         <scene sceneID="QYd-nb-jN0">
             <objects>
                 <viewController id="QZ3-Qn-K2X" customClass="MapViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nd8-G2-BDI">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="nd8-G2-BDI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1887,13 +1887,20 @@
                                     <action selector="addTask:" destination="MCe-u7-tnl" eventType="touchUpInside" id="kfH-jQ-B8K"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Zy-bg-Iu5">
+                                <rect key="frame" x="20" y="59" width="47" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Done"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="g2N-0s-GED" firstAttribute="trailing" secondItem="89g-sw-5at" secondAttribute="trailing" constant="20" id="2Ce-o6-lAp"/>
+                            <constraint firstItem="5Zy-bg-Iu5" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="15" id="ETg-AP-thx"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="bottom" secondItem="g2N-0s-GED" secondAttribute="bottom" id="Egg-pl-oUV"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="top" secondItem="89g-sw-5at" secondAttribute="bottom" constant="5" id="Ir7-9l-kDV"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="leading" secondItem="g2N-0s-GED" secondAttribute="leading" id="ah1-yr-w8X"/>
+                            <constraint firstItem="g2N-0s-GED" firstAttribute="leading" secondItem="5Zy-bg-Iu5" secondAttribute="leading" constant="-20" id="byP-nw-9pq"/>
                             <constraint firstItem="89g-sw-5at" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="15" id="i6c-yy-HrD"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="trailing" secondItem="g2N-0s-GED" secondAttribute="trailing" id="qle-SC-U7p"/>
                         </constraints>
@@ -1903,6 +1910,7 @@
                     <connections>
                         <outlet property="addTaskButton" destination="89g-sw-5at" id="nPb-Ge-4Gf"/>
                         <outlet property="tableView" destination="yId-nE-s7K" id="idW-d2-fhx"/>
+                        <outlet property="taskDoneBtn" destination="5Zy-bg-Iu5" id="139-Vw-7GD"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="editTask" id="WsB-A9-R4s"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="addTask" id="jtY-fE-0jz"/>
                     </connections>
@@ -1934,19 +1942,19 @@
             <point key="canvasLocation" x="127" y="100"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="2v3-r9-Jbk"/>
-        <segue reference="uiq-XP-en4"/>
-        <segue reference="RmA-HN-d7i"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="calendar" catalog="system" width="128" height="106"/>
-        <image name="chart.pie" catalog="system" width="128" height="121"/>
-        <image name="doc.text" catalog="system" width="115" height="128"/>
-        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
-        <image name="pin.fill" catalog="system" width="119" height="128"/>
-        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <image name="calendar" catalog="system" width="64" height="52"/>
+        <image name="chart.pie" catalog="system" width="64" height="60"/>
+        <image name="doc.text" catalog="system" width="56" height="64"/>
+        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
+        <image name="pin.fill" catalog="system" width="58" height="64"/>
+        <image name="plus.circle" catalog="system" width="64" height="60"/>
         <image name="reminder_deselect" width="96" height="96"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="64" height="58"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Si0-bg-LgH"/>
+        <segue reference="uiq-XP-en4"/>
+        <segue reference="jtY-fE-0jz"/>
+    </inferredMetricsTieBreakers>
 </document>

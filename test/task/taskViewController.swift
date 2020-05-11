@@ -20,7 +20,8 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet var addTaskButton: UIButton!
     //@IBOutlet var editTaskButton: UIButton!
-
+    @IBOutlet var taskDoneBtn: UIButton!
+    
     
     @IBOutlet var tableView: UITableView!
     //var taskId :Int32?
