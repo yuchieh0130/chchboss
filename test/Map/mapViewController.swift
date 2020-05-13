@@ -114,29 +114,36 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         if txtSearch.text!.isEmpty{
             return exampleArray.count+1
         }else{
-        return sortedArr.count+1
+        return sortedArr.count+2
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: UITableViewCell?
+        var cell: UITableViewCell?
         
-        if indexPath.row == 0{ cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")}else{
+        if indexPath.row == 0{
+            cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
+            
+        }else{
             cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
-            if txtSearch.text!.isEmpty{
+        if txtSearch.text!.isEmpty{
                 let place = exampleArray[indexPath.row-1]
                 cell?.textLabel?.text = place
                 cell?.detailTextLabel?.isHidden = true
-            }else{
-                
-                if sortedArr.count > 0 && sortedDist.count > 0{
-                    let place = self.sortedArr[indexPath.row-1]
-                    cell?.textLabel?.text = "\(place)"
-                    let eachDistance = sortedDist[indexPath.row-1]
-                    cell?.detailTextLabel?.isHidden = false
-                    cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
+        }else{
+            if sortedArr.count > 0 && sortedDist.count > 0{
+                let place = self.sortedArr[indexPath.row-1]
+                cell?.textLabel?.text = "\(place)"
+                let eachDistance = sortedDist[indexPath.row-1]
+                cell?.detailTextLabel?.isHidden = false
+                cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
         }
+        if indexPath.row == sortedArr.count+1{
+            cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
+            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
+        }
+            
         
     //            cell?.textLabel?.text = "\(place["name"] as! String)"
     //            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
