@@ -15,8 +15,8 @@ class categoryTableViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if DBManager.getInstance().getCategory() != nil{
-            showCategory = DBManager.getInstance().getCategory()
+        if DBManager.getInstance().getAllCategory() != nil{
+            showCategory = DBManager.getInstance().getAllCategory()
         }else{
             showCategory = [CategoryModel]()
         }

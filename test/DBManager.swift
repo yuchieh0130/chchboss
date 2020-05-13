@@ -100,11 +100,30 @@ class DBManager: NSObject {
     
     
     
-    func getCategory() -> [CategoryModel]!{
+    func getCategory(Int: Int32) -> CategoryModel!{
+        
+        var category : CategoryModel!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM category WHERE category_id = \(Int)";
+        let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "category_id")
+            let a = set?.string(forColumn: "category_name")!
+            let b = set?.string(forColumn: "category_color")!
+            let c = set?.string(forColumn: "category_image")!
+            
+            category = CategoryModel(categoryId: i!, categoryName: a!, categoryColor: b!, category_image: c!)
+        }
+        set?.close()
+        return category
+    }
+    
+    func getAllCategory() -> [CategoryModel]!{
         
         var categories : [CategoryModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT category_id,category_name,category_color,category_image FROM category";
+        let sqlString = "SELECT * FROM category";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -292,13 +311,13 @@ class DBManager: NSObject {
             let h = set?.bool(forColumn: "isDone")
             
             let task: TaskModel
-                       
+            
             if tasks == nil{
-               tasks = [TaskModel]()
+                tasks = [TaskModel]()
             }
-               task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
-               tasks.append(task)
-            }
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
+            tasks.append(task)
+        }
         set?.close()
         return tasks
     }
@@ -371,11 +390,11 @@ class DBManager: NSObject {
     }
     
     func unPinTask(id: Int32) -> Bool{
-           shareInstance.database?.open()
-           let unPinned = shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 0 WHERE task_id = \(id)", withArgumentsIn:[id])
-           shareInstance.database?.close()
-           return unPinned!
-       }
+        shareInstance.database?.open()
+        let unPinned = shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 0 WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.close()
+        return unPinned!
+    }
     
     func doneTask(id: Int32) -> Bool{
         shareInstance.database?.open()

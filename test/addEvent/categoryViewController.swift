@@ -21,8 +21,8 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
         collectionView.backgroundColor = UIColor.white
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: 100, height: 100)
-        if DBManager.getInstance().getCategory() != nil{
-                   showCategory = DBManager.getInstance().getCategory()
+        if DBManager.getInstance().getAllCategory() != nil{
+                   showCategory = DBManager.getInstance().getAllCategory()
                }else{
                    showCategory = [CategoryModel]()
                }
