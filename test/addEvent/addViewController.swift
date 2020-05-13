@@ -169,7 +169,7 @@ class addViewController : UIViewController{
         //autoRecord = false
         if event!.autoRecord == true{
             autoRecord = true
-            category = DBManager.getInstance().getCategory(event?.autoCategory)
+            category = DBManager.getInstance().getCategory(Int: (event?.autoCategory)!)
             
             autoLocation = event?.autoLocation
             tableViewData[4].opened = true

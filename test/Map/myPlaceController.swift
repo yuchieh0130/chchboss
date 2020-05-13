@@ -19,10 +19,10 @@ class myPlaceController: UIViewController{
     var placeLongtitude: Double! = 0
     var placeLantitude: Double! = 0
     var myPlace: Bool! = true
+    var noAdd = false
     
     @IBOutlet var popover: UIView!
     @IBOutlet var txtMyPlaceName: UITextField!
-    var noAdd = false
     @IBOutlet var btnAdd: UIButton!
     @IBAction func AddLocation(_ sender: Any) {
         self.view.addSubview(popover)
