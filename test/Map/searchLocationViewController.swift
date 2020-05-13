@@ -32,6 +32,15 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
         tblPlaces.delegate = self
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMyPlaceOnly"{
+           if let VC = segue.destination as? myPlaceController{
+            VC.noadd = true
+            }
+
+       }
+    }
+    
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
