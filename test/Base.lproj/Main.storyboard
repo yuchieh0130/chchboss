@@ -3,7 +3,7 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -50,7 +50,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="showMyPlace" id="74U-hE-Mtr"/>
+                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="showMyPlaceOnly" id="74U-hE-Mtr"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="placecell" textLabel="Jfq-Ee-SgD" detailTextLabel="Jmh-vp-3mH" style="IBUITableViewCellStyleSubtitle" id="ivh-is-hGr">
@@ -1520,6 +1520,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="36g-JT-OHW"/>
                     <connections>
+                        <outlet property="btnAdd" destination="uPw-IB-l1q" id="Xbb-0e-Xi9"/>
                         <outlet property="popover" destination="sW5-CG-sKZ" id="cmM-38-M5S"/>
                         <outlet property="txtMyPlaceName" destination="gTJ-cc-B2R" id="xcs-3m-nwN"/>
                     </connections>
@@ -1954,7 +1955,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="74U-hE-Mtr"/>
-        <segue reference="Si0-bg-LgH"/>
+        <segue reference="Ppd-gm-Fyg"/>
         <segue reference="uiq-XP-en4"/>
         <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>

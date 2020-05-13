@@ -13,6 +13,8 @@ class myPlaceController: UIViewController{
     
     @IBOutlet var popover: UIView!
     @IBOutlet var txtMyPlaceName: UITextField!
+    var noadd = false
+    @IBOutlet var btnAdd: UIButton!
     @IBAction func AddLocation(_ sender: Any) {
         self.view.addSubview(popover)
         popover.center = self.view.center
@@ -40,6 +42,12 @@ class myPlaceController: UIViewController{
             
             //            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
             //            let isAdded = DBManager.getInstance().addPlace(modelInfo)
+        }
+    }
+    
+    override func viewDidLoad() {
+        if noadd == true{
+            btnAdd.isHidden = true
         }
     }
     
