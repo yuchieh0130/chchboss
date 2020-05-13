@@ -57,5 +57,22 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    @available(iOS 11.0, *)
+    public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let id =  showTask?[indexPath.row].taskId
+        let task = showTask?[indexPath.row]
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
+            print("Delete")
+            completionHandler(true)
+            self.showTask!.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            let isDeleted = DBManager.getInstance().deleteTask(id: id!)
+        }
+        deleteAction.backgroundColor = UIColor.red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
+    
     
 }
