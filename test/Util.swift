@@ -28,17 +28,12 @@ class Util: NSObject {
         if !fileManager.fileExists(atPath: dbPath){
             let bundle = Bundle.main.resourceURL
             let file = bundle?.appendingPathComponent(fileName)
-            var error: NSError?
             do{
                 try fileManager.copyItem(atPath: (file?.path)!, toPath: dbPath)
-            }catch let error1 as NSError{
-                error = error1
+            }catch let error as NSError{
+                print(error)
             }
-            if error == nil{
-                print("error in db")
-            }else{
-                print("success!!!")
-            }
+
         }
     }
 

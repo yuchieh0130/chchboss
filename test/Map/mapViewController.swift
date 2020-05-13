@@ -18,73 +18,16 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
-    //    @IBOutlet var popover: UIView!
-    //    @IBAction func AddLocation(_ sender: Any) {
-    //        self.view.addSubview(popover)
-    //        popover.center = self.view.center
-    //        popover.center.y = 200
-    //        txtField.text = txtSearch.text
-    //        popover.layer.borderColor = UIColor.gray.cgColor
-    //        popover.layer.borderWidth = 1
-    //        popover.layer.cornerRadius = 20
-    //        popover.layer.shadowOffset = CGSize(width: 5,height: 5)
-    //        popover.layer.shadowOpacity = 0.7
-    //        popover.layer.shadowRadius = 20
-    //
-    //    }
-    //
-    
-    //place db variables
-    var id: Int32 = 0
-    var name: String?
-    var placeName: String! = "" //Only Date
-    var placeCategory: String! = ""
-    var placeLongtitude: Double! = 0
-    var placeLantitude: Double! = 0
-    var myPlace: Bool! = false
     
     let userLocation = CLLocation(latitude: 25.034012, longitude: 121.564461)
     var locationDic : [String: Double] = [:]
     var sortedArr = [String]()
     var sortedDist = [Double]()
-    
-    //    @IBOutlet weak var txtField: UITextField!
-    
-    //    @IBAction func addToMyPlace(_ sender: UISwitch) {
-    //        if sender.isOn == true {
-    //            myPlace = true
-    //        }else{
-    //            myPlace = false
-    //        }
-    //    }
-    //
-    //    @IBAction func addBtn(_ sender: Any) {
-    //        self.popover.removeFromSuperview()
-    //
-    //        if name == nil || name == ""{
-    //            // alertMessage()
-    //        }else {
-    //
-    //            name = txtField.text
-    //
-    //            let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
-    //            let isAdded = DBManager.getInstance().addPlace(modelInfo)
-    //            // makeNotification(action: "add")
-    //        }
-    //
-    //    }
-    //
-    //    @IBAction func cancelBtn(_ sender: Any) {
-    //        self.popover.removeFromSuperview()
-    //    }
-    
-    //    @IBAction func cancel(_ sender: Any){
-    //        self.dismiss(animated: false, completion: nil)
-    //    }
-    
+
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
-    var exampleArray = [DBManager.getInstance().getLocation().name1,DBManager.getInstance().getLocation().name2,DBManager.getInstance().getLocation().name3,DBManager.getInstance().getLocation().name4,DBManager.getInstance().getLocation().name5]
+    let modelLoc = DBManager.getInstance().getLocation()
+    lazy var exampleArray = [modelLoc?.name1,modelLoc?.name2,modelLoc?.name3,modelLoc?.name4,modelLoc?.name5]
     
     
     override func viewDidLoad() {

@@ -11,9 +11,18 @@ import UIKit
 
 class myPlaceController: UIViewController{
     
+    //place db variables
+    var id: Int32 = 0
+    var name: String?
+    var placeName: String! = "" //Only Date
+    var placeCategory: String! = ""
+    var placeLongtitude: Double! = 0
+    var placeLantitude: Double! = 0
+    var myPlace: Bool! = true
+    
     @IBOutlet var popover: UIView!
     @IBOutlet var txtMyPlaceName: UITextField!
-    var noadd = false
+    var noAdd = false
     @IBOutlet var btnAdd: UIButton!
     @IBAction func AddLocation(_ sender: Any) {
         self.view.addSubview(popover)
@@ -40,13 +49,13 @@ class myPlaceController: UIViewController{
             alertMessage()
         }else {
             
-            //            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
-            //            let isAdded = DBManager.getInstance().addPlace(modelInfo)
+            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+            let isAdded = DBManager.getInstance().addPlace(modelInfo)
         }
     }
     
     override func viewDidLoad() {
-        if noadd == true{
+        if noAdd == true{
             btnAdd.isHidden = true
         }
     }
