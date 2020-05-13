@@ -378,6 +378,13 @@ class DBManager: NSObject {
            return unPinned!
        }
     
+    func doneTask(id: Int32) -> Bool{
+        shareInstance.database?.open()
+        let isDone = shareInstance.database?.executeUpdate("UPDATE task SET isDone = 1 WHERE task_id = \(id)", withArgumentsIn: [id])
+        shareInstance.database?.close()
+        return isDone!
+    }
+    
     
     
     
