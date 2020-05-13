@@ -99,7 +99,7 @@ class addViewController : UIViewController{
             }
         })
         //查看所有已推送的notification
-        //UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
+//        UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
         tableViewData = [cellConfig(opened: false, title: "Name"),
                          cellConfig(opened: false, title: "Start"),
@@ -118,9 +118,9 @@ class addViewController : UIViewController{
         reminderConfig( rname: "At certatian Location", fireTime: 0)]
         
         reminderData_allDay = [reminderConfig( rname: "none", fireTime: 0),
-        reminderConfig( rname: "on that day (default: 07:00)", fireTime: -25200),
-        reminderConfig( rname: "one day before (default: 21:00)", fireTime: 10800),
-        reminderConfig( rname: "two days before (default: 21:00)", fireTime: 97200)]
+        reminderConfig( rname: "on that day (default 07:00)", fireTime: -25200),
+        reminderConfig( rname: "one day before (default 21:00)", fireTime: 10800),
+        reminderConfig( rname: "two days before (default 21:00)", fireTime: 97200)]
         
         
         //func for accessoryView
@@ -400,13 +400,18 @@ class addViewController : UIViewController{
         case "add":
             let no = UNMutableNotificationContent()
                 no.title = "Event Notification"
-                no.body = name! + "\nEndDate: " + endDate + " " + endTime!
-            let notifivationid = String(DBManager.getInstance().getMaxEvent())
+                no.body = name! + "\nEndDate: " + endDate + "  \(endTime)"
             for i in 0...reminder_index.count-1{
+                var notifivationid = String(DBManager.getInstance().getMaxEvent())
                 let calendar = Calendar.current
                 let components = calendar.dateComponents([ .hour, .minute],from: fireDate-TimeInterval(reminderData[reminder_index[i]].fireTime))
                 let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                let request = UNNotificationRequest(identifier: "event\(notifivationid)_\(reminder_index[i])", content: no, trigger: trigger)
+                if allDay{
+                    notifivationid = "event\(notifivationid)_allday_\(reminder_index[i])"
+                }else{
+                    notifivationid = "event\(notifivationid)_\(reminder_index[i])"
+                }
+                let request = UNNotificationRequest(identifier: notifivationid, content: no, trigger: trigger)
                 UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
             }
         case "delete":
@@ -546,6 +551,11 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         }
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
+        
+        if reminder_index != [0]{
+            reminder_index = [0]
+                   tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
+        }
     }
     
     //autoRecord Switch
