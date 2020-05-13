@@ -109,6 +109,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
     }
     
+    @IBAction cancel(_ sender: UIButton){
+        self.dismiss(animated: false, completion: nil)
+    }
+    
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

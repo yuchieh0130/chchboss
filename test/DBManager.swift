@@ -189,7 +189,7 @@ class DBManager: NSObject {
             let m = set?.string(forColumn: "name5")
             let n = set?.string(forColumn: "category5")
             
-            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d, name1: e!, name2: g!,name3: i!, name4: k!,name5: m!, category1: f!,category2: h!, category3: j!,category4: l!, category5: n!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n)
         }
         
         set?.close()
