@@ -18,21 +18,21 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
-//    @IBOutlet var popover: UIView!
-//    @IBAction func AddLocation(_ sender: Any) {
-//        self.view.addSubview(popover)
-//        popover.center = self.view.center
-//        popover.center.y = 200
-//        txtField.text = txtSearch.text
-//        popover.layer.borderColor = UIColor.gray.cgColor
-//        popover.layer.borderWidth = 1
-//        popover.layer.cornerRadius = 20
-//        popover.layer.shadowOffset = CGSize(width: 5,height: 5)
-//        popover.layer.shadowOpacity = 0.7
-//        popover.layer.shadowRadius = 20
-//
-//    }
-//    
+    //    @IBOutlet var popover: UIView!
+    //    @IBAction func AddLocation(_ sender: Any) {
+    //        self.view.addSubview(popover)
+    //        popover.center = self.view.center
+    //        popover.center.y = 200
+    //        txtField.text = txtSearch.text
+    //        popover.layer.borderColor = UIColor.gray.cgColor
+    //        popover.layer.borderWidth = 1
+    //        popover.layer.cornerRadius = 20
+    //        popover.layer.shadowOffset = CGSize(width: 5,height: 5)
+    //        popover.layer.shadowOpacity = 0.7
+    //        popover.layer.shadowRadius = 20
+    //
+    //    }
+    //
     
     //place db variables
     var id: Int32 = 0
@@ -48,40 +48,40 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var sortedArr = [String]()
     var sortedDist = [Double]()
     
-//    @IBOutlet weak var txtField: UITextField!
-
-//    @IBAction func addToMyPlace(_ sender: UISwitch) {
-//        if sender.isOn == true {
-//            myPlace = true
-//        }else{
-//            myPlace = false
-//        }
-//    }
-//
-//    @IBAction func addBtn(_ sender: Any) {
-//        self.popover.removeFromSuperview()
-//
-//        if name == nil || name == ""{
-//            // alertMessage()
-//        }else {
-//
-//            name = txtField.text
-//
-//            let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
-//            let isAdded = DBManager.getInstance().addPlace(modelInfo)
-//            // makeNotification(action: "add")
-//        }
-//
-//    }
-//
-//    @IBAction func cancelBtn(_ sender: Any) {
-//        self.popover.removeFromSuperview()
-//    }
+    //    @IBOutlet weak var txtField: UITextField!
     
-//    @IBAction func cancel(_ sender: Any){
-//        self.dismiss(animated: false, completion: nil)
-//    }
-
+    //    @IBAction func addToMyPlace(_ sender: UISwitch) {
+    //        if sender.isOn == true {
+    //            myPlace = true
+    //        }else{
+    //            myPlace = false
+    //        }
+    //    }
+    //
+    //    @IBAction func addBtn(_ sender: Any) {
+    //        self.popover.removeFromSuperview()
+    //
+    //        if name == nil || name == ""{
+    //            // alertMessage()
+    //        }else {
+    //
+    //            name = txtField.text
+    //
+    //            let modelInfo = PlaceModel(placeId: id, placeName: name!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+    //            let isAdded = DBManager.getInstance().addPlace(modelInfo)
+    //            // makeNotification(action: "add")
+    //        }
+    //
+    //    }
+    //
+    //    @IBAction func cancelBtn(_ sender: Any) {
+    //        self.popover.removeFromSuperview()
+    //    }
+    
+    //    @IBAction func cancel(_ sender: Any){
+    //        self.dismiss(animated: false, completion: nil)
+    //    }
+    
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     var exampleArray = [DBManager.getInstance().getLocation().name1,DBManager.getInstance().getLocation().name2,DBManager.getInstance().getLocation().name3,DBManager.getInstance().getLocation().name4,DBManager.getInstance().getLocation().name5]
@@ -100,11 +100,11 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
         mapView.camera = camera
-
+        
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
         marker.map = mapView
-               
+        
         mapView.delegate = self
         
     }
@@ -119,7 +119,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         if txtSearch.text!.isEmpty{
             return exampleArray.count+1
         }else{
-        return sortedArr.count+2
+            return sortedArr.count+2
         }
     }
     
@@ -132,13 +132,13 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             
         }else if sortedArr.count != 0 && indexPath.row == sortedArr.count+1{
             cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
-                cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
+            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
         }else{
             cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
             if txtSearch.text!.isEmpty{
-                    let place = exampleArray[indexPath.row-1]
-                    cell?.textLabel?.text = place
-                    cell?.detailTextLabel?.isHidden = true
+                let place = exampleArray[indexPath.row-1]
+                cell?.textLabel?.text = place
+                cell?.detailTextLabel?.isHidden = true
             }else{
                 if sortedArr.count > 0 && sortedDist.count > 0{
                     let place = self.sortedArr[indexPath.row-1]
@@ -147,84 +147,76 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                     cell?.detailTextLabel?.isHidden = false
                     cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
                 }
-        
-    //            cell?.textLabel?.text = "\(place["name"] as! String)"
-    //            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+                //            cell?.textLabel?.text = "\(place["name"] as! String)"
+                //            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
             }
         }
-
+        
         return cell!
     }
-
-    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
-
-   @objc func searchPlaceFromGoogle(_ textField:UITextField) {
     
-    if let searchQuery = textField.text {
-        var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
-        strGoogleApi = strGoogleApi.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    @objc func searchPlaceFromGoogle(_ textField:UITextField) {
         
-        var urlRequest = URLRequest(url: URL(string: strGoogleApi)!)
-        urlRequest.httpMethod = "GET"
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, resopnse, error) in
-            if error == nil {
-                
-                if let responseData = data {
-                let jsonDict = try? JSONSerialization.jsonObject(with: responseData, options: .mutableContainers)
-                    
-                    if let dict = jsonDict as? Dictionary<String, AnyObject>{
+        if let searchQuery = textField.text {
+            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
+            strGoogleApi = strGoogleApi.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            
+            var urlRequest = URLRequest(url: URL(string: strGoogleApi)!)
+            urlRequest.httpMethod = "GET"
+            let task = URLSession.shared.dataTask(with: urlRequest) { (data, resopnse, error) in
+                if error == nil {
+                    if let responseData = data {
+                        let jsonDict = try? JSONSerialization.jsonObject(with: responseData, options: .mutableContainers)
                         
-                        if let results = dict["results"] as? [Dictionary<String, AnyObject>] {
-//                            print("json == \(results)")
-                            self.resultsArray.removeAll()
-                            self.sortedArr.removeAll()
-                            self.locationDic.removeAll()
-                            self.sortedDist.removeAll()
+                        if let dict = jsonDict as? Dictionary<String, AnyObject>{
                             
-                            for dct in results {
-                                self.resultsArray.append(dct)
-                                var lat = (dct["geometry"]!["location"]!! as AnyObject).allValues![0] as! Double
-                                var long = (dct["geometry"]!["location"]!! as AnyObject).allValues![1] as! Double
-                                let placeLocation = CLLocation(latitude: lat, longitude: long)
-                                let dist = self.userLocation.distance(from: placeLocation)
-
-//                                print(dct["name"]!, dist)
-                                self.locationDic[dct["name"] as! String] = dist
-                               
+                            if let results = dict["results"] as? [Dictionary<String, AnyObject>] {
+                                //                            print("json == \(results)")
+                                self.resultsArray.removeAll()
+                                self.sortedArr.removeAll()
+                                self.locationDic.removeAll()
+                                self.sortedDist.removeAll()
+                                
+                                for dct in results {
+                                    self.resultsArray.append(dct)
+                                    var lat = (dct["geometry"]!["location"]!! as AnyObject).allValues![0] as! Double
+                                    var long = (dct["geometry"]!["location"]!! as AnyObject).allValues![1] as! Double
+                                    let placeLocation = CLLocation(latitude: lat, longitude: long)
+                                    let dist = self.userLocation.distance(from: placeLocation)
+                                    
+                                    //                                print(dct["name"]!, dist)
+                                    self.locationDic[dct["name"] as! String] = dist
+                                    
+                                }
+                                var sortedDic = self.locationDic.sorted { $0.1 < $1.1 }
+                                for each in sortedDic{
+                                    self.sortedArr.append(each.key)
+                                    self.sortedDist.append(each.value)
+                                }
+                                
+                                DispatchQueue.main.async {
+                                    self.tblPlaces.reloadData()
+                                }
                                 
                             }
-                            var sortedDic = self.locationDic.sorted { $0.1 < $1.1 }
-                            for each in sortedDic{
-                                self.sortedArr.append(each.key)
-                                self.sortedDist.append(each.value)
-                            }
-                            
-//                            print(sortedDic)
-//                            print(self.sortedArr)
-//                            print(self.sortedDist)
-                            DispatchQueue.main.async {
-                             self.tblPlaces.reloadData()
-                            }
-                            
                         }
+                        
                     }
-                   
+                } else {
+                    //we have error connection google api
                 }
-            } else {
-                //we have error connection google api
             }
+            task.resume()
         }
-        task.resume()
-    }
-    
-    
-//    var CLLocationDistance distance = [secondLocation distanceFromLocation:longitude];
-    
+        
+        
+        //    var CLLocationDistance distance = [secondLocation distanceFromLocation:longitude];
+        
     }
     
     
@@ -232,19 +224,19 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 
 extension mapViewController: UISearchBarDelegate, UITextFieldDelegate{
     
-//
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.view.endEditing(true)
-//    }
+    //
+    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //        self.view.endEditing(true)
+    //    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-          textField.resignFirstResponder()
-          return true
+        textField.resignFirstResponder()
+        return true
     }
 }
 

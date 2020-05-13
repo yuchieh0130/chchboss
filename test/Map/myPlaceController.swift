@@ -24,7 +24,7 @@ class myPlaceController: UIViewController{
         popover.layer.shadowOffset = CGSize(width: 5,height: 5)
         popover.layer.shadowOpacity = 0.7
         popover.layer.shadowRadius = 20
-
+        
     }
     @IBAction func cancelBtn(_ sender: Any) {
         self.popover.removeFromSuperview()
@@ -33,13 +33,13 @@ class myPlaceController: UIViewController{
     @IBAction func addBtn(_ sender: Any) {
         self.view.endEditing(true)
         self.popover.removeFromSuperview()
-       
+        
         if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
             alertMessage()
         }else {
             
-//            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
-//            let isAdded = DBManager.getInstance().addPlace(modelInfo)
+            //            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+            //            let isAdded = DBManager.getInstance().addPlace(modelInfo)
         }
     }
     
