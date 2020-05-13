@@ -198,10 +198,9 @@ class DBManager: NSObject {
     
     func addPlace(_ modelInfo: PlaceModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longtitude,place_lantitude,my_place) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongtitude,modelInfo.placeLantitude,modelInfo.myPlace])
-        
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longtitude,place_lantitude,my_place) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongtitude,modelInfo.placeLantitude,modelInfo.myPlace])
         shareInstance.database?.close()
-        return isSave!
+        return isAdded!
     }
     
     func getPlace(Int: Int32) -> PlaceModel!{
