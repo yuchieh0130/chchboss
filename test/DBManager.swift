@@ -165,7 +165,7 @@ class DBManager: NSObject {
         return location
     }
     
-    func getLocation(Int: Int32) -> LocationModel!{
+    func getLocation() -> LocationModel!{
         
         var location : LocationModel!
         shareInstance.database?.open()
@@ -177,7 +177,7 @@ class DBManager: NSObject {
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
             let c = set?.string(forColumn: "start_time")!
-            let d = set?.string(forColumn: "end_time")!
+            let d = set?.string(forColumn: "end_time")
             let e = set?.string(forColumn: "name1")
             let f = set?.string(forColumn: "category1")
             let g = set?.string(forColumn: "name2")
@@ -189,7 +189,7 @@ class DBManager: NSObject {
             let m = set?.string(forColumn: "name5")
             let n = set?.string(forColumn: "category5")
             
-            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d!, name1: e!, name2: f!,name3: g!, name4: h!,name5: i!, category1: j!,category2: k!, category3: l!,category4: m!, category5: n!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d, name1: e!, name2: g!,name3: i!, name4: k!,name5: m!, category1: f!,category2: h!, category3: j!,category4: l!, category5: n!)
         }
         
         set?.close()

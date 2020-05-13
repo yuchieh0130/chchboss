@@ -78,13 +78,13 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
 //        self.popover.removeFromSuperview()
 //    }
     
-    @IBAction func cancel(_ sender: Any){
-        self.dismiss(animated: false, completion: nil)
-    }
+//    @IBAction func cancel(_ sender: Any){
+//        self.dismiss(animated: false, completion: nil)
+//    }
 
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
-    let exampleArray = ["banana","apple","guava", "grape","pear"]
+    var exampleArray = [DBManager.getInstance().getLocation().name1,DBManager.getInstance().getLocation().name2,DBManager.getInstance().getLocation().name3,DBManager.getInstance().getLocation().name4,DBManager.getInstance().getLocation().name5]
     
     
     override func viewDidLoad() {
@@ -94,6 +94,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         tblPlaces.estimatedRowHeight = 44.0
         tblPlaces.dataSource = self
         tblPlaces.delegate = self
+        txtSearch.delegate = self
         
         txtSearch.placeholder = "Search places..."
         
@@ -188,7 +189,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                                 let placeLocation = CLLocation(latitude: lat, longitude: long)
                                 let dist = self.userLocation.distance(from: placeLocation)
 
-                                print(dct["name"]!, dist)
+//                                print(dct["name"]!, dist)
                                 self.locationDic[dct["name"] as! String] = dist
                                
                                 
@@ -199,9 +200,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                                 self.sortedDist.append(each.value)
                             }
                             
-                            print(sortedDic)
-                            print(self.sortedArr)
-                            print(self.sortedDist)
+//                            print(sortedDic)
+//                            print(self.sortedArr)
+//                            print(self.sortedDist)
                             DispatchQueue.main.async {
                              self.tblPlaces.reloadData()
                             }
@@ -233,10 +234,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
 
 extension mapViewController: UISearchBarDelegate, UITextFieldDelegate{
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
+//
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
           textField.resignFirstResponder()
           return true
