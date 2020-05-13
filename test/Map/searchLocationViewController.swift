@@ -35,18 +35,22 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resultsArray.count
+        return resultsArray.count+1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "placecell")
-//        if let lblPlaceName = cell?.contentView.viewWithTag(102) as? UILabel {
-        if resultsArray.count > 0{
-            let place = self.resultsArray[indexPath.row]
-            cell?.textLabel?.text = "\(place["name"] as! String)"
-            cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+        var cell: UITableViewCell?
+        if indexPath.row == 0{
+            cell = tableView.dequeueReusableCell(withIdentifier: "slelectMyPlaceCell")
+        }else{
+            cell = tableView.dequeueReusableCell(withIdentifier: "placecell")
+            if resultsArray.count > 0{
+                let place = self.resultsArray[indexPath.row-1]
+                cell?.textLabel?.text = "\(place["name"] as! String)"
+                cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+            }
         }
+//        if let lblPlaceName = cell?.contentView.viewWithTag(102) as? UILabel {
 //        }
         return cell!
     }
@@ -58,6 +62,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         //存addPlace寫在這～～～
         
         //placeName = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section))?.textLabel?.text

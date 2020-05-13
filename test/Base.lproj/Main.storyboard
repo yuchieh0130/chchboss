@@ -29,8 +29,32 @@
                                 <rect key="frame" x="0.0" y="100" width="375" height="604"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="slelectMyPlaceCell" id="rcx-0n-tS4">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rcx-0n-tS4" id="ZFm-mo-bU1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJ7-iN-S3h">
+                                                    <rect key="frame" x="48" y="11" width="164" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sFA-NX-Ey5">
+                                                    <rect key="frame" x="18" y="11.333333333333371" width="22" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="showMyPlace" id="74U-hE-Mtr"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="placecell" textLabel="Jfq-Ee-SgD" detailTextLabel="Jmh-vp-3mH" style="IBUITableViewCellStyleSubtitle" id="ivh-is-hGr">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="55.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="71.666667938232422" width="375" height="55.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ivh-is-hGr" id="IRM-tw-1al">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55.666667938232422"/>
@@ -135,7 +159,7 @@
                     <viewLayoutGuide key="safeArea" id="Xbj-jM-fPz"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2781.5999999999999" y="-683.49753694581284"/>
+            <point key="canvasLocation" x="2782" y="-744"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -471,7 +495,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqt-Eh-hKL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="5ud-ie-O0u" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2037.5999999999999" y="-683.49753694581284"/>
+            <point key="canvasLocation" x="2038" y="-744"/>
         </scene>
         <!--Action View Controller-->
         <scene sceneID="LCW-Jp-wCr">
@@ -487,7 +511,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Y6-hL-N3F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2020" y="-744"/>
+            <point key="canvasLocation" x="74" y="-744"/>
         </scene>
         <!--Analysis View Controller-->
         <scene sceneID="hAM-t7-DFl">
@@ -503,7 +527,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-630" y="-745"/>
+            <point key="canvasLocation" x="922" y="-744"/>
         </scene>
         <!--Auto Record View Controller-->
         <scene sceneID="Srp-ur-Bl1">
@@ -539,7 +563,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L2c-Xq-Bge" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1356" y="113.79310344827587"/>
+            <point key="canvasLocation" x="-790" y="100"/>
         </scene>
         <!--Add Task View Controller-->
         <scene sceneID="k2n-uJ-fqw">
@@ -900,7 +924,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UoF-C5-DzF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2154" y="865"/>
+            <point key="canvasLocation" x="4326" y="909"/>
         </scene>
         <!--Category Table View Controller-->
         <scene sceneID="OdE-MQ-AKz">
@@ -943,7 +967,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g38-fD-hZZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="7Km-kX-v9k" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3687" y="85"/>
+            <point key="canvasLocation" x="4327" y="114"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="59x-bQ-Z0v">
@@ -1670,7 +1694,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-2871.1999999999998" y="113.79310344827587"/>
+            <point key="canvasLocation" x="-2393" y="100"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="ePr-Ok-yXT">
@@ -1691,7 +1715,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfM-1t-feC">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfM-1t-feC">
                                                     <rect key="frame" x="48" y="11" width="164" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1800,7 +1824,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n3R-DZ-ELt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2154.4000000000001" y="113.79310344827587"/>
+            <point key="canvasLocation" x="-1620" y="100"/>
         </scene>
         <!--Task View Controller-->
         <scene sceneID="QCE-co-9iR">
@@ -2029,7 +2053,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ijh-jI-ANK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="501.60000000000002" y="1609.3596059113302"/>
+            <point key="canvasLocation" x="126" y="1637"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="U72-G8-oUv">
@@ -2055,6 +2079,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="b0Q-IJ-Wiq"/>
         <segue reference="Ppd-gm-Fyg"/>
         <segue reference="uiq-XP-en4"/>
         <segue reference="jtY-fE-0jz"/>
