@@ -621,7 +621,8 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             //performSegue(withIdentifier: "Category", sender: self)
             performSegue(withIdentifier: "NewCategory", sender: self)
         case [4,4]:
-            performSegue(withIdentifier: "Map", sender: self)
+            performSegue(withIdentifier: "searchLocation", sender: self)
+            //performSegue(withIdentifier: "", sender: self)???
         case [5,0]:
             performSegue(withIdentifier: "Reminder", sender: self)
         default:
