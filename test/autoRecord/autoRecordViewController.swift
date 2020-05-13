@@ -19,10 +19,10 @@ class autoRecordViewController: UIViewController{
     @IBOutlet var txt: UILabel!
     
     override func viewDidLoad() {
-        title = "Track"
-        let auc = DBManager.getInstance().getLocName()
-        txt.text = "\(txt.text!) + \(auc!)\n"
-        print(auc!)
+//        title = "Track"
+//        let auc = DBManager.getInstance().getLocName()
+//        txt.text = "\(txt.text!) + \(auc!)\n"
+//        print(auc!)
     }
     
     

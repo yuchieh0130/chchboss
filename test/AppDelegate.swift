@@ -24,8 +24,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var latitude: Double! = 0
         var startTime: String! = ""
         var endTime: String = ""
-        var nearestName: String = ""
-        var nearestCategory: String = ""
+        var name1: String = ""
+        var name2: String = ""
+        var name3: String = ""
+        var name4: String = ""
+        var name5: String = ""
+        var category1: String = ""
+        var category2: String = ""
+        var category3: String = ""
+        var category4: String = ""
+        var category5: String = ""
     
     // An array to hold the list of likely places.
     var likelyPlaces: [GMSPlace] = []
@@ -106,6 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //                    self.tblView.reloadData()
                     }
                 }
+                print(self.likelyPlaces)
                 for i in 0...4{
                     self.selectPlaces.append(self.likelyPlaces[i])
                 }
@@ -116,10 +125,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.latitude = Double(currentLocation.latitude)
                 self.longitude = Double(currentLocation.longitude)
                 self.startTime = dateFormatString
-                self.nearestName = self.likelyPlaces[0].name!
-                self.nearestCategory = self.likelyPlaces[0].types![0]
+                self.name1 = self.likelyPlaces[0].name!
+                self.name2 = self.likelyPlaces[1].name!
+                self.name3 = self.likelyPlaces[2].name!
+                self.name4 = self.likelyPlaces[3].name!
+                self.name5 = self.likelyPlaces[4].name!
+                self.category1 = self.likelyPlaces[0].types![0]
+                self.category2 = self.likelyPlaces[1].types![0]
+                self.category3 = self.likelyPlaces[2].types![0]
+                self.category4 = self.likelyPlaces[3].types![0]
+                self.category5 = self.likelyPlaces[4].types![0]
                 
-                let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, nearestName: self.nearestName, nearestCategory: self.nearestCategory)
+                
+                
+                
+                let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5)
                 
                 let isSaved = DBManager.getInstance().saveLocation(modelInfo)
                 print("save in DB :", isSaved)

@@ -145,7 +145,7 @@ class DBManager: NSObject {
     
     func saveLocation(_ modelInfo: LocationModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,nearest_name,nearest_category) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.nearestName,modelInfo.nearestCategory])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5])
         
         shareInstance.database?.close()
         return isSave!
@@ -154,11 +154,11 @@ class DBManager: NSObject {
     func getLocName() -> String!{
         var location : String!
         shareInstance.database?.open()
-        let sqlString = "SELECT nearest_name FROM location ORDER BY location_id DESC limit 1";
+        let sqlString = "SELECT name1 FROM location ORDER BY location_id DESC limit 1";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
-            let i = set?.string(forColumn: "nearest_name")
+            let i = set?.string(forColumn: "name1")
             location = i
         }
         set?.close()
@@ -173,15 +173,23 @@ class DBManager: NSObject {
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
-            let i = set?.int(forColumn: "location_id")
+            let id = set?.int(forColumn: "location_id")
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
             let c = set?.string(forColumn: "start_time")!
             let d = set?.string(forColumn: "end_time")!
-            let e = set?.string(forColumn: "nearest_name")
-            let f = set?.string(forColumn: "nearest_category")
+            let e = set?.string(forColumn: "name1")
+            let f = set?.string(forColumn: "category1")
+            let g = set?.string(forColumn: "name2")
+            let h = set?.string(forColumn: "category2")
+            let i = set?.string(forColumn: "name3")
+            let j = set?.string(forColumn: "category3")
+            let k = set?.string(forColumn: "name4")
+            let l = set?.string(forColumn: "category4")
+            let m = set?.string(forColumn: "name5")
+            let n = set?.string(forColumn: "category5")
             
-            location = LocationModel(locationId: i!, longitude: a!, latitude: b!, startTime: c!, endTime: d!, nearestName: e!, nearestCategory: f!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d!, name1: e!, name2: f!,name3: g!, name4: h!,name5: i!, category1: j!,category2: k!, category3: l!,category4: m!, category5: n!)
         }
         
         set?.close()

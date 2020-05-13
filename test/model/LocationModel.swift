@@ -14,6 +14,14 @@ struct LocationModel{
     let latitude: Double
     let startTime: String
     let endTime: String?
-    let nearestName: String
-    let nearestCategory: String
+    let name1: String
+    let name2: String
+    let name3: String
+    let name4: String
+    let name5: String
+    let category1: String
+    let category2: String
+    let category3: String
+    let category4: String
+    let category5: String
 }
