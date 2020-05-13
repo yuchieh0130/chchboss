@@ -151,6 +151,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
             print("Done")
             completionHandler(true)
+                let isDone = DBManager.getInstance().doneTask(id: id!)
+                self.showTask = DBManager.getInstance().getAllUndoneTask()
+                self.tableView.reloadData()
+                self.dismiss(animated: true
+                , completion: nil)
             }
             let doItNowAction = UIContextualAction(style: .normal, title: "Do It Now") { (action, view, completionHandler) in
             print("Do It Now")
@@ -174,7 +179,10 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         tableView.reloadData()
      }
-     
+    
+    @IBAction func doneTask(_ sender: UIButton) {
+    }
+    
      override func viewDidAppear(_ animated: Bool) {
          super.viewDidAppear(animated)
      }
