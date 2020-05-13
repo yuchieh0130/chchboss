@@ -109,7 +109,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
     }
     
-    @IBAction cancel(_ sender: UIButton){
+    @IBAction func cancel(_ sender: UIButton){
         self.dismiss(animated: false, completion: nil)
     }
     
