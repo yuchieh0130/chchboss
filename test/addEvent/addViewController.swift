@@ -30,6 +30,8 @@ class addViewController : UIViewController{
     //tableView Item
     var tableViewData = [cellConfig]()
     var reminderData = [reminderConfig]()
+    var reminderData_notallDay = [reminderConfig]()
+    var reminderData_allDay = [reminderConfig]()
     let switchallDay = UISwitch()
     let switchauto = UISwitch()
     //let switchtask = UISwitch()
@@ -106,14 +108,20 @@ class addViewController : UIViewController{
                          cellConfig(opened: false, title: "AutoRecord"),
                          cellConfig(opened: false, title: "Reminder")]
         
-        reminderData = [reminderConfig( rname: "none", fireTime: 0),
-                        reminderConfig( rname: "At time of event", fireTime: 0),
-                        reminderConfig( rname: "5 minutes before", fireTime: 300),
-                        reminderConfig( rname: "10 minutes before", fireTime: 600),
-                        reminderConfig( rname: "30 minutes before", fireTime: 1800),
-                        reminderConfig( rname: "1 hour before", fireTime: 3600),
-                        reminderConfig( rname: "1 day before", fireTime: 86400),
-                        reminderConfig( rname: "At certatian Location", fireTime: 0)]
+       reminderData_notallDay = [reminderConfig( rname: "none", fireTime: 0),
+        reminderConfig( rname: "At time of event", fireTime: 0),
+        reminderConfig( rname: "5 minutes before", fireTime: 300),
+        reminderConfig( rname: "10 minutes before", fireTime: 600),
+        reminderConfig( rname: "30 minutes before", fireTime: 1800),
+        reminderConfig( rname: "1 hour before", fireTime: 3600),
+        reminderConfig( rname: "1 day before", fireTime: 86400),
+        reminderConfig( rname: "At certatian Location", fireTime: 0)]
+        
+        reminderData_allDay = [reminderConfig( rname: "none", fireTime: 0),
+        reminderConfig( rname: "on that day (default: 07:00)", fireTime: -25200),
+        reminderConfig( rname: "one day before (default: 21:00)", fireTime: 10800),
+        reminderConfig( rname: "two days before (default: 21:00)", fireTime: 97200)]
+        
         
         //func for accessoryView
         switchallDay.addTarget(self, action: #selector(self.allDayOpen(_ :)), for: .valueChanged)
@@ -189,6 +197,7 @@ class addViewController : UIViewController{
         case "Reminder":
             if let VC = segue.destination as? reminderTableViewController{
                 VC.reminder_index = reminder_index
+                VC.allDay = allDay
             }
         default:
             print("")
@@ -381,7 +390,12 @@ class addViewController : UIViewController{
     func makeNotification(action: String){
         var notifivationids = [String]()
         var fireDate = e
-        if allDay{ fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")! }
+        if allDay{
+            fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")!
+            reminderData = reminderData_allDay
+        }else{
+             reminderData = reminderData_notallDay
+        }
         switch action {
         case "add":
             let no = UNMutableNotificationContent()
@@ -504,6 +518,11 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
 //            return cell
         case [5,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
+            if allDay == true{
+                reminderData = reminderData_allDay
+            }else{
+                reminderData = reminderData_notallDay
+            }
             var txtReminder = ""
             for i in 0...reminder_index.count-1{
                 txtReminder += "\(reminderData[reminder_index[i]].rname) , "

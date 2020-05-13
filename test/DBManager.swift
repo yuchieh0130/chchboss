@@ -169,7 +169,7 @@ class DBManager: NSObject {
         
         var location : LocationModel!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location WHERE location_id = '\(Int)' ";
+        let sqlString = "SELECT * FROM location ORDER BY start_time DESC limit 1";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {

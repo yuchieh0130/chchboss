@@ -23,9 +23,11 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     @IBOutlet var btnCancel: UIButton!
     
     var reminder_index = [Int]()
+    var reminderData = [reminderStatus]()
+    var allDay = false
     
     //  let datasource = ["none", "At time of event", "5 minutes before", "10 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hours before", "1 day before", "2 days before", "1 week before", "Custom"]
-    var reminderData = [reminderStatus(rname: "none", isselected: false),
+    var reminderData_notallDay = [reminderStatus(rname: "none", isselected: false),
                        reminderStatus(rname: "At time of event", isselected: false),
                        reminderStatus(rname: "5 minutes before", isselected: false),
                        reminderStatus(rname: "10 minutes before", isselected: false),
@@ -33,6 +35,11 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
                        reminderStatus(rname: "1 hour before", isselected: false),
                        reminderStatus(rname: "1 day before", isselected: false),
                        reminderStatus(rname: "At certatian Location", isselected: false),
+    ]
+    var reminderData_allDay = [reminderStatus(rname: "none", isselected: false),
+                               reminderStatus(rname: "on that day (default: 07:00)", isselected: false),
+                               reminderStatus(rname: "one day before (default: 21:00)", isselected: false),
+                               reminderStatus(rname: "two days before (default: 21:00)", isselected: false),
     ]
     
     override func viewDidLoad() {
@@ -44,6 +51,11 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     
     override func viewWillAppear(_ animated: Bool) {
         var index = [IndexPath]()
+        if allDay == true{
+            reminderData = reminderData_allDay
+        }else{
+           reminderData = reminderData_notallDay
+        }
         if reminder_index.count == 1 && reminder_index[0] == 0{
             reminderData[0].isselected = true
             index.append(IndexPath(row: 0, section: 0))
@@ -62,6 +74,11 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     
     @IBAction func addReminder(_ sender: UIButton){
         reminder_index = []
+        if allDay == true{
+            reminderData = reminderData_allDay
+        }else{
+           reminderData = reminderData_notallDay
+        }
         for i in 0...reminderData.count-1{
             if reminderData[i].isselected{
                 reminder_index.append(i)
@@ -73,24 +90,38 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reminderData.count
+        if allDay == true{
+             return reminderData_allDay.count
+        }else{
+             return reminderData.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reminderTableViewCell = tableView.dequeueReusableCell(withIdentifier: "reminderTableViewCell") as! reminderTableViewCell
-        reminderTableViewCell.reminderTime.text = reminderData[indexPath.row].rname
-        reminderTableViewCell.selectionStyle = .none
-        //reminderTableViewCell.imgView.tintColor = UIColor.blue
-        if reminderData[indexPath.row].isselected == true{
-            reminderTableViewCell.imgView.image = UIImage(named: "reminder_select")
+        if allDay == true{
+            reminderData = reminderData_allDay
         }else{
-            reminderTableViewCell.imgView.image = UIImage(named: "reminder_deselect")
+           reminderData = reminderData_notallDay
         }
+            reminderTableViewCell.reminderTime.text = reminderData[indexPath.row].rname
+            reminderTableViewCell.selectionStyle = .none
+            //reminderTableViewCell.imgView.tintColor = UIColor.blue
+            if reminderData[indexPath.row].isselected == true{
+                reminderTableViewCell.imgView.image = UIImage(named: "reminder_select")
+            }else{
+                reminderTableViewCell.imgView.image = UIImage(named: "reminder_deselect")
+            }
         return reminderTableViewCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)! as! reminderTableViewCell
+        if allDay == true{
+            reminderData = reminderData_allDay
+        }else{
+           reminderData = reminderData_notallDay
+        }
         reminderData[indexPath.row].isselected = true
         cell.imgView.image = UIImage(named: "reminder_select")
         if indexPath.row == 0 {
@@ -113,6 +144,11 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)! as! reminderTableViewCell
         cell.imgView.image = UIImage(named: "reminder_deselect")
+        if allDay == true{
+            reminderData = reminderData_allDay
+        }else{
+           reminderData = reminderData_notallDay
+        }
         reminderData[indexPath.row].isselected = false
         //var ii = 0
         if reminderData.filter({$0.isselected}).count == 0{
