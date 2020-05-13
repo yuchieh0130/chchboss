@@ -45,6 +45,8 @@ class addViewController : UIViewController{
     var endTime: String?
     var allDay: Bool! = false
     var autoRecord: Bool! = false
+    var autoCategory: Int32?
+    var autoLocation: Int32?
     var reminder: String?
     var id: Int32 = 0
     
@@ -59,7 +61,7 @@ class addViewController : UIViewController{
     var date = Date() //date from DatePopViewController
     var showStart: String = "" //format show out on storyboard
     var showEnd: String = "" //format show out on storyboard
-    var autoLocation: String = ""
+    //var autoLocation: String = ""
     //用來處理dayconstraint
     var s = Date()
     var e = Date()+3600
@@ -164,7 +166,14 @@ class addViewController : UIViewController{
         allDay = event?.allDay
         //編輯事件的autorecord還沒處理好
         //autoRecord = event?.autoRecord
-        autoRecord = false
+        //autoRecord = false
+        if event!.autoRecord == true{
+            autoRecord = true
+            category = DBManager.getInstance().getCategory(event?.autoCategory)
+            
+            autoLocation = event?.autoLocation
+            tableViewData[4].opened = true
+        }
         reminder_index = event?.reminder.components(separatedBy: ",").map { Int($0)!} as! [Int]
     }
     
@@ -284,7 +293,7 @@ class addViewController : UIViewController{
             if dayConstraint(i: "start") == 1 { e = s + interval}
         }else if tag == "autoEnd"{
             e = date
-            if dayConstraint(i: "start") == 1 { s = e - interval}
+            if dayConstraint(i: "end") == 1 { s = e - interval}
         }
     }
     
@@ -297,10 +306,10 @@ class addViewController : UIViewController{
         switch i {
         case "start":
             if allDay == true && c3 == .orderedSame {c = 2}
-            else if c1 == .orderedDescending {c = 1}
+            if c1 == .orderedDescending {c = 1}
         case "end":
             if allDay == true && c4 == .orderedSame {c = 2}
-            else if c2 == .orderedAscending {c = 1}
+            if c2 == .orderedAscending {c = 1}
         default:
             c = 0
         }
@@ -323,13 +332,16 @@ class addViewController : UIViewController{
         if name == nil || name == ""{
             alertMessage()
         }else {
-            //若是all day，startTime、endTime儲存為nil
-            if allDay == true{
+            if autoRecord == true{
+                autoCategory = category.categoryId
+                //還沒有saveplace!!!
+                autoLocation = 0
+            }else if allDay == true{
                 startTime = nil
                 endTime = nil
             }
             //insert to database
-            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
+            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, autoCategory:autoCategory,autoLocation: autoLocation, reminder: reminder!)
             let isAdded = DBManager.getInstance().addEvent(modelInfo)
             if reminder != "0" { makeNotification(action: "add")}
         }
@@ -345,11 +357,15 @@ class addViewController : UIViewController{
             startTime = showTimeformatter.string(for: s)!
             endDate = showDayformatter.string(for: e)
             endTime = showTimeformatter.string(for: e)!
-            if allDay == true{
+            if autoRecord == true{
+                autoCategory = category.categoryId
+                //還沒有saveplace!!!
+                autoLocation = 0
+            }else if allDay == true{
                 startTime = nil
                 endTime = nil
             }
-            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, reminder: reminder!)
+            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoLocation, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
             makeNotification(action: "delete")
             if reminder != "0" {makeNotification(action: "add")}
@@ -369,7 +385,7 @@ class addViewController : UIViewController{
     
     func delete(){
            reminder = reminder_index.map { String($0) }.joined(separator: ",")
-           let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,reminder: reminder!)
+           let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoLocation,reminder: reminder!)
            let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
            makeNotification(action: "delete")
        }

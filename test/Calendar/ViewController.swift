@@ -284,11 +284,12 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         }else{
             let cell2 : eventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventTableViewCell", for: indexPath) as! eventTableViewCell
             cell2.eventName?.text = showEvent[indexPath.row-i].eventName
-            if showEvent[indexPath.row-i].startTime != nil && showEvent[indexPath.row-i].endTime != nil{
+//            if showEvent[indexPath.row-i].startTime != nil && showEvent[indexPath.row-i].endTime != nil
+            if showEvent[indexPath.row-i].allDay != true{
                 let time = showEvent[indexPath.row-i].startTime! + "-" + showEvent[indexPath.row-i].endTime!
                 cell2.eventTime?.text = time
             }else{
-                cell2.eventTime?.text = nil
+                cell2.eventTime?.text = "all day"
             }
             return cell2
         }

@@ -28,7 +28,7 @@ class DBManager: NSObject {
     
     func addEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
-        let isAdded = (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,hasReminder) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.reminder]))
+        let isAdded = (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder]))
         shareInstance.database?.close()
         return isAdded!
     }
@@ -42,7 +42,7 @@ class DBManager: NSObject {
     
     func editEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,hasReminder) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.reminder])
+        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder])
         shareInstance.database?.close()
         return isEdited!
     }
@@ -63,15 +63,18 @@ class DBManager: NSObject {
             let e = set?.string(forColumn: "end_time")
             let f = set?.bool(forColumn: "isAllDay")
             let g = set?.bool(forColumn: "isAutomated")
-            let j = set?.string(forColumn: "hasReminder")
+            let h = set?.int(forColumn: "autoCategory")
+            let j = set?.int(forColumn: "autoLocation")
+            let k = set?.string(forColumn: "hasReminder")
             
             let event: EventModel
             
-            if c == nil && e == nil{
-                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, reminder: j!)
-            }else{
-                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, reminder: j!)
-            }
+            event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!,autoCategory: h,autoLocation: j, reminder: k!)
+//            if c == nil && e == nil{
+//                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!,autoCategory: h,autoLocation: j, reminder: k!)
+//            }else{
+//                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, reminder: j!)
+//            }
             
             if events == nil{
                 events = [EventModel]()
