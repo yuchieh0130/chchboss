@@ -22,8 +22,10 @@ class myPlaceController: UIViewController{
     var noAdd = false
     
     var showAllPlace: [PlaceModel]?
-   // var showAllPlace =  DBManager.getInstance().getAllPlace()
+    // var showAllPlace =  DBManager.getInstance().getAllPlace()
     
+    
+    @IBOutlet weak var tblView: UITableView!
     @IBOutlet var popover: UIView!
     @IBOutlet var txtMyPlaceName: UITextField!
     @IBOutlet var btnAdd: UIButton!
@@ -52,17 +54,21 @@ class myPlaceController: UIViewController{
             alertMessage()
         }else {
             
-            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
             let isAdded = DBManager.getInstance().addPlace(modelInfo)
         }
+        
+        tblView.reloadData()
     }
     
     override func viewDidLoad() {
         if noAdd == true{
             btnAdd.isHidden = true
         }
+        
         if DBManager.getInstance().getAllPlace() != nil{
             showAllPlace = DBManager.getInstance().getAllPlace()
+            
         }else{
             showAllPlace = [PlaceModel]()
         }
@@ -94,7 +100,6 @@ extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
         let place = self.showAllPlace![indexPath.row]
         
         cell?.textLabel?.text = showAllPlace![indexPath.row].placeName
-        
         
         return cell!
     }

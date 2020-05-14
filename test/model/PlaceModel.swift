@@ -12,7 +12,7 @@ struct PlaceModel{
     let placeId: Int32?
     let placeName: String
     let placeCategory: String
-    let placeLongtitude: Double
+    let placeLongitude: Double
     let placeLantitude: Double
     let myPlace: Bool
 }

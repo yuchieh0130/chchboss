@@ -15,14 +15,7 @@ class autoRecordViewController: UIViewController{
     @IBAction func btn(_ sender: Any) {
     }
     
-
-    @IBOutlet var txt: UILabel!
-    
     override func viewDidLoad() {
-//        title = "Track"
-//        let auc = DBManager.getInstance().getLocName()
-//        txt.text = "\(txt.text!) + \(auc!)\n"
-//        print(auc!)
     }
     
     
