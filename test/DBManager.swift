@@ -246,7 +246,7 @@ class DBManager: NSObject {
         return place
     }
     
-    func getMyPlace() -> [PlaceModel]!{
+    func getAllPlace() -> [PlaceModel]!{
         
         var places : [PlaceModel]!
         shareInstance.database?.open()

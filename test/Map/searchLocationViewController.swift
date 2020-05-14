@@ -50,7 +50,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
         if indexPath.row == 0{
-            cell = tableView.dequeueReusableCell(withIdentifier: "slelectMyPlaceCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "selectMyPlaceCell")
         }else{
             cell = tableView.dequeueReusableCell(withIdentifier: "placecell")
 //            if resultsArray.count > 0{

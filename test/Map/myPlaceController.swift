@@ -21,6 +21,9 @@ class myPlaceController: UIViewController{
     var myPlace: Bool! = true
     var noAdd = false
     
+
+    var showAllPlace =  DBManager.getInstance().getAllPlace()
+    
     @IBOutlet var popover: UIView!
     @IBOutlet var txtMyPlaceName: UITextField!
     @IBOutlet var btnAdd: UIButton!
@@ -76,11 +79,18 @@ class myPlaceController: UIViewController{
 extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return showAllPlace!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
+        var cell: UITableViewCell?
+        cell = tableView.dequeueReusableCell(withIdentifier: "myplacecell")
+        
+        let place = self.showAllPlace![indexPath.row]
+        
+        cell?.textLabel?.text = showAllPlace![indexPath.row].placeName
+        
+        
         return cell!
     }
     
