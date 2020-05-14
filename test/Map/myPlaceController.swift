@@ -21,8 +21,8 @@ class myPlaceController: UIViewController{
     var myPlace: Bool! = true
     var noAdd = false
     
-
-    var showAllPlace =  DBManager.getInstance().getAllPlace()
+    var showAllPlace: [PlaceModel]?
+   // var showAllPlace =  DBManager.getInstance().getAllPlace()
     
     @IBOutlet var popover: UIView!
     @IBOutlet var txtMyPlaceName: UITextField!
@@ -60,6 +60,11 @@ class myPlaceController: UIViewController{
     override func viewDidLoad() {
         if noAdd == true{
             btnAdd.isHidden = true
+        }
+        if DBManager.getInstance().getAllPlace() != nil{
+            showAllPlace = DBManager.getInstance().getAllPlace()
+        }else{
+            showAllPlace = [PlaceModel]()
         }
     }
     
