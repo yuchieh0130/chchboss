@@ -95,7 +95,7 @@ extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
-        cell = tableView.dequeueReusableCell(withIdentifier: "myplacecell")
+        cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
         
         let place = self.showAllPlace![indexPath.row]
         
