@@ -27,6 +27,8 @@
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
 		4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */; };
 		4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */; };
+		4B6C44192472EAB10009C281 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C44182472EAB10009C281 /* TrackModel.swift */; };
+		4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C441A2472F9CB0009C281 /* trackCell.swift */; };
 		4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */; };
 		4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */; };
 		4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF5242B07FA001B80C7 /* CategoryModel.swift */; };
@@ -84,6 +86,8 @@
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
 		4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewCell.swift; sourceTree = "<group>"; };
 		4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(old)addEventViewController.swift"; sourceTree = "<group>"; };
+		4B6C44182472EAB10009C281 /* TrackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
+		4B6C441A2472F9CB0009C281 /* trackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trackCell.swift; sourceTree = "<group>"; };
 		4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewController.swift; sourceTree = "<group>"; };
 		4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewCell.swift; sourceTree = "<group>"; };
 		4B855CF5242B07FA001B80C7 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 		4B4F0150243CCBD100A98C65 /* autoRecord */ = {
 			isa = PBXGroup;
 			children = (
+				4B6C441A2472F9CB0009C281 /* trackCell.swift */,
 				4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */,
 			);
 			path = autoRecord;
@@ -202,6 +207,7 @@
 				58D91DC824325783002DD7B2 /* LocationModel.swift */,
 				583F59C1243E197F0018B383 /* PlaceModel.swift */,
 				4B02C4B7243D61630087DB4C /* TaskModel.swift */,
+				4B6C44182472EAB10009C281 /* TrackModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 				4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */,
 				4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */,
 				4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */,
+				4B6C44192472EAB10009C281 /* TrackModel.swift in Sources */,
 				4BA50280246B88D800F70144 /* doneTaskTableViewCell.swift in Sources */,
 				4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */,
 				4B351A4724188BE9003A474A /* FMDatabase.m in Sources */,
@@ -440,6 +447,7 @@
 				4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */,
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
 				4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */,
+				4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */,
 				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,
 				4B4AB6232463197A00FC8A6D /* myPlaceController.swift in Sources */,
 				4B1C31072415696600875B74 /* DateHeader.swift in Sources */,
