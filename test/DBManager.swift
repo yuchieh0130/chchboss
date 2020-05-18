@@ -407,6 +407,36 @@ class DBManager: NSObject {
     }
     
     
+    //get selected date當天的track
+    func getDateTracks(String: String) -> [TrackModel]!{
+        
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM track WHERE date LIKE '%\(String)%'";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "date")!
+            let b = set?.string(forColumn: "strat_time")
+            let c = set?.string(forColumn: "end_time")
+            let d = set?.string(forColumn: "category_id")
+            let e = set?.string(forColumn: "place_name")
+            let f = set?.string(forColumn: "place_category")
+
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!, categoryId: d!, placeName: e!, placeCategory: f!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
+    
+    
     
     
 }
