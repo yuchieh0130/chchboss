@@ -38,16 +38,6 @@ class autoRecordViewController: UIViewController{
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
         title = "Track"
-        
-        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 70, y: self.view.frame.height - 150, width: 45, height: 45))
-        floaty.addItem(title:"Add Event", handler: {_ in
-            self.performSegue(withIdentifier: "trackToEvent", sender: self)
-        })
-        floaty.addItem(title: "Add Task", handler: {_ in
-            self.performSegue(withIdentifier: "trackToTask", sender: self)
-        })
-        floaty.openAnimationType = .slideUp
-        self.view.addSubview(floaty)
     }
 
         func configureCell(view: JTAppleCell?, cellState: CellState){
