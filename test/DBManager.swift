@@ -429,7 +429,7 @@ class DBManager: NSObject {
             if tracks == nil{
                 tracks = [TrackModel]()
             }
-            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!, categoryId: d!, placeName: e, placeCategory: f)
+            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!, categoryId: d!, placeName: e!, placeCategory: f!)
             tracks.append(track)
         }
         set?.close()

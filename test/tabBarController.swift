@@ -23,68 +23,66 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             
         tabBar.items?[0].title = "Calendar"
         tabBar.items?[1].title = "Track"
-        tabBar.items?[3].title = "Task"
-        tabBar.items?[4].title = "Analysis"
-        
-        tabBar.items?[2].image =  #imageLiteral(resourceName: "Plus")
+        tabBar.items?[2].title = "Task"
+        tabBar.items?[3].title = "Analysis"
         
         //self.setupMiddleButton()
             
         }
     
       
-    // TabBarButton – Setup Middle Button
-    func setupMiddleButton() {
-        let middleBtn = UIButton(frame: CGRect(x: (self.view.bounds.width / 2)-25, y: 0, width: 50, height: 50))
-        //button style
-        middleBtn.setImage(UIImage.init(systemName:"plus.circle.fill"), for: .normal)
-        //add to the tabbar and add click event
-        self.tabBar.addSubview(middleBtn)
-        middleBtn.addTarget(self, action: #selector(self.plusButtonAction), for: .touchUpInside)
-        self.view.layoutIfNeeded()
-       }
-    
-    // Menu Button Touch Action
-    @objc func plusButtonAction(sender: UIButton){
-       }
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        let tabBarIndex = tabBarController.viewControllers!.index(of: viewController)!
-        if  tabBarIndex == 2 {
-            let button1 = UIButton(type: .custom)
-            button1.frame = CGRect(x: 160, y: 100, width: 50, height: 50)
-            button1.layer.cornerRadius = 0.5 * button1.bounds.size.width
-            button1.clipsToBounds = true
-            button1.addTarget(self, action: #selector(addEventBtn(_:)), for: .touchUpInside)
-            button1.backgroundColor = UIColor.systemBlue
-            button1.tintColor = UIColor.white
-            button1.setImage(UIImage.init(systemName: "calendar"), for: .normal)
-            
-
-            let button2 = UIButton()
-            button2.addTarget(self, action: #selector(addTaskBtn(_:)), for: .touchUpInside)
-            button2.backgroundColor = UIColor.systemBlue
-            button2.tintColor = UIColor.white
-            button2.setImage(UIImage.init(systemName: "doc.text"), for: .normal)
-            
-            let sv = UIStackView(arrangedSubviews: [button1,button2])
-            sv.distribution = .equalSpacing
-            let currentView = tabBarController.selectedViewController!.view!
-            sv.frame = CGRect(x: currentView.bounds.midX - 80, y: currentView.bounds.midY + 300, width: 160, height: 40)
-            currentView.addSubview(sv)
-            currentView.bringSubviewToFront(sv)
-            return false
-            }else{
-            return true
-            }
-    }
-    
-    @objc func addEventBtn(_ sender:UIButton) {
-        performSegue(withIdentifier: "addEvent", sender: nil)
-        }
-    @objc func addTaskBtn(_ sender:UIButton){
-        performSegue(withIdentifier: "addTask", sender: nil)
-    }
+//    // TabBarButton – Setup Middle Button
+//    func setupMiddleButton() {
+//        let middleBtn = UIButton(frame: CGRect(x: (self.view.bounds.width / 2)-25, y: 0, width: 50, height: 50))
+//        //button style
+//        middleBtn.setImage(UIImage.init(systemName:"plus.circle.fill"), for: .normal)
+//        //add to the tabbar and add click event
+//        self.tabBar.addSubview(middleBtn)
+//        middleBtn.addTarget(self, action: #selector(self.plusButtonAction), for: .touchUpInside)
+//        self.view.layoutIfNeeded()
+//       }
+//    
+//    // Menu Button Touch Action
+//    @objc func plusButtonAction(sender: UIButton){
+//       }
+//    
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        let tabBarIndex = tabBarController.viewControllers!.index(of: viewController)!
+//        if  tabBarIndex == 2 {
+//            let button1 = UIButton(type: .custom)
+//            button1.frame = CGRect(x: 160, y: 100, width: 50, height: 50)
+//            button1.layer.cornerRadius = 0.5 * button1.bounds.size.width
+//            button1.clipsToBounds = true
+//            button1.addTarget(self, action: #selector(addEventBtn(_:)), for: .touchUpInside)
+//            button1.backgroundColor = UIColor.systemBlue
+//            button1.tintColor = UIColor.white
+//            button1.setImage(UIImage.init(systemName: "calendar"), for: .normal)
+//            
+//
+//            let button2 = UIButton()
+//            button2.addTarget(self, action: #selector(addTaskBtn(_:)), for: .touchUpInside)
+//            button2.backgroundColor = UIColor.systemBlue
+//            button2.tintColor = UIColor.white
+//            button2.setImage(UIImage.init(systemName: "doc.text"), for: .normal)
+//            
+//            let sv = UIStackView(arrangedSubviews: [button1,button2])
+//            sv.distribution = .equalSpacing
+//            let currentView = tabBarController.selectedViewController!.view!
+//            sv.frame = CGRect(x: currentView.bounds.midX - 80, y: currentView.bounds.midY + 300, width: 160, height: 40)
+//            currentView.addSubview(sv)
+//            currentView.bringSubviewToFront(sv)
+//            return false
+//            }else{
+//            return true
+//            }
+//    }
+//    
+//    @objc func addEventBtn(_ sender:UIButton) {
+//        performSegue(withIdentifier: "addEvent", sender: nil)
+//        }
+//    @objc func addTaskBtn(_ sender:UIButton){
+//        performSegue(withIdentifier: "addTask", sender: nil)
+//    }
     
     
 //    func actionSheet(){

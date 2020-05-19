@@ -14,6 +14,6 @@ struct TrackModel{
     let startTime: String
     let endTime: String
     let categoryId: Int32
-    let placeName: String?
-    let placeCategory: String?
+    let placeName: String
+    let placeCategory: String
 }

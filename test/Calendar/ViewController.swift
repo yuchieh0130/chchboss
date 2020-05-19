@@ -1,5 +1,6 @@
 import UIKit
 import JTAppleCalendar
+import Floaty
 
 class ViewController: UIViewController {
     
@@ -73,6 +74,9 @@ class ViewController: UIViewController {
         //self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
         
         title = "Calendar"
+        
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 70, y: self.view.frame.height - 150, width: 45, height: 45))
+        self.view.addSubview(floaty)
     }
     
     @IBAction func eventUnwindSegue(segue: UIStoryboardSegue){
