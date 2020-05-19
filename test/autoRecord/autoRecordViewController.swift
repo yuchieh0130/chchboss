@@ -59,15 +59,10 @@ class autoRecordViewController: UIViewController{
             if cellState.isSelected{
                 cell.selectedView.isHidden = false
                 selectedDay = formatter.string(from: cellState.date)
-                print(selectedDay)
-                print(DBManager.getInstance().getDateTracks(String: selectedDay))
-                
                 if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
                     showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
-                    print("aaaaaa")
                 }else{
                     showTrack = [TrackModel]()
-                    print("bbbb")
                 }
                 tableView.reloadData()
             }else{
@@ -144,7 +139,6 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
     
     //必要、需要幾個cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(showTrack.count)
         return showTrack.count
     }
     
@@ -156,6 +150,7 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
         let category = DBManager.getInstance().getCategory(Int: showTrack[indexPath.row].categoryId)
         cell.category.text = category?.categoryName
             cell.placeName.text = showTrack[indexPath.row].placeName
+        cell.selectionStyle = .none
         return cell
     }
     
