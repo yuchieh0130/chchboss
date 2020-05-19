@@ -17,12 +17,18 @@ class autoRecordViewController: UIViewController{
     var selectedDay:String = ""
     var numberOfRows = 1
     
-    var formatter: DateFormatter {
-           let formatter = DateFormatter()
-           formatter.dateFormat = "yyyy-MM-dd"
-           formatter.timeZone = TimeZone.ReferenceType.system
-           return formatter
-       }
+   var showTimeformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showDayformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     
     @IBOutlet var tableView: UITableView!
     var showTrack  = [TrackModel]()
@@ -59,7 +65,7 @@ class autoRecordViewController: UIViewController{
         func handleCellSelected(cell: DateCell, cellState: CellState){
             if cellState.isSelected{
                 cell.selectedView.isHidden = false
-                selectedDay = formatter.string(from: cellState.date)
+                selectedDay = showDayformatter.string(from: cellState.date)
                 if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
                     showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
                 }else{
@@ -135,29 +141,31 @@ class autoRecordViewController: UIViewController{
 }
 
 extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
-    //DataSource管理cell數量、section數量、多少列、及顯示內容
-    //Delegate處理TableView的外觀(列高、標題列高、第x列要內縮多少)及一些觸發事件
-    
-    //必要、需要幾個cell
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showTrack.count
     }
     
-    //必要、設定cell的樣式
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell",for: indexPath) as! trackCell
         cell.time.text = "\(showTrack[indexPath.row].startTime) - \(showTrack[indexPath.row].endTime)"
         let category = DBManager.getInstance().getCategory(Int: showTrack[indexPath.row].categoryId)
         cell.category.text = category?.categoryName
-            cell.placeName.text = showTrack[indexPath.row].placeName
+        //cell.placeName.text =
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: "", sender: nil)
     
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height = CGFloat()
+        let seconds = showTimeformatter.date(from: showTrack[indexPath.row].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[indexPath.row].startTime)!)
+        height = CGFloat(seconds!/60)
+        return height
     }
     
 }

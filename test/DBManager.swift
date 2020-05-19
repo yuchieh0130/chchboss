@@ -26,6 +26,7 @@ class DBManager: NSObject {
         return shareInstance
     }
     
+/*func for event*/
     func addEvent(_ modelInfo: EventModel) -> Bool{
         shareInstance.database?.open()
         let isAdded = (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder]))
@@ -101,8 +102,7 @@ class DBManager: NSObject {
     }
     
     
-    
-    
+/*func for Category*/
     func getCategory(Int: Int32) -> CategoryModel!{
         
         var category : CategoryModel!
@@ -165,6 +165,7 @@ class DBManager: NSObject {
     //
     //    }
     
+/*func for location*/
     func saveLocation(_ modelInfo: LocationModel) -> Bool{
         shareInstance.database?.open()
         let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5])
@@ -218,6 +219,7 @@ class DBManager: NSObject {
         return location
     }
     
+/*func for savePlace*/
     func addPlace(_ modelInfo: PlaceModel) -> Bool{
         shareInstance.database?.open()
         let isAdded = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longitude,place_lantitude,my_place) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLantitude,modelInfo.myPlace])
@@ -273,6 +275,7 @@ class DBManager: NSObject {
         return places
     }
     
+/*func for task*/
     func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
         let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
@@ -406,7 +409,7 @@ class DBManager: NSObject {
         return isDone!
     }
     
-    
+/*func for track*/
     //get selected date當天的track
     func getDateTracks(String: String) -> [TrackModel]!{
         
@@ -420,16 +423,17 @@ class DBManager: NSObject {
             let a = set?.string(forColumn: "date")!
             let b = set?.string(forColumn: "start_time")
             let c = set?.string(forColumn: "end_time")
-            let d = set?.int(forColumn: "category_id")
-            let e = set?.string(forColumn: "place_name")
-            let f = set?.string(forColumn: "place_category")
+            let d = set?.double(forColumn: "track_longitude")
+            let e = set?.double(forColumn: "track_latitude")
+            let f = set?.int(forColumn: "category_id")
+            let g = set?.int(forColumn: "place_id")
 
             let track: TrackModel
             
             if tracks == nil{
                 tracks = [TrackModel]()
             }
-            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!, categoryId: d!, placeName: e!, placeCategory: f!)
+            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!,trackLongitude: d!, trackLatitude: e!, categoryId: f!, placeId: g)
             tracks.append(track)
         }
         set?.close()

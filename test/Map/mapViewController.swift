@@ -41,14 +41,16 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         txtSearch.placeholder = "Search places..."
         
+        mapView.delegate = self
+       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
         mapView.camera = camera
-        
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
         marker.map = mapView
-        
-        mapView.delegate = self
         
     }
     
