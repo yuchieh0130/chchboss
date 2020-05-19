@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Floaty
 
+@available(iOS 13.0, *)
 class taskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate{
     
     //db variables
@@ -96,6 +97,14 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 70, y: self.view.frame.height - 150, width: 45, height: 45))
+        floaty.buttonColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        floaty.plusColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        floaty.addItem(title:"Add Event", handler: {_ in
+            self.performSegue(withIdentifier: "taskToEvent", sender: self)
+        })
+        floaty.addItem(title: "Add Task", handler: {_ in
+            self.performSegue(withIdentifier: "addTask", sender: self)
+        })
         self.view.addSubview(floaty)
     }
     
@@ -107,7 +116,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     //往右滑
-    @available(iOS 11.0, *)
+    @available(iOS 13.0, *)
     public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id = showTask?[indexPath.row].taskId
         let task = showTask?[indexPath.row]
@@ -140,7 +149,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     //往左滑
-    @available(iOS 11.0, *)
+    @available(iOS 13.0, *)
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id =  showTask?[indexPath.row].taskId
         let task = showTask?[indexPath.row]
