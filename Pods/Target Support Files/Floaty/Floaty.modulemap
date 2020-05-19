@@ -1,0 +1,6 @@
+module Floaty {
+  umbrella header "Floaty-umbrella.h"
+
+  export *
+  module * { export * }
+}
