@@ -105,6 +105,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.addItem(title: "Add Task", handler: {_ in
             self.performSegue(withIdentifier: "addTask", sender: self)
         })
+        floaty.openAnimationType = .fade
         self.view.addSubview(floaty)
     }
     

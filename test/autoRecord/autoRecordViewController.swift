@@ -46,6 +46,7 @@ class autoRecordViewController: UIViewController{
         floaty.addItem(title: "Add Task", handler: {_ in
             self.performSegue(withIdentifier: "trackToTask", sender: self)
         })
+        floaty.openAnimationType = .slideUp
         self.view.addSubview(floaty)
     }
 

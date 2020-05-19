@@ -22,6 +22,7 @@ class analysisViewController: UIViewController {
         floaty.addItem(title: "Add Task", handler: {_ in
             self.performSegue(withIdentifier: "anaToTask", sender: self)
         })
+        floaty.openAnimationType = .slideLeft
         self.view.addSubview(floaty)
     }
 }
