@@ -508,10 +508,6 @@
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="4" title="" image="chart.pie" catalog="system" selectedImage="chart.pie" id="EsJ-Wy-Q9H"/>
-                    <connections>
-                        <segue destination="9iT-4D-ttn" kind="show" identifier="anaToEvent" id="gb8-Ej-hdz"/>
-                        <segue destination="zxG-pM-74g" kind="show" identifier="anaToTask" id="O1S-Il-MnZ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -666,8 +662,6 @@
                     <connections>
                         <outlet property="calendarView" destination="VCH-D8-Cp7" id="geJ-Qs-Vxf"/>
                         <outlet property="tableView" destination="Bky-oQ-TWv" id="76z-BA-VgJ"/>
-                        <segue destination="9iT-4D-ttn" kind="show" identifier="trackToEvent" id="5fx-Aq-IQH"/>
-                        <segue destination="zxG-pM-74g" kind="show" identifier="trackToTask" id="jZN-Zs-rn8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L2c-Xq-Bge" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1943,7 +1937,6 @@
                         <outlet property="taskDoneBtn" destination="5Zy-bg-Iu5" id="139-Vw-7GD"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="editTask" id="WsB-A9-R4s"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="addTask" id="jtY-fE-0jz"/>
-                        <segue destination="9iT-4D-ttn" kind="show" identifier="taskToEvent" id="en2-mc-pTy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLy-J4-dlF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2056,6 +2049,8 @@
                         <segue destination="svZ-ai-5oE" kind="relationship" relationship="viewControllers" id="qKJ-7w-dbI"/>
                         <segue destination="MCe-u7-tnl" kind="relationship" relationship="viewControllers" id="YrH-Xa-OGJ"/>
                         <segue destination="3xM-0D-h9c" kind="relationship" relationship="viewControllers" id="N4z-Vr-dZN"/>
+                        <segue destination="9iT-4D-ttn" kind="show" identifier="tabBarToEvent" id="csL-Fo-fcl"/>
+                        <segue destination="zxG-pM-74g" kind="show" identifier="tabBarToTask" id="hM4-lw-jpS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JfE-Rr-Q39" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2077,7 +2072,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="74U-hE-Mtr"/>
         <segue reference="Ppd-gm-Fyg"/>
-        <segue reference="gb8-Ej-hdz"/>
-        <segue reference="O1S-Il-MnZ"/>
+        <segue reference="csL-Fo-fcl"/>
+        <segue reference="hM4-lw-jpS"/>
     </inferredMetricsTieBreakers>
 </document>
