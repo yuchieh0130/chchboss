@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Floaty
 
 class taskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate{
     
@@ -93,6 +94,9 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         title = "Task"
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 70, y: self.view.frame.height - 150, width: 45, height: 45))
+        self.view.addSubview(floaty)
     }
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

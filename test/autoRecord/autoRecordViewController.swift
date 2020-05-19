@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import JTAppleCalendar
+import Floaty
 
 class autoRecordViewController: UIViewController{
    
@@ -36,7 +37,10 @@ class autoRecordViewController: UIViewController{
         calendarView.showsVerticalScrollIndicator = false
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
-        title = "Calendar"
+        title = "Track"
+        
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 70, y: self.view.frame.height - 150, width: 45, height: 45))
+        self.view.addSubview(floaty)
     }
 
         func configureCell(view: JTAppleCell?, cellState: CellState){
