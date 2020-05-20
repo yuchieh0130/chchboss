@@ -13,8 +13,7 @@ struct TrackModel{
     let date: String
     let startTime: String
     let endTime: String
-    let trackLongitude: Double
-    let trackLatitude: Double
     let categoryId: Int32
+    let locationId: Int32
     let placeId: Int32?
 }

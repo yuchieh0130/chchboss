@@ -424,17 +424,16 @@ class DBManager: NSObject {
             let a = set?.string(forColumn: "date")!
             let b = set?.string(forColumn: "start_time")
             let c = set?.string(forColumn: "end_time")
-            let d = set?.double(forColumn: "track_longitude")
-            let e = set?.double(forColumn: "track_latitude")
-            let f = set?.int(forColumn: "category_id")
-            let g = set?.int(forColumn: "place_id")
+            let d = set?.int(forColumn: "category_id")
+            let e = set?.int(forColumn: "location_id")
+            let f = set?.int(forColumn: "place_id")
 
             let track: TrackModel
             
             if tracks == nil{
                 tracks = [TrackModel]()
             }
-            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!,trackLongitude: d!, trackLatitude: e!, categoryId: f!, placeId: g)
+            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!,categoryId: d!, locationId: e!, placeId: f!)
             tracks.append(track)
         }
         set?.close()
