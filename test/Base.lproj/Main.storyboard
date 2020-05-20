@@ -574,7 +574,7 @@
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jx8-Gs-NYe">
                                             <rect key="frame" x="337" y="0.0" width="30" height="50"/>
-                                            <state key="normal" title="㊝"/>
+                                            <state key="normal" title="🕹"/>
                                             <connections>
                                                 <action selector="btn:" destination="svZ-ai-5oE" eventType="touchUpInside" id="Sp7-3P-kat"/>
                                                 <segue destination="8yA-Sq-vnF" kind="show" id="vQy-DK-u17"/>
