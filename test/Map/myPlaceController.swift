@@ -48,16 +48,26 @@ class myPlaceController: UIViewController{
     
     @IBAction func addBtn(_ sender: Any) {
         self.view.endEditing(true)
-        self.popover.removeFromSuperview()
         
         if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
             alertMessage()
         }else {
-            
             let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLongitude, myPlace: true)
             let isAdded = DBManager.getInstance().addPlace(modelInfo)
+            
+            txtMyPlaceName.text = nil
         }
-        tblView.reloadData()
+        
+        if DBManager.getInstance().getAllPlace() != nil{
+            showAllPlace = DBManager.getInstance().getAllPlace()
+            
+        }else{
+            showAllPlace = [PlaceModel]()
+        }
+        
+        self.tblView.reloadData()
+        self.popover.removeFromSuperview()
+        
     }
     
     override func viewDidLoad() {
