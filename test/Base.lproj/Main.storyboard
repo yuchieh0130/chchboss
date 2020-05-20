@@ -2042,17 +2042,11 @@
                                 <rect key="frame" x="304" y="59" width="55" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Select"/>
-                                <connections>
-                                    <action selector="edit:" destination="JAA-zw-XLe" eventType="touchUpInside" id="Ixt-zg-XCH"/>
-                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0r-wq-tMg">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0r-wq-tMg">
                                 <rect key="frame" x="193" y="59" width="83" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Delete All"/>
-                                <connections>
-                                    <action selector="deleteAllRows:" destination="JAA-zw-XLe" eventType="touchUpInside" id="a3b-PP-cB0"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2061,6 +2055,7 @@
                             <constraint firstItem="QYr-w5-sgj" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="GNK-Iy-bqR"/>
                             <constraint firstItem="3Hq-kk-mpK" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="Ije-M8-6dB"/>
                             <constraint firstItem="ZBZ-LD-0gy" firstAttribute="leading" secondItem="3Hq-kk-mpK" secondAttribute="leading" constant="-20" id="Jcm-xy-9zp"/>
+                            <constraint firstItem="P0r-wq-tMg" firstAttribute="leading" secondItem="3Hq-kk-mpK" secondAttribute="trailing" constant="157" id="JoW-vg-wb3"/>
                             <constraint firstItem="B2a-pe-EdE" firstAttribute="trailing" secondItem="ZBZ-LD-0gy" secondAttribute="trailing" id="ZFa-q9-O4t"/>
                             <constraint firstItem="P0r-wq-tMg" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="alY-tN-pUg"/>
                             <constraint firstItem="ZBZ-LD-0gy" firstAttribute="bottom" secondItem="B2a-pe-EdE" secondAttribute="bottom" constant="2" id="ger-EF-Bks"/>
@@ -2071,9 +2066,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EoZ-8n-ozz"/>
                     <connections>
-                        <outlet property="deleteAllBtn" destination="P0r-wq-tMg" id="9Fv-q5-2yf"/>
                         <outlet property="doneReturnBtn" destination="3Hq-kk-mpK" id="kz7-cc-xqI"/>
-                        <outlet property="selectBtn" destination="QYr-w5-sgj" id="LTf-4E-ygj"/>
                         <outlet property="tableView" destination="B2a-pe-EdE" id="owi-4o-Oz7"/>
                     </connections>
                 </viewController>

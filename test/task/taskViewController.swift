@@ -154,9 +154,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("Done")
             completionHandler(true)
             let isDone = DBManager.getInstance().doneTask(id: id!)
-//            if self.showTask?[indexPath.row].isPinned == true{
-//                let unPinned = DBManager.getInstance().unPinTask(id: id!)
-//            }
             self.showTask!.remove(at: indexPath.row)
             self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
