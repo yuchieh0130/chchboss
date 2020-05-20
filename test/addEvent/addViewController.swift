@@ -53,7 +53,7 @@ class addViewController : UIViewController{
     var event : EventModel?
     var selectedDay: [Date] = []
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
-    var placeName : String?
+    var savePlaceModel : PlaceModel?
     var reminder_index: [Int] = [0]
     
     //variable for handling  DatePopViewController
@@ -61,7 +61,7 @@ class addViewController : UIViewController{
     var date = Date() //date from DatePopViewController
     var showStart: String = "" //format show out on storyboard
     var showEnd: String = "" //format show out on storyboard
-    //var autoLocation: String = ""
+    
     //用來處理dayconstraint
     var s = Date()
     var e = Date()+3600
@@ -101,7 +101,7 @@ class addViewController : UIViewController{
             }
         })
         //查看所有已推送的notification
-//        UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
+// UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
         tableViewData = [cellConfig(opened: false, title: "Name"),
                          cellConfig(opened: false, title: "Start"),
@@ -163,14 +163,10 @@ class addViewController : UIViewController{
         s = showDateformatter.date(from: startDate+" "+startTime!)!
         e = showDateformatter.date(from: endDate+" "+endTime!)!
         allDay = event?.allDay
-        //編輯事件的autorecord還沒處理好
-        //autoRecord = event?.autoRecord
-        //autoRecord = false
         if event!.autoRecord == true{
             autoRecord = true
             category = DBManager.getInstance().getCategory(Int: (event?.autoCategory)!)
-            
-            autoLocation = event?.autoLocation
+            savePlaceModel = DBManager.getInstance().getPlace(Int: (event?.autoLocation)!)
             tableViewData[4].opened = true
         }
         reminder_index = event?.reminder.components(separatedBy: ",").map { Int($0)!} as! [Int]
@@ -264,7 +260,7 @@ class addViewController : UIViewController{
     
     @IBAction func locationSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? searchLocationViewController
-        placeName = VC!.tblPlaces.cellForRow(at: VC!.tblPlaces.indexPathsForSelectedRows![0])?.textLabel?.text
+        savePlaceModel = VC?.savePlaceModel
         tableView.reloadRows(at: [IndexPath.init(row: 4, section: 4)], with: .none)
     }
     
@@ -333,8 +329,8 @@ class addViewController : UIViewController{
         }else {
             if autoRecord == true{
                 autoCategory = category.categoryId
-                //還沒有saveplace!!!
-                autoLocation = 0
+                let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
+                autoLocation = DBManager.getInstance().getMaxPlace()
             }else if allDay == true{
                 startTime = nil
                 endTime = nil
@@ -358,7 +354,8 @@ class addViewController : UIViewController{
             endTime = showTimeformatter.string(for: e)!
             if autoRecord == true{
                 autoCategory = category.categoryId
-                //還沒有saveplace!!!
+                let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
+                autoLocation = DBManager.getInstance().getMaxPlace()
                 autoLocation = 0
             }else if allDay == true{
                 startTime = nil
@@ -526,7 +523,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             return cell
         case [4,4]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "autoLocationCell", for: indexPath) as! autoLocationCell
-            cell.txtLocation.text = placeName
+            cell.txtLocation.text = savePlaceModel?.placeName
             cell.selectionStyle = .none
             return cell
 //remninder with switch

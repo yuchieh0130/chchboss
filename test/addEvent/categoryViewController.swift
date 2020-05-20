@@ -26,7 +26,6 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
                }else{
                    showCategory = [CategoryModel]()
                }
-        print(showCategory.count)
     }
     
     @IBOutlet weak var collectionView: UICollectionView!

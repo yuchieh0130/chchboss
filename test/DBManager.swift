@@ -276,6 +276,21 @@ class DBManager: NSObject {
         return places
     }
     
+    func getMaxPlace() -> Int32{
+        
+        var id : Int32!
+        shareInstance.database?.open()
+        let sqlString = "SELECT MAX(place_id) AS Id FROM savedPlace";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let a = set?.int(forColumn: "Id")
+            id = a
+        }
+        set?.close()
+        return id
+    }
+    
 /*func for task*/
     func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()

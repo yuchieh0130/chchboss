@@ -23,6 +23,8 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     var placeLantitude: Double! = 0
     var myPlace: Bool! = false
     
+    var savePlaceModel:PlaceModel? //傳回addEvent用的
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -33,7 +35,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showMyPlaceOnly"{
+        if segue.identifier == "onlyShowMyPlace"{
             if let VC = segue.destination as? myPlaceController{
                 VC.noAdd = true
             }
@@ -70,18 +72,20 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
         //        return UITableViewAutomaticDimension
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.row != 0{
-            var location = [String:[String:Any]]()
-            location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as? [String:Any]
-            placeName = resultsArray[indexPath.row]["name"] as? String
-            placeCategory = resultsArray[indexPath.row]["types"]![0] as? String
-            //print(location["location"]!["lat"])
-            placeLongitude = location["location"]!["lng"] as? Double
-            placeLantitude = location["location"]!["lat"] as? Double
-            let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
-            print(modelInfo)
-        }
+                   var location = [String:[String:Any]]()
+                   location["location"] = resultsArray[indexPath.row-1]["geometry"]!["location"] as? [String:Any]
+                   placeName = resultsArray[indexPath.row-1]["name"] as? String
+                   placeCategory = resultsArray[indexPath.row-1]["types"]![0] as? String
+                   placeLongitude = location["location"]!["lng"] as? Double
+                   placeLantitude = location["location"]!["lat"] as? Double
+                   savePlaceModel = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
+               }
+        return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
     

@@ -50,7 +50,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="showMyPlaceOnly" id="74U-hE-Mtr"/>
+                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="onlyShowMyPlace" id="54J-Uw-fAs"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="placecell" textLabel="Jfq-Ee-SgD" detailTextLabel="Jmh-vp-3mH" style="IBUITableViewCellStyleSubtitle" id="ivh-is-hGr">
@@ -77,7 +77,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="kpO-EI-eLS" kind="unwind" unwindAction="locationSegueBackWithSegue:" id="BFO-XU-8nT"/>
+                                            <segue destination="kpO-EI-eLS" kind="unwind" unwindAction="locationSegueBackWithSegue:" id="ZgS-tz-cYJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2124,7 +2124,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="b0Q-IJ-Wiq"/>
+        <segue reference="54J-Uw-fAs"/>
         <segue reference="475-AM-deT"/>
         <segue reference="csL-Fo-fcl"/>
         <segue reference="hM4-lw-jpS"/>
