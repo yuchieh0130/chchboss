@@ -3,7 +3,7 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -537,9 +537,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-D8-Cp7" userLabel="calendarView" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                <rect key="frame" x="0.0" y="37" width="375" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-D8-Cp7" userLabel="calendarView" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                                <rect key="frame" x="0.0" y="44" width="375" height="95"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="klU-of-D6C">
                                     <size key="itemSize" width="54" height="50"/>
@@ -614,9 +613,8 @@
                                     <outlet property="ibCalendarDelegate" destination="svZ-ai-5oE" id="qOQ-lY-hRT"/>
                                 </connections>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bky-oQ-TWv">
-                                <rect key="frame" x="0.0" y="135" width="375" height="594"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bky-oQ-TWv">
+                                <rect key="frame" x="0.0" y="139" width="375" height="590"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="trackCell" id="roP-rc-SFn" customClass="trackCell" customModule="test" customModuleProvider="target">
@@ -671,6 +669,16 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="VCH-D8-Cp7" firstAttribute="leading" secondItem="Mol-m3-8sL" secondAttribute="leading" id="ASm-zF-K7K"/>
+                            <constraint firstItem="VCH-D8-Cp7" firstAttribute="trailing" secondItem="Mol-m3-8sL" secondAttribute="trailing" id="HwW-eC-GQ8"/>
+                            <constraint firstItem="VCH-D8-Cp7" firstAttribute="leading" secondItem="Bky-oQ-TWv" secondAttribute="leading" id="IRE-22-eTC"/>
+                            <constraint firstItem="VCH-D8-Cp7" firstAttribute="trailing" secondItem="Bky-oQ-TWv" secondAttribute="trailing" id="Kra-HM-Hqx"/>
+                            <constraint firstItem="Bky-oQ-TWv" firstAttribute="top" secondItem="VCH-D8-Cp7" secondAttribute="bottom" id="W4z-OF-amu"/>
+                            <constraint firstItem="VCH-D8-Cp7" firstAttribute="top" secondItem="Mol-m3-8sL" secondAttribute="top" id="g95-h6-ANV"/>
+                            <constraint firstItem="Bky-oQ-TWv" firstAttribute="bottom" secondItem="Mol-m3-8sL" secondAttribute="bottom" id="msa-93-xDo"/>
+                            <constraint firstItem="Mol-m3-8sL" firstAttribute="bottom" secondItem="VCH-D8-Cp7" secondAttribute="bottom" constant="590" id="oIw-2Y-Vte"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Mol-m3-8sL"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="1" title="" image="pencil.and.ellipsis.rectangle" catalog="system" selectedImage="pencil.and.ellipsis.rectangle" id="n7Q-jf-2aU"/>
