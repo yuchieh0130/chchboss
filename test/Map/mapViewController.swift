@@ -23,6 +23,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     let modelLoc = DBManager.getInstance().getLocation()
     lazy var exampleArray = [modelLoc?.name1,modelLoc?.name2,modelLoc?.name3,modelLoc?.name4,modelLoc?.name5]
+    lazy var categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
     
     var userLocation = CLLocation()
     var locationDic : [String: Double] = [:]
@@ -35,7 +36,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     let placeCategory: String = ""
     let placeLongitude: Double! = 0
     let placeLantitude: Double! = 0
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         txtSearch.placeholder = "Search places..."
         
         mapView.delegate = self
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,9 +114,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        var modelPlace = PlaceModel(placeId: placeId, placeName: placeName, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
-//        let IsAdded = DBManager.getInstance().addPlace(modelPlace)
-            
+        var modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+        print(modelPlace)
+        let IsAdded = DBManager.getInstance().addPlace(modelPlace)
+        self.dismiss(animated: false, completion: nil)
     }
     
     @objc func searchPlaceFromGoogle(_ textField:UITextField) {
