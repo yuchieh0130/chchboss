@@ -918,12 +918,21 @@
                                     <action selector="cancel:" destination="zxG-pM-74g" eventType="touchUpInside" id="gOs-f7-9YE"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmA-2u-d7W">
+                                <rect key="frame" x="169" y="61" width="37" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="IKy-dc-lUk" firstAttribute="trailing" secondItem="i60-NJ-ICJ" secondAttribute="trailing" constant="-20" id="5hA-in-anA"/>
+                            <constraint firstItem="bmA-2u-d7W" firstAttribute="leading" secondItem="agU-eL-VgM" secondAttribute="trailing" constant="93" id="6S4-xw-pLB"/>
                             <constraint firstItem="FQl-hz-exl" firstAttribute="top" secondItem="i60-NJ-ICJ" secondAttribute="top" constant="10" id="EAf-TP-yGg"/>
                             <constraint firstItem="hms-Y2-cr1" firstAttribute="trailing" secondItem="i60-NJ-ICJ" secondAttribute="trailing" constant="-20" id="OV3-4g-2wW"/>
+                            <constraint firstItem="bmA-2u-d7W" firstAttribute="top" secondItem="i60-NJ-ICJ" secondAttribute="top" constant="17" id="TqP-JY-F4H"/>
+                            <constraint firstItem="bmA-2u-d7W" firstAttribute="centerX" secondItem="UX8-Ns-dgA" secondAttribute="centerX" id="VOa-TW-QLm"/>
                             <constraint firstItem="hms-Y2-cr1" firstAttribute="leading" secondItem="FQl-hz-exl" secondAttribute="trailing" constant="31" id="WKV-x3-lyS"/>
                             <constraint firstItem="hms-Y2-cr1" firstAttribute="top" secondItem="i60-NJ-ICJ" secondAttribute="top" constant="10" id="ZJU-aL-eXC"/>
                             <constraint firstItem="i60-NJ-ICJ" firstAttribute="leading" secondItem="agU-eL-VgM" secondAttribute="leading" constant="-20" id="a7f-OJ-hRu"/>
@@ -955,7 +964,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mFJ-4m-FXl">
-                                <rect key="frame" x="0.0" y="84.666666666666686" width="375" height="743.33333333333326"/>
+                                <rect key="frame" x="0.0" y="85.666666666666686" width="375" height="742.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="2VT-Ti-rql" customClass="nameCell" customModule="test" customModuleProvider="target">
@@ -1313,28 +1322,28 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syV-Bo-71f">
-                                <rect key="frame" x="166" y="53.999999999999993" width="43" height="20.666666666666664"/>
+                                <rect key="frame" x="165" y="53.999999999999993" width="45.333333333333343" height="21.666666666666664"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSf-ZS-Qg3">
-                                <rect key="frame" x="20" y="49.333333333333343" width="48" height="30"/>
+                                <rect key="frame" x="20" y="50" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancel:" destination="9iT-4D-ttn" eventType="touchUpInside" id="aTW-pa-LBi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCZ-1q-wnd">
-                                <rect key="frame" x="250" y="49.333333333333343" width="45" height="30"/>
+                                <rect key="frame" x="250" y="50" width="45" height="30"/>
                                 <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="deleteEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="7S7-oV-1cM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vo-Ib-cXn">
-                                <rect key="frame" x="325" y="49.333333333333343" width="30" height="30"/>
+                                <rect key="frame" x="325" y="50" width="30" height="30"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="zJv-Al-iWf"/>
@@ -1342,7 +1351,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zj-Xy-h2I">
-                                <rect key="frame" x="321" y="49.333333333333343" width="34" height="30"/>
+                                <rect key="frame" x="321" y="50" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="editEventButton:" destination="9iT-4D-ttn" eventType="touchUpInside" id="eny-hI-hmC"/>
@@ -1351,6 +1360,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="syV-Bo-71f" firstAttribute="top" secondItem="QcQ-FN-gn1" secondAttribute="top" constant="10" id="BUp-pX-mpJ"/>
                             <constraint firstItem="mFJ-4m-FXl" firstAttribute="top" secondItem="syV-Bo-71f" secondAttribute="bottom" constant="10" id="IcQ-cY-11I"/>
                             <constraint firstAttribute="bottomMargin" secondItem="mFJ-4m-FXl" secondAttribute="bottom" constant="-50" id="LUW-zc-MgY"/>
                             <constraint firstItem="mFJ-4m-FXl" firstAttribute="leading" secondItem="QcQ-FN-gn1" secondAttribute="leading" id="NCe-MA-Sxy"/>
