@@ -113,11 +113,12 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        var modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
-        print(modelPlace)
-        let IsAdded = DBManager.getInstance().addPlace(modelPlace)
-        self.dismiss(animated: false, completion: nil)
+        if indexPath.row != 0 && txtSearch.text!.isEmpty{
+            let modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+            print(modelPlace)
+            let IsAdded = DBManager.getInstance().addPlace(modelPlace)
+            self.dismiss(animated: false, completion: nil)
+        }
     }
     
     @objc func searchPlaceFromGoogle(_ textField:UITextField) {
