@@ -24,10 +24,10 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             
         tabBar.items?[0].title = "Calendar"
         tabBar.items?[1].title = "Track"
-        tabBar.items?[2].title = "Task"
-        tabBar.items?[3].title = "Analysis"
+        tabBar.items?[3].title = "Task"
+        tabBar.items?[4].title = "Analysis"
         
-        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 70, y: self.view.frame.height - 150, width: 45, height: 45))
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width/2 - 22, y: self.view.frame.height - 55, width: 45, height: 45))
         floaty.buttonColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         floaty.plusColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         floaty.addItem(title:"Add Event", handler: {_ in
