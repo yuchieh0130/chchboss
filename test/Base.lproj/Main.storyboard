@@ -2033,18 +2033,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Select"/>
                                 <connections>
-                                    <action selector="startEditing:" destination="JAA-zw-XLe" eventType="touchUpInside" id="Dow-zu-KZT"/>
+                                    <action selector="edit:" destination="JAA-zw-XLe" eventType="touchUpInside" id="Ixt-zg-XCH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfy-Ve-tFO">
-                                <rect key="frame" x="298" y="59" width="57" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Delete"/>
-                                <connections>
-                                    <action selector="deleteRows:" destination="JAA-zw-XLe" eventType="touchUpInside" id="PdQ-zl-jlw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0r-wq-tMg">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0r-wq-tMg">
                                 <rect key="frame" x="193" y="59" width="83" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Delete All"/>
@@ -2057,13 +2049,10 @@
                         <constraints>
                             <constraint firstItem="ZBZ-LD-0gy" firstAttribute="trailing" secondItem="QYr-w5-sgj" secondAttribute="trailing" constant="20" id="5Hy-cy-tkx"/>
                             <constraint firstItem="QYr-w5-sgj" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="GNK-Iy-bqR"/>
-                            <constraint firstItem="ZBZ-LD-0gy" firstAttribute="trailing" secondItem="pfy-Ve-tFO" secondAttribute="trailing" constant="20" id="IBB-VA-2XC"/>
                             <constraint firstItem="3Hq-kk-mpK" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="Ije-M8-6dB"/>
                             <constraint firstItem="ZBZ-LD-0gy" firstAttribute="leading" secondItem="3Hq-kk-mpK" secondAttribute="leading" constant="-20" id="Jcm-xy-9zp"/>
-                            <constraint firstItem="pfy-Ve-tFO" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="LcC-sI-YBy"/>
                             <constraint firstItem="B2a-pe-EdE" firstAttribute="trailing" secondItem="ZBZ-LD-0gy" secondAttribute="trailing" id="ZFa-q9-O4t"/>
                             <constraint firstItem="P0r-wq-tMg" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="alY-tN-pUg"/>
-                            <constraint firstItem="pfy-Ve-tFO" firstAttribute="leading" secondItem="P0r-wq-tMg" secondAttribute="trailing" constant="22" id="e19-4J-NB7"/>
                             <constraint firstItem="ZBZ-LD-0gy" firstAttribute="bottom" secondItem="B2a-pe-EdE" secondAttribute="bottom" constant="2" id="ger-EF-Bks"/>
                             <constraint firstItem="B2a-pe-EdE" firstAttribute="top" secondItem="3Hq-kk-mpK" secondAttribute="bottom" constant="5" id="mmd-Mk-mQj"/>
                             <constraint firstItem="B2a-pe-EdE" firstAttribute="leading" secondItem="ZBZ-LD-0gy" secondAttribute="leading" id="u0B-Uh-t1e"/>
@@ -2073,7 +2062,6 @@
                     <navigationItem key="navigationItem" id="EoZ-8n-ozz"/>
                     <connections>
                         <outlet property="deleteAllBtn" destination="P0r-wq-tMg" id="9Fv-q5-2yf"/>
-                        <outlet property="deleteBtn" destination="pfy-Ve-tFO" id="GE7-hF-8Xg"/>
                         <outlet property="doneReturnBtn" destination="3Hq-kk-mpK" id="kz7-cc-xqI"/>
                         <outlet property="selectBtn" destination="QYr-w5-sgj" id="LTf-4E-ygj"/>
                         <outlet property="tableView" destination="B2a-pe-EdE" id="owi-4o-Oz7"/>
