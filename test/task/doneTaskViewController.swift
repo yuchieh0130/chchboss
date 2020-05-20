@@ -14,6 +14,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var doneReturnBtn: UIButton!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var selectBtn: UIButton!
+    @IBOutlet var deleteBtn: UIButton!
+    @IBOutlet var deleteAllBtn: UIButton!
     
     var task: TaskModel?
     var selectedTask: String = ""
@@ -74,5 +76,10 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         return configuration
     }
     
-    
+    @IBAction func startEditing(_ sender: Any) {
+    }
+    @IBAction func deleteRows(_ sender: Any) {
+    }
+    @IBAction func deleteAllRows(_ sender: Any) {
+    }
 }
