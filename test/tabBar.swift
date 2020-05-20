@@ -10,7 +10,7 @@ import UIKit
 @IBDesignable
 
 class tabBar: UITabBar{
-    
+//改tabBar的形狀
     private var shapeLayer: CALayer?
     private func addShape() {
         let shapeLayer = CAShapeLayer()

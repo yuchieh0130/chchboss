@@ -13,6 +13,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var doneReturnBtn: UIButton!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var selectBtn: UIButton!
     
     var task: TaskModel?
     var selectedTask: String = ""
@@ -53,7 +54,6 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     let task = showTask![indexPath.row]
         cell.doneTaskName?.text = showTask![indexPath.row].taskName
         cell.doneTaskMark.text = "DONE"
-        
         return cell
     }
     

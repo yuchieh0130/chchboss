@@ -154,7 +154,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             print("Done")
             completionHandler(true)
             let isDone = DBManager.getInstance().doneTask(id: id!)
-            self.showTask = DBManager.getInstance().getAllDoneTask()
+//            if self.showTask?[indexPath.row].isPinned == true{
+//                let unPinned = DBManager.getInstance().unPinTask(id: id!)
+//            }
+            self.showTask!.remove(at: indexPath.row)
+            self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
         }
         let doItNowAction = UIContextualAction(style: .normal, title: "Do It Now") { (action, view, completionHandler) in
@@ -222,9 +226,9 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.taskDeadline.text = " \(day) day"
             }else if interval>172800{
                 cell.taskDeadline.text = "\(day) days"
-            }else{
-                cell.taskDeadline.text = ""
             }
+        }else{
+            cell.taskDeadline.text = ""
         }
         //        if showTask?[indexPath.row].taskDeadline?.endIndex = {
         //            }
