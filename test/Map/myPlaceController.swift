@@ -57,7 +57,6 @@ class myPlaceController: UIViewController{
             let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
             let isAdded = DBManager.getInstance().addPlace(modelInfo)
         }
-        
         tblView.reloadData()
     }
     

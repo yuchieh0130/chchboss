@@ -116,8 +116,7 @@ class addViewController : UIViewController{
         reminderConfig( rname: "10 minutes before", fireTime: 600),
         reminderConfig( rname: "30 minutes before", fireTime: 1800),
         reminderConfig( rname: "1 hour before", fireTime: 3600),
-        reminderConfig( rname: "1 day before", fireTime: 86400),
-        reminderConfig( rname: "At certatian Location", fireTime: 0)]
+        reminderConfig( rname: "1 day before", fireTime: 86400),]
         
         reminderData_allDay = [reminderConfig( rname: "none", fireTime: 0),
         reminderConfig( rname: "on that day (default 07:00)", fireTime: -25200),

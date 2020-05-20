@@ -71,6 +71,15 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        var location = [String:Any]()
+        location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as! Any
+        //print(location["location"])
+        placeName = resultsArray[indexPath.row]["name"] as! String
+        //placeCategory =
+        //placeLongtitude =
+        //placeLantitude =
+        let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
         
         //存addPlace寫在這～～～
         

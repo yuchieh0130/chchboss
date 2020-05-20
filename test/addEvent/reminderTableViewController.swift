@@ -33,9 +33,8 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
                        reminderStatus(rname: "10 minutes before", isselected: false),
                        reminderStatus(rname: "30 minutes before", isselected: false),
                        reminderStatus(rname: "1 hour before", isselected: false),
-                       reminderStatus(rname: "1 day before", isselected: false),
-                       reminderStatus(rname: "At certatian Location", isselected: false),
-    ]
+                       reminderStatus(rname: "1 day before", isselected: false),]
+    
     var reminderData_allDay = [reminderStatus(rname: "none", isselected: false),
                                reminderStatus(rname: "on that day (default 07:00)", isselected: false),
                                reminderStatus(rname: "one day before (default 21:00)", isselected: false),

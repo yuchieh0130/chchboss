@@ -110,10 +110,13 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-//    //DB
-//    var modelPlace = PlaceModel(placeId: placeId, placeName: placeName, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
-//    let IsAdded = DBManager.getInstance().addPlace(modelPlace)
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        var modelPlace = PlaceModel(placeId: placeId, placeName: placeName, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
+//        let IsAdded = DBManager.getInstance().addPlace(modelPlace)
+            
+    }
     
     @objc func searchPlaceFromGoogle(_ textField:UITextField) {
         
