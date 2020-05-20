@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var category3: String = ""
     var category4: String = ""
     var category5: String = ""
-    var speed: Double = 0
+    var speed: Double! = 0
     
     // An array to hold the list of likely places.
     var likelyPlaces: [GMSPlace] = []
