@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -161,7 +161,7 @@
             </objects>
             <point key="canvasLocation" x="2782" y="-744"/>
         </scene>
-        <!--Ib Calendar Data Source-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -267,7 +267,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWv-gH-f6b">
                                 <rect key="frame" x="10" y="52" width="30" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="十"/>
+                                <state key="normal" title="＋"/>
                                 <connections>
                                     <action selector="addEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ilo-c9-Xzx"/>
                                 </connections>
@@ -465,9 +465,9 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTC-au-rUp">
-                                <rect key="frame" x="15" y="11" width="48" height="30"/>
+                                <rect key="frame" x="20" y="11" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel"/>
+                                <state key="normal" title="✕"/>
                                 <connections>
                                     <action selector="cancel:" destination="pxz-44-Biu" eventType="touchUpInside" id="zGP-s6-GXx"/>
                                 </connections>
@@ -513,7 +513,7 @@
             </objects>
             <point key="canvasLocation" x="922" y="-744"/>
         </scene>
-        <!--Ib Calendar Data Source-->
+        <!--Auto Record View Controller-->
         <scene sceneID="Srp-ur-Bl1">
             <objects>
                 <viewController id="svZ-ai-5oE" customClass="autoRecordViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -573,8 +573,8 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jx8-Gs-NYe">
-                                            <rect key="frame" x="304" y="0.0" width="63" height="50"/>
-                                            <state key="normal" title="mapView"/>
+                                            <rect key="frame" x="337" y="0.0" width="30" height="50"/>
+                                            <state key="normal" title="㊝"/>
                                             <connections>
                                                 <action selector="btn:" destination="svZ-ai-5oE" eventType="touchUpInside" id="Sp7-3P-kat"/>
                                                 <segue destination="8yA-Sq-vnF" kind="show" id="vQy-DK-u17"/>
@@ -695,7 +695,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ogh-Jb-0d5">
-                                                    <rect key="frame" x="-215" y="15.666666666666664" width="200" height="34"/>
+                                                    <rect key="frame" x="160" y="15.666666666666664" width="200" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="hZF-Yq-Aaa"/>
                                                     </constraints>
@@ -742,7 +742,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwW-4q-Vn9">
-                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="pGm-to-EPR"/>
                                                     </constraints>
@@ -788,7 +788,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-P3-Hfa">
-                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="qz2-BC-b8B"/>
                                                     </constraints>
@@ -860,7 +860,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmz-qQ-lto">
-                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="WIL-YS-lCp"/>
                                                     </constraints>
@@ -913,7 +913,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agU-eL-VgM">
                                 <rect key="frame" x="20" y="54" width="56" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Cancel"/>
+                                <state key="normal" title="✕"/>
                                 <connections>
                                     <action selector="cancel:" destination="zxG-pM-74g" eventType="touchUpInside" id="gOs-f7-9YE"/>
                                 </connections>
@@ -1329,8 +1329,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSf-ZS-Qg3">
-                                <rect key="frame" x="20" y="50" width="48" height="30"/>
-                                <state key="normal" title="Cancel"/>
+                                <rect key="frame" x="20" y="50" width="30" height="30"/>
+                                <state key="normal" title="✕"/>
                                 <connections>
                                     <action selector="cancel:" destination="9iT-4D-ttn" eventType="touchUpInside" id="aTW-pa-LBi"/>
                                 </connections>
@@ -1764,15 +1764,15 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLB-c7-R4B">
-                                <rect key="frame" x="0.0" y="25" width="45" height="30"/>
-                                <state key="normal" title="X"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLB-c7-R4B">
+                                <rect key="frame" x="1" y="26" width="45" height="30"/>
+                                <state key="normal" title="✕"/>
                                 <connections>
                                     <action selector="cancel:" destination="8yA-Sq-vnF" eventType="touchUpInside" id="GTk-PH-Kg8"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQQ-vc-uZ0" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="60" width="375" height="270"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQQ-vc-uZ0" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="50" width="375" height="270"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="270" id="cRr-MW-9Xw"/>
@@ -1813,7 +1813,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n3R-DZ-ELt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1620" y="100"/>
+            <point key="canvasLocation" x="-1620" y="99.753694581280797"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="HOe-2I-You">
@@ -2105,21 +2105,21 @@
             <point key="canvasLocation" x="127" y="100"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="calendar" catalog="system" width="64" height="52"/>
-        <image name="chart.pie" catalog="system" width="64" height="60"/>
-        <image name="doc.text" catalog="system" width="56" height="64"/>
-        <image name="lessthan" catalog="system" width="64" height="54"/>
-        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
-        <image name="pin.fill" catalog="system" width="58" height="64"/>
-        <image name="plus.circle" catalog="system" width="64" height="60"/>
-        <image name="reminder_deselect" width="96" height="96"/>
-        <image name="star.fill" catalog="system" width="64" height="58"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="b0Q-IJ-Wiq"/>
         <segue reference="475-AM-deT"/>
-        <segue reference="csL-Fo-fcl"/>
-        <segue reference="jtY-fE-0jz"/>
+        <segue reference="Q9x-NS-Pff"/>
+        <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="chart.pie" catalog="system" width="128" height="121"/>
+        <image name="doc.text" catalog="system" width="115" height="128"/>
+        <image name="lessthan" catalog="system" width="128" height="111"/>
+        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
+        <image name="pin.fill" catalog="system" width="119" height="128"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <image name="reminder_deselect" width="96" height="96"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+    </resources>
 </document>

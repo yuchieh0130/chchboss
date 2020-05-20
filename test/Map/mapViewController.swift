@@ -19,16 +19,17 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
     
-    let userLocation = CLLocation(latitude: 25.034012, longitude: 121.564461)
-    var locationDic : [String: Double] = [:]
-    var sortedArr = [String]()
-    var sortedDist = [Double]()
-
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     let modelLoc = DBManager.getInstance().getLocation()
     lazy var exampleArray = [modelLoc?.name1,modelLoc?.name2,modelLoc?.name3,modelLoc?.name4,modelLoc?.name5]
     
+    var userLocation = CLLocation()
+    var locationDic : [String: Double] = [:]
+    var sortedArr = [String]()
+    var sortedDist = [Double]()
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +47,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: modelLoc!.latitude, longitude: modelLoc!.longitude, zoom: 15.0)
         mapView.camera = camera
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 25.034012, longitude: 121.564461)
+        marker.position = CLLocationCoordinate2D(latitude: modelLoc!.latitude, longitude: modelLoc!.longitude)
         marker.map = mapView
         
     }
@@ -132,6 +133,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                                     var lat = (dct["geometry"]!["location"]!! as AnyObject).allValues![0] as! Double
                                     var long = (dct["geometry"]!["location"]!! as AnyObject).allValues![1] as! Double
                                     let placeLocation = CLLocation(latitude: lat, longitude: long)
+                                    self.userLocation = CLLocation(latitude: self.modelLoc!.latitude, longitude: self.modelLoc!.longitude)
                                     let dist = self.userLocation.distance(from: placeLocation)
                                     
                                     //                                print(dct["name"]!, dist)
