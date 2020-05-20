@@ -35,7 +35,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     let placeCategory: String = ""
     let placeLongitude: Double! = 0
     let placeLantitude: Double! = 0
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         txtSearch.placeholder = "Search places..."
         
         mapView.delegate = self
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,9 +113,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        var modelPlace = PlaceModel(placeId: placeId, placeName: placeName, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
-//        let IsAdded = DBManager.getInstance().addPlace(modelPlace)
-            
+        //        var modelPlace = PlaceModel(placeId: placeId, placeName: placeName, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
+        //        let IsAdded = DBManager.getInstance().addPlace(modelPlace)
+        
     }
     
     @objc func searchPlaceFromGoogle(_ textField:UITextField) {

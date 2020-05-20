@@ -19,7 +19,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     var id: Int32 = 0
     var placeName: String! = ""
     var placeCategory: String! = ""
-    var placeLongtitude: Double! = 0
+    var placeLongitude: Double! = 0
     var placeLantitude: Double! = 0
     var myPlace: Bool! = false
     
@@ -72,23 +72,17 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        var location = [String:Any]()
-        location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as! Any
-        //print(location["location"])
+        if indexPath.row != 0{
+        var location = [String:[String:Any]]()
+        location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as! [String:Any]
         placeName = resultsArray[indexPath.row]["name"] as! String
-        //placeCategory =
-        //placeLongtitude =
-        //placeLantitude =
-        let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
-        
-        //存addPlace寫在這～～～
-        
-        //placeName = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section))?.textLabel?.text
-        //self.dismiss(animated: true, completion:nil)
-        
-//        let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongtitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
-//        let isAdded = DBManager.getInstance().addPlace(modelInfo)
-        
+        placeCategory = resultsArray[indexPath.row]["types"]![0] as! String
+       //print(location["location"]!["lat"])
+        placeLongitude = location["location"]!["lng"] as! Double
+        placeLantitude = location["location"]!["lat"] as! Double
+        let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
+        print(modelInfo)
+        }
     }
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
