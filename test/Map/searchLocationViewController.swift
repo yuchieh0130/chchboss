@@ -72,15 +72,15 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row != 0{
-        var location = [String:[String:Any]]()
-        location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as! [String:Any]
-        placeName = resultsArray[indexPath.row]["name"] as! String
-        placeCategory = resultsArray[indexPath.row]["types"]![0] as! String
-       //print(location["location"]!["lat"])
-        placeLongitude = location["location"]!["lng"] as! Double
-        placeLantitude = location["location"]!["lat"] as! Double
-        let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
-        print(modelInfo)
+            var location = [String:[String:Any]]()
+            location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as? [String:Any]
+            placeName = resultsArray[indexPath.row]["name"] as? String
+            placeCategory = resultsArray[indexPath.row]["types"]![0] as? String
+            //print(location["location"]!["lat"])
+            placeLongitude = location["location"]!["lng"] as? Double
+            placeLantitude = location["location"]!["lat"] as? Double
+            let modelInfo = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
+            print(modelInfo)
         }
         
     }
