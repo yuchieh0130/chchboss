@@ -155,7 +155,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             completionHandler(true)
             let isDone = DBManager.getInstance().doneTask(id: id!)
             self.showTask!.remove(at: indexPath.row)
-            self.showTask = DBManager.getInstance().getAllUndoneTask()
+            if DBManager.getInstance().getAllUndoneTask() == nil{
+                self.showTask = [TaskModel]()
+            }else{
+                self.showTask = DBManager.getInstance().getAllUndoneTask()
+            }
             self.tableView.reloadData()
         }
         let doItNowAction = UIContextualAction(style: .normal, title: "Do It Now") { (action, view, completionHandler) in
@@ -193,11 +197,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count = 0
-        if showTask!.count != nil{
-            count = showTask!.count
-        }
-        return count
+        return showTask!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
