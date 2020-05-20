@@ -16,7 +16,7 @@ class myPlaceController: UIViewController{
     var name: String?
     var placeName: String! = "" //Only Date
     var placeCategory: String! = ""
-    var placeLongtitude: Double! = 0
+    var placeLongitude: Double! = 0
     var placeLantitude: Double! = 0
     var myPlace: Bool! = true
     var noAdd = false
@@ -54,7 +54,7 @@ class myPlaceController: UIViewController{
             alertMessage()
         }else {
             
-            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongtitude, placeLantitude: placeLongtitude, myPlace: myPlace)
+            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLongitude, myPlace: true)
             let isAdded = DBManager.getInstance().addPlace(modelInfo)
         }
         tblView.reloadData()

@@ -66,6 +66,15 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         self.dismiss(animated: false, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMyPlace"{
+            if let VC = segue.destination as? myPlaceController{
+                VC.placeLongitude = placeLongitude
+                VC.placeLantitude = placeLantitude
+            }
+        }
+    }
+    
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
