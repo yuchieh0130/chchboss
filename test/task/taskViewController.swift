@@ -193,7 +193,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showTask!.count
+        var count = 0
+        if showTask!.count != nil{
+            count = showTask!.count
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
