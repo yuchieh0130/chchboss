@@ -13,7 +13,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var doneReturnBtn: UIButton!
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var editBtn: UIButton!
+//    @IBOutlet var editBtn: UIButton!
     @IBOutlet var deleteAllBtn: UIButton!
     
     var task: TaskModel?
@@ -38,21 +38,21 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
     }
     
-     override func viewDidAppear(_ animated: Bool) {
-         super.viewDidAppear(animated)
-     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return showTask!.count
+        return showTask!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
-    let task = showTask![indexPath.row]
+        let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
+        let task = showTask![indexPath.row]
         cell.doneTaskName?.text = showTask![indexPath.row].taskName
         cell.doneTaskMark.text = "DONE"
         return cell
@@ -75,15 +75,15 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         return configuration
     }
     
-    @IBAction func edit(_ sender: Any) {
-        if (self.tableView.isEditing) {
-            editBtn.setTitle("Edit", for: .normal)
-            self.tableView.setEditing(false, animated: true)
-        } else {
-            editBtn.setTitle("Delete", for: .normal)
-            self.tableView.setEditing(true, animated: true)
-        }
-    }
-    @IBAction func deleteAllRows(_ sender: Any) {
-    }
+    //    @IBAction func edit(_ sender: Any) {
+    //        if (self.tableView.isEditing) {
+    //            editBtn.setTitle("Edit", for: .normal)
+    //            self.tableView.setEditing(false, animated: true)
+    //        } else {
+    //            editBtn.setTitle("Delete", for: .normal)
+    //            self.tableView.setEditing(true, animated: true)
+    //        }
+    //    }
+    //    @IBAction func deleteAllRows(_ sender: Any) {
+    //    }
 }
