@@ -28,7 +28,13 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var locationDic : [String: Double] = [:]
     var sortedArr = [String]()
     var sortedDist = [Double]()
-
+    
+    //DB variables
+    let placeId: Int32 = 0
+    let placeName: String! = ""
+    let placeCategory: String = ""
+    let placeLongitude: Double! = 0
+    let placeLantitude: Double! = 0
 
     
     override func viewDidLoad() {
@@ -104,6 +110,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+//    //DB
+//    var modelPlace = PlaceModel(placeId: placeId, placeName: placeName, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
+//    let IsAdded = DBManager.getInstance().addPlace(modelPlace)
     
     
     @objc func searchPlaceFromGoogle(_ textField:UITextField) {
