@@ -12,6 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let locationManager = CLLocationManager()
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
+    var currentSpeed :CLLocationSpeed = CLLocationSpeed()
     
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
@@ -34,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var category3: String = ""
     var category4: String = ""
     var category5: String = ""
+    var speed: Double = 0
     
     // An array to hold the list of likely places.
     var likelyPlaces: [GMSPlace] = []
@@ -90,6 +92,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
         let dateFormatString: String = dateFormatter.string(from: currentTime)
         
+        currentSpeed = locationManager.location!.speed
+        print(currentSpeed)
+        
         // 確保didUpdateLocations只呼叫一次
         //        manager.delegate = nil
         likelyPlaces.removeAll()
@@ -128,8 +133,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.category3 = self.likelyPlaces[2].types![0]
             self.category4 = self.likelyPlaces[3].types![0]
             self.category5 = self.likelyPlaces[4].types![0]
+            self.speed = self.currentSpeed
             
-            let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5)
+            let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5,speed: self.speed)
             
             let isSaved = DBManager.getInstance().saveLocation(modelInfo)
             print("save in DB :", isSaved)

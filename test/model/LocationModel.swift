@@ -24,4 +24,5 @@ struct LocationModel{
     let category3: String?
     let category4: String?
     let category5: String?
+    let speed:Double
 }
