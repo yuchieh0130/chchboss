@@ -538,8 +538,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-D8-Cp7" userLabel="calendarView" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                <rect key="frame" x="0.0" y="44" width="375" height="95"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="100"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Syn-Jo-F4J"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="klU-of-D6C">
                                     <size key="itemSize" width="54" height="50"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
@@ -614,7 +617,7 @@
                                 </connections>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bky-oQ-TWv">
-                                <rect key="frame" x="0.0" y="139" width="375" height="590"/>
+                                <rect key="frame" x="0.0" y="144" width="375" height="585"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="trackCell" id="roP-rc-SFn" customClass="trackCell" customModule="test" customModuleProvider="target">
@@ -677,7 +680,6 @@
                             <constraint firstItem="Bky-oQ-TWv" firstAttribute="top" secondItem="VCH-D8-Cp7" secondAttribute="bottom" id="W4z-OF-amu"/>
                             <constraint firstItem="VCH-D8-Cp7" firstAttribute="top" secondItem="Mol-m3-8sL" secondAttribute="top" id="g95-h6-ANV"/>
                             <constraint firstItem="Bky-oQ-TWv" firstAttribute="bottom" secondItem="Mol-m3-8sL" secondAttribute="bottom" id="msa-93-xDo"/>
-                            <constraint firstItem="Mol-m3-8sL" firstAttribute="bottom" secondItem="VCH-D8-Cp7" secondAttribute="bottom" constant="590" id="oIw-2Y-Vte"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Mol-m3-8sL"/>
                     </view>
@@ -1275,7 +1277,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtv-S3-bys">
-                                                    <rect key="frame" x="45" y="18.666666666666671" width="91" height="30"/>
+                                                    <rect key="frame" x="45" y="18.666666666666668" width="91" height="24.000000000000004"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="91" id="C3F-TA-yRM"/>
                                                     </constraints>
@@ -1284,21 +1286,31 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Choose" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCg-Sz-bsD">
-                                                    <rect key="frame" x="160" y="21.666666666666671" width="200" height="24"/>
+                                                    <rect key="frame" x="145" y="21.666666666666668" width="190" height="18.000000000000004"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="200" id="EWg-uz-c7Q"/>
+                                                        <constraint firstAttribute="width" constant="190" id="EWg-uz-c7Q"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taq-Qm-PJ7">
+                                                    <rect key="frame" x="335" y="13" width="30" height="39"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <state key="normal" title="X"/>
+                                                    <connections>
+                                                        <action selector="clearLocation:" destination="9iT-4D-ttn" eventType="touchUpInside" id="ozC-Se-E7t"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wtv-S3-bys" firstAttribute="leading" secondItem="nwO-gF-3Ql" secondAttribute="leadingMargin" constant="30" id="2ZV-eS-Bi1"/>
                                                 <constraint firstItem="wtv-S3-bys" firstAttribute="centerY" secondItem="QCg-Sz-bsD" secondAttribute="centerY" id="3cr-aL-Pdj"/>
+                                                <constraint firstAttribute="trailing" secondItem="taq-Qm-PJ7" secondAttribute="trailing" constant="10" id="3x5-Uv-wPY"/>
                                                 <constraint firstItem="wtv-S3-bys" firstAttribute="top" secondItem="nwO-gF-3Ql" secondAttribute="topMargin" constant="7.6666666666666714" id="6At-fg-xXT"/>
                                                 <constraint firstItem="QCg-Sz-bsD" firstAttribute="top" secondItem="nwO-gF-3Ql" secondAttribute="topMargin" constant="10.666666666666668" id="IBt-a1-g6r"/>
-                                                <constraint firstItem="QCg-Sz-bsD" firstAttribute="trailing" secondItem="nwO-gF-3Ql" secondAttribute="trailing" constant="-15" id="ymB-nX-atw"/>
+                                                <constraint firstItem="taq-Qm-PJ7" firstAttribute="centerY" secondItem="nwO-gF-3Ql" secondAttribute="centerY" id="vB1-5N-X3p"/>
+                                                <constraint firstItem="QCg-Sz-bsD" firstAttribute="trailing" secondItem="nwO-gF-3Ql" secondAttribute="trailing" constant="-40" id="ymB-nX-atw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2125,7 +2137,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="54J-Uw-fAs"/>
-        <segue reference="475-AM-deT"/>
+        <segue reference="Ppd-gm-Fyg"/>
         <segue reference="csL-Fo-fcl"/>
         <segue reference="hM4-lw-jpS"/>
     </inferredMetricsTieBreakers>

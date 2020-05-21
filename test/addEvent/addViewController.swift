@@ -441,6 +441,11 @@ class addViewController : UIViewController{
         }
     }
     
+    @IBAction func clearLocation(_ sender: UIButton){
+        savePlaceModel = nil
+        tableView.reloadRows(at: [IndexPath.init(row: 4, section: 4)], with: .none)
+    }
+    
 }
 
 
