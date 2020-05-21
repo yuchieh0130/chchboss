@@ -220,6 +220,37 @@ class DBManager: NSObject {
         return location
     }
     
+    func getLocation(Int: Int32) -> LocationModel!{
+        
+        var location : LocationModel!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM location WHERE location_id = \(Int)";
+        let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let id = set?.int(forColumn: "location_id")
+            let a = set?.double(forColumn: "longitude")
+            let b = set?.double(forColumn: "latitude")
+            let c = set?.string(forColumn: "start_time")!
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.string(forColumn: "name1")
+            let f = set?.string(forColumn: "category1")
+            let g = set?.string(forColumn: "name2")
+            let h = set?.string(forColumn: "category2")
+            let i = set?.string(forColumn: "name3")
+            let j = set?.string(forColumn: "category3")
+            let k = set?.string(forColumn: "name4")
+            let l = set?.string(forColumn: "category4")
+            let m = set?.string(forColumn: "name5")
+            let n = set?.string(forColumn: "category5")
+            let o = set?.double(forColumn: "speed")
+            
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
+        }
+        set?.close()
+        return location
+    }
+    
 /*func for savePlace*/
     func addPlace(_ modelInfo: PlaceModel) -> Bool{
         shareInstance.database?.open()

@@ -32,6 +32,7 @@ class autoRecordViewController: UIViewController{
     
     @IBOutlet var tableView: UITableView!
     var showTrack  = [TrackModel]()
+    var track :TrackModel?
     
     //mapview button
     @IBAction func btn(_ sender: Any) {
@@ -44,6 +45,14 @@ class autoRecordViewController: UIViewController{
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
         title = "Track"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editTrack"{
+            if let VC = segue.destination as?editAutoRecordViewController{
+                VC.track = track
+            }
+        }
     }
 
         func configureCell(view: JTAppleCell?, cellState: CellState){
@@ -158,7 +167,8 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+        track = showTrack[indexPath.row]
+        performSegue(withIdentifier: "editTrack", sender: self)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
