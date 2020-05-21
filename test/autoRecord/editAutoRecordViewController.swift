@@ -53,6 +53,14 @@ class editAutoRecordViewController: UIViewController{
         print(location)
     }
     
+    @IBAction func cancel(_ sender: UIButton){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func editBtn(_ sender: UIButton){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 
