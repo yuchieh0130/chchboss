@@ -14,6 +14,7 @@
 		4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */; };
 		4B052675242C9CE50048DB8D /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052674242C9CE50048DB8D /* addCell.swift */; };
 		4B052677242C9CF40048DB8D /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052676242C9CF40048DB8D /* addViewController.swift */; };
+		4B116D7E2477715A00CD25BD /* middleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B116D7D2477715A00CD25BD /* middleViewController.swift */; };
 		4B1C31072415696600875B74 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C31062415696600875B74 /* DateHeader.swift */; };
 		4B2B337C247620A900B014E2 /* editAutoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */; };
 		4B351A4724188BE9003A474A /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B351A3C24188BE9003A474A /* FMDatabase.m */; };
@@ -68,6 +69,7 @@
 		4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskTableViewCell.swift; sourceTree = "<group>"; };
 		4B052674242C9CE50048DB8D /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
 		4B052676242C9CF40048DB8D /* addViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
+		4B116D7D2477715A00CD25BD /* middleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewController.swift; sourceTree = "<group>"; };
 		4B1C31062415696600875B74 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editAutoRecordViewController.swift; sourceTree = "<group>"; };
 		4B351A3C24188BE9003A474A /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				4B97DF9124176AB8005BD787 /* DBManager.swift */,
 				4BF6625424613D8F0021D85E /* tabBar.swift */,
 				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
+				4B116D7D2477715A00CD25BD /* middleViewController.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
 				58D91DC72431CEE2002DD7B2 /* Map */,
@@ -420,6 +423,7 @@
 				4B351A4A24188BE9003A474A /* FMDatabasePool.m in Sources */,
 				4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */,
 				4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */,
+				4B116D7E2477715A00CD25BD /* middleViewController.swift in Sources */,
 				4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */,
 				4B6C44192472EAB10009C281 /* TrackModel.swift in Sources */,
 				4BA50280246B88D800F70144 /* doneTaskTableViewCell.swift in Sources */,

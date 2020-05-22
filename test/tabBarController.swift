@@ -37,8 +37,23 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             self.performSegue(withIdentifier: "tabBarToTask", sender: self)
         })
         floaty.openAnimationType = .slideUp
+        floaty.isDraggable = true
         self.view.addSubview(floaty)
+        
+        //floaty.addConstraints(<#T##constraints: [NSLayoutConstraint]##[NSLayoutConstraint]#>)
+        
         }
+    
+    //讓你按中間的tab bar item 不會跑出view controller
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController.isKind(of: middleViewController.self) {
+         let vc =  middleViewController()
+         vc.modalPresentationStyle = .overFullScreen
+         self.present(vc, animated: true, completion: nil)
+         return false
+      }
+      return true
+    }
     
       
 //    // TabBarButton – Setup Middle Button
