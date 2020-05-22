@@ -2113,7 +2113,7 @@
                                                         <constraint firstAttribute="width" constant="140" id="ary-ov-IpR"/>
                                                         <constraint firstAttribute="height" constant="37" id="tB5-ku-zQE"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2132,7 +2132,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="IiG-9I-8c6"/>
                                                         <constraint firstAttribute="width" constant="100" id="VJC-xW-T59"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -2359,8 +2359,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="b0Q-IJ-Wiq"/>
-        <segue reference="Ppd-gm-Fyg"/>
+        <segue reference="Si0-bg-LgH"/>
         <segue reference="csL-Fo-fcl"/>
-        <segue reference="hM4-lw-jpS"/>
+        <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>
 </document>
