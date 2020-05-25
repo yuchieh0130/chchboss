@@ -70,6 +70,10 @@ class ViewController: UIViewController {
         calendarView.showsVerticalScrollIndicator = false
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
+//        print(UIScreen.main.nativeBounds.height)
+//        print(UIScreen.main.bounds.height)
+//        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/2)
+        
         //註冊.xib檔
         //self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
         

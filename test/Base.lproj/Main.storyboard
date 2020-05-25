@@ -173,7 +173,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="400"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="szK-qD-Hyi"/>
+                                    <constraint firstAttribute="height" constant="400" id="KZh-HK-whu"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3sV-1c-fdV">
                                     <size key="itemSize" width="54" height="55"/>
@@ -446,7 +446,6 @@
                     <connections>
                         <outlet property="addEventButtom" destination="GWv-gH-f6b" id="tWc-cY-zUf"/>
                         <outlet property="calendarView" destination="Gdf-R9-qez" id="YJr-Xh-6Xc"/>
-                        <outlet property="constraint" destination="szK-qD-Hyi" id="PiT-Ar-xjJ"/>
                         <outlet property="tableView" destination="zfT-DG-KsM" id="PtL-K2-t5y"/>
                         <segue destination="9iT-4D-ttn" kind="show" identifier="editEvent" id="Q9x-NS-Pff"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="editCalTask" id="RmA-HN-d7i"/>
