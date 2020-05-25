@@ -356,9 +356,11 @@ class addViewController : UIViewController{
             endTime = showTimeformatter.string(for: e)!
             if autoRecord == true{
                 autoCategory = category.categoryId
-                let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
+                if savePlaceModel != nil{
+                    let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
+                }
                 autoLocation = DBManager.getInstance().getMaxPlace()
-                autoLocation = 0
+                //autoLocation = 0
             }else if allDay == true{
                 startTime = nil
                 endTime = nil
@@ -414,7 +416,7 @@ class addViewController : UIViewController{
         case "add":
             let no = UNMutableNotificationContent()
                 no.title = "Event Notification"
-                no.body = name! + "\nEndDate: " + endDate + "  \(endTime)"
+                no.body = name! + "\ndeadline: " + endDate + "  \(endTime!)"
             for i in 0...reminder_index.count-1{
                 var notifivationid = String(DBManager.getInstance().getMaxEvent())
                 let calendar = Calendar.current
@@ -552,6 +554,7 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
                 txtReminder += "\(reminderData[reminder_index[i]].rname) , "
             }
             cell.txtReminder.text = txtReminder
+            cell.selectionStyle = .none
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath)
