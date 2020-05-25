@@ -329,8 +329,10 @@ class addViewController : UIViewController{
         }else {
             if autoRecord == true{
                 autoCategory = category.categoryId
+                if savePlaceModel != nil{
                 let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
                 autoLocation = DBManager.getInstance().getMaxPlace()
+                }
             }else if allDay == true{
                 startTime = nil
                 endTime = nil
