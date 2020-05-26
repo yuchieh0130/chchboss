@@ -70,11 +70,23 @@ class ViewController: UIViewController {
         calendarView.showsVerticalScrollIndicator = false
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
+//        print(UIScreen.main.nativeBounds.height)
+//        print(UIScreen.main.bounds.height)
+//        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/2)
+        
         //註冊.xib檔
         //self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
         
         title = "Calendar"
     }
+    
+    override func viewWillAppear(_ animated: Bool){
+              calendarView.reloadData(withanchor: Date())
+          }
+          
+       override func viewDidAppear(_ animated: Bool) {
+           super.viewDidAppear(animated)
+       }
     
     @IBAction func eventUnwindSegue(segue: UIStoryboardSegue){
         let VC = segue.source as? addViewController
@@ -83,12 +95,13 @@ class ViewController: UIViewController {
         calendarView.selectDates(added)
     }
     
-    override func viewWillAppear(_ animated: Bool){
-           calendarView.reloadData()
-       }
-       
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    
+    @IBAction func nextMonth(_ sender: Any){
+        calendarView.scrollToDate(calendarView.visibleDates().monthDates.last!.date+86400, triggerScrollToDateDelegate: true, animateScroll: true, preferredScrollPosition: .none, extraAddedOffset: .zero, completionHandler: nil)
+    }
+    
+    @IBAction func lastMonth(_ sender: Any){
+        calendarView.scrollToDate(calendarView.visibleDates().monthDates.first!.date-86400, triggerScrollToDateDelegate: true, animateScroll: true, preferredScrollPosition: .none, extraAddedOffset: .zero, completionHandler: nil)
     }
     
     
@@ -138,9 +151,14 @@ class ViewController: UIViewController {
     /*dot view*/
     func showDotView(cell: DateCell, cellState: CellState) {
         if DBManager.getInstance().getEvents(String: formatter.string(from: cellState.date)) != nil{
-            cell.dotView.isHidden = false
+            cell.dotView_event.isHidden = false
         }else{
-            cell.dotView.isHidden = true
+            cell.dotView_event.isHidden = true
+        }
+        if DBManager.getInstance().getDateTasks(String: formatter.string(from: cellState.date)) != nil{
+            cell.dotView_task.isHidden = false
+        }else{
+            cell.dotView_task.isHidden = true
         }
     }
     
