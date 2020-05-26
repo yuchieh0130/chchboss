@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 取得自身定位位置的精確度
         myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         myLocationManager.startUpdatingLocation()
-        locationManager.requestWhenInUseAuthorization()
+        //locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false

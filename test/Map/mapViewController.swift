@@ -51,6 +51,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         mapView.delegate = self
         
+        //看CLLocationManager.authorizationStatus
+        //print(CLLocationManager.authorizationStatus().rawValue)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
