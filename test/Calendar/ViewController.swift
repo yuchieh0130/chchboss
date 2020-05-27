@@ -7,10 +7,24 @@ class ViewController: UIViewController {
     @IBOutlet var calendarView: JTAppleCalendarView!
     @IBOutlet weak var constraint: NSLayoutConstraint!
     @IBOutlet var addEventButtom : UIButton!
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
     
-    var formatter: DateFormatter {
+    var showDayFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showMonthFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showYearFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -22,7 +36,7 @@ class ViewController: UIViewController {
     var event: EventModel?
     var task: TaskModel?
 
-    var selectedDay:String = ""
+    var selectedDay = ""
     var showEvent = [EventModel]()
     var showTask = [TaskModel]()
     
@@ -68,7 +82,14 @@ class ViewController: UIViewController {
         calendarView.scrollingMode = .stopAtEachCalendarFrame //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
-        calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
+//        if selectedDay == ""{
+//            calendarView.reloadData(withanchor: Date())
+//        }else{
+//            calendarView.reloadData(withanchor: showDayFormatter.date(from: selectedDay))
+//        }
+        //初始畫面顯示
+        yearLabel.text = showYearFormatter.string(from: Date())
+        monthLabel.text = showMonthFormatter.string(from: Date())
         
 //        print(UIScreen.main.nativeBounds.height)
 //        print(UIScreen.main.bounds.height)
@@ -81,8 +102,13 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool){
-              calendarView.reloadData(withanchor: Date())
-          }
+        //初始畫面顯示
+        if selectedDay == ""{
+            calendarView.reloadData(withanchor: Date())
+        }else{
+            calendarView.reloadData(withanchor: showDayFormatter.date(from: selectedDay))
+        }
+    }
           
        override func viewDidAppear(_ animated: Bool) {
            super.viewDidAppear(animated)
@@ -91,18 +117,18 @@ class ViewController: UIViewController {
     @IBAction func eventUnwindSegue(segue: UIStoryboardSegue){
         let VC = segue.source as? addViewController
         var added = [Date]()
-        added.append(formatter.date(from: VC!.startDate)!)
+        added.append(showDayFormatter.date(from: VC!.startDate)!)
         calendarView.selectDates(added)
     }
     
     
-    @IBAction func nextMonth(_ sender: Any){
-        calendarView.scrollToDate(calendarView.visibleDates().monthDates.last!.date+86400, triggerScrollToDateDelegate: true, animateScroll: true, preferredScrollPosition: .none, extraAddedOffset: .zero, completionHandler: nil)
-    }
-    
-    @IBAction func lastMonth(_ sender: Any){
-        calendarView.scrollToDate(calendarView.visibleDates().monthDates.first!.date-86400, triggerScrollToDateDelegate: true, animateScroll: true, preferredScrollPosition: .none, extraAddedOffset: .zero, completionHandler: nil)
-    }
+//    @IBAction func nextMonth(_ sender: Any){
+//        calendarView.scrollToDate(calendarView.visibleDates().monthDates.last!.date+86400, triggerScrollToDateDelegate: true, animateScroll: true, preferredScrollPosition: .none, extraAddedOffset: .zero, completionHandler: nil)
+//    }
+//
+//    @IBAction func lastMonth(_ sender: Any){
+//        calendarView.scrollToDate(calendarView.visibleDates().monthDates.first!.date-86400, triggerScrollToDateDelegate: true, animateScroll: true, preferredScrollPosition: .none, extraAddedOffset: .zero, completionHandler: nil)
+//    }
     
     
     
@@ -130,7 +156,7 @@ class ViewController: UIViewController {
     func handleCellSelected(cell: DateCell, cellState: CellState){
         if cellState.isSelected{
             cell.selectedView.isHidden = false
-            selectedDay = formatter.string(from: cellState.date)
+            selectedDay = showDayFormatter.string(from: cellState.date)
             if DBManager.getInstance().getEvents(String: selectedDay) != nil{
                 showEvent = DBManager.getInstance().getEvents(String: selectedDay)
             }else{
@@ -150,12 +176,12 @@ class ViewController: UIViewController {
     
     /*dot view*/
     func showDotView(cell: DateCell, cellState: CellState) {
-        if DBManager.getInstance().getEvents(String: formatter.string(from: cellState.date)) != nil{
+        if DBManager.getInstance().getEvents(String: showDayFormatter.string(from: cellState.date)) != nil{
             cell.dotView_event.isHidden = false
         }else{
             cell.dotView_event.isHidden = true
         }
-        if DBManager.getInstance().getDateTasks(String: formatter.string(from: cellState.date)) != nil{
+        if DBManager.getInstance().getDateTasks(String: showDayFormatter.string(from: cellState.date)) != nil{
             cell.dotView_task.isHidden = false
         }else{
             cell.dotView_task.isHidden = true
@@ -197,7 +223,7 @@ class ViewController: UIViewController {
     /*button to change between week and month*/
     @IBAction func toogle(_ sender: Any){
         if numberOfRows == 6{
-            self.constraint.constant = 100
+            self.constraint.constant = 50
             self.numberOfRows = 1
             UIView.animate(withDuration: 0.2, animations: {
                 self.view.layoutIfNeeded()
@@ -206,7 +232,7 @@ class ViewController: UIViewController {
                 self.calendarView.reloadData(withanchor: Date()) //anchordDate is optional
             }
         }else{
-            self.constraint.constant = 350
+            self.constraint.constant = 300
             self.numberOfRows = 6
             
             UIView.animate(withDuration: 0.2, animations: {
@@ -268,17 +294,23 @@ extension ViewController: JTAppleCalendarViewDelegate {
     }
     
     /*header delegate*/
-    func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date),at indexPath: IndexPath) -> JTAppleCollectionReusableView{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy MMMM"
-        
-        let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
-        header.monthTitle.text = formatter.string(from: range.start)
-        return header
-    }
+ //   func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date),at indexPath: IndexPath) -> JTAppleCollectionReusableView{
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy MMMM"
+//        
+ //       let header = JTAppleCollectionReusableView()
+        //calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "DateHeader", for: indexPath) as! DateHeader
+//        header.monthTitle.text = formatter.string(from: range.start)
+  //      return header
+//    }
     
-    func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
-        return MonthSize(defaultSize: 50)
+//    func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
+//        return MonthSize(defaultSize: 50)
+//    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        monthLabel.text = showMonthFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
+        yearLabel.text = showYearFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
     }
     
 }
