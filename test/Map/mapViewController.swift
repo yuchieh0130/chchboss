@@ -51,8 +51,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         mapView.delegate = self
         
-        //看CLLocationManager.authorizationStatus
-        //print(CLLocationManager.authorizationStatus().rawValue)
+        //看CLLocationManager.authorizationStatus(3是always,4是whenInUse)
+        print(CLLocationManager.authorizationStatus().rawValue)
         
     }
     

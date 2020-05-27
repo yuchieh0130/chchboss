@@ -15,7 +15,7 @@ class analysisViewController: UIViewController {
     
     @IBOutlet var pieChart: PieChartView!
     
-    let players = ["Ozil", "Ramsey", "Laca", "Auba", "Xhaka", "Torreira"]
+    let players = ["Mo", "Sherry", "Dylan", "Stasia", "Andrey", "CH"]
     let goals = [6, 8, 26, 30, 8, 10]
     
     override func viewDidLoad() {
