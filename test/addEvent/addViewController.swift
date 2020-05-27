@@ -416,7 +416,7 @@ class addViewController : UIViewController{
         case "add":
             let no = UNMutableNotificationContent()
                 no.title = "Event Notification"
-                no.body = name! + "\ndeadline: " + endDate + "  \(endTime!)"
+                no.body = name! + "\ndeadline: " + endDate + "  \(endTime)"
             for i in 0...reminder_index.count-1{
                 var notifivationid = String(DBManager.getInstance().getMaxEvent())
                 let calendar = Calendar.current
