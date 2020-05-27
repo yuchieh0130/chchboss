@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
     var currentSpeed :CLLocationSpeed = CLLocationSpeed()
-    var dbSpeed: Double = -1.0
+    var dbSpeed: Double = 55.66
     var currentLocation = CLLocationCoordinate2D()
     var dateFormatString: String?
     
@@ -97,8 +97,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             saveInDB()
         }
         
-        if currentSpeed == -1 && currentSpeed != dbSpeed{
+        if currentSpeed == -1.0 && currentSpeed != dbSpeed{
             saveInDB()
+            self.dbSpeed = currentSpeed
+            
         }
         
     }
@@ -148,8 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.myLocationManager.startUpdatingLocation()
             self.myLocationManager.delegate = nil
             self.myLocationManager.delegate = self
-            
-            self.dbSpeed = self.speed
+            // self.dbSpeed = self.speed!
         })
     }
     
