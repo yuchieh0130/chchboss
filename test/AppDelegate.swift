@@ -9,7 +9,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    let locationManager = CLLocationManager()
+//    let locationManager = CLLocationManager()
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
     var currentSpeed :CLLocationSpeed = CLLocationSpeed()
@@ -57,19 +57,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         myLocationManager.delegate = self
         
         myLocationManager.allowsBackgroundLocationUpdates = true
-        myLocationManager.pausesLocationUpdatesAutomatically = true
+        myLocationManager.pausesLocationUpdatesAutomatically = false
         myLocationManager.activityType = CLActivityType.fitness
         
         
         myLocationManager.distanceFilter = 50
         
         // 取得自身定位位置的精確度
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         myLocationManager.startUpdatingLocation()
         //locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.pausesLocationUpdatesAutomatically = false
+        myLocationManager.requestAlwaysAuthorization()
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
@@ -93,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
         let dateFormatString: String = dateFormatter.string(from: currentTime)
         
-        currentSpeed = locationManager.location!.speed
+        currentSpeed = myLocationManager.location!.speed
         print(currentSpeed)
         
         // 確保didUpdateLocations只呼叫一次
