@@ -54,23 +54,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         myLocationManager = CLLocationManager()
         //        myLocationManager.startMonitoringVisits()
+        myLocationManager.distanceFilter = 50
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         myLocationManager.delegate = self
         
         myLocationManager.allowsBackgroundLocationUpdates = true
         myLocationManager.pausesLocationUpdatesAutomatically = false
         myLocationManager.activityType = CLActivityType.fitness
-        
-        
-        myLocationManager.distanceFilter = 50
+
+        //myLocationManager.distanceFilter = 50
         
         // 取得自身定位位置的精確度
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        //myLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        myLocationManager.requestAlwaysAuthorization()
         myLocationManager.startUpdatingLocation()
         //locationManager.requestWhenInUseAuthorization()
-        myLocationManager.requestAlwaysAuthorization()
+        //myLocationManager.requestAlwaysAuthorization()
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
+        
+        print(CLLocationManager.authorizationStatus().rawValue)
         return true
     }
     
@@ -78,7 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                          didUpdateLocations locations: [CLLocation]){
         
         //        let longitude = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude)
-        
         //取得目前的座標位置
         let c = locations[0] as CLLocation;
         let currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
@@ -138,7 +141,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let isSaved = DBManager.getInstance().saveLocation(modelInfo)
             print("save in DB :", isSaved)
-            
+            self.myLocationManager.startUpdatingLocation()
+            self.myLocationManager.delegate = nil
+            self.myLocationManager.delegate = self
         })
         
     }
