@@ -556,11 +556,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnP-nn-Mu1" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="62.666666666666657" y="281" width="249.99999999999997" height="250"/>
+                                <rect key="frame" x="12.666666666666657" y="231" width="350" height="350"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="NMe-Pl-IlA"/>
-                                    <constraint firstAttribute="height" constant="250" id="bDI-i1-I3L"/>
+                                    <constraint firstAttribute="width" constant="350" id="NMe-Pl-IlA"/>
+                                    <constraint firstAttribute="height" constant="350" id="bDI-i1-I3L"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -572,6 +572,9 @@
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="4" title="" image="chart.pie" catalog="system" selectedImage="chart.pie" id="EsJ-Wy-Q9H"/>
+                    <connections>
+                        <outlet property="pieChart" destination="PnP-nn-Mu1" id="x0r-A1-waa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2425,7 +2428,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="b0Q-IJ-Wiq"/>
         <segue reference="Si0-bg-LgH"/>
-        <segue reference="Q9x-NS-Pff"/>
-        <segue reference="RmA-HN-d7i"/>
+        <segue reference="csL-Fo-fcl"/>
+        <segue reference="hM4-lw-jpS"/>
     </inferredMetricsTieBreakers>
 </document>
