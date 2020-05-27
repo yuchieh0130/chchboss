@@ -10,4 +10,5 @@ target 'test' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'Floaty', '~> 4.2.0'
+  pod 'Charts'
 end
