@@ -13,6 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
     var currentSpeed :CLLocationSpeed = CLLocationSpeed()
+    var dbSpeed: Double = -1.0
+    var currentLocation = CLLocationCoordinate2D()
+    var dateFormatString: String?
     
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
@@ -54,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         myLocationManager = CLLocationManager()
         //        myLocationManager.startMonitoringVisits()
-        myLocationManager.distanceFilter = 120
+        myLocationManager.distanceFilter = 70
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         myLocationManager.delegate = self
         
@@ -75,10 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
         
-        //        let longitude = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude)
         //取得目前的座標位置
         let c = locations[0] as CLLocation;
-        let currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
+        currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
         
         //    取得時間
         let currentTime = Date()
@@ -86,11 +88,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         // 設定時區(台灣)
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
-        let dateFormatString: String = dateFormatter.string(from: currentTime)
+        dateFormatString = dateFormatter.string(from: currentTime)
         
         currentSpeed = myLocationManager.location!.speed
-        print("Speed : \(currentSpeed)")
+        //print("Speed : \(currentSpeed)")
         
+        if -1 < currentSpeed && currentSpeed < 5 {
+            saveInDB()
+        }
+        
+        if currentSpeed == -1 && currentSpeed != dbSpeed{
+            saveInDB()
+        }
+        
+    }
+    
+    func saveInDB(){
         likelyPlaces.removeAll()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
@@ -112,9 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             //DB
-            self.latitude = Double(currentLocation.latitude)
-            self.longitude = Double(currentLocation.longitude)
-            self.startTime = dateFormatString
+            self.latitude = Double(self.currentLocation.latitude)
+            self.longitude = Double(self.currentLocation.longitude)
+            self.startTime = self.dateFormatString
             self.name1 = self.likelyPlaces[0].name!
             self.name2 = self.likelyPlaces[1].name!
             self.name3 = self.likelyPlaces[2].name!
@@ -135,9 +148,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.myLocationManager.startUpdatingLocation()
             self.myLocationManager.delegate = nil
             self.myLocationManager.delegate = self
+            
+            self.dbSpeed = self.speed
         })
-        
     }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
