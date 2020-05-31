@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import Floaty
+import FanMenu
+import Macaw
 
 class tabBarController: UITabBarController, UITabBarControllerDelegate{
     
@@ -40,6 +42,32 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
         self.view.addSubview(floaty)
+        
+        // 99 152
+        let fanMenu = FanMenu(frame: CGRect(x: self.view.frame.width/2 - 55, y: self.view.frame.height - 100, width: 200, height: 200))
+        fanMenu.button = FanMenuButton(
+            id: "main", image: UIImage(named: "Plus"), color: Color(val: 0xc49a6e))
+        
+        fanMenu.items = [
+            FanMenuButton(id: "calendar", image: UIImage(named: "calendar"), color: Color(val: 0x455ba5)),
+            FanMenuButton(id: "task", image: UIImage(named: "task"), color: Color(val: 0x455ba5)),
+            ]
+        // call before animation
+        fanMenu.onItemDidClick = { button in
+            print("ItemDidClick: \(button.id)")
+            }
+        // call after animation
+        fanMenu.onItemWillClick = { button in
+            print("ItemWillClick: \(button.id)")
+            }
+        fanMenu.menuRadius = 90.0
+        fanMenu.duration = 0.2
+        fanMenu.delay = 0.05
+        fanMenu.interval = (Double.pi + Double.pi/4, Double.pi + 3 * Double.pi/4)
+        fanMenu.radius = 25.0
+        fanMenu.backgroundColor = .clear
+        self.view.addSubview(fanMenu)
+        
         }
     
     //讓你按中間的tab bar item 不會跑出view controller
