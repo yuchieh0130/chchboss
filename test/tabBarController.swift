@@ -29,13 +29,14 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         tabBar.items?[4].title = "Analysis"
         
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width/2 - 22, y: self.view.frame.height - 77, width: 45, height: 45))
-        floaty.buttonColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
-        floaty.plusColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        floaty.addItem(title:"Add Event", handler: {_ in
-            self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
-        })
-        floaty.addItem(title: "Add Task", handler: {_ in
+        floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
+        floaty.plusColor = UIColor.white
+        floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
+        floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
             self.performSegue(withIdentifier: "tabBarToTask", sender: self)
+        })
+        floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
+            self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
         })
         floaty.openAnimationType = .slideUp
         floaty.isDraggable = true
@@ -44,9 +45,9 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         self.view.addSubview(floaty)
         
         // 99 152
-        let fanMenu = FanMenu(frame: CGRect(x: self.view.frame.width/2 - 55, y: self.view.frame.height - 100, width: 200, height: 200))
+        let fanMenu = FanMenu(frame: CGRect(x: self.view.frame.width/2 - 99, y: self.view.frame.height - 100, width: 200, height: 200))
         fanMenu.button = FanMenuButton(
-            id: "main", image: UIImage(named: "Plus"), color: Color(val: 0xc49a6e))
+            id: "main", image: UIImage(named: "Plus"), color: Color(val: 0x034163))
         
         fanMenu.items = [
             FanMenuButton(id: "calendar", image: UIImage(named: "calendar"), color: Color(val: 0x455ba5)),
@@ -60,11 +61,11 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         fanMenu.onItemWillClick = { button in
             print("ItemWillClick: \(button.id)")
             }
-        fanMenu.menuRadius = 90.0
+        fanMenu.menuRadius = 70.0  //menu radius
         fanMenu.duration = 0.2
         fanMenu.delay = 0.05
         fanMenu.interval = (Double.pi + Double.pi/4, Double.pi + 3 * Double.pi/4)
-        fanMenu.radius = 25.0
+        fanMenu.radius = 25.0  //button radius
         fanMenu.backgroundColor = .clear
         self.view.addSubview(fanMenu)
         
