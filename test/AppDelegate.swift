@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var myLocation :CLLocation!
     var currentSpeed :CLLocationSpeed = CLLocationSpeed()
     var lastSpeed:Double = 55.66
-    var lastStartTime:String
+    var lastStartTime:String = ""
     var currentLocation = CLLocationCoordinate2D()
     //var dateFormatString: String?
     
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
-        
+        self.lastStartTime = showDateformatter.string(from: Date())
         print(CLLocationManager.authorizationStatus().rawValue)
         return true
     }
@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Get likely places and add to the list.
             if let likelihoodList = placeLikelihoods {
-                print(placeLikelihoods)
+                // print(placeLikelihoods)
                 for likelihood in likelihoodList.likelihoods {
                     let place = likelihood.place
                     self.likelyPlaces.append(place)
@@ -146,12 +146,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, duration: 0, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5,speed: self.speed)
             
-            let id = DBManager.getInstance().saveLocation(modelInfo)
             self.duration = Date().timeIntervalSince(self.showDateformatter.date(from: self.lastStartTime)!)
-            let isSaved = DBManager.getInstance().saveDuration(id: id-1, string: self.duration)
-            
+            let isSaved = DBManager.getInstance().saveDuration(double: self.duration)
+            DBManager.getInstance().saveLocation(modelInfo)
             self.lastStartTime = self.startTime
             
+            print(self.duration)
+            print("lastSpeed:\(self.lastSpeed)")
             print("save in DB :", isSaved)
             
             self.myLocationManager.startUpdatingLocation()

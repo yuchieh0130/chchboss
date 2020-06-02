@@ -166,12 +166,12 @@ class DBManager: NSObject {
     //    }
     
 /*func for location*/
-    func saveLocation(_ modelInfo: LocationModel) -> Int32{
+    func saveLocation(_ modelInfo: LocationModel) -> String{
         shareInstance.database?.open()
         let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.duration,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5,modelInfo.speed])
         
         shareInstance.database?.close()
-        return modelInfo.locationId!
+        return modelInfo.startTime
     }
     
     func getLocName() -> String!{
@@ -251,9 +251,9 @@ class DBManager: NSObject {
         return location
     }
     
-    func saveDuration(id: Int32, string: String) -> Bool{
+    func saveDuration(double: Double) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("UPDATE location SET duration = \(string) WHERE location_id = \(id)", withArgumentsIn:[id])
+        let isSave = shareInstance.database?.executeUpdate("UPDATE location SET duration = \(double) WHERE location_id = (SELECT MAX(location_id) FROM location) ", withArgumentsIn:[double])
         
         shareInstance.database?.close()
         return isSave!
