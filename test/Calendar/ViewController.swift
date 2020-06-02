@@ -103,6 +103,8 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool){
         //初始畫面顯示
+        //calendarView.frame.height = UIScreen.main.bounds.height/2
+        //calendarView.bounds.height = UIScreen.main.bounds.height/2
         if selectedDay == ""{
             calendarView.reloadData(withanchor: Date())
         }else{
@@ -222,7 +224,7 @@ class ViewController: UIViewController {
     
     /*button to change between week and month*/
     @IBAction func toogle(_ sender: Any){
-        if numberOfRows == 6{
+        if numberOfRows == 6 {
             self.constraint.constant = 50
             self.numberOfRows = 1
             UIView.animate(withDuration: 0.2, animations: {
@@ -233,7 +235,11 @@ class ViewController: UIViewController {
             }
         }else{
             self.constraint.constant = 300
-            self.numberOfRows = 6
+            if calendarView.visibleDates().outdates.count < 7{
+                self.numberOfRows = 5
+            }else{
+                self.numberOfRows = 6
+            }
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.view.layoutIfNeeded()
@@ -253,7 +259,7 @@ extension ViewController: JTAppleCalendarViewDataSource {
         let startDate = Date()-(60*60*24*365)
         let endDate = Date()+(60*60*24*365)
         
-        if numberOfRows == 6{
+        if numberOfRows == 6 {
             return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows)
         }else{
             return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows, generateInDates: .forFirstMonthOnly, generateOutDates: .off, hasStrictBoundaries: false)
@@ -283,7 +289,7 @@ extension ViewController: JTAppleCalendarViewDelegate {
         return true
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date,cell: JTAppleCell?, cellState: CellState){
+    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState){
         configureCell(view: cell, cellState: cellState)
     }
     
@@ -309,9 +315,11 @@ extension ViewController: JTAppleCalendarViewDelegate {
 //    }
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        
         monthLabel.text = showMonthFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
         yearLabel.text = showYearFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
     }
+    
     
 }
 
@@ -357,7 +365,9 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         }
      }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIScreen.main.bounds.height/15
+    }
     
 }
 

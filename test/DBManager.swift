@@ -168,7 +168,7 @@ class DBManager: NSObject {
 /*func for location*/
     func saveLocation(_ modelInfo: LocationModel) -> Bool{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,end_time,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.endTime,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5,modelInfo.speed])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.duration,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5,modelInfo.speed])
         
         shareInstance.database?.close()
         return isSave!
@@ -200,7 +200,7 @@ class DBManager: NSObject {
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
             let c = set?.string(forColumn: "start_time")!
-            let d = set?.string(forColumn: "end_time")
+            let d = set?.string(forColumn: "duration")
             let e = set?.string(forColumn: "name1")
             let f = set?.string(forColumn: "category1")
             let g = set?.string(forColumn: "name2")
@@ -213,7 +213,7 @@ class DBManager: NSObject {
             let n = set?.string(forColumn: "category5")
             let o = set?.double(forColumn: "speed")
             
-            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
         }
         
         set?.close()
@@ -232,7 +232,7 @@ class DBManager: NSObject {
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
             let c = set?.string(forColumn: "start_time")!
-            let d = set?.string(forColumn: "end_time")
+            let d = set?.string(forColumn: "duration")
             let e = set?.string(forColumn: "name1")
             let f = set?.string(forColumn: "category1")
             let g = set?.string(forColumn: "name2")
@@ -245,7 +245,7 @@ class DBManager: NSObject {
             let n = set?.string(forColumn: "category5")
             let o = set?.double(forColumn: "speed")
             
-            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, endTime: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
         }
         set?.close()
         return location

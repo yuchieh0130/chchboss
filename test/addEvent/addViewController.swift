@@ -86,7 +86,7 @@ class addViewController : UIViewController{
     }
     var showWeekdayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd EEE"
+        formatter.dateFormat = "MMM d EEE"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -95,13 +95,13 @@ class addViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //查看手機內佇列的notification
-        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
-            for request in requests {
-                print(request)
-            }
-        })
+//        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+//            for request in requests {
+//                print(request)
+//            }
+//        })
         //查看所有已推送的notification
-// UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
+        // UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
         tableViewData = [cellConfig(opened: false, title: "Name"),
                          cellConfig(opened: false, title: "Start"),

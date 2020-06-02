@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var myLocationManager :CLLocationManager!
     var myLocation :CLLocation!
     var currentSpeed :CLLocationSpeed = CLLocationSpeed()
-    var dbSpeed: Double = 55.66
+    var dbSpeed:Double = 55.66
     var currentLocation = CLLocationCoordinate2D()
     var dateFormatString: String?
     
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var longitude: Double! = 0
     var latitude: Double! = 0
     var startTime: String! = ""
-    var endTime: String = ""
+    var duration: String = ""
     var name1: String = ""
     var name2: String = ""
     var name3: String = ""
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         myLocationManager = CLLocationManager()
         //        myLocationManager.startMonitoringVisits()
-        myLocationManager.distanceFilter = 70
+        myLocationManager.distanceFilter = 10
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         myLocationManager.delegate = self
         
@@ -93,10 +93,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         currentSpeed = myLocationManager.location!.speed
         //print("Speed : \(currentSpeed)")
         
-        if -1 < currentSpeed && currentSpeed < 5 {
-            saveInDB()
-        }
-        
         if currentSpeed == -1.0 && currentSpeed != dbSpeed{
             saveInDB()
             self.dbSpeed = currentSpeed
@@ -115,6 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // Get likely places and add to the list.
             if let likelihoodList = placeLikelihoods {
+                print(placeLikelihoods)
                 for likelihood in likelihoodList.likelihoods {
                     let place = likelihood.place
                     self.likelyPlaces.append(place)
@@ -142,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.category5 = self.likelyPlaces[4].types![0]
             self.speed = self.currentSpeed
             
-            let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, endTime: self.endTime, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5,speed: self.speed)
+            let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, duration: self.duration, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5,speed: self.speed)
             
             let isSaved = DBManager.getInstance().saveLocation(modelInfo)
             print("save in DB :", isSaved)
@@ -150,7 +147,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.myLocationManager.startUpdatingLocation()
             self.myLocationManager.delegate = nil
             self.myLocationManager.delegate = self
-            // self.dbSpeed = self.speed!
         })
     }
     
