@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var currentSpeed :CLLocationSpeed = CLLocationSpeed()
     var dbSpeed:Double = 55.66
     var currentLocation = CLLocationCoordinate2D()
-    var dateFormatString: String?
+    //var dateFormatString: String?
     
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
@@ -39,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var category4: String = ""
     var category5: String = ""
     var speed: Double! = 0
+    
+    var showDateformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     
     // An array to hold the list of likely places.
     var likelyPlaces: [GMSPlace] = []
@@ -83,21 +90,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
         
         //    取得時間
-        let currentTime = Date()
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        //let currentTime = Date()
+        //let dateFormatter: DateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         // 設定時區(台灣)
-        dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
-        dateFormatString = dateFormatter.string(from: currentTime)
+        //dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
+        //dateFormatString = dateFormatter.string(from: Date())
         
         currentSpeed = myLocationManager.location!.speed
-        //print("Speed : \(currentSpeed)")
         
         if currentSpeed == -1.0 && currentSpeed != dbSpeed{
             saveInDB()
-            self.dbSpeed = currentSpeed
-            
         }
+        self.dbSpeed = currentSpeed
         
     }
     
@@ -126,7 +131,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //DB
             self.latitude = Double(self.currentLocation.latitude)
             self.longitude = Double(self.currentLocation.longitude)
-            self.startTime = self.dateFormatString
+            self.startTime = showDateformatter.string(from: Date())
+            //self.duration = e.timeIntervalSince(Date())
             self.name1 = self.likelyPlaces[0].name!
             self.name2 = self.likelyPlaces[1].name!
             self.name3 = self.likelyPlaces[2].name!
