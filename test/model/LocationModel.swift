@@ -13,7 +13,7 @@ struct LocationModel{
     let longitude: Double
     let latitude: Double
     let startTime: String
-    let duration: String?
+    let duration: Double?
     let name1: String?
     let name2: String?
     let name3: String?

@@ -200,7 +200,7 @@ class DBManager: NSObject {
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
             let c = set?.string(forColumn: "start_time")!
-            let d = set?.string(forColumn: "duration")
+            let d = set?.double(forColumn: "duration")
             let e = set?.string(forColumn: "name1")
             let f = set?.string(forColumn: "category1")
             let g = set?.string(forColumn: "name2")
@@ -232,7 +232,7 @@ class DBManager: NSObject {
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
             let c = set?.string(forColumn: "start_time")!
-            let d = set?.string(forColumn: "duration")
+            let d = set?.double(forColumn: "duration")
             let e = set?.string(forColumn: "name1")
             let f = set?.string(forColumn: "category1")
             let g = set?.string(forColumn: "name2")
