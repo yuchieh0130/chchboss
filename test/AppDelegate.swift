@@ -147,7 +147,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, duration: self.duration, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5,speed: self.speed)
             
-            let isSaved = DBManager.getInstance().saveLocation(modelInfo)
+            let id = DBManager.getInstance().saveLocation(modelInfo)
+            DBManager.getInstance().save
+            
             print("save in DB :", isSaved)
             
             self.myLocationManager.startUpdatingLocation()
