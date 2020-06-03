@@ -11,20 +11,41 @@ import UIKit
 import Floaty
 import Charts
 
+@IBDesignable
 class analysisViewController: UIViewController {
     
+    @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var pieChart: PieChartView!
+    @IBOutlet var barChart: BarChartView!
     
     let players = ["Mo", "Sherry", "Dylan", "Stasia", "Andrey", "CH"]
     let goals = [6, 8, 26, 30, 8, 10]
+    let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
+    let counts = [45, 76, 34, 97]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Analysis"
-        customizeChart(dataPoints: players, values: goals.map{ Double($0) })
+        
+        pieChart.chartDescription?.text = "CHCHBOSS"
+        customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
+        
+        barChart.chartDescription?.text = "CHCHBOSS"
     }
     
-    func customizeChart(dataPoints: [String], values: [Double]) {
+    @IBAction func segConChoose(_ sender: Any) {
+        var getIndex = segCon.selectedSegmentIndex
+        print(getIndex)
+        
+        if getIndex == 0{
+            customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
+        }else if getIndex == 1{
+            customizePieChart(dataPoints: sports, values: counts.map{
+                Double($0) })
+        }
+    }
+    
+    func customizePieChart(dataPoints: [String], values: [Double]) {
       
       // 1. Set ChartDataEntry
       var dataEntries: [ChartDataEntry] = []
@@ -43,6 +64,9 @@ class analysisViewController: UIViewController {
       pieChartData.setValueFormatter(formatter)
       // 4. Assign it to the chart’s data
       pieChart.data = pieChartData
+    }
+    
+    func customizeBarChart(dataPoints: [String], values: [Double]) {
     }
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
