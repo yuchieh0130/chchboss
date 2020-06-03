@@ -94,13 +94,16 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             if savePlace == nil{    //刪掉
                 //吃place_id刪掉那欄
                 //吃track_id把place_id的欄位改成nil（動track
+                //let a = DBManager.getInstance().editTrackPlace(吃Id)
             }else{  //複寫
             //吃place_id蓋掉原本savedplace裡的資料（動place
+                //let a = DBManager.getInstance().editPlaceData(吃Id,吃placemodel)
             }
             
         }else{  //原本沒資料：新增新資料
             let isAdded = DBManager.getInstance().addPlace(savePlace!)
             //吃track_id把place_id寫進track
+            //let a = DBManager.getInstance().editPlaceData(吃PlaceId,吃TrackId)
         }
         
         self.dismiss(animated: true, completion: nil)
