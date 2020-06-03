@@ -286,7 +286,12 @@ extension ViewController: JTAppleCalendarViewDelegate {
     }
     
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
-        return true
+        if cell?.isSelected == true{
+            calendarView.deselectDates(from: date)
+            return false
+        }else{
+            return true
+        }
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState){
