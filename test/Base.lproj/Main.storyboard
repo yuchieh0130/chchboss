@@ -621,22 +621,24 @@
                                     <action selector="segConChoose:" destination="3xM-0D-h9c" eventType="valueChanged" id="yiJ-jC-K2J"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8EZ-KE-JC6" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="249" width="343" height="378"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8EZ-KE-JC6" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="344" width="343" height="123"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="centerX" secondItem="PnP-nn-Mu1" secondAttribute="centerX" id="15E-WR-onp"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" constant="262" id="DJc-rG-jDL"/>
+                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="16" id="Esa-F6-9KY"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="70" id="F1w-oD-bWz"/>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="width" secondItem="PnP-nn-Mu1" secondAttribute="width" multiplier="0.685714" id="O1X-QJ-vMW"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="8EZ-KE-JC6" secondAttribute="trailing" constant="16" id="HXd-fe-DoM"/>
+                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="MMr-aB-i3L"/>
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="1hb-Ki-UBc" secondAttribute="trailing" constant="70" id="REi-6j-8vb"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerY" secondItem="sfp-gm-cKQ" secondAttribute="centerY" id="RaU-mm-lUg"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="cdS-Iy-1io"/>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="height" secondItem="PnP-nn-Mu1" secondAttribute="height" multiplier="0.365714" id="h4q-uQ-AZr"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="lRL-zB-UKg"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="top" secondItem="Ymv-rs-qLb" secondAttribute="top" constant="70" id="mLL-ww-idW"/>
+                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="199" id="sZ1-Bw-Ksi"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="86" id="vIJ-DQ-jLq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
@@ -2500,7 +2502,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="b0Q-IJ-Wiq"/>
         <segue reference="Si0-bg-LgH"/>
-        <segue reference="csL-Fo-fcl"/>
-        <segue reference="jtY-fE-0jz"/>
+        <segue reference="uiq-XP-en4"/>
+        <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
 </document>

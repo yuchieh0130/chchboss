@@ -39,14 +39,19 @@ class analysisViewController: UIViewController {
         
         if getIndex == 0{
             customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
+            barChart.isHidden = true
         }else if getIndex == 1{
             customizePieChart(dataPoints: sports, values: counts.map{
                 Double($0) })
+            barChart.isHidden = true
         }
+//        else if getIndex == 2{
+//            customizeBarChart(dataPoints: players, values: goals.map{ Double($0) })
+//            pieChart.isHidden = true
+//        }
     }
     
     func customizePieChart(dataPoints: [String], values: [Double]) {
-      
       // 1. Set ChartDataEntry
       var dataEntries: [ChartDataEntry] = []
       for i in 0..<dataPoints.count {
@@ -66,8 +71,22 @@ class analysisViewController: UIViewController {
       pieChart.data = pieChartData
     }
     
-    func customizeBarChart(dataPoints: [String], values: [Double]) {
-    }
+//    func customizeBarChart(dataPoints: [String], values: [Double]) {
+//        var dataEntries: [ChartDataEntry] = []
+//        for i in 0..<dataPoints.count {
+//            let dataEntry = BarChartDataEntry(x: values[i], yValues: [values[i]], data: dataPoints[i])
+//          dataEntries.append(dataEntry)
+//        }
+//        let barChartDataSet = BarChartDataSet(entries: dataEntries, label: nil)
+//        barChartDataSet.colors = colorsOfCharts(numbersOfColor: dataPoints.count)
+//        let barChartData = BarChartData(dataSet: barChartDataSet)
+//             let format = NumberFormatter()
+//             format.numberStyle = .none
+//             let formatter = DefaultValueFormatter(formatter: format)
+//             barChartData.setValueFormatter(formatter)
+//             // 4. Assign it to the chart’s data
+//             barChart.data = barChartData
+//    }
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
       var colors: [UIColor] = []
@@ -80,6 +99,16 @@ class analysisViewController: UIViewController {
       }
       return colors
     }
+    
+//    dataSet.colors = ChartColorTemplates.colorful()
+//    ChartColorTemplates.liberty()
+//    ChartColorTemplates.joyful()
+//    ChartColorTemplates.pastel()
+//    ChartColorTemplates.colorful()
+//    ChartColorTemplates.vordiplom()
+//    ChartColorTemplates.material()
+    
+   
     
     
 }

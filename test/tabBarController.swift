@@ -32,10 +32,10 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
-        floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
+        floaty.addItem("", icon: UIImage(named: "task"), handler: {_ in
             self.performSegue(withIdentifier: "tabBarToTask", sender: self)
         })
-        floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
+        floaty.addItem("", icon: UIImage(named: "calendar"), handler: {_ in
             self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
         })
         floaty.openAnimationType = .slideUp
