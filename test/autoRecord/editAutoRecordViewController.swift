@@ -23,8 +23,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     var longitude: Double?
     var savePlace : PlaceModel?
     
+    
     @IBOutlet var txtDate: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet var tableView: UITableView!
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -68,20 +70,55 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-           let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
-           mapView.camera = camera
-           let marker = GMSMarker()
-           marker.position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
-           marker.map = mapView
-           
-       }
+        let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
+        mapView.camera = camera
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+        marker.map = mapView
+        
+    }
     
     @IBAction func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func clearLocation(_ sender: UIButton){
+        savePlace = nil
+        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+    }
+    
     @IBAction func editBtn(_ sender: UIButton){
+        
+        if track?.placeId != nil{   //原本有資料
+            
+            if savePlace == nil{    //刪掉
+                //吃place_id刪掉那欄
+                //吃track_id把place_id的欄位改成nil（動track
+            }else{  //複寫
+            //吃place_id蓋掉原本savedplace裡的資料（動place
+            }
+            
+        }else{  //原本沒資料：新增新資料
+            let isAdded = DBManager.getInstance().addPlace(savePlace!)
+            //吃track_id把place_id寫進track
+        }
+        
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editAutoLocation"{
+            if let VC = segue.destination as? mapViewController{
+                VC.longitude = longitude
+                VC.lantitude = latitude
+            }
+        }
+    }
+    
+    @IBAction func autoLocationSegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? mapViewController
+        savePlace = VC?.savePlace
+        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
     }
     
 }
@@ -95,31 +132,40 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath{
         case [0,0]:
-        let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoStartCell", for: indexPath) as! autoStartCell
-        cell.txtAutoStart.text = showTimeformatter.string(from: s)
-        cell.selectionStyle = .none
-        return cell
-    case [0,1]:
-        let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoEndCell", for: indexPath) as! autoEndCell
-        cell.txtAutoEnd.text = showTimeformatter.string(from: e)
-        cell.selectionStyle = .none
-        return cell
-    case [0,2]:
-        let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoCategoryCell", for: indexPath) as! autoCategoryCell
-        cell.txtAutoCategory.text = category.categoryName
-        cell.selectionStyle = .none
-        return cell
-    case [0,3]:
-        let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
-        cell.txtLocation.text = savePlace?.placeName
-        cell.selectionStyle = .none
-        return cell
-    default:
-        let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
-        cell.txtLocation.text = savePlace?.placeName
-        cell.selectionStyle = .none
-        return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoStartCell", for: indexPath) as! autoStartCell
+            cell.txtAutoStart.text = showTimeformatter.string(from: s)
+            cell.selectionStyle = .none
+            return cell
+        case [0,1]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoEndCell", for: indexPath) as! autoEndCell
+            cell.txtAutoEnd.text = showTimeformatter.string(from: e)
+            cell.selectionStyle = .none
+            return cell
+        case [0,2]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoCategoryCell", for: indexPath) as! autoCategoryCell
+            cell.txtAutoCategory.text = category.categoryName
+            cell.selectionStyle = .none
+            return cell
+        case [0,3]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
+            cell.txtLocation.text = savePlace?.placeName
+            cell.selectionStyle = .none
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
+            cell.txtLocation.text = savePlace?.placeName
+            cell.selectionStyle = .none
+            return cell
         }
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 3{
+            performSegue(withIdentifier: "editAutoLocation", sender: self)
+        }
+
     }
     
     
