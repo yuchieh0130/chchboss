@@ -31,6 +31,7 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width/2 - 22, y: self.view.frame.height - 77, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
+        #colorLiteral(red: 0.968627451, green: 0.7803921569, blue: 0.3450980392, alpha: 1)
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
         floaty.addItem("", icon: UIImage(named: "task"), handler: {_ in
             self.performSegue(withIdentifier: "tabBarToTask", sender: self)
@@ -53,6 +54,7 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             FanMenuButton(id: "calendar", image: UIImage(named: "calendar"), color: Color(val: 0x455ba5)),
             FanMenuButton(id: "task", image: UIImage(named: "task"), color: Color(val: 0x455ba5)),
             ]
+        
         // call before animation
         fanMenu.onItemDidClick = { button in
             print("ItemDidClick: \(button.id)")

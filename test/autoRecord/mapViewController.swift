@@ -30,6 +30,11 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var sortedArr = [String]()
     var sortedDist = [Double]()
     
+    var longitude: Double! = 0
+    var lantitude: Double! = 0
+    
+    var savePlace : PlaceModel?
+    
     //DB variables
     let placeId: Int32 = 0
     let placeName: String! = ""
@@ -52,16 +57,23 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         mapView.delegate = self
         
         //看CLLocationManager.authorizationStatus(3是always,4是whenInUse)
-        print(CLLocationManager.authorizationStatus().rawValue)
+        //print(CLLocationManager.authorizationStatus().rawValue)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let camera = GMSCameraPosition.camera(withLatitude: modelLoc!.latitude, longitude: modelLoc!.longitude, zoom: 15.0)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: lantitude!, longitude: longitude!, zoom: 17.0)
         mapView.camera = camera
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: modelLoc!.latitude, longitude: modelLoc!.longitude)
+        marker.position = CLLocationCoordinate2D(latitude: lantitude!, longitude: longitude!)
         marker.map = mapView
+        
+//        let camera = GMSCameraPosition.camera(withLatitude: modelLoc!.latitude, longitude: modelLoc!.longitude, zoom: 15.0)
+//        mapView.camera = camera
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: modelLoc!.latitude, longitude: modelLoc!.longitude)
+//        marker.map = mapView
         
     }
     
@@ -126,10 +138,11 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row != 0 && txtSearch.text!.isEmpty{
-            let modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
-            print(modelPlace)
-            let IsAdded = DBManager.getInstance().addPlace(modelPlace)
+            savePlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+//            let modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+            //let placeId = DBManager.getInstance().addPlace(modelPlace)
             self.dismiss(animated: false, completion: nil)
+            
         }
     }
     

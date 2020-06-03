@@ -18,10 +18,14 @@ class analysisViewController: UIViewController {
     @IBOutlet var pieChart: PieChartView!
     @IBOutlet var barChart: BarChartView!
     
+    var showCategory = [CategoryModel]()
+    var showCategoryStr = [String]()
+    
     let players = ["Mo", "Sherry", "Dylan", "Stasia", "Andrey", "CH"]
     let goals = [6, 8, 26, 30, 8, 10]
     let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
     let counts = [45, 76, 34, 97]
+    let yep = [34, 67, 89, 45, 44, 12, 28, 90, 5]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,11 @@ class analysisViewController: UIViewController {
         customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
         
         barChart.chartDescription?.text = "CHCHBOSS"
+        
+        showCategory = DBManager.getInstance().getAllCategory()
+        for i in 0...showCategory.count-1{
+            showCategoryStr.append(showCategory[i].categoryName)
+        }
     }
     
     @IBAction func segConChoose(_ sender: Any) {
@@ -44,11 +53,10 @@ class analysisViewController: UIViewController {
             customizePieChart(dataPoints: sports, values: counts.map{
                 Double($0) })
             barChart.isHidden = true
+        }else if getIndex == 2{
+            customizePieChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
+            barChart.isHidden = true
         }
-//        else if getIndex == 2{
-//            customizeBarChart(dataPoints: players, values: goals.map{ Double($0) })
-//            pieChart.isHidden = true
-//        }
     }
     
     func customizePieChart(dataPoints: [String], values: [Double]) {

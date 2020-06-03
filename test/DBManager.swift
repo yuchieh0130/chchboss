@@ -331,6 +331,13 @@ class DBManager: NSObject {
         return id
     }
     
+    func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
+        shareInstance.database?.open()
+        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = \(p.placeName), place_category = \(p.placeCategory), place_longitude = \(p.placeLongitude), place_lantitude = \(p.placeLantitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
+        shareInstance.database?.close()
+        return isDone!
+    }
+    
 /*func for task*/
     func addTask(_ modelInfo: TaskModel) -> Bool{
         shareInstance.database?.open()
@@ -495,6 +502,19 @@ class DBManager: NSObject {
         return tracks
     }
     
+    func editTrackPlace(id: Int32) -> Bool{
+        shareInstance.database?.open()
+        let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = nil WHERE track_id = \(id)", withArgumentsIn: [id])
+        shareInstance.database?.close()
+        return isDone!
+    }
+    
+    func addTrackPlace(a: Int32, b: Int32) -> Bool{
+        shareInstance.database?.open()
+        let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = \(a) WHERE track_id = \(b)", withArgumentsIn: [a,b])
+        shareInstance.database?.close()
+        return isDone!
+    }
     
     
     

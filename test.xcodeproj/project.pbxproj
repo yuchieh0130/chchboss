@@ -57,7 +57,6 @@
 		6B6BB1BA225FAD05006F384C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6BB1B8225FAD05006F384C /* LaunchScreen.storyboard */; };
 		6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1C1225FE06B006F384C /* DateCell.swift */; };
 		D7EEB6892459874E00D72B63 /* searchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */; };
-		D7EEB69524616EF600D72B63 /* old.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB69424616EF600D72B63 /* old.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,7 +121,6 @@
 		6B6BB1C1225FE06B006F384C /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		829C947D900C99017F760445 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
 		D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationViewController.swift; sourceTree = "<group>"; };
-		D7EEB69424616EF600D72B63 /* old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = old.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +141,8 @@
 				4B6C441A2472F9CB0009C281 /* trackCell.swift */,
 				4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */,
 				4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */,
+				586B87D924619A7100E7E273 /* mapViewController.swift */,
+				4B4AB6222463197900FC8A6D /* myPlaceController.swift */,
 			);
 			path = autoRecord;
 			sourceTree = "<group>";
@@ -200,6 +200,7 @@
 				4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */,
 				4B4F0153243F12FD00A98C65 /* categoryViewController.swift */,
 				4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */,
+				D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */,
 			);
 			path = addEvent;
 			sourceTree = "<group>";
@@ -226,17 +227,6 @@
 				6B6BB1B1225FAD04006F384C /* ViewController.swift */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		58D91DC72431CEE2002DD7B2 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				586B87D924619A7100E7E273 /* mapViewController.swift */,
-				4B4AB6222463197900FC8A6D /* myPlaceController.swift */,
-				D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */,
-				D7EEB69424616EF600D72B63 /* old.swift */,
-			);
-			path = Map;
 			sourceTree = "<group>";
 		};
 		6B6BB1A3225FAD04006F384C = {
@@ -274,7 +264,6 @@
 				4B116D7D2477715A00CD25BD /* middleViewController.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
-				58D91DC72431CEE2002DD7B2 /* Map */,
 				4BA138C5243CB24E00C46CD3 /* task */,
 				4BA138C6243CB29800C46CD3 /* addEvent */,
 				582341EC242B5CF400FFC83B /* Calendar */,
@@ -447,7 +436,6 @@
 				4B9EBD542417799400162A77 /* EventModel.swift in Sources */,
 				4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */,
 				4B02C4BA243D64A70087DB4C /* addTaskViewController.swift in Sources */,
-				D7EEB69524616EF600D72B63 /* old.swift in Sources */,
 				4B9EBD562417A7CE00162A77 /* Util.swift in Sources */,
 				4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */,
 				4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */,
