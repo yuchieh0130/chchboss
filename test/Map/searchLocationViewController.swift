@@ -74,10 +74,13 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.row != 0{
+            var cat = [String]()
+            cat = (resultsArray[indexPath.row-1]["types"] as? [String])!
+            placeCategory = cat[0]
             var location = [String:[String:Any]]()
             location["location"] = resultsArray[indexPath.row-1]["geometry"]!["location"] as? [String:Any]
             placeName = resultsArray[indexPath.row-1]["name"] as? String
-            placeCategory = resultsArray[indexPath.row-1]["types"]![0] as? String
+            //placeCategory = resultsArray[indexPath.row-1]["types"]![0] as? String
             placeLongitude = location["location"]!["lng"] as? Double
             placeLantitude = location["location"]!["lat"] as? Double
             savePlaceModel = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
