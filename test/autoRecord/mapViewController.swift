@@ -136,15 +136,25 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.row != 0 && txtSearch.text!.isEmpty{
             savePlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+        }
+        return indexPath
+    }
+    
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+               
+           }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.row != 0 && txtSearch.text!.isEmpty{
+//            savePlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
 //            let modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
             //let placeId = DBManager.getInstance().addPlace(modelPlace)
-            self.dismiss(animated: false, completion: nil)
-            
-        }
-    }
+            //self.dismiss(animated: false, completion: nil)
+//            }
+//   }
     
     @objc func searchPlaceFromGoogle(_ textField:UITextField) {
         
