@@ -1905,6 +1905,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="CmP-Wk-PdL" kind="unwind" unwindAction="autoLocationSegueBackWithSegue:" id="sOe-yl-sz9"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addPlaceCell" id="ZzX-Fe-jzK">
                                         <rect key="frame" x="0.0" y="127.33333587646484" width="375" height="43.666667938232422"/>
@@ -1970,7 +1973,6 @@
                         <outlet property="tblPlaces" destination="xci-u9-Gtz" id="P7H-vO-JlZ"/>
                         <outlet property="tblView" destination="Nkc-cp-cTk" id="ehS-yQ-bKy"/>
                         <outlet property="txtSearch" destination="2oU-ls-1St" id="dfQ-Po-Nec"/>
-                        <segue destination="CmP-Wk-PdL" kind="unwind" unwindAction="autoLocationSegueBackWithSegue:" id="nsf-Os-mYA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n3R-DZ-ELt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2136,6 +2138,9 @@
                                                     <rect key="frame" x="335" y="10.666666666666664" width="30" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <state key="normal" title="X"/>
+                                                    <connections>
+                                                        <action selector="clearLocation:" destination="Xuc-j8-9wr" eventType="touchUpInside" id="zB9-6k-xUq"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2176,6 +2181,7 @@
                                 <state key="normal" title="OK"/>
                                 <connections>
                                     <action selector="editBtn:" destination="Xuc-j8-9wr" eventType="touchUpInside" id="UdV-iI-lGd"/>
+                                    <segue destination="9iG-jw-Af6" kind="unwind" unwindAction="editAutoSegueBackWithSegue:" id="LTP-nL-V70"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU6-Kx-Dc8">
@@ -2218,6 +2224,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Sr-Xg-hHI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="9iG-jw-Af6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-791.20000000000005" y="908.86699507389164"/>
         </scene>
@@ -2492,9 +2499,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="QKU-pl-zXo"/>
         <segue reference="b0Q-IJ-Wiq"/>
-        <segue reference="Si0-bg-LgH"/>
-        <segue reference="uiq-XP-en4"/>
-        <segue reference="RmA-HN-d7i"/>
+        <segue reference="Ppd-gm-Fyg"/>
+        <segue reference="csL-Fo-fcl"/>
+        <segue reference="hM4-lw-jpS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

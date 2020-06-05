@@ -84,7 +84,7 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
             }
         }
         reminder_index = reminder_index.sorted()
-        print(reminder_index)
+        //print(reminder_index)
     }
     
     

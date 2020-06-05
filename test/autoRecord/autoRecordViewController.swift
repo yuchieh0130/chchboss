@@ -47,12 +47,28 @@ class autoRecordViewController: UIViewController{
         title = "Track"
     }
     
+    override func viewWillAppear(_ animated: Bool){
+        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
+        tableView.reloadData()
+//        if selectedDay == ""{
+//            calendarView.reloadData(withanchor: Date())
+//            tableView.reloadData()
+//        }else{
+//            calendarView.reloadData(withanchor:showDayformatter.date(from: selectedDay))
+//        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editTrack"{
             if let VC = segue.destination as?editAutoRecordViewController{
-                VC.track = track
+                VC.track = track!
             }
         }
+    }
+    
+    @IBAction func editAutoSegueBack(segue: UIStoryboardSegue){
+        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
+        tableView.reloadData()
     }
 
         func configureCell(view: JTAppleCell?, cellState: CellState){

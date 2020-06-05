@@ -14,7 +14,7 @@ import GooglePlaces
 
 class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDelegate{
     
-    var track: TrackModel?
+    var track: TrackModel = TrackModel(trackId: 0, date: "", startTime: "", endTime: "", categoryId: 0, locationId: 0, placeId: nil)
     var s = Date()
     var e = Date()
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
@@ -54,12 +54,12 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
-        s = showTimeformatter.date(from: track!.startTime)!
-        e = showTimeformatter.date(from: track!.endTime)!
-        txtDate.text = "   " + track!.date
-        category = DBManager.getInstance().getCategory(Int: (track?.categoryId)!)
-        location = DBManager.getInstance().getLocation(Int: (track?.locationId)!)
-        savePlace = DBManager.getInstance().getPlace(Int: (track?.placeId)!)
+        s = showTimeformatter.date(from: track.startTime)!
+        e = showTimeformatter.date(from: track.endTime)!
+        txtDate.text = "   " + track.date
+        category = DBManager.getInstance().getCategory(Int: (track.categoryId))
+        location = DBManager.getInstance().getLocation(Int: (track.locationId))
+        savePlace = DBManager.getInstance().getPlace(Int: (track.placeId)!)
         if savePlace != nil{
             latitude = savePlace?.placeLantitude
             longitude = savePlace?.placeLongitude
@@ -70,6 +70,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("db讀進來的track\(track)")
+        print("db讀進來的savePlace\(savePlace)")
         let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
         mapView.camera = camera
         let marker = GMSMarker()
@@ -88,22 +90,24 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @IBAction func editBtn(_ sender: UIButton){
-        
-        if track?.placeId != nil{   //原本有資料
-            
+        print("要儲存的track\(track)")
+        print("要儲存的savePlace\(savePlace)")
+        if track.placeId! != 0{   //原本有資料
+             
             if savePlace == nil{    //刪掉
                 //吃place_id刪掉那欄
                 //吃track_id把place_id的欄位改成nil（動track
-                //let a = DBManager.getInstance().editTrackPlace(吃Id)
+                let a = DBManager.getInstance().editTrackPlace(id: track.trackId!)
             }else{  //複寫
             //吃place_id蓋掉原本savedplace裡的資料（動place
-                //let a = DBManager.getInstance().editPlaceData(吃Id,吃placemodel)
+                let a = DBManager.getInstance().editPlaceData(id: track.placeId!, p: savePlace!)
             }
             
         }else{  //原本沒資料：新增新資料
             let isAdded = DBManager.getInstance().addPlace(savePlace!)
-            //吃track_id把place_id寫進track
-            //let a = DBManager.getInstance().editPlaceData(吃PlaceId,吃TrackId)
+            let id = DBManager.getInstance().getMaxPlace()
+            let a = DBManager.getInstance().addTrackPlace(a: id, b: track.trackId!)
+            print(a)
         }
         
         self.dismiss(animated: true, completion: nil)
