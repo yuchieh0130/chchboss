@@ -34,7 +34,8 @@ class analysisViewController: UIViewController {
         pieChart.chartDescription?.text = "CHCHBOSS"
         customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
         
-        barChart.chartDescription?.text = "CHCHBOSS"
+        //barChart.chartDescription?.text = "CHCHBOSS"
+        barChart.isHidden = true
         
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-1{
@@ -107,6 +108,15 @@ class analysisViewController: UIViewController {
       }
       return colors
     }
+    
+//    private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
+//        var colors: [UIColor] = []
+//        for _ in 0..<numbersOfColor{
+//        }
+//        return colors
+//    }
+    
+    
     
 //    dataSet.colors = ChartColorTemplates.colorful()
 //    ChartColorTemplates.liberty()
