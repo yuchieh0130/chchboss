@@ -70,8 +70,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("db讀進來的track\(track)")
-        print("db讀進來的savePlace\(savePlace)")
+        //print("db讀進來的track\(track)")
+        //print("db讀進來的savePlace\(savePlace)")
         let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
         mapView.camera = camera
         let marker = GMSMarker()
@@ -90,8 +90,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @IBAction func editBtn(_ sender: UIButton){
-        print("要儲存的track\(track)")
-        print("要儲存的savePlace\(savePlace)")
+        //print("要儲存的track\(track)")
+        //print("要儲存的savePlace\(savePlace)")
         if track.placeId! != 0{   //原本有資料
              
             if savePlace == nil{    //刪掉
@@ -107,7 +107,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             let isAdded = DBManager.getInstance().addPlace(savePlace!)
             let id = DBManager.getInstance().getMaxPlace()
             let a = DBManager.getInstance().addTrackPlace(a: id, b: track.trackId!)
-            print(a)
+            //print(a)
         }
         
         self.dismiss(animated: true, completion: nil)
