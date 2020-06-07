@@ -13,6 +13,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var doneReturnBtn: UIButton!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var deleteAllBtn: UIButton!
+    
     
     var task: TaskModel?
     var selectedTask: String = ""
@@ -20,6 +22,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deleteAllBtn.addTarget(self, action: #selector(deleteAllAlert), for: .allTouchEvents)
     }
     
     @IBAction func doneReturn(_ sender: UIButton){
@@ -72,5 +76,20 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    @objc func deleteAllAlert() {
+        let controller = UIAlertController(title: "Are you sure to delete all done task ?", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            print("OK")
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        controller.addAction(okAction)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+   
     
 }

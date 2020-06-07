@@ -20,6 +20,7 @@ class analysisViewController: UIViewController {
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
+    var showCategoryColor = [String]()
     
     let players = ["Mo", "Sherry", "Dylan", "Stasia", "Andrey", "CH"]
     let goals = [6, 8, 26, 30, 8, 10]
@@ -40,6 +41,7 @@ class analysisViewController: UIViewController {
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-1{
             showCategoryStr.append(showCategory[i].categoryName)
+            showCategoryColor.append(showCategory[i].categoryColor)
         }
     }
     
@@ -80,6 +82,26 @@ class analysisViewController: UIViewController {
       pieChart.data = pieChartData
     }
     
+    func customizeCategoryChart(dataPoints: [String], values: [Double]) {
+      // 1. Set ChartDataEntry
+      var dataEntries: [ChartDataEntry] = []
+      for i in 0..<dataPoints.count {
+        let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+        dataEntries.append(dataEntry)
+      }
+      // 2. Set ChartDataSet
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+      pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
+      // 3. Set ChartData
+      let pieChartData = PieChartData(dataSet: pieChartDataSet)
+      let format = NumberFormatter()
+      format.numberStyle = .none
+      let formatter = DefaultValueFormatter(formatter: format)
+      pieChartData.setValueFormatter(formatter)
+      // 4. Assign it to the chart’s data
+      pieChart.data = pieChartData
+    }
+    
 //    func customizeBarChart(dataPoints: [String], values: [Double]) {
 //        var dataEntries: [ChartDataEntry] = []
 //        for i in 0..<dataPoints.count {
@@ -109,12 +131,13 @@ class analysisViewController: UIViewController {
       return colors
     }
     
-//    private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
-//        var colors: [UIColor] = []
-//        for _ in 0..<numbersOfColor{
-//        }
-//        return colors
-//    }
+    private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
+        var colors: [UIColor] = []
+        for _ in 0..<numbersOfColor{
+            let color = showCategoryColor
+        }
+        return colors
+    }
     
     
     
