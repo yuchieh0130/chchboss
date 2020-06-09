@@ -20,7 +20,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     var placeName: String! = ""
     var placeCategory: String! = ""
     var placeLongitude: Double! = 0
-    var placeLantitude: Double! = 0
+    var placeLatitude: Double! = 0
     var myPlace: Bool! = false
     
     var savePlaceModel:PlaceModel? //傳回addEvent用的
@@ -82,8 +82,8 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
             placeName = resultsArray[indexPath.row-1]["name"] as? String
             //placeCategory = resultsArray[indexPath.row-1]["types"]![0] as? String
             placeLongitude = location["location"]!["lng"] as? Double
-            placeLantitude = location["location"]!["lat"] as? Double
-            savePlaceModel = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLantitude, myPlace: false)
+            placeLatitude = location["location"]!["lat"] as? Double
+            savePlaceModel = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: false)
         }
         return indexPath
     }

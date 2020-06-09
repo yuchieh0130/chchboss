@@ -17,7 +17,7 @@ class myPlaceController: UIViewController{
     var placeName: String! = "" //Only Date
     var placeCategory: String! = ""
     var placeLongitude: Double! = 0
-    var placeLantitude: Double! = 0
+    var placeLatitude: Double! = 0
     var myPlace: Bool! = true
     var noAdd = false
     
@@ -52,7 +52,7 @@ class myPlaceController: UIViewController{
         if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
             alertMessage()
         }else {
-            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLantitude: placeLongitude, myPlace: true)
+            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLongitude, myPlace: true)
             let isAdded = DBManager.getInstance().addPlace(modelInfo)
             
             txtMyPlaceName.text = nil

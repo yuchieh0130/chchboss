@@ -36,7 +36,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var sortedCat = [String]()
     
     var longitude: Double! = 0
-    var lantitude: Double! = 0
+    var latitude: Double! = 0
     
     var savePlace : PlaceModel?
     
@@ -45,7 +45,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     let placeName: String! = ""
     let placeCategory: String = ""
     let placeLongitude: Double! = 0
-    let placeLantitude: Double! = 0
+    let placeLatitude: Double! = 0
     
     
     override func viewDidLoad() {
@@ -65,10 +65,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     override func viewWillAppear(_ animated: Bool) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: lantitude!, longitude: longitude!, zoom: 17.0)
+        let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
         mapView.camera = camera
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: lantitude!, longitude: longitude!)
+        marker.position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         marker.map = mapView
         
 //        let camera = GMSCameraPosition.camera(withLatitude: modelLoc!.latitude, longitude: modelLoc!.longitude, zoom: 15.0)
@@ -87,7 +87,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         if segue.identifier == "showMyPlace"{
             if let VC = segue.destination as? myPlaceController{
                 VC.placeLongitude = placeLongitude
-                VC.placeLantitude = placeLantitude
+                VC.placeLatitude = placeLatitude
             }
         }
     }
@@ -140,9 +140,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.row != 0 && txtSearch.text!.isEmpty{
-            savePlace = PlaceModel(placeId: placeId, placeName: nameArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+            savePlace = PlaceModel(placeId: placeId, placeName: nameArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLatitude: modelLoc!.latitude, myPlace: false)
         }else{
-            savePlace = PlaceModel(placeId: placeId, placeName: sortedName[indexPath.row - 1], placeCategory: sortedCat[indexPath.row - 1], placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+            savePlace = PlaceModel(placeId: placeId, placeName: sortedName[indexPath.row - 1], placeCategory: sortedCat[indexPath.row - 1], placeLongitude: modelLoc!.longitude, placeLatitude: modelLoc!.latitude, myPlace: false)
         }
         return indexPath
     }
@@ -153,8 +153,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        if indexPath.row != 0 && txtSearch.text!.isEmpty{
-//            savePlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
-//            let modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
+//            savePlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLatitude: modelLoc!.latitude, myPlace: false)
+//            let modelPlace = PlaceModel(placeId: placeId, placeName: exampleArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLatitude: modelLoc!.latitude, myPlace: false)
             //let placeId = DBManager.getInstance().addPlace(modelPlace)
             //self.dismiss(animated: false, completion: nil)
 //            }

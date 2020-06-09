@@ -263,7 +263,7 @@ class DBManager: NSObject {
     /*func for savePlace*/
     func addPlace(_ modelInfo: PlaceModel) -> Bool{
         shareInstance.database?.open()
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longitude,place_lantitude,my_place) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLantitude,modelInfo.myPlace])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
         shareInstance.database?.close()
         return isAdded!
     }
@@ -280,10 +280,10 @@ class DBManager: NSObject {
             let a = set?.string(forColumn: "place_name")
             let b = set?.string(forColumn: "place_category")
             let c = set?.double(forColumn: "place_longitude")
-            let d = set?.double(forColumn: "place_lantitude")
+            let d = set?.double(forColumn: "place_latitude")
             let e = set?.bool(forColumn: "my_place")
             
-            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLantitude: d!, myPlace: e!)
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, myPlace: e!)
         }
         set?.close()
         return place
@@ -301,7 +301,7 @@ class DBManager: NSObject {
             let a = set?.string(forColumn: "place_name")
             let b = set?.string(forColumn: "place_category")
             let c = set?.double(forColumn: "place_longitude")
-            let d = set?.double(forColumn: "place_lantitude")
+            let d = set?.double(forColumn: "place_latitude")
             let e = set?.bool(forColumn: "my_place")
             
             let place: PlaceModel
@@ -309,7 +309,7 @@ class DBManager: NSObject {
             if places == nil{
                 places = [PlaceModel]()
             }
-            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLantitude: d!, myPlace: e!)
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, myPlace: e!)
             places.append(place)
         }
         set?.close()
@@ -335,7 +335,7 @@ class DBManager: NSObject {
         shareInstance.database?.open()
         print("id:\(id)")
         print(p)
-        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_lantitude = \(p.placeLantitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
+        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
         shareInstance.database?.close()
         return isDone!
     }
