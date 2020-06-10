@@ -61,7 +61,7 @@ class autoRecordViewController: UIViewController{
 //        }
         //self.tableView.backgroundView = UIImageView(image: UIImage(named: "timeline1"))
         //tableView.backgroundView?.contentMode = .topLeft
-        let timeline = UIImageView(image: UIImage(named: "timeline5"))
+        let timeline = UIImageView(image: UIImage(named: "timeline6"))
         tableView.insertSubview(timeline, at: 0)
         timeline.contentMode = .scaleToFill
 //        self.imageView = UIImageView(image: UIImage(named: "timeline"))
@@ -221,8 +221,10 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height = CGFloat()
         let seconds = showTimeformatter.date(from: showTrack[indexPath.row].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[indexPath.row].startTime)!)
+        print(showTrack[indexPath.row].endTime)
+        print(seconds)
         if seconds != nil{
-            height = CGFloat(seconds!/60)
+                height = CGFloat(seconds!/51.2)
         }else{
             height = CGFloat(50)
         }

@@ -2,13 +2,16 @@ import UIKit
 import JTAppleCalendar
 import Floaty
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
     
     @IBOutlet var calendarView: JTAppleCalendarView!
     @IBOutlet weak var constraint: NSLayoutConstraint!
+    @IBOutlet weak var calendarLayout: UICollectionViewFlowLayout!
     @IBOutlet var addEventButtom : UIButton!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
+    
+    let fullScreenSize = UIScreen.main.bounds.size
     
     var showDayFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -82,6 +85,10 @@ class ViewController: UIViewController {
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
+        //calendarLayout.itemSize = CGSize(width: fullScreenSize.width/2-10, height: 100)
+        //calendarView.constraints = CGSize(width:UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2)
+        //        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/2)
+        
 //        if selectedDay == ""{
 //            calendarView.reloadData(withanchor: Date())
 //        }else{
@@ -90,11 +97,6 @@ class ViewController: UIViewController {
         //初始畫面顯示
         yearLabel.text = showYearFormatter.string(from: Date())
         monthLabel.text = showMonthFormatter.string(from: Date())
-        
-//        print(UIScreen.main.nativeBounds.height)
-//        print(UIScreen.main.bounds.height)
-//        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/2)
-        
         //註冊.xib檔
         //self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
         
@@ -385,7 +387,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
      }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height/10
+        return UIScreen.main.bounds.height/12
     }
     
 }

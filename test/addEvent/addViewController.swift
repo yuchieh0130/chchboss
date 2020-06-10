@@ -405,7 +405,7 @@ class addViewController : UIViewController{
     //manage the notification
     func makeNotification(action: String){
         var notifivationids = [String]()
-        var fireDate = e
+        var fireDate = s
         if allDay{
             fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")!
             reminderData = reminderData_allDay
@@ -416,7 +416,7 @@ class addViewController : UIViewController{
         case "add":
             let no = UNMutableNotificationContent()
                 no.title = "Event Notification"
-                no.body = name! + "\ndeadline: " + endDate + "  \(endTime)"
+                no.body = "name: " + name! + "\ntime: " + startDate + startTime!
             for i in 0...reminder_index.count-1{
                 var notifivationid = String(DBManager.getInstance().getMaxEvent())
                 let calendar = Calendar.current
