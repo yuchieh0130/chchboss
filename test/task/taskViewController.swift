@@ -220,7 +220,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.taskDeadline.text = "over\ndue"
                 cell.taskDeadline.textColor = UIColor.red
             }else if interval<3600{
-                cell.taskDeadline.text = "\(min) mins"
+                cell.taskDeadline.text = "\(min) min(s)"
             }else if interval<86400{
                 cell.taskDeadline.text = "\(hour) hrs"
             }else if interval>86400 && interval<172800{
