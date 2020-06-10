@@ -707,28 +707,17 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0j-SR-yPV" userLabel="MonthLabel">
-                                            <rect key="frame" x="142.66666666666666" y="8" width="90" height="34"/>
+                                            <rect key="frame" x="112.66666666666669" y="8" width="150" height="34"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="90" id="TDl-9Z-qFT"/>
+                                                <constraint firstAttribute="width" constant="150" id="TDl-9Z-qFT"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jx8-Gs-NYe">
-                                            <rect key="frame" x="337" y="0.0" width="30" height="50"/>
-                                            <state key="normal" title="🕹"/>
-                                            <connections>
-                                                <action selector="btn:" destination="svZ-ai-5oE" eventType="touchUpInside" id="Sp7-3P-kat"/>
-                                                <segue destination="8yA-Sq-vnF" kind="show" id="vQy-DK-u17"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="E0j-SR-yPV" firstAttribute="centerY" secondItem="vhP-Ux-bFZ" secondAttribute="centerY" id="8P8-Ai-Uyk"/>
-                                        <constraint firstItem="Jx8-Gs-NYe" firstAttribute="top" secondItem="vhP-Ux-bFZ" secondAttribute="top" id="Lol-U6-mO6"/>
-                                        <constraint firstItem="Jx8-Gs-NYe" firstAttribute="trailing" secondItem="vhP-Ux-bFZ" secondAttribute="trailingMargin" id="UOh-wd-J01"/>
-                                        <constraint firstAttribute="bottom" secondItem="Jx8-Gs-NYe" secondAttribute="bottom" id="ecf-Dv-XzC"/>
                                         <constraint firstItem="E0j-SR-yPV" firstAttribute="top" secondItem="vhP-Ux-bFZ" secondAttribute="topMargin" id="fkP-Ig-bBc"/>
                                         <constraint firstAttribute="centerX" secondItem="E0j-SR-yPV" secondAttribute="centerX" id="zlO-DU-6CC"/>
                                     </constraints>
@@ -780,7 +769,7 @@
                                                 <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <real key="value" value="0.5"/>
+                                                <integer key="value" value="0"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -2375,7 +2364,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B2a-pe-EdE">
-                                <rect key="frame" x="0.0" y="88" width="375" height="688"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="676"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="doneTaskTableViewCell" rowHeight="75" id="Yjw-Kf-7tv" customClass="doneTaskTableViewCell" customModule="test" customModuleProvider="target">
@@ -2435,11 +2424,6 @@
                                     <action selector="doneReturn:" destination="JAA-zw-XLe" eventType="touchUpInside" id="oUc-NF-4tI"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYr-w5-sgj">
-                                <rect key="frame" x="304" y="59" width="55" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Select"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0r-wq-tMg">
                                 <rect key="frame" x="193" y="59" width="83" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -2448,21 +2432,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ZBZ-LD-0gy" firstAttribute="trailing" secondItem="QYr-w5-sgj" secondAttribute="trailing" constant="20" id="5Hy-cy-tkx"/>
-                            <constraint firstItem="QYr-w5-sgj" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="GNK-Iy-bqR"/>
                             <constraint firstItem="3Hq-kk-mpK" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="Ije-M8-6dB"/>
                             <constraint firstItem="ZBZ-LD-0gy" firstAttribute="leading" secondItem="3Hq-kk-mpK" secondAttribute="leading" constant="-20" id="Jcm-xy-9zp"/>
                             <constraint firstItem="P0r-wq-tMg" firstAttribute="leading" secondItem="3Hq-kk-mpK" secondAttribute="trailing" constant="157" id="JoW-vg-wb3"/>
                             <constraint firstItem="B2a-pe-EdE" firstAttribute="trailing" secondItem="ZBZ-LD-0gy" secondAttribute="trailing" id="ZFa-q9-O4t"/>
                             <constraint firstItem="P0r-wq-tMg" firstAttribute="top" secondItem="ZBZ-LD-0gy" secondAttribute="top" constant="15" id="alY-tN-pUg"/>
                             <constraint firstItem="ZBZ-LD-0gy" firstAttribute="bottom" secondItem="B2a-pe-EdE" secondAttribute="bottom" constant="2" id="ger-EF-Bks"/>
-                            <constraint firstItem="B2a-pe-EdE" firstAttribute="top" secondItem="3Hq-kk-mpK" secondAttribute="bottom" constant="5" id="mmd-Mk-mQj"/>
+                            <constraint firstItem="B2a-pe-EdE" firstAttribute="top" secondItem="P0r-wq-tMg" secondAttribute="bottom" constant="5" id="mmd-Mk-mQj"/>
                             <constraint firstItem="B2a-pe-EdE" firstAttribute="leading" secondItem="ZBZ-LD-0gy" secondAttribute="leading" id="u0B-Uh-t1e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZBZ-LD-0gy"/>
                     </view>
-                    <navigationItem key="navigationItem" id="EoZ-8n-ozz"/>
                     <connections>
+                        <outlet property="deleteAllBtn" destination="P0r-wq-tMg" id="6aH-jS-xhm"/>
                         <outlet property="doneReturnBtn" destination="3Hq-kk-mpK" id="kz7-cc-xqI"/>
                         <outlet property="tableView" destination="B2a-pe-EdE" id="owi-4o-Oz7"/>
                     </connections>
@@ -2497,7 +2479,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QKU-pl-zXo"/>
         <segue reference="b0Q-IJ-Wiq"/>
         <segue reference="Ppd-gm-Fyg"/>
         <segue reference="csL-Fo-fcl"/>

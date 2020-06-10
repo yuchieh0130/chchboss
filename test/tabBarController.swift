@@ -31,7 +31,6 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width/2 - 22, y: self.view.frame.height - 77, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
-        #colorLiteral(red: 0.968627451, green: 0.7803921569, blue: 0.3450980392, alpha: 1)
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
         floaty.addItem("", icon: UIImage(named: "task"), handler: {_ in
             self.performSegue(withIdentifier: "tabBarToTask", sender: self)
@@ -43,24 +42,39 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         floaty.isDraggable = true
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
+        floaty.paddingY += self.tabBar.frame.size.height
+        floaty.paddingX += self.tabBar.frame.midX
         self.view.addSubview(floaty)
         
         // 99 152
         let fanMenu = FanMenu(frame: CGRect(x: self.view.frame.width/2 - 99, y: self.view.frame.height - 100, width: 200, height: 200))
         fanMenu.button = FanMenuButton(
-            id: "main", image: UIImage(named: "Plus"), color: Color(val: 0x034163))
-        
+            id: "main", image: UIImage(named: "Plus"), color: Color(val: 0xF7C758))
         fanMenu.items = [
-            FanMenuButton(id: "calendar", image: UIImage(named: "calendar"), color: Color(val: 0x455ba5)),
-            FanMenuButton(id: "task", image: UIImage(named: "task"), color: Color(val: 0x455ba5)),
+            FanMenuButton(id: "calendar", image: UIImage(named: "calendar"), color: Color(val: 0xBE9B74)),
+            FanMenuButton(id: "task", image: UIImage(named: "task"), color: Color(val: 0xBE9B74)),
             ]
         
         // call before animation
         fanMenu.onItemDidClick = { button in
-            print("ItemDidClick: \(button.id)")
+                if let button = fanMenu.button {
+                if button.id == "calendar"{
+                    self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
+                }else if button.id == "task"{
+                    self.performSegue(withIdentifier: "tabBarToTask", sender: self)
+                }
             }
+            }
+        
         // call after animation
         fanMenu.onItemWillClick = { button in
+            if let button = fanMenu.button {
+                if button.id == "calendar"{
+                    self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
+                }else if button.id == "task"{
+                    self.performSegue(withIdentifier: "tabBarToTask", sender: self)
+                }
+            }
             print("ItemWillClick: \(button.id)")
             }
         fanMenu.menuRadius = 70.0  //menu radius
@@ -69,7 +83,7 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         fanMenu.interval = (Double.pi + Double.pi/4, Double.pi + 3 * Double.pi/4)
         fanMenu.radius = 25.0  //button radius
         fanMenu.backgroundColor = .clear
-        self.view.addSubview(fanMenu)
+        //self.view.addSubview(fanMenu)
         
         }
     

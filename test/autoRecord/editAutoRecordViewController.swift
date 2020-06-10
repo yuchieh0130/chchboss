@@ -61,7 +61,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         location = DBManager.getInstance().getLocation(Int: (track.locationId))
         savePlace = DBManager.getInstance().getPlace(Int: (track.placeId)!)
         if savePlace != nil{
-            latitude = savePlace?.placeLantitude
+            latitude = savePlace?.placeLatitude
             longitude = savePlace?.placeLongitude
         }else{
             latitude = location?.latitude
@@ -116,7 +116,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         if segue.identifier == "editAutoLocation"{
             if let VC = segue.destination as? mapViewController{
                 VC.longitude = longitude
-                VC.lantitude = latitude
+                VC.latitude = latitude
             }
         }
     }
