@@ -48,7 +48,12 @@ class autoRecordViewController: UIViewController{
     }
     
     override func viewWillAppear(_ animated: Bool){
-        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
+        if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+            showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
+        }else{
+            showTrack = [TrackModel]()
+        }
+        
         tableView.reloadData()
 //        if selectedDay == ""{
 //            calendarView.reloadData(withanchor: Date())
