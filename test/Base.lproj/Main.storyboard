@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -662,6 +662,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-nd-vcx">
+                                <rect key="frame" x="0.0" y="144" width="375" height="652"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Wc-kr-0iV">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="652"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="9Wc-kr-0iV" firstAttribute="leading" secondItem="YKK-cC-JTP" secondAttribute="leading" id="2fM-Ae-vIK"/>
+                                    <constraint firstItem="YKK-cC-JTP" firstAttribute="trailing" secondItem="9Wc-kr-0iV" secondAttribute="trailing" id="McI-sX-NGv"/>
+                                    <constraint firstItem="YKK-cC-JTP" firstAttribute="bottom" secondItem="9Wc-kr-0iV" secondAttribute="bottom" id="VpX-IN-Rfc"/>
+                                    <constraint firstItem="9Wc-kr-0iV" firstAttribute="top" secondItem="YKK-cC-JTP" secondAttribute="top" id="XJh-2M-RYF"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="EJu-LV-aVr"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="YKK-cC-JTP"/>
+                            </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-D8-Cp7" userLabel="calendarView" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                 <rect key="frame" x="0.0" y="44" width="375" height="100"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -741,26 +758,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQE-g0-WZ3">
-                                                    <rect key="frame" x="15" y="21" width="110" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="110" id="3bl-xQ-heL"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IvC-W7-eYz">
-                                                    <rect key="frame" x="142" y="21" width="110" height="18"/>
+                                                    <rect key="frame" x="142" y="18" width="110" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="110" id="cae-KV-i4Y"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVe-Jo-BZM">
-                                                    <rect key="frame" x="260" y="21" width="110" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVe-Jo-BZM">
+                                                    <rect key="frame" x="260" y="30" width="110" height="0.0"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="110" id="aNS-bw-lGS"/>
                                                     </constraints>
@@ -770,13 +778,9 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="MQE-g0-WZ3" firstAttribute="leading" secondItem="8ou-uR-pjy" secondAttribute="leadingMargin" id="2UX-rO-x5h"/>
                                                 <constraint firstItem="aVe-Jo-BZM" firstAttribute="centerY" secondItem="8ou-uR-pjy" secondAttribute="centerY" id="4tc-VQ-MPv"/>
-                                                <constraint firstItem="IvC-W7-eYz" firstAttribute="leading" secondItem="MQE-g0-WZ3" secondAttribute="trailing" constant="17" id="BDM-cI-Z0V"/>
                                                 <constraint firstAttribute="trailing" secondItem="aVe-Jo-BZM" secondAttribute="trailing" constant="5" id="BrK-cf-Hmm"/>
                                                 <constraint firstItem="aVe-Jo-BZM" firstAttribute="leading" secondItem="IvC-W7-eYz" secondAttribute="trailing" constant="8" id="LUc-oO-l00"/>
-                                                <constraint firstItem="MQE-g0-WZ3" firstAttribute="centerY" secondItem="8ou-uR-pjy" secondAttribute="centerY" id="Wno-sW-OQF"/>
-                                                <constraint firstItem="IvC-W7-eYz" firstAttribute="leading" secondItem="MQE-g0-WZ3" secondAttribute="trailing" constant="17" id="ceS-YU-Myt"/>
                                                 <constraint firstItem="IvC-W7-eYz" firstAttribute="centerY" secondItem="8ou-uR-pjy" secondAttribute="centerY" id="oFq-Dw-p0T"/>
                                                 <constraint firstItem="aVe-Jo-BZM" firstAttribute="leading" secondItem="IvC-W7-eYz" secondAttribute="trailing" constant="8" id="zGS-Ol-SFO"/>
                                             </constraints>
@@ -792,7 +796,6 @@
                                         <connections>
                                             <outlet property="category" destination="IvC-W7-eYz" id="Mvm-bU-d9J"/>
                                             <outlet property="placeName" destination="aVe-Jo-BZM" id="yhI-Px-kcc"/>
-                                            <outlet property="time" destination="MQE-g0-WZ3" id="3GP-0V-jSL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -817,6 +820,8 @@
                     <tabBarItem key="tabBarItem" tag="1" title="" image="pencil.and.ellipsis.rectangle" catalog="system" selectedImage="pencil.and.ellipsis.rectangle" id="n7Q-jf-2aU"/>
                     <connections>
                         <outlet property="calendarView" destination="VCH-D8-Cp7" id="geJ-Qs-Vxf"/>
+                        <outlet property="imageView" destination="9Wc-kr-0iV" id="ffp-8O-IxD"/>
+                        <outlet property="scrollView" destination="zIr-nd-vcx" id="RRc-1k-AeF"/>
                         <outlet property="tableView" destination="Bky-oQ-TWv" id="76z-BA-VgJ"/>
                         <segue destination="Xuc-j8-9wr" kind="show" identifier="editTrack" id="Yy4-1Y-O8C"/>
                     </connections>

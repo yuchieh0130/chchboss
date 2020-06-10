@@ -31,6 +31,8 @@ class autoRecordViewController: UIViewController{
     }
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var imageView: UIImageView!
     var showTrack  = [TrackModel]()
     var track :TrackModel?
     
@@ -43,6 +45,29 @@ class autoRecordViewController: UIViewController{
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
+        
+//        self.imageView = UIImageView(image: UIImage(named: "timeline"))
+//        scrollView = UIScrollView(frame: view.bounds)
+//        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: imageView.bounds.size.height)
+//        //scrollView.contentSize = imageView.bounds.size
+//        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+        //scrollView.addSubview(imageView)
+        //view.addSubview(scrollView)
+//        if #available(iOS 13.0, *) {
+//            self.timeline.largeContentImage = UIImage(named: "timeline")
+//        } else {
+//            // Fallback on earlier versions
+//        }
+        //self.tableView.backgroundView = UIImageView(image: UIImage(named: "timeline1"))
+        //tableView.backgroundView?.contentMode = .topLeft
+        let timeline = UIImageView(image: UIImage(named: "timeline5"))
+        tableView.insertSubview(timeline, at: 0)
+        timeline.contentMode = .scaleToFill
+//        self.imageView = UIImageView(image: UIImage(named: "timeline"))
+//        scrollView.addSubview(imageView)
+//        scrollView.isScrollEnabled = true
+//        scrollView.contentOffset = CGPoint(x: 10, y: 50)
         
         title = "Track"
     }
@@ -179,7 +204,7 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell",for: indexPath) as! trackCell
-        cell.time.text = "\(showTrack[indexPath.row].startTime) - \(showTrack[indexPath.row].endTime)"
+        //cell.time.text = "\(showTrack[indexPath.row].startTime) - \(showTrack[indexPath.row].endTime)"
         let category = DBManager.getInstance().getCategory(Int: showTrack[indexPath.row].categoryId)
         cell.category.text = category?.categoryName
         //cell.placeName.text =
