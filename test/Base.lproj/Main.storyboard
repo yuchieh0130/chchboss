@@ -1784,6 +1784,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xA4-ev-NBm" kind="unwind" unwindAction="myPlaceSegueBack2WithSegue:" id="nEC-do-Qhi"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1812,6 +1815,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6uk-J9-yzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="xA4-ev-NBm" userLabel="Exit" sceneMemberID="exit"/>
                 <view contentMode="scaleToFill" id="sW5-CG-sKZ">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

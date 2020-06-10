@@ -70,8 +70,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //print("db讀進來的track\(track)")
-        //print("db讀進來的savePlace\(savePlace)")
         let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
         mapView.camera = camera
         let marker = GMSMarker()
@@ -129,6 +127,12 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         savePlace = VC?.savePlace
         tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
     }
+    
+    @IBAction func myPlaceSegueBack2(segue: UIStoryboardSegue){
+           let VC = segue.source as? myPlaceController
+           savePlace = VC?.savePlace
+           tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+       }
     
     @IBAction func categorySegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? categoryViewController

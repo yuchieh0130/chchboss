@@ -73,12 +73,12 @@ class autoRecordViewController: UIViewController{
     }
     
     override func viewWillAppear(_ animated: Bool){
+
         if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
             showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
         }else{
             showTrack = [TrackModel]()
         }
-        
         tableView.reloadData()
 //        if selectedDay == ""{
 //            calendarView.reloadData(withanchor: Date())
@@ -221,7 +221,11 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height = CGFloat()
         let seconds = showTimeformatter.date(from: showTrack[indexPath.row].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[indexPath.row].startTime)!)
-        height = CGFloat(seconds!/60)
+        if seconds != nil{
+            height = CGFloat(seconds!/60)
+        }else{
+            height = CGFloat(50)
+        }
         return height
     }
     
