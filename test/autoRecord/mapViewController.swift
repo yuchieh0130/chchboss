@@ -141,7 +141,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.row != 0 && txtSearch.text!.isEmpty{
             savePlace = PlaceModel(placeId: placeId, placeName: nameArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
-        }else{
+        }else if indexPath.row != 0{
             savePlace = PlaceModel(placeId: placeId, placeName: sortedName[indexPath.row - 1], placeCategory: sortedCat[indexPath.row - 1], placeLongitude: modelLoc!.longitude, placeLantitude: modelLoc!.latitude, myPlace: false)
         }
         return indexPath

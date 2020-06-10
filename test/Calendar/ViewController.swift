@@ -79,7 +79,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        calendarView.scrollingMode = .stopAtEachCalendarFrame //scrolling modes
+        calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
 //        if selectedDay == ""{
@@ -235,12 +235,12 @@ class ViewController: UIViewController {
             }
         }else{
             self.constraint.constant = 300
-            if calendarView.visibleDates().outdates.count < 7{
-                self.numberOfRows = 5
-            }else{
-                self.numberOfRows = 6
-            }
-            
+            self.numberOfRows = 6
+//            if calendarView.visibleDates().outdates.count < 7{
+//                self.numberOfRows = 5
+//            }else{
+//                self.numberOfRows = 6
+//            }
             UIView.animate(withDuration: 0.2, animations: {
                 self.view.layoutIfNeeded()
                 self.calendarView.reloadData(withanchor: Date())
@@ -254,6 +254,7 @@ class ViewController: UIViewController {
 extension ViewController: JTAppleCalendarViewDataSource {
     
     /*configureCalendar full parameter list: startDate, endDate, numberOfRows, calendar(region/timezone/Arabic), generateInDates(last month day), generateOutDates(next month day), firstDatOfWeek, hasStrictBoundaries(control month boundaries, true/false)*/
+
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         
         let startDate = Date()-(60*60*24*365)
@@ -261,11 +262,14 @@ extension ViewController: JTAppleCalendarViewDataSource {
         
         if numberOfRows == 6 {
             return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows)
+        }else if numberOfRows == 5{
+                return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows)
         }else{
             return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows, generateInDates: .forFirstMonthOnly, generateOutDates: .off, hasStrictBoundaries: false)
         }
-        return ConfigurationParameters(startDate: startDate, endDate: endDate, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid)
+        //return ConfigurationParameters(startDate: startDate, endDate: endDate, generateInDates: .forAllMonths, generateOutDates: .tillEndOfRow)
     }
+    
 }
 
 extension ViewController: JTAppleCalendarViewDelegate {
@@ -321,8 +325,18 @@ extension ViewController: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         
-        monthLabel.text = showMonthFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
-        yearLabel.text = showYearFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
+        if calendarView.visibleDates().outdates.count < 7{
+            self.numberOfRows = 5
+        }else{
+            self.numberOfRows = 6
+        }
+        
+        //self.calendarView.reloadDates(visibleDates.monthDates)
+        
+        monthLabel.text = showMonthFormatter.string(from: visibleDates.monthDates[0].date)
+        yearLabel.text = showYearFormatter.string(from: visibleDates.monthDates[0].date)
+//        monthLabel.text = showMonthFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
+//        yearLabel.text = showYearFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
     }
     
     
@@ -371,7 +385,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
      }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height/15
+        return UIScreen.main.bounds.height/10
     }
     
 }
