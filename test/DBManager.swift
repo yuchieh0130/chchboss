@@ -453,6 +453,13 @@ class DBManager: NSObject {
         return tasks
     }
     
+    func deleteDoneTask(id: Int32) -> Bool{
+        shareInstance.database?.open()
+        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM task WHERE event_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.close()
+        return isDeleted!
+    }
+    
     func pinTask(id: Int32) -> Bool{
         shareInstance.database?.open()
         let isPinned = shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 1 WHERE task_id = \(id)", withArgumentsIn:[id])
