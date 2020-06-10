@@ -90,7 +90,11 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @IBAction func editBtn(_ sender: UIButton){
-    
+        
+        
+        let newtrack = TrackModel(trackId: track.trackId!, date: ""+track.date, startTime: showTimeformatter.string(from: s), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
+        DBManager.getInstance().editTrack(newtrack)
+        
         if track.placeId! != 0{   //原本有資料
              
             if savePlace == nil{    //刪掉
@@ -108,7 +112,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             let a = DBManager.getInstance().addTrackPlace(a: id, b: track.trackId!)
 
         }
-        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -125,6 +128,13 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         let VC = segue.source as? mapViewController
         savePlace = VC?.savePlace
         tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+    }
+    
+    @IBAction func categorySegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? categoryViewController
+        let i = VC?.collectionView.indexPathsForSelectedItems
+        category = (VC?.showCategory[i![0].row])!
+        tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
     }
     
 }
@@ -170,6 +180,8 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 3{
             performSegue(withIdentifier: "editAutoLocation", sender: self)
+        }else if indexPath.row == 2 {
+            performSegue(withIdentifier: "editAutoCategory", sender: self)
         }
 
     }

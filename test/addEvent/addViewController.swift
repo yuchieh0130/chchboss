@@ -636,12 +636,12 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         //        case [4,0]:
         //            <#code#>
         case [4,1]:
-            performSegue(withIdentifier: "editAutoStart", sender: self)
+            performSegue(withIdentifier: "newAutoStart", sender: self)
         case [4,2]:
-            performSegue(withIdentifier: "editAutoEnd", sender: self)
+            performSegue(withIdentifier: "newAutoEnd", sender: self)
         case [4,3]:
             //performSegue(withIdentifier: "Category", sender: self)
-            performSegue(withIdentifier: "NewCategory", sender: self)
+            performSegue(withIdentifier: "newAutoCategory", sender: self)
         case [4,4]:
             performSegue(withIdentifier: "searchLocation", sender: self)
             //performSegue(withIdentifier: "", sender: self)???

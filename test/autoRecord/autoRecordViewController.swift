@@ -179,7 +179,7 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
         cell.category.text = category?.categoryName
         //cell.placeName.text =
         cell.selectionStyle = .none
-        cell.backgroundColor = hexStringToUIColor(hex: "category?.categoryColor")
+        cell.backgroundColor = hexStringToUIColor(hex:category!.categoryColor)
         return cell
     }
     

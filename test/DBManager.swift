@@ -332,7 +332,7 @@ class DBManager: NSObject {
     
     func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
         shareInstance.database?.open()
-        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_lantitude = \(p.placeLantitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
+        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
         shareInstance.database?.close()
         return isDone!
     }
@@ -521,6 +521,17 @@ class DBManager: NSObject {
         let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = \(a) WHERE track_id = \(b)", withArgumentsIn: [a,b])
         shareInstance.database?.close()
         return isDone!
+    }
+    
+    //編輯track（不包含location）
+    func editTrack(_ modelInfo: TrackModel){
+        shareInstance.database?.open()
+        let isEdited = shareInstance.database?.executeUpdate("UPDATE track SET start_time = '\(modelInfo.startTime)',end_time = '\(modelInfo.endTime)',category_id = \(modelInfo.categoryId) WHERE track_id = \(modelInfo.trackId!)", withArgumentsIn: [modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId,modelInfo.trackId!])
+        print(isEdited)
+        
+//        "UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
+//        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO track (track_id,start_time,end_time,category_id) VALUES (?,?,?,?)", withArgumentsIn:[modelInfo.trackId,modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId])
+            shareInstance.database?.close()
     }
     
     

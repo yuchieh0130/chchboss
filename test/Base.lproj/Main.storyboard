@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1536,10 +1536,9 @@
                         <outlet property="tableView" destination="mFJ-4m-FXl" id="X2l-y1-yUS"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editStartDate" id="Nye-bg-dEe"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editEndDate" id="2v3-r9-Jbk"/>
-                        <segue destination="nNZ-yj-YqY" kind="show" identifier="editTaskTime" id="Oha-jz-VQu"/>
-                        <segue destination="nNZ-yj-YqY" kind="show" identifier="editAutoStart" id="Ppd-gm-Fyg"/>
-                        <segue destination="nNZ-yj-YqY" kind="show" identifier="editAutoEnd" id="t18-xD-uQE"/>
-                        <segue destination="XlI-4p-c0N" kind="show" identifier="NewCategory" id="9Rl-2J-tqH"/>
+                        <segue destination="nNZ-yj-YqY" kind="show" identifier="newAutoStart" id="Ppd-gm-Fyg"/>
+                        <segue destination="nNZ-yj-YqY" kind="show" identifier="newAutoEnd" id="t18-xD-uQE"/>
+                        <segue destination="XlI-4p-c0N" kind="show" identifier="newAutoCategory" id="9Rl-2J-tqH"/>
                         <segue destination="pxz-44-Biu" kind="show" identifier="Reminder" id="dh3-ww-BEF"/>
                         <segue destination="MEZ-YX-n1T" kind="show" identifier="searchLocation" id="Ivn-41-C6b"/>
                     </connections>
@@ -1726,6 +1725,7 @@
                     <connections>
                         <outlet property="collectionView" destination="Gh5-iy-STv" id="wBb-1m-PrX"/>
                         <outlet property="layout" destination="u6a-la-vA1" id="xHF-6l-ZM4"/>
+                        <segue destination="6Jn-Cc-GCu" kind="unwind" unwindAction="editAutoSegueBackWithSegue:" id="xd0-UU-Agd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw5-Da-Wcw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2210,6 +2210,7 @@
                         <outlet property="tableView" destination="QmE-fv-jJD" id="Y1f-HM-8xt"/>
                         <outlet property="txtDate" destination="FU6-Kx-Dc8" id="EcZ-QK-wdH"/>
                         <segue destination="8yA-Sq-vnF" kind="show" identifier="editAutoLocation" id="QKU-pl-zXo"/>
+                        <segue destination="XlI-4p-c0N" kind="show" identifier="editAutoCategory" id="RdI-zR-oJx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Sr-Xg-hHI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2480,9 +2481,10 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="b0Q-IJ-Wiq"/>
-        <segue reference="Ppd-gm-Fyg"/>
-        <segue reference="csL-Fo-fcl"/>
-        <segue reference="hM4-lw-jpS"/>
+        <segue reference="9Rl-2J-tqH"/>
+        <segue reference="t18-xD-uQE"/>
+        <segue reference="Q9x-NS-Pff"/>
+        <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
