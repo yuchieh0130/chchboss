@@ -79,7 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
         self.lastStartTime = showDateformatter.string(from: Date())
-        print(CLLocationManager.authorizationStatus().rawValue)
         return true
     }
     
@@ -150,10 +149,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let isSaved = DBManager.getInstance().saveDuration(double: self.duration)
             DBManager.getInstance().saveLocation(modelInfo)
             self.lastStartTime = self.startTime
-            
-            print(self.duration)
-            print("lastSpeed:\(self.lastSpeed)")
-            print("save in DB :", isSaved)
             
             self.myLocationManager.startUpdatingLocation()
             self.myLocationManager.delegate = nil

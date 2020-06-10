@@ -23,6 +23,7 @@ class myPlaceController: UIViewController{
     
     var showAllPlace: [PlaceModel]?
     // var showAllPlace =  DBManager.getInstance().getAllPlace()
+    var savePlace : PlaceModel?
     
     
     @IBOutlet weak var tblView: UITableView!
@@ -111,6 +112,12 @@ extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
         cell?.textLabel?.text = showAllPlace![indexPath.row].placeName
         
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
+        let place = self.showAllPlace![indexPath.row]
+        savePlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: placeCategory, placeLongitude: place.placeLongitude, placeLatitude: placeLatitude, myPlace: place.myPlace)
+    return indexPath
     }
     
     

@@ -484,7 +484,7 @@ class DBManager: NSObject {
         
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM track WHERE date LIKE '%\(String)%'";
+        let sqlString = "SELECT * FROM track WHERE date = '\(String)'";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -527,11 +527,7 @@ class DBManager: NSObject {
     func editTrack(_ modelInfo: TrackModel){
         shareInstance.database?.open()
         let isEdited = shareInstance.database?.executeUpdate("UPDATE track SET start_time = '\(modelInfo.startTime)',end_time = '\(modelInfo.endTime)',category_id = \(modelInfo.categoryId) WHERE track_id = \(modelInfo.trackId!)", withArgumentsIn: [modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId,modelInfo.trackId!])
-        print(isEdited)
-        
-//        "UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
-//        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO track (track_id,start_time,end_time,category_id) VALUES (?,?,?,?)", withArgumentsIn:[modelInfo.trackId,modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId])
-            shareInstance.database?.close()
+        shareInstance.database?.close()
     }
     
     

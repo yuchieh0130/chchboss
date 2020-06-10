@@ -44,16 +44,17 @@ class autoRecordViewController: UIViewController{
         calendarView.showsVerticalScrollIndicator = false
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
+        
         title = "Track"
     }
     
     override func viewWillAppear(_ animated: Bool){
+
         if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
             showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
         }else{
             showTrack = [TrackModel]()
         }
-        
         tableView.reloadData()
 //        if selectedDay == ""{
 //            calendarView.reloadData(withanchor: Date())
