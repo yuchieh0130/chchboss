@@ -188,12 +188,12 @@ class addViewController : UIViewController{
                 VC.tag = "endDate"
                 VC.showDate = e
             }
-        case "editAutoStart":
+        case "newAutoStart":
             if let VC = segue.destination as? DatePopupViewController{
                 VC.tag = "autoStart"
                 VC.showDate = s
             }
-        case "editAutoEnd":
+        case "newAutoEnd":
             if let VC = segue.destination as? DatePopupViewController{
                 VC.tag = "autoEnd"
                 VC.showDate = e
