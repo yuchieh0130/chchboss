@@ -160,7 +160,6 @@ class DBManager: NSObject {
     //            result[a ?? "AA"] = b ?? "BB"
     //        }
     //        set?.close()
-    //        print(result)
     //        return result
     //
     //    }
@@ -333,8 +332,6 @@ class DBManager: NSObject {
     
     func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
         shareInstance.database?.open()
-        print("id:\(id)")
-        print(p)
         let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
         shareInstance.database?.close()
         return isDone!
@@ -507,7 +504,6 @@ class DBManager: NSObject {
             
             track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!,categoryId: d!, locationId: e!, placeId: f!)
             tracks.append(track)
-            print(track)
         }
         set?.close()
         return tracks

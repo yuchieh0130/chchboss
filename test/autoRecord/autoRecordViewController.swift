@@ -179,6 +179,7 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
         cell.category.text = category?.categoryName
         //cell.placeName.text =
         cell.selectionStyle = .none
+        cell.backgroundColor = hexStringToUIColor(hex: "category?.categoryColor")
         return cell
     }
     
@@ -192,6 +193,28 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
         let seconds = showTimeformatter.date(from: showTrack[indexPath.row].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[indexPath.row].startTime)!)
         height = CGFloat(seconds!/60)
         return height
+    }
+    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
     }
     
 }

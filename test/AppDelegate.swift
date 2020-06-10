@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         myLocationManager = CLLocationManager()
         //        myLocationManager.startMonitoringVisits()
-        myLocationManager.distanceFilter = 10
+        myLocationManager.distanceFilter = 25
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         myLocationManager.delegate = self
         
