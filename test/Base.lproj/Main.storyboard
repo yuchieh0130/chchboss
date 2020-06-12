@@ -2445,7 +2445,7 @@
                                                         <constraint firstAttribute="width" constant="250" id="sQx-fj-Ir3"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <color key="textColor" red="0.063193187119999994" green="0.46654158829999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="textColor" red="0.87450980392156863" green="0.4941888891686812" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
