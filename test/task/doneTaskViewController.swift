@@ -11,9 +11,7 @@ import UIKit
 
 class doneTaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    //@IBOutlet var doneReturnBtn: UIButton!
     @IBOutlet var tableView: UITableView!
-    //@IBOutlet var deleteAllBtn: UIButton!
     @IBOutlet var navigationBar: UINavigationItem!
     
     var task: TaskModel?
@@ -28,13 +26,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let doneBack = UIBarButtonItem(title: "< Return", style: .plain, target: self, action: #selector(doneReturn))
         navigationItem.leftBarButtonItems = [doneBack]
         
-        let deleteAll = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteAllAlert))
+        editButtonItem.title = "Select"
         navigationItem.rightBarButtonItems = [editButtonItem]
-    }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.setEditing(editing, animated: animated)
     }
     
     @objc func doneReturn() {
@@ -104,28 +97,32 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         return true
     }
     
-    @objc func deleteAllAlert() {
-        let controller = UIAlertController(title: "Sure to delete selected task(s) ?", message: "", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-            print("OK")
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: true)
+            
+        if tableView.isEditing == true{
+            editButtonItem.title = "Delete"
+        }else if tableView.isEditing == false{
+            editButtonItem.title = "Select"
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        controller.addAction(okAction)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
     }
     
-//    func deleteAllDoneTask() {
-//        var indexPath: IndexPath{
-//            let id =  self.showTask?[indexPath.row].taskId
-//            let task = self.showTask?[indexPath.row]
-//            self.showTask!.removeAll()
-//            self.tableView.deleteRows(at: [indexPath], with: .fade)
-//            let isAllDeleted = DBManager.getInstance().deleteAllDoneTask(id: id!)
-//            self.tableView.reloadData()
-//            return IndexPath.init()
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
+//        let controller = UIAlertController(title: "Are you sure to delete selected task(s) ?", message: "", preferredStyle: .alert)
+//        let id =  showTask?[indexPath.row].taskId
+//        let task = showTask?[indexPath.row]
+//        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+//            self.showTask!.remove(at: indexPath.row)
+//            self.tableView.deleteRows(at: [indexPath], with: .left)
+//                let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
+//            print("OK")
 //        }
-//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        controller.addAction(okAction)
+//        controller.addAction(cancelAction)
+//        present(controller, animated: true, completion: nil)
 //    }
     
 }
