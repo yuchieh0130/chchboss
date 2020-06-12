@@ -84,7 +84,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             print("Delete")
             completionHandler(true)
             self.showTask!.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .left)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
             let isDeleted = DBManager.getInstance().deleteTask(id: id!)
         }
         deleteAction.backgroundColor = UIColor.red
@@ -100,12 +100,51 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.setEditing(editing, animated: true)
-            
+        
+        self.navigationController?.setToolbarHidden(false, animated: false)
+        let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        let deleteButton: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(didPressDelete))
+       
+        self.navigationController?.toolbar.barTintColor = UIColor.white
+        
         if tableView.isEditing == true{
-            editButtonItem.title = "Delete"
+            editButtonItem.title = "Done"
+             self.toolbarItems = [flexible, deleteButton, flexible]
         }else if tableView.isEditing == false{
             editButtonItem.title = "Select"
+            self.navigationController?.setToolbarHidden(true, animated: true)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCell.EditingStyle.delete) {
+            let id =  showTask?[indexPath.row].taskId
+            let task = showTask?[indexPath.row]
+            self.showTask!.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .left)
+            let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
+            tableView.reloadData()
+        }
+    }
+    
+    @objc func didPressDelete() {
+        let selectedRows = self.tableView.indexPathsForSelectedRows
+        let controller = UIAlertController(title: "Are you sure to delete selected task(s) ?", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            if selectedRows != nil {
+                for var selectionIndex in selectedRows! {
+                    while selectionIndex.item >= self.showTask!.count {
+                        selectionIndex.item -= 1
+                    }
+                    self.tableView(self.tableView, commit: .delete, forRowAt: selectionIndex)
+                }
+            }
+            print("OK")
+            }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        controller.addAction(okAction)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
     
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -123,6 +162,6 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
 //        controller.addAction(okAction)
 //        controller.addAction(cancelAction)
 //        present(controller, animated: true, completion: nil)
-//    }
+    
     
 }
