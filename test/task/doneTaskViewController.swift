@@ -11,10 +11,10 @@ import UIKit
 
 class doneTaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet var doneReturnBtn: UIButton!
+    //@IBOutlet var doneReturnBtn: UIButton!
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var deleteAllBtn: UIButton!
-    
+    //@IBOutlet var deleteAllBtn: UIButton!
+    @IBOutlet var navigationBar: UINavigationItem!
     
     var task: TaskModel?
     var selectedTask: String = ""
@@ -23,10 +23,21 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        deleteAllBtn.addTarget(self, action: #selector(deleteAllAlert), for: .allTouchEvents)
+        self.tableView.allowsMultipleSelectionDuringEditing = true
+
+        let doneBack = UIBarButtonItem(title: "< Return", style: .plain, target: self, action: #selector(doneReturn))
+        navigationItem.leftBarButtonItems = [doneBack]
+        
+        let deleteAll = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteAllAlert))
+        navigationItem.rightBarButtonItems = [editButtonItem]
     }
     
-    @IBAction func doneReturn(_ sender: UIButton){
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
+    }
+    
+    @objc func doneReturn() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -56,7 +67,14 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
         let task = showTask![indexPath.row]
         cell.doneTaskName?.text = showTask![indexPath.row].taskName
-        cell.doneTaskMark.text = "DONE"
+        cell.doneTaskMark.text = showTask![indexPath.row].taskDeadline
+        
+        if showTask?[indexPath.row].addToCal == false{
+            cell.doneTaskCalendar.isHidden = true
+        }else{
+            cell.doneTaskCalendar.isHidden = false
+        }
+        
         return cell
     }
     
@@ -68,7 +86,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             print("Delete")
             completionHandler(true)
             self.showTask!.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.deleteRows(at: [indexPath], with: .left)
             let isDeleted = DBManager.getInstance().deleteTask(id: id!)
         }
         deleteAction.backgroundColor = UIColor.red
@@ -80,8 +98,9 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
     @objc func deleteAllAlert() {
-        let controller = UIAlertController(title: "Are you sure to delete all done task ?", message: "", preferredStyle: .alert)
+        let controller = UIAlertController(title: "Sure to delete selected task(s) ?", message: "", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             print("OK")
         }
@@ -90,6 +109,18 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
     }
-   
+    
+//    func deleteAllDoneTask() {
+//        var indexPath: IndexPath{
+//            let id =  self.showTask?[indexPath.row].taskId
+//            let task = self.showTask?[indexPath.row]
+//            self.showTask!.removeAll()
+//            self.tableView.deleteRows(at: [indexPath], with: .fade)
+//            let isAllDeleted = DBManager.getInstance().deleteAllDoneTask(id: id!)
+//            self.tableView.reloadData()
+//            return IndexPath.init()
+//        }
+//
+//    }
     
 }

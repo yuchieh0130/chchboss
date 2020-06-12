@@ -12,5 +12,6 @@ import UIKit
 class doneTaskTableViewCell: UITableViewCell {
     @IBOutlet var doneTaskMark: UILabel!
     @IBOutlet var doneTaskName: UILabel!
+    @IBOutlet var doneTaskCalendar: UIImageView!
     
 }
