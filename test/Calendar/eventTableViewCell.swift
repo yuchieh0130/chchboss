@@ -33,6 +33,7 @@ class calTaskTableViewCell: UITableViewCell {
     @IBOutlet weak var taskColor: UIView!
     @IBOutlet weak var taskTime: UILabel!
     @IBOutlet weak var taskName: UILabel!
+    @IBOutlet weak var taskDone: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

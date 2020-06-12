@@ -360,6 +360,12 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             let cell1 : calTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calTaskTableViewCell", for: indexPath) as! calTaskTableViewCell
             cell1.taskName.text = showTask[indexPath.row].taskName
             cell1.taskTime.text = showTask[indexPath.row].taskDeadline
+            if showTask[indexPath.row].isDone == false{
+                cell1.taskDone.isHidden = true
+            }else{
+                cell1.taskDone.isHidden = false
+                cell1.taskDone.text = "DONE"
+            }
             return cell1
         }else{
             let cell2 : eventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventTableViewCell", for: indexPath) as! eventTableViewCell
@@ -379,7 +385,8 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         let i = showTask.count
         if indexPath.row < showTask.count{
             task = showTask[indexPath.row]
-            performSegue(withIdentifier: "editCalTask", sender: nil)
+            if task?.isDone == false {
+                performSegue(withIdentifier: "editCalTask", sender: nil) }
         }else{
             event = showEvent[indexPath.row-i]
             performSegue(withIdentifier: "editEvent", sender: nil)

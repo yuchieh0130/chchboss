@@ -315,14 +315,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXn-Na-Nd1">
+                                                    <rect key="frame" x="295.33333333333331" y="20" width="41.666666666666686" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="338-LR-4Db" firstAttribute="leading" secondItem="O2M-hL-kuf" secondAttribute="trailing" constant="10" id="4E0-Li-Fbj"/>
                                                 <constraint firstItem="338-LR-4Db" firstAttribute="top" secondItem="kac-tF-ZW7" secondAttribute="top" id="A8K-GB-DXO"/>
+                                                <constraint firstItem="bXn-Na-Nd1" firstAttribute="centerY" secondItem="kac-tF-ZW7" secondAttribute="centerY" id="SDE-t9-tM2"/>
                                                 <constraint firstAttribute="bottom" secondItem="O2M-hL-kuf" secondAttribute="bottom" id="Ucv-Hs-gP1"/>
                                                 <constraint firstItem="FMD-uo-eH5" firstAttribute="leading" secondItem="O2M-hL-kuf" secondAttribute="trailing" constant="10" id="YIq-lc-ewA"/>
                                                 <constraint firstItem="O2M-hL-kuf" firstAttribute="leading" secondItem="kac-tF-ZW7" secondAttribute="leading" id="bz0-sv-086"/>
                                                 <constraint firstItem="FMD-uo-eH5" firstAttribute="top" secondItem="kac-tF-ZW7" secondAttribute="topMargin" constant="24" id="fvZ-3r-Wil"/>
+                                                <constraint firstAttribute="trailing" secondItem="bXn-Na-Nd1" secondAttribute="trailing" constant="38" id="lfI-ph-DWI"/>
                                                 <constraint firstItem="338-LR-4Db" firstAttribute="top" secondItem="O2M-hL-kuf" secondAttribute="top" id="qvZ-gN-Y0m"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="338-LR-4Db" secondAttribute="trailing" constant="35" id="uc2-VM-AVk"/>
                                                 <constraint firstItem="338-LR-4Db" firstAttribute="leading" secondItem="FMD-uo-eH5" secondAttribute="leading" id="yfS-2D-wRT"/>
@@ -330,6 +338,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="taskColor" destination="O2M-hL-kuf" id="Pxg-9d-NFw"/>
+                                            <outlet property="taskDone" destination="bXn-Na-Nd1" id="44Y-uZ-o6T"/>
                                             <outlet property="taskName" destination="338-LR-4Db" id="QvM-rH-c95"/>
                                             <outlet property="taskTime" destination="FMD-uo-eH5" id="gyb-uv-vZH"/>
                                         </connections>
@@ -2534,6 +2543,6 @@
         <segue reference="9Rl-2J-tqH"/>
         <segue reference="Nye-bg-dEe"/>
         <segue reference="Q9x-NS-Pff"/>
-        <segue reference="WsB-A9-R4s"/>
+        <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
 </document>
