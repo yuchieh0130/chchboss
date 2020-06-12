@@ -66,9 +66,14 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
         let task = showTask![indexPath.row]
+        var taskDeadline = showTask?[indexPath.row].taskDeadline
         cell.doneTaskName?.text = showTask![indexPath.row].taskName
-        cell.doneTaskMark.text = showTask![indexPath.row].taskDeadline
         
+        if taskDeadline == nil{
+            cell.doneTaskMark.text = "No Deadline"
+        }else{
+            cell.doneTaskMark.text = showTask![indexPath.row].taskDeadline
+        }
         if showTask?[indexPath.row].addToCal == false{
             cell.doneTaskCalendar.isHidden = true
         }else{
