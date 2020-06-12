@@ -365,6 +365,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             }else{
                 cell1.taskDone.isHidden = false
                 cell1.taskDone.text = "DONE"
+                cell1.taskDone.textColor = UIColor.red
             }
             return cell1
         }else{
@@ -386,7 +387,13 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         if indexPath.row < showTask.count{
             task = showTask[indexPath.row]
             if task?.isDone == false {
-                performSegue(withIdentifier: "editCalTask", sender: nil) }
+                performSegue(withIdentifier: "editCalTask", sender: nil)
+            }else if task?.isDone == true{
+                let controller = UIAlertController(title: "Task is DONE", message: "This task is marked as DONE", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                controller.addAction(okAction)
+                present(controller, animated: true, completion: nil)
+            }
         }else{
             event = showEvent[indexPath.row-i]
             performSegue(withIdentifier: "editEvent", sender: nil)
