@@ -39,6 +39,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var d: Bool = false //check deadline is nil or not
     var t: Bool = false //check tasktime is nil or not
+    var p: Bool = false
     var tag: String?
     var date = Date()+86400
     var showDate: String = ""
@@ -102,6 +103,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         taskName = task?.taskName
         taskTime = task?.taskTime
         deadline = task?.taskDeadline
+        isPinned = task?.isPinned
         if taskTime != nil{
             t = true
             tableViewData[0].opened = true
@@ -109,6 +111,9 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if deadline != nil{
             d = true
             tableViewData[1].opened = true
+        }
+        if isPinned != nil{
+            p = true
         }
         addToCal = task?.addToCal
         reminder = task?.reminder
@@ -178,6 +183,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         self.view.endEditing(true)
         if d == false{ deadline = nil }
         if t == false{ taskTime = nil }
+        if p == false{ isPinned = nil }
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
