@@ -253,19 +253,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         performSegue(withIdentifier: "editTask", sender: nil)
     }
     
-    //    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-    //        let plusIndex = tabBarController.selectedIndex
-    //        if plusIndex == 2{
-    //            performSegue(withIdentifier: "addTask", sender: nil)
-    //        }
-    //    }
-    
-    //    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-    //        if(item.tag == 2){
-    //            performSegue(withIdentifier: "addTask", sender: nil)
-    //        }
-    //    }
-    //
     //    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     //        return true
     //    }

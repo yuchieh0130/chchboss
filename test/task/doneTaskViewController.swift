@@ -24,9 +24,11 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.allowsMultipleSelectionDuringEditing = true
 
         let doneBack = UIBarButtonItem(title: "< Return", style: .plain, target: self, action: #selector(doneReturn))
+        doneBack.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
         navigationItem.leftBarButtonItems = [doneBack]
         
         editButtonItem.title = "Select"
+        editButtonItem.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
         navigationItem.rightBarButtonItems = [editButtonItem]
     }
     
@@ -104,6 +106,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationController?.setToolbarHidden(false, animated: false)
         let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         let deleteButton: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(didPressDelete))
+        deleteButton.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
        
         self.navigationController?.toolbar.barTintColor = UIColor.white
         
@@ -116,16 +119,16 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCell.EditingStyle.delete) {
-            let id =  showTask?[indexPath.row].taskId
-            let task = showTask?[indexPath.row]
-            self.showTask!.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .left)
-            let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
-            tableView.reloadData()
-        }
-    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if (editingStyle == UITableViewCell.EditingStyle.delete) {
+//            let id =  showTask?[indexPath.row].taskId
+//            let task = showTask?[indexPath.row]
+//            self.showTask!.remove(at: indexPath.row)
+//            self.tableView.deleteRows(at: [indexPath], with: .left)
+//            let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
+//            tableView.reloadData()
+//        }
+//    }
     
     @objc func didPressDelete() {
         let selectedRows = self.tableView.indexPathsForSelectedRows
@@ -133,10 +136,16 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             if selectedRows != nil {
                 for var selectionIndex in selectedRows! {
-                    while selectionIndex.item >= self.showTask!.count {
-                        selectionIndex.item -= 1
-                    }
-                    self.tableView(self.tableView, commit: .delete, forRowAt: selectionIndex)
+                    let id = self.showTask?[selectionIndex.row].taskId
+                    let task = self.showTask?[selectionIndex.row]
+                    self.showTask!.remove(at: selectionIndex.row)
+                    self.tableView.deleteRows(at: [selectionIndex], with: .fade)
+                    let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
+                    self.tableView.reloadData()
+//                    while selectionIndex.item >= self.showTask!.count {
+//                        selectionIndex.item -= 1
+//                    }
+//                    self.tableView(self.tableView, commit: .delete, forRowAt: selectionIndex)
                 }
             }
             print("OK")

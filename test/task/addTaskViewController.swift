@@ -181,11 +181,10 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if taskName == nil || taskName == ""{
             alertMessage()
         }else{
-            modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
-            let isEdited = DBManager.getInstance().editTask(modelInfo!)
-            self.dismiss(animated: true, completion: nil)
+            let modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
+            let isEdited = DBManager.getInstance().editTask(modelInfo)
         }
-            
+        self.dismiss(animated: true, completion: nil)
         }
     
     @IBAction func deleteTaskButton(_ sender: UIButton) {

@@ -365,7 +365,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             }else{
                 cell1.taskDone.isHidden = false
                 cell1.taskDone.text = "DONE"
-                cell1.taskDone.textColor = UIColor(red: 16/255, green: 119/255, blue: 255/255, alpha: 1)
+                cell1.taskDone.textColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
                 cell1.taskDone.font = UIFont.boldSystemFont(ofSize: 16.0)
                 
             }
