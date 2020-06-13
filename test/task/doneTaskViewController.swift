@@ -119,27 +119,16 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if (editingStyle == UITableViewCell.EditingStyle.delete) {
-//            let id =  showTask?[indexPath.row].taskId
-//            let task = showTask?[indexPath.row]
-//            self.showTask!.remove(at: indexPath.row)
-//            self.tableView.deleteRows(at: [indexPath], with: .left)
-//            let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
-//            tableView.reloadData()
-//        }
-//    }
-    
     @objc func didPressDelete() {
         let selectedRows = self.tableView.indexPathsForSelectedRows
         let controller = UIAlertController(title: "Are you sure to delete selected task(s) ?", message: "", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             if selectedRows != nil {
                 for var selectionIndex in selectedRows! {
-                    let id = self.showTask?[selectionIndex.row].taskId
+                    let id =  self.showTask?[selectionIndex.row].taskId
                     let task = self.showTask?[selectionIndex.row]
                     self.showTask!.remove(at: selectionIndex.row)
-                    self.tableView.deleteRows(at: [selectionIndex], with: .fade)
+                    self.tableView.deleteRows(at: [selectionIndex], with: .left)
                     let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
                     self.tableView.reloadData()
 //                    while selectionIndex.item >= self.showTask!.count {
