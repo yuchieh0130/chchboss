@@ -20,11 +20,11 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     @IBOutlet weak var txtSearch: UITextField!
     @IBOutlet weak var tblPlaces: UITableView!
     
+    var modelLoc : LocationModel?
+    lazy var nameArray = [String?]()
+    lazy var categoryArray = [String?]()
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
-    let modelLoc = DBManager.getInstance().getLocation()
-    lazy var nameArray = [modelLoc?.name1,modelLoc?.name2,modelLoc?.name3,modelLoc?.name4,modelLoc?.name5]
-    lazy var categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
     
     var userLocation = CLLocation()
     var locationDic : [String: Double] = [:]
@@ -37,6 +37,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     var longitude: Double! = 0
     var latitude: Double! = 0
+    var location_id: Int32 = 0
     
     var savePlace : PlaceModel?
     
@@ -59,7 +60,13 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         txtSearch.placeholder = "Search places..."
         
+        modelLoc = DBManager.getInstance().getLocation(Int: location_id)
+        nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
+        categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
+        
         mapView.delegate = self
+
+        
         
     }
     

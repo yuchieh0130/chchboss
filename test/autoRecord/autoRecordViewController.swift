@@ -176,10 +176,10 @@ class autoRecordViewController: UIViewController{
             configureCell(view: cell, cellState: cellState)
         }
         
-        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-            let visibleDates = calendarView.visibleDates()
-            calendarView.viewWillTransition(to: .zero, with: coordinator, anchorDate: visibleDates.monthDates.first?.date)
-        }
+//        override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//            let visibleDates = calendarView.visibleDates()
+//            calendarView.viewWillTransition(to: .zero, with: coordinator, anchorDate: visibleDates.monthDates.first?.date)
+//        }
 
         func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date),at indexPath: IndexPath) -> JTAppleCollectionReusableView{
             let formatter = DateFormatter()

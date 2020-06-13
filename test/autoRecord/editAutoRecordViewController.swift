@@ -88,6 +88,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             if let VC = segue.destination as? mapViewController{
                 VC.longitude = longitude
                 VC.latitude = latitude
+                VC.location_id = track.locationId
             }
         default:
             print("")
