@@ -187,6 +187,8 @@ class addViewController : UIViewController{
                 VC.allDay = allDay
                 VC.tag = "endDate"
                 VC.showDate = e
+                print("e\(e)")
+                print("eee\(VC.showDate)")
             }
         case "newAutoStart":
             if let VC = segue.destination as? DatePopupViewController{
@@ -628,9 +630,9 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         //        case [0,0]:
         //            <#code#>
         case [1,0]:
-            performSegue(withIdentifier: "editStartDate", sender: self)
+            performSegue(withIdentifier: "newStartDate", sender: self)
         case [2,0]:
-            performSegue(withIdentifier: "editEndDate", sender: self)
+            performSegue(withIdentifier: "newEndDate", sender: self)
         //        case [3,0]:
         //            <#code#>
         //        case [4,0]:
