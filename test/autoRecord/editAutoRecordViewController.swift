@@ -23,6 +23,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     var longitude: Double?
     var savePlace : PlaceModel?
     
+    var tag: String? //which? (startDate,EndDate,editTask)
+    var date = Date() //date from DatePopViewController
     
     @IBOutlet var txtDate: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
@@ -69,6 +71,72 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        tag = nil
+        switch segue.identifier {
+        case "editAutoStart":
+            if let VC = segue.destination as? DatePopupViewController{
+                VC.tag = "editAutoStart"
+                VC.showDate = s
+            }
+        case "editAutoEnd":
+            if let VC = segue.destination as? DatePopupViewController{
+                VC.tag = "editAutoEnd"
+                VC.showDate = e
+            }
+        case "editAutoLocation":
+            if let VC = segue.destination as? mapViewController{
+                VC.longitude = longitude
+                VC.latitude = latitude
+            }
+        default:
+            print("")
+        }
+        
+    }
+    
+    @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? DatePopupViewController
+        date = VC!.datePicker.date
+        tag = VC?.tag
+
+        if tag == "editAutoStart"{
+            handletime()
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+        }else if tag == "editAutoEnd"{
+            handletime()
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+        }
+    }
+    
+    func handletime(){
+        var interval = e.timeIntervalSince(s)
+        if tag == "editAutoStart"{
+            s = date
+            if dayConstraint(i: "start") == 1 { e = s + interval}
+        }else if tag == "editAutoEnd"{
+            e = date
+            if dayConstraint(i: "end") == 1 { s = e - interval}
+        }
+    }
+    
+    func dayConstraint(i:String) -> Int{
+           let c1 = s.compare(e)
+           let c2 = e.compare(s)
+           var c = 0
+           switch i {
+           case "start":
+               if c1 == .orderedDescending {c = 1}
+           case "end":
+               if c2 == .orderedAscending {c = 1}
+           default:
+               c = 0
+           }
+           return c
+       }
+    
     override func viewWillAppear(_ animated: Bool) {
         let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
         mapView.camera = camera
@@ -92,6 +160,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         
         let newtrack = TrackModel(trackId: track.trackId!, date: ""+track.date, startTime: showTimeformatter.string(from: s), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
         DBManager.getInstance().editTrack(newtrack)
+        print(newtrack)
         
         if track.placeId! != 0{   //原本有資料
              
@@ -104,7 +173,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
                 let a = DBManager.getInstance().editPlaceData(id: track.placeId!, p: savePlace!)
             }
             
-        }else{  //原本沒資料：新增新資料
+        }else if savePlace != nil{  //原本沒資料：新增新資料
             let isAdded = DBManager.getInstance().addPlace(savePlace!)
             let id = DBManager.getInstance().getMaxPlace()
             let a = DBManager.getInstance().addTrackPlace(a: id, b: track.trackId!)
@@ -112,15 +181,15 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         }
         self.dismiss(animated: true, completion: nil)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editAutoLocation"{
-            if let VC = segue.destination as? mapViewController{
-                VC.longitude = longitude
-                VC.latitude = latitude
-            }
-        }
-    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "editAutoLocation"{
+//            if let VC = segue.destination as? mapViewController{
+//                VC.longitude = longitude
+//                VC.latitude = latitude
+//            }
+//        }
+//    }
     
     @IBAction func autoLocationSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? mapViewController
@@ -186,6 +255,10 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
             performSegue(withIdentifier: "editAutoLocation", sender: self)
         }else if indexPath.row == 2 {
             performSegue(withIdentifier: "editAutoCategory", sender: self)
+        }else if indexPath.row == 1 {
+            performSegue(withIdentifier: "editAutoEnd", sender: self)
+        }else if indexPath.row == 0 {
+            performSegue(withIdentifier: "editAutoStart", sender: self)
         }
 
     }

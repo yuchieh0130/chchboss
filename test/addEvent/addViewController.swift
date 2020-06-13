@@ -176,13 +176,13 @@ class addViewController : UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         tag = nil
         switch segue.identifier {
-        case "editStartDate":
+        case "newStartDate":
             if let VC = segue.destination as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "startDate"
                 VC.showDate = s
             }
-        case "editEndDate":
+        case "newEndDate":
             if let VC = segue.destination as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "endDate"

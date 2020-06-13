@@ -294,6 +294,9 @@ extension ViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
         if cell?.isSelected == true{
             calendarView.deselectDates(from: date)
+            showEvent = [EventModel]()
+            showTask = [TaskModel]()
+            tableView.reloadData()
             return false
         }else{
             return true
@@ -325,21 +328,26 @@ extension ViewController: JTAppleCalendarViewDelegate {
 //        return MonthSize(defaultSize: 50)
 //    }
     
-    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-        
-        if calendarView.visibleDates().outdates.count < 7{
-            self.numberOfRows = 5
-        }else{
-            self.numberOfRows = 6
-        }
-        
-        //self.calendarView.reloadDates(visibleDates.monthDates)
-        
+    func calendar(_ calendar: JTAppleCalendarView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         monthLabel.text = showMonthFormatter.string(from: visibleDates.monthDates[0].date)
         yearLabel.text = showYearFormatter.string(from: visibleDates.monthDates[0].date)
+        
+//        if calendarView.visibleDates().outdates.count < 7{
+//            self.numberOfRows = 5
+//        }else{
+//            self.numberOfRows = 6
+//        }
+        
+    }
+    
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        
+        //self.calendarView.reloadDates(visibleDates.monthDates)
+
 //        monthLabel.text = showMonthFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
 //        yearLabel.text = showYearFormatter.string(from: calendarView.visibleDates().monthDates.last!.date)
     }
+
     
     
 }

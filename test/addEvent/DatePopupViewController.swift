@@ -66,8 +66,11 @@ class DatePopupViewController: UIViewController {
         }else if tag == "deadline"{
             datePicker.datePickerMode = .dateAndTime
             datePicker.date = showDate
-        }else{
-            datePicker.datePickerMode = .dateAndTime
+        }else if tag == "editAutoStart"{
+            datePicker.datePickerMode = .time
+            datePicker.date = showDate
+        }else if tag == "editAutoEnd"{
+            datePicker.datePickerMode = .time
             datePicker.date = showDate
         }
         
