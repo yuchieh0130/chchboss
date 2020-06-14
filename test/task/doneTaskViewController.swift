@@ -104,11 +104,11 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.setEditing(editing, animated: true)
         
         self.navigationController?.setToolbarHidden(false, animated: false)
+        self.navigationController?.toolbar.barTintColor = UIColor.white
+        
         let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         let deleteButton: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(didPressDelete))
         deleteButton.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
-       
-        self.navigationController?.toolbar.barTintColor = UIColor.white
         
         if tableView.isEditing == true{
             editButtonItem.title = "Done"
@@ -121,7 +121,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func didPressDelete() {
         let selectedRows = self.tableView.indexPathsForSelectedRows
-        let controller = UIAlertController(title: "Are you sure to delete selected task(s) ?", message: "", preferredStyle: .alert)
+        let controller = UIAlertController(title: "Delete Done Task", message: "Are you sure to delete selected task(s) ? Task(s) added to calendar will also be delete from the calendar page.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             if selectedRows != nil {
                 for var selectionIndex in selectedRows! {
@@ -144,22 +144,4 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
     }
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
-//        let controller = UIAlertController(title: "Are you sure to delete selected task(s) ?", message: "", preferredStyle: .alert)
-//        let id =  showTask?[indexPath.row].taskId
-//        let task = showTask?[indexPath.row]
-//        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-//            self.showTask!.remove(at: indexPath.row)
-//            self.tableView.deleteRows(at: [indexPath], with: .left)
-//                let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
-//            print("OK")
-//        }
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        controller.addAction(okAction)
-//        controller.addAction(cancelAction)
-//        present(controller, animated: true, completion: nil)
-    
-    
 }
