@@ -39,9 +39,9 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
         })
         floaty.openAnimationType = .slideUp
-        floaty.isDraggable = false
+//        floaty.isDraggable = false
         floaty.hasShadow = false
-//        floaty.autoCloseOnTap = true
+        floaty.autoCloseOnTap = true
 //        floaty.paddingY += self.tabBar.frame.size.height
 //        floaty.paddingX += self.tabBar.frame.midX
         self.view.addSubview(floaty)
