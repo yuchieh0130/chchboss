@@ -43,6 +43,10 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
     
+    @IBAction func cancel(_ sender: UIButton){
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
