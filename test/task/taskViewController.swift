@@ -145,10 +145,18 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            self.showTask!.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            let isDeleted = DBManager.getInstance().deleteTask(id: id!)
-            self.dismiss(animated: true, completion: nil)
+            let controller = UIAlertController(title: "Delete this done task?", message: nil, preferredStyle: .actionSheet)
+                let action = UIAlertAction(title: "Delete", style: .default) { (_) in
+                    self.showTask!.remove(at: indexPath.row)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    let isDeleted = DBManager.getInstance().deleteTask(id: id!)
+                    self.dismiss(animated: true, completion: nil)
+                }
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                action.setValue(UIColor.red, forKey: "titleTextColor")
+                controller.addAction(action)
+                controller.addAction(cancel)
+                self.present(controller, animated: true, completion: nil)
         }
         let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
             print("Done")
@@ -186,6 +194,14 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func doneTask(_ sender: UIButton) {
+        if DBManager.getInstance().getAllDoneTask() != nil {
+            performSegue(withIdentifier: "doneTask", sender: self)
+        }else{
+            let controller = UIAlertController(title: "Unavailable", message: "No task marked as DONE", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            controller.addAction(action)
+            present(controller, animated: true, completion: nil)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

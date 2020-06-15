@@ -85,9 +85,17 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            self.showTask!.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            let isDeleted = DBManager.getInstance().deleteTask(id: id!)
+            let controller = UIAlertController(title: "Delete this done task?", message: nil, preferredStyle: .actionSheet)
+            let action = UIAlertAction(title: "Delete", style: .default) { (_) in
+                self.showTask!.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            action.setValue(UIColor.red, forKey: "titleTextColor")
+            controller.addAction(action)
+            controller.addAction(cancel)
+            self.present(controller, animated: true, completion: nil)
         }
         deleteAction.backgroundColor = UIColor.red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -121,7 +129,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func didPressDelete() {
         let selectedRows = self.tableView.indexPathsForSelectedRows
-        let controller = UIAlertController(title: "Delete Done Task", message: "Are you sure to delete selected task(s) ? Task(s) added to calendar will also be delete from the calendar page.", preferredStyle: .alert)
+        let controller = UIAlertController(title: "Delete Done Task", message: "Are you sure to delete selected tasks ? Tasks will also be deleted from the calendar.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             if selectedRows != nil {
                 for var selectionIndex in selectedRows! {
