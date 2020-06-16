@@ -129,8 +129,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func didPressDelete() {
         let selectedRows = self.tableView.indexPathsForSelectedRows
-        let controller = UIAlertController(title: "Delete Done Task", message: "Are you sure to delete selected tasks ? Tasks will also be deleted from the calendar.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+        let controller = UIAlertController(title: "Delete Done Task?", message: "Tasks will also be deleted from the calendar.", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
             if selectedRows != nil {
                 for var selectionIndex in selectedRows! {
                     let id =  self.showTask?[selectionIndex.row].taskId
@@ -148,7 +148,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             print("OK")
             }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        controller.addAction(okAction)
+        deleteAction.setValue(UIColor.red, forKey: "titleTextColor")
+        controller.addAction(deleteAction)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
     }
