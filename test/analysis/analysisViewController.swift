@@ -113,23 +113,6 @@ class analysisViewController: UIViewController {
         pieChart.data = pieChartData
     }
     
-    //    func customizeBarChart(dataPoints: [String], values: [Double]) {
-    //        var dataEntries: [ChartDataEntry] = []
-    //        for i in 0..<dataPoints.count {
-    //            let dataEntry = BarChartDataEntry(x: values[i], yValues: [values[i]], data: dataPoints[i])
-    //          dataEntries.append(dataEntry)
-    //        }
-    //        let barChartDataSet = BarChartDataSet(entries: dataEntries, label: nil)
-    //        barChartDataSet.colors = colorsOfCharts(numbersOfColor: dataPoints.count)
-    //        let barChartData = BarChartData(dataSet: barChartDataSet)
-    //             let format = NumberFormatter()
-    //             format.numberStyle = .none
-    //             let formatter = DefaultValueFormatter(formatter: format)
-    //             barChartData.setValueFormatter(formatter)
-    //             // 4. Assign it to the chart’s data
-    //             barChart.data = barChartData
-    //    }
-    
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
         for _ in 0..<numbersOfColor {
@@ -150,16 +133,6 @@ class analysisViewController: UIViewController {
         }
         return colors
     }
-    
-    
-    
-    //    dataSet.colors = ChartColorTemplates.colorful()
-    //    ChartColorTemplates.liberty()
-    //    ChartColorTemplates.joyful()
-    //    ChartColorTemplates.pastel()
-    //    ChartColorTemplates.colorful()
-    //    ChartColorTemplates.vordiplom()
-    //    ChartColorTemplates.material()
     
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -185,3 +158,11 @@ class analysisViewController: UIViewController {
     
     
 }
+
+//    dataSet.colors = ChartColorTemplates.colorful()
+//    ChartColorTemplates.liberty()
+//    ChartColorTemplates.joyful()
+//    ChartColorTemplates.pastel()
+//    ChartColorTemplates.colorful()
+//    ChartColorTemplates.vordiplom()
+//    ChartColorTemplates.material()
