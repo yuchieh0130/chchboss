@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -174,7 +174,7 @@
             </objects>
             <point key="canvasLocation" x="2782" y="-744"/>
         </scene>
-        <!--View Controller-->
+        <!--Ib Calendar Data Source-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -626,7 +626,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnP-nn-Mu1" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="12.666666666666657" y="231" width="350" height="350"/>
+                                <rect key="frame" x="12.666666666666657" y="221" width="350" height="360"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="NMe-Pl-IlA"/>
@@ -634,7 +634,7 @@
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1hb-Ki-UBc">
-                                <rect key="frame" x="70" y="114" width="235" height="32"/>
+                                <rect key="frame" x="70" y="104" width="235" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="HV2-z6-3VR"/>
                                 </constraints>
@@ -648,14 +648,17 @@
                                     <action selector="segConChoose:" destination="3xM-0D-h9c" eventType="valueChanged" id="yiJ-jC-K2J"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8EZ-KE-JC6" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="344" width="343" height="123"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8EZ-KE-JC6" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="221" width="343" height="360"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="BMD-da-p1u"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" constant="262" id="DJc-rG-jDL"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" constant="148" id="DJc-rG-jDL"/>
                             <constraint firstItem="8EZ-KE-JC6" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="16" id="Esa-F6-9KY"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="70" id="F1w-oD-bWz"/>
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="8EZ-KE-JC6" secondAttribute="trailing" constant="16" id="HXd-fe-DoM"/>
@@ -663,16 +666,17 @@
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="1hb-Ki-UBc" secondAttribute="trailing" constant="70" id="REi-6j-8vb"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerY" secondItem="sfp-gm-cKQ" secondAttribute="centerY" id="RaU-mm-lUg"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="cdS-Iy-1io"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="PnP-nn-Mu1" secondAttribute="bottom" constant="148" id="hvb-X1-8LK"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="lRL-zB-UKg"/>
-                            <constraint firstItem="1hb-Ki-UBc" firstAttribute="top" secondItem="Ymv-rs-qLb" secondAttribute="top" constant="70" id="mLL-ww-idW"/>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="199" id="sZ1-Bw-Ksi"/>
+                            <constraint firstItem="1hb-Ki-UBc" firstAttribute="top" secondItem="Ymv-rs-qLb" secondAttribute="top" constant="60" id="mLL-ww-idW"/>
+                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="86" id="sZ1-Bw-Ksi"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="86" id="vIJ-DQ-jLq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="4" title="" image="chart.pie" catalog="system" selectedImage="chart.pie" id="EsJ-Wy-Q9H"/>
                     <connections>
-                        <outlet property="barChart" destination="8EZ-KE-JC6" id="WQd-YR-RqA"/>
+                        <outlet property="lineChart" destination="8EZ-KE-JC6" id="a18-qy-ZQL"/>
                         <outlet property="pieChart" destination="PnP-nn-Mu1" id="x0r-A1-waa"/>
                         <outlet property="segCon" destination="1hb-Ki-UBc" id="4h0-ad-6QU"/>
                     </connections>
@@ -681,7 +685,7 @@
             </objects>
             <point key="canvasLocation" x="920.79999999999995" y="-744.0886699507389"/>
         </scene>
-        <!--Auto Record View Controller-->
+        <!--Ib Calendar Data Source-->
         <scene sceneID="Srp-ur-Bl1">
             <objects>
                 <viewController id="svZ-ai-5oE" customClass="autoRecordViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -693,7 +697,7 @@
                                 <rect key="frame" x="0.0" y="144" width="375" height="652"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Wc-kr-0iV">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Wc-kr-0iV">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="652"/>
                                     </imageView>
                                 </subviews>
@@ -890,7 +894,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ogh-Jb-0d5">
-                                                    <rect key="frame" x="160" y="15.666666666666664" width="200" height="34"/>
+                                                    <rect key="frame" x="-215" y="15.666666666666664" width="200" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="hZF-Yq-Aaa"/>
                                                     </constraints>
@@ -937,7 +941,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwW-4q-Vn9">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="pGm-to-EPR"/>
                                                     </constraints>
@@ -983,7 +987,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-P3-Hfa">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="qz2-BC-b8B"/>
                                                     </constraints>
@@ -1055,7 +1059,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmz-qQ-lto">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="WIL-YS-lCp"/>
                                                     </constraints>
@@ -2599,21 +2603,21 @@
             <point key="canvasLocation" x="125.59999999999999" y="1636.6995073891626"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar" catalog="system" width="64" height="52"/>
+        <image name="chart.pie" catalog="system" width="64" height="60"/>
+        <image name="doc.text" catalog="system" width="56" height="64"/>
+        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
+        <image name="pin.fill" catalog="system" width="58" height="64"/>
+        <image name="plus.circle" catalog="system" width="64" height="60"/>
+        <image name="reminder_deselect" width="96" height="96"/>
+        <image name="star.fill" catalog="system" width="64" height="58"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="54J-Uw-fAs"/>
         <segue reference="9Rl-2J-tqH"/>
-        <segue reference="Si0-bg-LgH"/>
+        <segue reference="Nye-bg-dEe"/>
         <segue reference="uiq-XP-en4"/>
         <segue reference="WsB-A9-R4s"/>
     </inferredMetricsTieBreakers>
-    <resources>
-        <image name="calendar" catalog="system" width="128" height="106"/>
-        <image name="chart.pie" catalog="system" width="128" height="121"/>
-        <image name="doc.text" catalog="system" width="115" height="128"/>
-        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
-        <image name="pin.fill" catalog="system" width="119" height="128"/>
-        <image name="plus.circle" catalog="system" width="128" height="121"/>
-        <image name="reminder_deselect" width="96" height="96"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
-    </resources>
 </document>

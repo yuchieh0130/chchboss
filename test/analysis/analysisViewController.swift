@@ -16,7 +16,7 @@ class analysisViewController: UIViewController {
     
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var pieChart: PieChartView!
-    @IBOutlet var barChart: BarChartView!
+    @IBOutlet var lineChart: LineChartView!
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
@@ -35,8 +35,7 @@ class analysisViewController: UIViewController {
         pieChart.chartDescription?.text = "CHCHBOSS"
         customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
         
-        //barChart.chartDescription?.text = "CHCHBOSS"
-        barChart.isHidden = true
+        lineChart.isHidden = true
         
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-1{
@@ -49,20 +48,26 @@ class analysisViewController: UIViewController {
         var getIndex = segCon.selectedSegmentIndex        
         if getIndex == 0{
             customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
-            barChart.isHidden = true
             pieChart.drawEntryLabelsEnabled = true
             pieChart.entryLabelColor = UIColor.white
+            pieChart.isHidden = false
+            lineChart.isHidden = true
         }else if getIndex == 1{
             customizePieChart(dataPoints: sports, values: counts.map{
                 Double($0) })
             pieChart.drawEntryLabelsEnabled = true
             pieChart.entryLabelColor = UIColor.white
-            barChart.isHidden = true
+            pieChart.isHidden = false
+            lineChart.isHidden = true
         }else if getIndex == 2{
             customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
             pieChart.entryLabelColor = UIColor.black
             pieChart.drawEntryLabelsEnabled = false
-            barChart.isHidden = true
+            pieChart.isHidden = false
+            lineChart.isHidden = true
+        }else if getIndex == 3{
+            pieChart.isHidden = true
+            lineChart.isHidden = false
         }
         
     }
