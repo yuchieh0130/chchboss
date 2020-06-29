@@ -601,17 +601,17 @@
             </objects>
             <point key="canvasLocation" x="2038" y="-744"/>
         </scene>
-        <!--Middle View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="w9K-oe-14z">
             <objects>
-                <viewController id="GWz-O0-t96" customClass="middleViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="GWz-O0-t96" customClass="settingsViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pD0-ue-cbQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Hbu-F2-bMp"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="HJ9-AL-ng2"/>
+                    <tabBarItem key="tabBarItem" title="" image="person.circle" catalog="system" id="HJ9-AL-ng2"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iit-eH-jTJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -628,10 +628,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnP-nn-Mu1" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="12.666666666666657" y="221" width="350" height="360"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="350" id="NMe-Pl-IlA"/>
-                                    <constraint firstAttribute="height" constant="350" id="bDI-i1-I3L"/>
-                                </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1hb-Ki-UBc">
                                 <rect key="frame" x="70" y="104" width="235" height="32"/>
@@ -651,26 +647,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8EZ-KE-JC6" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="221" width="343" height="360"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="BMD-da-p1u"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" constant="148" id="DJc-rG-jDL"/>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="16" id="Esa-F6-9KY"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="86" id="68O-gX-put"/>
+                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="leading" secondItem="sfp-gm-cKQ" secondAttribute="leadingMargin" id="6RB-gZ-2tk"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" id="9vE-Wj-BiS"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="70" id="F1w-oD-bWz"/>
-                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="8EZ-KE-JC6" secondAttribute="trailing" constant="16" id="HXd-fe-DoM"/>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="MMr-aB-i3L"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="12.666666666666657" id="JWN-tt-KI3"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="PnP-nn-Mu1" secondAttribute="bottom" constant="148" id="PCW-A4-waO"/>
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="1hb-Ki-UBc" secondAttribute="trailing" constant="70" id="REi-6j-8vb"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerY" secondItem="sfp-gm-cKQ" secondAttribute="centerY" id="RaU-mm-lUg"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="cdS-Iy-1io"/>
-                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="PnP-nn-Mu1" secondAttribute="bottom" constant="148" id="hvb-X1-8LK"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="8EZ-KE-JC6" secondAttribute="top" id="TLO-OW-kjd"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="lRL-zB-UKg"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="top" secondItem="Ymv-rs-qLb" secondAttribute="top" constant="60" id="mLL-ww-idW"/>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="86" id="sZ1-Bw-Ksi"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="86" id="vIJ-DQ-jLq"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="8EZ-KE-JC6" secondAttribute="centerX" id="pHJ-ZH-dOx"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="1hb-Ki-UBc" secondAttribute="centerX" id="wCR-A0-7dI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
@@ -2574,9 +2566,9 @@
                         <segue destination="zxG-pM-74g" kind="show" identifier="tabBarToTask" id="hM4-lw-jpS"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="hcZ-Ua-xXz"/>
                         <segue destination="svZ-ai-5oE" kind="relationship" relationship="viewControllers" id="qKJ-7w-dbI"/>
-                        <segue destination="GWz-O0-t96" kind="relationship" relationship="viewControllers" id="Eq6-kh-dEc"/>
                         <segue destination="MCe-u7-tnl" kind="relationship" relationship="viewControllers" id="YrH-Xa-OGJ"/>
                         <segue destination="3xM-0D-h9c" kind="relationship" relationship="viewControllers" id="N4z-Vr-dZN"/>
+                        <segue destination="GWz-O0-t96" kind="relationship" relationship="viewControllers" id="Eq6-kh-dEc"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JfE-Rr-Q39" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2608,6 +2600,7 @@
         <image name="chart.pie" catalog="system" width="64" height="60"/>
         <image name="doc.text" catalog="system" width="56" height="64"/>
         <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
+        <image name="person.circle" catalog="system" width="64" height="60"/>
         <image name="pin.fill" catalog="system" width="58" height="64"/>
         <image name="plus.circle" catalog="system" width="64" height="60"/>
         <image name="reminder_deselect" width="96" height="96"/>
@@ -2617,7 +2610,7 @@
         <segue reference="54J-Uw-fAs"/>
         <segue reference="9Rl-2J-tqH"/>
         <segue reference="Nye-bg-dEe"/>
-        <segue reference="uiq-XP-en4"/>
-        <segue reference="WsB-A9-R4s"/>
+        <segue reference="csL-Fo-fcl"/>
+        <segue reference="hM4-lw-jpS"/>
     </inferredMetricsTieBreakers>
 </document>

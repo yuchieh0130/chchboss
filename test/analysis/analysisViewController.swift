@@ -12,7 +12,7 @@ import Floaty
 import Charts
 
 @IBDesignable
-class analysisViewController: UIViewController {
+class analysisViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var pieChart: PieChartView!
@@ -27,29 +27,32 @@ class analysisViewController: UIViewController {
     let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
     let counts = [45, 76, 34, 97]
     let yep = [34, 67, 89, 45, 44, 12, 28, 90, 23]
+    let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
+    let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Analysis"
-        
-        pieChart.chartDescription?.text = "CHCHBOSS"
-        customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
-        
-        lineChart.isHidden = true
         
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-1{
             showCategoryStr.append(showCategory[i].categoryName)
             showCategoryColor.append(showCategory[i].categoryColor)
         }
+        
+        customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
+        pieChart.chartDescription?.text = "CHCHBOSS"
+        pieChart.entryLabelColor = UIColor.black
+        pieChart.drawEntryLabelsEnabled = false
+        lineChart.isHidden = true
     }
     
     @IBAction func segConChoose(_ sender: Any) {
         var getIndex = segCon.selectedSegmentIndex        
         if getIndex == 0{
-            customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
-            pieChart.drawEntryLabelsEnabled = true
-            pieChart.entryLabelColor = UIColor.white
+            customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
+            pieChart.entryLabelColor = UIColor.black
+            pieChart.drawEntryLabelsEnabled = false
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 1{
@@ -60,14 +63,19 @@ class analysisViewController: UIViewController {
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 2{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
-            pieChart.entryLabelColor = UIColor.black
-            pieChart.drawEntryLabelsEnabled = false
+            customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
+            pieChart.drawEntryLabelsEnabled = true
+            pieChart.entryLabelColor = UIColor.white
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 3{
+            customizeLineChart(dataPoints: category, values: line)
+            lineChart.chartDescription?.text = "CHCHBOSS"
             pieChart.isHidden = true
             lineChart.isHidden = false
+            lineChart.dragEnabled = true
+            lineChart.doubleTapToZoomEnabled = false
+            lineChart.drawGridBackgroundEnabled = false
         }
         
     }
@@ -93,6 +101,7 @@ class analysisViewController: UIViewController {
     }
     
     func customizeCategoryChart(dataPoints: [String], values: [Double]) {
+        pieChart.delegate = self
         // 1. Set ChartDataEntry
         var dataEntries: [ChartDataEntry] = []
         for i in 0..<dataPoints.count {
@@ -111,7 +120,36 @@ class analysisViewController: UIViewController {
         pieChartData.setValueTextColor(UIColor.black)
         // 4. Assign it to the chart’s data
         pieChart.data = pieChartData
+        
+        pieChart.rotationAngle = 0
+        pieChart.legend.direction = .leftToRight
+        //pieChart.addInteraction(<#T##interaction: UIInteraction##UIInteraction#>)
     }
+    
+    func customizeLineChart(dataPoints: [String], values: [Double]){
+        lineChart.delegate = self
+        var dataEntries: [ChartDataEntry] = []
+        var dataDays: [String] = []
+        var count = 0
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(x: values[i], y: Double(i))
+            dataEntries.append(dataEntry)
+            dataDays.append(dataPoints[count])
+            if count == dataPoints.count - 1 {
+                count = 0
+            }else{
+                count = count + 1
+            }
+        }
+        
+        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
+        lineChartDataSet.circleColors = colorsOfCategory(numbersOfColor: dataPoints.count)
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        lineChart.data = lineChartData
+        
+    }
+    
+//
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
