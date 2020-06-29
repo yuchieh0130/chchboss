@@ -14,6 +14,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var tableView: UITableView!
     @IBOutlet var userIcon: UIImageView!
     @IBOutlet var userName: UILabel!
+    @IBOutlet var userID: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
