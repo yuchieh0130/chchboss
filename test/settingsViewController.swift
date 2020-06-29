@@ -30,7 +30,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         case [0,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "changeUsernameCell", for: indexPath) as! changeUsernameCell
             return cell
-        case [1,0]:
+        case [0,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as! changePasswordCell
             return cell
         default:
