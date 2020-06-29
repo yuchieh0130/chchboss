@@ -10,8 +10,9 @@ import Foundation
 
 struct TrackModel{
     let trackId: Int32?
-    let date: String
+    let startDate: String
     let startTime: String
+    let endDate: String
     let endTime: String
     let categoryId: Int32
     let locationId: Int32

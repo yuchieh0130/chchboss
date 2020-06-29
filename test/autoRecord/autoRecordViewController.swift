@@ -221,8 +221,8 @@ extension autoRecordViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height = CGFloat()
         let seconds = showTimeformatter.date(from: showTrack[indexPath.row].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[indexPath.row].startTime)!)
-        print(showTrack[indexPath.row].endTime)
-        print(seconds)
+//        print(showTrack[indexPath.row].endTime)
+//        print(seconds)
         if seconds != nil{
                 height = CGFloat(seconds!/51.2)
         }else{

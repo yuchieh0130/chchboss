@@ -67,10 +67,10 @@ class DatePopupViewController: UIViewController {
             datePicker.datePickerMode = .dateAndTime
             datePicker.date = showDate
         }else if tag == "editAutoStart"{
-            datePicker.datePickerMode = .time
+            datePicker.datePickerMode = .dateAndTime
             datePicker.date = showDate
         }else if tag == "editAutoEnd"{
-            datePicker.datePickerMode = .time
+            datePicker.datePickerMode = .dateAndTime
             datePicker.date = showDate
         }else{
             datePicker.datePickerMode = .dateAndTime

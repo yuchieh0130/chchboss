@@ -52,7 +52,7 @@ class DBManager: NSObject {
         
         var events: [EventModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM event WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_time ASC";
+        let sqlString = "SELECT * FROM event WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date,start_time ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -261,6 +261,7 @@ class DBManager: NSObject {
     
     /*func for savePlace*/
     func addPlace(_ modelInfo: PlaceModel) -> Bool{
+
         shareInstance.database?.open()
         let isAdded = shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?)", withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
         shareInstance.database?.close()
@@ -484,17 +485,18 @@ class DBManager: NSObject {
         
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM track WHERE date = '\(String)'";
+        let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
             let i = set?.int(forColumn: "track_id")
-            let a = set?.string(forColumn: "date")!
+            let a = set?.string(forColumn: "start_date")
             let b = set?.string(forColumn: "start_time")
-            let c = set?.string(forColumn: "end_time")
-            let d = set?.int(forColumn: "category_id")
-            let e = set?.int(forColumn: "location_id")
-            let f = set?.int(forColumn: "place_id")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
             
             let track: TrackModel
             
@@ -502,7 +504,7 @@ class DBManager: NSObject {
                 tracks = [TrackModel]()
             }
             
-            track = TrackModel(trackId: i!, date: a!, startTime: b!, endTime: c!,categoryId: d!, locationId: e!, placeId: f!)
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
             tracks.append(track)
         }
         set?.close()
@@ -523,10 +525,18 @@ class DBManager: NSObject {
         return isDone!
     }
     
+    //新增track
+    func addTrack(_ modelInfo: TrackModel) -> Bool{
+        shareInstance.database?.open()
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO track (strat_date,start_time,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId])
+        shareInstance.database?.close()
+        return isAdded!
+    }
+    
     //編輯track（不包含location）
     func editTrack(_ modelInfo: TrackModel){
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("UPDATE track SET start_time = '\(modelInfo.startTime)',end_time = '\(modelInfo.endTime)',category_id = \(modelInfo.categoryId) WHERE track_id = \(modelInfo.trackId!)", withArgumentsIn: [modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId,modelInfo.trackId!])
+        let isEdited = shareInstance.database?.executeUpdate("UPDATE track SET strat_date = '\(modelInfo.startDate)',start_time = '\(modelInfo.startTime)',end_date = '\(modelInfo.endDate)',end_time = '\(modelInfo.endTime)',category_id = \(modelInfo.categoryId) WHERE track_id = \(modelInfo.trackId!)", withArgumentsIn: [modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId,modelInfo.trackId!])
         shareInstance.database?.close()
     }
     

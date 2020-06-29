@@ -14,7 +14,7 @@ import GooglePlaces
 
 class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDelegate{
     
-    var track: TrackModel = TrackModel(trackId: 0, date: "", startTime: "", endTime: "", categoryId: 0, locationId: 0, placeId: nil)
+    var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
     var s = Date()
     var e = Date()
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
@@ -56,9 +56,11 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
-        s = showTimeformatter.date(from: track.startTime)!
-        e = showTimeformatter.date(from: track.endTime)!
-        txtDate.text = "   " + track.date
+        print(track.startDate)
+        print(track.startTime)
+        s = showDateformatter.date(from: "\(track.startDate) \(track.startTime)")!
+        e = showDateformatter.date(from: "\(track.endDate) \(track.endTime)")!
+        //txtDate.text = "   " + track.date
         category = DBManager.getInstance().getCategory(Int: (track.categoryId))
         location = DBManager.getInstance().getLocation(Int: (track.locationId))
         savePlace = DBManager.getInstance().getPlace(Int: (track.placeId)!)
@@ -158,8 +160,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     
     @IBAction func editBtn(_ sender: UIButton){
         
-        
-        let newtrack = TrackModel(trackId: track.trackId!, date: ""+track.date, startTime: showTimeformatter.string(from: s), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
+        let newtrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
         DBManager.getInstance().editTrack(newtrack)
         print(newtrack)
         
@@ -228,12 +229,12 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
         switch indexPath{
         case [0,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoStartCell", for: indexPath) as! autoStartCell
-            cell.txtAutoStart.text = showTimeformatter.string(from: s)
+            cell.txtAutoStart.text = showDateformatter.string(from: s)
             cell.selectionStyle = .none
             return cell
         case [0,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoEndCell", for: indexPath) as! autoEndCell
-            cell.txtAutoEnd.text = showTimeformatter.string(from: e)
+            cell.txtAutoEnd.text = showDateformatter.string(from: e)
             cell.selectionStyle = .none
             return cell
         case [0,2]:

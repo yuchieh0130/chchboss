@@ -46,7 +46,7 @@ class addViewController : UIViewController{
     var allDay: Bool! = false
     var autoRecord: Bool! = false
     var autoCategory: Int32?
-    var autoLocation: Int32?
+    var autoPlace: Int32?
     var reminder: String?
     var id: Int32 = 0
     
@@ -54,6 +54,7 @@ class addViewController : UIViewController{
     var selectedDay: [Date] = []
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
     var savePlaceModel : PlaceModel?
+    var trackModel : TrackModel?
     var reminder_index: [Int] = [0]
     
     //variable for handling  DatePopViewController
@@ -332,17 +333,18 @@ class addViewController : UIViewController{
             if autoRecord == true{
                 autoCategory = category.categoryId
                 if savePlaceModel != nil{
-                let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
-                autoLocation = DBManager.getInstance().getMaxPlace()
+                let isAdded = DBManager.getInstance().addPlace(savePlaceModel!)
+                autoPlace = DBManager.getInstance().getMaxPlace()
                 }
             }else if allDay == true{
                 startTime = nil
                 endTime = nil
             }
             //insert to database
-            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, autoCategory:autoCategory,autoLocation: autoLocation, reminder: reminder!)
+            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, autoCategory:autoCategory,autoLocation: autoPlace, reminder: reminder!)
             let isAdded = DBManager.getInstance().addEvent(modelInfo)
             if reminder != "0" { makeNotification(action: "add")}
+            //新增當下問是不是在做這件事的通知
         }
     }
     
@@ -361,16 +363,17 @@ class addViewController : UIViewController{
                 if savePlaceModel != nil{
                     let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
                 }
-                autoLocation = DBManager.getInstance().getMaxPlace()
+                autoPlace = DBManager.getInstance().getMaxPlace()
                 //autoLocation = 0
             }else if allDay == true{
                 startTime = nil
                 endTime = nil
             }
-            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoLocation, reminder: reminder!)
+            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoPlace, reminder: reminder!)
             let isEdited = DBManager.getInstance().editEvent(modelInfo)
             makeNotification(action: "delete")
             if reminder != "0" {makeNotification(action: "add")}
+            //編輯當下問是不是在做這件事的通知
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -387,8 +390,9 @@ class addViewController : UIViewController{
     
     func delete(){
            reminder = reminder_index.map { String($0) }.joined(separator: ",")
-           let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoLocation,reminder: reminder!)
+           let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoPlace,reminder: reminder!)
            let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
+           //刪除當下問是不是在做這件事的通知
            makeNotification(action: "delete")
        }
        
