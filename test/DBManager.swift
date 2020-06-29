@@ -530,6 +530,39 @@ class DBManager: NSObject {
         shareInstance.database?.close()
     }
     
+///測試用
+    func tete() -> [LocationModel]!{
+        
+        var locations: [LocationModel]!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM location";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "location_id")
+            let a = set?.double(forColumn: "longitude")
+            let b = set?.double(forColumn: "latitude")
+            let c = set?.string(forColumn: "start_time")
+            let d = set?.double(forColumn: "duration")
+            let e = set?.string(forColumn: "name1")
+            let f = set?.string(forColumn: "name2")
+            let g = set?.string(forColumn: "name3")
+            let h = set?.string(forColumn: "name4")
+            let j = set?.string(forColumn: "name5")
+            let k = set?.double(forColumn: "speed")
+            
+            let location: LocationModel
+            
+            if locations == nil{
+                locations = [LocationModel]()
+            }
+            location = LocationModel(locationId: i, longitude: a!, latitude: b!, startTime: c!, duration: d!, name1: e, name2: f, name3: g, name4: h, name5: j, category1: "", category2: "", category3: "", category4: "", category5: "", speed: k!)
+            locations.append(location)
+        }
+        set?.close()
+        return locations
+    }
+    
     
     
 }
