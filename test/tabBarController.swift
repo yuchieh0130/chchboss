@@ -25,10 +25,11 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             
         tabBar.items?[0].title = "Calendar"
         tabBar.items?[1].title = "Track"
-        tabBar.items?[3].title = "Task"
-        tabBar.items?[4].title = "Analysis"
+        tabBar.items?[2].title = "Task"
+        tabBar.items?[3].title = "Analysis"
+        tabBar.items?[4].title = "Settings"
         
-        let floaty = Floaty(frame: CGRect(x: self.view.frame.width/2 - 22, y: self.view.frame.height - 77, width: 45, height: 45))
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width/2 + 133, y: self.view.frame.height - 150, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
@@ -39,7 +40,7 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
         })
         floaty.openAnimationType = .slideUp
-//        floaty.isDraggable = false
+        floaty.isDraggable = true
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
 //        floaty.paddingY += self.tabBar.frame.size.height
@@ -88,15 +89,15 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         }
     
     //讓你按中間的tab bar item 不會跑出view controller
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if viewController.isKind(of: middleViewController.self) {
-         let vc =  middleViewController()
-         vc.modalPresentationStyle = .overFullScreen
-         self.present(vc, animated: true, completion: nil)
-         return false
-      }
-      return true
-    }
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        if viewController.isKind(of: middleViewController.self) {
+//         let vc =  middleViewController()
+//         vc.modalPresentationStyle = .overFullScreen
+//         self.present(vc, animated: true, completion: nil)
+//         return false
+//      }
+//      return true
+//    }
     
       
 //    // TabBarButton – Setup Middle Button
