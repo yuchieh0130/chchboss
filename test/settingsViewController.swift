@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 
-class settingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class settingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var userIcon: UIImageView!
     @IBOutlet var userName: UILabel!
     @IBOutlet var userID: UILabel!
+    @IBOutlet var addPhotoBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,5 +39,20 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = tableView.dequeueReusableCell(withIdentifier: "editMyplaceCell", for: indexPath)
             return cell
         }
+    }
+    
+    @IBAction func addBtnPress(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            userIcon.image = image
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+    }
+        dismiss(animated: true, completion: nil)
     }
 }

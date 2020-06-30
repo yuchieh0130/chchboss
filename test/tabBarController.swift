@@ -47,8 +47,6 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         floaty.isDraggable = true
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
-//        floaty.paddingY += self.tabBar.frame.size.height
-//        floaty.paddingX += self.tabBar.frame.midX
         self.view.addSubview(floaty)
         
         // 99 152

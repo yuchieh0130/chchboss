@@ -716,19 +716,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoG-9U-nQC">
+                                <rect key="frame" x="241" y="97" width="22" height="22"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="plus.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="addBtnPress:" destination="GWz-O0-t96" eventType="touchUpInside" id="yqF-jj-rgT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="sse-uI-zAC" firstAttribute="top" secondItem="h35-ly-VCw" secondAttribute="bottom" constant="7.6666666666666572" id="4tj-16-BHX"/>
                             <constraint firstItem="h35-ly-VCw" firstAttribute="centerX" secondItem="sse-uI-zAC" secondAttribute="centerX" id="6BZ-MX-42Z"/>
+                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="trailing" secondItem="KoG-9U-nQC" secondAttribute="trailing" constant="112" id="FI9-3m-4pm"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="top" secondItem="s9w-ck-vHo" secondAttribute="bottom" constant="9.0000000000000284" id="J2g-GR-3Fi"/>
                             <constraint firstItem="h35-ly-VCw" firstAttribute="leading" secondItem="Hbu-F2-bMp" secondAttribute="leading" constant="154.66666666666669" id="RGh-Om-li1"/>
+                            <constraint firstItem="KoG-9U-nQC" firstAttribute="leading" secondItem="h35-ly-VCw" secondAttribute="trailing" constant="20.666666666666657" id="YFz-x8-XRN"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="trailing" secondItem="Hbu-F2-bMp" secondAttribute="trailing" id="ZG9-AG-r9m"/>
                             <constraint firstItem="s9w-ck-vHo" firstAttribute="centerX" secondItem="sse-uI-zAC" secondAttribute="centerX" id="d6x-NK-x89"/>
                             <constraint firstItem="s9w-ck-vHo" firstAttribute="centerX" secondItem="hih-qg-ZUN" secondAttribute="centerX" id="gWa-5w-rrF"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="centerX" secondItem="pD0-ue-cbQ" secondAttribute="centerX" id="hWX-em-ALD"/>
                             <constraint firstItem="s9w-ck-vHo" firstAttribute="top" secondItem="sse-uI-zAC" secondAttribute="bottom" constant="8" id="ief-99-zVx"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="bottom" secondItem="Hbu-F2-bMp" secondAttribute="bottom" id="neR-Yz-Qq4"/>
+                            <constraint firstItem="KoG-9U-nQC" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" constant="53" id="u3h-Z4-Ifd"/>
                             <constraint firstItem="h35-ly-VCw" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" constant="13.000000000000007" id="vGu-fi-DC9"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="leading" secondItem="Hbu-F2-bMp" secondAttribute="leading" id="z6O-Er-Hg2"/>
                         </constraints>
@@ -736,6 +747,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="gear" catalog="system" selectedImage="gear" id="HJ9-AL-ng2"/>
                     <connections>
+                        <outlet property="addPhotoBtn" destination="KoG-9U-nQC" id="e00-wG-Bcb"/>
                         <outlet property="tableView" destination="hih-qg-ZUN" id="B9V-Bk-isk"/>
                         <outlet property="userID" destination="s9w-ck-vHo" id="mfo-a4-QJi"/>
                         <outlet property="userIcon" destination="h35-ly-VCw" id="UOx-rd-sgU"/>
