@@ -43,7 +43,8 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func addBtnPress(_ sender: Any) {
         let imagePicker = UIImagePickerController()
-        let actionSheet = UIAlertController(title: "Choose Photo Source", message: "", preferredStyle: .actionSheet)
+        
+        let actionSheet = UIAlertController(title: "Choose Photo Source", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (_) in
             imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
@@ -58,6 +59,9 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
                 print("Camera not available")
             }
         }))
+        actionSheet.addAction(UIAlertAction(title: "Remove Current Photo", style: .default, handler: { (_) in
+            self.userIcon.image = nil
+        }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
     }
@@ -66,11 +70,12 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             userIcon.image = image
             // UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) // 選的那張照片會存到user的相簿裡面
-    }
+        }
         picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
 }
