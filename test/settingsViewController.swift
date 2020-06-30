@@ -43,16 +43,34 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func addBtnPress(_ sender: Any) {
         let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true, completion: nil)
+        let actionSheet = UIAlertController(title: "Choose Photo Source", message: "", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (_) in
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (_) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+            imagePicker.sourceType = .camera
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true, completion: nil)
+            }else{
+                print("Camera not available")
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             userIcon.image = image
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            // UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) // 選的那張照片會存到user的相簿裡面
     }
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
