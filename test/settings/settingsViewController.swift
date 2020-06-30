@@ -64,7 +64,11 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }))
         actionSheet.addAction(UIAlertAction(title: "Remove Current Photo", style: .default, handler: { (_) in
-            self.userIcon.image = nil
+            if #available(iOS 13.0, *) {
+                self.userIcon.image = UIImage(systemName: "person.circle")
+            } else {
+                self.userIcon.image = nil
+            }
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
