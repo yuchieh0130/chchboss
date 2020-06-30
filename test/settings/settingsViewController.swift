@@ -20,6 +20,9 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
+        
+        userIcon.layer.cornerRadius = userIcon.frame.size.width/2.0
+        userIcon.clipsToBounds = true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,6 +46,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func addBtnPress(_ sender: Any) {
         let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
         
         let actionSheet = UIAlertController(title: "Choose Photo Source", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (_) in
@@ -67,7 +71,9 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
+            userIcon.image = image
+        }else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             userIcon.image = image
             // UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) // 選的那張照片會存到user的相簿裡面
         }
