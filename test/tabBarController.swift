@@ -12,11 +12,7 @@ import Floaty
 import FanMenu
 import Macaw
 
-@available(iOS 13.0, *)
 class tabBarController: UITabBarController, UITabBarControllerDelegate{
-    
-    let taskIcon = UIImage(systemName: "doc.text")
-    let calendarIcon = UIImage(systemName: "calendar")
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -37,12 +33,22 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
-        floaty.addItem("", icon: taskIcon, handler: {_ in
-            self.performSegue(withIdentifier: "tabBarToTask", sender: self)
-        })
-        floaty.addItem("", icon: calendarIcon, handler: {_ in
-            self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
-        })
+        if #available(iOS 13.0, *) {
+            floaty.addItem("", icon: UIImage(systemName: "doc.text"), handler: {_ in
+                self.performSegue(withIdentifier: "tabBarToTask", sender: self)
+            })
+            floaty.addItem("", icon: UIImage(systemName: "calendar"), handler: {_ in
+                self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
+            })
+        } else {
+            floaty.addItem("", icon: UIImage(named: "task"), handler: {_ in
+                self.performSegue(withIdentifier: "tabBarToTask", sender: self)
+            })
+            floaty.addItem("", icon: UIImage(named: "calendar"), handler: {_ in
+                self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
+            })
+        }
+        
         floaty.openAnimationType = .slideUp
         floaty.isDraggable = true
         floaty.hasShadow = false
