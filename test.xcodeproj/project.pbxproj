@@ -214,6 +214,15 @@
 			path = addEvent;
 			sourceTree = "<group>";
 		};
+		4BAB720924AB0184007D52A7 /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				4B35331C24A9D9EE00408562 /* settingsViewController.swift */,
+				4BAB720724A9E703007D52A7 /* settingsTableViewCell.swift */,
+			);
+			path = settings;
+			sourceTree = "<group>";
+		};
 		582341EA242B5C5C00FFC83B /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,14 +281,13 @@
 				4BF6625424613D8F0021D85E /* tabBar.swift */,
 				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
 				4B116D7D2477715A00CD25BD /* middleViewController.swift */,
-				4B35331C24A9D9EE00408562 /* settingsViewController.swift */,
-				4BAB720724A9E703007D52A7 /* settingsTableViewCell.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
 				4BA138C5243CB24E00C46CD3 /* task */,
 				4BA138C6243CB29800C46CD3 /* addEvent */,
 				582341EC242B5CF400FFC83B /* Calendar */,
 				4B95704C2457FF850067C4FB /* analysis */,
+				4BAB720924AB0184007D52A7 /* settings */,
 				4B4F0150243CCBD100A98C65 /* autoRecord */,
 			);
 			path = test;
@@ -616,13 +624,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RHAPWFMXXU;
+				DEVELOPMENT_TEAM = 5P443M8366;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss56.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss556.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -638,13 +646,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RHAPWFMXXU;
+				DEVELOPMENT_TEAM = 5P443M8366;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss56.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss556.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
