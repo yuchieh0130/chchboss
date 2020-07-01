@@ -11,6 +11,8 @@ class ViewController: UIViewController{
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
+    var testCalendar = Calendar.current
+    
     let fullScreenSize = UIScreen.main.bounds.size
     
     var showDayFormatter: DateFormatter {
@@ -158,7 +160,7 @@ class ViewController: UIViewController{
     
     /*selected cell setting*/
     func handleCellSelected(cell: DateCell, cellState: CellState){
-        if cellState.isSelected{
+        if cellState.isSelected && cellState.dateBelongsTo == .thisMonth{
             cell.selectedView.isHidden = false
             selectedDay = showDayFormatter.string(from: cellState.date)
             if DBManager.getInstance().getEvents(String: selectedDay) != nil{
@@ -262,14 +264,16 @@ extension ViewController: JTAppleCalendarViewDataSource {
         let startDate = Date()-(60*60*24*365)
         let endDate = Date()+(60*60*24*365)
         
-        if numberOfRows == 6 {
-            return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows)
-        }else if numberOfRows == 5{
-                return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows)
-        }else{
-            return ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: numberOfRows, generateInDates: .forFirstMonthOnly, generateOutDates: .off, hasStrictBoundaries: false)
-        }
-        //return ConfigurationParameters(startDate: startDate, endDate: endDate, generateInDates: .forAllMonths, generateOutDates: .tillEndOfRow)
+        let parameters = ConfigurationParameters(startDate: startDate,
+        endDate: endDate,
+        numberOfRows: numberOfRows,
+        calendar: testCalendar,
+        generateInDates: .forAllMonths,
+        generateOutDates: .tillEndOfRow,
+        firstDayOfWeek: .sunday,
+        hasStrictBoundaries: true)
+        
+        return parameters
     }
     
 }
@@ -294,13 +298,19 @@ extension ViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
         if cell?.isSelected == true{
             calendarView.deselectDates(from: date)
-            showEvent = [EventModel]()
-            showTask = [TaskModel]()
+            showEvent.removeAll()
+            showTask.removeAll()
+            //showEvent = [EventModel]()
+            //showTask = [TaskModel]()
             tableView.reloadData()
             return false
         }else{
             return true
         }
+//        if cellState.dateBelongsTo != .thisMonth{
+//            calendarView.deselectDates(from: date)
+//            return false
+//        }
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState){
