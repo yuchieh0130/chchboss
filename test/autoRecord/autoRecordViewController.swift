@@ -46,32 +46,9 @@ class autoRecordViewController: UIViewController{
         calendarView.showsVerticalScrollIndicator = false
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
         
-//        self.imageView = UIImageView(image: UIImage(named: "timeline"))
-//        scrollView = UIScrollView(frame: view.bounds)
-//        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: imageView.bounds.size.height)
-//        //scrollView.contentSize = imageView.bounds.size
-//        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
-        //scrollView.addSubview(imageView)
-        //view.addSubview(scrollView)
-//        if #available(iOS 13.0, *) {
-//            self.timeline.largeContentImage = UIImage(named: "timeline")
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        //self.tableView.backgroundView = UIImageView(image: UIImage(named: "timeline1"))
-        //tableView.backgroundView?.contentMode = .topLeft
-        let timeline = UIImageView(image: UIImage(named: "timeline6"))
-        tableView.insertSubview(timeline, at: 0)
-        timeline.contentMode = .scaleToFill
-//        self.imageView = UIImageView(image: UIImage(named: "timeline"))
-//        scrollView.addSubview(imageView)
-//        scrollView.isScrollEnabled = true
-//        scrollView.contentOffset = CGPoint(x: 10, y: 50)
-        
         title = "Track"
     }
-    
+
     override func viewWillAppear(_ animated: Bool){
 
         if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
