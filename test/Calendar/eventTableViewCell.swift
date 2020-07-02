@@ -46,5 +46,8 @@ class calTaskTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+class timelineCell: UITableViewCell{
     
 }

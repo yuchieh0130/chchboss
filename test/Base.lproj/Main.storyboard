@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FGn-vJ-0Zo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -295,8 +295,29 @@
                                 <rect key="frame" x="0.0" y="439" width="375" height="290"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="calTaskTableViewCell" rowHeight="60" id="QCv-KY-fb8" customClass="calTaskTableViewCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timelineCell" id="5wh-9X-zQW" customClass="timelineCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5wh-9X-zQW" id="AFN-Zc-c3o">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="check out my timeLine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCD-KO-bML">
+                                                    <rect key="frame" x="101.33333333333333" y="20" width="172.66666666666669" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MCD-KO-bML" firstAttribute="centerX" secondItem="AFN-Zc-c3o" secondAttribute="centerX" id="G19-Bu-haO"/>
+                                                <constraint firstItem="MCD-KO-bML" firstAttribute="centerY" secondItem="AFN-Zc-c3o" secondAttribute="centerY" id="Prm-Qp-xN7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="calTaskTableViewCell" rowHeight="60" id="QCv-KY-fb8" customClass="calTaskTableViewCell" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="88" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QCv-KY-fb8" id="kac-tF-ZW7">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -356,7 +377,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventTableViewCell" rowHeight="60" id="P8Q-Wo-YN8" customClass="eventTableViewCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="88" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="148" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P8Q-Wo-YN8" id="Z6r-YJ-VZH">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -529,6 +550,7 @@
                         <segue destination="9iT-4D-ttn" kind="show" identifier="editEvent" id="Q9x-NS-Pff"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="editCalTask" id="RmA-HN-d7i"/>
                         <segue destination="9iT-4D-ttn" kind="show" identifier="addEvent" id="uiq-XP-en4"/>
+                        <segue destination="mKh-C1-WbW" kind="show" identifier="timeline" id="cZy-a1-idi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -829,7 +851,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-nd-vcx">
+                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-nd-vcx">
                                 <rect key="frame" x="0.0" y="144" width="375" height="652"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -846,7 +868,7 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="EJu-LV-aVr"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="YKK-cC-JTP"/>
                             </scrollView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-D8-Cp7" userLabel="calendarView" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-D8-Cp7" userLabel="calendarView" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                 <rect key="frame" x="0.0" y="44" width="375" height="100"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
@@ -920,6 +942,14 @@
                                     <outlet property="ibCalendarDelegate" destination="svZ-ai-5oE" id="qOQ-lY-hRT"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VpK-ea-Exv">
+                                <rect key="frame" x="0.0" y="384" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="mKh-C1-WbW" kind="show" id="15D-0h-PEe"/>
+                                </connections>
+                            </button>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bky-oQ-TWv">
                                 <rect key="frame" x="0.0" y="144" width="375" height="585"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2205,6 +2235,32 @@
             </objects>
             <point key="canvasLocation" x="-1620" y="99.753694581280797"/>
         </scene>
+        <!--Timeline-->
+        <scene sceneID="JC2-nN-s4m">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="mKh-C1-WbW" customClass="timeline" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="esJ-Hm-vgz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTR-ou-5Sj">
+                                <rect key="frame" x="15" y="44" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancel:" destination="mKh-C1-WbW" eventType="touchUpInside" id="6cl-kh-p67"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="bIx-ct-BwR"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8dE-uU-vxT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NJf-GZ-eyI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1677" y="911"/>
+        </scene>
         <!--Edit Auto Record View Controller-->
         <scene sceneID="HOe-2I-You">
             <objects>
@@ -2825,11 +2881,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="cZy-a1-idi"/>
         <segue reference="b0Q-IJ-Wiq"/>
         <segue reference="9Rl-2J-tqH"/>
         <segue reference="Nye-bg-dEe"/>
-        <segue reference="csL-Fo-fcl"/>
-        <segue reference="hM4-lw-jpS"/>
+        <segue reference="Q9x-NS-Pff"/>
+        <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

@@ -67,6 +67,10 @@ class ViewController: UIViewController{
             if let editVC = segue.destination as? addTaskViewController{
                 editVC.task = task
             }
+        case "timeline":
+            if let VC = segue.destination as? timeline{
+                VC.date = selectedDay
+            }
         default:
             print("")
         }
@@ -87,21 +91,13 @@ class ViewController: UIViewController{
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
-        //calendarLayout.itemSize = CGSize(width: fullScreenSize.width/2-10, height: 100)
-        //calendarView.constraints = CGSize(width:UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2)
-        //        calendarView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/2)
-        
-//        if selectedDay == ""{
-//            calendarView.reloadData(withanchor: Date())
-//        }else{
-//            calendarView.reloadData(withanchor: showDayFormatter.date(from: selectedDay))
-//        }
         //初始畫面顯示
         yearLabel.text = showYearFormatter.string(from: Date())
         monthLabel.text = showMonthFormatter.string(from: Date())
         //註冊.xib檔
         //self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
         
+        tableView.separatorStyle = .none
         title = "Calendar"
     }
     
@@ -298,6 +294,7 @@ extension ViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool {
         if cell?.isSelected == true{
             calendarView.deselectDates(from: date)
+            selectedDay = ""
             showEvent.removeAll()
             showTask.removeAll()
             //showEvent = [EventModel]()
@@ -368,17 +365,25 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     //必要、需要幾個cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showTask.count+showEvent.count
+        if selectedDay != ""{
+            return showTask.count+showEvent.count+1
+        }else{
+             return 0
+        }
     }
     
     //必要、設定cell的樣式
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let i = showTask.count
-        if indexPath.row < showTask.count{
+        if indexPath.row == 0{
+            let cell0 : timelineCell = tableView.dequeueReusableCell(withIdentifier: "timelineCell", for: indexPath) as! timelineCell
+            cell0.selectionStyle = .none
+            return cell0
+        }else if indexPath.row-1 < showTask.count{
             let cell1 : calTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "calTaskTableViewCell", for: indexPath) as! calTaskTableViewCell
-            cell1.taskName.text = showTask[indexPath.row].taskName
-            cell1.taskTime.text = showTask[indexPath.row].taskDeadline
-            if showTask[indexPath.row].isDone == false{
+            cell1.taskName.text = showTask[indexPath.row-1].taskName
+            cell1.taskTime.text = showTask[indexPath.row-1].taskDeadline
+            if showTask[indexPath.row-1].isDone == false{
                 cell1.taskDone.isHidden = true
             }else{
                 cell1.taskDone.isHidden = false
@@ -390,10 +395,10 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             return cell1
         }else{
             let cell2 : eventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventTableViewCell", for: indexPath) as! eventTableViewCell
-            cell2.eventName?.text = showEvent[indexPath.row-i].eventName
+            cell2.eventName?.text = showEvent[indexPath.row-1-i].eventName
 //            if showEvent[indexPath.row-i].startTime != nil && showEvent[indexPath.row-i].endTime != nil
-            if showEvent[indexPath.row-i].allDay != true{
-                let time = showEvent[indexPath.row-i].startTime! + "-" + showEvent[indexPath.row-i].endTime!
+            if showEvent[indexPath.row-1-i].allDay != true{
+                let time = showEvent[indexPath.row-1-i].startTime! + "-" + showEvent[indexPath.row-1-i].endTime!
                 cell2.eventTime?.text = time
             }else{
                 cell2.eventTime?.text = "all day"
@@ -404,7 +409,9 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let i = showTask.count
-        if indexPath.row < showTask.count{
+        if indexPath.row == 0{
+            performSegue(withIdentifier: "timeline", sender: nil)
+        }else if indexPath.row-1 < showTask.count{
             task = showTask[indexPath.row]
             if task?.isDone == false {
                 performSegue(withIdentifier: "editCalTask", sender: nil)
@@ -421,7 +428,11 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
      }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.height/12
+        if indexPath.row == 0 {
+            return UIScreen.main.bounds.height/24
+        }else{
+            return UIScreen.main.bounds.height/12
+        }
     }
     
 }
