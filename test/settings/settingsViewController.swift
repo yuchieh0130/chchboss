@@ -26,7 +26,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,8 +38,12 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         case [0,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as! changePasswordCell
             return cell
+        case [0,2]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "editMyplaceCell", for: indexPath) as! editMyplaceCell
+            return cell
+            
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "editMyplaceCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "logOutCell", for: indexPath)
             return cell
         }
     }
