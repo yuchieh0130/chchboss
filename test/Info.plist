@@ -20,10 +20,14 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Press OK to take photo</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Always</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>While using app</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Press OK to choose photos</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -42,10 +46,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Press OK to choose photos</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Press OK to take photo</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

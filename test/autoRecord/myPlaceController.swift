@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class myPlaceController: UIViewController{
     
@@ -20,10 +21,13 @@ class myPlaceController: UIViewController{
     var placeLatitude: Double! = 0
     var myPlace: Bool! = true
     var noAdd = false
+    var userLocation = CLLocation()
     
     var showAllPlace: [PlaceModel]?
     // var showAllPlace =  DBManager.getInstance().getAllPlace()
     var savePlace : PlaceModel?
+    var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
+    
     
     
     @IBOutlet weak var tblView: UITableView!
@@ -37,10 +41,10 @@ class myPlaceController: UIViewController{
         //txtField.text = txtSearch.text
         popover.layer.borderColor = UIColor.gray.cgColor
         popover.layer.borderWidth = 1
-        popover.layer.cornerRadius = 20
-        popover.layer.shadowOffset = CGSize(width: 5,height: 5)
+        popover.layer.cornerRadius = 10
+        popover.layer.shadowOffset = CGSize(width: 3,height: 3)
         popover.layer.shadowOpacity = 0.7
-        popover.layer.shadowRadius = 20
+        popover.layer.shadowRadius = 10
         
     }
     @IBAction func cancelBtn(_ sender: Any) {
@@ -82,6 +86,7 @@ class myPlaceController: UIViewController{
         }else{
             showAllPlace = [PlaceModel]()
         }
+
     }
     
     func alertMessage(){
@@ -103,13 +108,28 @@ extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
         return showAllPlace!.count
     }
     
+
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell?
-        cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
+//        var cell: UITableViewCell?
+//        cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
+        let cellIdentifier = "myPlaceCell"
+
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? UITableViewCell
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: cellIdentifier)
+        }
         
         let place = self.showAllPlace![indexPath.row]
+        let longitude = self.showAllPlace![indexPath.row].placeLongitude
+        let latitude = self.showAllPlace![indexPath.row].placeLatitude
+        let savedPlaceLocation = CLLocation(latitude: latitude, longitude: longitude)
+        userLocation = CLLocation(latitude: placeLatitude, longitude: placeLatitude)
+        let distance = self.userLocation.distance(from: savedPlaceLocation)
         
-        cell?.textLabel?.text = showAllPlace![indexPath.row].placeName
+        cell?.textLabel?.text = place.placeName
+        cell?.detailTextLabel?.text = "\(distance) m"
+//        cell?.detailTextLabel?.isHidden = false
         
         return cell!
     }
