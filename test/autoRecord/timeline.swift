@@ -14,10 +14,18 @@ class timeline : UIViewController, UIScrollViewDelegate{
     var myScrollView: UIScrollView!
     var fullSize :CGSize!
     var hourSize = 0
-    
     var hours = [String]()
     var date = ""
-        
+    
+    var showTrack  = [TrackModel]()
+    var track :TrackModel?
+    
+    var showTimeformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     var showDayformatter: DateFormatter {
            let formatter = DateFormatter()
            formatter.dateFormat = "yyyy-MM-dd"
@@ -48,6 +56,15 @@ class timeline : UIViewController, UIScrollViewDelegate{
         self.view.addSubview(dateLabel)
     }
     
+    override func viewWillAppear(_ animated: Bool){
+           if DBManager.getInstance().getDateTracks(String: date) != nil{
+               showTrack = DBManager.getInstance().getDateTracks(String: date)
+            createTracks(view: myScrollView)
+           }else{
+               showTrack = [TrackModel]()
+           }
+    }
+    
     func timelabel(){
         for hr in 0...24{
             var string = hr < 10 ? "0" + "\(hr)" : "\(hr)"
@@ -62,9 +79,9 @@ class timeline : UIViewController, UIScrollViewDelegate{
     
     func createTimeLines(hours: [String],view: UIScrollView){
         for i in 0...24{
-            let time = UILabel(frame:CGRect(x:20,y:hourSize*i+50,width: 50,height: 50))
+            let time = UILabel(frame:CGRect(x:20,y:hourSize*i,width: 50,height: 50))
             time.text = hours[i]
-            let line = UIView(frame:CGRect(x:80,y:hourSize*i+25+50,width:Int(fullSize.width)-100,height: 1))
+            let line = UIView(frame:CGRect(x:80,y:hourSize*i+25,width:Int(fullSize.width)-100,height: 1))
             line.backgroundColor = UIColor.gray
             view.addSubview(time)
             view.addSubview(line)
@@ -72,8 +89,46 @@ class timeline : UIViewController, UIScrollViewDelegate{
         }
     }
     
+    func createTracks(view: UIScrollView){
+        var lastHeight = 0
+        for i in 0...showTrack.count-1{
+            let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
+            let seconds = showTimeformatter.date(from: showTrack[i].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[i].startTime)!)
+            let hour = Double(seconds!/3600)
+            let height = hour*Double(hourSize)
+//            print(hour)
+//            print(hourSize)
+            let trackView = UIView(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
+            trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
+            view.addSubview(trackView)
+            lastHeight += Int(height)
+        }
+    }
+    
     
     @IBAction func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(0.5)
+        )
     }
 }
