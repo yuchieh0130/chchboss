@@ -36,21 +36,21 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return showCategory.count+1
+        return showCategory.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == showCategory.count{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCategoryCell", for: indexPath) as! addCategoryViewCell
-            return cell
-        }else{
+//        if indexPath.row == showCategory.count{
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCategoryCell", for: indexPath) as! addCategoryViewCell
+//            return cell
+//        }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! categoryViewCell
             cell.categoryName?.text = showCategory[indexPath.row].categoryName
             cell.backgroundColor = UIColor.white
             cell.imageView.image = UIImage(named: "\(showCategory[indexPath.row].category_image)")
             cell.circle.backgroundColor = hexStringToUIColor(hex: "\(showCategory[indexPath.row].categoryColor)")
             return cell
-        }
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

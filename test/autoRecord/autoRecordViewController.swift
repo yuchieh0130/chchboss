@@ -16,6 +16,8 @@ class autoRecordViewController: UIViewController{
     @IBOutlet var calendarView: JTAppleCalendarView!
     var selectedDay:String = ""
     var numberOfRows = 1
+    private var style = Style()
+    var timelineFrame = CGRect()
     
    var showTimeformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -45,6 +47,11 @@ class autoRecordViewController: UIViewController{
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
         calendarView.reloadData(withanchor: Date()) //初始畫面顯示當月月份
+        
+        let timelineView = TimelineView(style: style, frame: timelineFrame)
+        timelineView.create()
+        view.addSubview(timelineView)
+        
         
         title = "Track"
     }
