@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1031,7 +1031,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="YKK-cC-JTP"/>
                             </scrollView>
                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-D8-Cp7" userLabel="calendarView" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                <rect key="frame" x="0.0" y="44" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Syn-Jo-F4J"/>
@@ -1188,7 +1188,6 @@
                         <outlet property="imageView" destination="9Wc-kr-0iV" id="ffp-8O-IxD"/>
                         <outlet property="scrollView" destination="zIr-nd-vcx" id="RRc-1k-AeF"/>
                         <outlet property="tableView" destination="Bky-oQ-TWv" id="76z-BA-VgJ"/>
-                        <segue destination="Xuc-j8-9wr" kind="show" identifier="editTrack" id="Yy4-1Y-O8C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L2c-Xq-Bge" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2418,6 +2417,9 @@
                         <viewLayoutGuide key="safeArea" id="bIx-ct-BwR"/>
                     </view>
                     <navigationItem key="navigationItem" id="8dE-uU-vxT"/>
+                    <connections>
+                        <segue destination="Xuc-j8-9wr" kind="show" identifier="editTrack" id="trA-i7-k1W"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJf-GZ-eyI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3045,9 +3047,10 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ds9-Hc-Lep"/>
+        <segue reference="15D-0h-PEe"/>
         <segue reference="54J-Uw-fAs"/>
-        <segue reference="9Rl-2J-tqH"/>
-        <segue reference="Nye-bg-dEe"/>
+        <segue reference="RdI-zR-oJx"/>
+        <segue reference="bHU-5F-LTf"/>
         <segue reference="Q9x-NS-Pff"/>
         <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
