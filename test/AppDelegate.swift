@@ -41,6 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var category5: String = ""
     var speed: Double! = 0
     
+    //let networkController = NetworkController
+    let net = NetworkController()
+    
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
@@ -148,6 +151,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.duration = Date().timeIntervalSince(self.showDateformatter.date(from: self.lastStartTime)!)
             let isSaved = DBManager.getInstance().saveDuration(double: self.duration)
             DBManager.getInstance().saveLocation(modelInfo)
+            
+            let data : [String: String] = ["location_id":"0", "longitude":String(self.longitude), "latitude":String(self.latitude), "start_time":self.startTime, "duration":String(self.duration), "speed":String(self.speed), "name1":self.name1, "name2":self.name2, "name3":self.name3, "name4":self.name4, "name5":self.name5, "category1":self.category1, "category2":self.category2, "category3":self.category3, "category4":self.category4, "category5":self.category5]
+            
+            self.net.postLocationData(data: data){
+                (status_code) in
+                if (status_code != nil) {
+                    print(status_code!)
+                }
+            }
+            
             self.lastStartTime = self.startTime
             
             self.myLocationManager.startUpdatingLocation()

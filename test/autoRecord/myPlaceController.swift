@@ -27,7 +27,7 @@ class myPlaceController: UIViewController{
     // var showAllPlace =  DBManager.getInstance().getAllPlace()
     var savePlace : PlaceModel?
     var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
-    
+    let net = NetworkController()
     
     
     @IBOutlet weak var tblView: UITableView!
@@ -59,6 +59,15 @@ class myPlaceController: UIViewController{
         }else {
             let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLongitude, myPlace: true)
             let isAdded = DBManager.getInstance().addPlace(modelInfo)
+            
+            let data:[String:String] = ["place_id":"0", "place_name":self.placeName, "place_longitude":String(self.placeLongitude), "place_latitude":String(self.placeLatitude)]
+            
+            self.net.postSaveplaceData(data: data){
+                (status_code) in
+                if (status_code != nil) {
+                    print(status_code!)
+                }
+            }
             
             txtMyPlaceName.text = nil
         }
