@@ -39,7 +39,7 @@ extension tete: UITableViewDataSource, UITableViewDelegate{
         
         cell.a.text = "id:\(l.locationId!)，時間：\(l.startTime)"
         cell.b.text = "經度：\(l.longitude)，緯度：\(l.latitude)，速度：\(l.speed)"
-        cell.c.text = "1:\(l.name1!)，2:\(l.name2!)，3:\(l.name3!)，4:\(l.name4!)，5:\(l.name5!)"
+        cell.c.text = "1:\(l.name1)，2:\(l.name2)，3:\(l.name3)，4:\(l.name4)，5:\(l.name5)"
         return cell
         
     }
