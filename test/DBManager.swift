@@ -528,7 +528,7 @@ class DBManager: NSObject {
     //新增track
     func addTrack(_ modelInfo: TrackModel) -> Bool{
         shareInstance.database?.open()
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO track (strat_date,start_time,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId])
         shareInstance.database?.close()
         return isAdded!
     }
@@ -536,7 +536,7 @@ class DBManager: NSObject {
     //編輯track（不包含location）
     func editTrack(_ modelInfo: TrackModel){
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("UPDATE track SET strat_date = '\(modelInfo.startDate)',start_time = '\(modelInfo.startTime)',end_date = '\(modelInfo.endDate)',end_time = '\(modelInfo.endTime)',category_id = \(modelInfo.categoryId) WHERE track_id = \(modelInfo.trackId!)", withArgumentsIn: [modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId,modelInfo.trackId!])
+        let isEdited = shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(modelInfo.startDate)',start_time = '\(modelInfo.startTime)',end_date = '\(modelInfo.endDate)',end_time = '\(modelInfo.endTime)',category_id = \(modelInfo.categoryId) WHERE track_id = \(modelInfo.trackId!)", withArgumentsIn: [modelInfo.startTime,modelInfo.endTime,modelInfo.categoryId,modelInfo.trackId!])
         shareInstance.database?.close()
     }
     

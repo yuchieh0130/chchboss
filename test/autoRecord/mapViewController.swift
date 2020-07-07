@@ -63,6 +63,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         modelLoc = DBManager.getInstance().getLocation(Int: location_id)
         nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
         categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
+        //savePlaceArray = 
         
         mapView.delegate = self
 

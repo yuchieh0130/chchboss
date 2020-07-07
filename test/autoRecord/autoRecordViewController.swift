@@ -78,11 +78,7 @@ class autoRecordViewController: UIViewController{
             }
         }
     }
-    
-    @IBAction func editAutoSegueBack(segue: UIStoryboardSegue){
-        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
-        tableView.reloadData()
-    }
+
 
         func configureCell(view: JTAppleCell?, cellState: CellState){
             guard let cell = view as? DateCell else {return}

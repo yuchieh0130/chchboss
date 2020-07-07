@@ -2433,9 +2433,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTR-ou-5Sj">
-                                <rect key="frame" x="15" y="44" width="48" height="30"/>
+                                <rect key="frame" x="22" y="44" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel"/>
+                                <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="cancel:" destination="mKh-C1-WbW" eventType="touchUpInside" id="6cl-kh-p67"/>
                                 </connections>
@@ -2654,7 +2654,7 @@
                                 <state key="normal" title="OK"/>
                                 <connections>
                                     <action selector="editBtn:" destination="Xuc-j8-9wr" eventType="touchUpInside" id="UdV-iI-lGd"/>
-                                    <segue destination="9iG-jw-Af6" kind="unwind" unwindAction="editAutoSegueBackWithSegue:" id="LTP-nL-V70"/>
+                                    <segue destination="9iG-jw-Af6" kind="unwind" unwindAction="editAutoSegueBackWithSegue:" id="wh8-Wf-GHa"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU6-Kx-Dc8">
@@ -3075,7 +3075,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ds9-Hc-Lep"/>
-        <segue reference="cZy-a1-idi"/>
+        <segue reference="15D-0h-PEe"/>
         <segue reference="54J-Uw-fAs"/>
         <segue reference="RdI-zR-oJx"/>
         <segue reference="bHU-5F-LTf"/>

@@ -16,6 +16,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     var hourSize = 0
     var hours = [String]()
     var date = ""
+    var trackViews = [UIButton]()
     
     var showTrack  = [TrackModel]()
     var track :TrackModel?
@@ -36,12 +37,12 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     
     override func viewDidLoad(){
         fullSize = UIScreen.main.bounds.size
-        hourSize = Int(fullSize.height/4)
+        hourSize = Int(fullSize.height/6)
         myScrollView = UIScrollView()
         //可見視圖範圍
         myScrollView.frame = CGRect(x: 0, y: 100, width: fullSize.width,height: fullSize.height - 20)
         //實際視圖範圍
-        myScrollView.contentSize = CGSize(width: fullSize.width,height: fullSize.height * 6+80)
+        myScrollView.contentSize = CGSize(width: fullSize.width,height:fullSize.height/6*24+80)
         //滑動條
         myScrollView.showsVerticalScrollIndicator = true
         myScrollView.showsHorizontalScrollIndicator = false
@@ -56,7 +57,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
         dateLabel.text = date
         self.view.addSubview(dateLabel)
         
-        tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
+//        tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
         tap.delegate = self
     }
     
@@ -68,6 +69,25 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
                showTrack = [TrackModel]()
            }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editTrack"{
+            if let VC = segue.destination as?editAutoRecordViewController{
+                VC.track = track!
+            }
+        }
+    }
+    
+    @IBAction func editAutoSegueBack(segue: UIStoryboardSegue){
+        print("wwwwww")
+        showTrack = DBManager.getInstance().getDateTracks(String: date)
+        trackViews.forEach({$0.removeFromSuperview()})
+        //view.subviews.forEach({$0.removeFromSuperview()})
+        //subviews
+        //subviews.forEach({ $0.removeFromSuperview() })
+        createTracks(view: myScrollView)
+    }
+    
     
     func timelabel(){
         for hr in 0...24{
@@ -103,11 +123,17 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
 //            print(hour)
 //            print(hourSize)
             let trackView = UIButton(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
+            trackView.tag = i
 //            let trackView = UIView(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
             trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
-            trackView.layer.borderColor = hexStringToUIColor_border(hex: category!.categoryColor).cgColor
-            trackView.layer.borderWidth = 3
-            trackView.addGestureRecognizer(tap)
+            trackView.addTarget(self, action: #selector(self.editAutoRecord), for: .touchUpInside)
+            let categoryLabel = UILabel(frame:CGRect(x:20,y:20,width: 500,height: 50))
+            categoryLabel.text = "\(category!.categoryName)"
+            trackView.addSubview(categoryLabel)
+            //trackView.layer.borderColor = hexStringToUIColor_border(hex: category!.categoryColor).cgColor
+            //trackView.layer.borderWidth = 3
+            //trackView.addGestureRecognizer(tap)
+            trackViews.append(trackView)
             view.addSubview(trackView)
             lastHeight += Int(height)
         }
@@ -118,9 +144,16 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) {
+//    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) {
+//        performSegue(withIdentifier: "editTrack", sender:self )
+//    }
+    
+    @objc func editAutoRecord(sender: UIButton!){
+        track = showTrack[sender.tag]
         performSegue(withIdentifier: "editTrack", sender:self )
     }
+    
+    
     
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
