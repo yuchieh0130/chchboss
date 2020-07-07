@@ -72,8 +72,8 @@ class myPlaceController: UIViewController{
             txtMyPlaceName.text = nil
         }
         
-        if DBManager.getInstance().getAllPlace() != nil{
-            showAllPlace = DBManager.getInstance().getAllPlace()
+        if DBManager.getInstance().getMyPlace() != nil{
+            showAllPlace = DBManager.getInstance().getMyPlace()
             
         }else{
             showAllPlace = [PlaceModel]()
@@ -89,8 +89,8 @@ class myPlaceController: UIViewController{
             btnAdd.isHidden = true
         }
         
-        if DBManager.getInstance().getAllPlace() != nil{
-            showAllPlace = DBManager.getInstance().getAllPlace()
+        if DBManager.getInstance().getMyPlace() != nil{
+            showAllPlace = DBManager.getInstance().getMyPlace()
             
         }else{
             showAllPlace = [PlaceModel]()

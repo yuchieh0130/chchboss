@@ -23,6 +23,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var modelLoc : LocationModel?
     lazy var nameArray = [String?]()
     lazy var categoryArray = [String?]()
+    //var savePlaceArray = [PlaceModel]()
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     
@@ -63,8 +64,12 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         modelLoc = DBManager.getInstance().getLocation(Int: location_id)
         nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
         categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
-        //savePlaceArray = 
-        
+//        savePlaceArray = DBManager.getInstance().getNotMyPlace()!
+//        savePlaceArray.filter({
+//            let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
+//            let distance = c.distance(from: c)
+//            return distance<=100
+//        })
         mapView.delegate = self
 
         
@@ -78,13 +83,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         marker.map = mapView
-        
-//        let camera = GMSCameraPosition.camera(withLatitude: modelLoc!.latitude, longitude: modelLoc!.longitude, zoom: 15.0)
-//        mapView.camera = camera
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: modelLoc!.latitude, longitude: modelLoc!.longitude)
-//        marker.map = mapView
-        
+        let circle = GMSCircle(position: CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!), radius: 50)
+        circle.strokeColor = UIColor.red
+        circle.map = mapView
+
     }
     
     @IBAction func cancel(_ sender: UIButton){
@@ -100,6 +102,17 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         }
     }
     
+//    func isWithin100meters(savePlaceArray:[PlaceModel])->[PlaceModel?]{
+//        //self.userLocation = CLLocation(latitude: latitude!, longitude: longitude!)
+//        let savePlaceArray = DBManager.getInstance().getNotMyPlace()!
+//        savePlaceArray.filter({
+//            let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
+//            let distance = c.distance(from: c)
+//            return distance<=100
+//        })
+//        return savePlaceArray
+//    }
+    
     
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
@@ -108,6 +121,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             return nameArray.count+1
         }else{
             return sortedName.count+2
+            //return sortedName.count+2+savePlaceArray.count
         }
     }
     

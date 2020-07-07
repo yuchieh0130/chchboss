@@ -289,7 +289,35 @@ class DBManager: NSObject {
         return place
     }
     
-    func getAllPlace() -> [PlaceModel]!{
+    func getNotMyPlace() -> [PlaceModel]!{
+        
+        var places : [PlaceModel]!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM savedPlace WHERE my_place = 0";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "place_id")
+            let a = set?.string(forColumn: "place_name")
+            let b = set?.string(forColumn: "place_category")
+            let c = set?.double(forColumn: "place_longitude")
+            let d = set?.double(forColumn: "place_latitude")
+            let e = set?.bool(forColumn: "my_place")
+            
+            let place: PlaceModel
+            
+            if places == nil{
+                places = [PlaceModel]()
+            }
+            
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, myPlace: e!)
+            places.append(place)
+        }
+        set?.close()
+        return places
+    }
+    
+    func getMyPlace() -> [PlaceModel]!{
         
         var places : [PlaceModel]!
         shareInstance.database?.open()

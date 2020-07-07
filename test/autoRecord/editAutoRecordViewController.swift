@@ -146,6 +146,9 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         marker.map = mapView
+        let circle = GMSCircle(position: CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!), radius: 50)
+        circle.strokeColor = UIColor.red
+        circle.map = mapView
         
     }
     
