@@ -102,7 +102,8 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
             let height = hour*Double(hourSize)
 //            print(hour)
 //            print(hourSize)
-            let trackView = UIView(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
+            let trackView = UIButton(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
+//            let trackView = UIView(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
             trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
             trackView.layer.borderColor = hexStringToUIColor_border(hex: category!.categoryColor).cgColor
             trackView.layer.borderWidth = 3

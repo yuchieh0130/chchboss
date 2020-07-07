@@ -25,7 +25,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
-    
+    let net = NetworkController()
     @IBOutlet var txtDate: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet var tableView: UITableView!
@@ -180,6 +180,16 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
                 let isAdded = DBManager.getInstance().addPlace(savePlace!)
                 let id = DBManager.getInstance().getMaxPlace()
                 let a = DBManager.getInstance().addTrackPlace(a: id, b: track.trackId!)
+                
+                let data:[String:String] = ["place_id":"0", "place_name":savePlace!.placeName, "place_longitude":String(savePlace!.placeLongitude), "place_latitude":String(savePlace!.placeLatitude)]
+                
+                self.net.postSaveplaceData(data: data){
+                    (status_code) in
+                    if (status_code != nil) {
+                        print(status_code!)
+                    }
+                }
+                
             }else{
                 let a = DBManager.getInstance().addTrackPlace(a: (savePlace?.placeId)!, b: track.trackId!)
             }

@@ -67,6 +67,8 @@ class addViewController : UIViewController{
     var s = Date()
     var e = Date()+3600
     
+    let net = NetworkController()
+    
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -335,6 +337,14 @@ class addViewController : UIViewController{
                 if savePlaceModel != nil{
                 let isAdded = DBManager.getInstance().addPlace(savePlaceModel!)
                 autoPlace = DBManager.getInstance().getMaxPlace()
+                    let data:[String:String] = ["place_id":"0", "place_name":savePlaceModel!.placeName, "place_longitude":String(savePlaceModel!.placeLongitude), "place_latitude":String(savePlaceModel!.placeLatitude)]
+                    
+                    self.net.postSaveplaceData(data: data){
+                        (status_code) in
+                        if (status_code != nil) {
+                            print(status_code!)
+                        }
+                    }
                 }
             }else if allDay == true{
                 startTime = nil
@@ -346,6 +356,7 @@ class addViewController : UIViewController{
             if reminder != "0" { makeNotification(action: "add")}
             //新增當下問是不是在做這件事的通知
         }
+        
     }
     
     @IBAction func editEventButton(_ sender: UIButton){
