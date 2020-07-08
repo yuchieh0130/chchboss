@@ -60,7 +60,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChart.transparentCircleRadiusPercent = 0.0
             pieChart.isHidden = false
             lineChart.isHidden = true
-            self.pieChart.reloadInputViews()
         }else if getIndex == 1{
             customizePieChart(dataPoints: sports, values: counts.map{
                 Double($0) })
@@ -113,7 +112,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         for i in 0..<dataPoints.count {
             let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
             dataEntries.append(dataEntry)
-            self.pieChart.reloadInputViews()
         }
         // 2. Set ChartDataSet
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
@@ -131,6 +129,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.rotationAngle = 0
         pieChart.legend.direction = .leftToRight
         //pieChart.addInteraction(<#T##interaction: UIInteraction##UIInteraction#>)
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(ChartDataEntry.self)
     }
     
     func customizeLineChart(dataPoints: [String], values: [Double]){
