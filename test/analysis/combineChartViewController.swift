@@ -13,9 +13,15 @@ import Charts
 class combineChartViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet var combineChart: CombinedChartView!
+    @IBOutlet var returnBtn: UIButton!
     
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     let ITEM_COUNT = 12
+    
+    @IBAction func returnBtn(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)

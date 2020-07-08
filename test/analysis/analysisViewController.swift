@@ -45,9 +45,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.chartDescription?.text = "CHCHBOSS"
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
-        pieChart.setExtraOffsets(left: -10, top: -10, right: -10, bottom: -10)
+        pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChart.transparentCircleRadiusPercent = 0.0
         pieChart.legend.horizontalAlignment = .center
+        pieChart.legend.verticalAlignment = .bottom
         lineChart.isHidden = true
     }
     
@@ -58,9 +59,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChart.chartDescription?.text = "CHCHBOSS"
             pieChart.entryLabelColor = UIColor.black
             pieChart.drawEntryLabelsEnabled = false
-            pieChart.setExtraOffsets(left: -10, top: -10, right: -10, bottom: -10)
+            pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChart.transparentCircleRadiusPercent = 0.0
             pieChart.legend.horizontalAlignment = .center
+            pieChart.legend.verticalAlignment = .bottom
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 1{
