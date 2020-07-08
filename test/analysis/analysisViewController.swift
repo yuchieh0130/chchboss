@@ -26,7 +26,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     let goals = [6, 8, 26, 30, 8, 10]
     let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
     let counts = [45, 76, 34, 97]
-    let yep = [34, 67, 89, 45, 44, 12, 28, 90, 23]
+    let categoryValues = [34, 67, 89, 45, 44, 12, 28, 90, 23, 60, 57, 17, 26, 37, 95, 54, 64, 87]
     let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
     let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
     
@@ -40,7 +40,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             showCategoryColor.append(showCategory[i].categoryColor)
         }
         
-        customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
+        customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
         pieChart.chartDescription?.text = "CHCHBOSS"
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
@@ -50,7 +50,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     @IBAction func segConChoose(_ sender: Any) {
         var getIndex = segCon.selectedSegmentIndex        
         if getIndex == 0{
-            //customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
+            customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
             pieChart.entryLabelColor = UIColor.black
             pieChart.drawEntryLabelsEnabled = false
             pieChart.isHidden = false
@@ -105,11 +105,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.delegate = self
         // 1. Set ChartDataEntry
         var dataEntries: [ChartDataEntry] = []
-//        for i in 0..<dataPoints.count {
-////            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
-//            dataEntries.append(dataEntry)
-//            self.pieChart.reloadInputViews()
-//        }
+        for i in 0..<dataPoints.count {
+            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+            dataEntries.append(dataEntry)
+            self.pieChart.reloadInputViews()
+        }
         // 2. Set ChartDataSet
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
         pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
@@ -150,8 +150,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         lineChart.data = lineChartData
         
     }
-    
-//
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
