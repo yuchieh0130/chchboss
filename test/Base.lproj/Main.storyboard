@@ -1007,7 +1007,7 @@
         <!--Analysis View Controller-->
         <scene sceneID="hAM-t7-DFl">
             <objects>
-                <viewController id="3xM-0D-h9c" customClass="analysisViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="3xM-0D-h9c" customClass="analysisViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sfp-gm-cKQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1035,21 +1035,31 @@
                                 <rect key="frame" x="16" y="118" width="343" height="535"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naa-rS-lTz">
+                                <rect key="frame" x="164" y="22" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testBtn:" destination="3xM-0D-h9c" eventType="touchUpInside" id="ZRP-HH-fvQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8EZ-KE-JC6" firstAttribute="centerX" secondItem="1hb-Ki-UBc" secondAttribute="centerX" id="0N6-dq-k4Q"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="8EZ-KE-JC6" secondAttribute="top" id="0OW-cW-CYe"/>
+                            <constraint firstItem="naa-rS-lTz" firstAttribute="centerX" secondItem="1hb-Ki-UBc" secondAttribute="centerX" id="7Gy-97-XqE"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="27" id="Arx-lg-W1b"/>
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="PnP-nn-Mu1" secondAttribute="bottom" constant="22" id="ElS-Ve-f6W"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="70" id="F1w-oD-bWz"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" id="FeN-n5-BbS"/>
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" constant="22" id="QJ3-Hl-PUP"/>
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="1hb-Ki-UBc" secondAttribute="trailing" constant="70" id="REi-6j-8vb"/>
+                            <constraint firstItem="naa-rS-lTz" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="164" id="dph-nq-O5H"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="8EZ-KE-JC6" secondAttribute="centerX" id="f30-tD-nT8"/>
                             <constraint firstItem="8EZ-KE-JC6" firstAttribute="leading" secondItem="sfp-gm-cKQ" secondAttribute="leadingMargin" id="f88-cX-r3I"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="lRL-zB-UKg"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="top" secondItem="Ymv-rs-qLb" secondAttribute="top" constant="60" id="mLL-ww-idW"/>
+                            <constraint firstItem="naa-rS-lTz" firstAttribute="top" secondItem="Ymv-rs-qLb" secondAttribute="top" constant="22" id="obT-nG-zVU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
@@ -1058,6 +1068,7 @@
                         <outlet property="lineChart" destination="8EZ-KE-JC6" id="a18-qy-ZQL"/>
                         <outlet property="pieChart" destination="PnP-nn-Mu1" id="x0r-A1-waa"/>
                         <outlet property="segCon" destination="1hb-Ki-UBc" id="4h0-ad-6QU"/>
+                        <outlet property="testBtn" destination="naa-rS-lTz" id="w9D-Sj-rjo"/>
                         <segue destination="uun-bz-T0X" kind="show" identifier="analysisToCombineChart" id="WGP-Ss-XWI"/>
                     </connections>
                 </viewController>

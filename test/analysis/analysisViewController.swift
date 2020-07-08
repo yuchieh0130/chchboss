@@ -17,6 +17,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var pieChart: PieChartView!
     @IBOutlet var lineChart: LineChartView!
+    @IBOutlet var testBtn: UIButton!
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
@@ -46,6 +47,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.drawEntryLabelsEnabled = false
         pieChart.setExtraOffsets(left: -10, top: -10, right: -10, bottom: -10)
         pieChart.transparentCircleRadiusPercent = 0.0
+        pieChart.legend.horizontalAlignment = .center
         lineChart.isHidden = true
     }
     
@@ -58,6 +60,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChart.drawEntryLabelsEnabled = false
             pieChart.setExtraOffsets(left: -10, top: -10, right: -10, bottom: -10)
             pieChart.transparentCircleRadiusPercent = 0.0
+            pieChart.legend.horizontalAlignment = .center
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 1{
@@ -200,6 +203,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             alpha: CGFloat(0.8)
         )
     }
+    
+    @IBAction func testBtn(_ sender: Any) {
+        performSegue(withIdentifier: "analysisToCombineChart", sender: self)
+    }
+    
     
     
 }

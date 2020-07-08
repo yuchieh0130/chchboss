@@ -24,6 +24,7 @@
 		4B351A4B24188BE9003A474A /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B351A4624188BE9003A474A /* FMResultSet.m */; };
 		4B35331D24A9D9EE00408562 /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B35331C24A9D9EE00408562 /* settingsViewController.swift */; };
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
+		4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B490B8E24B589A500A8249A /* combineChartViewController.swift */; };
 		4B4AB6232463197A00FC8A6D /* myPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* myPlaceController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
 		4B4F0152243CCBD100A98C65 /* autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */; };
@@ -91,6 +92,7 @@
 		4B351A4624188BE9003A474A /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		4B35331C24A9D9EE00408562 /* settingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
+		4B490B8E24B589A500A8249A /* combineChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = combineChartViewController.swift; sourceTree = "<group>"; };
 		4B4AB6222463197900FC8A6D /* myPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlaceController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
 		4B4F0151243CCBD100A98C65 /* autoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = autoRecordViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				4B95704D2457FFB10067C4FB /* analysisViewController.swift */,
+				4B490B8E24B589A500A8249A /* combineChartViewController.swift */,
 			);
 			path = analysis;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */,
 				4BAB720824A9E703007D52A7 /* settingsTableViewCell.swift in Sources */,
 				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
+				4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */,
 				4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */,
 				4BF6625524613D8F0021D85E /* tabBar.swift in Sources */,
 				4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */,
@@ -644,13 +648,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RHAPWFMXXU;
+				DEVELOPMENT_TEAM = 5P443M8366;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss553.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss556.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -666,13 +670,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RHAPWFMXXU;
+				DEVELOPMENT_TEAM = 5P443M8366;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss553.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss556.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
