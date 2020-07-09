@@ -14,6 +14,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet var combineChart: CombinedChartView!
     @IBOutlet var returnBtn: UIButton!
+    @IBOutlet var categoryName: UILabel!
+    @IBOutlet var segCon: UISegmentedControl!
     
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -22,6 +24,22 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     @IBAction func returnBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func segConChoose(_ sender: Any) {
+        var getIndex = segCon.selectedSegmentIndex
+        
+        if getIndex == 0{
+            setChartData()
+        }else if getIndex == 1{
+            setChartData()
+        }else if getIndex == 2{
+            setChartData()
+        }else if getIndex == 3{
+            setChartData()
+        }
+        
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -68,6 +86,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         combineChart.chartDescription?.text = "Combine Chart"
         
         setChartData()
+        
+        categoryName.text = "Home"
     }
     
     func setChartData(){
