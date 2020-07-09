@@ -654,7 +654,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss556.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss583.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -676,7 +676,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss556.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss583.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
