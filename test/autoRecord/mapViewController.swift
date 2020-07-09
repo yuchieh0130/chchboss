@@ -92,7 +92,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     }
     
     @IBAction func cancel(_ sender: UIButton){
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

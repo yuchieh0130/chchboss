@@ -1496,7 +1496,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmz-qQ-lto">
-                                                    <rect key="frame" x="135" y="23.666666666666671" width="200" height="18"/>
+                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="WIL-YS-lCp"/>
                                                     </constraints>
@@ -2300,7 +2300,8 @@
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="cancelBtn:" destination="n8m-Ye-yaB" eventType="touchUpInside" id="6IS-12-spJ"/>
+                                    <action selector="cancelBtn:" destination="n8m-Ye-yaB" eventType="touchUpInside" id="5CX-9Y-wcY"/>
+                                    <action selector="cancelButton:" destination="n8m-Ye-yaB" eventType="touchUpInside" id="bjG-L4-lgt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2368,7 +2369,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-2393" y="100"/>
+            <point key="canvasLocation" x="-2394.4000000000001" y="99.753694581280797"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="ePr-Ok-yXT">
@@ -2520,7 +2521,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTR-ou-5Sj">
-                                <rect key="frame" x="22" y="44" width="34" height="30"/>
+                                <rect key="frame" x="22" y="-1177" width="34" height="1251"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
@@ -2538,7 +2539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJf-GZ-eyI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1677" y="911"/>
+            <point key="canvasLocation" x="-1677.5999999999999" y="910.34482758620697"/>
         </scene>
         <!--Edit Auto Record View Controller-->
         <scene sceneID="HOe-2I-You">
@@ -2731,6 +2732,7 @@
                                 <state key="normal" title="cancel"/>
                                 <connections>
                                     <action selector="cancel:" destination="Xuc-j8-9wr" eventType="touchUpInside" id="M9R-Fa-5eO"/>
+                                    <action selector="cancelBtn:" destination="Xuc-j8-9wr" eventType="touchUpInside" id="5hf-9U-jGi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAG-WE-bgg">

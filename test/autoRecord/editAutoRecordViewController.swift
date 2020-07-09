@@ -13,6 +13,9 @@ import GoogleMaps
 import GooglePlaces
 
 class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDelegate{
+    @IBAction func cancelBtn(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
     var s = Date()
