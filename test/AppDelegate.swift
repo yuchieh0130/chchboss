@@ -70,8 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //myLocationManager = CLLocationManager()
         //        myLocationManager.startMonitoringVisits()
         myLocationManager.delegate = self
-        myLocationManager.distanceFilter = 50.0
-            //kCLLocationAccuracyHundredMeters
+        myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
             //kCLLocationAccuracyNearestTenMeters
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest //kCLLocationAccuracyNearestTenMeters //kCLLocationAccuracyBestForNavigation
         myLocationManager.allowsBackgroundLocationUpdates = true
@@ -114,16 +113,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //        }
         
         if myLocationManager.location!.speed <= 0{
-            m
+            saveInDB()
         }
-        if myLocationManager.location!.horizontalAccuracy>=0{
-            //myLocationManager.stopUpdatingLocation()
-            if myLocationManager.location!.speed > 0{
-               saveSpeed()
-            }else{
-               saveInDB()
-            }
-        }
+//        if myLocationManager.location!.horizontalAccuracy>=0{
+//            //myLocationManager.stopUpdatingLocation()
+//            if myLocationManager.location!.speed > 0{
+//               saveSpeed()
+//            }else{
+//               saveInDB()
+//            }
+//        }
         self.lastSpeed = myLocationManager.location!.speed
         self.myLocationManager.startUpdatingLocation()
         
