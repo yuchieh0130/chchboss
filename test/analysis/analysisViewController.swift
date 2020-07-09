@@ -29,6 +29,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     let categoryValues = [34, 67, 89, 45, 44, 12, 28, 90, 23, 60, 57, 17, 26, 37, 95, 54, 64, 87]
     let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
     let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
+    var index = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,11 +128,12 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if let dataSet = chartView.data?.dataSets[ highlight.dataSetIndex] {
             let sliceIndex: Int = dataSet.entryIndex(entry: entry)
-            print( "Selected slice index: \( sliceIndex)")
-            performSegue(withIdentifier: "analysisToCombineChart", sender: self)
-        }
+            index = sliceIndex
+            //print( "Selected slice index: \( sliceIndex)")
     }
-    
+        performSegue(withIdentifier: "analysisToCombineChart", sender: self)
+    }
+
     func customizeLineChart(dataPoints: [String], values: [Double]){
         lineChart.delegate = self
         var dataEntries: [ChartDataEntry] = []
@@ -200,13 +202,14 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "analysisToCombineChart"){
-            let vc = segue.destination as! combineChartViewController
-//            for i in 0...showCategory.count-1{
-//            vc.categoryName.text = showCategory[i].categoryName
-//            }
+            if let vc = segue.destination as? combineChartViewController{
+                print(index)
+                vc.name = "\(showCategory[index].categoryName)"
+                
+            }
+        }
+        
     }
-    
-    
     
 }
 
@@ -217,4 +220,3 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //    ChartColorTemplates.colorful()
 //    ChartColorTemplates.vordiplom()
 //    ChartColorTemplates.material()
-}
