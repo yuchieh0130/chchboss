@@ -23,6 +23,9 @@ class myPlaceController: UIViewController{
     var noAdd = false
     var userLocation = CLLocation()
     
+    let ceo: CLGeocoder = CLGeocoder()
+//    let loc: CLLocation = CLLocation(latitude: lat, longitude: lon)
+    
     var showAllPlace: [PlaceModel]?
     // var showAllPlace =  DBManager.getInstance().getAllPlace()
     var savePlace : PlaceModel?
@@ -57,7 +60,7 @@ class myPlaceController: UIViewController{
         if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
             alertMessage()
         }else {
-            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLongitude, myPlace: true)
+            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: true)
             let isAdded = DBManager.getInstance().addPlace(modelInfo)
             
             let data:[String:String] = ["place_id":"0", "place_name":self.placeName, "place_longitude":String(self.placeLongitude), "place_latitude":String(self.placeLatitude)]
@@ -129,15 +132,37 @@ extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
             cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: cellIdentifier)
         }
         
+        var locality: String = ""
+        var subAdministrativeArea: String = ""
+
         let place = self.showAllPlace![indexPath.row]
-        let longitude = self.showAllPlace![indexPath.row].placeLongitude
-        let latitude = self.showAllPlace![indexPath.row].placeLatitude
+        let longitude = place.placeLongitude
+        let latitude = place.placeLatitude
         let savedPlaceLocation = CLLocation(latitude: latitude, longitude: longitude)
-        userLocation = CLLocation(latitude: placeLatitude, longitude: placeLatitude)
-        let distance = self.userLocation.distance(from: savedPlaceLocation)
         
+        userLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
+        let distance = lround(self.userLocation.distance(from: savedPlaceLocation))/1000
+        let locale = Locale(identifier: "zh_TW")
+        
+        if #available(iOS 11.0, *) {
+            ceo.reverseGeocodeLocation(savedPlaceLocation, preferredLocale: locale) {
+                (placemarks, error) in
+                if error == nil {
+                    let pm = placemarks! as [CLPlacemark]
+                    if pm.count > 0 {
+                        subAdministrativeArea = placemarks![0].subAdministrativeArea ?? ""
+                        locality = placemarks![0].locality ?? ""
+                    }
+                    cell?.textLabel?.text = place.placeName
+                    cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
+                    return
+                } else {
+                    print("error")
+                }
+            }
+        }
         cell?.textLabel?.text = place.placeName
-        cell?.detailTextLabel?.text = "\(distance) m"
+        cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
 //        cell?.detailTextLabel?.isHidden = false
         
         return cell!
