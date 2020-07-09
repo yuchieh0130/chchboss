@@ -88,30 +88,14 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             }
         case "editAutoLocation":
             if let VC = segue.destination as? mapViewController{
-                VC.longitude = longitude
-                VC.latitude = latitude
+//                VC.longitude = longitude
+//                VC.latitude = latitude
                 VC.location_id = track.locationId
             }
         default:
             print("")
         }
         
-    }
-    
-    @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? DatePopupViewController
-        date = VC!.datePicker.date
-        tag = VC?.tag
-
-        if tag == "editAutoStart"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
-        }else if tag == "editAutoEnd"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
-        }
     }
     
     func handletime(){
@@ -210,6 +194,22 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
 //            }
 //        }
 //    }
+    
+    @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? DatePopupViewController
+        date = VC!.datePicker.date
+        tag = VC?.tag
+
+        if tag == "editAutoStart"{
+            handletime()
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+        }else if tag == "editAutoEnd"{
+            handletime()
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+        }
+    }
     
     @IBAction func autoLocationSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? mapViewController

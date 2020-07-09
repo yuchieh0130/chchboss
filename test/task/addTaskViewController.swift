@@ -161,6 +161,11 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    @IBAction func clearLocation(_ sender: UIButton){
+        //savePlaceModel = nil
+        tableView.reloadRows(at: [IndexPath.init(row: 5, section: 0)], with: .none)
+    }
+    
     @IBAction func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }

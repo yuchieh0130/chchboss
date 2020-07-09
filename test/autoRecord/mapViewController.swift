@@ -27,27 +27,27 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     
-    var userLocation = CLLocation()
-    var locationDic : [String: Double] = [:]
-    var locationDic_c: [String: String] = [:]
-    
+//    var userLocation = CLLocation()
+//    var locationDic : [String: Double] = [:]
+//    var locationDic_c: [String: String] = [:]
     //根據距離排序完的結果
-    var sortedName = [String]()
-    var sortedDist = [Double]()
-    var sortedCat = [String]()
+//    var sortedName = [String]()
+//    var sortedDist = [Double]()
+//    var sortedCat = [String]()
     
+    //track紀錄的位置
+    var location_id: Int32 = 0
     var longitude: Double! = 0
     var latitude: Double! = 0
-    var location_id: Int32 = 0
     
+    //搜尋結果的variables
+    let id: Int32 = 0
+    var placeName: String! = ""
+    var placeCategory: String = "QQQQQ"
+    var placeLongitude: Double! = 0
+    var placeLatitude: Double! = 0
+    //回傳回track用
     var savePlace : PlaceModel?
-    
-    //DB variables
-    let placeId: Int32 = 0
-    let placeName: String! = ""
-    let placeCategory: String = ""
-    let placeLongitude: Double! = 0
-    let placeLatitude: Double! = 0
     
     
     override func viewDidLoad() {
@@ -62,6 +62,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         txtSearch.placeholder = "Search places..."
         
         modelLoc = DBManager.getInstance().getLocation(Int: location_id)
+        latitude = modelLoc?.latitude
+        longitude = modelLoc?.longitude
         nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
         categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
 //        savePlaceArray = DBManager.getInstance().getNotMyPlace()!
@@ -117,12 +119,19 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if txtSearch.text!.isEmpty{
+//            return nameArray.count+1
+//        }else{
+//            return sortedName.count+2
+//            //return sortedName.count+2+savePlaceArray.count
+//        }
         if txtSearch.text!.isEmpty{
-            return nameArray.count+1
+            return resultsArray.count+1
         }else{
-            return sortedName.count+2
+            return resultsArray.count+2
             //return sortedName.count+2+savePlaceArray.count
         }
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,8 +140,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         if indexPath.row == 0{
             cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
-            
-        }else if sortedName.count != 0 && indexPath.row == sortedName.count+1{
+        }else if resultsArray.count != 0 && indexPath.row == resultsArray.count+1{
             cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
             cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
         }else{
@@ -142,17 +150,33 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 cell?.textLabel?.text = place
                 cell?.detailTextLabel?.isHidden = true
             }else{
-                if sortedName.count > 0 && sortedDist.count > 0{
-                    let place = self.sortedName[indexPath.row-1]
-                    cell?.textLabel?.text = "\(place)"
-                    let eachDistance = sortedDist[indexPath.row-1]
-                    cell?.detailTextLabel?.isHidden = false
-                    cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
-                }
-                //  cell?.textLabel?.text = "\(place["name"] as! String)"
-                //  cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+                cell?.textLabel?.text = "\(resultsArray[indexPath.row-1]["name"]!)"
+                cell?.detailTextLabel?.isHidden = false
+                let distance = resultsArray[indexPath.row-1]["distance"]! as! NSNumber
+                cell?.detailTextLabel?.text = "\(Int(distance))m"
             }
         }
+//        }else if sortedName.count != 0 && indexPath.row == sortedName.count+1{
+//            cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
+//            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
+//        }else{
+//            cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
+//            if txtSearch.text!.isEmpty{
+//                let place = nameArray[indexPath.row-1]
+//                cell?.textLabel?.text = place
+//                cell?.detailTextLabel?.isHidden = true
+//            }else{
+//                if sortedName.count > 0 && sortedDist.count > 0{
+//                    let place = self.sortedName[indexPath.row-1]
+//                    cell?.textLabel?.text = "\(place)"
+//                    let eachDistance = sortedDist[indexPath.row-1]
+//                    cell?.detailTextLabel?.isHidden = false
+//                    cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
+//                }
+//                //  cell?.textLabel?.text = "\(place["name"] as! String)"
+//                //  cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
+//            }
+//        }
         
         return cell!
     }
@@ -162,8 +186,29 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if indexPath.row != 0 && txtSearch.text!.isEmpty{
-            savePlace = PlaceModel(placeId: placeId, placeName: nameArray[indexPath.row - 1]!, placeCategory: categoryArray[indexPath.row - 1]!, placeLongitude: modelLoc!.longitude, placeLatitude: modelLoc!.latitude, myPlace: false)
+        
+        if indexPath.row == 0{
+           //選擇MyPlcae頁面
+        }else if resultsArray.count != 0 && indexPath.row == resultsArray.count+1{
+            //自己命名 （要自動變成myPlace嗎？？？）
+            placeName = txtSearch.text!
+            savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, myPlace: false)
+        }else{
+            
+            if txtSearch.text!.isEmpty{
+                //選擇附近五個地點
+            }else{
+                //選擇搜尋結果，把搜尋結果回傳plcaeModel
+                var cat = [String]()
+                cat = (resultsArray[indexPath.row-1]["types"] as? [String])!
+                placeCategory = cat[0]
+                var location = [String:[String:Any]]()
+                location["location"] = resultsArray[indexPath.row-1]["geometry"]!["location"] as? [String:Any]
+                placeName = resultsArray[indexPath.row-1]["name"] as? String
+                placeLongitude = location["location"]!["lng"] as? Double
+                placeLatitude = location["location"]!["lat"] as? Double
+                savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: false)
+            }
         }
         return indexPath
     }
@@ -199,37 +244,52 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                             if let results = dict["results"] as? [Dictionary<String, AnyObject>] {
                                 //                            print("json == \(results)")
                                 self.resultsArray.removeAll()
-                                self.sortedName.removeAll()
-                                self.locationDic.removeAll()
-                                self.sortedDist.removeAll()
-                                self.sortedCat.removeAll()
+//                                self.sortedName.removeAll()
+//                                self.locationDic.removeAll()
+//                                self.sortedDist.removeAll()
+//                                self.sortedCat.removeAll()
                                 
                                 for dct in results {
                                     self.resultsArray.append(dct)
-                                    
-                                    var c = [String]()
-                                    c = dct["types"] as! [String]
-                                    let cat = c[0]
                                     let lat = (dct["geometry"]!["location"]!! as AnyObject).allValues![0] as! Double
                                     let long = (dct["geometry"]!["location"]!! as AnyObject).allValues![1] as! Double
                                     let placeLocation = CLLocation(latitude: lat, longitude: long)
-                                    self.userLocation = CLLocation(latitude: self.modelLoc!.latitude, longitude: self.modelLoc!.longitude)
-                                    let dist = self.userLocation.distance(from: placeLocation)
+                                    let userLocation = CLLocation(latitude: self.modelLoc!.latitude, longitude: self.modelLoc!.longitude)
+                                    let dist = userLocation.distance(from: placeLocation)
+                                    self.resultsArray[self.resultsArray.count-1]["distance"] = dist as AnyObject
+//                                    var c = [String]()
+//                                    c = dct["types"] as! [String]
+//                                    let cat = c[0]
+//                                    let lat = (dct["geometry"]!["location"]!! as AnyObject).allValues![0] as! Double
+//                                    let long = (dct["geometry"]!["location"]!! as AnyObject).allValues![1] as! Double
+//                                    let placeLocation = CLLocation(latitude: lat, longitude: long)
+//                                    self.userLocation = CLLocation(latitude: self.modelLoc!.latitude, longitude: self.modelLoc!.longitude)
+//                                    let dist = self.userLocation.distance(from: placeLocation)
+//
+//
+//                                    self.locationDic[dct["name"] as! String] = dist
+//                                    self.locationDic_c[dct["name"] as! String] = cat
 
-                                    
-                                    self.locationDic[dct["name"] as! String] = dist
-                                    self.locationDic_c[dct["name"] as! String] = cat
-
-                                }
-                                let sortedDic = self.locationDic.sorted {$0.1 < $1.1}
-                                for each in sortedDic{
-                                    self.sortedName.append(each.key)
-                                    self.sortedDist.append(each.value)
                                 }
                                 
-                                for i in self.sortedName{
-                                    self.sortedCat.append(self.locationDic_c[i]!)
+                                
+                                self.resultsArray = self.resultsArray.sorted{ first , second in
+//                                    let f = first["geometry"]!["location"]!! as! [String : Double]
+//                                    let s = second["geometry"]!["location"]!! as! [String : Double]
+                                    let firstDistance = first["distance"] as! Double
+                                    let secondDistance = second["distance"] as! Double
+                                    return firstDistance < secondDistance
                                 }
+                                
+//                                let sortedDic = self.locationDic.sorted {$0.1 < $1.1}
+//                                for each in sortedDic{
+//                                    self.sortedName.append(each.key)
+//                                    self.sortedDist.append(each.value)
+//                                }
+//
+//                                for i in self.sortedName{
+//                                    self.sortedCat.append(self.locationDic_c[i]!)
+//                                }
                                 
                                 
                                 DispatchQueue.main.async {
