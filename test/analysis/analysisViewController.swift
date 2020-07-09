@@ -44,6 +44,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.chartDescription?.text = "CHCHBOSS"
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
+        pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        pieChart.transparentCircleRadiusPercent = 0.0
+        pieChart.legend.horizontalAlignment = .center
+        pieChart.legend.verticalAlignment = .bottom
+        pieChart.holeRadiusPercent = 0.35
         lineChart.isHidden = true
     }
     
@@ -51,22 +56,15 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         var getIndex = segCon.selectedSegmentIndex        
         if getIndex == 0{
             customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
-            pieChart.entryLabelColor = UIColor.black
-            pieChart.drawEntryLabelsEnabled = false
             pieChart.isHidden = false
             lineChart.isHidden = true
-            self.pieChart.reloadInputViews()
         }else if getIndex == 1{
             customizePieChart(dataPoints: sports, values: counts.map{
                 Double($0) })
-            pieChart.drawEntryLabelsEnabled = true
-            pieChart.entryLabelColor = UIColor.white
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 2{
             customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
-            pieChart.drawEntryLabelsEnabled = true
-            pieChart.entryLabelColor = UIColor.white
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 3{
@@ -108,7 +106,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         for i in 0..<dataPoints.count {
             let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
             dataEntries.append(dataEntry)
-            self.pieChart.reloadInputViews()
         }
         // 2. Set ChartDataSet
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
@@ -125,7 +122,14 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChart.rotationAngle = 0
         pieChart.legend.direction = .leftToRight
-        //pieChart.addInteraction(<#T##interaction: UIInteraction##UIInteraction#>)
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        if let dataSet = chartView.data?.dataSets[ highlight.dataSetIndex] {
+            let sliceIndex: Int = dataSet.entryIndex(entry: entry)
+            print( "Selected slice index: \( sliceIndex)")
+            performSegue(withIdentifier: "analysisToCombineChart", sender: self)
+        }
     }
     
     func customizeLineChart(dataPoints: [String], values: [Double]){
@@ -194,6 +198,15 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         )
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "analysisToCombineChart"){
+            let vc = segue.destination as! combineChartViewController
+//            for i in 0...showCategory.count-1{
+//            vc.categoryName.text = showCategory[i].categoryName
+//            }
+    }
+    
+    
     
 }
 
@@ -204,3 +217,4 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //    ChartColorTemplates.colorful()
 //    ChartColorTemplates.vordiplom()
 //    ChartColorTemplates.material()
+}
