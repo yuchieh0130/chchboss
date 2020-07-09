@@ -20,6 +20,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     let ITEM_COUNT = 12
+    var name = "Behaviors"
     
     @IBAction func returnBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -87,7 +88,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         
         setChartData()
         
-        categoryName.text = "Home"
+        categoryName.text = name
     }
     
     func setChartData(){
@@ -177,5 +178,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
             return months[ Int(modu) ]
         }
     }
+    
 
 }

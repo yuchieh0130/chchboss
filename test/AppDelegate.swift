@@ -70,7 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //myLocationManager = CLLocationManager()
         //        myLocationManager.startMonitoringVisits()
         myLocationManager.delegate = self
-        myLocationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
+        myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
+            //kCLLocationAccuracyNearestTenMeters
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest //kCLLocationAccuracyNearestTenMeters //kCLLocationAccuracyBestForNavigation
         myLocationManager.allowsBackgroundLocationUpdates = true
         myLocationManager.pausesLocationUpdatesAutomatically = false
@@ -87,10 +88,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
-        
+        self.myLocationManager.stopUpdatingLocation()
         //取得目前的座標位置
         //let c = locations[0] as CLLocation
-        print(locations)
+        //print(locations)
         self.currentLocation = locations[0] as CLLocation
         
         //currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
@@ -110,16 +111,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //        if myLocationManager.location!.speed == -1.0 && myLocationManager.location!.speed != lastSpeed{
 //            saveInDB()
 //        }
-        if myLocationManager.location!.horizontalAccuracy>=0{
-            //myLocationManager.stopUpdatingLocation()
-            if myLocationManager.location!.speed > 0{
-               saveSpeed()
-            }else{
-               saveInDB()
-            }
-            //myLocationManager.startUpdatingLocation()
+        
+        if myLocationManager.location!.speed <= 0{
+            saveInDB()
         }
+//        if myLocationManager.location!.horizontalAccuracy>=0{
+//            //myLocationManager.stopUpdatingLocation()
+//            if myLocationManager.location!.speed > 0{
+//               saveSpeed()
+//            }else{
+//               saveInDB()
+//            }
+//        }
         self.lastSpeed = myLocationManager.location!.speed
+        self.myLocationManager.startUpdatingLocation()
         
     }
     
