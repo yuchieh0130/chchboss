@@ -26,7 +26,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     let goals = [6, 8, 26, 30, 8, 10]
     let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
     let counts = [45, 76, 34, 97]
-    let yep = [34, 67, 89, 45, 44, 12, 28, 90, 23]
+    let categoryValues = [34, 67, 89, 45, 44, 12, 28, 90, 23, 60, 57, 17, 26, 37, 95, 54, 64, 87]
     let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
     let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
     
@@ -40,32 +40,31 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             showCategoryColor.append(showCategory[i].categoryColor)
         }
         
-        customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
+        customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
         pieChart.chartDescription?.text = "CHCHBOSS"
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
+        pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        pieChart.transparentCircleRadiusPercent = 0.0
+        pieChart.legend.horizontalAlignment = .center
+        pieChart.legend.verticalAlignment = .bottom
+        pieChart.holeRadiusPercent = 0.35
         lineChart.isHidden = true
     }
     
     @IBAction func segConChoose(_ sender: Any) {
         var getIndex = segCon.selectedSegmentIndex        
         if getIndex == 0{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: yep.map{ Double($0)})
-            pieChart.entryLabelColor = UIColor.black
-            pieChart.drawEntryLabelsEnabled = false
+            customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 1{
             customizePieChart(dataPoints: sports, values: counts.map{
                 Double($0) })
-            pieChart.drawEntryLabelsEnabled = true
-            pieChart.entryLabelColor = UIColor.white
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 2{
             customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
-            pieChart.drawEntryLabelsEnabled = true
-            pieChart.entryLabelColor = UIColor.white
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 3{
@@ -123,7 +122,14 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChart.rotationAngle = 0
         pieChart.legend.direction = .leftToRight
-        //pieChart.addInteraction(<#T##interaction: UIInteraction##UIInteraction#>)
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        if let dataSet = chartView.data?.dataSets[ highlight.dataSetIndex] {
+            let sliceIndex: Int = dataSet.entryIndex(entry: entry)
+            print( "Selected slice index: \( sliceIndex)")
+            performSegue(withIdentifier: "analysisToCombineChart", sender: self)
+        }
     }
     
     func customizeLineChart(dataPoints: [String], values: [Double]){
@@ -148,8 +154,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         lineChart.data = lineChartData
         
     }
-    
-//
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
@@ -194,6 +198,15 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         )
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "analysisToCombineChart"){
+            let vc = segue.destination as! combineChartViewController
+//            for i in 0...showCategory.count-1{
+//            vc.categoryName.text = showCategory[i].categoryName
+//            }
+    }
+    
+    
     
 }
 
@@ -204,3 +217,4 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //    ChartColorTemplates.colorful()
 //    ChartColorTemplates.vordiplom()
 //    ChartColorTemplates.material()
+}

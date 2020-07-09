@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -174,7 +174,7 @@
             </objects>
             <point key="canvasLocation" x="2782" y="-744"/>
         </scene>
-        <!--View Controller-->
+        <!--Ib Calendar Data Source-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -973,22 +973,96 @@
             </objects>
             <point key="canvasLocation" x="-205.59999999999999" y="-688.66995073891633"/>
         </scene>
+        <!--Combine Chart View Controller-->
+        <scene sceneID="o26-1Y-VP7">
+            <objects>
+                <viewController id="uun-bz-T0X" customClass="combineChartViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s3G-bG-W5Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJk-pf-oOW" customClass="CombinedChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="141" width="343" height="539"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uy4-as-sqR">
+                                <rect key="frame" x="24" y="20" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Return">
+                                    <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="returnBtn:" destination="uun-bz-T0X" eventType="touchUpInside" id="ydb-fR-NBh"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-BQ-eAl">
+                                <rect key="frame" x="70" y="90" width="235" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="Z0A-ww-gVz"/>
+                                    <constraint firstAttribute="width" constant="235" id="eTp-fM-Yf3"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Today"/>
+                                    <segment title="Week"/>
+                                    <segment title="Month"/>
+                                    <segment title="Year"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segConChoose:" destination="uun-bz-T0X" eventType="valueChanged" id="tpk-7r-ee3"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdQ-LC-xIi">
+                                <rect key="frame" x="128" y="43" width="118" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zdQ-LC-xIi" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="128" id="5gK-Ox-ynv"/>
+                            <constraint firstItem="zdQ-LC-xIi" firstAttribute="top" secondItem="o7j-Ny-lzL" secondAttribute="top" constant="43" id="FSn-6E-7yo"/>
+                            <constraint firstItem="CDO-BQ-eAl" firstAttribute="centerX" secondItem="s3G-bG-W5Y" secondAttribute="centerX" id="GVL-WD-lWf"/>
+                            <constraint firstItem="FJk-pf-oOW" firstAttribute="centerY" secondItem="s3G-bG-W5Y" secondAttribute="centerY" constant="31.5" id="PPQ-8J-yGF"/>
+                            <constraint firstItem="o7j-Ny-lzL" firstAttribute="trailing" secondItem="CDO-BQ-eAl" secondAttribute="trailing" constant="70" id="arQ-Bp-tUY"/>
+                            <constraint firstItem="CDO-BQ-eAl" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="70" id="b8K-ny-vYr"/>
+                            <constraint firstItem="FJk-pf-oOW" firstAttribute="leading" secondItem="s3G-bG-W5Y" secondAttribute="leadingMargin" id="dST-YM-DT4"/>
+                            <constraint firstItem="FJk-pf-oOW" firstAttribute="trailing" secondItem="s3G-bG-W5Y" secondAttribute="trailingMargin" id="kqj-rS-bxW"/>
+                            <constraint firstItem="FJk-pf-oOW" firstAttribute="top" secondItem="o7j-Ny-lzL" secondAttribute="top" constant="141" id="laN-fN-yqy"/>
+                            <constraint firstItem="FJk-pf-oOW" firstAttribute="top" secondItem="CDO-BQ-eAl" secondAttribute="bottom" constant="20" id="v8n-3c-mN7"/>
+                            <constraint firstItem="zdQ-LC-xIi" firstAttribute="centerX" secondItem="CDO-BQ-eAl" secondAttribute="centerX" id="xgW-0M-SC3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="o7j-Ny-lzL"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qeu-rH-lgm"/>
+                    <connections>
+                        <outlet property="categoryName" destination="zdQ-LC-xIi" id="5oX-cl-wsA"/>
+                        <outlet property="combineChart" destination="FJk-pf-oOW" id="QZM-hk-h2s"/>
+                        <outlet property="returnBtn" destination="Uy4-as-sqR" id="uFh-uu-dSk"/>
+                        <outlet property="segCon" destination="CDO-BQ-eAl" id="THq-EM-oGB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wQu-7n-bpN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893.60000000000002" y="-1476.3546798029556"/>
+        </scene>
         <!--Analysis View Controller-->
         <scene sceneID="hAM-t7-DFl">
             <objects>
-                <viewController id="3xM-0D-h9c" customClass="analysisViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="3xM-0D-h9c" customClass="analysisViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sfp-gm-cKQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnP-nn-Mu1" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="12.666666666666657" y="177" width="349.66666666666674" height="350"/>
+                                <rect key="frame" x="0.0" y="118" width="375" height="535"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1hb-Ki-UBc">
                                 <rect key="frame" x="70" y="60" width="235" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="HV2-z6-3VR"/>
+                                    <constraint firstAttribute="width" constant="235" id="oFv-fT-13Y"/>
                                 </constraints>
                                 <segments>
                                     <segment title="Today"/>
@@ -1001,24 +1075,24 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8EZ-KE-JC6" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="177" width="343" height="350"/>
+                                <rect key="frame" x="16" y="118" width="343" height="535"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="86" id="68O-gX-put"/>
-                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="leading" secondItem="sfp-gm-cKQ" secondAttribute="leadingMargin" id="6RB-gZ-2tk"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" id="9vE-Wj-BiS"/>
+                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="centerX" secondItem="1hb-Ki-UBc" secondAttribute="centerX" id="0N6-dq-k4Q"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="8EZ-KE-JC6" secondAttribute="top" id="0OW-cW-CYe"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="27" id="Arx-lg-W1b"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="PnP-nn-Mu1" secondAttribute="bottom" constant="22" id="ElS-Ve-f6W"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="70" id="F1w-oD-bWz"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" constant="12.666666666666657" id="JWN-tt-KI3"/>
-                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="PnP-nn-Mu1" secondAttribute="bottom" constant="148" id="PCW-A4-waO"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" id="FeN-n5-BbS"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="8EZ-KE-JC6" secondAttribute="bottom" constant="22" id="QJ3-Hl-PUP"/>
                             <constraint firstItem="Ymv-rs-qLb" firstAttribute="trailing" secondItem="1hb-Ki-UBc" secondAttribute="trailing" constant="70" id="REi-6j-8vb"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="8EZ-KE-JC6" secondAttribute="top" id="TLO-OW-kjd"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="8EZ-KE-JC6" secondAttribute="centerX" id="f30-tD-nT8"/>
+                            <constraint firstItem="8EZ-KE-JC6" firstAttribute="leading" secondItem="sfp-gm-cKQ" secondAttribute="leadingMargin" id="f88-cX-r3I"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="centerX" secondItem="sfp-gm-cKQ" secondAttribute="centerX" id="lRL-zB-UKg"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="top" secondItem="Ymv-rs-qLb" secondAttribute="top" constant="60" id="mLL-ww-idW"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="8EZ-KE-JC6" secondAttribute="centerX" id="pHJ-ZH-dOx"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="centerX" secondItem="1hb-Ki-UBc" secondAttribute="centerX" id="wCR-A0-7dI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                     </view>
@@ -1027,13 +1101,14 @@
                         <outlet property="lineChart" destination="8EZ-KE-JC6" id="a18-qy-ZQL"/>
                         <outlet property="pieChart" destination="PnP-nn-Mu1" id="x0r-A1-waa"/>
                         <outlet property="segCon" destination="1hb-Ki-UBc" id="4h0-ad-6QU"/>
+                        <segue destination="uun-bz-T0X" kind="show" identifier="analysisToCombineChart" id="WGP-Ss-XWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="920.79999999999995" y="-744.0886699507389"/>
+            <point key="canvasLocation" x="894" y="-766"/>
         </scene>
-        <!--Auto Record View Controller-->
+        <!--Ib Calendar Data Source-->
         <scene sceneID="Srp-ur-Bl1">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="svZ-ai-5oE" customClass="autoRecordViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
@@ -1045,7 +1120,7 @@
                                 <rect key="frame" x="0.0" y="144" width="375" height="652"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Wc-kr-0iV">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Wc-kr-0iV">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="652"/>
                                     </imageView>
                                 </subviews>
@@ -1249,7 +1324,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ogh-Jb-0d5">
-                                                    <rect key="frame" x="160" y="15.666666666666664" width="200" height="34"/>
+                                                    <rect key="frame" x="-215" y="15.666666666666664" width="200" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="hZF-Yq-Aaa"/>
                                                     </constraints>
@@ -1296,7 +1371,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwW-4q-Vn9">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="pGm-to-EPR"/>
                                                     </constraints>
@@ -1342,7 +1417,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-P3-Hfa">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="qz2-BC-b8B"/>
                                                     </constraints>
@@ -1414,7 +1489,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmz-qQ-lto">
-                                                    <rect key="frame" x="160" y="22" width="200" height="21"/>
+                                                    <rect key="frame" x="-215" y="22" width="200" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="WIL-YS-lCp"/>
                                                     </constraints>
@@ -3073,6 +3148,19 @@
             <point key="canvasLocation" x="125.59999999999999" y="1636.6995073891626"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar" catalog="system" width="64" height="52"/>
+        <image name="camera.circle" catalog="system" width="64" height="60"/>
+        <image name="chart.bar" catalog="system" width="64" height="44"/>
+        <image name="doc.text" catalog="system" width="56" height="64"/>
+        <image name="gear" catalog="system" width="64" height="58"/>
+        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
+        <image name="person.circle" catalog="system" width="64" height="60"/>
+        <image name="pin.fill" catalog="system" width="58" height="64"/>
+        <image name="plus.circle" catalog="system" width="64" height="60"/>
+        <image name="reminder_deselect" width="96" height="96"/>
+        <image name="star.fill" catalog="system" width="64" height="58"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ds9-Hc-Lep"/>
         <segue reference="15D-0h-PEe"/>
@@ -3082,17 +3170,4 @@
         <segue reference="Q9x-NS-Pff"/>
         <segue reference="RmA-HN-d7i"/>
     </inferredMetricsTieBreakers>
-    <resources>
-        <image name="calendar" catalog="system" width="128" height="106"/>
-        <image name="camera.circle" catalog="system" width="128" height="121"/>
-        <image name="chart.bar" catalog="system" width="128" height="90"/>
-        <image name="doc.text" catalog="system" width="115" height="128"/>
-        <image name="gear" catalog="system" width="128" height="119"/>
-        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
-        <image name="person.circle" catalog="system" width="128" height="121"/>
-        <image name="pin.fill" catalog="system" width="119" height="128"/>
-        <image name="plus.circle" catalog="system" width="128" height="121"/>
-        <image name="reminder_deselect" width="96" height="96"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
-    </resources>
 </document>
