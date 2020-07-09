@@ -11,6 +11,9 @@ import UIKit
 import CoreLocation
 
 class myPlaceController: UIViewController{
+    @IBAction func cancelButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     //place db variables
     var id: Int32 = 0
