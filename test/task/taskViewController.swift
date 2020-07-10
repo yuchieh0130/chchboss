@@ -116,7 +116,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let isPinned = DBManager.getInstance().pinTask(id: id!)
             self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
-            self.dismiss(animated: true, completion: nil)
         }
         let unPinAction = UIContextualAction(style: .normal, title: "Unpin") { (action, view, completionHandler) in
             print("Unpin")
@@ -124,7 +123,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let unPinned = DBManager.getInstance().unPinTask(id: id!)
             self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
-            self.dismiss(animated: true, completion: nil)
         }
         if showTask?[indexPath.row].isPinned == false{
             let configuration = UISwipeActionsConfiguration(actions: [pinAction])

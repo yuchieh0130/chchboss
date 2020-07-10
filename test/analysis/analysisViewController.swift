@@ -42,7 +42,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }
         
         customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
-        pieChart.chartDescription?.text = "CHCHBOSS"
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
         pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)

@@ -17,30 +17,18 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     @IBOutlet var categoryName: UILabel!
     @IBOutlet var segCon: UISegmentedControl!
     
+    var showCategory = [CategoryModel]()
+    var showCategoryStr = [String]()
+    var showCategoryColor = [String]()
+    var name = "Behaviors"
+    
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    let ITEM_COUNT = 12
-    var name = "Behaviors"
+    var value = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
     
     @IBAction func returnBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction func segConChoose(_ sender: Any) {
-        var getIndex = segCon.selectedSegmentIndex
-        
-        if getIndex == 0{
-            setChartData()
-        }else if getIndex == 1{
-            setChartData()
-        }else if getIndex == 2{
-            setChartData()
-        }else if getIndex == 3{
-            setChartData()
-        }
-        
-    }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -52,21 +40,32 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        categoryName.text = name
+        showCategory = DBManager.getInstance().getAllCategory()
+        for i in 0...showCategory.count-1{
+            showCategoryStr.append(showCategory[i].categoryName)
+            showCategoryColor.append(showCategory[i].categoryColor)
+        }
     
         combineChart.delegate = self
         combineChart.drawGridBackgroundEnabled = false
         combineChart.drawBarShadowEnabled = false
         combineChart.highlightFullBarEnabled = false
+        combineChart.doubleTapToZoomEnabled = false
         combineChart.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue]
         
         //x axis
         let xAxis = combineChart.xAxis
         xAxis.labelPosition = .bothSided
-        xAxis.axisMinimum = 0.0
+//        xAxis.axisMinimum = 0.0
+//        xAxis.axisMaximum = 11.0
+        xAxis.granularityEnabled = true
         xAxis.granularity = 1.0  //距離
         xAxis.valueFormatter = BarChartFormatter()
-        xAxis.centerAxisLabelsEnabled = true
+        xAxis.centerAxisLabelsEnabled = false
         xAxis.setLabelCount(12, force: true)
+        xAxis.drawGridLinesEnabled = false
         //left axis
         let leftAxis = combineChart.leftAxis
         leftAxis.drawGridLinesEnabled = false
@@ -84,68 +83,87 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         legend.drawInside = false
         //description
         combineChart.chartDescription?.enabled = true
-        combineChart.chartDescription?.text = "Combine Chart"
         
         setChartData()
+        //combineChart.isHidden = true
+    }
+    
+    @IBAction func segConChoose(_ sender: Any) {
+        var getIndex = segCon.selectedSegmentIndex
         
-        categoryName.text = name
+        if getIndex == 0{
+            combineChart.isHidden = true
+        }else if getIndex == 1{
+            setChartData()
+            combineChart.isHidden = false
+        }else if getIndex == 2{
+            setChartData()
+            combineChart.isHidden = false
+        }else if getIndex == 3{
+            setChartData()
+            combineChart.isHidden = false
+
+        }
+        
     }
     
     func setChartData(){
         let data = CombinedChartData()
-        data.lineData = generateLineData()
-        data.barData = generateBarData()
-        combineChart.xAxis.axisMaximum = data.xMax + 0.25
+        data.lineData = generateLineData(dataPoints: months, values: value)
+        data.barData = generateBarData(dataPoints: months, values: value)
+        combineChart.xAxis.axisMaximum = data.xMax
+        combineChart.xAxis.axisMinimum = data.xMin
         combineChart.data = data
     }
     
-    func generateLineData() -> LineChartData{
-        var entries = [ChartDataEntry]()
-        for index in 0..<ITEM_COUNT{
-            entries.append(ChartDataEntry(x: Double(index) + 0.5, y: (Double(arc4random_uniform(15) + 5))))
+    func generateLineData(dataPoints: [String], values: [Double]) -> LineChartData{
+        var dataEntries = [ChartDataEntry]()
+        for i in 0..<dataPoints.count{
+            let dataEntry = ChartDataEntry(x: values[i], y: (Double(arc4random_uniform(25) + 25)))
+            //Double(i)
+            dataEntries.append(dataEntry)
         }
-        let lineChartDataSet = LineChartDataSet(entries: entries, label: "Line Chart Data Set")
-        lineChartDataSet.colors = colorsOfCharts(numbersOfColor: ITEM_COUNT)
+        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: "Line Chart")
+        lineChartDataSet.colors = [UIColor.gray]
+        lineChartDataSet.circleColors = colorsOfCategory(numbersOfColor: dataPoints.count)
         let data = LineChartData()
         data.addDataSet(lineChartDataSet)
         return data
     }
     
-    func generateBarData() -> BarChartData{
-        var entries1 = [BarChartDataEntry]()
-        var entries2 = [BarChartDataEntry]()
+    func generateBarData(dataPoints: [String], values: [Double]) -> BarChartData{
+        var dataEntries = [BarChartDataEntry]()
         
-        for _ in 0..<ITEM_COUNT{
-            entries1.append(BarChartDataEntry(x: 0.0, y: (Double(arc4random_uniform(25) + 25))))
-            // stacked
-            entries2.append(BarChartDataEntry(x: 0.0, yValues: [Double(arc4random_uniform(13) + 12), Double(arc4random_uniform(13) + 12)]))
+        for i in 0..<dataPoints.count{
+            let dataEntry = BarChartDataEntry(x: Double(i), y: (Double(arc4random_uniform(25) + 25)))
+            //Double(values[i])
+            dataEntries.append(dataEntry)
         }
         
-        let set1 = BarChartDataSet(entries: entries1, label: "Bar 1")
-        set1.colors = colorsOfCharts(numbersOfColor: ITEM_COUNT)
-        set1.valueTextColor = UIColor.black
-        set1.valueFont = NSUIFont.systemFont(ofSize: CGFloat(10.0))
-        set1.axisDependency = .left
-        
-        let set2 = BarChartDataSet(entries: entries2, label: "Bar 2")
-        set2.stackLabels = ["Stack 1", "Stack 2"]
-        set2.colors = colorsOfCharts(numbersOfColor: ITEM_COUNT)
-        set2.valueTextColor = UIColor.red
-        set2.valueFont = NSUIFont.systemFont(ofSize: CGFloat(10.0))
-        set2.axisDependency = .left
+        let barChartDataSet = BarChartDataSet(entries: dataEntries, label: "Bar Chart")
+        barChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
+        barChartDataSet.valueTextColor = UIColor.black
+        barChartDataSet.valueFont = NSUIFont.systemFont(ofSize: CGFloat(10.0))
+        barChartDataSet.axisDependency = .left
         
         //BarChartData
         let groupSpace = 0.06
         let barSpace = 0.01
         let barWidth = 0.46
         
-        // x2 dataset
-        // (0.45 + 0.02) * 2 + 0.06 = 1.00 -> interval per "group"
-        let data = BarChartData(dataSets: [set1, set2])
+        let data = BarChartData()
         data.barWidth = barWidth
-        // make this BarData object grouped
-        data.groupBars(fromX: 0.0, groupSpace: groupSpace, barSpace: barSpace)     // start at x = 0
+        data.groupBars(fromX: 0.0, groupSpace: groupSpace, barSpace: barSpace)
+        data.addDataSet(barChartDataSet)
         return data
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print("chartValueSelected : x = \(highlight.x)")
+    }
+    
+    func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        print("chartValueNothingSelected")
     }
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
@@ -160,22 +178,47 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         return colors
     }
     
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print("chartValueSelected : x = \(highlight.x)")
+    private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
+        var colors: [UIColor] = []
+        for i in 0...numbersOfColor-1{
+            let color = hexStringToUIColor (hex: "\(showCategoryColor[i])")
+            colors.append(color)
+        }
+        return colors
     }
     
-    func chartValueNothingSelected(_ chartView: ChartViewBase) {
-        print("chartValueNothingSelected")
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(0.8)
+        )
     }
     
     public class BarChartFormatter: NSObject, IAxisValueFormatter
     {
         var months: [String]! = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        var days: [String]! = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         
         public func stringForValue(_ value: Double, axis: AxisBase?) -> String
         {
-            let modu =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
-            return months[ Int(modu) ]
+            let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
+            let moduDay = Double(value).truncatingRemainder(dividingBy: Double(days.count))
+            return months[Int(moduMonth)]
         }
     }
     
