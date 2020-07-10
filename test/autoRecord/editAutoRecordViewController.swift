@@ -93,7 +93,11 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             if let VC = segue.destination as? mapViewController{
 //                VC.longitude = longitude
 //                VC.latitude = latitude
-                VC.location_id = track.locationId
+                if savePlace != nil{
+                    VC.savePlace = savePlace
+                }else{
+                    VC.location_id = track.locationId
+                }
             }
         default:
             print("")
@@ -188,15 +192,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         }
         //self.dismiss(animated: true, completion: nil)
     }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "editAutoLocation"{
-//            if let VC = segue.destination as? mapViewController{
-//                VC.longitude = longitude
-//                VC.latitude = latitude
-//            }
-//        }
-//    }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? DatePopupViewController

@@ -88,12 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
-        self.myLocationManager.stopUpdatingLocation()
         //取得目前的座標位置
         //let c = locations[0] as CLLocation
         //print(locations)
-        self.currentLocation = locations[0] as CLLocation
-        
         //currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
         
         //    取得時間
@@ -111,9 +108,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //        if myLocationManager.location!.speed == -1.0 && myLocationManager.location!.speed != lastSpeed{
 //            saveInDB()
 //        }
-        
-        if myLocationManager.location!.speed <= 0{
+        self.currentLocation = locations[0] as CLLocation
+        if myLocationManager.location!.speed <= 0 && myLocationManager.location!.speed != lastSpeed{
             saveInDB()
+        }
+        if myLocationManager.location!.speed > 0 && lastSpeed <= 0 {
+            saveSpeed()
         }
 //        if myLocationManager.location!.horizontalAccuracy>=0{
 //            //myLocationManager.stopUpdatingLocation()
@@ -147,6 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     func saveInDB(){
+        self.myLocationManager.delegate = nil
         likelyPlaces.removeAll()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
@@ -226,7 +227,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             
             //self.myLocationManager.startUpdatingLocation()
             //self.myLocationManager.delegate = nil
-            //self.myLocationManager.delegate = self
+            self.myLocationManager.delegate = self
         })
     }
     

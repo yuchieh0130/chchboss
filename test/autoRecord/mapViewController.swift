@@ -46,7 +46,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var placeCategory: String = "QQQQQ"
     var placeLongitude: Double! = 0
     var placeLatitude: Double! = 0
-    //回傳回track用
+    //判斷原本有沒有選過place跟回傳回track用
     var savePlace : PlaceModel?
     
     
@@ -61,9 +61,15 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         txtSearch.placeholder = "Search places..."
         
-        modelLoc = DBManager.getInstance().getLocation(Int: location_id)
-        latitude = modelLoc?.latitude
-        longitude = modelLoc?.longitude
+        if savePlace != nil{
+            latitude = savePlace?.placeLatitude
+            longitude = savePlace?.placeLongitude
+        }else{
+            modelLoc = DBManager.getInstance().getLocation(Int: location_id)
+            latitude = modelLoc?.latitude
+            longitude = modelLoc?.longitude
+        }
+        
         nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
         categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
 //        savePlaceArray = DBManager.getInstance().getNotMyPlace()!
