@@ -23,7 +23,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var modelLoc : LocationModel?
     lazy var nameArray = [String?]()
     lazy var categoryArray = [String?]()
-    //var savePlaceArray = [PlaceModel]()
+    var savePlaceArray = [PlaceModel]()
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     
@@ -39,6 +39,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     var location_id: Int32 = 0
     var longitude: Double! = 0
     var latitude: Double! = 0
+    var userLocation = CLLocation()
     
     //搜尋結果的variables
     let id: Int32 = 0
@@ -61,23 +62,37 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         txtSearch.placeholder = "Search places..."
         
+        savePlaceArray = DBManager.getInstance().getNotMyPlace()
         if savePlace != nil{
             latitude = savePlace?.placeLatitude
             longitude = savePlace?.placeLongitude
+            userLocation = CLLocation(latitude: latitude!, longitude: longitude!)
+            
+            savePlaceArray = savePlaceArray.filter({
+                let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
+                let distance = c.distance(from: userLocation)
+                let name = $0.placeName.elementsEqual(savePlace!.placeName)
+                return distance <= 100 && name == false
+            })
+            
         }else{
             modelLoc = DBManager.getInstance().getLocation(Int: location_id)
             latitude = modelLoc?.latitude
             longitude = modelLoc?.longitude
+            userLocation = CLLocation(latitude: latitude!, longitude: longitude!)
+            nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
+            categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
+            
+            savePlaceArray = savePlaceArray.filter({
+                       let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
+                       let distance = c.distance(from: userLocation)
+                       let name = nameArray.contains($0.placeName)
+                       return distance <= 100 && name == false
+                   })
         }
         
-        nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
-        categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
-//        savePlaceArray = DBManager.getInstance().getNotMyPlace()!
-//        savePlaceArray.filter({
-//            let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
-//            let distance = c.distance(from: c)
-//            return distance<=100
-//        })
+//        nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
+//        categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
         mapView.delegate = self
 
         
@@ -110,17 +125,6 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         }
     }
     
-//    func isWithin100meters(savePlaceArray:[PlaceModel])->[PlaceModel?]{
-//        //self.userLocation = CLLocation(latitude: latitude!, longitude: longitude!)
-//        let savePlaceArray = DBManager.getInstance().getNotMyPlace()!
-//        savePlaceArray.filter({
-//            let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
-//            let distance = c.distance(from: c)
-//            return distance<=100
-//        })
-//        return savePlaceArray
-//    }
-    
     
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
@@ -131,8 +135,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
 //            return sortedName.count+2
 //            //return sortedName.count+2+savePlaceArray.count
 //        }
+        print(savePlaceArray.count)
+        print(nameArray.count)
         if txtSearch.text!.isEmpty{
-            return resultsArray.count+1
+            return nameArray.count+1+savePlaceArray.count
         }else{
             return resultsArray.count+2
             //return sortedName.count+2+savePlaceArray.count
@@ -152,9 +158,18 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         }else{
             cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
             if txtSearch.text!.isEmpty{
-                let place = nameArray[indexPath.row-1]
-                cell?.textLabel?.text = place
-                cell?.detailTextLabel?.isHidden = true
+                if indexPath.row <= nameArray.count{
+                    let place = nameArray[indexPath.row-1]
+                    cell?.textLabel?.text = place
+                    cell?.detailTextLabel?.isHidden = true
+                }else{
+                    let place = savePlaceArray[indexPath.row-nameArray.count-1].placeName
+                    cell?.textLabel?.text = place
+                    cell?.detailTextLabel?.isHidden = false
+                    let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
+                    let distance = c.distance(from: userLocation)
+                    cell?.detailTextLabel?.text = "\(Int(distance))m"
+                }
             }else{
                 cell?.textLabel?.text = "\(resultsArray[indexPath.row-1]["name"]!)"
                 cell?.detailTextLabel?.isHidden = false
@@ -202,7 +217,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         }else{
             
             if txtSearch.text!.isEmpty{
-                //選擇附近五個地點
+                //選擇附近五個地點or savePlace
             }else{
                 //選擇搜尋結果，把搜尋結果回傳plcaeModel
                 var cat = [String]()
@@ -260,8 +275,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                                     let lat = (dct["geometry"]!["location"]!! as AnyObject).allValues![0] as! Double
                                     let long = (dct["geometry"]!["location"]!! as AnyObject).allValues![1] as! Double
                                     let placeLocation = CLLocation(latitude: lat, longitude: long)
-                                    let userLocation = CLLocation(latitude: self.modelLoc!.latitude, longitude: self.modelLoc!.longitude)
-                                    let dist = userLocation.distance(from: placeLocation)
+//                                    let userLocation = CLLocation(latitude: self.modelLoc!.latitude, longitude: self.modelLoc!.longitude)
+                                    let dist = self.userLocation.distance(from: placeLocation)
                                     self.resultsArray[self.resultsArray.count-1]["distance"] = dist as AnyObject
 //                                    var c = [String]()
 //                                    c = dct["types"] as! [String]

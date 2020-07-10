@@ -107,8 +107,10 @@ class ViewController: UIViewController{
         //calendarView.bounds.height = UIScreen.main.bounds.height/2
         if selectedDay == ""{
             calendarView.reloadData(withanchor: Date())
+             monthLabel.text = showMonthFormatter.string(from: Date())
         }else{
             calendarView.reloadData(withanchor: showDayFormatter.date(from: selectedDay))
+            monthLabel.text = showMonthFormatter.string(from: showDayFormatter.date(from: selectedDay)!)
         }
     }
           

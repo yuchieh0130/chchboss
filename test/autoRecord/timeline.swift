@@ -79,7 +79,6 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     }
     
     @IBAction func editAutoSegueBack(segue: UIStoryboardSegue){
-        print("wwwwww")
         showTrack = DBManager.getInstance().getDateTracks(String: date)
         trackViews.forEach({$0.removeFromSuperview()})
         //view.subviews.forEach({$0.removeFromSuperview()})
@@ -114,15 +113,12 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     }
     
     func createTracks(view: UIScrollView){
-        var lastHeight = 0
+        
         for i in 0...showTrack.count-1{
+            let height = (showTimeformatter.date(from: showTrack[i].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[i].startTime)!))!/3600*Double(hourSize)
+            let y = (showTimeformatter.date(from: showTrack[i].startTime)?.timeIntervalSince(showTimeformatter.date(from: "00:00")!))!/3600*Double(hourSize)
             let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
-            let seconds = showTimeformatter.date(from: showTrack[i].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[i].startTime)!)
-            let hour = Double(seconds!/3600)
-            let height = hour*Double(hourSize)
-//            print(hour)
-//            print(hourSize)
-            let trackView = UIButton(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
+            let trackView = UIButton(frame:CGRect(x:80,y:25+Int(y),width: Int(fullSize.width)-100,height: Int(height)))
             trackView.tag = i
 //            let trackView = UIView(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
             trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
@@ -132,10 +128,8 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
             trackView.addSubview(categoryLabel)
             //trackView.layer.borderColor = hexStringToUIColor_border(hex: category!.categoryColor).cgColor
             //trackView.layer.borderWidth = 3
-            //trackView.addGestureRecognizer(tap)
             trackViews.append(trackView)
             view.addSubview(trackView)
-            lastHeight += Int(height)
         }
     }
     
