@@ -11,6 +11,5 @@ target 'test' do
   pod 'GooglePlaces'
   pod 'Floaty', '~> 4.2.0'
   pod 'Charts'
-  pod 'FanMenu'
   source 'https://github.com/CocoaPods/Specs.git'
 end

@@ -2,8 +2,6 @@ PODS:
   - Charts (3.5.0):
     - Charts/Core (= 3.5.0)
   - Charts/Core (3.5.0)
-  - FanMenu (0.7.4):
-    - Macaw
   - Floaty (4.2.0)
   - GoogleMaps (3.9.0):
     - GoogleMaps/Maps (= 3.9.0)
@@ -13,13 +11,9 @@ PODS:
   - GooglePlaces (3.9.0):
     - GoogleMaps/Base (= 3.9.0)
   - JTAppleCalendar (7.1.8)
-  - Macaw (0.9.6):
-    - SWXMLHash
-  - SWXMLHash (5.0.1)
 
 DEPENDENCIES:
   - Charts
-  - FanMenu
   - Floaty (~> 4.2.0)
   - GoogleMaps
   - GooglePlaces
@@ -28,24 +22,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Charts
-    - FanMenu
     - Floaty
     - GoogleMaps
     - GooglePlaces
     - JTAppleCalendar
-    - Macaw
-    - SWXMLHash
 
 SPEC CHECKSUMS:
   Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
-  FanMenu: 773836538a63cddcbf0c5bf320727bb47669f7fd
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
   GooglePlaces: 1634d019549b969d40fe0ccb0b9513055adebe01
   JTAppleCalendar: b7fb40852f5f319fe55c8ec3861f1de0edc99cc8
-  Macaw: 8306d775625ba003beee4186b9533fd7cf284024
-  SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: 62a1e5bae53770d96c16b074d0baa29eb4a2a5a3
+PODFILE CHECKSUM: 18de48ea82bfbc0cc3e657b73dc9153ccfe1afc3
 
 COCOAPODS: 1.9.1
