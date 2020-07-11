@@ -26,7 +26,7 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         tabBar.items?[3].title = "Analysis"
         tabBar.items?[4].title = "Settings"
         
-        let floaty = Floaty(frame: CGRect(x: self.view.frame.width/2 - 22 , y: self.view.frame.height - 77, width: 45, height: 45))
+        let floaty = Floaty(frame: CGRect(x: 0, y: self.view.frame.height - 77, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
@@ -45,7 +45,8 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
                 self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
             })
         }
-        
+        floaty.translatesAutoresizingMaskIntoConstraints = false
+        floaty.center.x = self.tabBar.center.x
         floaty.openAnimationType = .slideUp
         floaty.isDraggable = true
         floaty.hasShadow = false
