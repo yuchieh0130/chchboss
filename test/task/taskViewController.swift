@@ -95,6 +95,32 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         title = "Task"
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 115, width: 45, height: 45))
+        floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
+        floaty.plusColor = UIColor.white
+        floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
+        if #available(iOS 13.0, *) {
+            floaty.addItem("", icon: UIImage(systemName: "doc.text"), handler: {_ in
+                self.performSegue(withIdentifier: "addTask", sender: self)
+            })
+            floaty.addItem("", icon: UIImage(systemName: "calendar"), handler: {_ in
+                self.performSegue(withIdentifier: "taskAddEvent", sender: self)
+            })
+        } else {
+            floaty.addItem("", icon: UIImage(named: "task"), handler: {_ in
+                self.performSegue(withIdentifier: "addTask", sender: self)
+            })
+            floaty.addItem("", icon: UIImage(named: "calendar"), handler: {_ in
+                self.performSegue(withIdentifier: "taskAddEvent", sender: self)
+            })
+        }
+        floaty.translatesAutoresizingMaskIntoConstraints = false
+        floaty.openAnimationType = .slideUp
+        floaty.isDraggable = true
+        floaty.hasShadow = false
+        floaty.autoCloseOnTap = true
+        self.view.addSubview(floaty)
     }
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

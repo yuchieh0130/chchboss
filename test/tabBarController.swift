@@ -23,8 +23,8 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
             
         tabBar.items?[0].title = "Calendar"
         tabBar.items?[1].title = "Task"
-        tabBar.items?[3].title = "Analysis"
-        tabBar.items?[4].title = "Settings"
+        tabBar.items?[2].title = "Analysis"
+        tabBar.items?[3].title = "Settings"
         
         let floaty = Floaty(frame: CGRect(x: 0, y: self.view.frame.height - 77, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
@@ -51,19 +51,19 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         floaty.isDraggable = true
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
-        self.view.addSubview(floaty)
+        //self.view.addSubview(floaty)
         }
     
     //讓你按中間的tab bar item 不會跑出view controller
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if viewController.isKind(of: middleViewController.self) {
-         let vc =  middleViewController()
-         vc.modalPresentationStyle = .overFullScreen
-         self.present(vc, animated: true, completion: nil)
-         return false
-      }
-      return true
-    }
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        if viewController.isKind(of: middleViewController.self) {
+//         let vc =  middleViewController()
+//         vc.modalPresentationStyle = .overFullScreen
+//         self.present(vc, animated: true, completion: nil)
+//         return false
+//      }
+//      return true
+//    }
     
       
 //    // TabBarButton – Setup Middle Button
