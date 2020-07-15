@@ -1,19 +1,15 @@
 //
-//  LoginViewController.swift
+//  DailyRoutineViewController.swift
 //  test
 //
-//  Created by HsinJou Hung on 2020/7/2.
+//  Created by 黃羽婕 on 2020/7/15.
 //  Copyright © 2020 AppleInc. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class LoginViewController: UIViewController{
-    
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var Daily: UIButton!
+class DailyRoutineViewController: UIViewController{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -33,12 +29,5 @@ class LoginViewController: UIViewController{
         super.viewDidAppear(animated)
     }
     
-}
-
-extension LoginViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-       self.view.endEditing(true)
-       return true
-    }
 }
 
