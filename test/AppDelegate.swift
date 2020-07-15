@@ -117,7 +117,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
              lastSpeeds.removeAll()
-            if lastLocation.distance(from: currentLocation) > 150{
+            if lastLocation == nil{
+                saveInDB()
+            }else if lastLocation.distance(from: currentLocation) > 150{
                 saveSpeed()
                 saveInDB()
             }
