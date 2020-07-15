@@ -14,8 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     //var myLocation :CLLocation!
     //var currentSpeed :CLLocationSpeed = CLLocationSpeed()
     var currentLocation: CLLocation!
+    //用來判斷要不要存進db
     var lastSpeed:Double = 55.66
     var lastStartTime:String = ""
+    var lastLocation: CLLocation!
+    var lastName1 = ""
+    var lastSpeeds = [Double]()
     //var currentLocation = CLLocationCoordinate2D()
     //var dateFormatString: String?
     
@@ -70,8 +74,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //myLocationManager = CLLocationManager()
         //        myLocationManager.startMonitoringVisits()
         myLocationManager.delegate = self
-        myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
-            //kCLLocationAccuracyNearestTenMeters
+        myLocationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
+        //kCLLocationAccuracyHundredMeters
+        //kCLLocationAccuracyNearestTenMeters
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest //kCLLocationAccuracyNearestTenMeters //kCLLocationAccuracyBestForNavigation
         myLocationManager.allowsBackgroundLocationUpdates = true
         myLocationManager.pausesLocationUpdatesAutomatically = false
@@ -109,11 +114,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //            saveInDB()
 //        }
         self.currentLocation = locations[0] as CLLocation
-        if myLocationManager.location!.speed <= 0 && myLocationManager.location!.speed != lastSpeed{
-            saveInDB()
+        
+        if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
+             lastSpeeds.removeAll()
+            if lastLocation.distance(from: currentLocation) > 150{
+                saveSpeed()
+                saveInDB()
+            }
         }
-        if myLocationManager.location!.speed > 0 && lastSpeed <= 0 {
-            saveSpeed()
+        
+        if myLocationManager.location!.speed >= 0 {
+            lastSpeeds.append(myLocationManager.location!.speed)
         }
 //        if myLocationManager.location!.horizontalAccuracy>=0{
 //            //myLocationManager.stopUpdatingLocation()
@@ -135,7 +146,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         let latitude = Double(self.currentLocation.coordinate.latitude)
         let longitude = Double(self.currentLocation.coordinate.longitude)
         let startTime = self.showDateformatter.string(from: Date())
-        let speed = self.myLocationManager.location!.speed
+        var total = 0.0
+        for i in lastSpeeds{
+            total += i
+        }
+        let speed = total/Double(lastSpeeds.count)
         
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startTime: startTime, duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "",speed: speed)
         
@@ -147,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     func saveInDB(){
-        self.myLocationManager.delegate = nil
+//        self.myLocationManager.delegate = nil
         likelyPlaces.removeAll()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
@@ -224,6 +239,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             }
             
             self.lastStartTime = startTime
+            self.lastName1 = name1
+            self.lastLocation = CLLocation(latitude: latitude, longitude: longitude)
             
             //self.myLocationManager.startUpdatingLocation()
             //self.myLocationManager.delegate = nil
