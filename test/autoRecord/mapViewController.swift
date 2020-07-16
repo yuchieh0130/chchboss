@@ -63,6 +63,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         txtSearch.placeholder = "Search places..."
         
         savePlaceArray = DBManager.getInstance().getNotMyPlace()
+        
         if savePlace != nil{
             latitude = savePlace?.placeLatitude
             longitude = savePlace?.placeLongitude
@@ -81,19 +82,22 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             longitude = modelLoc?.longitude
             userLocation = CLLocation(latitude: latitude!, longitude: longitude!)
             nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
-            categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
-            
-            //以savePlace為優先?附近五個地點為優先？
+//            categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
             savePlaceArray = savePlaceArray.filter({
                        let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
                        let distance = c.distance(from: userLocation)
-                       let name = nameArray.contains($0.placeName)
-                       return distance <= 100 && name == false
+                       return distance <= 200
                    })
+            if savePlaceArray.count != 0{
+                for i in 0...savePlaceArray.count-1{
+                    nameArray.filter({
+                        let name = savePlaceArray[i].placeName == $0
+                        return name == false
+                    })
+                }
+            }
         }
         
-//        nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
-//        categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
         mapView.delegate = self
 
         
@@ -130,58 +134,82 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     //MARK:- UITableViewDataSource and UItableViewDelegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if txtSearch.text!.isEmpty{
-//            return nameArray.count+1
-//        }else{
-//            return sortedName.count+2
-//            //return sortedName.count+2+savePlaceArray.count
-//        }
-        print(savePlaceArray.count)
-        print(nameArray.count)
         if txtSearch.text!.isEmpty{
-            return nameArray.count+1+savePlaceArray.count
+            return nameArray.count+savePlaceArray.count+1
         }else{
-            return resultsArray.count+2
-            //return sortedName.count+2+savePlaceArray.count
+            return resultsArray.count+1
         }
-
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell: UITableViewCell?
         
-        if indexPath.row == 0{
-            cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
-        }else if !txtSearch.text!.isEmpty && indexPath.row == resultsArray.count+1{
-            //resultsArray.count != 0 &&
-            cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
-            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
-        }else{
-            if txtSearch.text!.isEmpty{
-                if indexPath.row <= nameArray.count{
-                    cell = tableView.dequeueReusableCell(withIdentifier: "fivePlaceCell")
-                    let place = nameArray[indexPath.row-1]
-                    cell?.textLabel?.text = place
-                    cell?.detailTextLabel?.isHidden = true
-                }else{
-                    cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
-                    let place = savePlaceArray[indexPath.row-nameArray.count-1].placeName
-                    cell?.textLabel?.text = place
-                    cell?.detailTextLabel?.isHidden = false
-                    let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
-                    let distance = c.distance(from: userLocation)
-                    cell?.detailTextLabel?.text = "\(Int(distance))m"
-                }
+        if txtSearch.text!.isEmpty{
+            
+            if indexPath.row == 0{
+                cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
+            }else if indexPath.row <= nameArray.count{
+                cell = tableView.dequeueReusableCell(withIdentifier: "fivePlaceCell")
+                let place = nameArray[indexPath.row-1]
+                cell?.textLabel?.text = place
+                cell?.detailTextLabel?.text = "(recommend place)"
             }else{
-                print(resultsArray.count)
                 cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
-                cell?.textLabel?.text = "\(resultsArray[indexPath.row-1]["name"]!)"
+                let place = savePlaceArray[indexPath.row-nameArray.count-1].placeName
+                cell?.textLabel?.text = place
                 cell?.detailTextLabel?.isHidden = false
-                let distance = resultsArray[indexPath.row-1]["distance"]! as! NSNumber
+                let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
+                let distance = c.distance(from: userLocation)
                 cell?.detailTextLabel?.text = "\(Int(distance))m"
+                
             }
+            
+        }else{
+            if indexPath.row < resultsArray.count{
+                cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
+                cell?.textLabel?.text = "\(resultsArray[indexPath.row]["name"]!)"
+                cell?.detailTextLabel?.isHidden = false
+                let distance = resultsArray[indexPath.row]["distance"]! as! NSNumber
+                cell?.detailTextLabel?.text = "\(Int(distance))m"
+            }else{
+                cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
+                cell?.textLabel?.text = " name this place： \" \(txtSearch.text!) \" "
+            }
+            
         }
+        
+//        if indexPath.row == 0{
+//            cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
+//        }else if !txtSearch.text!.isEmpty && indexPath.row == resultsArray.count+1{
+//            //resultsArray.count != 0 &&
+//            cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
+//            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
+//        }else{
+//            if txtSearch.text!.isEmpty{
+//                if indexPath.row <= nameArray.count{
+//                    cell = tableView.dequeueReusableCell(withIdentifier: "fivePlaceCell")
+//                    let place = nameArray[indexPath.row-1]
+//                    cell?.textLabel?.text = place
+//                    cell?.detailTextLabel?.isHidden = true
+//                }else{
+//                    cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
+//                    let place = savePlaceArray[indexPath.row-nameArray.count-1].placeName
+//                    cell?.textLabel?.text = place
+//                    cell?.detailTextLabel?.isHidden = false
+//                    let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
+//                    let distance = c.distance(from: userLocation)
+//                    cell?.detailTextLabel?.text = "\(Int(distance))m"
+//                }
+//            }else{
+//                print(resultsArray.count)
+//                cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
+//                cell?.textLabel?.text = "\(resultsArray[indexPath.row-1]["name"]!)"
+//                cell?.detailTextLabel?.isHidden = false
+//                let distance = resultsArray[indexPath.row-1]["distance"]! as! NSNumber
+//                cell?.detailTextLabel?.text = "\(Int(distance))m"
+//            }
+//        }
 //        }else if sortedName.count != 0 && indexPath.row == sortedName.count+1{
 //            cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
 //            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
@@ -213,32 +241,68 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        if indexPath.row == 0{
-           //選擇MyPlcae頁面
-        }else if resultsArray.count != 0 && indexPath.row == resultsArray.count+1{
-            //自己命名 （要自動變成myPlace嗎？？？）
-            placeName = txtSearch.text!
-            savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, myPlace: false)
-        }else{
+        
+        
+        if txtSearch.text!.isEmpty{
             
-            if txtSearch.text!.isEmpty{
+            if indexPath.row == 0{
+               //選擇MyPlcae頁面
+            }else if indexPath.row <= nameArray.count{
                 txtSearch.text = nameArray[indexPath.row-1]
                 searchPlaceFromGoogle(txtSearch)
-                //self.tblPlaces.reloadData()
-                //選擇附近五個地點or savePlace
             }else{
-                //選擇搜尋結果，把搜尋結果回傳plcaeModel
+                savePlace = PlaceModel(placeId: id, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, myPlace: false)
+            }
+        }else{
+            if indexPath.row < resultsArray.count{
                 var cat = [String]()
-                cat = (resultsArray[indexPath.row-1]["types"] as? [String])!
+                cat = (resultsArray[indexPath.row]["types"] as? [String])!
                 placeCategory = cat[0]
                 var location = [String:[String:Any]]()
-                location["location"] = resultsArray[indexPath.row-1]["geometry"]!["location"] as? [String:Any]
-                placeName = resultsArray[indexPath.row-1]["name"] as? String
+                location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as? [String:Any]
+                placeName = resultsArray[indexPath.row]["name"] as? String
                 placeLongitude = location["location"]!["lng"] as? Double
                 placeLatitude = location["location"]!["lat"] as? Double
                 savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: false)
+            }else{
+                savePlace = PlaceModel(placeId: id, placeName: txtSearch.text!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, myPlace: false)
             }
+            
         }
+        
+//        if indexPath.row == 0{
+//           //選擇MyPlcae頁面
+//        }else if resultsArray.count != 0 && indexPath.row == resultsArray.count+1{
+//            //自己命名 （要自動變成myPlace嗎？？？）
+//            placeName = txtSearch.text!
+//            savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, myPlace: false)
+//        }else{
+//
+//            if txtSearch.text!.isEmpty{
+//                if indexPath.row <= nameArray.count{
+//                    txtSearch.text = nameArray[indexPath.row-1]
+//                    searchPlaceFromGoogle(txtSearch)
+//
+//                }else{
+//                    savePlace = PlaceModel(placeId: id, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, myPlace: false)
+//                }
+//
+//
+//                //self.tblPlaces.reloadData()
+//                //選擇附近五個地點or savePlace
+//            }else{
+//                //選擇搜尋結果，把搜尋結果回傳plcaeModel
+//                var cat = [String]()
+//                cat = (resultsArray[indexPath.row-1]["types"] as? [String])!
+//                placeCategory = cat[0]
+//                var location = [String:[String:Any]]()
+//                location["location"] = resultsArray[indexPath.row-1]["geometry"]!["location"] as? [String:Any]
+//                placeName = resultsArray[indexPath.row-1]["name"] as? String
+//                placeLongitude = location["location"]!["lng"] as? Double
+//                placeLatitude = location["location"]!["lat"] as? Double
+//                savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: false)
+//            }
+//        }
         return indexPath
     }
     

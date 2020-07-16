@@ -166,7 +166,9 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
                 let a = DBManager.getInstance().editTrackPlace(id: track.trackId!)
             }else{  //複寫
             //吃place_id蓋掉原本savedplace裡的資料（動place
-                let a = DBManager.getInstance().editPlaceData(id: track.placeId!, p: savePlace!)
+                let isAdded = DBManager.getInstance().addPlace(savePlace!)
+                let id = DBManager.getInstance().getMaxPlace()
+                let a = DBManager.getInstance().editPlaceData(id: id, p: savePlace!)
             }
             
         }else if savePlace != nil {  //原本沒資料：新增新資料
