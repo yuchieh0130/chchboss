@@ -163,19 +163,25 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             if savePlace == nil{    //刪掉
                 //吃place_id刪掉那欄
                 //吃track_id把place_id的欄位改成nil（動track
-                let a = DBManager.getInstance().editTrackPlace(id: track.trackId!)
+                let a = DBManager.getInstance().deleteTrackPlace(id: track.trackId!)
             }else{  //複寫
-            //吃place_id蓋掉原本savedplace裡的資料（動place
-                let isAdded = DBManager.getInstance().addPlace(savePlace!)
-                let id = DBManager.getInstance().getMaxPlace()
-                let a = DBManager.getInstance().editPlaceData(id: id, p: savePlace!)
+                //savePlace檢查要不要新增新的
+                //要：新增完回傳id 寫進track
+                //不要：回傳已經存在的savePlacce id寫進track
+                let id = DBManager.getInstance().addPlace(savePlace!)
+//                if isAdded{
+//                    let id = DBManager.getInstance().getMaxPlace()
+//                }else{
+//
+//                }
+                let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
             }
             
         }else if savePlace != nil {  //原本沒資料：新增新資料
             if savePlace?.myPlace == false{
                 let isAdded = DBManager.getInstance().addPlace(savePlace!)
                 let id = DBManager.getInstance().getMaxPlace()
-                let a = DBManager.getInstance().addTrackPlace(a: id, b: track.trackId!)
+                let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
                 
                 let data:[String:String] = ["place_id":"0", "place_name":savePlace!.placeName, "place_longitude":String(savePlace!.placeLongitude), "place_latitude":String(savePlace!.placeLatitude)]
                 
@@ -187,7 +193,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
                 }
                 
             }else{
-                let a = DBManager.getInstance().addTrackPlace(a: (savePlace?.placeId)!, b: track.trackId!)
+                let a = DBManager.getInstance().editTrackPlace(a: (savePlace?.placeId)!, b: track.trackId!)
             }
             
 

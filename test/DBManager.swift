@@ -260,13 +260,29 @@ class DBManager: NSObject {
     
     
     /*func for savePlace*/
-    func addPlace(_ modelInfo: PlaceModel) -> Bool{
-
+    func addPlace(_ modelInfo: PlaceModel) -> Int32{
+        var id : Int32!
         shareInstance.database?.open()
         let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
         let isAdded = shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
+        if isAdded!{
+            let sqlString1 = "SELECT MAX(place_id) AS Id FROM savedPlace";
+            let set = try?shareInstance.database?.executeQuery(sqlString1, values: [])
+            while ((set?.next())!) {
+                let a = set?.int(forColumn: "Id")
+                id = a
+            }
+        }else{
+            let sqlString2 = "SELECT place_id AS Id FROM savedPlace WHERE place_name = '\(modelInfo.placeName)'";
+            let set = try?shareInstance.database?.executeQuery(sqlString2, values: [])
+            while ((set?.next())!) {
+                let a = set?.int(forColumn: "Id")
+                id = a
+            }
+        }
         shareInstance.database?.close()
-        return isAdded!
+        return id!
+        //return isAdded!
     }
     
     func getPlace(Int: Int32) -> PlaceModel!{
@@ -360,12 +376,12 @@ class DBManager: NSObject {
         return id
     }
     
-    func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
-        shareInstance.database?.open()
-        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
-        shareInstance.database?.close()
-        return isDone!
-    }
+//    func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
+//        shareInstance.database?.open()
+//        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
+//        shareInstance.database?.close()
+//        return isDone!
+//    }
     
     /*func for task*/
     func addTask(_ modelInfo: TaskModel) -> Bool{
@@ -540,14 +556,14 @@ class DBManager: NSObject {
         return tracks
     }
     
-    func editTrackPlace(id: Int32) -> Bool{
+    func deleteTrackPlace(id: Int32) -> Bool{
         shareInstance.database?.open()
         let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = NULL WHERE track_id = \(id)", withArgumentsIn: [id])
         shareInstance.database?.close()
         return isDone!
     }
     
-    func addTrackPlace(a: Int32, b: Int32) -> Bool{
+    func editTrackPlace(a: Int32, b: Int32) -> Bool{
         shareInstance.database?.open()
         let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = \(a) WHERE track_id = \(b)", withArgumentsIn: [a,b])
         shareInstance.database?.close()
