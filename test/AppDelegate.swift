@@ -164,6 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     func saveInDB(){
+        self.myLocationManager.delegate = nil
         likelyPlaces.removeAll()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
@@ -245,7 +246,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             
             //self.myLocationManager.startUpdatingLocation()
             //self.myLocationManager.delegate = nil
-            //self.myLocationManager.delegate = self
+            self.myLocationManager.delegate = self
         })
     }
     

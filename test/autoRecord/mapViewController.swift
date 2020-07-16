@@ -315,6 +315,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                                 
                                 DispatchQueue.main.async {
                                     self.tblPlaces.reloadData()
+                                    
                                 }
                                 
                             }

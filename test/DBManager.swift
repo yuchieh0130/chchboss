@@ -263,7 +263,7 @@ class DBManager: NSObject {
     func addPlace(_ modelInfo: PlaceModel) -> Bool{
 
         shareInstance.database?.open()
-        let sqlString = "IF NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = \(modelInfo.placeName)) INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?)";
+        let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
         let isAdded = shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
         shareInstance.database?.close()
         return isAdded!
