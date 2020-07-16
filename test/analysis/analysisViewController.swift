@@ -26,10 +26,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     let goals = [6, 8, 26, 30, 8, 10]
     let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
     let counts = [45, 76, 34, 97]
-    let categoryValues = [34, 67, 89, 45, 44, 12, 28, 90, 23, 60, 57, 17, 26, 37, 95, 54, 64, 87]
+    var categoryValues = [34, 67, 89, 45, 44, 12, 28, 90, 23, 60, 57, 17, 26, 37, 95, 54, 64, 87]
     let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
     let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
     var index = 0
+    var percentage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,10 +113,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        let format = NumberFormatter()
-        format.numberStyle = .none
-        let formatter = DefaultValueFormatter(formatter: format)
-        pieChartData.setValueFormatter(formatter)
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 1.0
+        pieChartData.setValueFormatter(DefaultValueFormatter(formatter:formatter))
         pieChartData.setValueTextColor(UIColor.black)
         // 4. Assign it to the chart’s data
         pieChart.data = pieChartData
@@ -204,6 +206,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             if let vc = segue.destination as? combineChartViewController{
                 print(index)
                 vc.name = "\(showCategory[index].categoryName)"
+                vc.color = hexStringToUIColor (hex:"\(showCategory[index].categoryColor)")
                 
             }
         }
