@@ -83,6 +83,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             nameArray = [modelLoc!.name1,modelLoc!.name2!,modelLoc!.name3!,modelLoc!.name4!,modelLoc?.name5!]
             categoryArray = [modelLoc?.category1,modelLoc?.category2,modelLoc?.category3,modelLoc?.category4,modelLoc?.category5]
             
+            //以savePlace為優先?附近五個地點為優先？
             savePlaceArray = savePlaceArray.filter({
                        let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
                        let distance = c.distance(from: userLocation)
@@ -152,17 +153,19 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         if indexPath.row == 0{
             cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
-        }else if resultsArray.count != 0 && indexPath.row == resultsArray.count+1{
+        }else if !txtSearch.text!.isEmpty && indexPath.row == resultsArray.count+1{
+            //resultsArray.count != 0 &&
             cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
             cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
         }else{
-            cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
             if txtSearch.text!.isEmpty{
                 if indexPath.row <= nameArray.count{
+                    cell = tableView.dequeueReusableCell(withIdentifier: "fivePlaceCell")
                     let place = nameArray[indexPath.row-1]
                     cell?.textLabel?.text = place
                     cell?.detailTextLabel?.isHidden = true
                 }else{
+                    cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
                     let place = savePlaceArray[indexPath.row-nameArray.count-1].placeName
                     cell?.textLabel?.text = place
                     cell?.detailTextLabel?.isHidden = false
@@ -171,6 +174,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                     cell?.detailTextLabel?.text = "\(Int(distance))m"
                 }
             }else{
+                print(resultsArray.count)
+                cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
                 cell?.textLabel?.text = "\(resultsArray[indexPath.row-1]["name"]!)"
                 cell?.detailTextLabel?.isHidden = false
                 let distance = resultsArray[indexPath.row-1]["distance"]! as! NSNumber
@@ -217,6 +222,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         }else{
             
             if txtSearch.text!.isEmpty{
+                txtSearch.text = nameArray[indexPath.row-1]
+                searchPlaceFromGoogle(txtSearch)
+                //self.tblPlaces.reloadData()
                 //選擇附近五個地點or savePlace
             }else{
                 //選擇搜尋結果，把搜尋結果回傳plcaeModel
