@@ -114,12 +114,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //            saveInDB()
 //        }
         self.currentLocation = locations[0] as CLLocation
-        
-        if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
+        if lastLocation == nil{
+            saveInDB()
+        }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
+            
              lastSpeeds.removeAll()
-            if lastLocation == nil{
-                saveInDB()
-            }else if lastLocation.distance(from: currentLocation) > 150{
+            if lastLocation.distance(from: currentLocation) > 150{
                 saveSpeed()
                 saveInDB()
             }
@@ -137,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //            }
 //        }
         self.lastSpeed = myLocationManager.location!.speed
-        self.myLocationManager.startUpdatingLocation()
+        //self.myLocationManager.startUpdatingLocation()
         
     }
     

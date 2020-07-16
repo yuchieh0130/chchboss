@@ -59,8 +59,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
-        print(track.startDate)
-        print(track.startTime)
+//        print(track.startDate)
+//        print(track.startTime)
         s = showDateformatter.date(from: "\(track.startDate) \(track.startTime)")!
         e = showDateformatter.date(from: "\(track.endDate) \(track.endTime)")!
         //txtDate.text = "   " + track.date
@@ -156,7 +156,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         
         let newtrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
         DBManager.getInstance().editTrack(newtrack)
-        print(newtrack)
+        //print(newtrack)
         
         if track.placeId! != 0{   //原本有資料
              
