@@ -26,15 +26,29 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     let goals = [6, 8, 26, 30, 8, 10]
     let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
     let counts = [45, 76, 34, 97]
-    var categoryValues = [34, 67, 89, 45, 44, 12, 28, 90, 23, 60, 57, 17, 26, 37, 95, 54, 64, 87]
+    var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
     let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
     let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
     var index = 0
-    var percentage = 0
+    var total = 0.0
+    var percentage = Array<Double>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Analysis"
+        
+        var categoryTotal = categoryValues.reduce(0, +)
+        total = categoryTotal
+        var categoryPercentage = categoryValues.map{(round(($0/total)*1000))/10}
+        percentage = categoryPercentage
+        
+        //會直接取代原本array裡面的value
+//        for (index, value) in categoryValues.enumerated(){
+//            print("Item \(index + 1): \((round((value/total)*1000))/10)")
+//        }
+//        categoryPercentage.enumerated().forEach{index, value in
+//            categoryPercentage[index] = (round((value/total)*1000))/10
+//        }
         
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-1{
@@ -42,7 +56,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             showCategoryColor.append(showCategory[i].categoryColor)
         }
         
-        customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
+        customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
         pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
@@ -56,7 +70,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     @IBAction func segConChoose(_ sender: Any) {
         var getIndex = segCon.selectedSegmentIndex        
         if getIndex == 0{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
+            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
             pieChart.isHidden = false
             lineChart.isHidden = true
         }else if getIndex == 1{
@@ -207,7 +221,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 print(index)
                 vc.name = "\(showCategory[index].categoryName)"
                 vc.color = hexStringToUIColor (hex:"\(showCategory[index].categoryColor)")
-                
+                vc.time = "\(categoryValues[index])"
             }
         }
         

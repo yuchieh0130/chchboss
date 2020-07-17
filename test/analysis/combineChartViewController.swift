@@ -17,14 +17,15 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     @IBOutlet var categoryName: UILabel!
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var todayTime: UIView!
-    @IBOutlet var todayTimeLabel: UILabel!
-    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var todayTimeLabel: UILabel! //顯示的title
+    @IBOutlet var timeLabel: UILabel!  //顯示時長
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
     var showCategoryColor = [String]()
     var name = "Behaviors"
     var color = UIColor()
+    var time = "Time"
     
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -54,6 +55,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         todayTimeLabel.text = "Today's \(name) time"
         timeLabel.textColor = UIColor.black
         timeLabel.backgroundColor = color
+        timeLabel.text = time
         
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-1{
