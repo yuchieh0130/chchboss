@@ -16,7 +16,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var pieChart: PieChartView!
-    @IBOutlet var lineChart: LineChartView!
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
@@ -26,14 +25,29 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     let goals = [6, 8, 26, 30, 8, 10]
     let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
     let counts = [45, 76, 34, 97]
-    let categoryValues = [34, 67, 89, 45, 44, 12, 28, 90, 23, 60, 57, 17, 26, 37, 95, 54, 64, 87]
+    var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
     let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
     let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
     var index = 0
+    var total = 0.0
+    var percentage = Array<Double>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Analysis"
+        
+        var categoryTotal = categoryValues.reduce(0, +)
+        total = categoryTotal
+        var categoryPercentage = categoryValues.map{(round(($0/total)*1000))/10}
+        percentage = categoryPercentage
+        
+        //會直接取代原本array裡面的value
+//        for (index, value) in categoryValues.enumerated(){
+//            print("Item \(index + 1): \((round((value/total)*1000))/10)")
+//        }
+//        categoryPercentage.enumerated().forEach{index, value in
+//            categoryPercentage[index] = (round((value/total)*1000))/10
+//        }
         
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-1{
@@ -41,7 +55,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             showCategoryColor.append(showCategory[i].categoryColor)
         }
         
-        customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
+        customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
         pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
@@ -49,54 +63,24 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.legend.horizontalAlignment = .center
         pieChart.legend.verticalAlignment = .bottom
         pieChart.holeRadiusPercent = 0.35
-        lineChart.isHidden = true
     }
     
     @IBAction func segConChoose(_ sender: Any) {
         var getIndex = segCon.selectedSegmentIndex        
         if getIndex == 0{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues.map{ Double($0)})
+            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
             pieChart.isHidden = false
-            lineChart.isHidden = true
         }else if getIndex == 1{
-            customizePieChart(dataPoints: sports, values: counts.map{
-                Double($0) })
+            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
             pieChart.isHidden = false
-            lineChart.isHidden = true
         }else if getIndex == 2{
-            customizePieChart(dataPoints: players, values: goals.map{ Double($0) })
+            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
             pieChart.isHidden = false
-            lineChart.isHidden = true
         }else if getIndex == 3{
-            customizeLineChart(dataPoints: category, values: line)
-            lineChart.chartDescription?.text = "CHCHBOSS"
-            pieChart.isHidden = true
-            lineChart.isHidden = false
-            lineChart.dragEnabled = true
-            lineChart.doubleTapToZoomEnabled = false
-            lineChart.drawGridBackgroundEnabled = false
+            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
+            pieChart.isHidden = false
         }
         
-    }
-    
-    func customizePieChart(dataPoints: [String], values: [Double]) {
-        // 1. Set ChartDataEntry
-        var dataEntries: [ChartDataEntry] = []
-        for i in 0..<dataPoints.count {
-            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
-            dataEntries.append(dataEntry)
-        }
-        // 2. Set ChartDataSet
-        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
-        pieChartDataSet.colors = colorsOfCharts(numbersOfColor: dataPoints.count)
-        // 3. Set ChartData
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        let format = NumberFormatter()
-        format.numberStyle = .none
-        let formatter = DefaultValueFormatter(formatter: format)
-        pieChartData.setValueFormatter(formatter)
-        // 4. Assign it to the chart’s data
-        pieChart.data = pieChartData
     }
     
     func customizeCategoryChart(dataPoints: [String], values: [Double]) {
@@ -112,10 +96,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        let format = NumberFormatter()
-        format.numberStyle = .none
-        let formatter = DefaultValueFormatter(formatter: format)
-        pieChartData.setValueFormatter(formatter)
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 1.0
+        pieChartData.setValueFormatter(DefaultValueFormatter(formatter:formatter))
         pieChartData.setValueTextColor(UIColor.black)
         // 4. Assign it to the chart’s data
         pieChart.data = pieChartData
@@ -133,28 +118,27 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         performSegue(withIdentifier: "analysisToCombineChart", sender: self)
     }
 
-    func customizeLineChart(dataPoints: [String], values: [Double]){
-        lineChart.delegate = self
-        var dataEntries: [ChartDataEntry] = []
-        var dataDays: [String] = []
-        var count = 0
-        for i in 0..<dataPoints.count {
-            let dataEntry = ChartDataEntry(x: values[i], y: Double(i))
-            dataEntries.append(dataEntry)
-            dataDays.append(dataPoints[count])
-            if count == dataPoints.count - 1 {
-                count = 0
-            }else{
-                count = count + 1
-            }
-        }
-        
-        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
-        lineChartDataSet.circleColors = colorsOfCategory(numbersOfColor: dataPoints.count)
-        let lineChartData = LineChartData(dataSet: lineChartDataSet)
-        lineChart.data = lineChartData
-        
-    }
+//    func customizeLineChart(dataPoints: [String], values: [Double]){
+//        lineChart.delegate = self
+//        var dataEntries: [ChartDataEntry] = []
+//        var dataDays: [String] = []
+//        var count = 0
+//        for i in 0..<dataPoints.count {
+//            let dataEntry = ChartDataEntry(x: values[i], y: Double(i))
+//            dataEntries.append(dataEntry)
+//            dataDays.append(dataPoints[count])
+//            if count == dataPoints.count - 1 {
+//                count = 0
+//            }else{
+//                count = count + 1
+//            }
+//        }
+//        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
+//        lineChartDataSet.circleColors = colorsOfCategory(numbersOfColor: dataPoints.count)
+//        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+//        lineChart.data = lineChartData
+//
+//    }
     
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
@@ -204,7 +188,8 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             if let vc = segue.destination as? combineChartViewController{
                 print(index)
                 vc.name = "\(showCategory[index].categoryName)"
-                
+                vc.color = hexStringToUIColor (hex:"\(showCategory[index].categoryColor)")
+                vc.time = "\(categoryValues[index])"
             }
         }
         

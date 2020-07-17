@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -114,18 +114,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //            saveInDB()
 //        }
         self.currentLocation = locations[0] as CLLocation
-        
-        if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
+        if lastLocation == nil{
+            saveInDB()
+        }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
              lastSpeeds.removeAll()
-            if lastLocation == nil{
-                saveInDB()
-            }else if lastLocation.distance(from: currentLocation) > 150{
+            if lastLocation.distance(from: currentLocation) > 150{
                 saveSpeed()
                 saveInDB()
             }
-        }
-        
-        if myLocationManager.location!.speed >= 0 {
+        }else if myLocationManager.location!.speed >= 0 {
+            if lastSpeed == -1{
+                lastStartTime = self.showDateformatter.string(from: Date())
+            }
             lastSpeeds.append(myLocationManager.location!.speed)
         }
 //        if myLocationManager.location!.horizontalAccuracy>=0{
@@ -137,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //            }
 //        }
         self.lastSpeed = myLocationManager.location!.speed
-        self.myLocationManager.startUpdatingLocation()
+        //self.myLocationManager.startUpdatingLocation()
         
     }
     
@@ -147,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //        self.startTime = self.showDateformatter.string(from: Date())
         let latitude = Double(self.currentLocation.coordinate.latitude)
         let longitude = Double(self.currentLocation.coordinate.longitude)
-        let startTime = self.showDateformatter.string(from: Date())
+        let startTime = lastStartTime
         var total = 0.0
         for i in lastSpeeds{
             total += i
@@ -159,7 +159,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         let duration = Date().timeIntervalSince(self.showDateformatter.date(from: self.lastStartTime)!)
         let isSaved = DBManager.getInstance().saveDuration(double: duration)
         DBManager.getInstance().saveLocation(modelInfo)
-        self.lastStartTime = startTime
+        self.lastSpeed = speed
+        //self.lastStartTime = startTime
         
     }
     
@@ -240,10 +241,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 }
             }
             
-            self.lastStartTime = startTime
+            //self.lastStartTime = startTime
             self.lastName1 = name1
             self.lastLocation = CLLocation(latitude: latitude, longitude: longitude)
-            
+            self.lastSpeed = -1.0
             //self.myLocationManager.startUpdatingLocation()
             //self.myLocationManager.delegate = nil
             self.myLocationManager.delegate = self
