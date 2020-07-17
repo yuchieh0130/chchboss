@@ -18,7 +18,7 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
+//        self.delegate = self
         self.tabBarController?.delegate = self
             
         tabBar.items?[0].title = "Calendar"

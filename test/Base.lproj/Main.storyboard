@@ -539,6 +539,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="calendar" catalog="system" selectedImage="calendar" id="dYI-UP-sTc"/>
+                    <navigationItem key="navigationItem" id="3AC-si-hol"/>
                     <connections>
                         <outlet property="addEventButtom" destination="GWv-gH-f6b" id="tWc-cY-zUf"/>
                         <outlet property="calendarLayout" destination="3sV-1c-fdV" id="jft-ax-qRd"/>
@@ -695,7 +696,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Sign  Up"/>
                                 <connections>
-                                    <segue destination="FGn-vJ-0Zo" kind="show" id="Eec-DM-hUA"/>
+                                    <action selector="signUpBtn:" destination="MWm-FU-TB3" eventType="touchUpInside" id="5S8-IK-qbL"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Confirm Password" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPp-El-MAx">
@@ -714,6 +715,13 @@
                                     <outlet property="delegate" destination="MWm-FU-TB3" id="VJO-nS-0QX"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Confirm your password again." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCX-9h-UWT" userLabel="Warning Label">
+                                <rect key="frame" x="94" y="415" width="228" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="9LH-no-zXd"/>
@@ -724,11 +732,13 @@
                         <outlet property="emailTextField" destination="BUC-SM-stO" id="WiU-JS-fGV"/>
                         <outlet property="passwordTextField" destination="KXj-6m-Xad" id="t2C-sq-gTY"/>
                         <outlet property="userNameTextField" destination="J7M-gl-bLt" id="zXJ-mc-T2t"/>
+                        <outlet property="warningLabel" destination="mCX-9h-UWT" id="hBg-F8-wqN"/>
+                        <segue destination="FGn-vJ-0Zo" kind="show" identifier="aaapple" id="E0x-BJ-atg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ip1-kS-TCY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1303" y="-766"/>
+            <point key="canvasLocation" x="-1303.2" y="-766.25615763546796"/>
         </scene>
         <!--Middle View Controller-->
         <scene sceneID="6Tm-HV-wwf">
@@ -760,7 +770,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <segue destination="FGn-vJ-0Zo" kind="show" id="ds9-Hc-Lep"/>
+                                    <action selector="logInbtn:" destination="8kr-6C-ze8" eventType="touchUpInside" id="tLa-j1-pRm"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wXK-S2-vnB">
@@ -794,7 +804,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
-                                    <segue destination="MWm-FU-TB3" kind="show" id="2fd-u5-K0f"/>
+                                    <action selector="SignUpBtn:" destination="8kr-6C-ze8" eventType="touchUpInside" id="Ofk-98-Q1J"/>
+                                    <segue destination="MWm-FU-TB3" kind="show" id="eE9-WR-ASG"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sa7-Qw-4jS">
@@ -822,12 +833,13 @@
                         <outlet property="Daily" destination="Egg-me-Yuw" id="HEb-d2-vJa"/>
                         <outlet property="emailTextField" destination="wXK-S2-vnB" id="a3v-O6-pNe"/>
                         <outlet property="passwordTextField" destination="gJ2-WZ-y3B" id="OI9-G2-tfJ"/>
+                        <segue destination="FGn-vJ-0Zo" kind="show" identifier="bbbanana" id="JA0-7e-ZE5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdv-Dx-tlP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="cmS-3B-iRl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-2438" y="-766"/>
+            <point key="canvasLocation" x="-2423.1999999999998" y="-766.25615763546796"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="w9K-oe-14z">
@@ -3207,7 +3219,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ds9-Hc-Lep"/>
+        <segue reference="JA0-7e-ZE5"/>
         <segue reference="cZy-a1-idi"/>
         <segue reference="b0Q-IJ-Wiq"/>
         <segue reference="RdI-zR-oJx"/>
