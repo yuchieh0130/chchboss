@@ -440,7 +440,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
         if indexPath.row == 0{
             performSegue(withIdentifier: "timeline", sender: nil)
         }else if indexPath.row-1 < showTask.count{
-            task = showTask[indexPath.row]
+            task = showTask[indexPath.row-1]
             if task?.isDone == false {
                 performSegue(withIdentifier: "editCalTask", sender: nil)
             }else if task?.isDone == true{
@@ -450,7 +450,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
                 present(controller, animated: true, completion: nil)
             }
         }else{
-            event = showEvent[indexPath.row-i]
+            event = showEvent[indexPath.row-i-1]
             performSegue(withIdentifier: "editEvent", sender: nil)
         }
      }
