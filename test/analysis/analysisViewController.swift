@@ -15,19 +15,17 @@ import Charts
 class analysisViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet var segCon: UISegmentedControl!
-    @IBOutlet var pieChart: PieChartView!
+    @IBOutlet var pieChart: PieChartView! //pieChartToday
+    @IBOutlet var pieChartWeek: PieChartView!
+    @IBOutlet var pieChartMonth: PieChartView!
+    @IBOutlet var pieChartYear: PieChartView!
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
     var showCategoryColor = [String]()
     
-    let players = ["Mo", "Sherry", "Dylan", "Stasia", "Andrey", "CH"]
-    let goals = [6, 8, 26, 30, 8, 10]
-    let sports = ["Tennis", "Basketball", "Baseball", "Golf"]
-    let counts = [45, 76, 34, 97]
     var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
     let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
-    let line = [110.0, 120.0, 130.0, 140.0, 150.0, 160.0, 170.0, 180.0, 190.0]
     var index = 0
     var total = 0.0
     var percentage = Array<Double>()
@@ -63,6 +61,35 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.legend.horizontalAlignment = .center
         pieChart.legend.verticalAlignment = .bottom
         pieChart.holeRadiusPercent = 0.35
+        
+        pieChartWeek.entryLabelColor = UIColor.black
+        pieChartWeek.drawEntryLabelsEnabled = false
+        pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        pieChartWeek.transparentCircleRadiusPercent = 0.0
+        pieChartWeek.legend.horizontalAlignment = .center
+        pieChartWeek.legend.verticalAlignment = .bottom
+        pieChartWeek.holeRadiusPercent = 0.35
+        
+        pieChartMonth.entryLabelColor = UIColor.black
+        pieChartMonth.drawEntryLabelsEnabled = false
+        pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        pieChartMonth.transparentCircleRadiusPercent = 0.0
+        pieChartMonth.legend.horizontalAlignment = .center
+        pieChartMonth.legend.verticalAlignment = .bottom
+        pieChartMonth.holeRadiusPercent = 0.35
+        
+        pieChartYear.entryLabelColor = UIColor.black
+        pieChartYear.drawEntryLabelsEnabled = false
+        pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        pieChartYear.transparentCircleRadiusPercent = 0.0
+        pieChartYear.legend.horizontalAlignment = .center
+        pieChartYear.legend.verticalAlignment = .bottom
+        pieChartYear.holeRadiusPercent = 0.35
+        
+        pieChart.isHidden = false
+        pieChartWeek.isHidden = true
+        pieChartMonth.isHidden = true
+        pieChartYear.isHidden = true
     }
     
     @IBAction func segConChoose(_ sender: Any) {
@@ -70,15 +97,27 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         if getIndex == 0{
             customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
             pieChart.isHidden = false
+            pieChartWeek.isHidden = true
+            pieChartMonth.isHidden = true
+            pieChartYear.isHidden = true
         }else if getIndex == 1{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
-            pieChart.isHidden = false
+            customizeCategoryChartWeek(dataPoints: showCategoryStr, values: percentage)
+            pieChart.isHidden = true
+            pieChartWeek.isHidden = false
+            pieChartMonth.isHidden = true
+            pieChartYear.isHidden = true
         }else if getIndex == 2{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
-            pieChart.isHidden = false
+            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: percentage)
+            pieChart.isHidden = true
+            pieChartWeek.isHidden = true
+            pieChartMonth.isHidden = false
+            pieChartYear.isHidden = true
         }else if getIndex == 3{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
-            pieChart.isHidden = false
+            customizeCategoryChartYear(dataPoints: showCategoryStr, values: percentage)
+            pieChart.isHidden = true
+            pieChartWeek.isHidden = true
+            pieChartMonth.isHidden = true
+            pieChartYear.isHidden = false
         }
         
     }
@@ -107,6 +146,84 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChart.rotationAngle = 0
         pieChart.legend.direction = .leftToRight
+    }
+    
+    func customizeCategoryChartWeek(dataPoints: [String], values: [Double]) {
+        pieChartWeek.delegate = self
+        // 1. Set ChartDataEntry
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+            dataEntries.append(dataEntry)
+        }
+        // 2. Set ChartDataSet
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
+        // 3. Set ChartData
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 1.0
+        pieChartData.setValueFormatter(DefaultValueFormatter(formatter:formatter))
+        pieChartData.setValueTextColor(UIColor.black)
+        // 4. Assign it to the chart’s data
+        pieChartWeek.data = pieChartData
+        
+        pieChartWeek.rotationAngle = 0
+        pieChartWeek.legend.direction = .leftToRight
+    }
+    
+    func customizeCategoryChartMonth(dataPoints: [String], values: [Double]) {
+        pieChartMonth.delegate = self
+        // 1. Set ChartDataEntry
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+            dataEntries.append(dataEntry)
+        }
+        // 2. Set ChartDataSet
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
+        // 3. Set ChartData
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 1.0
+        pieChartData.setValueFormatter(DefaultValueFormatter(formatter:formatter))
+        pieChartData.setValueTextColor(UIColor.black)
+        // 4. Assign it to the chart’s data
+        pieChartMonth.data = pieChartData
+        
+        pieChartMonth.rotationAngle = 0
+        pieChartMonth.legend.direction = .leftToRight
+    }
+    
+    func customizeCategoryChartYear(dataPoints: [String], values: [Double]) {
+        pieChartYear.delegate = self
+        // 1. Set ChartDataEntry
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i], data: dataPoints[i] as AnyObject)
+            dataEntries.append(dataEntry)
+        }
+        // 2. Set ChartDataSet
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
+        // 3. Set ChartData
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 1
+        formatter.multiplier = 1.0
+        pieChartData.setValueFormatter(DefaultValueFormatter(formatter:formatter))
+        pieChartData.setValueTextColor(UIColor.black)
+        // 4. Assign it to the chart’s data
+        pieChartYear.data = pieChartData
+        
+        pieChartYear.rotationAngle = 0
+        pieChartYear.legend.direction = .leftToRight
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
