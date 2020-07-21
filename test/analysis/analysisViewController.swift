@@ -29,10 +29,15 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var showCategoryColor = [String]()
     
     var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
-    let category = ["Lesson", "Work", "Exercise", "Meals", "Study", "Commute", "Travel", "Sleep", "Default"]
     var index = 0
     var total = 0.0
     var percentage = Array<Double>()
+    var segConIndex = 0
+    
+    var currentYear = Calendar.current.component(.year, from: Date())
+    var currentMonth = Calendar.current.component(.month, from: Date())
+    var currentDay = Calendar.current.component(.day, from: Date())
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +62,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             showCategoryColor.append(showCategory[i].categoryColor)
         }
         
-        customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
+        customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues)
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
+        pieChart.usePercentValuesEnabled = true
         pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChart.transparentCircleRadiusPercent = 0.0
         pieChart.legend.horizontalAlignment = .center
@@ -68,6 +74,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartWeek.entryLabelColor = UIColor.black
         pieChartWeek.drawEntryLabelsEnabled = false
+        pieChartWeek.usePercentValuesEnabled = true
         pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartWeek.transparentCircleRadiusPercent = 0.0
         pieChartWeek.legend.horizontalAlignment = .center
@@ -76,6 +83,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartMonth.entryLabelColor = UIColor.black
         pieChartMonth.drawEntryLabelsEnabled = false
+        pieChartMonth.usePercentValuesEnabled = true
         pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartMonth.transparentCircleRadiusPercent = 0.0
         pieChartMonth.legend.horizontalAlignment = .center
@@ -84,6 +92,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartYear.entryLabelColor = UIColor.black
         pieChartYear.drawEntryLabelsEnabled = false
+        pieChartYear.usePercentValuesEnabled = true
         pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartYear.transparentCircleRadiusPercent = 0.0
         pieChartYear.legend.horizontalAlignment = .center
@@ -94,34 +103,41 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
         pieChartYear.isHidden = true
+        
+        setUpDay()
     }
     
     @IBAction func segConChoose(_ sender: Any) {
-        var getIndex = segCon.selectedSegmentIndex        
+        var getIndex = segCon.selectedSegmentIndex
+        segConIndex = getIndex
         if getIndex == 0{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: percentage)
+            customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues)
             pieChart.isHidden = false
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
+            setUpDay()
         }else if getIndex == 1{
-            customizeCategoryChartWeek(dataPoints: showCategoryStr, values: percentage)
+            customizeCategoryChartWeek(dataPoints: showCategoryStr, values: categoryValues)
             pieChart.isHidden = true
             pieChartWeek.isHidden = false
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
+            setUpWeek()
         }else if getIndex == 2{
-            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: percentage)
+            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: categoryValues)
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = false
             pieChartYear.isHidden = true
+            setUpMonth()
         }else if getIndex == 3{
-            customizeCategoryChartYear(dataPoints: showCategoryStr, values: percentage)
+            customizeCategoryChartYear(dataPoints: showCategoryStr, values: categoryValues)
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = false
+            setUpYear()
         }
         
     }
@@ -316,18 +332,81 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
     }
     
-    @IBAction func leftBtnAction(_ sender: Any) {
+    func setUpDay(){
+        timeLabel.text =  months[currentMonth - 1] + " \(currentDay), " + "\(currentYear)"
     }
-    @IBAction func rightBtnAction(_ sender: Any) {
+    
+    func setUpWeek(){
+        timeLabel.text = "still thinking"
+    }
+    
+    func setUpMonth(){
+        timeLabel.text = months[currentMonth - 1] + " \(currentYear)"
+    }
+    
+    func setUpYear(){
+        timeLabel.text = "\(currentYear)"
+    }
+    
+    @IBAction func leftBtnAction(_ sender: UIButton) {
+        if segConIndex == 0{
+            currentDay -= 1
+            setUpDay()
+        }else if segConIndex == 1{
+            setUpWeek()
+        }else if segConIndex == 2{
+            currentMonth -= 1
+            if currentMonth == 0{
+                currentMonth = 12
+                currentYear -= 1
+            }
+            setUpMonth()
+        }else if segConIndex == 3{
+            currentYear -= 1
+            setUpYear()
+        }
+    }
+    
+    @IBAction func rightBtnAction(_ sender: UIButton) {
+        if segConIndex == 0{
+//            let now = Date()
+//            var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: now)
+//            timeLabel.text = "\(tomorrow)"
+            currentDay += 1
+            setUpDay()
+        }else if segConIndex == 1{
+            setUpWeek()
+        }else if segConIndex == 2{
+            currentMonth += 1
+            if currentMonth == 13{
+                currentMonth = 1
+                currentYear += 1
+                }
+            setUpMonth()
+        }else if segConIndex == 3{
+            currentYear += 1
+            setUpYear()
+        }
     }
     
     
 }
-
-//    dataSet.colors = ChartColorTemplates.colorful()
-//    ChartColorTemplates.liberty()
-//    ChartColorTemplates.joyful()
-//    ChartColorTemplates.pastel()
-//    ChartColorTemplates.colorful()
-//    ChartColorTemplates.vordiplom()
-//    ChartColorTemplates.material()
+extension Date {
+    static var yesterday: Date { return Date().dayBefore }
+    static var tomorrow:  Date { return Date().dayAfter }
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    }
+    var dayAfter: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
+    }
+    var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
+    }
+    var month: Int {
+        return Calendar.current.component(.month,  from: self)
+    }
+    var isLastDayOfMonth: Bool {
+        return dayAfter.month != month
+    }
+}
