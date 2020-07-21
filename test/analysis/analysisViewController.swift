@@ -19,6 +19,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     @IBOutlet var pieChartWeek: PieChartView!
     @IBOutlet var pieChartMonth: PieChartView!
     @IBOutlet var pieChartYear: PieChartView!
+    @IBOutlet var timeView: UIView!
+    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var leftBtn: UIButton!
+    @IBOutlet var rightBtn: UIButton!
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
@@ -311,6 +315,12 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }
         
     }
+    
+    @IBAction func leftBtnAction(_ sender: Any) {
+    }
+    @IBAction func rightBtnAction(_ sender: Any) {
+    }
+    
     
 }
 
