@@ -66,7 +66,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
         pieChart.usePercentValuesEnabled = true
-        pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        //pieChart.setExtraOffsets(left: 5, top: 5, right: 5, bottom: 5)
         pieChart.transparentCircleRadiusPercent = 0.0
         pieChart.legend.horizontalAlignment = .center
         pieChart.legend.verticalAlignment = .bottom
@@ -75,7 +75,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartWeek.entryLabelColor = UIColor.black
         pieChartWeek.drawEntryLabelsEnabled = false
         pieChartWeek.usePercentValuesEnabled = true
-        pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartWeek.transparentCircleRadiusPercent = 0.0
         pieChartWeek.legend.horizontalAlignment = .center
         pieChartWeek.legend.verticalAlignment = .bottom
@@ -84,7 +84,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartMonth.entryLabelColor = UIColor.black
         pieChartMonth.drawEntryLabelsEnabled = false
         pieChartMonth.usePercentValuesEnabled = true
-        pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        //pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartMonth.transparentCircleRadiusPercent = 0.0
         pieChartMonth.legend.horizontalAlignment = .center
         pieChartMonth.legend.verticalAlignment = .bottom
@@ -93,7 +93,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartYear.entryLabelColor = UIColor.black
         pieChartYear.drawEntryLabelsEnabled = false
         pieChartYear.usePercentValuesEnabled = true
-        pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        //pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartYear.transparentCircleRadiusPercent = 0.0
         pieChartYear.legend.horizontalAlignment = .center
         pieChartYear.legend.verticalAlignment = .bottom
@@ -112,6 +112,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         segConIndex = getIndex
         if getIndex == 0{
             customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues)
+            //pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+            pieChart.transparentCircleRadiusPercent = 0.0
+            pieChart.legend.horizontalAlignment = .center
+            pieChart.legend.verticalAlignment = .bottom
+            pieChart.holeRadiusPercent = 0.35
             pieChart.isHidden = false
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
@@ -119,6 +124,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             setUpDay()
         }else if getIndex == 1{
             customizeCategoryChartWeek(dataPoints: showCategoryStr, values: categoryValues)
+            //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+            pieChartWeek.transparentCircleRadiusPercent = 0.0
+            pieChartWeek.legend.horizontalAlignment = .center
+            pieChartWeek.legend.verticalAlignment = .bottom
+            pieChartWeek.holeRadiusPercent = 0.35
             pieChart.isHidden = true
             pieChartWeek.isHidden = false
             pieChartMonth.isHidden = true
@@ -126,6 +136,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             setUpWeek()
         }else if getIndex == 2{
             customizeCategoryChartMonth(dataPoints: showCategoryStr, values: categoryValues)
+            //pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+            pieChartMonth.transparentCircleRadiusPercent = 0.0
+            pieChartMonth.legend.horizontalAlignment = .center
+            pieChartMonth.legend.verticalAlignment = .bottom
+            pieChartMonth.holeRadiusPercent = 0.35
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = false
@@ -133,6 +148,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             setUpMonth()
         }else if getIndex == 3{
             customizeCategoryChartYear(dataPoints: showCategoryStr, values: categoryValues)
+            //pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+            pieChartYear.transparentCircleRadiusPercent = 0.0
+            pieChartYear.legend.horizontalAlignment = .center
+            pieChartYear.legend.verticalAlignment = .bottom
+            pieChartYear.holeRadiusPercent = 0.35
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
