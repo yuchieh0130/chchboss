@@ -1,0 +1,39 @@
+location_id,longitude,latitude,start_time,duration,speed,name1,name2,name3,name4,name5,category1,category2,category3,category4,category5
+1,121.576,24.986,,,,myhome,myhome1,myhome2,myhome3,myhome4,c1,c2,c3,c4,c5
+2,121.443,24.433,,,,apple,apple1,apple2,apple3,apple4,c1,c2,c3,c4,c5
+3,121.123,24.765,,67.0428060293198,,banana,banana1,banana2,banana3,banana4,c1,c2,c3,c4,c5
+4,121.52639007,25.1017093600003,2020/07/17 10:40,54.6841579675674,-1.0,Boulangerie Nogami Tianmu,美陸達股份有限公司,藍色馬克,Shengtai Park,檳城公寓大廈管理委員會,bakery,point_of_interest,restaurant,park,point_of_interest
+5,121.488433607829,25.0818381589458,2020/07/17 21:03,80.1461499929428,-1.0,85度C咖啡蛋糕 三重仁愛店,POYA 寶雅 三重仁愛店,Chih Kao Restaurant,Niuno Gui Steak House,假日撞球休閒館,cafe,point_of_interest,restaurant,restaurant,point_of_interest
+6,121.490384785893,25.0803908269676,2020/07/17 21:04,80.8736120462418,,,,,,,,,,,
+7,121.490384785893,25.0803908269676,2020/07/17 21:05,161.235741019249,-1.0,義麵達人 - 三重慈愛店,來妍商行,蕭家大腸麵線,Formosa Oil,菜根香素食,restaurant,grocery_or_supermarket,food,gas_station,restaurant
+8,121.488086701493,25.0822861148764,2020/07/17 21:05,161.893905997276,,,,,,,,,,,
+9,121.488086701493,25.0822861148764,2020/07/17 21:07,53.1931240558624,-1.0,POYA 寶雅 三重仁愛店,煎煮炒小吃店,太順油飯 仁愛店,假日撞球休閒館,臺中潭子勝臭豆腐 拉仔麵,point_of_interest,restaurant,restaurant,point_of_interest,restaurant
+10,121.493041568946,25.0822399983772,2020/07/17 21:11,2234.2858300209,6.81805896759033,廖添丁 香川麻辣燙,McDonald's,屈臣氏Watsons,Formosa Optical,錢老爺涮涮鍋,food,restaurant,drugstore,health,restaurant
+11,121.527325534525,25.1048366884516,2020/07/17 21:11,2235.3301179409,,,,,,,,,,,
+12,121.527325534525,25.1048366884516,2020/07/17 21:48,32.9113190174103,-1.0,First Commercial Bank,全聯福利中心Pxmart 士林芝山,Shilin Lanya Post Office,7-Eleven,永豐銀行ATM,bank,supermarket,post_office,convenience_store,atm
+13,121.526390090076,25.1017094218696,2020/07/18 15:36,39.8682579994202,-1.0,Boulangerie Nogami Tianmu,藍色馬克,Shengtai Park,美陸達股份有限公司,一心堂A館燒肉屋,bakery,restaurant,park,point_of_interest,restaurant
+14,121.52635296116,25.1017944791841,2020/07/19 11:46,67.5723429918289,-1.0,Boulangerie Nogami Tianmu,藍色馬克,一心堂A館燒肉屋,POYA Shilin Zhishan,Shengtai Park,bakery,restaurant,restaurant,point_of_interest,park
+15,121.526351921367,25.1017913598047,2020/07/19 11:52,10.6756769418716,-1.0,Yuanta Commercial Bank,士林御花園,7-Eleven,哥倫布單車俱樂部,GIANT 捷安特-天母高菖 自行車&電動車專賣店,bank,point_of_interest,convenience_store,gym,bicycle_store
+16,121.526540001213,25.1023611909105,2020/07/20 10:48,32.5531860589981,-1.0,甫月fuyue,臺北市私立怡寶托嬰中心,富創餐飲設備有限公司,安晴Angeline,POYA Shilin Zhishan,point_of_interest,school,point_of_interest,beauty_salon,point_of_interest
+17,121.526448186372,25.1020830166469,2020/07/20 10:48,37.7090309858322,-1.0,臺北市私立怡寶托嬰中心,甫月fuyue,安晴Angeline,Boulangerie Nogami Tianmu,POYA Shilin Zhishan,school,point_of_interest,beauty_salon,bakery,point_of_interest
+18,121.526756738169,25.102377523988,2020/07/20 11:20,13.2179360389709,-1.0,Boulangerie Nogami Tianmu,臺北市私立怡寶托嬰中心,甫月fuyue,POYA Shilin Zhishan,安晴Angeline,bakery,school,point_of_interest,point_of_interest,beauty_salon
+19,121.526343597669,25.1017663887087,2020/07/21 10:28,67.3270200490952,-1.0,Boulangerie Nogami Tianmu,藍色馬克,一心堂A館燒肉屋,美陸達股份有限公司,Taiwan Cooperative Bank,bakery,restaurant,restaurant,point_of_interest,bank
+20,121.526936650076,25.1035455459312,2020/07/21 10:32,51.0018680095673,-1.0,Yuanta Commercial Bank,Deyi Huoli Breakfast Restaurant,士林御花園,永恆美診所,Shilin Lanya Post Office,bank,restaurant,point_of_interest,hospital,post_office
+21,121.526562704416,25.1034430595622,2020/07/21 10:35,57.5809370279312,-1.0,Zhongcheng Park,Zhongcheng Park,7-Eleven,音樂水舞燈光秀,POYA Shilin Zhishan,park,transit_station,convenience_store,park,point_of_interest
+22,121.52706893412,25.1051833799144,2020/07/21 11:20,58.2630310058594,,,,,,,,,,,
+23,121.52706893412,25.1051833799144,2020/07/21 11:20,67.4074339866638,-1.0,First Commercial Bank,Shilin Lanya Post Office,玉山銀行 天母分行,全聯福利中心Pxmart 士林芝山,FILA 暢貨中心,bank,post_office,bank,supermarket,point_of_interest
+24,121.526581714829,25.1024807401892,2020/07/21 21:23,37.5287699699402,-1.0,Zhongcheng Park,7-Eleven,Zhongcheng Park,Chi-Wen Gallery,POYA Shilin Zhishan,park,convenience_store,transit_station,art_gallery,point_of_interest
+25,121.527257176388,25.1045071248684,2020/07/21 22:10,65.5553139448166,-1.0,哥倫布單車俱樂部,全聯福利中心Pxmart 士林芝山,7-Eleven,御品典藏西服館,Shilin Lanya Post Office,gym,supermarket,convenience_store,point_of_interest,post_office
+26,121.526937859764,25.1035491749956,2020/07/21 22:19,13.0962400436401,-1.0,Zhongcheng Park,7-Eleven,Zhongcheng Park,Chi-Wen Gallery,Fulinchoushui Station,park,convenience_store,transit_station,art_gallery,local_government_office
+27,121.526520504397,25.102297108893,2020/07/21 22:20,60.08418405056,-1.0,臺北市私立怡寶托嬰中心,甫月fuyue,富創餐飲設備有限公司,POYA Shilin Zhishan,一心堂A館燒肉屋,school,point_of_interest,point_of_interest,point_of_interest,restaurant
+28,121.526420977267,25.1019985275054,2020/07/21 22:21,31.4930160045624,-1.0,Boulangerie Nogami Tianmu,Moda Vita Caffè Yi Cuisine,臺北市私立怡寶托嬰中心,一心堂A館燒肉屋,POYA Shilin Zhishan,bakery,cafe,school,restaurant,point_of_interest
+29,121.526351928711,25.1017913818359,2020/07/22 11:43,48.0980590581894,-1.0,Boulangerie Nogami Tianmu,藍色馬克,一心堂A館燒肉屋,Shengtai Park,美陸達股份有限公司,bakery,restaurant,restaurant,park,point_of_interest
+30,121.527381515924,25.1050187638742,2020/07/22 11:51,23.5767569541931,-1.0,First Commercial Bank,玉山銀行 天母分行,Shilin Lanya Post Office,全聯福利中心Pxmart 士林芝山,哥倫布單車俱樂部,bank,bank,post_office,supermarket,gym
+31,121.527274999995,25.1047978664837,2020/07/22 11:53,65.5536079406738,-1.0,First Commercial Bank,全聯福利中心Pxmart 士林芝山,永恆美診所,Shilin Lanya Post Office,玉山銀行 天母分行,bank,supermarket,hospital,post_office,bank
+32,121.527274999995,25.1047978664837,2020/07/22 11:57,12.8573110103607,-1.0,Boulangerie Nogami Tianmu,藍色馬克,臺北市私立怡寶托嬰中心,一心堂A館燒肉屋,Taiwan Cooperative Bank,bakery,restaurant,school,restaurant,bank
+33,121.527274999995,25.1047978664837,2020/07/22 12:00,11.256019949913,-1.0,Zhongcheng Park,Fulinchoushui Station,Zhongcheng Park,POYA Shilin Zhishan,Boulangerie Nogami Tianmu,park,local_government_office,transit_station,point_of_interest,bakery
+34,121.527274999995,25.1047978664837,2020/07/22 12:01,42.2235180139542,-1.0,Zhongcheng Park,7-Eleven,GIANT 捷安特-天母高菖 自行車&電動車專賣店,Zhongcheng Park,POYA Shilin Zhishan,park,convenience_store,bicycle_store,transit_station,point_of_interest
+35,121.527274999995,25.1047978664837,2020/07/22 12:01,68.0552829504013,-1.0,Boulangerie Nogami Tianmu,甫月fuyue,臺北市私立怡寶托嬰中心,Zhongcheng Park,POYA Shilin Zhishan,bakery,point_of_interest,school,park,point_of_interest
+36,121.527274999995,25.1047978664837,2020/07/22 12:03,59.13813996315,-1.0,Zhongcheng Park,7-Eleven,Zhongcheng Park,GIANT 捷安特-天母高菖 自行車&電動車專賣店,Yuanta Commercial Bank,park,convenience_store,transit_station,bicycle_store,bank
+37,121.527259149568,25.1045130444081,2020/07/22 17:31,40.0433239936829,-1.0,Nicole御品繡/霧眉.飄眉.角蛋白.眼線.唇.課程.台北,7-Eleven,GIANT 捷安特-天母高菖 自行車&電動車專賣店,Zhongcheng Park,昶谷設計工程顧問有限公司,point_of_interest,convenience_store,bicycle_store,park,point_of_interest
+38,121.526352441148,25.1017929191468,2020/07/22 19:01,0.0,-1.0,Boulangerie Nogami Tianmu,藍色馬克,一心堂A館燒肉屋,POYA Shilin Zhishan,Shengtai Park,bakery,restaurant,restaurant,point_of_interest,park
