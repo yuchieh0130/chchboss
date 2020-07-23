@@ -20,38 +20,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var lastLocation: CLLocation!
     var lastName1 = ""
     var lastSpeeds = [Double]()
-    //var currentLocation = CLLocationCoordinate2D()
-    //var dateFormatString: String?
     
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
-    //    var searching = false
     var collectionArr = [String]()
     
-    //DB variables
-//    var locationId: Int32 = 0
-//    var longitude: Double! = 0
-//    var latitude: Double! = 0
-//    var startTime: String! = ""
-//    var duration: Double = 0
-//    var name1: String = ""
-//    var name2: String = ""
-//    var name3: String = ""
-//    var name4: String = ""
-//    var name5: String = ""
-//    var category1: String = ""
-//    var category2: String = ""
-//    var category3: String = ""
-//    var category4: String = ""
-//    var category5: String = ""
-//    var speed: Double! = 0
-    
-    //let networkController = NetworkController
     let net = NetworkController()
     
-    var showDateformatter: DateFormatter {
+    var showDate: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    
+    var showTime: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -81,13 +66,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         myLocationManager.allowsBackgroundLocationUpdates = true
         myLocationManager.pausesLocationUpdatesAutomatically = false
         myLocationManager.activityType = CLActivityType.fitness
-
+        
         myLocationManager.requestAlwaysAuthorization()
         myLocationManager.startUpdatingLocation()
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
-        self.lastStartTime = showDateformatter.string(from: Date())
+        self.lastStartTime = showTime.string(from: Date())
         return true
     }
     
@@ -107,60 +92,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //dateFormatString = dateFormatter.string(from: Date())
         
         //currentSpeed = myLocationManager.location!.speed
-//        if myLocationManager.location!.speed != lastSpeed{
-//            saveSpeed()
-//        }
-//        if myLocationManager.location!.speed == -1.0 && myLocationManager.location!.speed != lastSpeed{
-//            saveInDB()
-//        }
+        //        if myLocationManager.location!.speed != lastSpeed{
+        //            saveSpeed()
+        //        }
+        //        if myLocationManager.location!.speed == -1.0 && myLocationManager.location!.speed != lastSpeed{
+        //            saveInDB()
+        //        }
         self.currentLocation = locations[0] as CLLocation
         if lastLocation == nil{
             saveInDB()
         }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
-             lastSpeeds.removeAll()
+            lastSpeeds.removeAll()
             if lastLocation.distance(from: currentLocation) > 150{
                 saveSpeed()
                 saveInDB()
             }
         }else if myLocationManager.location!.speed >= 0 {
             if lastSpeed == -1{
-                lastStartTime = self.showDateformatter.string(from: Date())
+                lastStartTime = self.showTime.string(from: Date())
             }
             lastSpeeds.append(myLocationManager.location!.speed)
         }
-//        if myLocationManager.location!.horizontalAccuracy>=0{
-//            //myLocationManager.stopUpdatingLocation()
-//            if myLocationManager.location!.speed > 0{
-//               saveSpeed()
-//            }else{
-//               saveInDB()
-//            }
-//        }
+        //        if myLocationManager.location!.horizontalAccuracy>=0{
+        //            //myLocationManager.stopUpdatingLocation()
+        //            if myLocationManager.location!.speed > 0{
+        //               saveSpeed()
+        //            }else{
+        //               saveInDB()
+        //            }
+        //        }
         self.lastSpeed = myLocationManager.location!.speed
-        //self.myLocationManager.startUpdatingLocation()
         
     }
     
     func saveSpeed(){
-//        self.latitude = Double(self.currentLocation.latitude)
-//        self.longitude = Double(self.currentLocation.longitude)
-//        self.startTime = self.showDateformatter.string(from: Date())
+
         let latitude = Double(self.currentLocation.coordinate.latitude)
         let longitude = Double(self.currentLocation.coordinate.longitude)
+        let startDate = lastStartTime
         let startTime = lastStartTime
+        let weekday = Calendar.current.component(.weekday, from: Date())
         var total = 0.0
         for i in lastSpeeds{
             total += i
         }
         let speed = total/Double(lastSpeeds.count)
         
-        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startTime: startTime, duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "",speed: speed)
+        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "",speed: speed)
         
-        let duration = Date().timeIntervalSince(self.showDateformatter.date(from: self.lastStartTime)!)
-        let isSaved = DBManager.getInstance().saveDuration(double: duration)
+        let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartTime)!)
+        DBManager.getInstance().saveDuration(double: duration)
         DBManager.getInstance().saveLocation(modelInfo)
         self.lastSpeed = speed
-        //self.lastStartTime = startTime
         
     }
     
@@ -187,30 +170,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 self.selectPlaces.append(self.likelyPlaces[i])
             }
             
-            //DB
-//            self.latitude = Double(self.currentLocation.latitude)
-//            self.longitude = Double(self.currentLocation.longitude)
-//            self.startTime = self.showDateformatter.string(from: Date())
-//            self.name1 = self.likelyPlaces[0].name!
-//            self.name2 = self.likelyPlaces[1].name!
-//            self.name3 = self.likelyPlaces[2].name!
-//            self.name4 = self.likelyPlaces[3].name!
-//            self.name5 = self.likelyPlaces[4].name!
-//            self.category1 = self.likelyPlaces[0].types![0]
-//            self.category2 = self.likelyPlaces[1].types![0]
-//            self.category3 = self.likelyPlaces[2].types![0]
-//            self.category4 = self.likelyPlaces[3].types![0]
-//            self.category5 = self.likelyPlaces[4].types![0]
-//            self.speed = self.currentSpeed
-            
-            //  let modelInfo = LocationModel(locationId: self.locationId, longitude: self.longitude!, latitude: self.latitude!, startTime: self.startTime!, duration: 0, name1: self.name1, name2: self.name2, name3: self.name3, name4: self.name4, name5: self.name5, category1:self.category1, category2:self.category2, category3:self.category3, category4:self.category4, category5:self.category5,speed: self.speed)
-//            self.duration = Date().timeIntervalSince(self.showDateformatter.date(from: self.lastStartTime)!)
-//            let isSaved = DBManager.getInstance().saveDuration(double: self.duration)
-//            DBManager.getInstance().saveLocation(modelInfo)
-            
             let latitude = Double(self.currentLocation.coordinate.latitude)
             let longitude = Double(self.currentLocation.coordinate.longitude)
-            let startTime = self.showDateformatter.string(from: Date())
+            let startDate = self.showDate.string(from: Date())
+            let startTime = self.showTime.string(from: Date())
+            let weekday = Calendar.current.component(.weekday, from: Date())
             let name1 = self.likelyPlaces[0].name!
             let name2 = self.likelyPlaces[1].name!
             let name3 = self.likelyPlaces[2].name!
@@ -223,16 +187,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             let category5 = self.likelyPlaces[4].types![0]
             let speed = self.myLocationManager.location!.speed
             
-            let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startTime: startTime, duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5,speed: speed)
+            let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5,speed: speed)
             
+            let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartTime)!)
             
-            let duration = Date().timeIntervalSince(self.showDateformatter.date(from: self.lastStartTime)!)
-            let isSaved = DBManager.getInstance().saveDuration(double: duration)
+            DBManager.getInstance().saveDuration(double: duration)
             DBManager.getInstance().saveLocation(modelInfo)
             
             let data : [String: String] = ["location_id":"0", "longitude":String(longitude), "latitude":String(latitude), "start_time":startTime, "duration":String(duration), "speed":String(speed), "name1":name1, "name2":name2, "name3":name3, "name4":name4, "name5":name5, "category1":category1, "category2":category2, "category3":category3, "category4":category4, "category5":category5]
             
-//            let data : [String: String] = ["location_id":"0", "longitude":String(self.longitude), "latitude":String(self.latitude), "start_time":self.startTime, "duration":String(self.duration), "speed":String(self.speed), "name1":self.name1, "name2":self.name2, "name3":self.name3, "name4":self.name4, "name5":self.name5, "category1":self.category1, "category2":self.category2, "category3":self.category3, "category4":self.category4, "category5":self.category5]
+            //            let data : [String: String] = ["location_id":"0", "longitude":String(self.longitude), "latitude":String(self.latitude), "start_time":self.startTime, "duration":String(self.duration), "speed":String(self.speed), "name1":self.name1, "name2":self.name2, "name3":self.name3, "name4":self.name4, "name5":self.name5, "category1":self.category1, "category2":self.category2, "category3":self.category3, "category4":self.category4, "category5":self.category5]
             
             self.net.postLocationData(data: data){
                 (status_code) in

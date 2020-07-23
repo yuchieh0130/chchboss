@@ -12,7 +12,9 @@ struct LocationModel{
     let locationId: Int32?
     let longitude: Double
     let latitude: Double
+    let startDate: String
     let startTime: String
+    let weekday: Int32
     let duration: Double?
     let name1: String?
     let name2: String?

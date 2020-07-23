@@ -167,7 +167,7 @@ class DBManager: NSObject {
     /*func for location*/
     func saveLocation(_ modelInfo: LocationModel) -> String{
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_time,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startTime,modelInfo.duration,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5,modelInfo.speed])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5,modelInfo.speed])
         
         shareInstance.database?.close()
         return modelInfo.startTime
@@ -230,7 +230,9 @@ class DBManager: NSObject {
             let id = set?.int(forColumn: "location_id")
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
-            let c = set?.string(forColumn: "start_time")!
+            let c = set?.string(forColumn: "start_date")!
+            let c1 = set?.string(forColumn: "start_time")!
+            let c2 = set?.int(forColumn: "weekday")
             let d = set?.double(forColumn: "duration")
             let e = set?.string(forColumn: "name1")
             let f = set?.string(forColumn: "category1")
@@ -244,7 +246,7 @@ class DBManager: NSObject {
             let n = set?.string(forColumn: "category5")
             let o = set?.double(forColumn: "speed")
             
-            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday: c2!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
         }
         set?.close()
         return location
@@ -597,7 +599,9 @@ class DBManager: NSObject {
             let i = set?.int(forColumn: "location_id")
             let a = set?.double(forColumn: "longitude")
             let b = set?.double(forColumn: "latitude")
-            let c = set?.string(forColumn: "start_time")
+            let c = set?.string(forColumn: "start_date")
+            let c1 = set?.string(forColumn: "start_time")
+            let c2 = set?.int(forColumn: "weekday")
             let d = set?.double(forColumn: "duration")
             let e = set?.string(forColumn: "name1")
             let f = set?.string(forColumn: "name2")
@@ -611,7 +615,7 @@ class DBManager: NSObject {
             if locations == nil{
                 locations = [LocationModel]()
             }
-            location = LocationModel(locationId: i, longitude: a!, latitude: b!, startTime: c!, duration: d!, name1: e, name2: f, name3: g, name4: h, name5: j, category1: "", category2: "", category3: "", category4: "", category5: "", speed: k!)
+            location = LocationModel(locationId: i, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday:c2!, duration: d!, name1: e, name2: f, name3: g, name4: h, name5: j, category1: "", category2: "", category3: "", category4: "", category5: "", speed: k!)
             locations.append(location)
         }
         set?.close()
