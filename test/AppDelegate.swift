@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     func saveSpeed(){
-
+        
         let latitude = Double(self.currentLocation.coordinate.latitude)
         let longitude = Double(self.currentLocation.coordinate.longitude)
         let startDate = lastStartTime
