@@ -194,7 +194,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             DBManager.getInstance().saveDuration(double: duration)
             DBManager.getInstance().saveLocation(modelInfo)
             
-            let data : [String: String] = ["location_id":"0", "longitude":String(longitude), "latitude":String(latitude), "start_date":startDate, "start_time":startTime,"weekday":String(weekday) "duration":String(duration), "speed":String(speed), "name1":name1, "name2":name2, "name3":name3, "name4":name4, "name5":name5, "category1":category1, "category2":category2, "category3":category3, "category4":category4, "category5":category5]
+            let data : [String: String] = ["location_id":"0", "longitude":String(longitude), "latitude":String(latitude), "start_date":startDate, "start_time":startTime,"weekday":String(weekday), "duration":String(duration), "speed":String(speed), "name1":name1, "name2":name2, "name3":name3, "name4":name4, "name5":name5, "category1":category1, "category2":category2, "category3":category3, "category4":category4, "category5":category5]
             
             //            let data : [String: String] = ["location_id":"0", "longitude":String(self.longitude), "latitude":String(self.latitude), "start_time":self.startTime, "duration":String(self.duration), "speed":String(self.speed), "name1":self.name1, "name2":self.name2, "name3":self.name3, "name4":self.name4, "name5":self.name5, "category1":self.category1, "category2":self.category2, "category3":self.category3, "category4":self.category4, "category5":self.category5]
             
