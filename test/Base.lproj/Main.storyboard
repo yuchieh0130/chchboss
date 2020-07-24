@@ -1199,15 +1199,27 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZ7-cc-5Xd">
+                                        <rect key="frame" x="73.5" y="0.0" width="227" height="68"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="68" id="9xD-Us-ouI"/>
+                                            <constraint firstAttribute="width" constant="227" id="ykN-rL-bhF"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="timeLabelBtnDatePopUp:" destination="3xM-0D-h9c" eventType="touchUpInside" id="Tvw-C6-FjT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="dPV-yX-OM5" firstAttribute="leading" secondItem="vHy-VG-tPp" secondAttribute="trailing" constant="8" symbolic="YES" id="0Pm-Id-5Yf"/>
+                                    <constraint firstItem="nZ7-cc-5Xd" firstAttribute="centerY" secondItem="AiO-HF-iZi" secondAttribute="centerY" id="3bx-v5-bK5"/>
                                     <constraint firstItem="dPV-yX-OM5" firstAttribute="centerY" secondItem="AiO-HF-iZi" secondAttribute="centerY" id="3ka-TE-3RX"/>
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="leading" secondItem="OLS-fp-x2b" secondAttribute="trailing" constant="8" symbolic="YES" id="5cm-l2-L6c"/>
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="centerX" secondItem="AiO-HF-iZi" secondAttribute="centerX" id="9If-kc-dd6"/>
                                     <constraint firstItem="OLS-fp-x2b" firstAttribute="leading" secondItem="AiO-HF-iZi" secondAttribute="leading" id="HNv-6d-tfj"/>
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="leading" secondItem="OLS-fp-x2b" secondAttribute="trailing" constant="8" symbolic="YES" id="VcM-xX-Oth"/>
+                                    <constraint firstItem="nZ7-cc-5Xd" firstAttribute="centerX" secondItem="AiO-HF-iZi" secondAttribute="centerX" id="bip-Jp-9uM"/>
                                     <constraint firstAttribute="trailing" secondItem="dPV-yX-OM5" secondAttribute="trailing" id="f8D-j6-15l"/>
                                     <constraint firstItem="dPV-yX-OM5" firstAttribute="leading" secondItem="vHy-VG-tPp" secondAttribute="trailing" constant="8" symbolic="YES" id="gWe-sV-Uf9"/>
                                     <constraint firstItem="OLS-fp-x2b" firstAttribute="centerY" secondItem="AiO-HF-iZi" secondAttribute="centerY" id="k03-no-md5"/>
@@ -1281,6 +1293,7 @@
                         <outlet property="rightBtn" destination="dPV-yX-OM5" id="agb-qX-a2e"/>
                         <outlet property="segCon" destination="1hb-Ki-UBc" id="4h0-ad-6QU"/>
                         <outlet property="timeLabel" destination="vHy-VG-tPp" id="vfJ-7K-62c"/>
+                        <outlet property="timeLabelBtn" destination="nZ7-cc-5Xd" id="lPS-8n-Xps"/>
                         <outlet property="timeView" destination="AiO-HF-iZi" id="5cR-2e-0ln"/>
                         <segue destination="uun-bz-T0X" kind="show" identifier="analysisToCombineChart" id="WGP-Ss-XWI"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="analysisDatePopUp" id="0SZ-0C-Z6S"/>
@@ -1288,7 +1301,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1817" y="-906"/>
+            <point key="canvasLocation" x="1815.9420289855075" y="-906.02678571428567"/>
         </scene>
         <!--Auto Record View Controller-->
         <scene sceneID="Srp-ur-Bl1">
@@ -1531,7 +1544,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0JQ-Xb-91Q">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMY-7e-cMB">
                                                     <rect key="frame" x="30" y="20.5" width="75" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -1539,8 +1552,8 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="0JQ-Xb-91Q" firstAttribute="centerY" secondItem="m8x-Ru-04u" secondAttribute="centerY" id="hv5-nI-zEK"/>
-                                                <constraint firstItem="0JQ-Xb-91Q" firstAttribute="leading" secondItem="m8x-Ru-04u" secondAttribute="leadingMargin" constant="10" id="iFd-Ve-FhJ"/>
+                                                <constraint firstItem="OMY-7e-cMB" firstAttribute="leading" secondItem="m8x-Ru-04u" secondAttribute="leadingMargin" constant="10" id="6XM-Pd-ppb"/>
+                                                <constraint firstItem="OMY-7e-cMB" firstAttribute="centerY" secondItem="m8x-Ru-04u" secondAttribute="centerY" id="tFR-89-xfG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
