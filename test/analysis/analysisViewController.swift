@@ -23,12 +23,16 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var leftBtn: UIButton!
     @IBOutlet var rightBtn: UIButton!
+    @IBOutlet var timeLabelBtn: UIButton!
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
     var showCategoryColor = [String]()
     
     var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
+    var values = [0.0, 40.0, 63.0, 0.0, 44.0, 12.0, 0.0, 90.0, 0.0, 60.0, 0.0, 17.0, 0.0, 37.0, 0.0, 54.0, 64.0, 11.0]
+    var values1 = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
+    var values2 = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     var index = 0
     var total = 0.0
     var percentage = Array<Double>()
@@ -38,6 +42,34 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var currentMonth = Calendar.current.component(.month, from: Date())
     var currentDay = Calendar.current.component(.day, from: Date())
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    
+    var tag: String?
+    var date = Date()+86400
+    var showDate: String = ""
+    var showDateformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showTimeformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showDayformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showWeekdayformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd EEE HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +155,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpDay()
         }else if getIndex == 1{
-            customizeCategoryChartWeek(dataPoints: showCategoryStr, values: categoryValues)
+            customizeCategoryChartWeek(dataPoints: showCategoryStr, values: values)
             //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartWeek.transparentCircleRadiusPercent = 0.0
             pieChartWeek.legend.horizontalAlignment = .center
@@ -135,7 +167,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpWeek()
         }else if getIndex == 2{
-            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: categoryValues)
+            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: values1)
             //pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartMonth.transparentCircleRadiusPercent = 0.0
             pieChartMonth.legend.horizontalAlignment = .center
@@ -147,7 +179,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpMonth()
         }else if getIndex == 3{
-            customizeCategoryChartYear(dataPoints: showCategoryStr, values: categoryValues)
+            customizeCategoryChartYear(dataPoints: showCategoryStr, values: values2)
             //pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartYear.transparentCircleRadiusPercent = 0.0
             pieChartYear.legend.horizontalAlignment = .center
@@ -270,44 +302,21 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         if let dataSet = chartView.data?.dataSets[ highlight.dataSetIndex] {
             let sliceIndex: Int = dataSet.entryIndex(entry: entry)
             index = sliceIndex
-            //print( "Selected slice index: \( sliceIndex)")
     }
         performSegue(withIdentifier: "analysisToCombineChart", sender: self)
     }
-
-//    func customizeLineChart(dataPoints: [String], values: [Double]){
-//        lineChart.delegate = self
-//        var dataEntries: [ChartDataEntry] = []
-//        var dataDays: [String] = []
-//        var count = 0
-//        for i in 0..<dataPoints.count {
-//            let dataEntry = ChartDataEntry(x: values[i], y: Double(i))
-//            dataEntries.append(dataEntry)
-//            dataDays.append(dataPoints[count])
-//            if count == dataPoints.count - 1 {
-//                count = 0
-//            }else{
-//                count = count + 1
-//            }
-//        }
-//        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
-//        lineChartDataSet.circleColors = colorsOfCategory(numbersOfColor: dataPoints.count)
-//        let lineChartData = LineChartData(dataSet: lineChartDataSet)
-//        lineChart.data = lineChartData
-//
-//    }
     
-    private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
-        var colors: [UIColor] = []
-        for _ in 0..<numbersOfColor {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
-        return colors
-    }
+//    private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
+//        var colors: [UIColor] = []
+//        for _ in 0..<numbersOfColor {
+//            let red = Double(arc4random_uniform(256))
+//            let green = Double(arc4random_uniform(256))
+//            let blue = Double(arc4random_uniform(256))
+//            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+//            colors.append(color)
+//        }
+//        return colors
+//    }
     
     private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
@@ -341,19 +350,60 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        tag = nil
         if (segue.identifier == "analysisToCombineChart"){
             if let vc = segue.destination as? combineChartViewController{
                 print(index)
                 vc.name = "\(showCategory[index].categoryName)"
                 vc.color = hexStringToUIColor (hex:"\(showCategory[index].categoryColor)")
                 vc.time = "\(categoryValues[index])"
+//                vc.time = "\(values[index])"
+//                vc.time = "\(values1[index])"
+//                vc.time = "\(values2[index])"
+            }
+        }
+        if (segue.identifier == "analysisDatePopUp"){
+            if let vc = segue.destination as? DatePopupViewController{
+                vc.tag = "analysis"
+                vc.showDate = showDayformatter.date(from: timeLabel.text!)!
+            }
+        }
+        if (segue.identifier == "analysisPickerView"){
+            if let vc = segue.destination as? PickerViewController{
+                vc.tag = "analysis"
             }
         }
         
     }
     
+    @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
+        if segConIndex == 0{
+            let vc = segue.source as? DatePopupViewController
+            date = vc!.datePicker.date
+            tag = vc?.tag
+            if tag == "analysis"{
+                timeLabel.text = showDayformatter.string(from: date)
+            }
+        }else if segConIndex == 1{
+            
+        }else if segConIndex == 2{
+            let vc = segue.source as? PickerViewController
+            tag = vc?.tag
+            if tag == "analysis"{
+                timeLabel.text = vc?.pickerView.date
+            }
+        }else if segConIndex == 3{
+            
+        }
+    }
+    
     func setUpDay(){
-        timeLabel.text =  months[currentMonth - 1] + " \(currentDay), " + "\(currentYear)"
+        if currentMonth < 9{
+            timeLabel.text = "\(currentYear)-0\(currentMonth)-\(currentDay)"
+        }else{
+            timeLabel.text = "\(currentYear)-\(currentMonth)-\(currentDay)"
+        }
+        
     }
     
     func setUpWeek(){
@@ -389,9 +439,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     
     @IBAction func rightBtnAction(_ sender: UIButton) {
         if segConIndex == 0{
-//            let now = Date()
-//            var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: now)
-//            timeLabel.text = "\(tomorrow)"
             currentDay += 1
             setUpDay()
         }else if segConIndex == 1{
@@ -408,6 +455,21 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             setUpYear()
         }
     }
+    
+    @IBAction func timeLabelBtnDatePopUp(_ sender: Any) {
+        if segConIndex == 0{
+            performSegue(withIdentifier: "analysisDatePopUp", sender: self)
+        }else if segConIndex == 1{
+            print(1)
+        }else if segConIndex == 2{
+            performSegue(withIdentifier: "analysisPickerView", sender: self)
+            print(2)
+        }else if segConIndex == 3{
+            print(3)
+        }
+        
+    }
+    
     
     
 }
