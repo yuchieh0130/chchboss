@@ -27,6 +27,8 @@ class MonthYearPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     var onDateSelected: ((_ month: Int, _ year: Int) -> Void)?
+    var date = ""
+    var monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -100,9 +102,14 @@ class MonthYearPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
         if let block = onDateSelected {
             block(month, year)
         }
+        date = "\(monthName[month-1]) \(year)"
         
         self.month = month
         self.year = year
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 50.0
     }
     
 }

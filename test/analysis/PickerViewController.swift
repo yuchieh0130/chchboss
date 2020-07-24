@@ -15,7 +15,6 @@ class PickerViewController: UIViewController{
     @IBOutlet var saveBtn: UIButton!
     @IBOutlet var pickerView: MonthYearPickerView!
     
-    var showDate = Date()
     var tag: String?
     
     override func viewDidLoad() {

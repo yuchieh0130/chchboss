@@ -365,6 +365,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         if (segue.identifier == "analysisDatePopUp"){
             if let vc = segue.destination as? DatePopupViewController{
                 vc.tag = "analysis"
+                vc.showDate = showDayformatter.date(from: timeLabel.text!)!
             }
         }
         if (segue.identifier == "analysisPickerView"){
@@ -376,25 +377,33 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
-        if (segue.identifier == "analysisDatePopUp"){
+        if segConIndex == 0{
             let vc = segue.source as? DatePopupViewController
             date = vc!.datePicker.date
             tag = vc?.tag
             if tag == "analysis"{
                 timeLabel.text = showDayformatter.string(from: date)
             }
-        }
-        if (segue.identifier == "analysisPickerView"){
+        }else if segConIndex == 1{
+            
+        }else if segConIndex == 2{
             let vc = segue.source as? PickerViewController
             tag = vc?.tag
             if tag == "analysis"{
-//                timeLabel.text = String
+                timeLabel.text = vc?.pickerView.date
             }
+        }else if segConIndex == 3{
+            
         }
     }
     
     func setUpDay(){
-        timeLabel.text = "\(currentYear)-\(currentMonth)-\(currentDay)"
+        if currentMonth < 9{
+            timeLabel.text = "\(currentYear)-0\(currentMonth)-\(currentDay)"
+        }else{
+            timeLabel.text = "\(currentYear)-\(currentMonth)-\(currentDay)"
+        }
+        
     }
     
     func setUpWeek(){
