@@ -19,19 +19,22 @@ class LoginViewController: UIViewController {
     
     let userDefaults = UserDefaults.standard
     
+//    var isLogIn: Bool = false
+    
     
     @IBAction func logInBtn(_ sender: Any) {
         userDefaults.set(emailTextField.text, forKey: "userEmail")
         userDefaults.set(passwordTextField.text, forKey: "userPassword")
         emailTextField.text = ""
         passwordTextField.text = ""
-    }
-    
-    @IBAction func logInbtn(_ sender: Any) {
+        
         self.performSegue(withIdentifier: "bbbanana", sender: sender)
+        userDefaults.set(true, forKey: "isLogIn")
     }
     
     @IBAction func SignUpBtn(_ sender: Any) {
+        userDefaults.set(emailTextField.text, forKey: "userEmail")
+        userDefaults.set(passwordTextField.text, forKey: "userPassword")
         //self.present(signUpView, animated: true, completion: nil)
     }
     
@@ -45,8 +48,8 @@ class LoginViewController: UIViewController {
         emailTextField.text = userDefaults.value(forKey: "userEmail") as? String
         passwordTextField.text = userDefaults.value(forKey: "userPassword") as? String
         
+        
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

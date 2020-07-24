@@ -37,6 +37,7 @@ class SignupViewController: UIViewController {
         } else if passwordTextField.text == confirmPasswordTextField.text {
 //            self.present(tabBarController!, animated:true, completion:nil)
             self.performSegue(withIdentifier: "aaapple", sender: sender)
+            userDefaults.set(true, forKey: "isLogIn")
         }
     }
     
