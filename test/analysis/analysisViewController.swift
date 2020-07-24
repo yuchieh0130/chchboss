@@ -43,6 +43,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var currentDay = Calendar.current.component(.day, from: Date())
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
+    var tag: String?
     var date = Date()+86400
     var showDate: String = ""
     var showDateformatter: DateFormatter {
@@ -349,6 +350,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        tag = nil
         if (segue.identifier == "analysisToCombineChart"){
             if let vc = segue.destination as? combineChartViewController{
                 print(index)
@@ -359,25 +361,40 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //                vc.time = "\(values1[index])"
 //                vc.time = "\(values2[index])"
             }
+        }
+        if (segue.identifier == "analysisDatePopUp"){
             if let vc = segue.destination as? DatePopupViewController{
-                //vc.showDate =
+                vc.tag = "analysis"
+            }
+        }
+        if (segue.identifier == "analysisPickerView"){
+            if let vc = segue.destination as? PickerViewController{
+                vc.tag = "analysis"
             }
         }
         
     }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
-           let vc = segue.source as? DatePopupViewController
-           date = vc!.datePicker.date
-           handletime()
-    }
-    
-    func handletime(){
-        timeLabel.text = "\(showDateformatter.string(from: date))"
+        if (segue.identifier == "analysisDatePopUp"){
+            let vc = segue.source as? DatePopupViewController
+            date = vc!.datePicker.date
+            tag = vc?.tag
+            if tag == "analysis"{
+                timeLabel.text = showDayformatter.string(from: date)
+            }
+        }
+        if (segue.identifier == "analysisPickerView"){
+            let vc = segue.source as? PickerViewController
+            tag = vc?.tag
+            if tag == "analysis"{
+//                timeLabel.text = String
+            }
+        }
     }
     
     func setUpDay(){
-        timeLabel.text =  months[currentMonth - 1] + " \(currentDay), " + "\(currentYear)"
+        timeLabel.text = "\(currentYear)-\(currentMonth)-\(currentDay)"
     }
     
     func setUpWeek(){
@@ -413,9 +430,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     
     @IBAction func rightBtnAction(_ sender: UIButton) {
         if segConIndex == 0{
-//            let now = Date()
-//            var tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: now)
-//            timeLabel.text = "\(tomorrow)"
             currentDay += 1
             setUpDay()
         }else if segConIndex == 1{
@@ -434,7 +448,17 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     @IBAction func timeLabelBtnDatePopUp(_ sender: Any) {
-        performSegue(withIdentifier: "analysisDatePopUp", sender: self)
+        if segConIndex == 0{
+            performSegue(withIdentifier: "analysisDatePopUp", sender: self)
+        }else if segConIndex == 1{
+            print(1)
+        }else if segConIndex == 2{
+            performSegue(withIdentifier: "analysisPickerView", sender: self)
+            print(2)
+        }else if segConIndex == 3{
+            print(3)
+        }
+        
     }
     
     

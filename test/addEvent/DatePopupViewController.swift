@@ -47,6 +47,9 @@ class DatePopupViewController: UIViewController {
         
         datePicker.locale = Locale(identifier: "zh_TW")
         datePicker.timeZone = TimeZone.ReferenceType.system
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
         
         if tag == "taskTime"{
             datePicker.datePickerMode = .countDownTimer
@@ -71,6 +74,9 @@ class DatePopupViewController: UIViewController {
             datePicker.date = showDate
         }else if tag == "editAutoEnd"{
             datePicker.datePickerMode = .dateAndTime
+            datePicker.date = showDate
+        }else if tag == "analysis"{
+            datePicker.datePickerMode = .date
             datePicker.date = showDate
         }else{
             datePicker.datePickerMode = .dateAndTime

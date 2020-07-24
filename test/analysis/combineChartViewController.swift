@@ -72,9 +72,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         
         //x axis
         let xAxis = combineChart.xAxis
-        xAxis.labelPosition = .bothSided
-//        xAxis.axisMinimum = 0.0
-//        xAxis.axisMaximum = 11.0
+        xAxis.labelPosition = .bottom
+        xAxis.labelCount = 13
         xAxis.granularityEnabled = true
         xAxis.granularity = 1.0  //距離
         xAxis.valueFormatter = BarChartFormatter()
@@ -86,21 +85,13 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         leftAxis.drawGridLinesEnabled = false
         leftAxis.axisMinimum = 0.0
        //right axis
-        let rightAxis = combineChart.rightAxis
-        rightAxis.drawGridLinesEnabled = false
-        rightAxis.axisMinimum = 0.0
+        combineChart.rightAxis.enabled = false
         //legend
-        let legend = combineChart.legend
-        legend.wordWrapEnabled = true
-        legend.horizontalAlignment = .center
-        legend.verticalAlignment = .bottom
-        legend.orientation = .horizontal
-        legend.drawInside = false
+        combineChart.legend.enabled = false
         //description
-        combineChart.chartDescription?.enabled = true
+        combineChart.chartDescription?.enabled = false
         
         setChartData()
-        //combineChart.isHidden = true
     }
     
     @IBAction func segConChoose(_ sender: Any) {
@@ -174,13 +165,9 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         barChartDataSet.axisDependency = .left
         
         //BarChartData
-        let groupSpace = 0.06
-        let barSpace = 0.01
-        let barWidth = 0.46
-        
+        let barWidth = 0.5
         let data = BarChartData()
         data.barWidth = barWidth
-        data.groupBars(fromX: 0.0, groupSpace: groupSpace, barSpace: barSpace)
         data.addDataSet(barChartDataSet)
         return data
     }

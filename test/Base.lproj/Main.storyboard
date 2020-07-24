@@ -1297,6 +1297,7 @@
                         <outlet property="timeView" destination="AiO-HF-iZi" id="5cR-2e-0ln"/>
                         <segue destination="uun-bz-T0X" kind="show" identifier="analysisToCombineChart" id="WGP-Ss-XWI"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="analysisDatePopUp" id="0SZ-0C-Z6S"/>
+                        <segue destination="M3L-MZ-EPF" kind="show" identifier="analysisPickerView" id="NnR-u6-Zjt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3399,6 +3400,92 @@
             </objects>
             <point key="canvasLocation" x="445" y="99"/>
         </scene>
+        <!--Picker View Controller-->
+        <scene sceneID="2D2-5b-pho">
+            <objects>
+                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="overFullScreen" id="M3L-MZ-EPF" customClass="PickerViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c8o-bg-ZQq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxJ-PJ-rbc">
+                                <rect key="frame" x="15" y="323" width="384" height="250"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFA-HH-Q3f">
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
+                                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="dih-tF-ZpP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DNh-Rl-jMX">
+                                        <rect key="frame" x="224" y="210" width="150" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="mRE-zZ-nTb"/>
+                                        </constraints>
+                                        <state key="normal" title="OK"/>
+                                        <connections>
+                                            <action selector="saveBtn:" destination="M3L-MZ-EPF" eventType="touchUpInside" id="ycz-Qy-XpL"/>
+                                            <segue destination="0Vv-YQ-x2H" kind="unwind" unwindAction="TimeSegueBackWithSegue:" id="27a-jK-pGz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uV6-X1-cKw">
+                                        <rect key="frame" x="10" y="210" width="150" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="Cl0-m5-1as"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelBtn:" destination="M3L-MZ-EPF" eventType="touchUpInside" id="vr5-Q9-I3c"/>
+                                        </connections>
+                                    </button>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKj-Is-i30" customClass="MonthYearPickerView" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="384" height="151"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="DKj-Is-i30" firstAttribute="leading" secondItem="MxJ-PJ-rbc" secondAttribute="leading" id="16m-g3-ZcJ"/>
+                                    <constraint firstItem="pFA-HH-Q3f" firstAttribute="top" secondItem="MxJ-PJ-rbc" secondAttribute="top" id="7HM-sa-v2q"/>
+                                    <constraint firstItem="pFA-HH-Q3f" firstAttribute="leading" secondItem="MxJ-PJ-rbc" secondAttribute="leading" id="9W9-c9-Tpw"/>
+                                    <constraint firstAttribute="trailing" secondItem="pFA-HH-Q3f" secondAttribute="trailing" id="BYd-lB-UMG"/>
+                                    <constraint firstAttribute="trailing" secondItem="DNh-Rl-jMX" secondAttribute="trailing" constant="10" id="JsG-0r-7Xm"/>
+                                    <constraint firstAttribute="bottom" secondItem="DKj-Is-i30" secondAttribute="bottom" constant="49.5" id="PBX-uH-Lqo"/>
+                                    <constraint firstAttribute="height" constant="250" id="R9m-Py-36u"/>
+                                    <constraint firstItem="DKj-Is-i30" firstAttribute="centerY" secondItem="MxJ-PJ-rbc" secondAttribute="centerY" id="Toi-Sp-XIR"/>
+                                    <constraint firstItem="DKj-Is-i30" firstAttribute="centerX" secondItem="MxJ-PJ-rbc" secondAttribute="centerX" id="UhE-2C-Zk3"/>
+                                    <constraint firstItem="uV6-X1-cKw" firstAttribute="leading" secondItem="MxJ-PJ-rbc" secondAttribute="leading" constant="10" id="XcZ-CJ-Q8l"/>
+                                    <constraint firstAttribute="bottom" secondItem="DNh-Rl-jMX" secondAttribute="bottom" constant="10" id="gRr-FS-W5m"/>
+                                    <constraint firstItem="DKj-Is-i30" firstAttribute="top" secondItem="MxJ-PJ-rbc" secondAttribute="top" constant="49.5" id="pMS-a4-i9K"/>
+                                    <constraint firstAttribute="trailing" secondItem="DKj-Is-i30" secondAttribute="trailing" id="vRp-wz-SmB"/>
+                                    <constraint firstAttribute="bottom" secondItem="uV6-X1-cKw" secondAttribute="bottom" constant="10" id="yYT-XI-rc1"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="f45-Qb-SLf"/>
+                        <color key="backgroundColor" red="0.95053432640000002" green="0.95053432640000002" blue="0.95053432640000002" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="MxJ-PJ-rbc" firstAttribute="centerX" secondItem="c8o-bg-ZQq" secondAttribute="centerX" id="I9H-tr-f3X"/>
+                            <constraint firstItem="MxJ-PJ-rbc" firstAttribute="centerY" secondItem="c8o-bg-ZQq" secondAttribute="centerY" id="PlO-j2-625"/>
+                            <constraint firstItem="f45-Qb-SLf" firstAttribute="trailing" secondItem="MxJ-PJ-rbc" secondAttribute="trailing" constant="15" id="aRl-6B-7rW"/>
+                            <constraint firstItem="MxJ-PJ-rbc" firstAttribute="leading" secondItem="f45-Qb-SLf" secondAttribute="leading" constant="15" id="xRc-m2-zbp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="1FP-T4-Bd7"/>
+                    <connections>
+                        <outlet property="pickerView" destination="DKj-Is-i30" id="H86-UA-y6Y"/>
+                        <outlet property="saveBtn" destination="DNh-Rl-jMX" id="Ksu-mH-wMa"/>
+                        <outlet property="titleLabel" destination="pFA-HH-Q3f" id="uA2-PT-4oj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qiI-ea-a2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="0Vv-YQ-x2H" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-1620.289855072464" y="2535.2678571428569"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="NQn-wG-vOh">
@@ -3427,6 +3514,9 @@
         <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="reminder_deselect" width="96" height="96"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
