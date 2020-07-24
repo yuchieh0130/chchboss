@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     //用來判斷要不要存進db
     var lastSpeed:Double = 55.66
     var lastStartTime:String = ""
+    var lastStartDate:String = ""
     var lastLocation: CLLocation!
     var lastName1 = ""
     var lastSpeeds = [Double]()
@@ -72,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
+        self.lastStartDate = showDate.string(from: Date())
         self.lastStartTime = showTime.string(from: Date())
         return true
     }
@@ -109,6 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             }
         }else if myLocationManager.location!.speed >= 0 {
             if lastSpeed == -1{
+                lastStartDate = self.showDate.string(from: Date())
                 lastStartTime = self.showTime.string(from: Date())
             }
             lastSpeeds.append(myLocationManager.location!.speed)
@@ -129,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         let latitude = Double(self.currentLocation.coordinate.latitude)
         let longitude = Double(self.currentLocation.coordinate.longitude)
-        let startDate = lastStartTime
+        let startDate = lastStartDate
         let startTime = lastStartTime
         let weekday = Calendar.current.component(.weekday, from: Date())
         var total = 0.0
@@ -140,6 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "",speed: speed)
         
+        ///////這邊要改
         let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartTime)!)
         DBManager.getInstance().saveDuration(double: duration)
         DBManager.getInstance().saveLocation(modelInfo)
@@ -187,14 +191,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             let category5 = self.likelyPlaces[4].types![0]
             let speed = self.myLocationManager.location!.speed
             
-            let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5,speed: speed)
+            let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: speed)
             
             let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartTime)!)
             
             DBManager.getInstance().saveDuration(double: duration)
             DBManager.getInstance().saveLocation(modelInfo)
             
-            let data : [String: String] = ["location_id":"0", "longitude":String(longitude), "latitude":String(latitude), "start_date":startDate, "start_time":startTime,"weekday":String(weekday) "duration":String(duration), "speed":String(speed), "name1":name1, "name2":name2, "name3":name3, "name4":name4, "name5":name5, "category1":category1, "category2":category2, "category3":category3, "category4":category4, "category5":category5]
+            let data : [String: String] = ["location_id":"0", "longitude":String(longitude), "latitude":String(latitude), "start_date":startDate, "start_time":startTime,"weekday":String(weekday), "duration":String(duration), "speed":String(speed), "name1":name1, "name2":name2, "name3":name3, "name4":name4, "name5":name5, "category1":category1, "category2":category2, "category3":category3, "category4":category4, "category5":category5]
             
             //            let data : [String: String] = ["location_id":"0", "longitude":String(self.longitude), "latitude":String(self.latitude), "start_time":self.startTime, "duration":String(self.duration), "speed":String(self.speed), "name1":self.name1, "name2":self.name2, "name3":self.name3, "name4":self.name4, "name5":self.name5, "category1":self.category1, "category2":self.category2, "category3":self.category3, "category4":self.category4, "category5":self.category5]
             
