@@ -33,7 +33,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var values = [0.0, 40.0, 63.0, 0.0, 44.0, 12.0, 0.0, 90.0, 0.0, 60.0, 0.0, 17.0, 0.0, 37.0, 0.0, 54.0, 64.0, 11.0]
     var values1 = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
     var values2 = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
-    var index = 0
+    var index0 = 0
+    var index1 = 0
+    var index2 = 0
+    var index3 = 0
     var total = 0.0
     var percentage = Array<Double>()
     var segConIndex = 0
@@ -299,10 +302,19 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        if let dataSet = chartView.data?.dataSets[ highlight.dataSetIndex] {
-            let sliceIndex: Int = dataSet.entryIndex(entry: entry)
-            index = sliceIndex
-    }
+        if let dataSet0 = pieChart.data?.dataSets[ highlight.dataSetIndex] {
+            let sliceIndex: Int = dataSet0.entryIndex(entry: entry)
+            index0 = sliceIndex
+        }else if let dataSet1 = pieChartWeek.data?.dataSets[ highlight.dataSetIndex] {
+            let sliceIndex: Int = dataSet1.entryIndex(entry: entry)
+            index1 = sliceIndex
+        }else if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
+            let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
+            index2 = sliceIndex
+        }else if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
+            let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
+            index3 = sliceIndex
+        }
         performSegue(withIdentifier: "analysisToCombineChart", sender: self)
     }
     
@@ -353,13 +365,23 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         tag = nil
         if (segue.identifier == "analysisToCombineChart"){
             if let vc = segue.destination as? combineChartViewController{
-                print(index)
-                vc.name = "\(showCategory[index].categoryName)"
-                vc.color = hexStringToUIColor (hex:"\(showCategory[index].categoryColor)")
-                vc.time = "\(categoryValues[index])"
-//                vc.time = "\(values[index])"
-//                vc.time = "\(values1[index])"
-//                vc.time = "\(values2[index])"
+                if segConIndex == 0{
+                    vc.name = "\(showCategory[index0].categoryName)"
+                    vc.color = hexStringToUIColor (hex:"\(showCategory[index0].categoryColor)")
+                    vc.time = "\(categoryValues[index0])"
+                }else if segConIndex == 1{
+                    vc.name = "\(showCategory[index1].categoryName)"
+                    vc.color = hexStringToUIColor (hex:"\(showCategory[index1].categoryColor)")
+                    vc.time = "\(values[index1])"
+                }else if segConIndex == 2{
+                    vc.name = "\(showCategory[index2].categoryName)"
+                    vc.color = hexStringToUIColor (hex:"\(showCategory[index2].categoryColor)")
+                    vc.time = "\(values1[index2])"
+                }else if segConIndex == 3{
+                    vc.name = "\(showCategory[index3].categoryName)"
+                    vc.color = hexStringToUIColor (hex:"\(showCategory[index3].categoryColor)")
+                    vc.time = "\(values2[index3])"
+                }
             }
         }
         if (segue.identifier == "analysisDatePopUp"){

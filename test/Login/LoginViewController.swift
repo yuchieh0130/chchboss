@@ -27,9 +27,12 @@ class LoginViewController: UIViewController {
         userDefaults.set(passwordTextField.text, forKey: "userPassword")
         emailTextField.text = ""
         passwordTextField.text = ""
-        
-        self.performSegue(withIdentifier: "bbbanana", sender: sender)
+        //performSegue(withIdentifier: "bbbanana", sender: self)
         userDefaults.set(true, forKey: "isLogIn")
+        
+        var tabBar = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+        var appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = tabBar
     }
     
     @IBAction func SignUpBtn(_ sender: Any) {
