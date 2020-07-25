@@ -30,9 +30,16 @@ class LoginViewController: UIViewController {
         //performSegue(withIdentifier: "bbbanana", sender: self)
         userDefaults.set(true, forKey: "isLogIn")
         
-        var tabBar = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-        var appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = tabBar
+        
+        if #available(iOS 13.0, *) {
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(tabBarController!)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     @IBAction func SignUpBtn(_ sender: Any) {
