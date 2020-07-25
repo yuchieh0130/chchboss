@@ -302,18 +302,26 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        if let dataSet0 = pieChart.data?.dataSets[ highlight.dataSetIndex] {
-            let sliceIndex: Int = dataSet0.entryIndex(entry: entry)
-            index0 = sliceIndex
-        }else if let dataSet1 = pieChartWeek.data?.dataSets[ highlight.dataSetIndex] {
-            let sliceIndex: Int = dataSet1.entryIndex(entry: entry)
-            index1 = sliceIndex
-        }else if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
-            let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
-            index2 = sliceIndex
-        }else if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
-            let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
-            index3 = sliceIndex
+        if segConIndex == 0{
+            if let dataSet0 = pieChart.data?.dataSets[ highlight.dataSetIndex] {
+                let sliceIndex: Int = dataSet0.entryIndex(entry: entry)
+                index0 = sliceIndex
+            }
+        }else if segConIndex == 1{
+            if let dataSet1 = pieChartWeek.data?.dataSets[ highlight.dataSetIndex] {
+                 let sliceIndex: Int = dataSet1.entryIndex(entry: entry)
+                 index1 = sliceIndex
+             }
+        }else if segConIndex == 2{
+            if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
+                 let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
+                 index2 = sliceIndex
+             }
+        }else if segConIndex == 3{
+            if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
+                 let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
+                 index3 = sliceIndex
+             }
         }
         performSegue(withIdentifier: "analysisToCombineChart", sender: self)
     }
