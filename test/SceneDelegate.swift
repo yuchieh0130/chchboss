@@ -12,9 +12,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
-    @available(iOS 13.0, *)
-    @available(iOS 13.0, *)
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -25,6 +22,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             // Fallback on earlier versions
         }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        // if user is logged in before
+        if let loggedUsername = UserDefaults.standard.string(forKey: "userEmail") {
+            // instantiate the main tab bar controller and set it as root view controller
+            // using the storyboard identifier we set earlier
+            let tabBarController = storyboard.instantiateViewController(identifier: "tabBarController")
+                window?.rootViewController = tabBarController
+            }else{
+                // if user isn't logged in
+                // instantiate the navigation controller and set it as root view controller
+                // using the storyboard identifier we set earlier
+                let loginViewController = storyboard.instantiateViewController(identifier: "LoginViewController")
+                window?.rootViewController = loginViewController
+            }
+        
     }
 
     @available(iOS 13.0, *)
@@ -58,6 +71,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+    
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            return
+        }
+        // change the root view controller to your specific view controller
+        window.rootViewController = vc
+        
+        UIView.transition(with: window,
+                              duration: 0.5,
+                              options: [.transitionFlipFromLeft],
+                              animations: nil,
+                              completion: nil)
     }
 
 
