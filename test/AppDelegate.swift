@@ -141,9 +141,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
         let speed = total/Double(lastSpeeds.count)
         
-        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "",speed: speed)
+        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
         
-        ///////這邊要改
+        ///////Duration這邊要改
         let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartTime)!)
         DBManager.getInstance().saveDuration(double: duration)
         DBManager.getInstance().saveLocation(modelInfo)
