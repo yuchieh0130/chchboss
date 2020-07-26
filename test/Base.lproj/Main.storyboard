@@ -509,28 +509,17 @@
                                     <segue destination="90B-u4-Xju" kind="show" id="RJn-Oy-q6a"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EqB-Wd-AeY" customClass="Floaty" customModule="Floaty">
-                                <rect key="frame" x="344" y="691" width="45" height="45"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="15b-eP-AH8"/>
-                                    <constraint firstAttribute="width" constant="45" id="x0u-in-iQd"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8CQ-Cg-T7k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="089-ne-VaA"/>
-                            <constraint firstItem="EqB-Wd-AeY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="344" id="5Xb-yG-m9f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="P7Q-Vy-b9z" secondAttribute="top" constant="-10" id="6AZ-EN-2NX"/>
                             <constraint firstItem="Mub-hb-dVg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="DEA-my-LTq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="GWv-gH-f6b" secondAttribute="leading" constant="-10" id="F2V-Fp-Ifn"/>
-                            <constraint firstItem="EqB-Wd-AeY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="691" id="LfC-9S-1QY"/>
                             <constraint firstItem="zfT-DG-KsM" firstAttribute="top" secondItem="Gdf-R9-qez" secondAttribute="bottom" constant="5" id="Nn6-lr-IPn"/>
                             <constraint firstItem="8CQ-Cg-T7k" firstAttribute="top" secondItem="Mub-hb-dVg" secondAttribute="bottom" constant="5" id="Pyd-Cf-s9O"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0dh-dD-31i" secondAttribute="bottom" constant="135" id="Slv-b4-JZr"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EqB-Wd-AeY" secondAttribute="bottom" constant="23" id="Th5-wR-cWl"/>
                             <constraint firstItem="6lH-mb-oJx" firstAttribute="leading" secondItem="Mub-hb-dVg" secondAttribute="trailing" constant="5" id="VIc-c2-tcH"/>
                             <constraint firstItem="zfT-DG-KsM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="X9t-6V-Q1F"/>
                             <constraint firstItem="Gdf-R9-qez" firstAttribute="top" secondItem="8CQ-Cg-T7k" secondAttribute="bottom" constant="5" id="XeX-yd-wMb"/>
@@ -543,7 +532,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Gdf-R9-qez" secondAttribute="trailing" constant="5" id="jDg-Di-2eb"/>
                             <constraint firstItem="0dh-dD-31i" firstAttribute="top" secondItem="Gdf-R9-qez" secondAttribute="bottom" constant="5" id="m9B-6c-4sc"/>
                             <constraint firstItem="Mub-hb-dVg" firstAttribute="centerY" secondItem="6lH-mb-oJx" secondAttribute="centerY" constant="-5" id="n0l-vW-Vnh"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EqB-Wd-AeY" secondAttribute="trailing" constant="25" id="pjY-qc-o45"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8CQ-Cg-T7k" secondAttribute="trailing" constant="10" id="qlL-FR-i2r"/>
                             <constraint firstItem="0dh-dD-31i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rdh-hl-kCX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0dh-dD-31i" secondAttribute="trailing" id="tSg-RL-cWi"/>
@@ -558,7 +546,6 @@
                         <outlet property="calendarLayout" destination="3sV-1c-fdV" id="jft-ax-qRd"/>
                         <outlet property="calendarView" destination="Gdf-R9-qez" id="YJr-Xh-6Xc"/>
                         <outlet property="constraint" destination="Fe2-7M-PH1" id="9je-Ri-01t"/>
-                        <outlet property="floaty" destination="EqB-Wd-AeY" id="88G-Oz-c7M"/>
                         <outlet property="monthLabel" destination="Mub-hb-dVg" id="V07-Ed-52N"/>
                         <outlet property="tableView" destination="zfT-DG-KsM" id="PtL-K2-t5y"/>
                         <outlet property="yearLabel" destination="6lH-mb-oJx" id="xWC-rp-8if"/>
@@ -3148,14 +3135,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O93-Zg-E18" customClass="Floaty" customModule="Floaty">
-                                <rect key="frame" x="344" y="691" width="45" height="45"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="pdT-v9-j1D"/>
-                                    <constraint firstAttribute="height" constant="45" id="yhX-uJ-f52"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="g2N-0s-GED"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -3168,21 +3147,16 @@
                             <constraint firstItem="yId-nE-s7K" firstAttribute="top" secondItem="89g-sw-5at" secondAttribute="bottom" constant="5" id="Ir7-9l-kDV"/>
                             <constraint firstItem="89Q-Tj-HTG" firstAttribute="centerX" secondItem="ay1-su-SiP" secondAttribute="centerX" id="PRy-XE-RSn"/>
                             <constraint firstItem="89Q-Tj-HTG" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="19" id="ToW-7X-jWc"/>
-                            <constraint firstItem="O93-Zg-E18" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="691" id="WYu-2B-drL"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="leading" secondItem="g2N-0s-GED" secondAttribute="leading" id="ah1-yr-w8X"/>
                             <constraint firstItem="89Q-Tj-HTG" firstAttribute="leading" secondItem="5Zy-bg-Iu5" secondAttribute="trailing" constant="98" id="apU-KV-gWG"/>
                             <constraint firstItem="g2N-0s-GED" firstAttribute="leading" secondItem="5Zy-bg-Iu5" secondAttribute="leading" constant="-10" id="byP-nw-9pq"/>
-                            <constraint firstItem="g2N-0s-GED" firstAttribute="bottom" secondItem="O93-Zg-E18" secondAttribute="bottom" constant="23" id="ed0-7h-yBv"/>
-                            <constraint firstItem="g2N-0s-GED" firstAttribute="trailing" secondItem="O93-Zg-E18" secondAttribute="trailing" constant="25" id="hJm-v0-Gky"/>
                             <constraint firstItem="89g-sw-5at" firstAttribute="top" secondItem="g2N-0s-GED" secondAttribute="top" constant="15" id="i6c-yy-HrD"/>
                             <constraint firstItem="yId-nE-s7K" firstAttribute="trailing" secondItem="g2N-0s-GED" secondAttribute="trailing" id="qle-SC-U7p"/>
-                            <constraint firstItem="O93-Zg-E18" firstAttribute="leading" secondItem="g2N-0s-GED" secondAttribute="leading" constant="344" id="v5n-yH-nZ7"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" tag="3" title="" image="doc.text" catalog="system" selectedImage="doc.text" id="dlq-P7-ObU"/>
                     <connections>
                         <outlet property="addTaskButton" destination="89g-sw-5at" id="nPb-Ge-4Gf"/>
-                        <outlet property="floaty" destination="O93-Zg-E18" id="vJS-JF-cda"/>
                         <outlet property="tableView" destination="yId-nE-s7K" id="idW-d2-fhx"/>
                         <outlet property="taskDoneBtn" destination="5Zy-bg-Iu5" id="139-Vw-7GD"/>
                         <segue destination="zxG-pM-74g" kind="show" identifier="editTask" id="WsB-A9-R4s"/>
@@ -3518,7 +3492,7 @@
         <segue reference="54J-Uw-fAs"/>
         <segue reference="9Rl-2J-tqH"/>
         <segue reference="0SZ-0C-Z6S"/>
-        <segue reference="Q9x-NS-Pff"/>
+        <segue reference="uiq-XP-en4"/>
         <segue reference="daS-jI-pwq"/>
     </inferredMetricsTieBreakers>
     <resources>
