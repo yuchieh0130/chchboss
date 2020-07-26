@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Floaty
 
-@IBDesignable
 class tabBarController: UITabBarController, UITabBarControllerDelegate{
 
 //    required init(coder aDecoder: NSCoder) {

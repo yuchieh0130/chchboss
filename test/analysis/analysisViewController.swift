@@ -11,7 +11,6 @@ import UIKit
 import Floaty
 import Charts
 
-@IBDesignable
 class analysisViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet var segCon: UISegmentedControl!

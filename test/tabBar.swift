@@ -7,7 +7,6 @@
 //
  
 import UIKit
-@IBDesignable
 
 class tabBar: UITabBar{
 //改tabBar的形狀
