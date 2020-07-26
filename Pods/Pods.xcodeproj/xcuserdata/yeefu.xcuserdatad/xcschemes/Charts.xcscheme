@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BF03B0B2B8B052092CB5F90CC5FB3757"
-               BuildableName = "libCharts.a"
+               BuildableName = "Charts.framework"
                BlueprintName = "Charts"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

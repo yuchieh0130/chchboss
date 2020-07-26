@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D2A775A88EA787684F2905BCB73F96D1"
-               BuildableName = "libFloaty.a"
+               BuildableName = "Floaty.framework"
                BlueprintName = "Floaty"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
