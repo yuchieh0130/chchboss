@@ -42,6 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         return formatter
     }
     
+    var showDateTime: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    
     // An array to hold the list of likely places.
     var likelyPlaces: [GMSPlace] = []
     var selectPlaces:[GMSPlace] = []
@@ -104,10 +111,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         if lastLocation == nil{
             saveInDB()
         }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
-            lastSpeeds.removeAll()
-            if lastLocation.distance(from: currentLocation) > 150{
+            if lastLocation.distance(from: currentLocation) > 150 && Date().timeIntervalSince(self.showDateTime.date(from: self.lastStartTime)!) > 300 {
                 saveSpeed()
                 saveInDB()
+                lastSpeeds.removeAll()
             }
         }else if myLocationManager.location!.speed >= 0 {
             if lastSpeed == -1{
@@ -143,8 +150,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
         
-        ///////Duration這邊要改
-        let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartTime)!)
+        //Duration這邊要改
+        let duration = Date().timeIntervalSince(self.showDateTime.date(from: self.lastStartTime)!)
         DBManager.getInstance().saveDuration(double: duration)
         DBManager.getInstance().saveLocation(modelInfo)
         self.lastSpeed = speed
