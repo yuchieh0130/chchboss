@@ -26,4 +26,5 @@ class editMyplaceCell: UITableViewCell{
 
 class logOutCell: UITableViewCell{
     @IBOutlet var logOut: UILabel!
+    
 }

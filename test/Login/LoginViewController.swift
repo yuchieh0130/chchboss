@@ -17,34 +17,28 @@ class LoginViewController: UIViewController {
     
     let signUpView = SignupViewController()
     
-    let userDefaults = UserDefaults.standard
+//    let userDefaults = UserDefaults.standard
     
 //    var isLogIn: Bool = false
     
     
     @IBAction func logInBtn(_ sender: Any) {
-        userDefaults.set(emailTextField.text, forKey: "userEmail")
-        userDefaults.set(passwordTextField.text, forKey: "userPassword")
+        UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
+        UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
         emailTextField.text = ""
         passwordTextField.text = ""
         //performSegue(withIdentifier: "bbbanana", sender: self)
-        userDefaults.set(true, forKey: "isLogIn")
+        UserDefaults.standard.set(true, forKey: "isLogIn")
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController")
+        let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = tabBar
-        
-        if #available(iOS 13.0, *) {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(tabBarController!)
-        } else {
-            // Fallback on earlier versions
-        }
     }
     
     @IBAction func SignUpBtn(_ sender: Any) {
-        userDefaults.set(emailTextField.text, forKey: "userEmail")
-        userDefaults.set(passwordTextField.text, forKey: "userPassword")
+        UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
+        UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
         //self.present(signUpView, animated: true, completion: nil)
     }
     
@@ -55,10 +49,15 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailTextField.text = userDefaults.value(forKey: "userEmail") as? String
-        passwordTextField.text = userDefaults.value(forKey: "userPassword") as? String
+        emailTextField.text = UserDefaults.standard.value(forKey: "userEmail") as? String
+        passwordTextField.text = UserDefaults.standard.value(forKey: "userPassword") as? String
         
-        
+        if UserDefaults.standard.bool(forKey: "isLogIn") == true{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = tabBar
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

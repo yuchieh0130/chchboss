@@ -92,4 +92,13 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         picker.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func logOutBtn(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "isLogIn")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let login = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = login
+    }
+    
+    
 }

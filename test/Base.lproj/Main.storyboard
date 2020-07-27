@@ -981,6 +981,13 @@
                                     <action selector="addBtnPress:" destination="GWz-O0-t96" eventType="touchUpInside" id="yqF-jj-rgT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NE9-60-boC">
+                                <rect key="frame" x="325" y="129" width="55" height="30"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logOutBtn:" destination="GWz-O0-t96" eventType="touchUpInside" id="owK-OX-pRK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hbu-F2-bMp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -994,11 +1001,13 @@
                             <constraint firstItem="h35-ly-VCw" firstAttribute="centerX" secondItem="pD0-ue-cbQ" secondAttribute="centerX" id="Heb-fu-iqN"/>
                             <constraint firstItem="sse-uI-zAC" firstAttribute="top" secondItem="h35-ly-VCw" secondAttribute="bottom" constant="16.666666666666657" id="Hux-RQ-PAw"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="bottom" secondItem="Hbu-F2-bMp" secondAttribute="bottom" id="YsQ-W2-rb3"/>
+                            <constraint firstItem="NE9-60-boC" firstAttribute="baseline" secondItem="s9w-ck-vHo" secondAttribute="baseline" id="alU-bx-Afj"/>
                             <constraint firstItem="s9w-ck-vHo" firstAttribute="centerX" secondItem="h35-ly-VCw" secondAttribute="centerX" id="bka-i5-bpj"/>
                             <constraint firstItem="s9w-ck-vHo" firstAttribute="top" secondItem="sse-uI-zAC" secondAttribute="bottom" constant="8" id="g6z-ao-w9J"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="trailing" secondItem="Hbu-F2-bMp" secondAttribute="trailing" id="rGD-jc-8X9"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="leading" secondItem="Hbu-F2-bMp" secondAttribute="leading" id="skT-Su-e1G"/>
                             <constraint firstItem="Hbu-F2-bMp" firstAttribute="trailing" secondItem="KoG-9U-nQC" secondAttribute="trailing" constant="102" id="xbz-p5-OiK"/>
+                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="trailing" secondItem="NE9-60-boC" secondAttribute="trailing" constant="34" id="z3w-ew-WnX"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="gear" catalog="system" selectedImage="gear" id="HJ9-AL-ng2"/>
