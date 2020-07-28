@@ -110,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //        }
         self.currentLocation = locations[0] as CLLocation
         if lastLocation == nil{
+            lastStopTime = self.showDateTime.string(from: Date())
             searchFivePlace()
             saveInDB()
         }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
@@ -121,10 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }else if myLocationManager.location!.speed >= 0 {
             if lastSpeed == -1 && Date().timeIntervalSince(self.showDateTime.date(from: self.lastStopTime)!) > 300 {
                 //&& lastLocation.distance(from: currentLocation) > 150
+                lastMoveTime = self.showDateTime.string(from: Date())
                 saveSpeed()
                 lastSpeeds.removeAll()
                 saveInDB()
-                lastMoveTime = self.showDateTime.string(from: Date())
 //                lastStartDate = self.showDate.string(from: Date())
 //                lastStartTime = self.showTime.string(from: Date())
             }
