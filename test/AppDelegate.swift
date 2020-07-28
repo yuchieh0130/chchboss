@@ -113,7 +113,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             lastStopTime = self.showDateTime.string(from: Date())
             lastSpeeds.append(0)
             searchFivePlace()
-            saveInDB()
+            print("qqqqq")
+            //saveInDB()
         }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
             searchFivePlace()
             lastStopTime = self.showDateTime.string(from: Date())
@@ -285,6 +286,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             
             self.lastPlaceModel = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: speed)
             print(self.lastPlaceModel)
+            
             self.myLocationManager.delegate = self
         })
     }
