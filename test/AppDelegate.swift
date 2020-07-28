@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var lastLocation: CLLocation!
     //var lastName1 = ""
     var lastSpeeds = [Double]()
-    var lastPlaceModel  = [LocationModel]()
+    var lastPlaceModel = LocationModel(locationId: 0, longitude: 0.0, latitude: 0.0, startDate: "", startTime: "", weekday: 0, duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: 0)
     
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
