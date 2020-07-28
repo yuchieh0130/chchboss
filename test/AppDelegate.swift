@@ -111,6 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         self.currentLocation = locations[0] as CLLocation
         if lastLocation == nil{
             lastStopTime = self.showDateTime.string(from: Date())
+            lastSpeeds.append(0)
             searchFivePlace()
             saveInDB()
         }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
@@ -212,7 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             
             //DBManager.getInstance().saveDuration(double: duration)
         let duration = Date().timeIntervalSince(self.showDateTime.date(from: self.lastStopTime)!)
-        DBManager.getInstance().saveLocation(lastPlaceModel)
+        DBManager.getInstance().saveLocation(self.lastPlaceModel)
         DBManager.getInstance().saveDuration(double: duration)
         
         
