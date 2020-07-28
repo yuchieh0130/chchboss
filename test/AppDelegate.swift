@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var lastLocation: CLLocation!
     //var lastName1 = ""
     var lastSpeeds = [Double]()
-    var lastPlaceModel : LocationModel!
+    var lastPlaceModel  = [LocationModel]()
     
     var placesClient: GMSPlacesClient!
     var filterList = [String]()
@@ -284,6 +284,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             //let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartDateTime)!)
             
             self.lastPlaceModel = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: speed)
+            print(self.lastPlaceModel)
             self.myLocationManager.delegate = self
         })
     }
