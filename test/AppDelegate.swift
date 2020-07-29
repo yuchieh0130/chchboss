@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     //var myLocation :CLLocation!
     //var currentSpeed :CLLocationSpeed = CLLocationSpeed()
     var currentLocation: CLLocation!
+    var currentSpeed: Double = 55.66
     //用來判斷要不要存進db
     var lastSpeed:Double = 55.66
     //var lastStartTime:String = ""
@@ -88,61 +89,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
-        //取得目前的座標位置
+        
         //let c = locations[0] as CLLocation
         //print(locations)
         //currentLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
         
-        //    取得時間
-        //let currentTime = Date()
-        //let dateFormatter: DateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        // 設定時區(台灣)
         //dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
         //dateFormatString = dateFormatter.string(from: Date())
         
-        //currentSpeed = myLocationManager.location!.speed
         //        if myLocationManager.location!.speed != lastSpeed{
         //            saveSpeed()
         //        }
         //        if myLocationManager.location!.speed == -1.0 && myLocationManager.location!.speed != lastSpeed{
         //            saveInDB()
         //        }
-        self.currentLocation = locations[0] as CLLocation
-        if lastLocation == nil{
-            lastStopTime = self.showDateTime.string(from: Date())
-            lastSpeeds.append(0)
-            searchFivePlace()
-            print("qqqqq")
-            //saveInDB()
-        }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
-            searchFivePlace()
-            lastStopTime = self.showDateTime.string(from: Date())
-            //lastStartDateTime = self.showDateTime.string(from: Date())
-                //saveSpeed()
-                //lastSpeeds.removeAll()
-        }else if myLocationManager.location!.speed >= 0 {
-            if lastSpeed == -1 && Date().timeIntervalSince(self.showDateTime.date(from: self.lastStopTime)!) > 300 {
-                //&& lastLocation.distance(from: currentLocation) > 150
-                lastMoveTime = self.showDateTime.string(from: Date())
-                saveSpeed()
-                lastSpeeds.removeAll()
-                saveInDB()
-//                lastStartDate = self.showDate.string(from: Date())
-//                lastStartTime = self.showTime.string(from: Date())
-            }
-            lastSpeeds.append(myLocationManager.location!.speed)
-        }
-        //        if myLocationManager.location!.horizontalAccuracy>=0{
-        //            //myLocationManager.stopUpdatingLocation()
-        //            if myLocationManager.location!.speed > 0{
-        //               saveSpeed()
-        //            }else{
-        //               saveInDB()
-        //            }
-        //        }
-        self.lastSpeed = myLocationManager.location!.speed
         
+        self.currentSpeed = myLocationManager.location!.speed
+        self.currentLocation = locations[0] as CLLocation
+        locationDB()
+        
+    }
+    
+    func locationDB(){
+        self.myLocationManager.delegate = nil
+        
+         if lastLocation == nil{
+                lastStopTime = self.showDateTime.string(from: Date())
+                lastSpeeds.append(0)
+                searchFivePlace()
+        }else if myLocationManager.location!.speed == -1 && lastSpeed > 0 {
+                searchFivePlace()
+                lastStopTime = self.showDateTime.string(from: Date())
+        }else if myLocationManager.location!.speed >= 0 {
+                if lastSpeed == -1 && Date().timeIntervalSince(self.showDateTime.date(from: self.lastStopTime)!) > 300 {
+                        //&& lastLocation.distance(from: currentLocation) > 150
+                    saveSpeed()
+                    lastSpeeds.removeAll()
+                    lastMoveTime = self.showDateTime.string(from: Date())
+                    saveInDB()
+                }
+            lastSpeeds.append(currentSpeed)
+        }
+                //        if myLocationManager.location!.horizontalAccuracy>=0{
+                //            //myLocationManager.stopUpdatingLocation()
+                //            if myLocationManager.location!.speed > 0{
+                //               saveSpeed()
+                //            }else{
+                //               saveInDB()
+                //            }
+                //        }
+        self.lastSpeed = currentSpeed
+        self.myLocationManager.delegate = self
     }
 
     func saveSpeed(){
@@ -161,15 +158,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: duration, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
         
-        //Duration這邊要改
         //DBManager.getInstance().saveDuration(double: duration)
-        //DBManager.getInstance().saveLocation(modelInfo)
+        let _ = DBManager.getInstance().saveLocation(modelInfo)
         //self.lastSpeed = speed
         
     }
     
     func saveInDB(){
-//        self.myLocationManager.delegate = nil
 //        likelyPlaces.removeAll()
 //        placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
 //            if let error = error {
@@ -214,12 +209,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             
             //DBManager.getInstance().saveDuration(double: duration)
         let duration = Date().timeIntervalSince(self.showDateTime.date(from: self.lastStopTime)!)
-        DBManager.getInstance().saveLocation(self.lastPlaceModel)
-        DBManager.getInstance().saveDuration(double: duration)
+        let _ = DBManager.getInstance().saveLocation(self.lastPlaceModel)
+        let _ = DBManager.getInstance().saveDuration(double: duration)
         
         
-        // duration先全部存0
-        let data : [String: String] = ["location_id":"0", "longitude":String(lastPlaceModel.longitude), "latitude":String(lastPlaceModel.latitude), "start_date":lastPlaceModel.startDate, "start_time":lastPlaceModel.startTime,"weekday":String(lastPlaceModel.weekday), "duration":String(lastPlaceModel.duration!), "speed":String(lastPlaceModel.speed), "name1":lastPlaceModel.name1!, "name2":lastPlaceModel.name2!, "name3":lastPlaceModel.name3!, "name4":lastPlaceModel.name4!, "name5":lastPlaceModel.name5!, "category1":lastPlaceModel.category1!, "category2":lastPlaceModel.category2!, "category3":lastPlaceModel.category3!, "category4":lastPlaceModel.category4!, "category5":lastPlaceModel.category5!]
+        let data : [String: String] = ["location_id":"0", "longitude":String(lastPlaceModel.longitude), "latitude":String(lastPlaceModel.latitude), "start_date":lastPlaceModel.startDate, "start_time":lastPlaceModel.startTime,"weekday":String(lastPlaceModel.weekday), "duration":String(duration), "speed":String(lastPlaceModel.speed), "name1":lastPlaceModel.name1!, "name2":lastPlaceModel.name2!, "name3":lastPlaceModel.name3!, "name4":lastPlaceModel.name4!, "name5":lastPlaceModel.name5!, "category1":lastPlaceModel.category1!, "category2":lastPlaceModel.category2!, "category3":lastPlaceModel.category3!, "category4":lastPlaceModel.category4!, "category5":lastPlaceModel.category5!]
             
             //            let data : [String: String] = ["location_id":"0", "longitude":String(self.longitude), "latitude":String(self.latitude), "start_time":self.startTime, "duration":String(self.duration), "speed":String(self.speed), "name1":self.name1, "name2":self.name2, "name3":self.name3, "name4":self.name4, "name5":self.name5, "category1":self.category1, "category2":self.category2, "category3":self.category3, "category4":self.category4, "category5":self.category5]
             
@@ -232,19 +226,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             
             //self.lastStartTime = startTime
             //self.lastName1 = name1
-            self.lastLocation = CLLocation(latitude: lastPlaceModel.latitude, longitude: lastPlaceModel.longitude)
-            self.lastSpeed = -1.0
+            //self.lastLocation = CLLocation(latitude: lastPlaceModel.latitude, longitude: lastPlaceModel.longitude)
+            //self.lastSpeed = -1.0
             //self.lastStartDateTime = self.showDateTime.string(from: Date())
             //self.myLocationManager.startUpdatingLocation()
-            //self.myLocationManager.delegate = nil
-            self.myLocationManager.delegate = self
         
         //})
         
     }
     
     func searchFivePlace(){
-        self.myLocationManager.delegate = nil
+        //self.myLocationManager.delegate = nil
         likelyPlaces.removeAll()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
@@ -281,13 +273,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             let category3 = self.likelyPlaces[2].types![0]
             let category4 = self.likelyPlaces[3].types![0]
             let category5 = self.likelyPlaces[4].types![0]
-            let speed = self.myLocationManager.location!.speed
             //let duration = Date().timeIntervalSince(self.showTime.date(from: self.lastStartDateTime)!)
             
-            self.lastPlaceModel = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: speed)
-            print(self.lastPlaceModel)
+            self.lastPlaceModel = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: self.currentSpeed)
             
-            self.myLocationManager.delegate = self
+            //self.lastSpeed = -1.0
+            //self.myLocationManager.delegate = self
         })
     }
 
