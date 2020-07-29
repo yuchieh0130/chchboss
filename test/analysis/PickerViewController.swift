@@ -21,10 +21,7 @@ class PickerViewController: UIViewController{
         super.viewDidLoad()
         
         if tag == "analysisMonthYear"{
-            pickerViewMonthYear.onDateSelected = { (month: Int, year: Int) in
-                let string = String(format: "%02d/%d", month, year)
-                NSLog(string)
-            }
+            pickerViewMonthYear.dateMonthYear = "\(pickerViewMonthYear.month) \(pickerViewMonthYear.year)"
         }
     }
     

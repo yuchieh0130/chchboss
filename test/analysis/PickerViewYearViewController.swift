@@ -21,10 +21,7 @@ class PickerViewYearController: UIViewController{
         super.viewDidLoad()
         
         if tag == "analysisYear"{
-            pickerViewYear.onDateSelected = { (year: Int) in
-                let string = String(format: "%02d/%d", year)
-                NSLog(string)
-            }
+            pickerViewYear.dateYear = "\(pickerViewYear.year)"
         }
     }
     
@@ -34,4 +31,5 @@ class PickerViewYearController: UIViewController{
     @IBAction func cancelBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
