@@ -1,28 +1,28 @@
 //
-//  PickerViewController.swift
+//  PickerViewYearViewController.swift
 //  test
 //
-//  Created by 王義甫 on 2020/7/24.
+//  Created by 王義甫 on 2020/7/29.
 //  Copyright © 2020 AppleInc. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class PickerViewController: UIViewController{
+class PickerViewYearController: UIViewController{
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var saveBtn: UIButton!
-    @IBOutlet var pickerViewMonthYear: MonthYearPickerView!
+    @IBOutlet var pickerViewYear: YearPickerView!
     
     var tag: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if tag == "analysisMonthYear"{
-            pickerViewMonthYear.onDateSelected = { (month: Int, year: Int) in
-                let string = String(format: "%02d/%d", month, year)
+        if tag == "analysisYear"{
+            pickerViewYear.onDateSelected = { (year: Int) in
+                let string = String(format: "%02d/%d", year)
                 NSLog(string)
             }
         }

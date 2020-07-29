@@ -14,6 +14,8 @@
 		4B052675242C9CE50048DB8D /* addCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052674242C9CE50048DB8D /* addCell.swift */; };
 		4B052677242C9CF40048DB8D /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B052676242C9CF40048DB8D /* addViewController.swift */; };
 		4B116D7E2477715A00CD25BD /* middleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B116D7D2477715A00CD25BD /* middleViewController.swift */; };
+		4B127D0A24D1A5DA00B87B99 /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B127D0924D1A5DA00B87B99 /* YearPickerView.swift */; };
+		4B127D0C24D1AC3A00B87B99 /* PickerViewYearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B127D0B24D1AC3A00B87B99 /* PickerViewYearViewController.swift */; };
 		4B1C31072415696600875B74 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C31062415696600875B74 /* DateHeader.swift */; };
 		4B2B337C247620A900B014E2 /* editAutoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */; };
 		4B351A4724188BE9003A474A /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B351A3C24188BE9003A474A /* FMDatabase.m */; };
@@ -79,6 +81,8 @@
 		4B052674242C9CE50048DB8D /* addCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addCell.swift; sourceTree = "<group>"; };
 		4B052676242C9CF40048DB8D /* addViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
 		4B116D7D2477715A00CD25BD /* middleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewController.swift; sourceTree = "<group>"; };
+		4B127D0924D1A5DA00B87B99 /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
+		4B127D0B24D1AC3A00B87B99 /* PickerViewYearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewYearViewController.swift; sourceTree = "<group>"; };
 		4B1C31062415696600875B74 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editAutoRecordViewController.swift; sourceTree = "<group>"; };
 		4B351A3C24188BE9003A474A /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				4B490B8E24B589A500A8249A /* combineChartViewController.swift */,
 				4B9E6C0224CAD4B9002A1B80 /* MonthYearPickerView.swift */,
 				4B362F8424CADC2400E635C6 /* PickerViewController.swift */,
+				4B127D0924D1A5DA00B87B99 /* YearPickerView.swift */,
+				4B127D0B24D1AC3A00B87B99 /* PickerViewYearViewController.swift */,
 			);
 			path = analysis;
 			sourceTree = "<group>";
@@ -502,6 +508,7 @@
 				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
 				4B362F8524CADC2400E635C6 /* PickerViewController.swift in Sources */,
 				4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */,
+				4B127D0A24D1A5DA00B87B99 /* YearPickerView.swift in Sources */,
 				4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */,
 				4BF6625524613D8F0021D85E /* tabBar.swift in Sources */,
 				4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */,
@@ -523,6 +530,7 @@
 				4B1C31072415696600875B74 /* DateHeader.swift in Sources */,
 				4B2B337C247620A900B014E2 /* editAutoRecordViewController.swift in Sources */,
 				FF76549124AE0E1E00663E58 /* SignupViewController.swift in Sources */,
+				4B127D0C24D1AC3A00B87B99 /* PickerViewYearViewController.swift in Sources */,
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,
