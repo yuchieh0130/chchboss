@@ -399,7 +399,12 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }
         if (segue.identifier == "analysisPickerView"){
             if let vc = segue.destination as? PickerViewController{
-                vc.tag = "analysis"
+                vc.tag = "analysisMonthYear"
+            }
+        }
+        if (segue.identifier == "analysisPickerViewYear"){
+            if let vc = segue.destination as? PickerViewYearController{
+                vc.tag = "analysisYear"
             }
         }
         
@@ -418,11 +423,15 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }else if segConIndex == 2{
             let vc = segue.source as? PickerViewController
             tag = vc?.tag
-            if tag == "analysis"{
-                timeLabel.text = vc?.pickerView.date
+            if tag == "analysisMonthYear"{
+                timeLabel.text = vc?.pickerViewMonthYear.dateMonthYear
             }
         }else if segConIndex == 3{
-            
+            let vc = segue.source as? PickerViewYearController
+            tag = vc?.tag
+            if tag == "analysisYear"{
+                timeLabel.text = vc?.pickerViewYear.dateYear
+            }
         }
     }
     
@@ -494,6 +503,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             performSegue(withIdentifier: "analysisPickerView", sender: self)
             print(2)
         }else if segConIndex == 3{
+            performSegue(withIdentifier: "analysisPickerViewYear", sender: self)
             print(3)
         }
         
