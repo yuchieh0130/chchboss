@@ -834,7 +834,6 @@
                         <outlet property="Daily" destination="Egg-me-Yuw" id="HEb-d2-vJa"/>
                         <outlet property="emailTextField" destination="wXK-S2-vnB" id="a3v-O6-pNe"/>
                         <outlet property="passwordTextField" destination="gJ2-WZ-y3B" id="OI9-G2-tfJ"/>
-                        <segue destination="FGn-vJ-0Zo" kind="show" identifier="bbbanana" id="JA0-7e-ZE5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdv-Dx-tlP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -941,7 +940,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="logOut" destination="PDW-ea-PK3" id="J9s-wC-AVp"/>
-                                            <segue destination="8kr-6C-ze8" kind="show" id="pNT-4j-Cbz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3497,7 +3495,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="JA0-7e-ZE5"/>
         <segue reference="54J-Uw-fAs"/>
         <segue reference="9Rl-2J-tqH"/>
         <segue reference="0SZ-0C-Z6S"/>

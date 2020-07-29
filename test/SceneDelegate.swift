@@ -22,18 +22,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             // Fallback on earlier versions
         }
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        // if user is logged in before
-        if (UserDefaults.standard.value(forKey: "isLogIn") != nil){
-            let tabBarController = storyboard.instantiateViewController(identifier: "tabBarController")
-                window?.rootViewController = tabBarController
-            }else{
-                // if user isn't logged in
-                let loginViewController = storyboard.instantiateViewController(identifier: "LoginViewController")
-                window?.rootViewController = loginViewController
-            }
+        if UserDefaults.standard.bool(forKey: "isLogIn") == true{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
+            window?.rootViewController = tabBar
+        }else{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let login = storyboard.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+            window?.rootViewController = login
+        }
         
+    }
+    
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            return
+        }
+
+        window.rootViewController = vc
+
+        // add animation
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [.transitionFlipFromLeft],
+                          animations: nil,
+                          completion: nil)
+
     }
 
     @available(iOS 13.0, *)
@@ -67,20 +82,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-    }
-    
-    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
-        guard let window = self.window else {
-            return
-        }
-        // change the root view controller to your specific view controller
-        window.rootViewController = vc
-        
-        UIView.transition(with: window,
-                              duration: 0.5,
-                              options: [.transitionFlipFromLeft],
-                              animations: nil,
-                              completion: nil)
     }
 
 

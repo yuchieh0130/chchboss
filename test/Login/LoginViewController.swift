@@ -17,11 +17,6 @@ class LoginViewController: UIViewController {
     
     let signUpView = SignupViewController()
     
-//    let userDefaults = UserDefaults.standard
-    
-//    var isLogIn: Bool = false
-    
-    
     @IBAction func logInBtn(_ sender: Any) {
         UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
