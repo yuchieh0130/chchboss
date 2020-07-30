@@ -20,7 +20,7 @@ struct reminderConfig{
     var fireTime = Int()
 }
 
-class addViewController : UIViewController{
+class addViewController : UIViewController {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var btnAdd: UIButton!
@@ -98,13 +98,13 @@ class addViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //查看手機內佇列的notification
-        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
-            for request in requests {
-                print(request)
-            }
-        })
+//        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+//            for request in requests {
+//                print("notifi \(request)")
+//            }
+//        })
         //查看所有已推送的notification
-        // UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
+//         UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
         tableViewData = [cellConfig(opened: false, title: "Name"),
                          cellConfig(opened: false, title: "Start"),
@@ -331,10 +331,11 @@ class addViewController : UIViewController{
         // check 若endDateTime不為空值且小於startDateTime，顯示警告訊息
         if name == nil || name == ""{
             alertMessage()
-        }else {
-            if autoRecord == true{
+        } else {
+            if autoRecord {
+                askNotification()
                 autoCategory = category.categoryId
-                if savePlaceModel != nil{
+                if savePlaceModel != nil {
                 let isAdded = DBManager.getInstance().addPlace(savePlaceModel!)
                 autoPlace = DBManager.getInstance().getMaxPlace()
                     let data:[String:String] = ["place_id":"0", "place_name":savePlaceModel!.placeName, "place_longitude":String(savePlaceModel!.placeLongitude), "place_latitude":String(savePlaceModel!.placeLatitude)]
@@ -346,7 +347,7 @@ class addViewController : UIViewController{
                         }
                     }
                 }
-            }else if allDay == true{
+            } else if allDay {
                 startTime = nil
                 endTime = nil
             }
@@ -460,6 +461,33 @@ class addViewController : UIViewController{
         default:
             print("")
         }
+    }
+    
+    func askNotification() {
+        let yes = UNNotificationAction(identifier: "yes", title: "YES", options: [])
+        let no = UNNotificationAction(identifier: "no", title: "NO", options: [])
+        let ctgr = UNNotificationCategory(identifier: "yesOrNo", actions: [yes, no], intentIdentifiers:[] , options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([ctgr])
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([ .hour, .minute], from: s)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        let content = UNMutableNotificationContent()
+        content.title = "Are you Eating?"
+        content.body = "Having dinner with family in XXX ?"
+        content.sound = UNNotificationSound.default
+        content.categoryIdentifier = "yesOrNo"
+        
+        let request = UNNotificationRequest(identifier: "askNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) { (error: Error?) in
+            if let error = error {
+                print("Errorrrrr: \(error.localizedDescription)")
+            }
+        }
+        
+        
     }
     
     @IBAction func clearLocation(_ sender: UIButton){

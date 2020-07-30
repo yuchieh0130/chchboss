@@ -40,6 +40,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var percentage = Array<Double>()
     var segConIndex = 0
     
+    var currentWeek = Calendar.current.component(.weekOfYear, from: Date())
     var currentYear = Calendar.current.component(.year, from: Date())
     var currentMonth = Calendar.current.component(.month, from: Date())
     var currentDay = Calendar.current.component(.day, from: Date())
@@ -91,7 +92,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //        }
         
         showCategory = DBManager.getInstance().getAllCategory()
-        for i in 0...showCategory.count-1{
+        for i in 0...showCategory.count-2{
             showCategoryStr.append(showCategory[i].categoryName)
             showCategoryColor.append(showCategory[i].categoryColor)
         }
@@ -454,7 +455,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func setUpWeek(){
-        timeLabel.text = "still thinking"
+        timeLabel.text = "\(currentWeek)"
     }
     
     func setUpMonth(){
@@ -470,6 +471,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             currentDay -= 1
             setUpDay()
         }else if segConIndex == 1{
+            currentWeek -= 1
             setUpWeek()
         }else if segConIndex == 2{
             currentMonth -= 1
@@ -489,6 +491,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             currentDay += 1
             setUpDay()
         }else if segConIndex == 1{
+            currentWeek += 1
             setUpWeek()
         }else if segConIndex == 2{
             currentMonth += 1
