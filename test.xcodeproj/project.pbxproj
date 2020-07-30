@@ -16,6 +16,8 @@
 		4B116D7E2477715A00CD25BD /* middleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B116D7D2477715A00CD25BD /* middleViewController.swift */; };
 		4B127D0A24D1A5DA00B87B99 /* YearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B127D0924D1A5DA00B87B99 /* YearPickerView.swift */; };
 		4B127D0C24D1AC3A00B87B99 /* PickerViewYearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B127D0B24D1AC3A00B87B99 /* PickerViewYearViewController.swift */; };
+		4B127D0E24D2895A00B87B99 /* PickerViewWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B127D0D24D2895A00B87B99 /* PickerViewWeekViewController.swift */; };
+		4B127D1024D289C300B87B99 /* WeekPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B127D0F24D289C300B87B99 /* WeekPickerView.swift */; };
 		4B1C31072415696600875B74 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C31062415696600875B74 /* DateHeader.swift */; };
 		4B2B337C247620A900B014E2 /* editAutoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */; };
 		4B351A4724188BE9003A474A /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B351A3C24188BE9003A474A /* FMDatabase.m */; };
@@ -83,6 +85,8 @@
 		4B116D7D2477715A00CD25BD /* middleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = middleViewController.swift; sourceTree = "<group>"; };
 		4B127D0924D1A5DA00B87B99 /* YearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerView.swift; sourceTree = "<group>"; };
 		4B127D0B24D1AC3A00B87B99 /* PickerViewYearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewYearViewController.swift; sourceTree = "<group>"; };
+		4B127D0D24D2895A00B87B99 /* PickerViewWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewWeekViewController.swift; sourceTree = "<group>"; };
+		4B127D0F24D289C300B87B99 /* WeekPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPickerView.swift; sourceTree = "<group>"; };
 		4B1C31062415696600875B74 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editAutoRecordViewController.swift; sourceTree = "<group>"; };
 		4B351A3C24188BE9003A474A /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 				4B362F8424CADC2400E635C6 /* PickerViewController.swift */,
 				4B127D0924D1A5DA00B87B99 /* YearPickerView.swift */,
 				4B127D0B24D1AC3A00B87B99 /* PickerViewYearViewController.swift */,
+				4B127D0F24D289C300B87B99 /* WeekPickerView.swift */,
+				4B127D0D24D2895A00B87B99 /* PickerViewWeekViewController.swift */,
 			);
 			path = analysis;
 			sourceTree = "<group>";
@@ -483,6 +489,7 @@
 				586B87DA24619A7100E7E273 /* mapViewController.swift in Sources */,
 				6B6BB1B2225FAD04006F384C /* ViewController.swift in Sources */,
 				4B351A4A24188BE9003A474A /* FMDatabasePool.m in Sources */,
+				4B127D0E24D2895A00B87B99 /* PickerViewWeekViewController.swift in Sources */,
 				4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */,
 				4B855D0C2438477C001B80C7 /* tabBarController.swift in Sources */,
 				4B116D7E2477715A00CD25BD /* middleViewController.swift in Sources */,
@@ -507,6 +514,7 @@
 				4BAB720824A9E703007D52A7 /* settingsTableViewCell.swift in Sources */,
 				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
 				4B362F8524CADC2400E635C6 /* PickerViewController.swift in Sources */,
+				4B127D1024D289C300B87B99 /* WeekPickerView.swift in Sources */,
 				4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */,
 				4B127D0A24D1A5DA00B87B99 /* YearPickerView.swift in Sources */,
 				4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */,
