@@ -18,9 +18,9 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
                                        for: Date()) // for: customDate)
         return weekRange!.count
     }
+    
     var weeksArray: [String] = []
-
-    var weeks: [Int]!
+    var weeks: [String]!
     var week = Calendar.current.component(.weekOfYear, from: Date()){
         didSet{
             selectRow(week, inComponent: 0, animated: true)
@@ -45,19 +45,20 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     func commonSetup() {
-        var weeks: [Int] = []
+        var weeks: [String] = []
+        var dateFormat = DateFormatter()
+        dateFormat.dateFormat =  "yyyy-MM-dd"
         if weeks.count == 0 {
             var week = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.weekOfYear, from: NSDate() as Date)
-            for _ in 1...30{
-                weeks.append(week)
-                week -= 1
+            for _ in 1...numberOfWeeksInYear{
+                weeksArray = (1...numberOfWeeksInYear).map { "\($0)" }
+                weeks = [dateFormat.string(from: Date().dateCorrespondingTo(weekNumber: Int(weeksArray[selectedRow(inComponent: 0)]) ?? 0)!-1)]
+//                weeksArray.append("\(dateFormat.string(from: startWeek!-1))")
             }
         }
         self.weeks = weeks
         self.delegate = self
         self.dataSource = self
-        
-        weeksArray = (1...numberOfWeeksInYear).map { "\($0)" }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -93,10 +94,8 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         dateFormat.dateFormat =  "yyyy-MM-dd"
         
         let sunOfWeek = Date().dateCorrespondingTo(weekNumber: Int(weeksArray[row]) ?? 0)
-        let satOfWeek = Date().dateCorrespondingTo(weekNumber: Int(weeksArray[row]) ?? 6)
         let sun = dateFormat.string(from: sunOfWeek!-1)
-        let sat = dateFormat.string(from: satOfWeek!-1)
-        dateWeek = "\(sun) ~ \(sat)"
+        dateWeek = "\(sun)"
         
         self.week = week
     }

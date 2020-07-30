@@ -28,10 +28,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var showCategoryStr = [String]()
     var showCategoryColor = [String]()
     
-    var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0, 0.0]
-    var values = [0.0, 40.0, 63.0, 0.0, 44.0, 12.0, 0.0, 90.0, 0.0, 60.0, 0.0, 17.0, 0.0, 37.0, 0.0, 54.0, 64.0, 11.0, 0.0]
-    var values1 = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0, 0.0]
-    var values2 = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0, 0.0]
+    var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
+    var values = [0.0, 40.0, 63.0, 0.0, 44.0, 12.0, 0.0, 90.0, 0.0, 60.0, 0.0, 17.0, 0.0, 37.0, 0.0, 54.0, 64.0, 11.0]
+    var values1 = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
+    var values2 = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     var index0 = 0
     var index1 = 0
     var index2 = 0
@@ -40,6 +40,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var percentage = Array<Double>()
     var segConIndex = 0
     
+    var currentWeek = Calendar.current.component(.weekOfYear, from: Date())
     var currentYear = Calendar.current.component(.year, from: Date())
     var currentMonth = Calendar.current.component(.month, from: Date())
     var currentDay = Calendar.current.component(.day, from: Date())
@@ -91,7 +92,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //        }
         
         showCategory = DBManager.getInstance().getAllCategory()
-        for i in 0...showCategory.count-1{
+        for i in 0...showCategory.count-2{
             showCategoryStr.append(showCategory[i].categoryName)
             showCategoryColor.append(showCategory[i].categoryColor)
         }
@@ -454,7 +455,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func setUpWeek(){
-        timeLabel.text = ""
+        timeLabel.text = "\(currentWeek)"
     }
     
     func setUpMonth(){
@@ -470,6 +471,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             currentDay -= 1
             setUpDay()
         }else if segConIndex == 1{
+            currentWeek -= 1
             setUpWeek()
         }else if segConIndex == 2{
             currentMonth -= 1
@@ -489,6 +491,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             currentDay += 1
             setUpDay()
         }else if segConIndex == 1{
+            currentWeek += 1
             setUpWeek()
         }else if segConIndex == 2{
             currentMonth += 1
