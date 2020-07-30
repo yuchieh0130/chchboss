@@ -278,7 +278,7 @@ class addViewController : UIViewController {
     
     //handle date object from DatePopupViewController
     func handletime(){
-        var interval = e.timeIntervalSince(s)
+        let interval = e.timeIntervalSince(s)
         if tag == "startDate"{
             s = date
             if dayConstraint(i: "start") == 2 { e = s}
@@ -336,8 +336,8 @@ class addViewController : UIViewController {
                 askNotification()
                 autoCategory = category.categoryId
                 if savePlaceModel != nil {
-                let isAdded = DBManager.getInstance().addPlace(savePlaceModel!)
-                autoPlace = DBManager.getInstance().getMaxPlace()
+                autoPlace = DBManager.getInstance().addPlace(savePlaceModel!)
+                //autoPlace = DBManager.getInstance().getMaxPlace()
                     let data:[String:String] = ["place_id":"0", "place_name":savePlaceModel!.placeName, "place_longitude":String(savePlaceModel!.placeLongitude), "place_latitude":String(savePlaceModel!.placeLatitude)]
                     
                     self.net.postSaveplaceData(data: data){
@@ -353,9 +353,8 @@ class addViewController : UIViewController {
             }
             //insert to database
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!, autoCategory:autoCategory,autoLocation: autoPlace, reminder: reminder!)
-            let isAdded = DBManager.getInstance().addEvent(modelInfo)
+            DBManager.getInstance().addEvent(modelInfo)
             if reminder != "0" { makeNotification(action: "add")}
-            //新增當下問是不是在做這件事的通知
         }
         
     }
@@ -373,16 +372,18 @@ class addViewController : UIViewController {
             if autoRecord == true{
                 autoCategory = category.categoryId
                 if savePlaceModel != nil{
-                    let isAdded1 = DBManager.getInstance().addPlace(savePlaceModel!)
+                    autoPlace = DBManager.getInstance().addPlace(savePlaceModel!)
+                }else{
+                    autoPlace = nil
                 }
-                autoPlace = DBManager.getInstance().getMaxPlace()
+                //autoPlace = DBManager.getInstance().getMaxPlace()
                 //autoLocation = 0
             }else if allDay == true{
                 startTime = nil
                 endTime = nil
             }
             let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoPlace, reminder: reminder!)
-            let isEdited = DBManager.getInstance().editEvent(modelInfo)
+            DBManager.getInstance().editEvent(modelInfo)
             makeNotification(action: "delete")
             if reminder != "0" {makeNotification(action: "add")}
             //編輯當下問是不是在做這件事的通知
@@ -403,7 +404,7 @@ class addViewController : UIViewController {
     func delete(){
            reminder = reminder_index.map { String($0) }.joined(separator: ",")
            let modelInfo = EventModel(eventId: id, eventName: name!, startDate: startDate,startTime: startTime, endDate: endDate,endTime: endTime, allDay: allDay!, autoRecord: autoRecord!,autoCategory:autoCategory,autoLocation: autoPlace,reminder: reminder!)
-           let isDeleted = DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
+           DBManager.getInstance().deleteEvent(id: modelInfo.eventId!)
            //刪除當下問是不是在做這件事的通知
            makeNotification(action: "delete")
        }
@@ -422,7 +423,7 @@ class addViewController : UIViewController {
     
     //manage the notification
     func makeNotification(action: String){
-        var notifivationids = [String]()
+        //var notifivationids = [String]()
         var fireDate = s
         if allDay{
             fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")!

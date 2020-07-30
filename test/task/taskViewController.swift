@@ -134,19 +134,19 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     @available(iOS 13.0, *)
     public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id = showTask?[indexPath.row].taskId
-        let task = showTask?[indexPath.row]
+        //let task = showTask?[indexPath.row]
         let pinAction = UIContextualAction(style: .normal, title: "Pin") { (action, view, completionHandler) in
             print("Pin")
             completionHandler(true)
             self.tableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
-            let isPinned = DBManager.getInstance().pinTask(id: id!)
+            DBManager.getInstance().pinTask(id: id!)
             self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
         }
         let unPinAction = UIContextualAction(style: .normal, title: "Unpin") { (action, view, completionHandler) in
             print("Unpin")
             completionHandler(true)
-            let unPinned = DBManager.getInstance().unPinTask(id: id!)
+            DBManager.getInstance().unPinTask(id: id!)
             self.showTask = DBManager.getInstance().getAllUndoneTask()
             self.tableView.reloadData()
         }
@@ -165,7 +165,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     @available(iOS 13.0, *)
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id =  showTask?[indexPath.row].taskId
-        let task = showTask?[indexPath.row]
+        //let task = showTask?[indexPath.row]
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
@@ -173,7 +173,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                     self.showTask!.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
-                    let isDeleted = DBManager.getInstance().deleteTask(id: id!)
+                    DBManager.getInstance().deleteTask(id: id!)
                     self.dismiss(animated: true, completion: nil)
                 }
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -185,7 +185,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
             print("Done")
             completionHandler(true)
-            let isDone = DBManager.getInstance().doneTask(id: id!)
+            DBManager.getInstance().doneTask(id: id!)
             self.showTask!.remove(at: indexPath.row)
             if DBManager.getInstance().getAllUndoneTask() == nil{
                 self.showTask = [TaskModel]()

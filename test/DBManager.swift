@@ -27,11 +27,10 @@ class DBManager: NSObject {
     }
     
     /*func for event*/
-    func addEvent(_ modelInfo: EventModel) -> Bool{
+    func addEvent(_ modelInfo: EventModel) {
         shareInstance.database?.open()
-        let isAdded = (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder]))
+        (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime!,modelInfo.endDate,modelInfo.endTime!,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory!,modelInfo.autoLocation!,modelInfo.reminder]))
         shareInstance.database?.close()
-        return isAdded!
     }
     
     func deleteEvent(id: Int32) -> Bool{
@@ -41,11 +40,11 @@ class DBManager: NSObject {
         return isDeleted!
     }
     
-    func editEvent(_ modelInfo: EventModel) -> Bool{
+    func editEvent(_ modelInfo: EventModel){
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder])
-        shareInstance.database?.close()
-        return isEdited!
+        print(modelInfo)
+        shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId!,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime!,modelInfo.endDate,modelInfo.endTime!,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory!,modelInfo.autoLocation ?? nil,modelInfo.reminder])
+            shareInstance.database?.close()
     }
     
     func getEvents(String: String) -> [EventModel]!{
@@ -71,11 +70,6 @@ class DBManager: NSObject {
             let event: EventModel
             
             event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!,autoCategory: h,autoLocation: j, reminder: k!)
-            //            if c == nil && e == nil{
-            //                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!,autoCategory: h,autoLocation: j, reminder: k!)
-            //            }else{
-            //                event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!, reminder: j!)
-            //            }
             
             if events == nil{
                 events = [EventModel]()
@@ -165,27 +159,27 @@ class DBManager: NSObject {
     //    }
     
     /*func for location*/
-    func saveLocation(_ modelInfo: LocationModel) -> String{
+    func saveLocation(_ modelInfo: LocationModel) {
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration,modelInfo.name1,modelInfo.category1,modelInfo.name2,modelInfo.category2,modelInfo.name3,modelInfo.category3,modelInfo.name4,modelInfo.category4,modelInfo.name5,modelInfo.category5,modelInfo.speed])
+        shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration!,modelInfo.name1!,modelInfo.category1!,modelInfo.name2!,modelInfo.category2!,modelInfo.name3!,modelInfo.category3!,modelInfo.name4!,modelInfo.category4!,modelInfo.name5!,modelInfo.category5!,modelInfo.speed])
         
         shareInstance.database?.close()
-        return modelInfo.startTime
+        //return modelInfo.startTime
     }
     
-    func getLocName() -> String!{
-        var location : String!
-        shareInstance.database?.open()
-        let sqlString = "SELECT name1 FROM location ORDER BY location_id DESC limit 1";
-        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
-        
-        while ((set?.next())!) {
-            let i = set?.string(forColumn: "name1")
-            location = i
-        }
-        set?.close()
-        return location
-    }
+//    func getLocName() -> String!{
+//        var location = ""
+//        shareInstance.database?.open()
+//        let sqlString = "SELECT name1 FROM location ORDER BY location_id DESC limit 1";
+//        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+//
+//        while ((set?.next())!) {
+//            let i = set?.string(forColumn: "name1")
+//            location = i
+//        }
+//        set?.close()
+//        return location
+//    }
     
 //    func getLocation() -> LocationModel!{
 //        
@@ -252,12 +246,11 @@ class DBManager: NSObject {
         return location
     }
     
-    func saveDuration(double: Double) -> Bool{
+    func saveDuration(double: Double) {
         shareInstance.database?.open()
-        let isSave = shareInstance.database?.executeUpdate("UPDATE location SET duration = \(double) WHERE location_id = (SELECT MAX(location_id) FROM location) ", withArgumentsIn:[double])
+        shareInstance.database?.executeUpdate("UPDATE location SET duration = \(double) WHERE location_id = (SELECT MAX(location_id) FROM location) ", withArgumentsIn:[double])
         
         shareInstance.database?.close()
-        return isSave!
     }
     
     
@@ -308,7 +301,7 @@ class DBManager: NSObject {
         return place
     }
     
-    func getNotMyPlace() -> [PlaceModel]!{
+    func getNotMyPlaces() -> [PlaceModel]!{
         
         var places : [PlaceModel]!
         shareInstance.database?.open()
@@ -336,7 +329,7 @@ class DBManager: NSObject {
         return places
     }
     
-    func getMyPlace() -> [PlaceModel]!{
+    func getMyPlaces() -> [PlaceModel]!{
         
         var places : [PlaceModel]!
         shareInstance.database?.open()
@@ -386,25 +379,22 @@ class DBManager: NSObject {
 //    }
     
     /*func for task*/
-    func addTask(_ modelInfo: TaskModel) -> Bool{
+    func addTask(_ modelInfo: TaskModel) {
         shareInstance.database?.open()
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
+        shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime!,modelInfo.taskDeadline!,modelInfo.reminder,modelInfo.taskLocation!,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
         shareInstance.database?.close()
-        return isAdded!
     }
     
-    func deleteTask(id: Int32) -> Bool{
+    func deleteTask(id: Int32) {
         shareInstance.database?.open()
-        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM task WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.executeUpdate("DELETE FROM task WHERE task_id = \(id)", withArgumentsIn:[id])
         shareInstance.database?.close()
-        return isDeleted!
     }
     
-    func editTask(_ modelInfo: TaskModel) -> Bool{
+    func editTask(_ modelInfo: TaskModel) {
         shareInstance.database?.open()
-        let isEdited = shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId,modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
+        shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId!,modelInfo.taskName ,modelInfo.taskTime!,modelInfo.taskDeadline!,modelInfo.reminder,modelInfo.taskLocation!,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
         shareInstance.database?.close()
-        return isEdited!
     }
     
     //get selected date當天的task
@@ -498,32 +488,28 @@ class DBManager: NSObject {
         return tasks
     }
     
-    func deleteDoneTask(id: Int32) -> Bool{
+    func deleteDoneTask(id: Int32) {
         shareInstance.database?.open()
-        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM task WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.executeUpdate("DELETE FROM task WHERE task_id = \(id)", withArgumentsIn:[id])
         shareInstance.database?.close()
-        return isDeleted!
     }
     
-    func pinTask(id: Int32) -> Bool{
+    func pinTask(id: Int32) {
         shareInstance.database?.open()
-        let isPinned = shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 1 WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 1 WHERE task_id = \(id)", withArgumentsIn:[id])
         shareInstance.database?.close()
-        return isPinned!
     }
     
-    func unPinTask(id: Int32) -> Bool{
+    func unPinTask(id: Int32) {
         shareInstance.database?.open()
-        let unPinned = shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 0 WHERE task_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.executeUpdate("UPDATE task SET isPinned = 0 WHERE task_id = \(id)", withArgumentsIn:[id])
         shareInstance.database?.close()
-        return unPinned!
     }
     
-    func doneTask(id: Int32) -> Bool{
+    func doneTask(id: Int32) {
         shareInstance.database?.open()
-        let isDone = shareInstance.database?.executeUpdate("UPDATE task SET isDone = 1 WHERE task_id = \(id)", withArgumentsIn: [id])
+        shareInstance.database?.executeUpdate("UPDATE task SET isDone = 1 WHERE task_id = \(id)", withArgumentsIn: [id])
         shareInstance.database?.close()
-        return isDone!
     }
     
     /*func for track*/
@@ -574,11 +560,10 @@ class DBManager: NSObject {
 //    }
     
     //新增track
-    func addTrack(_ modelInfo: TrackModel) -> Bool{
+    func addTrack(_ modelInfo: TrackModel) {
         shareInstance.database?.open()
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId!])
+        shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId!])
         shareInstance.database?.close()
-        return isAdded!
     }
     
     //編輯track（不包含location）

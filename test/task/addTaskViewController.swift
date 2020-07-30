@@ -179,7 +179,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             alertMessage()
         }else{
             modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
-            let isAdded = DBManager.getInstance().addTask(modelInfo!)
+            DBManager.getInstance().addTask(modelInfo!)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -193,7 +193,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             alertMessage()
         }else{
             let modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
-            let isEdited = DBManager.getInstance().editTask(modelInfo)
+            DBManager.getInstance().editTask(modelInfo)
         }
         self.dismiss(animated: true, completion: nil)
         }
@@ -213,7 +213,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func delete(){
         let modelInfo = TaskModel(taskId: id, taskName: taskName!, taskTime: taskTime, taskDeadline: deadline, reminder: reminder, taskLocation: "default",addToCal: addToCal,isPinned: isPinned,isDone: isDone)
-        let isDeleted = DBManager.getInstance().deleteTask(id: modelInfo.taskId!)
+        DBManager.getInstance().deleteTask(id: modelInfo.taskId!)
     }
     
     func alertMessage(){

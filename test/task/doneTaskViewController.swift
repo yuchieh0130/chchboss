@@ -60,8 +60,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
-        let task = showTask![indexPath.row]
-        var taskDeadline = showTask?[indexPath.row].taskDeadline
+        //let task = showTask![indexPath.row]
+        let taskDeadline = showTask?[indexPath.row].taskDeadline
         cell.doneTaskName?.text = showTask![indexPath.row].taskName
         
         if taskDeadline == nil{
@@ -81,7 +81,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     @available(iOS 11.0, *)
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id =  showTask?[indexPath.row].taskId
-        let task = showTask?[indexPath.row]
+        //let task = showTask?[indexPath.row]
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
@@ -89,7 +89,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                 self.showTask!.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
-                let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
+                DBManager.getInstance().deleteDoneTask(id: id!)
             }
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             action.setValue(UIColor.red, forKey: "titleTextColor")
@@ -132,12 +132,12 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let controller = UIAlertController(title: "Delete Done Task?", message: "Tasks will also be deleted from the calendar.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
             if selectedRows != nil {
-                for var selectionIndex in selectedRows! {
+                for selectionIndex in selectedRows! {
                     let id =  self.showTask?[selectionIndex.row].taskId
-                    let task = self.showTask?[selectionIndex.row]
+                    //let task = self.showTask?[selectionIndex.row]
                     self.showTask!.remove(at: selectionIndex.row)
                     self.tableView.deleteRows(at: [selectionIndex], with: .left)
-                    let isDeleted = DBManager.getInstance().deleteDoneTask(id: id!)
+                    DBManager.getInstance().deleteDoneTask(id: id!)
                     self.tableView.reloadData()
 //                    while selectionIndex.item >= self.showTask!.count {
 //                        selectionIndex.item -= 1

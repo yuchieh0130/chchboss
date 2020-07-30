@@ -78,8 +78,8 @@ class myPlaceController: UIViewController{
             txtMyPlaceName.text = nil
         }
         
-        if DBManager.getInstance().getMyPlace() != nil{
-            showAllPlace = DBManager.getInstance().getMyPlace()
+        if DBManager.getInstance().getMyPlaces() != nil{
+            showAllPlace = DBManager.getInstance().getMyPlaces()
             
         }else{
             showAllPlace = [PlaceModel]()
@@ -95,8 +95,8 @@ class myPlaceController: UIViewController{
             btnAdd.isHidden = true
         }
         
-        if DBManager.getInstance().getMyPlace() != nil{
-            showAllPlace = DBManager.getInstance().getMyPlace()
+        if DBManager.getInstance().getMyPlaces() != nil{
+            showAllPlace = DBManager.getInstance().getMyPlaces()
             
         }else{
             showAllPlace = [PlaceModel]()
@@ -130,7 +130,7 @@ extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
 //        cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
         let cellIdentifier = "myPlaceCell"
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? UITableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: cellIdentifier)
         }
