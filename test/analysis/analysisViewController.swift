@@ -407,6 +407,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 vc.tag = "analysisYear"
             }
         }
+        if (segue.identifier == "analysisPickerViewWeek"){
+            if let vc = segue.destination as? PickerViewWeekViewController{
+                vc.tag = "analysisWeek"
+            }
+        }
         
     }
     
@@ -419,7 +424,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 timeLabel.text = showDayformatter.string(from: date)
             }
         }else if segConIndex == 1{
-            
+            let vc = segue.source as? PickerViewWeekViewController
+            tag = vc?.tag
+            if tag == "analysisWeek"{
+                timeLabel.text = vc?.pickerViewWeek.dateWeek
+            }
         }else if segConIndex == 2{
             let vc = segue.source as? PickerViewController
             tag = vc?.tag
@@ -498,13 +507,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         if segConIndex == 0{
             performSegue(withIdentifier: "analysisDatePopUp", sender: self)
         }else if segConIndex == 1{
-            print(1)
+            performSegue(withIdentifier: "analysisPickerViewWeek", sender: self)
         }else if segConIndex == 2{
             performSegue(withIdentifier: "analysisPickerView", sender: self)
-            print(2)
         }else if segConIndex == 3{
             performSegue(withIdentifier: "analysisPickerViewYear", sender: self)
-            print(3)
         }
         
     }
