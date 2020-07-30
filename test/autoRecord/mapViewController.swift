@@ -251,7 +251,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 txtSearch.text = nameArray[indexPath.row-1]
                 searchPlaceFromGoogle(txtSearch)
             }else{
-                savePlace = PlaceModel(placeId: id, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, myPlace: false)
+                savePlace = PlaceModel(placeId: savePlaceArray[indexPath.row-nameArray.count-1].placeId, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, myPlace: false)
             }
         }else{
             if indexPath.row < resultsArray.count{

@@ -120,7 +120,6 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
             let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
             let trackView = UIButton(frame:CGRect(x:80,y:25+Int(y),width: Int(fullSize.width)-100,height: Int(height)))
             trackView.tag = i
-//            let trackView = UIView(frame:CGRect(x:80,y:25+lastHeight,width: Int(fullSize.width)-100,height: Int(height)))
             trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
             trackView.addTarget(self, action: #selector(self.editAutoRecord), for: .touchUpInside)
             let categoryLabel = UILabel(frame:CGRect(x:20,y:20,width: 500,height: 50))

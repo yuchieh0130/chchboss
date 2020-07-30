@@ -17,7 +17,9 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         self.dismiss(animated: true, completion: nil)
     }
     
-    var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
+    var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", weekDay: 0, endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: 0)
+    var oldTrack = TrackModel(trackId: 0, startDate: "", startTime: "", weekDay: 0, endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: 0)
+    var newTrack = TrackModel(trackId: 0, startDate: "", startTime: "", weekDay: 0, endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: 0)
     var s = Date()
     var e = Date()
     var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
@@ -59,11 +61,9 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
-//        print(track.startDate)
-//        print(track.startTime)
+        oldTrack = track
         s = showDateformatter.date(from: "\(track.startDate) \(track.startTime)")!
         e = showDateformatter.date(from: "\(track.endDate) \(track.endTime)")!
-        //txtDate.text = "   " + track.date
         category = DBManager.getInstance().getCategory(Int: (track.categoryId))
         location = DBManager.getInstance().getLocation(Int: (track.locationId))
         savePlace = DBManager.getInstance().getPlace(Int: (track.placeId)!)
@@ -75,6 +75,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             longitude = location?.longitude
         }
     }
+    
+//   override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         tag = nil
@@ -91,8 +95,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             }
         case "editAutoLocation":
             if let VC = segue.destination as? mapViewController{
-//                VC.longitude = longitude
-//                VC.latitude = latitude
                 if savePlace != nil{
                     VC.savePlace = savePlace
                 }else{
@@ -153,17 +155,15 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @IBAction func editBtn(_ sender: UIButton){
-        
-        let newtrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
-        DBManager.getInstance().editTrack(newtrack)
-        //print(newtrack)
+//        newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
         
         if track.placeId! != 0{   //原本有資料
              
-            if savePlace == nil{    //刪掉
+            if savePlace == nil{//刪掉
                 //吃place_id刪掉那欄
                 //吃track_id把place_id的欄位改成nil（動track
-                let a = DBManager.getInstance().deleteTrackPlace(id: track.trackId!)
+                //let a = DBManager.getInstance().deleteTrackPlace(id: track.trackId!)
+                newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: 0)
             }else{  //複寫
                 //savePlace檢查要不要新增新的
                 //要：新增完回傳id 寫進track
@@ -172,32 +172,42 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
 //                if isAdded{
 //                    let id = DBManager.getInstance().getMaxPlace()
 //                }else{
-//
 //                }
-                let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
+                //let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
+                newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: id)
             }
             
         }else if savePlace != nil {  //原本沒資料：新增新資料
-            if savePlace?.myPlace == false{
-                let isAdded = DBManager.getInstance().addPlace(savePlace!)
-                let id = DBManager.getInstance().getMaxPlace()
-                let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
+            //if savePlace?.myPlace == false{
+            if savePlace?.placeId == 0{
+                let id = DBManager.getInstance().addPlace(savePlace!)
                 
-                let data:[String:String] = ["place_id":"0", "place_name":savePlace!.placeName, "place_longitude":String(savePlace!.placeLongitude), "place_latitude":String(savePlace!.placeLatitude)]
-                
-                self.net.postSaveplaceData(data: data){
-                    (status_code) in
-                    if (status_code != nil) {
-                        print(status_code!)
-                    }
-                }
-                
+                newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: id)
             }else{
-                let a = DBManager.getInstance().editTrackPlace(a: (savePlace?.placeId)!, b: track.trackId!)
+                newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: savePlace?.placeId!)
+                
             }
-            
+                //let id = DBManager.getInstance().getMaxPlace()
+                //let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
+                
+//                let data:[String:String] = ["place_id":"0", "place_name":savePlace!.placeName, "place_longitude":String(savePlace!.placeLongitude), "place_latitude":String(savePlace!.placeLatitude)]
+//
+//                self.net.postSaveplaceData(data: data){
+//                    (status_code) in
+//                    if (status_code != nil) {
+//                        print(status_code!)
+//                    }
+//                }
+                
+            //}else{
+                //let a = DBManager.getInstance().editTrackPlace(a: (savePlace?.placeId)!, b: track.trackId!)
+            //}
 
         }
+        
+         newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: 0)
+        
+        DBManager.getInstance().editTrack(oldModelInfo: oldTrack,newModelInfo: newTrack)
         //self.dismiss(animated: true, completion: nil)
     }
     
@@ -220,6 +230,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     @IBAction func autoLocationSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? mapViewController
         savePlace = VC?.savePlace
+        //print(savePlace)
         tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
     }
     

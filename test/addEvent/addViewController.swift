@@ -98,11 +98,11 @@ class addViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //查看手機內佇列的notification
-//        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
-//            for request in requests {
-//                print(request)
-//            }
-//        })
+        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                print(request)
+            }
+        })
         //查看所有已推送的notification
         // UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         

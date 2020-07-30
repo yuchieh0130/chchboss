@@ -12,6 +12,7 @@ struct TrackModel{
     let trackId: Int32?
     let startDate: String
     let startTime: String
+    let weekDay : Int32
     let endDate: String
     let endTime: String
     let categoryId: Int32

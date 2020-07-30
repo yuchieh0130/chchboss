@@ -32,7 +32,7 @@ class myPlaceController: UIViewController{
     var showAllPlace: [PlaceModel]?
     // var showAllPlace =  DBManager.getInstance().getAllPlace()
     var savePlace : PlaceModel?
-    var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
+    var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", weekDay: 0, endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
     let net = NetworkController()
     
     
