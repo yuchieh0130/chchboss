@@ -11,13 +11,23 @@ import UIKit
 
 class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource{
     
-    var weeks: [String]!
+    var numberOfWeeksInYear: Int {
+        let calendar = Calendar(identifier: .gregorian)
+        let weekRange = calendar.range(of: .weekOfYear,
+                                       in: .yearForWeekOfYear,
+                                       for: Date()) // for: customDate)
+        return weekRange!.count
+    }
+    var weeksArray: [String] = []
+
+    var weeks: [Int]!
     var week = Calendar.current.component(.weekOfYear, from: Date()){
         didSet{
-            selectRow(week, inComponent: 0, animated: false)
+            selectRow(week, inComponent: 0, animated: true)
         }
         
     }
+    
     let startWeek = Date().startOfWeek
     let endWeek = Date().endOfWeek
 
@@ -35,10 +45,11 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     func commonSetup() {
-        var weeks: [String] = []
+        var weeks: [Int] = []
         if weeks.count == 0 {
             var week = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.weekOfYear, from: NSDate() as Date)
-            for _ in 1...31{
+            for _ in 1...30{
+                weeks.append(week)
                 week -= 1
             }
         }
@@ -46,8 +57,7 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         self.delegate = self
         self.dataSource = self
         
-        let currentMonth = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.month, from: NSDate() as Date)
-        self.selectRow(currentMonth - 1, inComponent: 0, animated: false)
+        weeksArray = (1...numberOfWeeksInYear).map { "\($0)" }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -57,7 +67,7 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return weeks[row]
+            return weeksArray[row]
         default:
             return nil
         }
@@ -66,18 +76,27 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return weeks.count
+            return weeksArray.count
         default:
             return 0
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
         let week = self.selectedRow(inComponent: 0)
         if let block = onDateSelected {
             block(week)
         }
-        dateWeek = "\(week)"
+        
+        var dateFormat = DateFormatter()
+        dateFormat.dateFormat =  "yyyy-MM-dd"
+        
+        let sunOfWeek = Date().dateCorrespondingTo(weekNumber: Int(weeksArray[row]) ?? 0)
+        let satOfWeek = Date().dateCorrespondingTo(weekNumber: Int(weeksArray[row]) ?? 6)
+        let sun = dateFormat.string(from: sunOfWeek!-1)
+        let sat = dateFormat.string(from: satOfWeek!-1)
+        dateWeek = "\(sun) ~ \(sat)"
         
         self.week = week
     }
@@ -99,5 +118,12 @@ extension Date {
         let gregorian = Calendar(identifier: .gregorian)
         guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
         return gregorian.date(byAdding: .day, value: 7, to: sunday)
+    }
+    
+    func dateCorrespondingTo(weekNumber: Int) -> Date? {
+        let thisCalendar = Calendar(identifier: .iso8601)
+        let year = thisCalendar.component(.year, from: self)
+        let dateComponents = DateComponents(calendar: thisCalendar, timeZone: TimeZone(abbreviation: "UTC"), hour: 0, minute: 0, second: 0, nanosecond: 0, weekday: 2, weekOfYear: weekNumber, yearForWeekOfYear: year) // change the year with 2022 to test a different date
+        return thisCalendar.date(from: dateComponents)
     }
 }

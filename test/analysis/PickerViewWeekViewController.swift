@@ -17,15 +17,22 @@ class PickerViewWeekViewController: UIViewController{
     
     var tag: String?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if tag == "analysisWeek"{
             pickerViewWeek.dateWeek = "\(pickerViewWeek.week)"
         }
+        
+        var dateFormat = DateFormatter()
+        dateFormat.dateFormat =  "yyyy-MM-dd"
+        let start = dateFormat.string(from: pickerViewWeek.startWeek!-1)
+        let end = dateFormat.string(from: pickerViewWeek.endWeek!-1)
+        
         print(pickerViewWeek.week)
-        print(pickerViewWeek.startWeek ?? "not found start date")
-        print(pickerViewWeek.endWeek ?? "not found end date")
+        print(start)
+        print(end)
     }
     
     @IBAction func saveBtn(_ sender: Any) {
