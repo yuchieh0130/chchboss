@@ -628,6 +628,13 @@ class DBManager: NSObject {
         shareInstance.database?.close()
     }
     
+    func deleteTrack(Int: Int32){
+        shareInstance.database?.open()
+        shareInstance.database?.executeUpdate("UPDATE track SET category_id = 19 WHERE track_id = \(Int) ", withArgumentsIn:[Int])
+        shareInstance.database?.close()
+        
+    }
+    
 //測試用
     func tete() -> [LocationModel]!{
         

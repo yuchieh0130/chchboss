@@ -212,6 +212,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         //self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func deleteBtn(_ sender: UIButton){
+        DBManager.getInstance().deleteTrack(Int: track!.trackId!)
+    }
+    
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as? DatePopupViewController
         date = VC!.datePicker.date

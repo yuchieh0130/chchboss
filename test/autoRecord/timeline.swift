@@ -141,6 +141,11 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
 //        performSegue(withIdentifier: "editTrack", sender:self )
 //    }
     
+    @IBAction func addTrack(_ sender: UIButton){
+        
+    }
+    
+    
     @objc func editAutoRecord(sender: UIButton!){
         track = showTrack[sender.tag]
         performSegue(withIdentifier: "editTrack", sender:self )
