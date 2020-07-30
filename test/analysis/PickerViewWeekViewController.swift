@@ -21,8 +21,11 @@ class PickerViewWeekViewController: UIViewController{
         super.viewDidLoad()
         
         if tag == "analysisWeek"{
-//            pickerViewWeek.dateWeek = "\(pickerViewWeek.week)"
+            pickerViewWeek.dateWeek = "\(pickerViewWeek.week)"
         }
+        print(pickerViewWeek.week)
+        print(pickerViewWeek.startWeek ?? "not found start date")
+        print(pickerViewWeek.endWeek ?? "not found end date")
     }
     
     @IBAction func saveBtn(_ sender: Any) {

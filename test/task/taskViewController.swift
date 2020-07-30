@@ -101,17 +101,17 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
         if #available(iOS 13.0, *) {
-            floaty.addItem("", icon: UIImage(systemName: "doc.text"), handler: {_ in
+            floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
                 self.performSegue(withIdentifier: "addTask", sender: self)
             })
-            floaty.addItem("", icon: UIImage(systemName: "calendar"), handler: {_ in
+            floaty.addItem("Add Event", icon: UIImage(systemName: "calendar"), handler: {_ in
                 self.performSegue(withIdentifier: "taskAddEvent", sender: self)
             })
         } else {
-            floaty.addItem("", icon: UIImage(named: "task"), handler: {_ in
+            floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
                 self.performSegue(withIdentifier: "addTask", sender: self)
             })
-            floaty.addItem("", icon: UIImage(named: "calendar"), handler: {_ in
+            floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
                 self.performSegue(withIdentifier: "taskAddEvent", sender: self)
             })
         }
