@@ -426,7 +426,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
             cell2.eventName?.text = showEvent[indexPath.row-1-i].eventName
 //            if showEvent[indexPath.row-i].startTime != nil && showEvent[indexPath.row-i].endTime != nil
             if showEvent[indexPath.row-1-i].allDay != true{
-                let time = showEvent[indexPath.row-1-i].startTime! + "-" + showEvent[indexPath.row-1-i].endTime!
+                let time = showEvent[indexPath.row-1-i].startTime + "-" + showEvent[indexPath.row-1-i].endTime
                 cell2.eventTime?.text = time
             }else{
                 cell2.eventTime?.text = "all day"

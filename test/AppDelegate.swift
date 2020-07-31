@@ -74,8 +74,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         myLocationManager.requestAlwaysAuthorization()
         myLocationManager.startUpdatingLocation()
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
-        //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge,.carPlay], completionHandler: (granted, error))
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge, .carPlay], completionHandler: { (granted, error) in
+            if granted {
+                print("允許")
+            } else {
+                print("不允許")
+            }
+        })
+        
         return true
     }
     

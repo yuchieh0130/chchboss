@@ -213,7 +213,16 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @IBAction func deleteBtn(_ sender: UIButton){
-        DBManager.getInstance().deleteTrack(Int: track!.trackId!)
+        let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the event", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            controller.dismiss(animated: true, completion: nil);
+            self.dismiss(animated: true, completion: nil);
+            DBManager.getInstance().deleteTrack(Int: self.track!.trackId!)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){_ in controller.dismiss(animated: true, completion: nil)}
+        controller.addAction(okAction)
+        controller.addAction(cancelAction)
+        self.present(controller, animated: true,completion: .none)
     }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){

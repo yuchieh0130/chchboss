@@ -29,7 +29,7 @@ class DBManager: NSObject {
     /*func for event*/
     func addEvent(_ modelInfo: EventModel) {
         shareInstance.database?.open()
-        (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime!,modelInfo.endDate,modelInfo.endTime!,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory!,modelInfo.autoLocation!,modelInfo.reminder]))
+        (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder]))
         shareInstance.database?.close()
     }
     
@@ -41,8 +41,7 @@ class DBManager: NSObject {
     
     func editEvent(_ modelInfo: EventModel){
         shareInstance.database?.open()
-        print(modelInfo)
-        shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId!,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime!,modelInfo.endDate,modelInfo.endTime!,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory!,modelInfo.autoLocation ?? nil,modelInfo.reminder])
+        shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder])
             shareInstance.database?.close()
     }
     
@@ -68,7 +67,7 @@ class DBManager: NSObject {
             
             let event: EventModel
             
-            event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c, endDate: d!, endTime: e, allDay: f!, autoRecord: g!,autoCategory: h,autoLocation: j, reminder: k!)
+            event = EventModel(eventId: i!, eventName: a!, startDate:b!, startTime: c!, endDate: d!, endTime: e!, allDay: f!, autoRecord: g!, autoCategory: h!, autoLocation: j!, reminder: k!)
             
             if events == nil{
                 events = [EventModel]()

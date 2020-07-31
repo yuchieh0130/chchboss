@@ -9,16 +9,16 @@
 import Foundation
 
 struct EventModel{
-    let eventId: Int32?
+    let eventId: Int32
     let eventName: String
     let startDate: String
-    let startTime: String?
+    let startTime: String
     let endDate: String
-    let endTime: String?
+    let endTime: String
     let allDay: Bool
     let autoRecord: Bool
-    let autoCategory: Int32?
-    let autoLocation: Int32?
+    let autoCategory: Int32
+    let autoLocation: Int32
     let reminder: String
 }
 
