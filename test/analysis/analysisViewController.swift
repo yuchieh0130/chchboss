@@ -45,6 +45,17 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var currentMonth = Calendar.current.component(.month, from: Date())
     var currentDay = Calendar.current.component(.day, from: Date())
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var startWeek = Date().startOfWeek
+    var endWeek = Date().endOfWeek
+    var start = ""
+    var end = ""
+    var numberOfWeeksInYear: Int {
+        let calendar = Calendar(identifier: .gregorian)
+        let weekRange = calendar.range(of: .weekOfYear,
+                                       in: .yearForWeekOfYear,
+                                       for: Date()) // for: customDate)
+        return weekRange!.count
+    }
     
     var tag: String?
     var date = Date()+86400
@@ -455,7 +466,13 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func setUpWeek(){
-        timeLabel.text = "\(currentWeek)"
+        var dateFormat = DateFormatter()
+        dateFormat.dateFormat =  "yyyy-MM-dd"
+        let Start = dateFormat.string(from: startWeek!)
+        let End = dateFormat.string(from: endWeek!)
+        start = Start
+        end = End
+        timeLabel.text = "\(start) ~ \(end)"
     }
     
     func setUpMonth(){
@@ -471,8 +488,12 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             currentDay -= 1
             setUpDay()
         }else if segConIndex == 1{
-            currentWeek -= 1
-            setUpWeek()
+            let dateFormat = DateFormatter()
+            dateFormat.dateFormat =  "yyyy-MM-dd"
+            let lastWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
+            start = "\(dateFormat.string(from: lastWeek.startOfWeek!))"
+            end = "\(dateFormat.string(from: lastWeek.endOfWeek!))"
+            timeLabel.text = "\(start) ~ \(end)"
         }else if segConIndex == 2{
             currentMonth -= 1
             if currentMonth == 0{
@@ -491,8 +512,12 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             currentDay += 1
             setUpDay()
         }else if segConIndex == 1{
-            currentWeek += 1
-            setUpWeek()
+            let dateFormat = DateFormatter()
+            dateFormat.dateFormat =  "yyyy-MM-dd"
+            let nextWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date())!
+            start = "\(dateFormat.string(from: nextWeek.startOfWeek!))"
+            end = "\(dateFormat.string(from: nextWeek.endOfWeek!))"
+            timeLabel.text = "\(start) ~ \(end)"
         }else if segConIndex == 2{
             currentMonth += 1
             if currentMonth == 13{

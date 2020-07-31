@@ -16,7 +16,7 @@ class PickerViewWeekViewController: UIViewController{
     @IBOutlet var pickerViewWeek: WeekPickerView!
     
     var tag: String?
-    
+    var currentWeek = Calendar.current.component(.weekOfYear, from: Date())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +27,14 @@ class PickerViewWeekViewController: UIViewController{
         
         var dateFormat = DateFormatter()
         dateFormat.dateFormat =  "yyyy-MM-dd"
-        let start = dateFormat.string(from: pickerViewWeek.startWeek!-1)
-        let end = dateFormat.string(from: pickerViewWeek.endWeek!-1)
+        let start = dateFormat.string(from: pickerViewWeek.startWeek!)
+        let end = dateFormat.string(from: pickerViewWeek.endWeek!)
         
         print(pickerViewWeek.week)
         print(start)
         print(end)
+        
+        pickerViewWeek.selectRow(currentWeek-1, inComponent: 0, animated: true)
     }
     
     @IBAction func saveBtn(_ sender: Any) {
