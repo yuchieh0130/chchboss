@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource{
-    
+   
+    var dateFormat = DateFormatter()
+    var selectedRow = 0
     var numberOfWeeksInYear: Int {
         let calendar = Calendar(identifier: .gregorian)
         let weekRange = calendar.range(of: .weekOfYear,
@@ -46,15 +48,12 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     
     func commonSetup() {
         var weeks: [String] = []
-        var dateFormat = DateFormatter()
         dateFormat.dateFormat =  "yyyy-MM-dd"
-        if weeks.count == 0 {
-            var week = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.weekOfYear, from: NSDate() as Date)
-            for _ in 1...numberOfWeeksInYear{
-                weeksArray = (1...numberOfWeeksInYear).map { "\($0)" }
-                weeks = [dateFormat.string(from: Date().dateCorrespondingTo(weekNumber: Int(weeksArray[selectedRow(inComponent: 0)]) ?? 0)!-1)]
-//                weeksArray.append("\(dateFormat.string(from: startWeek!-1))")
-            }
+        var week = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.weekOfYear, from: NSDate() as Date)
+        for week in 1...numberOfWeeksInYear{
+            weeksArray = (1...numberOfWeeksInYear).map { "\($0)" }
+            weeks.append("\(dateFormat.string(from: startWeek!.startDateCorrespondingTo(weekNumber: Int("\(week)")!)!)) ~ \(dateFormat.string(from: endWeek!.endDateCorrespondingTo(weekNumber: Int("\(week)")!)!))")
+//                weeks = ["\(startWeek!.startDateCorrespondingTo(weekNumber: Int(weeksArray[selectedRow])!)) ~ \(endWeek!.endDateCorrespondingTo(weekNumber: Int(weeksArray[selectedRow])!))"]
         }
         self.weeks = weeks
         self.delegate = self
@@ -68,7 +67,7 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return weeksArray[row]
+            return weeks[row]
         default:
             return nil
         }
@@ -77,25 +76,27 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return weeksArray.count
+            return weeks.count
         default:
             return 0
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedRow = row
         
         let week = self.selectedRow(inComponent: 0)
         if let block = onDateSelected {
             block(week)
         }
         
-        var dateFormat = DateFormatter()
         dateFormat.dateFormat =  "yyyy-MM-dd"
         
-        let sunOfWeek = Date().dateCorrespondingTo(weekNumber: Int(weeksArray[row]) ?? 0)
-        let sun = dateFormat.string(from: sunOfWeek!-1)
-        dateWeek = "\(sun)"
+        let sunOfWeek = startWeek!.startDateCorrespondingTo(weekNumber: Int(weeksArray[row])!)
+        let satOfWeek = endWeek!.endDateCorrespondingTo(weekNumber: Int(weeksArray[row])!)
+        let sun = dateFormat.string(from: sunOfWeek!)
+        let sat = dateFormat.string(from: satOfWeek!)
+        dateWeek = "\(sun) ~ \(sat)"
         
         self.week = week
     }
@@ -110,19 +111,26 @@ extension Date {
     var startOfWeek: Date? {
         let gregorian = Calendar(identifier: .gregorian)
         guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 1, to: sunday)
+        return gregorian.date(byAdding: .day, value: 0, to: sunday)
     }
 
     var endOfWeek: Date? {
         let gregorian = Calendar(identifier: .gregorian)
         guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 7, to: sunday)
+        return gregorian.date(byAdding: .day, value: 6, to: sunday)
     }
     
-    func dateCorrespondingTo(weekNumber: Int) -> Date? {
-        let thisCalendar = Calendar(identifier: .iso8601)
+    func startDateCorrespondingTo(weekNumber: Int) -> Date? {
+        let thisCalendar = Calendar(identifier: .gregorian)
         let year = thisCalendar.component(.year, from: self)
-        let dateComponents = DateComponents(calendar: thisCalendar, timeZone: TimeZone(abbreviation: "UTC"), hour: 0, minute: 0, second: 0, nanosecond: 0, weekday: 2, weekOfYear: weekNumber, yearForWeekOfYear: year) // change the year with 2022 to test a different date
+        let dateComponents = DateComponents(calendar: thisCalendar, timeZone: TimeZone(abbreviation: "UTC"), hour: 0, minute: 0, second: 0, nanosecond: 0, weekday: 1, weekOfYear: weekNumber, yearForWeekOfYear: year)
+        return thisCalendar.date(from: dateComponents)
+    }
+    
+    func endDateCorrespondingTo(weekNumber: Int) -> Date? {
+        let thisCalendar = Calendar(identifier: .gregorian)
+        let year = thisCalendar.component(.year, from: self)
+        let dateComponents = DateComponents(calendar: thisCalendar, timeZone: TimeZone(abbreviation: "UTC"), hour: 0, minute: 0, second: 0, nanosecond: 0, weekday: 7, weekOfYear: weekNumber, yearForWeekOfYear: year)
         return thisCalendar.date(from: dateComponents)
     }
 }
