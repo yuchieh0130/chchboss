@@ -620,10 +620,11 @@ class DBManager: NSObject {
         if newStart >= oldStart && newEnd <= oldEnd{
             //UPDATE該筆資料6-9改成7-8
             shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
-            //結束時間是6的UPDATE成7
-            shareInstance.database?.executeUpdate("UPDATE track SET end_date = '\(newModelInfo.startDate)',end_time = '\(newModelInfo.startTime)' WHERE (end_date || ' ' || end_time) = '\(oldModelInfo.startDate+" "+oldModelInfo.startTime)'",withArgumentsIn:[])
-            //開始時間是9的UPDATE成8
-            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.endDate)',start_time = '\(newModelInfo.endTime)' WHERE (start_date || ' ' || start_time) = '\(oldModelInfo.endDate+" "+oldModelInfo.endTime)'",withArgumentsIn:[])
+            //新增一筆6-7
+            shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,newModelInfo.locationId,newModelInfo.placeId!])
+            //新增一筆8-9
+            shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[newModelInfo.endDate,newModelInfo.endTime,newModelInfo.weekDay,oldModelInfo.endDate,oldModelInfo.endTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
+        
         }
         shareInstance.database?.close()
     }
