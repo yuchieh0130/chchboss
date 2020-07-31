@@ -35,6 +35,13 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
            return formatter
        }
     
+    var showDateTimeformatter: DateFormatter {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "yyyy/MM/dd HH:mm"
+           formatter.timeZone = TimeZone.ReferenceType.system
+           return formatter
+       }
+    
     override func viewDidLoad(){
         fullSize = UIScreen.main.bounds.size
         hourSize = Int(fullSize.height/6)
@@ -113,10 +120,22 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     }
     
     func createTracks(view: UIScrollView){
-        
+        var drawStart = ""
+        var drawEnd = ""
         for i in 0...showTrack.count-1{
-            let height = (showTimeformatter.date(from: showTrack[i].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[i].startTime)!))!/3600*Double(hourSize)
-            let y = (showTimeformatter.date(from: showTrack[i].startTime)?.timeIntervalSince(showTimeformatter.date(from: "00:00")!))!/3600*Double(hourSize)
+            print(showTrack[i])
+            drawStart = showTrack[i].startTime
+            drawEnd = showTrack[i].endTime
+            if showTrack[i].startDate != date{
+                drawStart = "00:00"
+            }
+            if showTrack[i].endDate != date{
+                drawEnd = "23:59"
+            }
+            let height = (showTimeformatter.date(from: drawEnd)?.timeIntervalSince(showTimeformatter.date(from: drawStart)!))!/3600*Double(hourSize)
+            let y = (showTimeformatter.date(from: drawStart)?.timeIntervalSince(showTimeformatter.date(from: "00:00")!))!/3600*Double(hourSize)
+//            let height = (showTimeformatter.date(from: showTrack[i].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[i].startTime)!))!/3600*Double(hourSize)
+//            let y = (showTimeformatter.date(from: showTrack[i].startTime)?.timeIntervalSince(showTimeformatter.date(from: "00:00")!))!/3600*Double(hourSize)
             let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
             let trackView = UIButton(frame:CGRect(x:80,y:25+Int(y),width: Int(fullSize.width)-100,height: Int(height)))
             trackView.tag = i
