@@ -25,7 +25,7 @@ class PickerViewWeekViewController: UIViewController{
             pickerViewWeek.dateWeek = "\(pickerViewWeek.week)"
         }
         
-        var dateFormat = DateFormatter()
+        let dateFormat = DateFormatter()
         dateFormat.dateFormat =  "yyyy-MM-dd"
         let start = dateFormat.string(from: pickerViewWeek.startWeek!)
         let end = dateFormat.string(from: pickerViewWeek.endWeek!)

@@ -33,11 +33,10 @@ class DBManager: NSObject {
         shareInstance.database?.close()
     }
     
-    func deleteEvent(id: Int32) -> Bool{
+    func deleteEvent(id: Int32){
         shareInstance.database?.open()
-        let isDeleted = shareInstance.database?.executeUpdate("DELETE FROM event WHERE event_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.executeUpdate("DELETE FROM event WHERE event_id = \(id)", withArgumentsIn:[id])
         shareInstance.database?.close()
-        return isDeleted!
     }
     
     func editEvent(_ modelInfo: EventModel){

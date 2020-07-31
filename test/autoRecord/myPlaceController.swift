@@ -64,7 +64,7 @@ class myPlaceController: UIViewController{
             alertMessage()
         }else {
             let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: true)
-            let isAdded = DBManager.getInstance().addPlace(modelInfo)
+            _ = DBManager.getInstance().addPlace(modelInfo)
             
             let data:[String:String] = ["place_id":"0", "place_name":self.placeName, "place_longitude":String(self.placeLongitude), "place_latitude":String(self.placeLatitude)]
             

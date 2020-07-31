@@ -89,9 +89,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         super.viewDidLoad()
         title = "Analysis"
         
-        var categoryTotal = categoryValues.reduce(0, +)
+        let categoryTotal = categoryValues.reduce(0, +)
         total = categoryTotal
-        var categoryPercentage = categoryValues.map{(round(($0/total)*1000))/10}
+        let categoryPercentage = categoryValues.map{(round(($0/total)*1000))/10}
         percentage = categoryPercentage
         
         //會直接取代原本array裡面的value
@@ -154,7 +154,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     @IBAction func segConChoose(_ sender: Any) {
-        var getIndex = segCon.selectedSegmentIndex
+        let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
             customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues)
@@ -466,7 +466,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func setUpWeek(){
-        var dateFormat = DateFormatter()
+        let dateFormat = DateFormatter()
         dateFormat.dateFormat =  "yyyy-MM-dd"
         let Start = dateFormat.string(from: startWeek!)
         let End = dateFormat.string(from: endWeek!)

@@ -123,7 +123,6 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
         var drawStart = ""
         var drawEnd = ""
         for i in 0...showTrack.count-1{
-            print(showTrack[i])
             drawStart = showTrack[i].startTime
             drawEnd = showTrack[i].endTime
             if showTrack[i].startDate != date{
