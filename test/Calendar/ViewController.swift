@@ -87,6 +87,7 @@ class ViewController: UIViewController{
     /*viewcontroller viewdidload*/
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.viewDidLayoutSubviews()
         
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal

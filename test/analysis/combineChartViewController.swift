@@ -26,6 +26,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     var name = "Behaviors"
     var color = UIColor()
     var time = "Time"
+    var segConIndex = 0
     
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -64,39 +65,26 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         }
     
         combineChart.delegate = self
+        
         combineChart.drawGridBackgroundEnabled = false
         combineChart.drawBarShadowEnabled = false
         combineChart.highlightFullBarEnabled = false
         combineChart.doubleTapToZoomEnabled = false
         combineChart.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue]
-        
-        //x axis
-        let xAxis = combineChart.xAxis
-        xAxis.labelPosition = .bottom
-        xAxis.labelCount = 13
-        xAxis.granularityEnabled = true
-        xAxis.granularity = 1.0  //距離
-        xAxis.valueFormatter = BarChartFormatter()
-        xAxis.centerAxisLabelsEnabled = false
-        xAxis.setLabelCount(12, force: true)
-        xAxis.drawGridLinesEnabled = false
-        //left axis
-        let leftAxis = combineChart.leftAxis
-        leftAxis.drawGridLinesEnabled = false
-        leftAxis.axisMinimum = 0.0
-       //right axis
-        combineChart.rightAxis.enabled = false
+        //left axis right axis
+        combineChart.leftAxis.drawGridLinesEnabled = true
+        combineChart.rightAxis.drawLabelsEnabled = false
+        combineChart.rightAxis.drawGridLinesEnabled = false
+        combineChart.leftAxis.axisMinimum = 0.0
         //legend
         combineChart.legend.enabled = false
         //description
         combineChart.chartDescription?.enabled = false
-        
-        setChartData()
     }
     
     @IBAction func segConChoose(_ sender: Any) {
         var getIndex = segCon.selectedSegmentIndex
-        
+        segConIndex = getIndex
         if getIndex == 0{
             todayTime.isHidden = false
             todayTimeLabel.isHidden = false
@@ -106,44 +94,77 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
             todayTime.isHidden = true
             todayTimeLabel.isHidden = true
             timeLabel.isHidden = true
-            setChartData()
             combineChart.isHidden = false
+            
+            let data = CombinedChartData()
+            data.lineData = generateLineData(dataPoints: days, values: value)
+            data.barData = generateBarData(dataPoints: days, values: value)
+            combineChart.data = data
+            //x axis
+            combineChart.xAxis.labelPosition = .bothSided
+            combineChart.xAxis.drawGridLinesEnabled = true
+            combineChart.xAxis.granularityEnabled = true
+            combineChart.xAxis.granularity = 1.0  //距離
+            combineChart.xAxis.axisMinimum = data.xMin - 0.5
+            combineChart.xAxis.axisMaximum = data.xMax + 0.5
+            combineChart.xAxis.centerAxisLabelsEnabled = false
+            combineChart.xAxis.labelCount = 7
+            combineChart.xAxis.valueFormatter = self
         }else if getIndex == 2{
             todayTime.isHidden = true
             todayTimeLabel.isHidden = true
             timeLabel.isHidden = true
-            setChartData()
             combineChart.isHidden = false
+            
+            let data = CombinedChartData()
+            data.lineData = generateLineData(dataPoints: months, values: value)
+            data.barData = generateBarData(dataPoints: months, values: value)
+            combineChart.data = data
+            //x axis
+            combineChart.xAxis.labelPosition = .bothSided
+            combineChart.xAxis.drawGridLinesEnabled = true
+            combineChart.xAxis.granularityEnabled = true
+            combineChart.xAxis.granularity = 1.0  //距離
+            combineChart.xAxis.axisMinimum = data.xMin - 0.5
+            combineChart.xAxis.axisMaximum = data.xMax + 0.5
+            combineChart.xAxis.centerAxisLabelsEnabled = false
+            combineChart.xAxis.labelCount = 13
+            combineChart.xAxis.valueFormatter = self
         }else if getIndex == 3{
             todayTime.isHidden = true
             todayTimeLabel.isHidden = false
             timeLabel.isHidden = true
-            setChartData()
             combineChart.isHidden = false
-
+            
+            let data = CombinedChartData()
+            data.lineData = generateLineData(dataPoints: months, values: value)
+            data.barData = generateBarData(dataPoints: months, values: value)
+            combineChart.data = data
+            //x axis
+            combineChart.xAxis.labelPosition = .bothSided
+            combineChart.xAxis.drawGridLinesEnabled = true
+            combineChart.xAxis.granularityEnabled = true
+            combineChart.xAxis.granularity = 1.0  //距離
+            combineChart.xAxis.axisMinimum = data.xMin - 0.5
+            combineChart.xAxis.axisMaximum = data.xMax + 0.5
+            combineChart.xAxis.centerAxisLabelsEnabled = false
+            combineChart.xAxis.labelCount = 12
+            combineChart.xAxis.valueFormatter = self
         }
         
-    }
-    
-    func setChartData(){
-        let data = CombinedChartData()
-        data.lineData = generateLineData(dataPoints: months, values: value)
-        data.barData = generateBarData(dataPoints: months, values: value)
-        combineChart.xAxis.axisMaximum = data.xMax
-        combineChart.xAxis.axisMinimum = data.xMin
-        combineChart.data = data
     }
     
     func generateLineData(dataPoints: [String], values: [Double]) -> LineChartData{
         var dataEntries = [ChartDataEntry]()
         for i in 0..<dataPoints.count{
-            let dataEntry = ChartDataEntry(x: values[i], y: (Double(arc4random_uniform(25) + 25)))
-            //Double(i)
+            let dataEntry = ChartDataEntry(x: Double(i), y: (Double(arc4random_uniform(25) + 25)))
             dataEntries.append(dataEntry)
         }
         let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: "Line Chart")
         lineChartDataSet.colors = [UIColor.gray]
         lineChartDataSet.circleColors = colorsOfCategory(numbersOfColor: dataPoints.count)
+        lineChartDataSet.axisDependency = .left
+        
         let data = LineChartData()
         data.addDataSet(lineChartDataSet)
         return data
@@ -151,20 +172,17 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     
     func generateBarData(dataPoints: [String], values: [Double]) -> BarChartData{
         var dataEntries = [BarChartDataEntry]()
-        
         for i in 0..<dataPoints.count{
             let dataEntry = BarChartDataEntry(x: Double(i), y: (Double(arc4random_uniform(25) + 25)))
             //Double(values[i])
             dataEntries.append(dataEntry)
         }
-        
         let barChartDataSet = BarChartDataSet(entries: dataEntries, label: "Bar Chart")
         barChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
         barChartDataSet.valueTextColor = UIColor.black
         barChartDataSet.valueFont = NSUIFont.systemFont(ofSize: CGFloat(10.0))
         barChartDataSet.axisDependency = .left
         
-        //BarChartData
         let barWidth = 0.5
         let data = BarChartData()
         data.barWidth = barWidth
@@ -222,19 +240,16 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
             alpha: CGFloat(0.8)
         )
     }
-    
-    public class BarChartFormatter: NSObject, IAxisValueFormatter
-    {
-        var months: [String]! = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        var days: [String]! = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        
-        public func stringForValue(_ value: Double, axis: AxisBase?) -> String
-        {
-            let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
-            let moduDay = Double(value).truncatingRemainder(dividingBy: Double(days.count))
-            return months[Int(moduMonth)]
-        }
-    }
-    
 
 }
+extension combineChartViewController: IAxisValueFormatter {
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        if segConIndex == 1{
+            let moduDay = Double(value).truncatingRemainder(dividingBy: Double(days.count))
+            return days[Int(moduDay)]
+        }
+        let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
+        return months[Int(moduMonth)]
+        }
+}
+

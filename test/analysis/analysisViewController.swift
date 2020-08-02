@@ -457,8 +457,8 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func setUpDay(){
-        if currentMonth < 9{
-            timeLabel.text = "\(currentYear)-0\(currentMonth)-\(currentDay)"
+        if currentMonth < 9, currentDay < 10{
+            timeLabel.text = "\(currentYear)-0\(currentMonth)-0\(currentDay)"
         }else{
             timeLabel.text = "\(currentYear)-\(currentMonth)-\(currentDay)"
         }

@@ -92,6 +92,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.viewDidLayoutSubviews()
         title = "Task"
         tableView.delegate = self
         tableView.dataSource = self

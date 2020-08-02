@@ -53,7 +53,6 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         for week in 1...numberOfWeeksInYear{
             weeksArray = (1...numberOfWeeksInYear).map { "\($0)" }
             weeks.append("\(dateFormat.string(from: startWeek!.startDateCorrespondingTo(weekNumber: Int("\(week)")!)!)) ~ \(dateFormat.string(from: endWeek!.endDateCorrespondingTo(weekNumber: Int("\(week)")!)!))")
-//                weeks = ["\(startWeek!.startDateCorrespondingTo(weekNumber: Int(weeksArray[selectedRow])!)) ~ \(endWeek!.endDateCorrespondingTo(weekNumber: Int(weeksArray[selectedRow])!))"]
         }
         self.weeks = weeks
         self.delegate = self
