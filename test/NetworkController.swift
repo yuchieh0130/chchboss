@@ -82,13 +82,13 @@ class NetworkController {
             }
             task.resume( )
         }
-    func register (user_id: String, password: String, user_name: String, completion: @escaping([Any]?) -> Void) {
+    func register (email: String, password: String, user_name: String, completion: @escaping([Any]?) -> Void) {
         let registerURL = baseURL.appendingPathComponent("register")
         var request = URLRequest(url: registerURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
            "Content-Type")
-        let data: [String: String] = ["user_id": user_id, "password": password, "user_name": user_name]
+        let data: [String: String] = ["email": email, "password": password, "user_name": user_name]
         let jsonEncoder = JSONEncoder( )
         let jsonData = try? jsonEncoder.encode(data)
         request.httpBody = jsonData
@@ -99,7 +99,7 @@ class NetworkController {
                         JSONSerialization.jsonObject(with: data) as?
                         [String: Any],
                         let status_code = jsonDictionary["status_code"] as? Int,
-                            let session_id = jsonDictionary["session_id"] as? String{
+                            let session_id = jsonDictionary["email"] as? String{
                                 completion([status_code, session_id])
                         } else {
                             completion(nil)
@@ -107,6 +107,30 @@ class NetworkController {
             }
         task.resume( )
     }
-
+    func login (email: String, password: String, completion: @escaping([Any]?) -> Void) {
+        let loginURL = baseURL.appendingPathComponent("login")
+        var request = URLRequest(url: loginURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+           "Content-Type")
+        let data: [String: String] = ["email": email, "password": password]
+        let jsonEncoder = JSONEncoder( )
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+            { (data, response, error) in
+                    if let data = data,
+                        let jsonDictionary = try?
+                        JSONSerialization.jsonObject(with: data) as?
+                        [String: Any],
+                        let status_code = jsonDictionary["status_code"] as? Int,
+                            let session_id = jsonDictionary["email"] as? String{
+                                completion([status_code, session_id])
+                        } else {
+                            completion(nil)
+                        }
+            }
+        task.resume( )
+    }
 
 }
