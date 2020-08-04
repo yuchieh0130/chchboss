@@ -35,12 +35,14 @@ class SignupViewController: UIViewController {
             warningLabel!.text = "Confirm your password again."
             warningLabel!.isHidden = false
         }else if passwordTextField.text == confirmPasswordTextField.text {
+            
+            
             self.networkController.register(email:userNameTextField.text!, password:emailTextField.text!, user_name:passwordTextField.text!){
                 (return_list) in
-                if let status_code = return_list?[0], let email = return_list?[1]{
+                if let status_code = return_list?[0], let user_id = return_list?[1]{
                     if status_code as! Int == 200{
                         DispatchQueue.main.async {
-                            UserDefaults.standard.set(email, forKey: "email")
+                            UserDefaults.standard.set(user_id, forKey: "user_id")
                             self.userDefaults.set(true, forKey: "isLogIn")
                         }
                     }
