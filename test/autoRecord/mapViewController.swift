@@ -108,13 +108,30 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         
         let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
         mapView.camera = camera
+        
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+        marker.isDraggable = true
+        mapView.selectedMarker = marker
         marker.map = mapView
+        
         let circle = GMSCircle(position: CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!), radius: 50)
         circle.strokeColor = UIColor.red
         circle.map = mapView
 
+    }
+    
+    func mapView(_ mapView: GMSMapView, didDrag marker: GMSMarker) {
+        print("Drag")
+    }
+
+    func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
+        print("Old Coordinate - \(marker.position)")
+        print("YESSS")
+    }
+
+    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+        print("New Coordinate - \(marker.position)")
     }
     
     @IBAction func cancel(_ sender: UIButton){
