@@ -28,14 +28,20 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var showCategoryStr = [String]()
     var showCategoryColor = [String]()
     
-    var showTrack = [TrackModel]()
-    var showTrackCategoryValues = [String]()
-    var trackDate = ""
+    var selectedDay = ""
     
-    var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
-    var values = [0.0, 40.0, 63.0, 0.0, 44.0, 12.0, 0.0, 90.0, 0.0, 60.0, 0.0, 17.0, 0.0, 37.0, 0.0, 54.0, 64.0, 11.0]
-    var values1 = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
-    var values2 = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
+    var showTrack = [TrackModel]()
+    var showTrackCategoryValues = Array<Double>()
+    var trackDate = ""
+    var hours = [String]()
+    var track :TrackModel?
+    var hourSize = 0
+    var categoryName = ""
+    
+    var values0 = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
+    var values1 = [0.0, 40.0, 63.0, 0.0, 44.0, 12.0, 0.0, 90.0, 0.0, 60.0, 0.0, 17.0, 0.0, 37.0, 0.0, 54.0, 64.0, 11.0]
+    var values2 = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
+    var values3 = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     var index0 = 0
     var index1 = 0
     var index2 = 0
@@ -93,9 +99,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         super.viewDidLoad()
         title = "Analysis"
         
-        let categoryTotal = categoryValues.reduce(0, +)
+        let categoryTotal = values0.reduce(0, +)
         total = categoryTotal
-        let categoryPercentage = categoryValues.map{(round(($0/total)*1000))/10}
+        let categoryPercentage = values0.map{(round(($0/total)*1000))/10}
         percentage = categoryPercentage
         
         //會直接取代原本array裡面的value
@@ -112,7 +118,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             showCategoryColor.append(showCategory[i].categoryColor)
         }
         
-        customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues)
+        customizeCategoryChart(dataPoints: showCategoryStr, values: values0)
         pieChart.entryLabelColor = UIColor.black
         pieChart.drawEntryLabelsEnabled = false
         pieChart.usePercentValuesEnabled = true
@@ -155,13 +161,24 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartYear.isHidden = true
         
         setUpDay()
+        //getTrackTime()
     }
+    
+    override func viewWillAppear(_ animated: Bool){
+           if DBManager.getInstance().getDateTracks(String: trackDate) != nil{
+               showTrack = DBManager.getInstance().getDateTracks(String: trackDate)
+           }else{
+               showTrack = [TrackModel]()
+           }
+    }
+    
+    
     
     @IBAction func segConChoose(_ sender: Any) {
         let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: categoryValues)
+            customizeCategoryChart(dataPoints: showCategoryStr, values: values0)
             //pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChart.transparentCircleRadiusPercent = 0.0
             pieChart.legend.horizontalAlignment = .center
@@ -173,7 +190,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpDay()
         }else if getIndex == 1{
-            customizeCategoryChartWeek(dataPoints: showCategoryStr, values: values)
+            customizeCategoryChartWeek(dataPoints: showCategoryStr, values: values1)
             //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartWeek.transparentCircleRadiusPercent = 0.0
             pieChartWeek.legend.horizontalAlignment = .center
@@ -185,7 +202,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpWeek()
         }else if getIndex == 2{
-            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: values1)
+            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: values2)
             //pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartMonth.transparentCircleRadiusPercent = 0.0
             pieChartMonth.legend.horizontalAlignment = .center
@@ -197,7 +214,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpMonth()
         }else if getIndex == 3{
-            customizeCategoryChartYear(dataPoints: showCategoryStr, values: values2)
+            customizeCategoryChartYear(dataPoints: showCategoryStr, values: values3)
             //pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartYear.transparentCircleRadiusPercent = 0.0
             pieChartYear.legend.horizontalAlignment = .center
@@ -316,22 +333,18 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartYear.legend.direction = .leftToRight
     }
     
-    func track(){
+    func getTrackTime(){
         //我只需要抓到那天每個category的values就好
         //showTrackCategoryValues
         showTrack = DBManager.getInstance().getDateTracks(String: trackDate)
-        var drawStart = ""
-        var drawEnd = ""
+        var start = ""
+        var end = ""
         for i in 0...showTrack.count-1{
-            drawStart = showTrack[i].startTime
-            drawEnd = showTrack[i].endTime
-            if showTrack[i].startDate != trackDate{
-                drawStart = "00:00"
-            }
-            if showTrack[i].endDate != trackDate{
-                drawEnd = "23:59"
-            }
+            start = showTrack[i].startTime
+            end = showTrack[i].endTime
+            let trackTime = (showTimeformatter.date(from: end)?.timeIntervalSince(showTimeformatter.date(from: start)!))!/3600*Double(hourSize)
             let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
+            showTrackCategoryValues.append(trackTime)
         }
     }
     
@@ -369,28 +382,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         return colors
     }
     
-    func hexStringToUIColor (hex:String) -> UIColor {
-        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        
-        if (cString.hasPrefix("#")) {
-            cString.remove(at: cString.startIndex)
-        }
-        
-        if ((cString.count) != 6) {
-            return UIColor.gray
-        }
-        
-        var rgbValue:UInt64 = 0
-        Scanner(string: cString).scanHexInt64(&rgbValue)
-        
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(0.8)
-        )
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         tag = nil
         if (segue.identifier == "analysisToCombineChart"){
@@ -398,19 +389,19 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 if segConIndex == 0{
                     vc.name = "\(showCategory[index0].categoryName)"
                     vc.color = hexStringToUIColor (hex:"\(showCategory[index0].categoryColor)")
-                    vc.time = "\(categoryValues[index0])"
+                    vc.time = "\(values0[index0])"
                 }else if segConIndex == 1{
                     vc.name = "\(showCategory[index1].categoryName)"
                     vc.color = hexStringToUIColor (hex:"\(showCategory[index1].categoryColor)")
-                    vc.time = "\(values[index1])"
+                    vc.time = "\(values1[index1])"
                 }else if segConIndex == 2{
                     vc.name = "\(showCategory[index2].categoryName)"
                     vc.color = hexStringToUIColor (hex:"\(showCategory[index2].categoryColor)")
-                    vc.time = "\(values1[index2])"
+                    vc.time = "\(values2[index2])"
                 }else if segConIndex == 3{
                     vc.name = "\(showCategory[index3].categoryName)"
                     vc.color = hexStringToUIColor (hex:"\(showCategory[index3].categoryColor)")
-                    vc.time = "\(values2[index3])"
+                    vc.time = "\(values3[index3])"
                 }
             }
         }
@@ -555,7 +546,27 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
     }
     
-    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(0.8)
+        )
+    }
     
 }
 extension Date {

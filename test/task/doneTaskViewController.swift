@@ -23,7 +23,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.tableView.allowsMultipleSelectionDuringEditing = true
 
-        let doneBack = UIBarButtonItem(title: "< Return", style: .plain, target: self, action: #selector(doneReturn))
+        let doneBack = UIBarButtonItem(title: "Return", style: .plain, target: self, action: #selector(doneReturn))
         doneBack.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
         navigationItem.leftBarButtonItems = [doneBack]
         
