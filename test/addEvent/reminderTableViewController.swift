@@ -49,13 +49,11 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("bbbbb")
         if allDay == true{
             reminderData = reminderData_allDay
         }else{
            reminderData = reminderData_notallDay
         }
-        print(reminder)
         for i in 0...reminder.count-1{
             reminderData[reminder[i]].isselected = true
             tableView.selectRow(at: IndexPath(row: reminder[i], section: 0), animated: false, scrollPosition: .none)

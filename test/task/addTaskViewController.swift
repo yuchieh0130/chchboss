@@ -129,14 +129,11 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
 //        }
         addToCal = task!.addToCal
         reminder = task!.reminder
-        print(reminder)
         reminder_index = task!.reminder.components(separatedBy: ",").map{ NSString(string: $0).integerValue }
         oldReminder_index = task!.reminder.components(separatedBy: ",") as [String]
         oldReminder_index = oldReminder_index.map{ (index) -> String in
             return "task\(id)_\(index)"
         }
-        print(reminder_index)
-        print(task)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -156,7 +153,6 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         case"taskReminder":
             if let VC = segue.destination as? reminderTableViewController{
                 VC.reminder = reminder_index
-                print("eeeee")
         }
             default:
                 print("")
@@ -389,7 +385,6 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             t = true
             tableViewData[0].opened = true
             tableView.insertRows(at: indexA, with: .fade)
-            print("qqqq\(taskTime)")
         }else{
             t = false
             tableViewData[0].opened = false

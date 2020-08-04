@@ -225,7 +225,6 @@ class addViewController : UIViewController {
                 }else{
                     VC.reminder = reminder_index
                 }
-                print("aaaaaaa")
             }
         default:
             print("")
@@ -375,7 +374,7 @@ class addViewController : UIViewController {
 //                        }
 //                    }
                 }
-                askNotification()
+                //askNotification()
             }
             //insert to database
             let modelInfo = EventModel(eventId: id, eventName: name, startDate: startDate,startTime: startTime, endDate: endDate, endTime: endTime, allDay: allDay, autoRecord: autoRecord, autoCategory: autoCategory, autoLocation: autoLocation, reminder: reminder)
@@ -487,32 +486,32 @@ class addViewController : UIViewController {
         }
     }
     
-    func askNotification() {
-        let yes = UNNotificationAction(identifier: "yes", title: "YES", options: [])
-        let no = UNNotificationAction(identifier: "no", title: "NO", options: [])
-        let ctgr = UNNotificationCategory(identifier: "yesOrNo", actions: [yes, no], intentIdentifiers:[] , options: [])
-        UNUserNotificationCenter.current().setNotificationCategories([ctgr])
-        
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([ .hour, .minute], from: s)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        let content = UNMutableNotificationContent()
-        content.title = "Are you Eating?"
-        content.body = "Having dinner with family in XXX ?"
-        content.sound = UNNotificationSound.default
-        content.categoryIdentifier = "yesOrNo"
-        
-        let request = UNNotificationRequest(identifier: "askNotification", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        UNUserNotificationCenter.current().add(request) { (error: Error?) in
-            if let error = error {
-                print("Errorrrrr: \(error.localizedDescription)")
-            }
-        }
-        
-        
-    }
+//    func askNotification() {
+//        let yes = UNNotificationAction(identifier: "yes", title: "YES", options: [])
+//        let no = UNNotificationAction(identifier: "no", title: "NO", options: [])
+//        let ctgr = UNNotificationCategory(identifier: "yesOrNo", actions: [yes, no], intentIdentifiers:[] , options: [])
+//        UNUserNotificationCenter.current().setNotificationCategories([ctgr])
+//
+//        let calendar = Calendar.current
+//        let components = calendar.dateComponents([ .hour, .minute], from: s)
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+//        let content = UNMutableNotificationContent()
+//        content.title = "Are you Eating?"
+//        content.body = "Having dinner with family in XXX ?"
+//        content.sound = UNNotificationSound.default
+//        content.categoryIdentifier = "yesOrNo"
+//
+//        let request = UNNotificationRequest(identifier: "askNotification", content: content, trigger: trigger)
+//
+//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//        UNUserNotificationCenter.current().add(request) { (error: Error?) in
+//            if let error = error {
+//                print("Errorrrrr: \(error.localizedDescription)")
+//            }
+//        }
+//        
+//        
+//    }
     
     @IBAction func clearLocation(_ sender: UIButton){
         savePlace = nil
