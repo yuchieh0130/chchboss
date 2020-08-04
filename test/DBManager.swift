@@ -29,7 +29,7 @@ class DBManager: NSObject {
     /*func for event*/
     func addEvent(_ modelInfo: EventModel) {
         shareInstance.database?.open()
-        (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder]))
+        (shareInstance.database?.executeUpdate("INSERT INTO event (event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,reminder) VALUES (?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder]))
         shareInstance.database?.close()
     }
     
@@ -41,7 +41,7 @@ class DBManager: NSObject {
     
     func editEvent(_ modelInfo: EventModel){
         shareInstance.database?.open()
-        shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,hasReminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder])
+        shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,reminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder])
             shareInstance.database?.close()
     }
     
@@ -63,7 +63,7 @@ class DBManager: NSObject {
             let g = set?.bool(forColumn: "isAutomated")
             let h = set?.int(forColumn: "autoCategory")
             let j = set?.int(forColumn: "autoLocation")
-            let k = set?.string(forColumn: "hasReminder")
+            let k = set?.string(forColumn: "reminder")
             
             let event: EventModel
             
@@ -379,7 +379,7 @@ class DBManager: NSObject {
     /*func for task*/
     func addTask(_ modelInfo: TaskModel) {
         shareInstance.database?.open()
-        shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime!,modelInfo.taskDeadline!,modelInfo.reminder,modelInfo.taskLocation!,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
+        shareInstance.database?.executeUpdate("INSERT INTO task (task_name,task_time,task_deadline,reminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
         shareInstance.database?.close()
     }
     
@@ -391,9 +391,25 @@ class DBManager: NSObject {
     
     func editTask(_ modelInfo: TaskModel) {
         shareInstance.database?.open()
-        shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,hasReminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId!,modelInfo.taskName ,modelInfo.taskTime!,modelInfo.taskDeadline!,modelInfo.reminder,modelInfo.taskLocation!,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
+        shareInstance.database?.executeUpdate("REPLACE INTO task (task_id,task_name,task_time,task_deadline,reminder,task_location,addToCal,isPinned,isDone) VALUES (?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.taskId,modelInfo.taskName ,modelInfo.taskTime,modelInfo.taskDeadline,modelInfo.reminder,modelInfo.taskLocation,modelInfo.addToCal,modelInfo.isPinned,modelInfo.isDone])
         shareInstance.database?.close()
     }
+    
+    func getMaxTask() -> Int32{
+        
+        var id : Int32!
+        shareInstance.database?.open()
+        let sqlString = "SELECT MAX(task_id) AS Id FROM task";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let a = set?.int(forColumn: "Id")
+            id = a
+        }
+        set?.close()
+        return id
+    }
+    
     
     //get selected date當天的task
     func getDateTasks(String: String) -> [TaskModel]!{
@@ -408,8 +424,8 @@ class DBManager: NSObject {
             let a = set?.string(forColumn: "task_name")!
             let b = set?.string(forColumn: "task_time")
             let c = set?.string(forColumn: "task_deadline")
-            let d = set?.bool(forColumn: "hasReminder")
-            let e = set?.string(forColumn: "task_location")
+            let d = set?.string(forColumn: "reminder")
+            let e = set?.int(forColumn: "task_location")
             let f = set?.bool(forColumn: "addToCal")
             let g = set?.bool(forColumn: "isPinned")
             let h = set?.bool(forColumn: "isDone")
@@ -419,7 +435,7 @@ class DBManager: NSObject {
             if tasks == nil{
                 tasks = [TaskModel]()
             }
-            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b!, taskDeadline: c!, taskLocation: e!, reminder: d!, addToCal: f!, isPinned: g!, isDone: h!)
             tasks.append(task)
         }
         set?.close()
@@ -438,8 +454,8 @@ class DBManager: NSObject {
             let a = set?.string(forColumn: "task_name")!
             let b = set?.string(forColumn: "task_time")
             let c = set?.string(forColumn: "task_deadline")
-            let d = set?.bool(forColumn: "hasReminder")
-            let e = set?.string(forColumn: "task_location")
+            let d = set?.string(forColumn: "reminder")
+            let e = set?.int(forColumn: "task_location")
             let f = set?.bool(forColumn: "addToCal")
             let g = set?.bool(forColumn: "isPinned")
             let h = set?.bool(forColumn: "isDone")
@@ -449,7 +465,7 @@ class DBManager: NSObject {
             if tasks == nil{
                 tasks = [TaskModel]()
             }
-            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b!, taskDeadline: c!, taskLocation: e!, reminder: d!, addToCal: f!, isPinned: g!, isDone: h!)
             tasks.append(task)
         }
         set?.close()
@@ -468,8 +484,8 @@ class DBManager: NSObject {
             let a = set?.string(forColumn: "task_name")!
             let b = set?.string(forColumn: "task_time")
             let c = set?.string(forColumn: "task_deadline")
-            let d = set?.bool(forColumn: "hasReminder")
-            let e = set?.string(forColumn: "task_location")
+            let d = set?.string(forColumn: "reminder")
+            let e = set?.int(forColumn: "task_location")
             let f = set?.bool(forColumn: "addToCal")
             let g = set?.bool(forColumn: "isPinned")
             let h = set?.bool(forColumn: "isDone")
@@ -479,7 +495,7 @@ class DBManager: NSObject {
             if tasks == nil{
                 tasks = [TaskModel]()
             }
-            task = TaskModel(taskId: i!, taskName: a!, taskTime: b, taskDeadline: c, reminder: d!, taskLocation: e!, addToCal: f!, isPinned: g!, isDone: h!)
+            task = TaskModel(taskId: i!, taskName: a!, taskTime: b!, taskDeadline: c!, taskLocation: e!, reminder: d!, addToCal: f!, isPinned: g!, isDone: h!)
             tasks.append(task)
         }
         set?.close()

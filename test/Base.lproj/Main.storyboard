@@ -597,6 +597,7 @@
                                             <outlet property="accessoryView" destination="IMa-jC-xr3" id="Ow9-KH-KFK"/>
                                             <outlet property="imgView" destination="IMa-jC-xr3" id="boI-qQ-Gvm"/>
                                             <outlet property="reminderTime" destination="e0c-Xw-ALw" id="zWs-OD-MMw"/>
+                                            <segue destination="5ud-ie-O0u" kind="unwind" unwindAction="reminderSegueBackWithSegue:" id="ywI-M7-maz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1671,12 +1672,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atb-So-4pK">
+                                                    <rect key="frame" x="151" y="23" width="243" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="kT8-wq-0wA" firstAttribute="centerY" secondItem="NnN-zG-oui" secondAttribute="centerY" id="4LF-Kr-mUE"/>
                                                 <constraint firstItem="kT8-wq-0wA" firstAttribute="leading" secondItem="NnN-zG-oui" secondAttribute="leadingMargin" constant="10" id="gsr-07-xZg"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="txtReminder" destination="atb-So-4pK" id="x7t-Ry-udi"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskLocationCell" id="MTO-bh-P3a" customClass="taskLocationCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="483" width="414" height="65"/>
@@ -1797,6 +1808,7 @@
                         <outlet property="tableView" destination="jG7-bq-or0" id="eeD-Cv-yrI"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="addTaskTime" id="475-AM-deT"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="deadline" id="Si0-bg-LgH"/>
+                        <segue destination="pxz-44-Biu" kind="push" identifier="taskReminder" id="ufZ-vi-TiS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="czi-0Y-UN7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3679,9 +3691,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="54J-Uw-fAs"/>
         <segue reference="RdI-zR-oJx"/>
-        <segue reference="bHU-5F-LTf"/>
+        <segue reference="475-AM-deT"/>
         <segue reference="3YL-zA-42E"/>
         <segue reference="jtY-fE-0jz"/>
+        <segue reference="ufZ-vi-TiS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

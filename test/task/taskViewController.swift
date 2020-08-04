@@ -245,14 +245,14 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
         let task = showTask![indexPath.row]
         cell.taskName?.text = showTask![indexPath.row].taskName
-        if task.taskTime != nil{
-            let t = formatter1.date(from: showTask![indexPath.row].taskTime!)
+        if task.taskTime != ""{
+            let t = formatter1.date(from: showTask![indexPath.row].taskTime)
             cell.addTaskTime.text = " \(formatter2.string(from: t!)) hr \(formatter3.string(from: t!)) min "
         }else{
             cell.addTaskTime.text = nil
         }
-        if task.taskDeadline != nil{
-            let d = showDateformatter.date(from: task.taskDeadline!)
+        if task.taskDeadline != ""{
+            let d = showDateformatter.date(from: task.taskDeadline)
             let interval = d!.timeIntervalSinceNow
             let day = Int(interval/86400)
             let hour = Int((Int(interval)-Int(interval/86400)*86400)/3600)

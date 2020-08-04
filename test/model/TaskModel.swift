@@ -9,12 +9,12 @@
 import Foundation
 
 struct TaskModel{
-    let taskId: Int32?
+    let taskId: Int32
     let taskName: String
-    let taskTime: String?
-    let taskDeadline: String?
-    let reminder: Bool
-    let taskLocation: String?
+    let taskTime: String
+    let taskDeadline: String
+    let taskLocation: Int32
+    let reminder: String
     let addToCal: Bool
     let isPinned: Bool
     let isDone: Bool
