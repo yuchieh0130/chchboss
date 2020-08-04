@@ -27,6 +27,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     var color = UIColor()
     var time = "Time"
     var segConIndex = 0
+    var years: [String]!
+    var currentYear = Calendar.current.component(.year, from: Date())
     
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -46,6 +48,16 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        var years: [String] = []
+        if years.count == 0 {
+            var year = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.year, from: NSDate() as Date)
+            for _ in 1...12{
+                years.append("\(year)")
+                year -= 1
+            }
+        }
+        self.years = years
         
         todayTime.isHidden = false
         todayTimeLabel.isHidden = false
@@ -70,7 +82,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         combineChart.drawBarShadowEnabled = false
         combineChart.highlightFullBarEnabled = false
         combineChart.doubleTapToZoomEnabled = false
-        combineChart.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue]
         //left axis right axis
         combineChart.leftAxis.drawGridLinesEnabled = true
         combineChart.rightAxis.drawLabelsEnabled = false
@@ -137,8 +148,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
             combineChart.isHidden = false
             
             let data = CombinedChartData()
-            data.lineData = generateLineData(dataPoints: months, values: value)
-            data.barData = generateBarData(dataPoints: months, values: value)
+            data.lineData = generateLineData(dataPoints: years, values: value)
+            data.barData = generateBarData(dataPoints: years, values: value)
             combineChart.data = data
             //x axis
             combineChart.xAxis.labelPosition = .bothSided
@@ -157,7 +168,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     func generateLineData(dataPoints: [String], values: [Double]) -> LineChartData{
         var dataEntries = [ChartDataEntry]()
         for i in 0..<dataPoints.count{
-            let dataEntry = ChartDataEntry(x: Double(i), y: (Double(arc4random_uniform(25) + 25)))
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }
         let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: "Line Chart")
@@ -173,8 +184,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     func generateBarData(dataPoints: [String], values: [Double]) -> BarChartData{
         var dataEntries = [BarChartDataEntry]()
         for i in 0..<dataPoints.count{
-            let dataEntry = BarChartDataEntry(x: Double(i), y: (Double(arc4random_uniform(25) + 25)))
-            //Double(values[i])
+            let dataEntry = BarChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }
         let barChartDataSet = BarChartDataSet(entries: dataEntries, label: "Bar Chart")
@@ -198,22 +208,10 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         print("chartValueNothingSelected")
     }
     
-    private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
-        var colors: [UIColor] = []
-        for _ in 0..<numbersOfColor {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
-        return colors
-    }
-    
     private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
-        for i in 0...numbersOfColor-1{
-            let color = hexStringToUIColor (hex: "\(showCategoryColor[i])")
+        for _ in 0...numbersOfColor-1{
+//            let color = hexStringToUIColor (hex: "\(showCategoryColor[i])")
             colors.append(color)
         }
         return colors
@@ -247,6 +245,10 @@ extension combineChartViewController: IAxisValueFormatter {
         if segConIndex == 1{
             let moduDay = Double(value).truncatingRemainder(dividingBy: Double(days.count))
             return days[Int(moduDay)]
+        }else if segConIndex == 3{
+            let moduYear =
+                Double(value).truncatingRemainder(dividingBy: Double(years.count))
+            return years[Int(moduYear)]
         }
         let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
         return months[Int(moduMonth)]

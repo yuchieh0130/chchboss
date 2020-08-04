@@ -28,6 +28,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var showCategoryStr = [String]()
     var showCategoryColor = [String]()
     
+    var showTrack = [TrackModel]()
+    var showTrackCategoryValues = [String]()
+    var trackDate = ""
+    
     var categoryValues = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
     var values = [0.0, 40.0, 63.0, 0.0, 44.0, 12.0, 0.0, 90.0, 0.0, 60.0, 0.0, 17.0, 0.0, 37.0, 0.0, 54.0, 64.0, 11.0]
     var values1 = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
@@ -312,6 +316,25 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartYear.legend.direction = .leftToRight
     }
     
+    func track(){
+        //我只需要抓到那天每個category的values就好
+        //showTrackCategoryValues
+        showTrack = DBManager.getInstance().getDateTracks(String: trackDate)
+        var drawStart = ""
+        var drawEnd = ""
+        for i in 0...showTrack.count-1{
+            drawStart = showTrack[i].startTime
+            drawEnd = showTrack[i].endTime
+            if showTrack[i].startDate != trackDate{
+                drawStart = "00:00"
+            }
+            if showTrack[i].endDate != trackDate{
+                drawEnd = "23:59"
+            }
+            let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
+        }
+    }
+    
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if segConIndex == 0{
             if let dataSet0 = pieChart.data?.dataSets[ highlight.dataSetIndex] {
@@ -336,18 +359,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }
         performSegue(withIdentifier: "analysisToCombineChart", sender: self)
     }
-    
-//    private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
-//        var colors: [UIColor] = []
-//        for _ in 0..<numbersOfColor {
-//            let red = Double(arc4random_uniform(256))
-//            let green = Double(arc4random_uniform(256))
-//            let blue = Double(arc4random_uniform(256))
-//            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-//            colors.append(color)
-//        }
-//        return colors
-//    }
     
     private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
