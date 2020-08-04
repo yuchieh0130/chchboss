@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var Daily: UIButton!
     
+    let networkController = NetworkController()
     let signUpView = SignupViewController()
     
     @IBAction func logInBtn(_ sender: Any) {
@@ -23,6 +24,32 @@ class LoginViewController: UIViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
         //performSegue(withIdentifier: "bbbanana", sender: self)
+
+        
+        self.networkController.login(email: emailTextField.text!, password: passwordTextField.text!) {
+                (return_list) in
+                if let status_code = return_list?[0],
+                    let user_id = return_list?[1]{
+                        if status_code as! Int == 200 {
+                                DispatchQueue.main.async {
+                                    UserDefaults.standard.set(user_id, forKey: "user_id")
+//                                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+                            }
+                        }
+//      登入錯誤(登入不正常)
+                        else {
+                            print(status_code)
+//                            DispatchQueue.main.async {
+//                                self.errorLabel.isHidden = false
+//                            }
+                        }
+                    }
+//    登入請求沒有送出
+                    else {
+                        print("error")
+                    }
+        }
+        
         UserDefaults.standard.set(true, forKey: "isLogIn")
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
