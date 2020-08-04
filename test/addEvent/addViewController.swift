@@ -181,7 +181,8 @@ class addViewController : UIViewController {
                 return "event\(id)_allday_\(index)"
             }
         }else{
-            reminder_index = event?.reminder.components(separatedBy: ",").map{ NSString(string: $0).integerValue } ?? [0]
+            reminder_index = event!.reminder.components(separatedBy: ",").map{ NSString(string: $0).integerValue }
+                //?? [0]
             oldReminder_index = oldReminder_index.map{ (index) -> String in
                 return "event\(id)_\(index)"
             }
@@ -224,6 +225,7 @@ class addViewController : UIViewController {
                 }else{
                     VC.reminder = reminder_index
                 }
+                print("aaaaaaa")
             }
         default:
             print("")
