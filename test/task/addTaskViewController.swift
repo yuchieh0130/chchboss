@@ -45,7 +45,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var d: Bool = false //check deadline is nil or not
     var t: Bool = false //check tasktime is nil or not
-    var p: Bool = false
+//    var p: Bool = false
     var tag: String?
     var date = Date()+86400
     var showDate: String = ""
@@ -90,7 +90,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         reminderConfig( rname: "1 day before", fireTime: 86400),]
         
 //        switchdeadline.addTarget(self, action: #selector(self.deadlineOpen(_ :)), for: .valueChanged)
-//        switchtasktime.addTarget(self, action: #selector(self.taskTimeOpen(_ :)), for: .valueChanged)
+        switchtasktime.addTarget(self, action: #selector(self.taskTimeOpen(_ :)), for: .valueChanged)
         switchdeadline.addTarget(self, action: #selector(self.deadlineOpen(_ :)), for: .valueChanged)
 //        switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
         switchcalendar.addTarget(self, action: #selector(self.calendarOpen(_ :)), for: .valueChanged)
@@ -116,12 +116,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         taskTime = task!.taskTime
         deadline = task!.taskDeadline
         isPinned = task?.isPinned
-        if taskTime == ""{
-            //t = true
+        if taskTime != ""{
+            t = true
             tableViewData[0].opened = true
         }
-        if deadline == ""{
-            //d = true
+        if deadline != ""{
+            d = true
             tableViewData[1].opened = true
         }
 //        if isPinned != nil{
@@ -129,6 +129,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
 //        }
         addToCal = task!.addToCal
         reminder = task!.reminder
+        reminder_index = task!.reminder.components(separatedBy: ",").map{ NSString(string: $0).integerValue }
         oldReminder_index = task!.reminder.components(separatedBy: ",") as [String]
         oldReminder_index = oldReminder_index.map{ (index) -> String in
             return "task\(id)_\(index)"
@@ -149,7 +150,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
                 VC.tag = "deadline"
                 VC.showDate = showDateformatter.date(from: deadline)!
             }
-        case"reminder":
+        case"taskReminder":
             if let VC = segue.destination as? reminderTableViewController{
                 VC.reminder = reminder_index
         }
@@ -198,8 +199,8 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func addTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
-//        if d == false{ deadline = nil }
-//        if t == false{ taskTime = nil }
+        if d == false{ deadline = "" }
+        if t == false{ taskTime = "" }
         if taskName == ""{
             alertMessage()
         }else{
@@ -213,6 +214,8 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func editTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
+        if d == false{ deadline = "" }
+        if t == false{ taskTime = "" }
 //        if d == false{ deadline = nil }
 //        if t == false{ taskTime = nil }
 //        if p == false{ isPinned = nil }
@@ -223,7 +226,10 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             let modelInfo = TaskModel(taskId: id, taskName: taskName, taskTime: taskTime, taskDeadline: deadline, taskLocation: taskLocation, reminder: reminder, addToCal: addToCal, isPinned: isPinned, isDone: isDone)
             DBManager.getInstance().editTask(modelInfo)
             makeNotification(action: "delete")
-            if reminder != "0" && deadline != "" {makeNotification(action: "add")}
+            if reminder != "0" && deadline != "" {
+                makeNotification(action: "add")
+                
+            }
         }
         self.dismiss(animated: true, completion: nil)
         }
@@ -247,11 +253,11 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func makeNotification(action: String){
         //var notifivationids = [String]()
-        let fireDate = showDateformatter.date(from: deadline)!
         //var notificationIndex = [0]
         let notificationIndex = reminder_index
         switch action {
         case "add":
+            let fireDate = showDateformatter.date(from: deadline)!
             let no = UNMutableNotificationContent()
                 no.title = "Task Notification"
             no.body = "name: " + taskName + "\ntime: " + deadline
@@ -325,6 +331,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         case [1,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "addTaskTimeCell", for: indexPath) as! addTaskTimeCell
+            print("?????\(taskTime)")
             cell.txtAddTaskTime.text = taskTime
             cell.selectionStyle = .none
             return cell
@@ -344,17 +351,18 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
 //            cell.txtDeadline.text = showWeekdayformatter.string(from: i)
             return cell
         case [3,0]:
-                   let cell = tableView.dequeueReusableCell(withIdentifier: "addToCalendarCell", for: indexPath)
-                   cell.accessoryView = switchcalendar
-                   switchcalendar.setOn(addToCal, animated: .init())
-                   cell.selectionStyle = .none
-                   return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addToCalendarCell", for: indexPath)
+            cell.accessoryView = switchcalendar
+            switchcalendar.setOn(addToCal, animated: .init())
+            cell.selectionStyle = .none
+            return cell
         case [4,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
             var txtReminder = ""
             for i in 0...reminder_index.count-1{
                 txtReminder += "\(reminderData[reminder_index[i]].rname) , "
             }
+            cell.txtReminder.text = txtReminder
             //switchreminder.setOn(reminder, animated: .init())
             cell.selectionStyle = .none
             return cell
@@ -373,12 +381,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         var indexA = [IndexPath]()
         indexA.append([1,1])
         if sender.isOn == true{
-            //t = true
             if taskTime == ""{ taskTime = "01:00"}
+            t = true
             tableViewData[0].opened = true
             tableView.insertRows(at: indexA, with: .fade)
         }else{
-            //t = false
+            t = false
             tableViewData[0].opened = false
             tableView.deleteRows(at: indexA, with: .fade)
         }
@@ -388,12 +396,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         var indexA = [IndexPath]()
         indexA.append([2,1])
         if sender.isOn == true{
-            //d = true
-            if deadline == ""{ deadline = "01:00"}
+            d = true
+            if deadline == ""{ deadline = showDateformatter.string(from: Date()+86400)}
             tableViewData[1].opened = true
             tableView.insertRows(at: indexA, with: .fade)
         }else{
-            //d = false
+            d = false
             deadline = ""
             tableViewData[1].opened = false
             tableView.deleteRows(at: indexA, with: .fade)
@@ -423,16 +431,10 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             }else{
                 addToCal = true
                 switchdeadline.isOn = true
-                tableViewData[1].opened = true
-                tableView.insertRows(at: indexA, with: .fade)
+                d = true
+                //tableViewData[1].opened = true
+                //tableView.insertRows(at: indexA, with: .fade)
             }
-//            addToCal = true
-//            if d == false{
-//                d = true
-//                switchdeadline.isOn = true
-//                tableViewData[1].opened = true
-//                tableView.insertRows(at: indexA, with: .fade)
-//            }
         }else{
             addToCal = false
         }
