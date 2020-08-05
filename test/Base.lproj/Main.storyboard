@@ -1218,7 +1218,11 @@
                                 <rect key="frame" x="20" y="121" width="374" height="68"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLS-fp-x2b">
-                                        <rect key="frame" x="30" y="25" width="22" height="18"/>
+                                        <rect key="frame" x="20" y="25" width="22" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="7fi-Dt-MvS"/>
+                                            <constraint firstAttribute="width" constant="22" id="ucS-8T-K99"/>
+                                        </constraints>
                                         <color key="tintColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" image="lessthan" catalog="system">
                                             <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1228,9 +1232,9 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHy-VG-tPp">
-                                        <rect key="frame" x="30" y="18.5" width="314" height="31"/>
+                                        <rect key="frame" x="37" y="18.5" width="300" height="31"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="314" id="LtE-tw-gVK"/>
+                                            <constraint firstAttribute="width" constant="300" id="LtE-tw-gVK"/>
                                             <constraint firstAttribute="height" constant="31" id="VHB-zg-wl2"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -1248,7 +1252,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPV-yX-OM5">
-                                        <rect key="frame" x="322" y="25" width="22" height="18"/>
+                                        <rect key="frame" x="332" y="25" width="22" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="CFN-NV-MQR"/>
+                                            <constraint firstAttribute="width" constant="22" id="eRx-Ij-qD0"/>
+                                        </constraints>
                                         <color key="tintColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" image="greaterthan" catalog="system">
                                             <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1263,13 +1271,13 @@
                                     <constraint firstItem="nZ7-cc-5Xd" firstAttribute="centerY" secondItem="AiO-HF-iZi" secondAttribute="centerY" id="3bx-v5-bK5"/>
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="centerX" secondItem="AiO-HF-iZi" secondAttribute="centerX" id="9If-kc-dd6"/>
                                     <constraint firstItem="dPV-yX-OM5" firstAttribute="centerY" secondItem="AiO-HF-iZi" secondAttribute="centerY" id="C9o-41-uFg"/>
-                                    <constraint firstItem="dPV-yX-OM5" firstAttribute="leading" secondItem="nZ7-cc-5Xd" secondAttribute="trailing" constant="21.5" id="M58-UY-6GA"/>
-                                    <constraint firstAttribute="trailing" secondItem="dPV-yX-OM5" secondAttribute="trailing" constant="30" id="OaS-k5-yDW"/>
+                                    <constraint firstItem="dPV-yX-OM5" firstAttribute="leading" secondItem="nZ7-cc-5Xd" secondAttribute="trailing" constant="31.5" id="M58-UY-6GA"/>
+                                    <constraint firstAttribute="trailing" secondItem="dPV-yX-OM5" secondAttribute="trailing" constant="20" id="OaS-k5-yDW"/>
                                     <constraint firstItem="nZ7-cc-5Xd" firstAttribute="centerX" secondItem="AiO-HF-iZi" secondAttribute="centerX" id="bip-Jp-9uM"/>
                                     <constraint firstItem="OLS-fp-x2b" firstAttribute="centerY" secondItem="AiO-HF-iZi" secondAttribute="centerY" id="h8y-dX-JmM"/>
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="centerY" secondItem="AiO-HF-iZi" secondAttribute="centerY" id="oqe-jH-ekf"/>
-                                    <constraint firstItem="OLS-fp-x2b" firstAttribute="leading" secondItem="AiO-HF-iZi" secondAttribute="leading" constant="30" id="vYT-7l-cbQ"/>
-                                    <constraint firstItem="nZ7-cc-5Xd" firstAttribute="leading" secondItem="OLS-fp-x2b" secondAttribute="trailing" constant="21.5" id="vpn-x7-wP6"/>
+                                    <constraint firstItem="OLS-fp-x2b" firstAttribute="leading" secondItem="AiO-HF-iZi" secondAttribute="leading" constant="20" id="vYT-7l-cbQ"/>
+                                    <constraint firstItem="nZ7-cc-5Xd" firstAttribute="leading" secondItem="OLS-fp-x2b" secondAttribute="trailing" constant="31.5" id="vpn-x7-wP6"/>
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1hb-Ki-UBc">
