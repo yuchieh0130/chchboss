@@ -599,22 +599,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reminder_deselect" translatesAutoresizingMaskIntoConstraints="NO" id="IMa-jC-xr3">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="reminder_deselect" translatesAutoresizingMaskIntoConstraints="NO" id="IMa-jC-xr3">
                                                     <rect key="frame" x="364" y="20" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.49794443061787763" green="0.64901428514921766" blue="0.96354695431472082" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="G9i-mP-5tm"/>
-                                                        <constraint firstAttribute="height" constant="30" id="zoQ-qL-5w9"/>
-                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="IMa-jC-xr3" firstAttribute="top" secondItem="Xac-nD-cbi" secondAttribute="topMargin" constant="9" id="39W-HW-dtE"/>
                                                 <constraint firstItem="e0c-Xw-ALw" firstAttribute="leading" secondItem="Xac-nD-cbi" secondAttribute="leadingMargin" id="4TM-eV-Iya"/>
-                                                <constraint firstItem="IMa-jC-xr3" firstAttribute="leading" secondItem="e0c-Xw-ALw" secondAttribute="trailing" constant="49" id="TKX-aA-2vv"/>
-                                                <constraint firstItem="IMa-jC-xr3" firstAttribute="trailing" secondItem="Xac-nD-cbi" secondAttribute="trailingMargin" id="oEr-ph-gup"/>
                                                 <constraint firstItem="e0c-Xw-ALw" firstAttribute="centerY" secondItem="Xac-nD-cbi" secondAttribute="centerY" id="sNv-37-lWJ"/>
-                                                <constraint firstItem="IMa-jC-xr3" firstAttribute="centerY" secondItem="Xac-nD-cbi" secondAttribute="centerY" id="xiE-0f-Hns"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
