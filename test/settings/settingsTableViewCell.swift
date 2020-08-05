@@ -23,8 +23,3 @@ class changePasswordCell: UITableViewCell{
 class editMyplaceCell: UITableViewCell{
     @IBOutlet var editMyplace: UILabel!
 }
-
-class logOutCell: UITableViewCell{
-    @IBOutlet var logOut: UILabel!
-    
-}
