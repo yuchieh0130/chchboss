@@ -4,7 +4,8 @@ import mysql.connector
 import uuid
 app = Flask(__name__) 
 
-conn = mysql.connector.Connect(host='127.0.0.1', user='root',password='chchtest',database='appdb')
+
+conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
 
 # app.config["MYSQL_HOST"] = "127.0.0.1"
 # app.config["MYSQL_USER"] = "root"
@@ -359,7 +360,7 @@ def register():
     email = str(data["email"])
     password = str(data["password"])
     user_name = str(data["user_name"])
-    cur = mysql.connection.cursor()
+    cur = conn.cursor()
     sql_precheck = "SELECT * FROM user WHERE email = %s"
     adr_precheck = (email)
     cur.execute(sql_precheck, adr_precheck)
@@ -367,13 +368,13 @@ def register():
     cur.close()
     if fetch_data:
         return jsonify({"status_code": 400, "user_id": "None"})
-    cur = mysql.connection.cursor()
+    cur = conn.cursor()
     sql = "INSERT INTO user (email, password, user_name) VALUES (%s, %s, %s);"
     adr = (email, password, user_name)
     cur.execute(sql, adr)
-    mysql.connection.commit()
+    conn.commit()
     cur.close()
-    cur = mysql.connection.cursor()
+    cur = conn.cursor()
     sql_precheck = "SELECT user_id FROM user WHERE email = %s"
     adr_precheck = (email)
     cur.execute(sql_precheck, adr_precheck)
@@ -392,14 +393,17 @@ def register():
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
+    print(data)
     email = data["email"]
     password = data["password"]
-    cur = mysql.connection.cursor()
+    print(email,password)
+    cur = conn.cursor()
     sql = "SELECT user_id FROM user WHERE email = %s and password = %s"
     adr = (email, password)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
+    print(fetch_data[0][0])
     if fetch_data and fetch_data[0][0] == True:
         return jsonify({"status_code": 200, "user_id": fetch_data[0][0]})
     else:
