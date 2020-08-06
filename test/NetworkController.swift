@@ -99,7 +99,7 @@ class NetworkController {
                         JSONSerialization.jsonObject(with: data) as?
                         [String: Any],
                         let status_code = jsonDictionary["status_code"] as? Int,
-                            let user_id = jsonDictionary["user_id"] as? String{
+                            let user_id = jsonDictionary["user_id"] as? Int{
                                 completion([status_code, user_id])
                         } else {
                             completion(nil)
@@ -124,7 +124,7 @@ class NetworkController {
                         JSONSerialization.jsonObject(with: data) as?
                         [String: Any],
                         let status_code = jsonDictionary["status_code"] as? Int,
-                            let user_id = jsonDictionary["user_id"] as? String{
+                            let user_id = jsonDictionary["user_id"] as? Int{
                                 completion([status_code, user_id])
                         } else {
                             completion(nil)
@@ -132,5 +132,4 @@ class NetworkController {
             }
         task.resume( )
     }
-
 }

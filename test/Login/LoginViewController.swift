@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var Daily: UIButton!
+    @IBOutlet weak var warningLabel: UILabel!
     
     let networkController = NetworkController()
     let signUpView = SignupViewController()
@@ -21,11 +22,8 @@ class LoginViewController: UIViewController {
     @IBAction func logInBtn(_ sender: Any) {
         UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
-        emailTextField.text = ""
-        passwordTextField.text = ""
         //performSegue(withIdentifier: "bbbanana", sender: self)
 
-        
         self.networkController.login(email: emailTextField.text!, password: passwordTextField.text!) {
                 (return_list) in
                 if let status_code = return_list?[0],
@@ -33,29 +31,38 @@ class LoginViewController: UIViewController {
                         if status_code as! Int == 200 {
                                 DispatchQueue.main.async {
                                     UserDefaults.standard.set(user_id, forKey: "user_id")
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
+                                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                    appDelegate.window?.rootViewController = tabBar
 //                                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
                             }
+                            
                         }
 //      登入錯誤(登入不正常)
                         else {
                             print(status_code)
-//                            DispatchQueue.main.async {
-//                                self.errorLabel.isHidden = false
-//                            }
+                            DispatchQueue.main.async {
+                                self.warningLabel.isHidden = false
+                                return
+                            }
+                            
                         }
                     }
 //    登入請求沒有送出
                     else {
+                    DispatchQueue.main.async {
+                        self.warningLabel.text = "Connection error"
+                        self.warningLabel.isHidden = false
                         print("error")
+                        return
+                    }
                     }
         }
         
-        UserDefaults.standard.set(true, forKey: "isLogIn")
+//        UserDefaults.standard.set(true, forKey: "isLogIn")
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = tabBar
+        
     }
     
     @IBAction func SignUpBtn(_ sender: Any) {
@@ -71,6 +78,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        warningLabel.isHidden = true
         emailTextField.text = UserDefaults.standard.value(forKey: "userEmail") as? String
         passwordTextField.text = UserDefaults.standard.value(forKey: "userPassword") as? String
         
