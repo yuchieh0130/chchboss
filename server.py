@@ -358,25 +358,27 @@ def insertCategory():
 def register():
     data = request.get_json()
     email = str(data["email"])
+    print("current email"+email)
     password = str(data["password"])
     user_name = str(data["user_name"])
     cur = conn.cursor()
     sql_precheck = "SELECT * FROM user WHERE email = %s"
-    adr_precheck = (email)
+    adr_precheck = (email,)
     cur.execute(sql_precheck, adr_precheck)
     fetch_data = cur.fetchall()
     cur.close()
     if fetch_data:
-        return jsonify({"status_code": 400, "user_id": "None"})
+        print(400)
+        return jsonify({"status_code": 400, "user_id": 0})
     cur = conn.cursor()
-    sql = "INSERT INTO user (email, password, user_name) VALUES (%s, %s, %s);"
+    sql = "INSERT INTO user (email, password, user_name) VALUES (%s, %s, %s)"
     adr = (email, password, user_name)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
     cur = conn.cursor()
     sql_precheck = "SELECT user_id FROM user WHERE email = %s"
-    adr_precheck = (email)
+    adr_precheck = (email,)
     cur.execute(sql_precheck, adr_precheck)
     fetch_data = cur.fetchall()
     cur.close()
@@ -387,27 +389,28 @@ def register():
     # cur.execute(sql, adr)
     # mysql.connection.commit()
     # cur.close()
+    print(200)
     return jsonify({"status_code": 200, "user_id": fetch_data[0][0]})
 
 
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
-    print(data)
+    # print(data)
     email = data["email"]
     password = data["password"]
-    print(email,password)
+    # print(email,password)
     cur = conn.cursor()
     sql = "SELECT user_id FROM user WHERE email = %s and password = %s"
     adr = (email, password)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
-    print(fetch_data[0][0])
-    if fetch_data and fetch_data[0][0] == True:
+    # print(fetch_data[0][0])
+    if fetch_data:
         return jsonify({"status_code": 200, "user_id": fetch_data[0][0]})
     else:
-        return jsonify({"status_code": 400})
+        return jsonify({"status_code": 400,"user_id": 0})
     
 
 # @app.route("/logout", methods=["POST"])
