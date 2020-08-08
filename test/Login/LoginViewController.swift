@@ -31,10 +31,7 @@ class LoginViewController: UIViewController {
                         if status_code as! Int == 200 {
                                 DispatchQueue.main.async {
                                     UserDefaults.standard.set(user_id, forKey: "user_id")
-                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                    let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
-                                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                    appDelegate.window?.rootViewController = tabBar
+                                    self.goHomepage()
 //                                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
                             }
                             
@@ -70,6 +67,18 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
         //self.present(signUpView, animated: true, completion: nil)
     }
+    
+    @IBAction func skipLogin(_ sender: Any) {
+        goHomepage()
+    }
+    
+    func goHomepage(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = tabBar
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
