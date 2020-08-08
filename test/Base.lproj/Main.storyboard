@@ -1582,23 +1582,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMY-7e-cMB">
-                                                    <rect key="frame" x="30" y="20.666666666666671" width="75" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="75" id="hcp-fo-SU2"/>
-                                                        <constraint firstAttribute="height" constant="24" id="kz8-gx-qdU"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMY-7e-cMB">
+                                                    <rect key="frame" x="33" y="20" width="75" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="OMY-7e-cMB" firstAttribute="leading" secondItem="m8x-Ru-04u" secondAttribute="leadingMargin" constant="10" id="Krt-Hn-P9Z"/>
-                                                <constraint firstItem="OMY-7e-cMB" firstAttribute="top" secondItem="m8x-Ru-04u" secondAttribute="topMargin" constant="9.5" id="OiQ-pq-eAJ"/>
-                                                <constraint firstItem="OMY-7e-cMB" firstAttribute="centerY" secondItem="m8x-Ru-04u" secondAttribute="centerY" id="dzK-mV-el4"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="OMY-7e-cMB" secondAttribute="bottom" constant="9.5" id="sXn-Ic-Cjr"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addTaskTimeCell" id="6V6-Vk-CzA" customClass="addTaskTimeCell" customModule="test" customModuleProvider="target">
@@ -2241,7 +2232,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSf-ZS-Qg3">
-                                <rect key="frame" x="10" y="47.666666666666657" width="60" height="34"/>
+                                <rect key="frame" x="10" y="48" width="60" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="h2J-NB-Vxx"/>
                                 </constraints>
@@ -2254,7 +2245,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCZ-1q-wnd">
-                                <rect key="frame" x="292" y="47.666666666666657" width="52" height="34"/>
+                                <rect key="frame" x="292" y="48" width="52" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -2264,7 +2255,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vo-Ib-cXn">
-                                <rect key="frame" x="371" y="47.666666666666657" width="33" height="34"/>
+                                <rect key="frame" x="371" y="48" width="33" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Add">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -2275,7 +2266,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zj-Xy-h2I">
-                                <rect key="frame" x="365" y="47.666666666666657" width="39" height="34"/>
+                                <rect key="frame" x="365" y="48" width="39" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
