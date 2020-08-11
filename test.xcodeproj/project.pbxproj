@@ -51,6 +51,7 @@
 		4B9EBD542417799400162A77 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD532417799400162A77 /* EventModel.swift */; };
 		4B9EBD562417A7CE00162A77 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD552417A7CE00162A77 /* Util.swift */; };
 		4B9EBD582417AEC900162A77 /* project.db in Resources */ = {isa = PBXBuildFile; fileRef = 4B9EBD572417AEC900162A77 /* project.db */; };
+		4B9FB4FA24E296E300DBFAFA /* editMyPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FB4F924E296E300DBFAFA /* editMyPlaceViewController.swift */; };
 		4B9FBA2E24A3BDE30024D7CD /* tete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FBA2D24A3BDE30024D7CD /* tete.swift */; };
 		4B9FBA3024ACE18B0024D7CD /* timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FBA2F24ACE18B0024D7CD /* timeline.swift */; };
 		4B9FBA3224B30E6A0024D7CD /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FBA3124B30E690024D7CD /* NetworkController.swift */; };
@@ -128,6 +129,7 @@
 		4B9EBD532417799400162A77 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		4B9EBD552417A7CE00162A77 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		4B9EBD572417AEC900162A77 /* project.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = project.db; sourceTree = "<group>"; };
+		4B9FB4F924E296E300DBFAFA /* editMyPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editMyPlaceViewController.swift; sourceTree = "<group>"; };
 		4B9FBA2D24A3BDE30024D7CD /* tete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tete.swift; sourceTree = "<group>"; };
 		4B9FBA2F24ACE18B0024D7CD /* timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeline.swift; sourceTree = "<group>"; };
 		4B9FBA3124B30E690024D7CD /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			children = (
 				4B35331C24A9D9EE00408562 /* settingsViewController.swift */,
 				4BAB720724A9E703007D52A7 /* settingsTableViewCell.swift */,
+				4B9FB4F924E296E300DBFAFA /* editMyPlaceViewController.swift */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				4B9E6C0324CAD4B9002A1B80 /* MonthYearPickerView.swift in Sources */,
 				4B9FBA3224B30E6A0024D7CD /* NetworkController.swift in Sources */,
 				6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */,
+				4B9FB4FA24E296E300DBFAFA /* editMyPlaceViewController.swift in Sources */,
 				4B351A4824188BE9003A474A /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
