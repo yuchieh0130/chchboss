@@ -101,6 +101,8 @@ class addViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         //查看手機內佇列的notification
 //        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
 //            for request in requests {
@@ -243,6 +245,16 @@ class addViewController : UIViewController {
            event = nil
            selectedDay = []
        }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "eventUnwindSegue"{
+            if name == "" {
+                alertMessage()
+                return false
+            }
+        }
+        return true
+    }
     
     //DatePopupViewController save回來後執行
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
@@ -388,7 +400,6 @@ class addViewController : UIViewController {
             if reminder != "0" { makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
         }
-
     }
     
     @IBAction func editEventButton(_ sender: UIButton){
@@ -443,7 +454,7 @@ class addViewController : UIViewController {
        
     //alert message
     func alertMessage(){
-            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default){_ in
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)

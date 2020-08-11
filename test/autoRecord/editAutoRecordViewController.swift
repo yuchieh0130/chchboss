@@ -61,6 +61,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
         oldTrack = track!
         s = showDateformatter.date(from: "\(track!.startDate) \(track!.startTime)")!
         e = showDateformatter.date(from: "\(track!.endDate) \(track!.endTime)")!
