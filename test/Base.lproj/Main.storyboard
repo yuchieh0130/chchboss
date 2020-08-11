@@ -971,6 +971,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="editMyplace" destination="R1a-Qz-D1g" id="scP-MT-fnp"/>
+                                            <segue destination="n8m-Ye-yaB" kind="show" id="5PA-uq-wsl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1058,7 +1059,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iit-eH-jTJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4590" y="-827"/>
+            <point key="canvasLocation" x="3753.6231884057975" y="-827.00892857142856"/>
         </scene>
         <!--Combine Chart View Controller-->
         <scene sceneID="o26-1Y-VP7">
@@ -1354,7 +1355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1836" y="-827"/>
+            <point key="canvasLocation" x="1677" y="-827"/>
         </scene>
         <!--Auto Record View Controller-->
         <scene sceneID="Srp-ur-Bl1">
@@ -2674,8 +2675,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select / Add this place to My Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfM-1t-feC">
-                                                    <rect key="frame" x="48" y="11" width="283" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select My Favorite / Add to My Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfM-1t-feC">
+                                                    <rect key="frame" x="48" y="11" width="298" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -3594,7 +3595,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qiI-ea-a2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="0Vv-YQ-x2H" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3507" y="1819"/>
+            <point key="canvasLocation" x="-1514" y="2529"/>
         </scene>
         <!--Picker View Year Controller-->
         <scene sceneID="tMn-lQ-KSd">
@@ -3680,7 +3681,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVZ-UR-IsV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="yqH-zs-zG3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2649" y="1819"/>
+            <point key="canvasLocation" x="-717" y="2529"/>
         </scene>
         <!--Picker View Week View Controller-->
         <scene sceneID="eJo-gJ-Gdm">
@@ -3766,13 +3767,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9pt-ya-PFX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="WaQ-wb-DDN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1835" y="1819"/>
+            <point key="canvasLocation" x="43" y="2529"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="5PA-uq-wsl"/>
         <segue reference="9Rl-2J-tqH"/>
-        <segue reference="0SZ-0C-Z6S"/>
+        <segue reference="475-AM-deT"/>
         <segue reference="3YL-zA-42E"/>
         <segue reference="jtY-fE-0jz"/>
         <segue reference="yLI-1s-8Dj"/>
