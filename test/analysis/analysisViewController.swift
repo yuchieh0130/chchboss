@@ -117,6 +117,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }
         
         setUpDay()
+        selectedDay = "2020-07-02"
         getTrackTime()
         
         customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
@@ -187,7 +188,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
             setUpDay()
-            getTrackTime()
+            selectedDay = "\(timeLabel.text!)"
         }else if getIndex == 1{
             customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
             //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
@@ -337,7 +338,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func getTrackTime(){
-        selectedDay = "2020-07-02"
         showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
         var start = ""
         var end = ""
@@ -448,6 +448,12 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             tag = vc?.tag
             if tag == "analysis"{
                 timeLabel.text = showDayformatter.string(from: date)
+                selectedDay = "\(timeLabel.text!)"
+                for (index, value) in valuesDay.enumerated(){
+                    valuesDay[index] = value*0.0
+                }
+                getTrackTime()
+                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             }
         }else if segConIndex == 1{
             let vc = segue.source as? PickerViewWeekViewController
