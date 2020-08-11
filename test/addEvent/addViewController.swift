@@ -385,6 +385,7 @@ class addViewController : UIViewController {
             let modelInfo = EventModel(eventId: id, eventName: name, startDate: startDate,startTime: startTime, endDate: endDate, endTime: endTime, allDay: allDay, autoRecord: autoRecord, autoCategory: autoCategory, autoLocation: autoLocation, reminder: reminder)
             DBManager.getInstance().addEvent(modelInfo)
             if reminder != "0" { makeNotification(action: "add")}
+            self.dismiss(animated: true, completion: nil)
         }
         
     }
@@ -441,7 +442,7 @@ class addViewController : UIViewController {
        
     //alert message
     func alertMessage(){
-            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default){_ in
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)
