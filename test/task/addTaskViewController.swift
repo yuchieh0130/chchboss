@@ -140,18 +140,21 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         tag = nil
         switch segue.identifier{
         case"addTaskTime":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
             VC.tag = "addTaskTime"
             VC.showDate = showTimeformatter.date(from: taskTime)!
             //VC.addTaskTime = taskTime
                 }
         case"deadline":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "deadline"
                 VC.showDate = showDateformatter.date(from: deadline)!
             }
         case"taskReminder":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? reminderTableViewController{
+            if let VC = segue.destination as? reminderTableViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? reminderTableViewController{
                 VC.reminder = reminder_index
         }
             default:

@@ -84,17 +84,20 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         tag = nil
         switch segue.identifier {
         case "editAutoStart":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "editAutoStart"
                 VC.showDate = s
             }
         case "editAutoEnd":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "editAutoEnd"
                 VC.showDate = e
             }
         case "editAutoLocation":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? mapViewController{
+            if let VC = segue.destination as? mapViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.topViewController as? mapViewController{
                 if savePlace != nil{
                     VC.savePlace = savePlace
                 }else{
@@ -303,6 +306,7 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 3{
             performSegue(withIdentifier: "editAutoLocation", sender: self)
+            print("aaaaa")
         }else if indexPath.row == 2 {
             performSegue(withIdentifier: "editAutoCategory", sender: self)
         }else if indexPath.row == 1 {

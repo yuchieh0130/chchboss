@@ -196,29 +196,34 @@ class addViewController : UIViewController {
         tag = nil
         switch segue.identifier {
         case "newStartDate":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "startDate"
                 VC.showDate = s
             }
         case "newEndDate":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "endDate"
                 VC.showDate = e
             }
         case "newAutoStart":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "autoStart"
                 VC.showDate = s
             }
         case "newAutoEnd":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
+            if let VC = segue.destination as? DatePopupViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "autoEnd"
                 VC.showDate = e
             }
         case "Reminder":
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? reminderTableViewController{
+            if let VC = segue.destination as? reminderTableViewController{
+//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? reminderTableViewController{
                 VC.allDay = allDay
                 if allDay{
                     VC.reminder = allDayReminder_index
