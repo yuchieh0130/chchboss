@@ -125,9 +125,10 @@ def pushTrack():
     cur = conn.cursor()
     sql = "SELECT * FROM location WHERE user_id = %s AND location_id > %s"
     adr = (user_id, last_track_id)
-    cur.execute()
+    cur.execute(sql,adr)
     fetch_data = fetchall()
     print(fetch_data)
+
 
 @app.route("/updateTrack", methods=["POST"])
 def updateTrack():
