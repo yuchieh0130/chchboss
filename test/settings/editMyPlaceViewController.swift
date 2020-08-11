@@ -17,15 +17,23 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     
     
     
+    
 }
+
 extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        var cell : UITableViewCell?
+        if indexPath.row == 0{
+            cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceName")
+        }else {
+            cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceCategory")
+        }
+        return cell!
     }
-    
+
 }
