@@ -14,7 +14,10 @@ import GooglePlaces
 
 class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDelegate{
     
-    
+    @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var txtName: UITextField!
+    @IBOutlet weak var tbView: UITableView!
+    var myPlaceCategory = "Others"
     
     
     
@@ -32,6 +35,7 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
             cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceName")
         }else {
             cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceCategory")
+            cell?.textLabel?.text = myPlaceCategory
         }
         return cell!
     }
