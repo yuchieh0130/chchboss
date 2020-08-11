@@ -387,7 +387,8 @@ class addViewController : UIViewController {
             DBManager.getInstance().addEvent(modelInfo)
             if reminder != "0" { makeNotification(action: "add")}
         }
-        
+        self.dismiss(animated: true, completion: nil)
+
     }
     
     @IBAction func editEventButton(_ sender: UIButton){
