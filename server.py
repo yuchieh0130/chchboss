@@ -120,6 +120,20 @@ def insertSaveplace():
 #     cur.close()
 #     return jsonify({"status_code": 200})
 
+@app.route("/pushTrack", methods=["POST"])
+def pushTrack():
+    data = request.get_jon()
+    
+    last_track_id = data["last_track_id"]
+    user_id = data["user_id"]
+
+    cur = conn.cursor()
+    sql = "SELECT * FROM location WHERE user_id = %s AND location_id > %s"
+    adr = (user_id, last_track_id)
+    cur.execute()
+    fetch_data = fetchall()
+    print(fetch_data)
+
 @app.route("/updateTrack", methods=["POST"])
 def updateTrack():
     data = request.get_json()
@@ -434,4 +448,4 @@ def login():
 #     except:4
 #         return jsonify({"status_code": 400})
 if __name__ == "__main__":
-    app.run()
+    app.run(host = "140.119.19.42")
