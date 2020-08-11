@@ -94,18 +94,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         self.currentLocation = locations[0] as CLLocation
         self.currentTime = Date()
         
-        if lastLocation == nil{
-            lastSpeeds.append(0)
-            saveLocation()
-        }else if currentSpeed == -1 && lastSpeed > 0 {
-            lastSpeeds.removeAll()
-            if lastLocation.distance(from: currentLocation) > 150{
-                saveSpeed()
-                saveLocation()
-            }
-        }else if currentSpeed > -1{
-            lastSpeeds.append(currentSpeed)
-        }
+        saveLocation()
+//        if lastLocation == nil{
+//            lastSpeeds.append(0)
+//            saveLocation()
+//        }else if currentSpeed == -1 && lastSpeed > 0 {
+//            lastSpeeds.removeAll()
+//            if lastLocation.distance(from: currentLocation) > 150{
+//                saveSpeed()
+//                saveLocation()
+//            }
+//        }else if currentSpeed > -1{
+//            lastSpeeds.append(currentSpeed)
+//        }
         
         self.lastSpeed = currentSpeed
         self.lastLocation = currentLocation
@@ -114,7 +115,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func saveLocation(){
         self.myLocationManager.delegate = nil
-        
         likelyPlaces.removeAll()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
             if let error = error {
@@ -130,9 +130,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 }
             }
             
-            for i in 0...4{
-                self.selectPlaces.append(self.likelyPlaces[i])
-            }
+//            for i in 0...4{
+//                self.selectPlaces.append(self.likelyPlaces[i])
+//            }
             
             let latitude = Double(self.currentLocation.coordinate.latitude)
             let longitude = Double(self.currentLocation.coordinate.longitude)
@@ -144,24 +144,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             let name3 = self.likelyPlaces[2].name!
             let name4 = self.likelyPlaces[3].name!
             let name5 = self.likelyPlaces[4].name!
-            let category1 = self.likelyPlaces[0].types![0]
-            let category2 = self.likelyPlaces[1].types![0]
-            let category3 = self.likelyPlaces[2].types![0]
-            let category4 = self.likelyPlaces[3].types![0]
-            let category5 = self.likelyPlaces[4].types![0]
+            let category1 = "\(self.myLocationManager.location)"
+            let category2 = "\(self.myLocationManager.location?.verticalAccuracy)and\(self.myLocationManager.location?.horizontalAccuracy)"
+            let category3 = "\(self.myLocationManager)"
+            let category4 = "\(self.lastSpeed)"
+            let category5 = "\(self.lastLocation)"
+            print(category1)
+            print(category2)
+            print(category3)
+            print(category4)
+            print(category5)
+//            let category1 = self.likelyPlaces[0].types![0]
+//            let category2 = self.likelyPlaces[1].types![0]
+//            let category3 = self.likelyPlaces[2].types![0]
+//            let category4 = self.likelyPlaces[3].types![0]
+//            let category5 = self.likelyPlaces[4].types![0]
             
             let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: self.currentSpeed)
             
             let _ = DBManager.getInstance().saveLocation(modelInfo)
             
-            let data : [String: String] = ["location_id":"0", "longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!]
-                       
-            self.net.postLocationData(data: data){
-                (status_code) in
-                if (status_code != nil) {
-                    print(status_code!)
-                }
-            }
+//            let data : [String: String] = ["location_id":"0", "longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!]
+//
+//            self.net.postLocationData(data: data){
+//                (status_code) in
+//                if (status_code != nil) {
+//                    print(status_code!)
+//                }
+//            }
         
             self.myLocationManager.delegate = self
             
@@ -188,14 +198,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         DBManager.getInstance().saveLocation(modelInfo)
         
-        let data : [String: String] = ["location_id":"0", "longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!]
-                   
-        self.net.postLocationData(data: data){
-            (status_code) in
-            if (status_code != nil) {
-                print(status_code!)
-            }
-        }
+//        let data : [String: String] = ["location_id":"0", "longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!]
+//
+//        self.net.postLocationData(data: data){
+//            (status_code) in
+//            if (status_code != nil) {
+//                print(status_code!)
+//            }
+//        }
         
         self.myLocationManager.delegate = self
         
