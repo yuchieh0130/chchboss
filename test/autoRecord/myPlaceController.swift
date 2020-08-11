@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class showMyPlaceController: UIViewController{
+class myPlaceController: UIViewController{
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -104,6 +104,17 @@ class showMyPlaceController: UIViewController{
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier{
+            case"editMyPlace":
+                if let VC = segue.destination as? editMyPlaceViewController{
+                VC.myPlace = savePlace
+                }
+            default :
+                print("")
+        }
+    }
+    
     func alertMessage(){
         if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
             let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
@@ -117,7 +128,7 @@ class showMyPlaceController: UIViewController{
     
 }
 
-extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
+extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showAllPlace!.count
@@ -174,7 +185,7 @@ extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
         let place = self.showAllPlace![indexPath.row]
         savePlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: placeCategory, placeLongitude: place.placeLongitude, placeLatitude: placeLatitude, myPlace: place.myPlace)
-    return indexPath
+        return indexPath
     }
     
     

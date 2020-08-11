@@ -29,7 +29,7 @@
 		4B362F8524CADC2400E635C6 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B362F8424CADC2400E635C6 /* PickerViewController.swift */; };
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
 		4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B490B8E24B589A500A8249A /* combineChartViewController.swift */; };
-		4B4AB6232463197A00FC8A6D /* showMyPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */; };
+		4B4AB6232463197A00FC8A6D /* myPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* myPlaceController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
 		4B4F0152243CCBD100A98C65 /* (old)autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0151243CCBD100A98C65 /* (old)autoRecordViewController.swift */; };
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
@@ -108,7 +108,7 @@
 		4B362F8424CADC2400E635C6 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
 		4B490B8E24B589A500A8249A /* combineChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = combineChartViewController.swift; sourceTree = "<group>"; };
-		4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showMyPlaceController.swift; sourceTree = "<group>"; };
+		4B4AB6222463197900FC8A6D /* myPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlaceController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
 		4B4F0151243CCBD100A98C65 /* (old)autoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "(old)autoRecordViewController.swift"; sourceTree = "<group>"; };
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 				4B9FBA2F24ACE18B0024D7CD /* timeline.swift */,
 				4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */,
 				586B87D924619A7100E7E273 /* mapViewController.swift */,
-				4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */,
+				4B4AB6222463197900FC8A6D /* myPlaceController.swift */,
 			);
 			path = autoRecord;
 			sourceTree = "<group>";
@@ -549,7 +549,7 @@
 				4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */,
 				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,
 				4B9FBA2E24A3BDE30024D7CD /* tete.swift in Sources */,
-				4B4AB6232463197A00FC8A6D /* showMyPlaceController.swift in Sources */,
+				4B4AB6232463197A00FC8A6D /* myPlaceController.swift in Sources */,
 				4B1C31072415696600875B74 /* DateHeader.swift in Sources */,
 				4B2B337C247620A900B014E2 /* editAutoRecordViewController.swift in Sources */,
 				FF76549124AE0E1E00663E58 /* SignupViewController.swift in Sources */,

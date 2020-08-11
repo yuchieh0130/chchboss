@@ -17,23 +17,54 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     @IBOutlet weak var mapView: GMSMapView!
     //@IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var tbView: UITableView!
+    @IBOutlet weak var btnAdd: UIButton!
+    @IBOutlet weak var btnEdit: UIButton!
     var myPlaceCategory = "Others"
     var myPlaceName = ""
     var id: Int32 = 0
     var myPlaceLongitude: Double! = 0
     var myPlaceLatitude: Double! = 0
+    var myPlace: PlaceModel?
+    
 //    var myPlace: Bool! = true
 //    var noAdd = false
 //    var userLocation = CLLocation()
+    
+    override func viewDidLoad() {
+        if myPlace != nil{
+            loadData()
+            btnAdd.isHidden = true
+            btnEdit.isHidden = false
+        }else{
+            btnAdd.isHidden = false
+            btnEdit.isHidden = true
+        }
+    }
+    
+    func loadData(){
+        myPlaceCategory = myPlace!.placeCategory
+        myPlaceName = myPlace!.placeName
+        myPlaceLongitude = myPlace!.placeLongitude
+        myPlaceLatitude = myPlace!.placeLatitude
+    }
+    
+    @IBAction func addMyPlaceButton(_ sender: UIButton){
+        self.view.endEditing(true)
+        if myPlaceName == ""{
+            alertMessage()
+        }
+        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+        _ = DBManager.getInstance().addPlace(modelInfo)
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func editMyPlaceButton(_ sender: UIButton){
         self.view.endEditing(true)
         if myPlaceName == ""{
             alertMessage()
         }
-        
         let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
-        _ = DBManager.getInstance().addPlace(modelInfo)
+        DBManager.getInstance().editPlace(modelInfo)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -61,11 +92,13 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceName",for: indexPath) as! editMyplaceNameCell
             cell.txtName.text = myPlaceName
+            cell.selectionStyle = .none
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceCategory") as! editMyplaceCategoryCell
             cell.accessoryType = .disclosureIndicator
             cell.category.text = myPlaceCategory
+            cell.selectionStyle = .none
             return cell
         }
     }

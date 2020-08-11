@@ -278,6 +278,12 @@ class DBManager: NSObject {
         //return isAdded!
     }
     
+    func editPlace(_ modelInfo: PlaceModel){
+        shareInstance.database?.open()
+        shareInstance.database?.executeUpdate("REPLACE INTO savedPlace (place_id,place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.placeId,modelInfo.placeName,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
+            shareInstance.database?.close()
+    }
+    
     func getPlace(Int: Int32) -> PlaceModel!{
         
         var place : PlaceModel!

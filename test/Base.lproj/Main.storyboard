@@ -267,7 +267,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
-                                    <action selector="editMyPlaceButton:" destination="8Q0-60-Kz4" eventType="touchUpInside" id="yIK-eV-fQp"/>
+                                    <action selector="editMyPlaceButton:" destination="8Q0-60-Kz4" eventType="touchUpInside" id="BIo-Ck-P59"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wol-YS-R45">
@@ -278,12 +278,22 @@
                                     <action selector="cancel:" destination="8Q0-60-Kz4" eventType="touchUpInside" id="zDO-Ae-AQy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQ7-0Q-tC4">
+                                <rect key="frame" x="354" y="6" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="addMyPlaceButton:" destination="8Q0-60-Kz4" eventType="touchUpInside" id="iCG-nM-YgW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="zpI-Wm-K34"/>
                     </view>
                     <navigationItem key="navigationItem" id="Z4E-aM-BVc"/>
                     <connections>
+                        <outlet property="btnAdd" destination="LQ7-0Q-tC4" id="uYo-eF-aoy"/>
+                        <outlet property="btnEdit" destination="LQ7-0Q-tC4" id="ldc-Hj-fJB"/>
                         <outlet property="mapView" destination="K96-gr-om8" id="4qs-NR-wjV"/>
                         <outlet property="tbView" destination="GJi-G9-gly" id="tuM-ok-WG7"/>
                     </connections>
@@ -1087,7 +1097,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="editMyplace" destination="R1a-Qz-D1g" id="scP-MT-fnp"/>
-                                            <segue destination="8Q0-60-Kz4" kind="show" id="XzD-XA-0PQ"/>
+                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="showMyPlace" id="K9L-v4-rRa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2453,7 +2463,7 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="overFullScreen" id="nNZ-yj-YqY" customClass="DatePopupViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bj0-wR-DwH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpL-Zv-UDT">
                                 <rect key="frame" x="15" y="323" width="384" height="250"/>
@@ -2633,16 +2643,16 @@
             </objects>
             <point key="canvasLocation" x="-791" y="1819"/>
         </scene>
-        <!--Show My Place Controller-->
+        <!--My Place Controller-->
         <scene sceneID="Anz-5n-l8B">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="n8m-Ye-yaB" customClass="showMyPlaceController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="n8m-Ye-yaB" customClass="myPlaceController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZkE-Vx-G4l">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mpg-ly-MDh">
-                                <rect key="frame" x="0.0" y="110" width="414" height="727"/>
+                                <rect key="frame" x="0.0" y="98" width="414" height="793"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myPlaceCell" textLabel="pZX-dU-2V8" detailTextLabel="l7n-VV-RiT" rowHeight="65" style="IBUITableViewCellStyleSubtitle" id="cJl-mV-1VC">
@@ -2669,7 +2679,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="xA4-ev-NBm" kind="unwind" unwindAction="myPlaceSegueBack2WithSegue:" id="nEC-do-Qhi"/>
+                                            <segue destination="8Q0-60-Kz4" kind="show" identifier="editMyPlace" id="bC8-43-BdC"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2679,7 +2689,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPw-IB-l1q">
-                                <rect key="frame" x="354" y="66" width="50" height="34"/>
+                                <rect key="frame" x="354" y="54" width="50" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="rOm-dU-doD"/>
                                 </constraints>
@@ -2692,7 +2702,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uM7-Tc-cwK">
-                                <rect key="frame" x="10" y="66" width="60" height="34"/>
+                                <rect key="frame" x="10" y="54" width="60" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="uqQ-LQ-fgz"/>
                                 </constraints>
@@ -2729,7 +2739,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6uk-J9-yzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="xA4-ev-NBm" userLabel="Exit" sceneMemberID="exit"/>
                 <view contentMode="scaleToFill" id="sW5-CG-sKZ">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2770,7 +2779,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-2397" y="1820"/>
+            <point key="canvasLocation" x="4480" y="944"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="ePr-Ok-yXT">
@@ -3946,9 +3955,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="uiq-XP-en4"/>
         <segue reference="daS-jI-pwq"/>
-        <segue reference="b0Q-IJ-Wiq"/>
-        <segue reference="RdI-zR-oJx"/>
-        <segue reference="Jd4-bf-VuF"/>
+        <segue reference="K9L-v4-rRa"/>
+        <segue reference="9Rl-2J-tqH"/>
+        <segue reference="Nye-bg-dEe"/>
         <segue reference="yLI-1s-8Dj"/>
     </inferredMetricsTieBreakers>
     <resources>

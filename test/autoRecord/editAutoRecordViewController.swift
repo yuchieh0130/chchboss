@@ -248,7 +248,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @IBAction func myPlaceSegueBack2(segue: UIStoryboardSegue){
-           let VC = segue.source as? showMyPlaceController
+           let VC = segue.source as? myPlaceController
            savePlace = VC?.savePlace
            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
        }
