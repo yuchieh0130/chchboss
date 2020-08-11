@@ -47,6 +47,7 @@ def insertLocation():
     
     longitude = data["longitude"]
     latitude = data["latitude"]
+    start_date = data["start_date"]
     start_time = data["start_time"]
     duration = data["duration"]
     speed = data["speed"]
@@ -64,8 +65,8 @@ def insertLocation():
     user_id  = data["user_id"]
 
     cur = conn.cursor()
-    sql = "INSERT INTO location (longitude, latitude, start_time, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id) VALUES ( %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    adr = (longitude, latitude, start_time, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id)
+    sql = "INSERT INTO location (longitude, latitude, start_date, start_time, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    adr = (longitude, latitude, start_date, start_time, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
