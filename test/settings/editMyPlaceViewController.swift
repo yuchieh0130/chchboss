@@ -34,9 +34,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlace != nil{
             loadData()
             btnAdd.isHidden = true
-            btnEdit.isHidden = false
         }else{
-            btnAdd.isHidden = false
             btnEdit.isHidden = true
         }
     }

@@ -36,7 +36,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "onlyShowMyPlace"{
-            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? myPlaceController{
+            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? showMyPlaceController{
                 VC.noAdd = true
             }
             

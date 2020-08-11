@@ -1,8 +1,8 @@
 //
-//  myPlaceController.swift
+//  myPlaceViewController.swift
 //  test
 //
-//  Created by 謝宛軒 on 2020/5/7.
+//  Created by 謝宛軒 on 2020/8/12.
 //  Copyright © 2020 AppleInc. All rights reserved.
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class myPlaceController: UIViewController{
-    @IBAction func cancelButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
+class myPlaceViewController: UIViewController{
+//    @IBAction func cancelButton(_ sender: Any) {
+//        self.dismiss(animated: true, completion: nil)
+//    }
     
     //place db variables
     var id: Int32 = 0
@@ -35,66 +35,72 @@ class myPlaceController: UIViewController{
     var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", weekDay: 0, endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
     let net = NetworkController()
     
-    
     @IBOutlet weak var tblView: UITableView!
-    @IBOutlet var popover: UIView!
-    @IBOutlet var txtMyPlaceName: UITextField!
-    @IBOutlet var btnAdd: UIButton!
-    @IBAction func AddLocation(_ sender: Any) {
-        self.view.addSubview(popover)
-        popover.center = self.view.center
-        popover.center.y = 300
-        //txtField.text = txtSearch.text
-        popover.layer.borderColor = UIColor.gray.cgColor
-        popover.layer.borderWidth = 1
-        popover.layer.cornerRadius = 10
-        popover.layer.shadowOffset = CGSize(width: 3,height: 3)
-        popover.layer.shadowOpacity = 0.7
-        popover.layer.shadowRadius = 10
-        
-    }
-    @IBAction func cancelBtn(_ sender: Any) {
-        self.popover.removeFromSuperview()
+    //@IBOutlet var popover: UIView!
+    //@IBOutlet var txtMyPlaceName: UITextField!
+//    @IBAction func AddLocation(_ sender: Any) {
+//        self.view.addSubview(popover)
+//        popover.center = self.view.center
+//        popover.center.y = 300
+//        //txtField.text = txtSearch.text
+//        popover.layer.borderColor = UIColor.gray.cgColor
+//        popover.layer.borderWidth = 1
+//        popover.layer.cornerRadius = 10
+//        popover.layer.shadowOffset = CGSize(width: 3,height: 3)
+//        popover.layer.shadowOpacity = 0.7
+//        popover.layer.shadowRadius = 10
+//
+//    }
+//    @IBAction func cancelBtn(_ sender: Any) {
+//        self.popover.removeFromSuperview()
+//    }
+//
+//    @IBAction func addBtn(_ sender: Any) {
+//        self.view.endEditing(true)
+//
+//        if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
+//            alertMessage()
+//        }else {
+//            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: true)
+//            _ = DBManager.getInstance().addPlace(modelInfo)
+//
+//            let data:[String:String] = ["place_id":"0", "place_name":self.placeName, "place_longitude":String(self.placeLongitude), "place_latitude":String(self.placeLatitude)]
+//
+//            self.net.postSaveplaceData(data: data){
+//                (status_code) in
+//                if (status_code != nil) {
+//                    print(status_code!)
+//                }
+//            }
+//
+//            txtMyPlaceName.text = nil
+//        }
+//
+//        if DBManager.getInstance().getMyPlaces() != nil{
+//            showAllPlace = DBManager.getInstance().getMyPlaces()
+//
+//        }else{
+//            showAllPlace = [PlaceModel]()
+//        }
+//
+//        self.tblView.reloadData()
+//        self.popover.removeFromSuperview()
+//
+//    }
+    
+    @IBAction func addBtn(_ sender: Any){
+        performSegue(withIdentifier: "addMyPlace", sender: nil)
     }
     
-    @IBAction func addBtn(_ sender: Any) {
-        self.view.endEditing(true)
-        
-        if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
-            alertMessage()
-        }else {
-            let modelInfo = PlaceModel(placeId: id, placeName: txtMyPlaceName.text!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: true)
-            _ = DBManager.getInstance().addPlace(modelInfo)
-            
-            let data:[String:String] = ["place_id":"0", "place_name":self.placeName, "place_longitude":String(self.placeLongitude), "place_latitude":String(self.placeLatitude)]
-            
-            self.net.postSaveplaceData(data: data){
-                (status_code) in
-                if (status_code != nil) {
-                    print(status_code!)
-                }
-            }
-            
-            txtMyPlaceName.text = nil
-        }
-        
-        if DBManager.getInstance().getMyPlaces() != nil{
-            showAllPlace = DBManager.getInstance().getMyPlaces()
-            
-        }else{
-            showAllPlace = [PlaceModel]()
-        }
-        
-        self.tblView.reloadData()
-        self.popover.removeFromSuperview()
-        
+    @IBAction func cancel(_ sender: Any){
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
-        if noAdd == true{
-            btnAdd.isHidden = true
-        }
-        
+//        if noAdd == true{
+//            btnAdd.isHidden = true
+//        }
+//
         if DBManager.getInstance().getMyPlaces() != nil{
             showAllPlace = DBManager.getInstance().getMyPlaces()
             
@@ -115,20 +121,20 @@ class myPlaceController: UIViewController{
         }
     }
     
-    func alertMessage(){
-        if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
-            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default){_ in
-                controller.dismiss(animated: true, completion: nil)}
-            controller.addAction(okAction)
-            self.present(controller, animated: true,completion: .none)
-            self.view.addSubview(popover)
-        }
-    }
+//    func alertMessage(){
+//        if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
+//            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: "OK", style: .default){_ in
+//                controller.dismiss(animated: true, completion: nil)}
+//            controller.addAction(okAction)
+//            self.present(controller, animated: true,completion: .none)
+//          self.view.addSubview(popover)
+//        }
+//    }
     
 }
 
-extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
+extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showAllPlace!.count
@@ -186,6 +192,10 @@ extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
         let place = self.showAllPlace![indexPath.row]
         savePlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: placeCategory, placeLongitude: place.placeLongitude, placeLatitude: placeLatitude, myPlace: place.myPlace)
         return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        performSegue(withIdentifier: "editMyPlace",sender: nil)
     }
     
     
