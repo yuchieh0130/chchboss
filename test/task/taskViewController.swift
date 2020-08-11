@@ -63,11 +63,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "addTask":
-            if let addVC = segue.destination as? addTaskViewController {
+            if let navVC = segue.destination as? UINavigationController, let addVC = navVC.topViewController as? addTaskViewController {
                 addVC.task = task
             }
         case "editTask":
-            if let editVC = segue.destination as? addTaskViewController{
+            if let navVC = segue.destination as? UINavigationController, let editVC = navVC.topViewController as? addTaskViewController{
                 editVC.task = task
             }
         default:

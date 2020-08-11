@@ -84,17 +84,17 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         tag = nil
         switch segue.identifier {
         case "editAutoStart":
-            if let VC = segue.destination as? DatePopupViewController{
+            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "editAutoStart"
                 VC.showDate = s
             }
         case "editAutoEnd":
-            if let VC = segue.destination as? DatePopupViewController{
+            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "editAutoEnd"
                 VC.showDate = e
             }
         case "editAutoLocation":
-            if let VC = segue.destination as? mapViewController{
+            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? mapViewController{
                 if savePlace != nil{
                     VC.savePlace = savePlace
                 }else{

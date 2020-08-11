@@ -79,7 +79,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editTrack"{
-            if let VC = segue.destination as?editAutoRecordViewController{
+            if let navVC = segue.destination as? UINavigationController, let VC = navVC.topViewController as? editAutoRecordViewController{
                 VC.track = track!
             }
         }

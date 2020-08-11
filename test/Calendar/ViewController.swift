@@ -54,17 +54,17 @@ class ViewController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
         switch segue.identifier {
         case "addEvent":
-            if let addVC = segue.destination as? addViewController{
+            if let navVC = segue.destination as? UINavigationController, let addVC = navVC.topViewController as? addViewController{
                 if calendarView.selectedDates.isEmpty == false{
                     addVC.selectedDay = calendarView.selectedDates
                 }
             }
         case "editEvent":
-            if let editVC = segue.destination as? addViewController{
+            if let navVC = segue.destination as? UINavigationController, let editVC = navVC.topViewController as? addViewController{
                 editVC.event = event
             }
         case "editCalTask":
-            if let editVC = segue.destination as? addTaskViewController{
+            if let navVC = segue.destination as? UINavigationController, let editVC = navVC.topViewController as? addTaskViewController{
                 editVC.task = task
             }
         case "timeline":

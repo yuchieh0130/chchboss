@@ -142,7 +142,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMyPlace"{
-            if let VC = segue.destination as? myPlaceController{
+            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? myPlaceController{
                 VC.placeLongitude = longitude
                 VC.placeLatitude = latitude
             }
