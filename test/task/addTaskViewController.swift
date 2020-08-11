@@ -179,7 +179,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func reminderSegueBack(segue: UIStoryboardSegue){
         let VC = segue.source as! reminderTableViewController
            reminder_index = VC.reminder
-        tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
+        tableView.reloadRows(at: [IndexPath.init(row: 0, section: 4)], with: .none)
     }
     
     func handletime(){
@@ -192,7 +192,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func clearLocation(_ sender: UIButton){
         //savePlaceModel = nil
-        tableView.reloadRows(at: [IndexPath.init(row: 4, section: 0)], with: .none)
+        //tableView.reloadRows(at: [IndexPath.init(row: 4, section: 0)], with: .none)
     }
     
     @IBAction func cancel(_ sender: UIButton){

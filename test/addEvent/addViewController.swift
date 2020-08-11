@@ -230,6 +230,7 @@ class addViewController : UIViewController {
                 }else{
                     VC.reminder = reminder_index
                 }
+                print(VC.reminder)
             }
         default:
             print("")
@@ -293,11 +294,11 @@ class addViewController : UIViewController {
     }
     
     @IBAction func reminderSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as! reminderTableViewController
+        let VC = segue.source as? reminderTableViewController
         if allDay{
-            allDayReminder_index = VC.reminder
+            allDayReminder_index = (VC?.reminder)!
         }else{
-           reminder_index = VC.reminder
+           reminder_index = (VC?.reminder)!
         }
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
     }
@@ -387,7 +388,8 @@ class addViewController : UIViewController {
             if reminder != "0" { makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
         }
-        
+        self.dismiss(animated: true, completion: nil)
+
     }
     
     @IBAction func editEventButton(_ sender: UIButton){

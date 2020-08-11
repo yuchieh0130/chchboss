@@ -739,7 +739,6 @@
                                             <outlet property="accessoryView" destination="IMa-jC-xr3" id="Ow9-KH-KFK"/>
                                             <outlet property="imgView" destination="IMa-jC-xr3" id="boI-qQ-Gvm"/>
                                             <outlet property="reminderTime" destination="e0c-Xw-ALw" id="zWs-OD-MMw"/>
-                                            <segue destination="5ud-ie-O0u" kind="unwind" unwindAction="reminderSegueBackWithSegue:" id="ywI-M7-maz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -762,7 +761,7 @@
                                 </state>
                                 <connections>
                                     <action selector="addReminder:" destination="pxz-44-Biu" eventType="touchUpInside" id="yv4-SV-VsC"/>
-                                    <segue destination="5ud-ie-O0u" kind="unwind" unwindAction="reminderSegueBackWithSegue:" id="AY7-3T-LTY"/>
+                                    <segue destination="5ud-ie-O0u" kind="unwind" unwindAction="reminderSegueBackWithSegue:" id="okq-lM-DBZ"/>
                                 </connections>
                             </button>
                         </subviews>
