@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class myPlaceController: UIViewController{
+class showMyPlaceController: UIViewController{
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -117,7 +117,7 @@ class myPlaceController: UIViewController{
     
 }
 
-extension myPlaceController: UITableViewDataSource, UITableViewDelegate{
+extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showAllPlace!.count

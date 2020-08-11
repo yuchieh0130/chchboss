@@ -10,10 +10,9 @@ import Foundation
 import UIKit
 
 class trackCell: UITableViewCell {
-
+    
     @IBOutlet var time: UILabel!
     @IBOutlet var category: UILabel!
     @IBOutlet var placeName: UILabel!
     
-
 }
