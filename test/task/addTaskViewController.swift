@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class addTaskViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
     var tableViewData = [cellConfig]()
@@ -365,6 +364,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.txtReminder.text = txtReminder
             //switchreminder.setOn(reminder, animated: .init())
             cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
             return cell
         case [5,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskLocationCell", for: indexPath) as! taskLocationCell
@@ -468,6 +468,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
                 alertMessage1()
             }else{
                 performSegue(withIdentifier: "taskReminder", sender: self)
+                
             }
         default:
             print("")

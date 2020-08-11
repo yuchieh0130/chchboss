@@ -37,6 +37,7 @@
 		4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */; };
 		4B6C44192472EAB10009C281 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C44182472EAB10009C281 /* TrackModel.swift */; };
 		4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C441A2472F9CB0009C281 /* trackCell.swift */; };
+		4B79F7DB24E27A0A0078C853 /* segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79F7DA24E27A0A0078C853 /* segue.swift */; };
 		4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */; };
 		4B855CF4242AF2E6001B80C7 /* reminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */; };
 		4B855CF6242B07FA001B80C7 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855CF5242B07FA001B80C7 /* CategoryModel.swift */; };
@@ -112,6 +113,7 @@
 		4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(old)addEventViewController.swift"; sourceTree = "<group>"; };
 		4B6C44182472EAB10009C281 /* TrackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		4B6C441A2472F9CB0009C281 /* trackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trackCell.swift; sourceTree = "<group>"; };
+		4B79F7DA24E27A0A0078C853 /* segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = segue.swift; sourceTree = "<group>"; };
 		4B855CF1242AF188001B80C7 /* reminderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewController.swift; sourceTree = "<group>"; };
 		4B855CF3242AF2E6001B80C7 /* reminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reminderTableViewCell.swift; sourceTree = "<group>"; };
 		4B855CF5242B07FA001B80C7 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
 				4B9FBA3124B30E690024D7CD /* NetworkController.swift */,
 				4B116D7D2477715A00CD25BD /* middleViewController.swift */,
+				4B79F7DA24E27A0A0078C853 /* segue.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
 				4BA138C5243CB24E00C46CD3 /* task */,
@@ -510,6 +513,7 @@
 				582341F0242BB0DA00FFC83B /* SceneDelegate.swift in Sources */,
 				4B855CFA242B0C88001B80C7 /* (old)categoryTableViewCell.swift in Sources */,
 				4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */,
+				4B79F7DB24E27A0A0078C853 /* segue.swift in Sources */,
 				4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */,
 				4BAB720824A9E703007D52A7 /* settingsTableViewCell.swift in Sources */,
 				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
