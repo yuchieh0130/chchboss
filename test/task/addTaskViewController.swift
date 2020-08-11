@@ -79,6 +79,8 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
         tableViewData = [cellConfig(opened: false, title: "taskTime"),
                          cellConfig(opened: false, title: "daealine")]
         reminderData = [reminderConfig( rname: "none", fireTime: 0),
