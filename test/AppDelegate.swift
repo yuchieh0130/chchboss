@@ -159,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //            let category3 = self.likelyPlaces[2].types![0]
 //            let category4 = self.likelyPlaces[3].types![0]
 //            let category5 = self.likelyPlaces[4].types![0]
-            
+
             let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: self.currentSpeed)
             
             let _ = DBManager.getInstance().saveLocation(modelInfo)
@@ -193,6 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             total += i
         }
         let speed = total/Double(lastSpeeds.count)
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
         
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
         

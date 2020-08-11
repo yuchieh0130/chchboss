@@ -34,28 +34,41 @@ class SignupViewController: UIViewController {
         } else if passwordTextField.text != confirmPasswordTextField.text {
             warningLabel!.text = "Confirm your password again."
             warningLabel!.isHidden = false
-        }else if passwordTextField.text == confirmPasswordTextField.text {
+        } else if passwordTextField.text == confirmPasswordTextField.text {
             
             
-            self.networkController.register(email:userNameTextField.text!, password:emailTextField.text!, user_name:passwordTextField.text!){
+            self.networkController.register(email:emailTextField.text!, password: passwordTextField.text!, user_name: userNameTextField.text!){
                 (return_list) in
-                if let status_code = return_list?[0], let user_id = return_list?[1]{
+                if let status_code = return_list?[0],
+                    let user_id = return_list?[1]{
                     if status_code as! Int == 200{
                         DispatchQueue.main.async {
                             UserDefaults.standard.set(user_id, forKey: "user_id")
                             self.userDefaults.set(true, forKey: "isLogIn")
+                            self.performSegue(withIdentifier: "aaapple", sender: sender)
                         }
                     }
 //    登入錯誤(登入不正常)
                     else{
                         print(status_code)
+                        DispatchQueue.main.async {
+                            self.warningLabel.text = "The Email had been registered."
+                            self.warningLabel.isHidden = false
+                            return
+                        }
+                        
                     }
 //    登入請求沒有送出
                 }else{
-                    print("error")
+                    DispatchQueue.main.async {
+                        self.warningLabel.text = "Connection error"
+                        self.warningLabel.isHidden = false
+                        print("error")
+                        return
+                    }
                 }
             }
-            self.performSegue(withIdentifier: "aaapple", sender: sender)
+            
             
         }
     }
