@@ -326,7 +326,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if indexPath.row == 0 {
+            performSegue(withIdentifier: "showMyPlace", sender: nil)
+        }
     }
     
     //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
