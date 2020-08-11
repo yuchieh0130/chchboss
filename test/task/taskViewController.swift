@@ -272,7 +272,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else{
             cell.taskDeadline.text = ""
         }
-        
         //        if showTask?[indexPath.row].taskDeadline?.endIndex = {
         //            }
         if showTask?[indexPath.row].isPinned == false{
