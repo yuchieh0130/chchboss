@@ -45,12 +45,10 @@ def inserttest():
 def insertLocation():
     data = request.get_json()
     
-    
-    longitude = float(data["longitude"])
-    latitude = float(data["latitude"])
-    start_date = data["start_date"]
+    location_id = data["location_id"]
+    longitude = data["longitude"]
+    latitude = data["latitude"]
     start_time = data["start_time"]
-    weekday = data["weekday"]
     duration = data["duration"]
     speed = data["speed"]
     name1 = data["name1"]
@@ -63,15 +61,12 @@ def insertLocation():
     category3 = data["category3"]
     category4 = data["category4"]
     category5 = data["category5"] 
-
-    user_id  = int(data["user_id"])
-    print(123)
-    print(weekday)
-    print(user_id)
+    
+    user_id  = data["user_id"]
 
     cur = conn.cursor()
-    sql = "INSERT INTO location (longitude, latitude, start_date, start_time, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    adr = (longitude, latitude, start_date, start_time, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id, weekday)
+    sql = "INSERT INTO location (location_id, longitude, latitude, start_time, duration, speed, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    adr = (location_id, longitude, latitude, start_time, duration, speed, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()

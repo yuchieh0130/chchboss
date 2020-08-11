@@ -51,7 +51,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="onlyShowMyPlace" id="54J-Uw-fAs"/>
+                                            <segue destination="n8m-Ye-yaB" kind="show" identifier="onlyShowMyPlace" customClass="segue" customModule="test" customModuleProvider="target" id="54J-Uw-fAs"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="placecell" textLabel="Jfq-Ee-SgD" detailTextLabel="Jmh-vp-3mH" style="IBUITableViewCellStyleSubtitle" id="ivh-is-hGr">
@@ -559,10 +559,10 @@
                         <outlet property="tableView" destination="zfT-DG-KsM" id="PtL-K2-t5y"/>
                         <outlet property="yearLabel" destination="6lH-mb-oJx" id="xWC-rp-8if"/>
                         <segue destination="9iT-4D-ttn" kind="show" identifier="editEvent" id="Q9x-NS-Pff"/>
-                        <segue destination="6HQ-Vs-asj" kind="show" identifier="editCalTask" id="RmA-HN-d7i"/>
+                        <segue destination="zxG-pM-74g" kind="show" identifier="editCalTask" id="RmA-HN-d7i"/>
                         <segue destination="9iT-4D-ttn" kind="show" identifier="addEvent" id="uiq-XP-en4"/>
                         <segue destination="mKh-C1-WbW" kind="show" identifier="timeline" id="cZy-a1-idi"/>
-                        <segue destination="6HQ-Vs-asj" kind="show" identifier="eventAddTask" id="daS-jI-pwq"/>
+                        <segue destination="zxG-pM-74g" kind="show" identifier="eventAddTask" id="daS-jI-pwq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -572,13 +572,13 @@
         <!--Reminder Table View Controller-->
         <scene sceneID="Yj2-nl-rp6">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="pxz-44-Biu" customClass="reminderTableViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pxz-44-Biu" customClass="reminderTableViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5bs-KW-Yvz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="K5b-BP-CI9">
-                                <rect key="frame" x="0.0" y="106" width="414" height="763"/>
+                                <rect key="frame" x="0.0" y="63" width="414" height="752"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -620,7 +620,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTC-au-rUp">
-                                <rect key="frame" x="20" y="64" width="56" height="34"/>
+                                <rect key="frame" x="20" y="20" width="56" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -630,7 +630,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-un-Xbd">
-                                <rect key="frame" x="364" y="64" width="30" height="34"/>
+                                <rect key="frame" x="364" y="20" width="30" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="OK">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -645,7 +645,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="DTC-au-rUp" firstAttribute="leading" secondItem="iKO-aG-cXU" secondAttribute="leading" constant="20" id="Bop-2D-zpq"/>
-                            <constraint firstItem="K5b-BP-CI9" firstAttribute="top" secondItem="DTC-au-rUp" secondAttribute="bottom" constant="8" symbolic="YES" id="UUX-1F-zbF"/>
                             <constraint firstItem="DTC-au-rUp" firstAttribute="top" secondItem="iKO-aG-cXU" secondAttribute="top" constant="20" id="gkD-Ul-2hk"/>
                             <constraint firstItem="eMk-un-Xbd" firstAttribute="baseline" secondItem="DTC-au-rUp" secondAttribute="baseline" id="utM-i2-xS2"/>
                             <constraint firstItem="eMk-un-Xbd" firstAttribute="trailing" secondItem="5bs-KW-Yvz" secondAttribute="trailingMargin" id="vSu-oJ-DIA"/>
@@ -661,7 +660,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqt-Eh-hKL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="5ud-ie-O0u" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-36.231884057971016" y="1818.75"/>
+            <point key="canvasLocation" x="-36" y="1819"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="Qgd-CE-UBd">
@@ -973,6 +972,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="editMyplace" destination="R1a-Qz-D1g" id="scP-MT-fnp"/>
+                                            <segue destination="n8m-Ye-yaB" kind="show" id="5PA-uq-wsl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1060,7 +1060,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iit-eH-jTJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4590" y="-827"/>
+            <point key="canvasLocation" x="3753.6231884057975" y="-827.00892857142856"/>
         </scene>
         <!--Combine Chart View Controller-->
         <scene sceneID="o26-1Y-VP7">
@@ -1174,7 +1174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wQu-7n-bpN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2586.9565217391305" y="98.4375"/>
+            <point key="canvasLocation" x="1676.8115942028987" y="98.4375"/>
         </scene>
         <!--Analysis View Controller-->
         <scene sceneID="hAM-t7-DFl">
@@ -1356,7 +1356,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y0J-9F-1UZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1836" y="-827"/>
+            <point key="canvasLocation" x="1677" y="-827"/>
         </scene>
         <!--Auto Record View Controller-->
         <scene sceneID="Srp-ur-Bl1">
@@ -1549,11 +1549,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="zxG-pM-74g" customClass="addTaskViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UX8-Ns-dgA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jG7-bq-or0">
-                                <rect key="frame" x="0.0" y="104" width="414" height="626"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="692"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskNameCell" id="l3K-6j-1mL" customClass="taskNameCell" customModule="test" customModuleProvider="target">
@@ -1781,7 +1781,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKy-dc-lUk">
-                                <rect key="frame" x="371" y="66" width="33" height="34"/>
+                                <rect key="frame" x="371" y="54" width="33" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Add">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1791,7 +1791,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hms-Y2-cr1">
-                                <rect key="frame" x="364" y="66" width="40" height="34"/>
+                                <rect key="frame" x="364" y="54" width="40" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1801,7 +1801,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQl-hz-exl">
-                                <rect key="frame" x="292" y="66" width="52" height="34"/>
+                                <rect key="frame" x="292" y="54" width="52" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1811,7 +1811,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agU-eL-VgM">
-                                <rect key="frame" x="10" y="66" width="60" height="34"/>
+                                <rect key="frame" x="10" y="54" width="60" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="jED-rv-aHx"/>
                                 </constraints>
@@ -1824,7 +1824,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmA-2u-d7W">
-                                <rect key="frame" x="188.66666666666666" y="73" width="37" height="21"/>
+                                <rect key="frame" x="188.66666666666666" y="61" width="37" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1858,12 +1858,12 @@
                         <outlet property="tableView" destination="jG7-bq-or0" id="eeD-Cv-yrI"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="addTaskTime" id="475-AM-deT"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="deadline" id="Si0-bg-LgH"/>
-                        <segue destination="pxz-44-Biu" kind="custom" identifier="taskReminder" customClass="segue" customModule="test" customModuleProvider="target" id="yLI-1s-8Dj"/>
+                        <segue destination="pxz-44-Biu" kind="show" identifier="taskReminder" customClass="segue" customModule="test" customModuleProvider="target" id="yLI-1s-8Dj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="czi-0Y-UN7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="555.07246376811599" y="98.4375"/>
+            <point key="canvasLocation" x="-355.07246376811599" y="98.4375"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="59x-bQ-Z0v">
@@ -2323,9 +2323,9 @@
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="newEndDate" id="2v3-r9-Jbk"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="newAutoStart" id="Ppd-gm-Fyg"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="newAutoEnd" id="t18-xD-uQE"/>
-                        <segue destination="XlI-4p-c0N" kind="show" identifier="newAutoCategory" id="9Rl-2J-tqH"/>
-                        <segue destination="pxz-44-Biu" kind="show" identifier="Reminder" id="dh3-ww-BEF"/>
-                        <segue destination="MEZ-YX-n1T" kind="show" identifier="searchLocation" id="Ivn-41-C6b"/>
+                        <segue destination="XlI-4p-c0N" kind="show" identifier="newAutoCategory" customClass="segue" customModule="test" customModuleProvider="target" id="9Rl-2J-tqH"/>
+                        <segue destination="pxz-44-Biu" kind="show" identifier="Reminder" customClass="segue" customModule="test" customModuleProvider="target" id="dh3-ww-BEF"/>
+                        <segue destination="MEZ-YX-n1T" kind="show" identifier="searchLocation" customClass="segue" customModule="test" customModuleProvider="target" id="Ivn-41-C6b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUU-YI-2se" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2516,7 +2516,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw5-Da-Wcw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="6Jn-Cc-GCu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-971" y="1819"/>
+            <point key="canvasLocation" x="-791" y="1819"/>
         </scene>
         <!--My Place Controller-->
         <scene sceneID="Anz-5n-l8B">
@@ -2676,8 +2676,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select / Add this place to My Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfM-1t-feC">
-                                                    <rect key="frame" x="48" y="11" width="283" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select My Favorite / Add to My Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfM-1t-feC">
+                                                    <rect key="frame" x="48" y="11" width="298" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -3115,8 +3115,8 @@
                         <outlet property="mapView" destination="s6r-p5-dQp" id="6fU-No-EeQ"/>
                         <outlet property="tableView" destination="QmE-fv-jJD" id="Y1f-HM-8xt"/>
                         <outlet property="txtDate" destination="FU6-Kx-Dc8" id="EcZ-QK-wdH"/>
-                        <segue destination="8yA-Sq-vnF" kind="show" identifier="editAutoLocation" id="QKU-pl-zXo"/>
-                        <segue destination="XlI-4p-c0N" kind="show" identifier="editAutoCategory" id="RdI-zR-oJx"/>
+                        <segue destination="8yA-Sq-vnF" kind="show" identifier="editAutoLocation" customClass="segue" customModule="test" customModuleProvider="target" id="QKU-pl-zXo"/>
+                        <segue destination="XlI-4p-c0N" kind="show" identifier="editAutoCategory" customClass="segue" customModule="test" customModuleProvider="target" id="RdI-zR-oJx"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editAutoStart" id="bHU-5F-LTf"/>
                         <segue destination="nNZ-yj-YqY" kind="show" identifier="editAutoEnd" id="Jd4-bf-VuF"/>
                     </connections>
@@ -3277,8 +3277,8 @@
                         <outlet property="addTaskButton" destination="89g-sw-5at" id="nPb-Ge-4Gf"/>
                         <outlet property="tableView" destination="yId-nE-s7K" id="idW-d2-fhx"/>
                         <outlet property="taskDoneBtn" destination="5Zy-bg-Iu5" id="139-Vw-7GD"/>
-                        <segue destination="6HQ-Vs-asj" kind="show" identifier="editTask" id="WsB-A9-R4s"/>
-                        <segue destination="6HQ-Vs-asj" kind="show" identifier="addTask" id="jtY-fE-0jz"/>
+                        <segue destination="zxG-pM-74g" kind="show" identifier="editTask" id="WsB-A9-R4s"/>
+                        <segue destination="zxG-pM-74g" kind="show" identifier="addTask" id="jtY-fE-0jz"/>
                         <segue destination="9iT-4D-ttn" kind="show" identifier="taskAddEvent" id="3YL-zA-42E"/>
                     </connections>
                 </viewController>
@@ -3466,7 +3466,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="9iT-4D-ttn" kind="show" identifier="tabBarToEvent" id="csL-Fo-fcl"/>
-                        <segue destination="6HQ-Vs-asj" kind="show" identifier="tabBarToTask" id="hM4-lw-jpS"/>
+                        <segue destination="zxG-pM-74g" kind="show" identifier="tabBarToTask" id="hM4-lw-jpS"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="hcZ-Ua-xXz"/>
                         <segue destination="MCe-u7-tnl" kind="relationship" relationship="viewControllers" id="YrH-Xa-OGJ"/>
                         <segue destination="3xM-0D-h9c" kind="relationship" relationship="viewControllers" id="N4z-Vr-dZN"/>
@@ -3510,7 +3510,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YeD-XS-QoS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1355.072463768116" y="98.4375"/>
+            <point key="canvasLocation" x="445" y="99"/>
         </scene>
         <!--Picker View Controller-->
         <scene sceneID="2D2-5b-pho">
@@ -3596,7 +3596,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qiI-ea-a2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="0Vv-YQ-x2H" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3507" y="1819"/>
+            <point key="canvasLocation" x="-1514" y="2529"/>
         </scene>
         <!--Picker View Year Controller-->
         <scene sceneID="tMn-lQ-KSd">
@@ -3682,7 +3682,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVZ-UR-IsV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="yqH-zs-zG3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2649" y="1819"/>
+            <point key="canvasLocation" x="-717" y="2529"/>
         </scene>
         <!--Picker View Week View Controller-->
         <scene sceneID="eJo-gJ-Gdm">
@@ -3768,35 +3768,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9pt-ya-PFX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="WaQ-wb-DDN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1835" y="1819"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="UUJ-1f-7J8">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6HQ-Vs-asj" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="rLT-oE-acY"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hQU-Ec-Z71">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="zxG-pM-74g" kind="relationship" relationship="rootViewController" id="UAA-nm-hH2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8jp-Uf-EmT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-355.07246376811599" y="98.4375"/>
+            <point key="canvasLocation" x="43" y="2529"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="jtY-fE-0jz"/>
-        <segue reference="5PA-uq-wsl"/>
-        <segue reference="9Rl-2J-tqH"/>
-        <segue reference="0SZ-0C-Z6S"/>
-        <segue reference="3YL-zA-42E"/>
-        <segue reference="yLI-1s-8Dj"/>
+        <segue reference="54J-Uw-fAs"/>
+        <segue reference="RdI-zR-oJx"/>
+        <segue reference="bHU-5F-LTf"/>
+        <segue reference="csL-Fo-fcl"/>
+        <segue reference="daS-jI-pwq"/>
+        <segue reference="dh3-ww-BEF"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
