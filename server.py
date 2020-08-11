@@ -117,7 +117,7 @@ def insertSaveplace():
 
 @app.route("/pushTrack", methods=["POST"])
 def pushTrack():
-    data = request.get_jon()
+    data = request.get_json()
     
     last_track_id = data["last_track_id"]
     user_id = data["user_id"]
@@ -128,7 +128,8 @@ def pushTrack():
     cur.execute(sql,adr)
     fetch_data = cur.fetchall()
     print(fetch_data)
-
+    
+    return jsonify({"status_code": 200})
 
 @app.route("/updateTrack", methods=["POST"])
 def updateTrack():
