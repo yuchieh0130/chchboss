@@ -101,21 +101,21 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
-        if #available(iOS 13.0, *) {
+//        if #available(iOS 13.0, *) {
             floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
                 self.performSegue(withIdentifier: "addTask", sender: self)
             })
             floaty.addItem("Add Event", icon: UIImage(systemName: "calendar"), handler: {_ in
                 self.performSegue(withIdentifier: "taskAddEvent", sender: self)
             })
-        } else {
-            floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
-                self.performSegue(withIdentifier: "addTask", sender: self)
-            })
-            floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
-                self.performSegue(withIdentifier: "taskAddEvent", sender: self)
-            })
-        }
+//        } else {
+//            floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
+//                self.performSegue(withIdentifier: "addTask", sender: self)
+//            })
+//            floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
+//                self.performSegue(withIdentifier: "taskAddEvent", sender: self)
+//            })
+//        }
         floaty.translatesAutoresizingMaskIntoConstraints = false
         floaty.openAnimationType = .slideUp
         floaty.isDraggable = true

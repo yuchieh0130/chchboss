@@ -146,10 +146,13 @@ class ViewController: UIViewController{
        }
     
     @IBAction func eventUnwindSegue(segue: UIStoryboardSegue){
-        let VC = segue.source as? addViewController
-        var added = [Date]()
-        added.append(showDayFormatter.date(from: VC!.startDate)!)
-        calendarView.selectDates(added)
+        if segue.identifier == "eventUnwindSegue"{
+            print("unwindedededededed")
+            let VC = segue.source as? addViewController
+            var added = [Date]()
+            added.append(showDayFormatter.date(from: VC!.startDate)!)
+            calendarView.selectDates(added)
+        }
     }
     
     

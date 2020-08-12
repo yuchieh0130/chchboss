@@ -23,9 +23,6 @@ struct reminderConfig{
 class addViewController : UIViewController {
     
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var btnAdd: UIButton!
-    @IBOutlet var btnEdit: UIButton!
-    @IBOutlet var btnDelete: UIButton!
     
     //tableView Item
     var tableViewData = [cellConfig]()
@@ -98,11 +95,26 @@ class addViewController : UIViewController {
         return formatter
     }
     
+    @IBOutlet var btnAdd: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        btnAdd.title = "Add"
+        btnAdd.style = .plain
+        btnAdd.target = self
+        btnAdd.action = #selector(addEventButton(_:))
+//        let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addEventButton(_:)))
+        btnAdd.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
+        let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editEventButton(_:)))
+        btnEdit.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
+        let btnDelete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteEventButton(_:)))
+        btnDelete.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
+        let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
+        btnCancel.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
+        navigationItem.leftBarButtonItems = [btnCancel]
         //查看手機內佇列的notification
 //        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
 //            for request in requests {
@@ -141,10 +153,9 @@ class addViewController : UIViewController {
         //檢查是要新增還是編輯event
         if event != nil{
             loadData()
-            btnAdd.isHidden = true
+            navigationItem.rightBarButtonItems = [btnEdit, btnDelete]
         }else {
-            btnEdit.isHidden = true
-            btnDelete.isHidden = true
+            navigationItem.rightBarButtonItems = [btnAdd]
         }
         if selectedDay.isEmpty == false{
             s = showDateformatter.date(from: "\(showDayformatter.string(from: selectedDay[0])) \(showTimeformatter.string(from: Date()))")!
@@ -199,33 +210,28 @@ class addViewController : UIViewController {
         switch segue.identifier {
         case "newStartDate":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "startDate"
                 VC.showDate = s
             }
         case "newEndDate":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.allDay = allDay
                 VC.tag = "endDate"
                 VC.showDate = e
             }
         case "newAutoStart":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "autoStart"
                 VC.showDate = s
             }
         case "newAutoEnd":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "autoEnd"
                 VC.showDate = e
             }
         case "Reminder":
             if let VC = segue.destination as? reminderTableViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? reminderTableViewController{
                 VC.allDay = allDay
                 if allDay{
                     VC.reminder = allDayReminder_index
@@ -234,6 +240,8 @@ class addViewController : UIViewController {
                 }
                 print(VC.reminder)
             }
+        case "eventUnwindSegue":
+            print("testinggggggg")
         default:
             print("")
         }
@@ -357,12 +365,13 @@ class addViewController : UIViewController {
     }
     
     
-    @IBAction func cancel(_ sender: UIButton){
+    @objc func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func addEventButton(_ sender: UIButton){
+    @objc func addEventButton(_ sender: UIButton){
         self.view.endEditing(true)
+        
         startDate = showDayformatter.string(for: s)!
         endDate = showDayformatter.string(for: e)!
         if allDay{
@@ -402,7 +411,7 @@ class addViewController : UIViewController {
         }
     }
     
-    @IBAction func editEventButton(_ sender: UIButton){
+    @objc func editEventButton(_ sender: UIButton){
         self.view.endEditing(true)
         startDate = showDayformatter.string(for: s)!
         endDate = showDayformatter.string(for: e)!
@@ -434,7 +443,7 @@ class addViewController : UIViewController {
         }
     }
     
-    @IBAction func deleteEventButton(_ sender: UIButton){
+    @objc func deleteEventButton(_ sender: UIButton){
         let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the event", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default){_ in
             controller.dismiss(animated: true, completion: nil); self.dismiss(animated: true, completion: nil); self.delete()}

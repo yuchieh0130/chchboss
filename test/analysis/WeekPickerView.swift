@@ -49,7 +49,7 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     func commonSetup() {
         var weeks: [String] = []
         dateFormat.dateFormat =  "yyyy-MM-dd"
-        var week = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.weekOfYear, from: NSDate() as Date)
+//        let week = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.weekOfYear, from: NSDate() as Date)
         for week in 1...numberOfWeeksInYear{
             weeksArray = (1...numberOfWeeksInYear).map { "\($0)" }
             weeks.append("\(dateFormat.string(from: startWeek!.startDateCorrespondingTo(weekNumber: Int("\(week)")!)!)) ~ \(dateFormat.string(from: endWeek!.endDateCorrespondingTo(weekNumber: Int("\(week)")!)!))")

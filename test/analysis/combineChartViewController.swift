@@ -94,7 +94,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     }
     
     @IBAction func segConChoose(_ sender: Any) {
-        var getIndex = segCon.selectedSegmentIndex
+        let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
             todayTime.isHidden = false
