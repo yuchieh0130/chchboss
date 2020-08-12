@@ -61,6 +61,11 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
+        
+        let btnOK = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(editBtn(_:)))
+        let btnDelete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteBtn(_:)))
+        navigationItem.rightBarButtonItems = [btnOK, btnDelete]
+        
         oldTrack = track!
         s = showDateformatter.date(from: "\(track!.startDate) \(track!.startTime)")!
         e = showDateformatter.date(from: "\(track!.endDate) \(track!.endTime)")!
@@ -142,7 +147,9 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         let circle = GMSCircle(position: CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!), radius: 50)
         circle.strokeColor = UIColor.red
         circle.map = mapView
-        
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
     @IBAction func cancel(_ sender: UIButton){
@@ -154,7 +161,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
     }
     
-    @IBAction func editBtn(_ sender: UIButton){
+    @objc func editBtn(_ sender: UIButton){
 //        newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
         
         if track!.placeId! != 0{   //原本有資料
@@ -209,15 +216,17 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         }
         
         DBManager.getInstance().editTrack(oldModelInfo: oldTrack,newModelInfo: newTrack)
+        performSegue(withIdentifier: "editAutoSegueBack", sender: self)
         //self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func deleteBtn(_ sender: UIButton){
+    @objc func deleteBtn(_ sender: UIButton){
         let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the event", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default){_ in
             controller.dismiss(animated: true, completion: nil);
             self.dismiss(animated: true, completion: nil);
             DBManager.getInstance().deleteTrack(Int: self.track!.trackId!)
+            self.performSegue(withIdentifier: "editAutoSegueBack", sender: self)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){_ in controller.dismiss(animated: true, completion: nil)}
         controller.addAction(okAction)
@@ -284,11 +293,13 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
             let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoCategoryCell", for: indexPath) as! autoCategoryCell
             cell.txtAutoCategory.text = category.categoryName
             cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
             return cell
         case [0,3]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
             cell.txtLocation.text = savePlace?.placeName
             cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell

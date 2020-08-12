@@ -86,12 +86,14 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     }
     
     @IBAction func editAutoSegueBack(segue: UIStoryboardSegue){
-        showTrack = DBManager.getInstance().getDateTracks(String: date)
-        trackViews.forEach({$0.removeFromSuperview()})
-        //view.subviews.forEach({$0.removeFromSuperview()})
-        //subviews
-        //subviews.forEach({ $0.removeFromSuperview() })
-        createTracks(view: myScrollView)
+        if segue.identifier == "editAutoSegueBack"{
+            showTrack = DBManager.getInstance().getDateTracks(String: date)
+            trackViews.forEach({$0.removeFromSuperview()})
+            //view.subviews.forEach({$0.removeFromSuperview()})
+            //subviews
+            //subviews.forEach({ $0.removeFromSuperview() })
+            createTracks(view: myScrollView)
+        }
     }
     
     
