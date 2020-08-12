@@ -192,9 +192,11 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func reminderSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as! reminderTableViewController
-           reminder_index = VC.reminder
-        tableView.reloadRows(at: [IndexPath.init(row: 0, section: 4)], with: .none)
+        if segue.identifier == "reminderSegueBack"{
+            let VC = segue.source as! reminderTableViewController
+               reminder_index = VC.reminder
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 4)], with: .none)
+        }
     }
     
     func handletime(){

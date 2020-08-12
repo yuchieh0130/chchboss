@@ -307,13 +307,15 @@ class addViewController : UIViewController {
     }
     
     @IBAction func reminderSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? reminderTableViewController
-        if allDay{
-            allDayReminder_index = (VC?.reminder)!
-        }else{
-           reminder_index = (VC?.reminder)!
+        if segue.identifier == "reminderSegueBack"{
+            let VC = segue.source as? reminderTableViewController
+            if allDay{
+                allDayReminder_index = (VC?.reminder)!
+            }else{
+               reminder_index = (VC?.reminder)!
+            }
+            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
         }
-        tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
     }
     
     

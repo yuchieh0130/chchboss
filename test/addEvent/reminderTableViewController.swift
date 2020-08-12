@@ -19,8 +19,6 @@ struct reminderStatus{
 class reminderTableViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var btnAdd: UIButton!
-    @IBOutlet var btnCancel: UIButton!
     
     var reminder = [Int]()
     var reminderData = [reminderStatus]()
@@ -46,6 +44,10 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
         tableView.allowsMultipleSelection = true
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let btnAdd = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(addReminder(_:)))
+        navigationItem.rightBarButtonItems = [btnAdd]
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,13 +60,12 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
             reminderData[reminder[i]].isselected = true
             tableView.selectRow(at: IndexPath(row: reminder[i], section: 0), animated: false, scrollPosition: .none)
         }
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
-    @IBAction func cancel(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func addReminder(_ sender: UIButton){
+    @objc func addReminder(_ sender: UIButton){
         reminder = []
         for i in 0...reminderData.count-1{
             if reminderData[i].isselected{
@@ -72,6 +73,7 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
             }
         }
         reminder = reminder.sorted()
+        performSegue(withIdentifier: "reminderSegueBack", sender: self)
     }
     
     
