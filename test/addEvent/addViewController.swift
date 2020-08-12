@@ -153,6 +153,12 @@ class addViewController : UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
+    }
+    
     func loadData(){
         id = event!.eventId
         name = event!.eventName

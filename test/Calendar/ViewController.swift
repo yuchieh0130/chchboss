@@ -98,7 +98,6 @@ class ViewController: UIViewController{
         //註冊.xib檔
         //self.tableView.register(UINib(nibName: "eventTableViewCell", bundle: nil), forCellReuseIdentifier: "eventTableViewCell")
         
-        tableView.separatorStyle = .none
         title = "Calendar"
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -143,6 +142,9 @@ class ViewController: UIViewController{
         }else{
             calendarView.reloadData(withanchor: showDayFormatter.date(from: selectedDay))
             monthLabel.text = showMonthFormatter.string(from: showDayFormatter.date(from: selectedDay)!)
+        }
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
     }
           

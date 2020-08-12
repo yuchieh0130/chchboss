@@ -217,6 +217,9 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else{
             showTask = [TaskModel]()
         }
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
         tableView.reloadData()
     }
     
@@ -249,19 +252,19 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let hour = Int((Int(interval)-Int(interval/86400)*86400)/3600)
             let min = Int((Int(interval)-Int(interval/86400)*86400-((Int(interval)-Int(interval/86400)*86400)/3600)*3600)/60)
             if interval<0{
-                cell.taskDeadline.text = "Over\ndue"
+                cell.taskDeadline.text = "Overdue"
                 cell.taskDeadline.textColor = UIColor.red
             }else if interval<3600{
-                cell.taskDeadline.text = "\(min) min(s)"
+                cell.taskDeadline.text = "\(min) Minute(s) Till Deadline"
             }else if interval<86400{
-                cell.taskDeadline.text = "\(hour) hrs"
+                cell.taskDeadline.text = "\(hour) Hour(s) Till Deadline"
             }else if interval>86400 && interval<172800{
-                cell.taskDeadline.text = " \(day) day"
+                cell.taskDeadline.text = " \(day) Day Till Deadline"
             }else if interval>172800{
-                cell.taskDeadline.text = "\(day) days"
+                cell.taskDeadline.text = "\(day) Days Till Deadline"
             }
         }else{
-            cell.taskDeadline.text = ""
+            cell.taskDeadline.text = "No Deadline"
         }
         //        if showTask?[indexPath.row].taskDeadline?.endIndex = {
         //            }

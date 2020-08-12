@@ -25,16 +25,16 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.tableView.allowsMultipleSelectionDuringEditing = true
 
-        let doneBack = UIBarButtonItem(title: "Return", style: .plain, target: self, action: #selector(doneReturn))
-        navigationItem.leftBarButtonItems = [doneBack]
+//        let doneBack = UIBarButtonItem(title: "Return", style: .plain, target: self, action: #selector(doneReturn))
+        //navigationItem.leftBarButtonItems = [doneBack]
         
         editButtonItem.title = "Select"
         navigationItem.rightBarButtonItems = [editButtonItem]
     }
     
-    @objc func doneReturn() {
-        self.navigationController?.popViewController(animated: true)
-    }
+//    @objc func doneReturn() {
+//        self.navigationController?.popViewController(animated: true)
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,6 +42,9 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             showTask = DBManager.getInstance().getAllDoneTask()
         }else{
             showTask = [TaskModel]()
+        }
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
         tableView.reloadData()
     }
@@ -61,14 +64,15 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:doneTaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "doneTaskTableViewCell", for: indexPath) as! doneTaskTableViewCell
         //let task = showTask![indexPath.row]
-        let taskDeadline = showTask?[indexPath.row].taskDeadline
+        if let taskDeadline = showTask?[indexPath.row].taskDeadline{
+            if taskDeadline == ""{
+                cell.doneTaskMark.text = "No Deadline"
+            }else{
+                cell.doneTaskMark.text = showTask![indexPath.row].taskDeadline
+            }
+        }
         cell.doneTaskName?.text = showTask![indexPath.row].taskName
         
-        if taskDeadline == nil{
-            cell.doneTaskMark.text = "No Deadline"
-        }else{
-            cell.doneTaskMark.text = showTask![indexPath.row].taskDeadline
-        }
         if showTask?[indexPath.row].addToCal == false{
             cell.doneTaskCalendar.isHidden = true
         }else{

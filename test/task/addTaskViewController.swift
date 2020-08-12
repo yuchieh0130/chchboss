@@ -112,6 +112,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
 //        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
+    }
+    
     func loadData(){
         id = task!.taskId
         taskName = task!.taskName

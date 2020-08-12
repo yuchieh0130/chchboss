@@ -25,6 +25,12 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         userIcon.clipsToBounds = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
