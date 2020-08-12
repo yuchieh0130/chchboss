@@ -34,6 +34,7 @@
 		4B4F0152243CCBD100A98C65 /* (old)autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0151243CCBD100A98C65 /* (old)autoRecordViewController.swift */; };
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
 		4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */; };
+		4B52F06E24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */; };
 		4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */; };
 		4B6C44192472EAB10009C281 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C44182472EAB10009C281 /* TrackModel.swift */; };
 		4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C441A2472F9CB0009C281 /* trackCell.swift */; };
@@ -114,6 +115,7 @@
 		4B4F0151243CCBD100A98C65 /* (old)autoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "(old)autoRecordViewController.swift"; sourceTree = "<group>"; };
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
 		4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewCell.swift; sourceTree = "<group>"; };
+		4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlaceCategoryViewController.swift; sourceTree = "<group>"; };
 		4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(old)addEventViewController.swift"; sourceTree = "<group>"; };
 		4B6C44182472EAB10009C281 /* TrackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		4B6C441A2472F9CB0009C281 /* trackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trackCell.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				4B35331C24A9D9EE00408562 /* settingsViewController.swift */,
 				4BAB720724A9E703007D52A7 /* settingsTableViewCell.swift */,
 				4B9FB4FD24E2FB5D00DBFAFA /* myPlaceViewController.swift */,
+				4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */,
 				4B9FB4F924E296E300DBFAFA /* editMyPlaceViewController.swift */,
 				4B9FB4FB24E2CEF800DBFAFA /* editMyPlaceTableViewCell.swift */,
 			);
@@ -557,6 +560,7 @@
 				4B1C31072415696600875B74 /* DateHeader.swift in Sources */,
 				4B2B337C247620A900B014E2 /* editAutoRecordViewController.swift in Sources */,
 				FF76549124AE0E1E00663E58 /* SignupViewController.swift in Sources */,
+				4B52F06E24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift in Sources */,
 				4B127D0C24D1AC3A00B87B99 /* PickerViewYearViewController.swift in Sources */,
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,

@@ -46,6 +46,13 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         myPlaceLatitude = myPlace!.placeLatitude
     }
     
+    @IBAction func myPlaceCategorySegueBack(segue: UIStoryboardSegue){
+        let VC = segue.source as? myPlaceCategoryViewController
+        let i = VC?.tableView.indexPathForSelectedRow?.row
+        myPlaceCategory = VC?.myPlaceCategorys[i ?? 4] ?? "Others"
+        tbView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+    }
+    
     @IBAction func addMyPlaceButton(_ sender: UIButton){
         self.view.endEditing(true)
         if myPlaceName == ""{
@@ -98,6 +105,12 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
             cell.category.text = myPlaceCategory
             cell.selectionStyle = .none
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if indexPath.row == 1{
+            performSegue(withIdentifier: "myPlaceCategory", sender: nil)
         }
     }
 
