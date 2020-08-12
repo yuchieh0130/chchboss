@@ -20,11 +20,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     //    var reminder: Bool! = false
     //    var id: Int32 = 0
     
-    @IBOutlet var addTaskButton: UIButton!
-    //@IBOutlet var editTaskButton: UIButton!
-    @IBOutlet var taskDoneBtn: UIButton!
-    
-    
     @IBOutlet var tableView: UITableView!
     //var taskId :Int32?
     var task: TaskModel?
@@ -63,11 +58,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "addTask":
-            if let navVC = segue.destination as? UINavigationController, let addVC = navVC.topViewController as? addTaskViewController {
+            if let addVC = segue.destination as? addTaskViewController {
                 addVC.task = task
             }
         case "editTask":
-            if let navVC = segue.destination as? UINavigationController, let editVC = navVC.topViewController as? addTaskViewController{
+            if let editVC = segue.destination as? addTaskViewController{
                 editVC.task = task
             }
         default:
@@ -76,20 +71,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    @IBAction func addTask(_ sender: Any) {
-        task = nil
-        performSegue(withIdentifier: "addTask", sender: sender)
+    @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
+        if segue.identifier == "taskUnwindSegue"{
+        }
     }
     
-    //    @IBAction func edit(_ sender: Any) {
-    //        self.tableView.isEditing = !tableView.isEditing
-    //        if tableView.isEditing{
-    //            editTaskButton.setTitle("Done", for: .normal)
-    //        }else{
-    //            editTaskButton.setTitle("Edit", for: .normal)
-    //        }
-    //    }
-    //
     override func viewDidLoad() {
         super.viewDidLoad()
         super.viewDidLayoutSubviews()
@@ -97,31 +83,45 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        let addTaskBtn = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTask(_:)))
+        navigationItem.rightBarButtonItems = [addTaskBtn]
+        let doneTaskBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTask(_:)))
+        navigationItem.leftBarButtonItems = [doneTaskBtn]
+        
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 145, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
-//        if #available(iOS 13.0, *) {
-            floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
-                self.performSegue(withIdentifier: "addTask", sender: self)
-            })
-            floaty.addItem("Add Event", icon: UIImage(systemName: "calendar"), handler: {_ in
-                self.performSegue(withIdentifier: "taskAddEvent", sender: self)
-            })
-//        } else {
-//            floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
-//                self.performSegue(withIdentifier: "addTask", sender: self)
-//            })
-//            floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
-//                self.performSegue(withIdentifier: "taskAddEvent", sender: self)
-//            })
-//        }
+
+        floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
+            self.performSegue(withIdentifier: "addTask", sender: self)
+        })
+        floaty.addItem("Add Event", icon: UIImage(systemName: "calendar"), handler: {_ in
+            self.performSegue(withIdentifier: "taskAddEvent", sender: self)
+        })
         floaty.translatesAutoresizingMaskIntoConstraints = false
         floaty.openAnimationType = .slideUp
         floaty.isDraggable = true
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
         self.view.addSubview(floaty)
+    }
+    
+    @objc func addTask(_ sender: Any) {
+        task = nil
+        performSegue(withIdentifier: "addTask", sender: sender)
+    }
+    
+    @objc func doneTask(_ sender: UIButton) {
+        if DBManager.getInstance().getAllDoneTask() != nil {
+            performSegue(withIdentifier: "doneTask", sender: self)
+        }else{
+            let controller = UIAlertController(title: "Unavailable", message: "No task marked as DONE", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            controller.addAction(action)
+            present(controller, animated: true, completion: nil)
+        }
     }
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -216,17 +216,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             showTask = [TaskModel]()
         }
         tableView.reloadData()
-    }
-    
-    @IBAction func doneTask(_ sender: UIButton) {
-        if DBManager.getInstance().getAllDoneTask() != nil {
-            performSegue(withIdentifier: "doneTask", sender: self)
-        }else{
-            let controller = UIAlertController(title: "Unavailable", message: "No task marked as DONE", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            controller.addAction(action)
-            present(controller, animated: true, completion: nil)
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

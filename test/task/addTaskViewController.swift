@@ -15,9 +15,6 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     var tableViewData = [cellConfig]()
     
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var btnAddTask: UIButton!
-    @IBOutlet var btnEditTask: UIButton!
-    @IBOutlet var btnDeleteTask: UIButton!
     
     let switchtasktime = UISwitch()
     //let switchreminder = UISwitch()
@@ -79,8 +76,6 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
         tableViewData = [cellConfig(opened: false, title: "taskTime"),
                          cellConfig(opened: false, title: "daealine")]
         reminderData = [reminderConfig( rname: "none", fireTime: 0),
@@ -97,12 +92,17 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
 //        switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
         switchcalendar.addTarget(self, action: #selector(self.calendarOpen(_ :)), for: .valueChanged)
         
+        let btnAddTask = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTaskButton(_:)))
+        let btnEditTask = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editTaskButton(_:)))
+        let btnDeleteTask = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteTaskButton(_:)))
+        let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
+        navigationItem.leftBarButtonItems = [btnCancel]
+        
         if task != nil{
             loadData()
-            btnAddTask.isHidden = true
+            navigationItem.rightBarButtonItems = [btnEditTask, btnDeleteTask]
         }else{
-            btnEditTask.isHidden = true
-            btnDeleteTask.isHidden = true
+            navigationItem.rightBarButtonItems = [btnAddTask]
         }
 //        if taskTime == nil{ taskTime = "01:00"}
 //        if deadline == nil{
@@ -143,25 +143,32 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         switch segue.identifier{
         case"addTaskTime":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
             VC.tag = "addTaskTime"
             VC.showDate = showTimeformatter.date(from: taskTime)!
             //VC.addTaskTime = taskTime
                 }
         case"deadline":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "deadline"
                 VC.showDate = showDateformatter.date(from: deadline)!
             }
         case"taskReminder":
             if let VC = segue.destination as? reminderTableViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? reminderTableViewController{
                 VC.reminder = reminder_index
         }
             default:
                 print("")
             }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "taskUnwindSegue"{
+            if taskName == "" {
+                alertMessage()
+                return false
+            }
+        }
+        return true
     }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
@@ -197,12 +204,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         //tableView.reloadRows(at: [IndexPath.init(row: 4, section: 0)], with: .none)
     }
     
-    @IBAction func cancel(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
+    @objc func cancel(_ sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
     }
     
     
-    @IBAction func addTaskButton(_ sender: UIButton) {
+    @objc func addTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
         if d == false{ deadline = "" }
         if t == false{ taskTime = "" }
@@ -214,10 +221,11 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             DBManager.getInstance().addTask(modelInfo)
             if reminder != "0" && deadline != "" {makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: "taskUnwindSegue", sender: self)
         }
     }
     
-    @IBAction func editTaskButton(_ sender: UIButton) {
+    @objc func editTaskButton(_ sender: UIButton) {
         self.view.endEditing(true)
         if d == false{ deadline = "" }
         if t == false{ taskTime = "" }
@@ -235,11 +243,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
                 makeNotification(action: "add")
                 
             }
+            self.dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: "taskUnwindSegue", sender: self)
         }
-        self.dismiss(animated: true, completion: nil)
         }
     
-    @IBAction func deleteTaskButton(_ sender: UIButton) {
+    @objc func deleteTaskButton(_ sender: UIButton) {
         let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the event", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default){_ in
             controller.dismiss(animated: true, completion: nil); self.dismiss(animated: true, completion: nil); self.delete()}
@@ -247,11 +256,10 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         controller.addAction(okAction)
         controller.addAction(cancelAction)
         self.present(controller, animated: true,completion: .none)
-        
-        
     }
     
     func delete(){
+        performSegue(withIdentifier: "taskUnwindSegue", sender: self)
         let modelInfo = TaskModel(taskId: id, taskName: taskName, taskTime: taskTime, taskDeadline: deadline, taskLocation: taskLocation, reminder: reminder, addToCal: addToCal, isPinned: isPinned, isDone: isDone)
         DBManager.getInstance().deleteTask(id: modelInfo.taskId)
     }

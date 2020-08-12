@@ -61,8 +61,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
         oldTrack = track!
         s = showDateformatter.date(from: "\(track!.startDate) \(track!.startTime)")!
         e = showDateformatter.date(from: "\(track!.endDate) \(track!.endTime)")!
@@ -87,19 +85,16 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         switch segue.identifier {
         case "editAutoStart":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "editAutoStart"
                 VC.showDate = s
             }
         case "editAutoEnd":
             if let VC = segue.destination as? DatePopupViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.presentedViewController as? DatePopupViewController{
                 VC.tag = "editAutoEnd"
                 VC.showDate = e
             }
         case "editAutoLocation":
             if let VC = segue.destination as? mapViewController{
-//            if let navVC = segue.destination as? UINavigationController, let VC = navVC.topViewController as? mapViewController{
                 if savePlace != nil{
                     VC.savePlace = savePlace
                 }else{

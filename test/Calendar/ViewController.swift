@@ -54,17 +54,17 @@ class ViewController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
         switch segue.identifier {
         case "addEvent":
-            if let navVC = segue.destination as? UINavigationController, let addVC = navVC.topViewController as? addViewController{
+            if let addVC = segue.destination as? addViewController{
                 if calendarView.selectedDates.isEmpty == false{
                     addVC.selectedDay = calendarView.selectedDates
                 }
             }
         case "editEvent":
-            if let navVC = segue.destination as? UINavigationController, let editVC = navVC.topViewController as? addViewController{
+            if let editVC = segue.destination as? addViewController{
                 editVC.event = event
             }
         case "editCalTask":
-            if let navVC = segue.destination as? UINavigationController, let editVC = navVC.topViewController as? addTaskViewController{
+            if let editVC = segue.destination as? addTaskViewController{
                 editVC.task = task
             }
         case "timeline":
@@ -100,6 +100,8 @@ class ViewController: UIViewController{
         
         tableView.separatorStyle = .none
         title = "Calendar"
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 145, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
@@ -147,7 +149,6 @@ class ViewController: UIViewController{
     
     @IBAction func eventUnwindSegue(segue: UIStoryboardSegue){
         if segue.identifier == "eventUnwindSegue"{
-            print("unwindedededededed")
             let VC = segue.source as? addViewController
             var added = [Date]()
             added.append(showDayFormatter.date(from: VC!.startDate)!)

@@ -95,26 +95,15 @@ class addViewController : UIViewController {
         return formatter
     }
     
-    @IBOutlet var btnAdd: UIBarButtonItem!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
-        btnAdd.title = "Add"
-        btnAdd.style = .plain
-        btnAdd.target = self
-        btnAdd.action = #selector(addEventButton(_:))
-//        let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addEventButton(_:)))
-        btnAdd.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
+        let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addEventButton(_:)))
         let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editEventButton(_:)))
-        btnEdit.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
         let btnDelete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteEventButton(_:)))
-        btnDelete.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
         let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
-        btnCancel.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
         navigationItem.leftBarButtonItems = [btnCancel]
+
         //查看手機內佇列的notification
 //        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
 //            for request in requests {
@@ -240,8 +229,6 @@ class addViewController : UIViewController {
                 }
                 print(VC.reminder)
             }
-        case "eventUnwindSegue":
-            print("testinggggggg")
         default:
             print("")
         }
@@ -364,9 +351,8 @@ class addViewController : UIViewController {
         return c
     }
     
-    
     @objc func cancel(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func addEventButton(_ sender: UIButton){
@@ -409,6 +395,7 @@ class addViewController : UIViewController {
             if reminder != "0" { makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
         }
+        performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
     }
     
     @objc func editEventButton(_ sender: UIButton){
@@ -441,6 +428,7 @@ class addViewController : UIViewController {
             if reminder != "0" {makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
         }
+        performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
     }
     
     @objc func deleteEventButton(_ sender: UIButton){
@@ -455,6 +443,7 @@ class addViewController : UIViewController {
     
     func delete(){
            //reminder = reminder_index.map { String($0) }.joined(separator: ",")
+        performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
            let modelInfo = EventModel(eventId: id, eventName: name, startDate: startDate, startTime: startTime, endDate: endDate, endTime: endTime, allDay: allDay, autoRecord: autoRecord, autoCategory: autoCategory, autoLocation: autoLocation, reminder: reminder)
            DBManager.getInstance().deleteEvent(id: modelInfo.eventId)
            //刪除當下問是不是在做這件事的通知

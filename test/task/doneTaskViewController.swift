@@ -35,7 +35,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func doneReturn() {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
