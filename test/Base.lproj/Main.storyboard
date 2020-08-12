@@ -379,13 +379,14 @@
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateCell" id="60r-fL-WQP" customClass="DateCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C7q-ZU-C1s">
+                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C7q-ZU-C1s">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="1" green="0.85098039219999999" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -393,14 +394,16 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="dateHere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AA5-3s-fjv">
-                                                    <rect key="frame" x="-12.666666666666664" y="14.33333333333333" width="75.333333333333329" height="21.666666666666671"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AA5-3s-fjv">
+                                                    <rect key="frame" x="0.0" y="14.333333333333485" width="50" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBM-Jf-kuz">
-                                                    <rect key="frame" x="28.666666666666671" y="38" width="7" height="7"/>
+                                                <view contentMode="scaleToFill" id="uBM-Jf-kuz">
+                                                    <rect key="frame" x="29" y="38" width="7" height="7"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.1306751072" green="0.52150911089999996" blue="0.96679383519999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -408,9 +411,9 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flB-6C-Cn9">
-                                                    <rect key="frame" x="16.666666666666668" y="38" width="7" height="7"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" id="flB-6C-Cn9">
+                                                    <rect key="frame" x="17" y="38" width="7" height="7"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.44745337959999998" green="0.78650408979999997" blue="0.95868188139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -421,13 +424,13 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="centerX" secondItem="C7q-ZU-C1s" secondAttribute="centerX" id="9mn-hq-E3X"/>
-                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="centerY" secondItem="C7q-ZU-C1s" secondAttribute="centerY" id="GFW-eK-ndS"/>
-                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="leading" secondItem="60r-fL-WQP" secondAttribute="leadingMargin" constant="-20.666666666666664" id="O9Q-Tk-6Ca"/>
-                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="centerX" secondItem="60r-fL-WQP" secondAttribute="centerX" id="PHW-rh-ALF"/>
-                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="top" secondItem="60r-fL-WQP" secondAttribute="topMargin" constant="6.3333333333333286" id="Scj-DA-V0y"/>
-                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="centerY" secondItem="60r-fL-WQP" secondAttribute="centerY" id="hth-5E-evh"/>
-                                            <constraint firstItem="uBM-Jf-kuz" firstAttribute="top" secondItem="AA5-3s-fjv" secondAttribute="bottom" constant="2" id="m0g-ER-dmS"/>
+                                            <constraint firstItem="flB-6C-Cn9" firstAttribute="leading" secondItem="60r-fL-WQP" secondAttribute="leading" constant="10" id="33A-Qp-dNb"/>
+                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="centerY" secondItem="60r-fL-WQP" secondAttribute="centerY" id="7Sz-gu-2Lu"/>
+                                            <constraint firstItem="AA5-3s-fjv" firstAttribute="leading" secondItem="60r-fL-WQP" secondAttribute="leading" id="8CQ-RQ-JUq"/>
+                                            <constraint firstAttribute="bottom" secondItem="flB-6C-Cn9" secondAttribute="bottom" constant="5" id="Nod-EM-qSf"/>
+                                            <constraint firstAttribute="bottom" secondItem="uBM-Jf-kuz" secondAttribute="bottom" constant="5" id="Vfk-0W-4Sd"/>
+                                            <constraint firstAttribute="trailing" secondItem="AA5-3s-fjv" secondAttribute="trailing" id="lDy-gx-f68"/>
+                                            <constraint firstAttribute="trailing" secondItem="uBM-Jf-kuz" secondAttribute="trailing" constant="10" id="oXb-rg-XuV"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dateLabel" destination="AA5-3s-fjv" id="LmL-ff-Arh"/>
@@ -2463,7 +2466,7 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="overFullScreen" id="nNZ-yj-YqY" customClass="DatePopupViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bj0-wR-DwH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpL-Zv-UDT">
                                 <rect key="frame" x="15" y="323" width="384" height="250"/>
