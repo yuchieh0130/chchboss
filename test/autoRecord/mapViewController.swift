@@ -124,17 +124,17 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         circle.map = mapView
     }
     
-    func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
-        print("lat = " + "\(coordinate.latitude)" + " long = " +  "\(coordinate.longitude)")
-        changePosition(marker: marker, a: coordinate)
-    }
-    
-    func changePosition(marker : GMSMarker, a: CLLocationCoordinate2D){
-        marker.position = CLLocationCoordinate2D(latitude: a.latitude, longitude: a.longitude)
-        circle.position = marker.position
-        let cam = GMSCameraPosition.camera(withLatitude: a.latitude, longitude: a.longitude, zoom: 17.0)
-        mapView.camera = cam
-    }
+//    func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
+//        print("lat = " + "\(coordinate.latitude)" + " long = " +  "\(coordinate.longitude)")
+//        changePosition(marker: marker, a: coordinate)
+//    }
+//    
+//    func changePosition(marker : GMSMarker, a: CLLocationCoordinate2D){
+//        marker.position = CLLocationCoordinate2D(latitude: a.latitude, longitude: a.longitude)
+//        circle.position = marker.position
+//        let cam = GMSCameraPosition.camera(withLatitude: a.latitude, longitude: a.longitude, zoom: 17.0)
+//        mapView.camera = cam
+//    }
     
     @IBAction func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)

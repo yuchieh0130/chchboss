@@ -26,6 +26,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     var myPlaceLatitude: Double! = 0
     var myPlace: PlaceModel?
     
+    let currentLocation = CLLocation()
+    let marker = GMSMarker()
+    let circle = GMSCircle()
+    
 //    var myPlace: Bool! = true
 //    var noAdd = false
 //    var userLocation = CLLocation()
@@ -37,6 +41,35 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         }else{
             btnEdit.isHidden = true
         }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, zoom: 17.0)
+        mapView.camera = camera
+        mapView.animate(to: camera)
+        
+        marker.position = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        mapView.delegate = self
+        marker.map = mapView
+        
+        circle.position = marker.position
+        circle.radius = 50
+        circle.strokeColor = UIColor.red
+        circle.map = mapView
+    }
+    
+    func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
+        print("lat = " + "\(coordinate.latitude)" + " long = " +  "\(coordinate.longitude)")
+        changePosition(marker: marker, a: coordinate)
+    }
+    
+    func changePosition(marker : GMSMarker, a: CLLocationCoordinate2D){
+        marker.position = CLLocationCoordinate2D(latitude: a.latitude, longitude: a.longitude)
+        circle.position = marker.position
+        let cam = GMSCameraPosition.camera(withLatitude: a.latitude, longitude: a.longitude, zoom: 17.0)
+        mapView.camera = cam
     }
     
     func loadData(){
