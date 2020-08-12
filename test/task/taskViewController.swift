@@ -93,7 +93,9 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
-
+        floaty.itemTitleColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 1)
+        floaty.overlayColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
+        floaty.itemShadowColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
             self.performSegue(withIdentifier: "addTask", sender: self)
         })
