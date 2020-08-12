@@ -26,7 +26,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     var myPlaceLatitude: Double! = 0
     var myPlace: PlaceModel?
     
-    let currentLocation = CLLocation()
+    let currentLocation = CLLocationManager()
     let marker = GMSMarker()
     let circle = GMSCircle()
     
@@ -46,11 +46,11 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     
     override func viewWillAppear(_ animated: Bool) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, zoom: 17.0)
+        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
         mapView.camera = camera
         mapView.animate(to: camera)
         
-        marker.position = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         mapView.delegate = self
         marker.map = mapView
         
