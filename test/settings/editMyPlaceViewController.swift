@@ -17,8 +17,6 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     @IBOutlet weak var mapView: GMSMapView!
     //@IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var tbView: UITableView!
-    @IBOutlet weak var btnAdd: UIButton!
-    @IBOutlet weak var btnEdit: UIButton!
     var myPlaceCategory = "Others"
     var myPlaceName = ""
     var id: Int32 = 0
@@ -35,11 +33,15 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
 //    var userLocation = CLLocation()
     
     override func viewDidLoad() {
+        
+        let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addMyPlaceButton(_:)))
+        let btnEdit = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(editMyPlaceButton(_:)))
+        
         if myPlace != nil{
             loadData()
-            btnAdd.isHidden = true
+            navigationItem.rightBarButtonItems = [btnEdit]
         }else{
-            btnEdit.isHidden = true
+            navigationItem.rightBarButtonItems = [btnAdd]
         }
         
     }
@@ -86,7 +88,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         tbView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
     }
     
-    @IBAction func addMyPlaceButton(_ sender: UIButton){
+    @objc func addMyPlaceButton(_ sender: UIButton){
         self.view.endEditing(true)
         if myPlaceName == ""{
             alertMessage()
@@ -96,7 +98,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func editMyPlaceButton(_ sender: UIButton){
+    @objc func editMyPlaceButton(_ sender: UIButton){
         self.view.endEditing(true)
         if myPlaceName == ""{
             alertMessage()
@@ -137,6 +139,7 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
             cell.accessoryType = .disclosureIndicator
             cell.category.text = myPlaceCategory
             cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
             return cell
         }
     }
