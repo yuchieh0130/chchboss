@@ -31,7 +31,6 @@
 		4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B490B8E24B589A500A8249A /* combineChartViewController.swift */; };
 		4B4AB6232463197A00FC8A6D /* showMyPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
-		4B4F0152243CCBD100A98C65 /* (old)autoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0151243CCBD100A98C65 /* (old)autoRecordViewController.swift */; };
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
 		4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */; };
 		4B52F06E24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */; };
@@ -112,7 +111,6 @@
 		4B490B8E24B589A500A8249A /* combineChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = combineChartViewController.swift; sourceTree = "<group>"; };
 		4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showMyPlaceController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
-		4B4F0151243CCBD100A98C65 /* (old)autoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "(old)autoRecordViewController.swift"; sourceTree = "<group>"; };
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
 		4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewCell.swift; sourceTree = "<group>"; };
 		4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlaceCategoryViewController.swift; sourceTree = "<group>"; };
@@ -181,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				4B6C441A2472F9CB0009C281 /* trackCell.swift */,
-				4B4F0151243CCBD100A98C65 /* (old)autoRecordViewController.swift */,
 				4B9FBA2F24ACE18B0024D7CD /* timeline.swift */,
 				4B2B337B247620A900B014E2 /* editAutoRecordViewController.swift */,
 				586B87D924619A7100E7E273 /* mapViewController.swift */,
@@ -551,7 +548,6 @@
 				4B79F7DF24E28BB90078C853 /* segueBack.swift in Sources */,
 				4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */,
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
-				4B4F0152243CCBD100A98C65 /* (old)autoRecordViewController.swift in Sources */,
 				FF76548E24AE0B4D00663E58 /* LoginViewController.swift in Sources */,
 				4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */,
 				58D91DC924325783002DD7B2 /* LocationModel.swift in Sources */,
