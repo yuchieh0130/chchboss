@@ -62,6 +62,7 @@
 		4BA5027E246B7F8600F70144 /* doneTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA5027D246B7F8600F70144 /* doneTaskViewController.swift */; };
 		4BA50280246B88D800F70144 /* doneTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA5027F246B88D800F70144 /* doneTaskTableViewCell.swift */; };
 		4BAB720824A9E703007D52A7 /* settingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB720724A9E703007D52A7 /* settingsTableViewCell.swift */; };
+		4BCBE2F324E538BB002E9EEE /* myPlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCBE2F224E538BA002E9EEE /* myPlaceTableViewCell.swift */; };
 		4BF6625524613D8F0021D85E /* tabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF6625424613D8F0021D85E /* tabBar.swift */; };
 		582341F0242BB0DA00FFC83B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582341EF242BB0DA00FFC83B /* SceneDelegate.swift */; };
 		583F59C2243E197F0018B383 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583F59C1243E197F0018B383 /* PlaceModel.swift */; };
@@ -144,6 +145,7 @@
 		4BA5027D246B7F8600F70144 /* doneTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = doneTaskViewController.swift; sourceTree = "<group>"; };
 		4BA5027F246B88D800F70144 /* doneTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = doneTaskTableViewCell.swift; sourceTree = "<group>"; };
 		4BAB720724A9E703007D52A7 /* settingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsTableViewCell.swift; sourceTree = "<group>"; };
+		4BCBE2F224E538BA002E9EEE /* myPlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlaceTableViewCell.swift; sourceTree = "<group>"; };
 		4BF6625424613D8F0021D85E /* tabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabBar.swift; sourceTree = "<group>"; };
 		582341EF242BB0DA00FFC83B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		583F59C1243E197F0018B383 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				4B35331C24A9D9EE00408562 /* settingsViewController.swift */,
 				4BAB720724A9E703007D52A7 /* settingsTableViewCell.swift */,
 				4B9FB4FD24E2FB5D00DBFAFA /* myPlaceViewController.swift */,
+				4BCBE2F224E538BA002E9EEE /* myPlaceTableViewCell.swift */,
 				4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */,
 				4B9FB4F924E296E300DBFAFA /* editMyPlaceViewController.swift */,
 				4B9FB4FB24E2CEF800DBFAFA /* editMyPlaceTableViewCell.swift */,
@@ -564,6 +567,7 @@
 				4B127D0C24D1AC3A00B87B99 /* PickerViewYearViewController.swift in Sources */,
 				4B855CF2242AF188001B80C7 /* reminderTableViewController.swift in Sources */,
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
+				4BCBE2F324E538BB002E9EEE /* myPlaceTableViewCell.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,
 				4B9E6C0324CAD4B9002A1B80 /* MonthYearPickerView.swift in Sources */,
 				4B9FBA3224B30E6A0024D7CD /* NetworkController.swift in Sources */,

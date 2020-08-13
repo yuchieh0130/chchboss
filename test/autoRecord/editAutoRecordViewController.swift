@@ -13,9 +13,6 @@ import GoogleMaps
 import GooglePlaces
 
 class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDelegate{
-    @IBAction func cancelBtn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     var track: TrackModel?
     var oldTrack = TrackModel(trackId: 0, startDate: "", startTime: "", weekDay: 0, endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: 0)
@@ -32,7 +29,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     var date = Date() //date from DatePopViewController
     let net = NetworkController()
     @IBOutlet var txtDate: UILabel!
-    @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet var tableView: UITableView!
     
     var showDateformatter: DateFormatter {
@@ -139,21 +135,9 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
        }
     
     override func viewWillAppear(_ animated: Bool) {
-        let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 17.0)
-        mapView.camera = camera
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
-        marker.map = mapView
-        let circle = GMSCircle(position: CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!), radius: 50)
-        circle.strokeColor = UIColor.red
-        circle.map = mapView
         if self.tableView.tableFooterView == nil {
             tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
-    }
-    
-    @IBAction func cancel(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func clearLocation(_ sender: UIButton){

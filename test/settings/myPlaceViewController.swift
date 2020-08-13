@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class myPlaceViewController: UIViewController{
+class myPlaceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 //    @IBAction func cancelButton(_ sender: Any) {
 //        self.dismiss(animated: true, completion: nil)
 //    }
@@ -138,21 +138,6 @@ class myPlaceViewController: UIViewController{
         }
     }
     
-//    func alertMessage(){
-//        if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
-//            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "OK", style: .default){_ in
-//                controller.dismiss(animated: true, completion: nil)}
-//            controller.addAction(okAction)
-//            self.present(controller, animated: true,completion: .none)
-//          self.view.addSubview(popover)
-//        }
-//    }
-    
-}
-
-extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showAllPlace!.count
     }
@@ -162,17 +147,16 @@ extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        var cell: UITableViewCell?
 //        cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
-        let cellIdentifier = "myPlaceCell"
-
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: cellIdentifier)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceTableViewCell", for: indexPath) as! myPlaceTableViewCell
+//        if cell == nil {
+//            cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: "myPlaceTableViewCell")
+//        }
         
 //        var locality: String = ""
 //        var subAdministrativeArea: String = ""
 
         let place = self.showAllPlace![indexPath.row]
+        cell.myPlaceName.text = place.placeName
 //        let longitude = place.placeLongitude
 //        let latitude = place.placeLatitude
 //        let savedPlaceLocation = CLLocation(latitude: latitude, longitude: longitude)
@@ -198,11 +182,11 @@ extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
 //                }
 //            }
 //        }
-        cell?.textLabel?.text = place.placeName
+    
  //       cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
 //        cell?.detailTextLabel?.isHidden = false
         
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
@@ -214,6 +198,17 @@ extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         performSegue(withIdentifier: "editMyPlace",sender: nil)
     }
+
     
+//    func alertMessage(){
+//        if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
+//            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: "OK", style: .default){_ in
+//                controller.dismiss(animated: true, completion: nil)}
+//            controller.addAction(okAction)
+//            self.present(controller, animated: true,completion: .none)
+//          self.view.addSubview(popover)
+//        }
+//    }
     
 }
