@@ -24,7 +24,9 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     var myPlaceLatitude: Double! = 0
     var myPlace: PlaceModel?
     
-    let currentLocation = CLLocationManager()
+    //let myLocation = locationManager.location?.coordinate
+    let currentLocationManager = CLLocationManager()
+    var currentLocation = CLLocation()
     let marker = GMSMarker()
     let circle = GMSCircle()
     
@@ -35,7 +37,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     override func viewDidLoad() {
         
         let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addMyPlaceButton(_:)))
-        let btnEdit = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(editMyPlaceButton(_:)))
+        let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editMyPlaceButton(_:)))
         
         if myPlace != nil{
             loadData()
@@ -43,16 +45,19 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         }else{
             navigationItem.rightBarButtonItems = [btnAdd]
         }
+        currentLocationManager.delegate = self
+        currentLocationManager.startUpdatingLocation()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
+        currentLocationManager.stopUpdatingLocation()
+        print(currentLocation)
+        let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, zoom: 17.0)
         mapView.camera = camera
         mapView.animate(to: camera)
         
-        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
+        marker.position = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
         mapView.delegate = self
         marker.map = mapView
 
@@ -60,6 +65,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         circle.radius = 50
         circle.strokeColor = UIColor.red
         circle.map = mapView
+        
     }
     
     func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
@@ -120,6 +126,20 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)
             self.present(controller, animated: true,completion: .none)
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        //取得目前的座標位置
+        let c = locations[0] as! CLLocation
+        currentLocation = CLLocation(latitude:c.coordinate.latitude, longitude: c.coordinate.longitude)
+        //c.coordinate.latitude 目前緯度
+        //c.coordinate.longitude 目前經度
+        //let nowLocation = CLLocationCoordinate2D(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude);
+        
+        //將map中心點定在目前所在的位置
+        //span是地圖zoom in, zoom out的級距
+//        let _span:MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.0005, longitudeDelta: 0.0005);
+//        self.uimap.setRegion(MKCoordinateRegion(center: nowLocation, span: _span), animated: true);
     }
     
 }
