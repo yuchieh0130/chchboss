@@ -122,6 +122,10 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         circle.radius = 50
         circle.strokeColor = UIColor.red
         circle.map = mapView
+        
+        if self.tblPlaces.tableFooterView == nil {
+            tblPlaces.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
 //    func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){

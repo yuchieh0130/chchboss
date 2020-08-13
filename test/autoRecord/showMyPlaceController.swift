@@ -90,11 +90,15 @@ class showMyPlaceController: UIViewController{
 //
 //    }
     
-    @IBAction func addBtn(_ sender: Any){
+    @objc func addBtn(_ sender: Any){
         performSegue(withIdentifier: "editMyPlace", sender: nil)
     }
     
     override func viewDidLoad() {
+        
+        let addBtn = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBtn(_:)))
+        navigationItem.rightBarButtonItems = [addBtn]
+        
         if noAdd == true{
             btnAdd.isHidden = true
         }
@@ -106,6 +110,12 @@ class showMyPlaceController: UIViewController{
             showAllPlace = [PlaceModel]()
         }
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.tblView.tableFooterView == nil {
+            tblView.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
