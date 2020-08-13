@@ -24,7 +24,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     var myPlaceLatitude: Double! = 0
     var myPlace: PlaceModel?
     
-    let currentLocation = CLLocationManager()
+    let currentLocationManager = CLLocationManager()
+    var location = CLLocation()
     let marker = GMSMarker()
     let circle = GMSCircle()
     
@@ -35,24 +36,27 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     override func viewDidLoad() {
         
         let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addMyPlaceButton(_:)))
-        let btnEdit = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(editMyPlaceButton(_:)))
+        let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editMyPlaceButton(_:)))
         
         if myPlace != nil{
             loadData()
             navigationItem.rightBarButtonItems = [btnEdit]
+            location = CLLocation(latitude: myPlaceLatitude, longitude: myPlaceLongitude)
         }else{
             navigationItem.rightBarButtonItems = [btnAdd]
+             currentLocationManager.delegate = self
+             currentLocationManager.startUpdatingLocation()
         }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 17.0)
         mapView.camera = camera
         mapView.animate(to: camera)
         
-        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
+        marker.position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         mapView.delegate = self
         marker.map = mapView
 
@@ -62,9 +66,14 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         circle.map = mapView
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        currentLocationManager.startUpdatingLocation()
+    }
+    
     func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
         print("lat = " + "\(coordinate.latitude)" + " long = " +  "\(coordinate.longitude)")
         changePosition(marker: marker, a: coordinate)
+        location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
     
     func changePosition(marker : GMSMarker, a: CLLocationCoordinate2D){
@@ -95,6 +104,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }
+        myPlaceLongitude = location.coordinate.longitude
+        myPlaceLatitude = location.coordinate.latitude
         let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
         _ = DBManager.getInstance().addPlace(modelInfo)
         self.dismiss(animated: true, completion: nil)
@@ -105,6 +116,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }
+        myPlaceLongitude = location.coordinate.longitude
+        myPlaceLatitude = location.coordinate.latitude
         let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
         DBManager.getInstance().editPlace(modelInfo)
         self.dismiss(animated: true, completion: nil)
@@ -120,6 +133,11 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)
             self.present(controller, animated: true,completion: .none)
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        let c = locations[0] as! CLLocation
+        location = CLLocation(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude)
     }
     
 }
