@@ -176,7 +176,7 @@ class addViewController : UIViewController {
         allDay = event!.allDay
         if event!.autoRecord == true{
             autoRecord = true
-            category = DBManager.getInstance().getCategory(Int: (event?.autoCategory)!)
+            //category = DBManager.getInstance().getCategory(Int: (event?.autoCategory)!)
             savePlace = DBManager.getInstance().getPlace(Int: event!.autoLocation)
             tableViewData[4].opened = true
         }
