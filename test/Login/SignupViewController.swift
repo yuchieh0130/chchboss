@@ -20,6 +20,9 @@ class SignupViewController: UIViewController {
     let userDefaults = UserDefaults.standard
     let networkController = NetworkController()
     
+    @IBOutlet var signUpBtn: UIButton!
+    @IBOutlet var cancelBtn: UIButton!
+    
     @IBAction func signUpBtn(_ sender: Any) {
         userDefaults.set(userNameTextField.text, forKey: "userName")
         userDefaults.set(emailTextField.text, forKey: "userEmail")
@@ -72,7 +75,11 @@ class SignupViewController: UIViewController {
             
         }
     }
-        
+    
+    @IBAction func cancelBtn(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
         
         
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -83,6 +90,15 @@ class SignupViewController: UIViewController {
         override func viewDidLoad() {
             super.viewDidLoad()
             warningLabel.isHidden = true
+            
+            signUpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+            signUpBtn.layer.cornerRadius = signUpBtn.frame.height/2
+            signUpBtn.clipsToBounds = true
+            
+            cancelBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+            cancelBtn.layer.cornerRadius = signUpBtn.frame.height/2
+            cancelBtn.clipsToBounds = true
+
         }
         
         
