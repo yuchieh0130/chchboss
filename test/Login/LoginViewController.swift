@@ -77,6 +77,7 @@ class LoginViewController: UIViewController {
     }
     
     func goHomepage(){
+        UserDefaults.standard.set(true, forKey: "isLogIn")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tabBar = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate

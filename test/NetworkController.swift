@@ -65,7 +65,6 @@ class NetworkController {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
             "Content-Type")
-        print(data)
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
         request.httpBody = jsonData
@@ -78,7 +77,7 @@ class NetworkController {
                 let user_data = jsonDictionary["data"] as? [[Any]],
                 let last_track_id = jsonDictionary["last_track_id"]{
                 completion([status_code,user_data, last_track_id])
-                print(jsonDictionary)
+                //print(jsonDictionary)
             } else {
                 completion(nil)
             }
