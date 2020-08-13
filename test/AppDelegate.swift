@@ -163,10 +163,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                     print(status_code!)
                 }
             }
-        
-            self.myLocationManager.delegate = self
             
         })
+        self.myLocationManager.delegate = self
         
     }
     
