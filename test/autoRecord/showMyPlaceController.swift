@@ -39,6 +39,7 @@ class showMyPlaceController: UIViewController{
     @IBOutlet weak var tblView: UITableView!
     //@IBOutlet var popover: UIView!
     @IBOutlet var txtMyPlaceName: UITextField!
+    @IBOutlet var btnAdd: UIButton!
 //    @IBAction func AddLocation(_ sender: Any) {
 //        self.view.addSubview(popover)
 //        popover.center = self.view.center
@@ -96,11 +97,10 @@ class showMyPlaceController: UIViewController{
     override func viewDidLoad() {
         
         let addBtn = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBtn(_:)))
+        navigationItem.rightBarButtonItems = [addBtn]
         
         if noAdd == true{
-            navigationItem.rightBarButtonItems = []
-        }else{
-            navigationItem.rightBarButtonItems = [addBtn]
+            btnAdd.isHidden = true
         }
         
         if DBManager.getInstance().getMyPlaces() != nil{
