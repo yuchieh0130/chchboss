@@ -103,12 +103,14 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         self.view.endEditing(true)
         if myPlaceName == ""{
             alertMessage()
+        }else{
+            myPlaceLongitude = location.coordinate.longitude
+            myPlaceLatitude = location.coordinate.latitude
+            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+            _ = DBManager.getInstance().addPlace(modelInfo)
+            self.dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
         }
-        myPlaceLongitude = location.coordinate.longitude
-        myPlaceLatitude = location.coordinate.latitude
-        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
-        _ = DBManager.getInstance().addPlace(modelInfo)
-        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func editMyPlaceButton(_ sender: UIButton){

@@ -103,7 +103,6 @@ class myPlaceViewController: UIViewController{
 //
         if DBManager.getInstance().getMyPlaces() != nil{
             showAllPlace = DBManager.getInstance().getMyPlaces()
-            
         }else{
             showAllPlace = [PlaceModel]()
         }
@@ -124,6 +123,18 @@ class myPlaceViewController: UIViewController{
                 }
             default :
                 print("")
+        }
+    }
+    
+    @IBAction func editMyPlaceSegueBack(segue: UIStoryboardSegue){
+        if segue.identifier == "editMyPlaceSegueBack"{
+            if DBManager.getInstance().getMyPlaces() != nil{
+                showAllPlace = DBManager.getInstance().getMyPlaces()
+            }else{
+                showAllPlace = [PlaceModel]()
+            }
+            tblView.reloadData()
+
         }
     }
     
