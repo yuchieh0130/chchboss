@@ -56,7 +56,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         mapView.camera = camera
         mapView.animate(to: camera)
         
-        marker.position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         mapView.delegate = self
         marker.map = mapView
 
