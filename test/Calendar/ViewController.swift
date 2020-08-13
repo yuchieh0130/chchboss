@@ -6,6 +6,7 @@ class ViewController: UIViewController{
     
     @IBOutlet var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarLayout: UICollectionViewFlowLayout!
+    @IBOutlet var addEventButtom : UIButton!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
@@ -76,13 +77,9 @@ class ViewController: UIViewController{
     
     /*button to add event*/
     /*OR: self.presentViewController(controllername(), animated: true, completion: nil)，要切換的畫面、過場動畫、切換完成後執行的動作*/
-    @objc func addEvent(_ sender: Any){
+    @IBAction func addEvent(_ sender: Any){
         event = nil
         performSegue(withIdentifier: "addEvent", sender: sender)
-    }
-    
-    @objc func locationDB(_ sender: Any){
-        performSegue(withIdentifier: "tete", sender: sender)
     }
     
     
@@ -90,12 +87,6 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         super.viewDidLayoutSubviews()
-        
-        let addBtn = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(addEvent(_:)))
-        navigationItem.leftBarButtonItems = [addBtn]
-        let locationBtn = UIBarButtonItem(title: "locationDB", style: .plain, target: self, action: #selector(locationDB(_:)))
-        let weekBtn = UIBarButtonItem(title: "Week", style: .plain, target: self, action: #selector(toogle(_:)))
-        navigationItem.rightBarButtonItems = [weekBtn, locationBtn]
         
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
@@ -269,7 +260,7 @@ class ViewController: UIViewController{
     //    }
     
     /*button to change between week and month*/
-    @objc func toogle(_ sender: Any){
+    @IBAction func toogle(_ sender: Any){
         if numberOfRows == 6 {
             self.numberOfRows = 1
             UIView.animate(withDuration: 0.2, animations: {
