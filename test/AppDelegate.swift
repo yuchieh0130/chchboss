@@ -389,6 +389,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
+        let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+        self.net.pushTrackData(data: data){
+                        (return_list) in
+                        if let status_code = return_list?[0],
+                            let data = return_list?[1] as? [[Any]],
+                            let last_track_id = return_list?[2]{
+                            if status_code as! Int == 200{
+                                UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+//                                for i in 0...data.count-1{
+//                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2], startTime: data[i], weekDay: <#T##Int32#>, endDate: <#T##String#>, endTime: <#T##String#>, categoryId: <#T##Int32#>, locationId: <#T##Int32#>, placeId: <#T##Int32?#>)
+//                                    DBManager.getInstance().addTrack(modelInfo)
+//                                }
+                            }
+                            else{
+                                print(status_code)
+                            }
+                        }else{
+                            print("error")
+                            }
+                        }
+                    }
         
     }
     
@@ -397,7 +420,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     
-}
+
 
 extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {

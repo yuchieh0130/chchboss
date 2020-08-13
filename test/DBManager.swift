@@ -627,7 +627,7 @@ class DBManager: NSObject {
         //6-9改成5-10
             
             //刪掉包含在5-10的
-            shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) > '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) < '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
+            shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //新增一筆5-10
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[newModelInfo.startDate,newModelInfo.startTime,newModelInfo.weekDay,newModelInfo.endDate,newModelInfo.endTime,newModelInfo.categoryId,newModelInfo.locationId,newModelInfo.placeId!])
             //結束時間在5-10中間的UPDATE成5
