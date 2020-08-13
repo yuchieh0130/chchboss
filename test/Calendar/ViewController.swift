@@ -6,7 +6,6 @@ class ViewController: UIViewController{
     
     @IBOutlet var calendarView: JTAppleCalendarView!
     @IBOutlet weak var calendarLayout: UICollectionViewFlowLayout!
-    @IBOutlet var addEventButtom : UIButton!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
@@ -77,9 +76,14 @@ class ViewController: UIViewController{
     
     /*button to add event*/
     /*OR: self.presentViewController(controllername(), animated: true, completion: nil)，要切換的畫面、過場動畫、切換完成後執行的動作*/
-    @IBAction func addEvent(_ sender: Any){
+    @objc func addEvent(_ sender: Any){
         event = nil
         performSegue(withIdentifier: "addEvent", sender: sender)
+    }
+    
+    @objc func locationDB(_ sender: Any){
+        event = nil
+        performSegue(withIdentifier: "tete", sender: sender)
     }
     
     
@@ -87,6 +91,13 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         super.viewDidLayoutSubviews()
+        
+        let addBtn = UIBarButtonItem(title: "＋", style: .plain, target: self, action: #selector(addEvent(_:)))
+        navigationItem.leftBarButtonItems = [addBtn]
+        let locationDBBtn = UIBarButtonItem(title: "loc", style: .plain, target: self, action: #selector(locationDB(_:)))
+        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(toogle(_:)))
+        navigationItem.rightBarButtonItems = [todayBtn, locationDBBtn]
+        
         
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
@@ -104,8 +115,9 @@ class ViewController: UIViewController{
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 145, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
-        floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
-        floaty.itemTitleColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 1)
+        floaty.itemButtonColor = UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 0.8)
+        floaty.itemTitleColor =  UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 1)
+//        UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 1)
         floaty.overlayColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         floaty.itemShadowColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         if #available(iOS 13.0, *) {
@@ -260,7 +272,7 @@ class ViewController: UIViewController{
     //    }
     
     /*button to change between week and month*/
-    @IBAction func toogle(_ sender: Any){
+    @objc func toogle(_ sender: Any){
         if numberOfRows == 6 {
             self.numberOfRows = 1
             UIView.animate(withDuration: 0.2, animations: {

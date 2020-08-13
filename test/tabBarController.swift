@@ -26,23 +26,27 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         tabBar.items?[2].title = "Analysis"
         tabBar.items?[3].title = "Settings"
         
-        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 12, y: self.view.frame.height - 77, width: 45, height: 45))
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 145, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
-        floaty.itemButtonColor = UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 0.8)
+        floaty.itemButtonColor = UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 0.8)
+        floaty.itemTitleColor =  UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 1)
+//        UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 1)
+        floaty.overlayColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
+        floaty.itemShadowColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         if #available(iOS 13.0, *) {
-            floaty.addItem("", icon: UIImage(systemName: "doc.text"), handler: {_ in
-                self.performSegue(withIdentifier: "tabBarToTask", sender: self)
+            floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
+                self.performSegue(withIdentifier: "eventAddTask", sender: self)
             })
-            floaty.addItem("", icon: UIImage(systemName: "calendar"), handler: {_ in
-                self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
+            floaty.addItem("Add Event", icon: UIImage(systemName: "calendar"), handler: {_ in
+                self.performSegue(withIdentifier: "addEvent", sender: self)
             })
         } else {
-            floaty.addItem("", icon: UIImage(named: "task"), handler: {_ in
-                self.performSegue(withIdentifier: "tabBarToTask", sender: self)
+            floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
+                self.performSegue(withIdentifier: "eventAddTask", sender: self)
             })
-            floaty.addItem("", icon: UIImage(named: "calendar"), handler: {_ in
-                self.performSegue(withIdentifier: "tabBarToEvent", sender: self)
+            floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
+                self.performSegue(withIdentifier: "addEvent", sender: self)
             })
         }
         floaty.translatesAutoresizingMaskIntoConstraints = false

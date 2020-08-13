@@ -15,8 +15,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     @IBOutlet var combineChart: CombinedChartView!
     @IBOutlet var categoryName: UILabel!
     @IBOutlet var segCon: UISegmentedControl!
-    @IBOutlet var todayTime: UIView!
-    @IBOutlet var todayTimeLabel: UILabel! //顯示的title
     @IBOutlet var timeLabel: UILabel!  //顯示時長
     
     var showCategory = [CategoryModel]()
@@ -54,13 +52,10 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         }
         self.years = years
         
-        todayTime.isHidden = false
-        todayTimeLabel.isHidden = false
         timeLabel.isHidden = false
         combineChart.isHidden = true
         
         categoryName.text = name
-        todayTimeLabel.text = "Today's \(name) time"
         timeLabel.textColor = UIColor.black
         timeLabel.backgroundColor = color
         timeLabel.text = time
@@ -92,13 +87,9 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
-            todayTime.isHidden = false
-            todayTimeLabel.isHidden = false
             timeLabel.isHidden = false
             combineChart.isHidden = true
         }else if getIndex == 1{
-            todayTime.isHidden = true
-            todayTimeLabel.isHidden = true
             timeLabel.isHidden = true
             combineChart.isHidden = false
             
@@ -117,8 +108,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
             combineChart.xAxis.labelCount = 7
             combineChart.xAxis.valueFormatter = self
         }else if getIndex == 2{
-            todayTime.isHidden = true
-            todayTimeLabel.isHidden = true
             timeLabel.isHidden = true
             combineChart.isHidden = false
             
@@ -137,8 +126,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
             combineChart.xAxis.labelCount = 13
             combineChart.xAxis.valueFormatter = self
         }else if getIndex == 3{
-            todayTime.isHidden = true
-            todayTimeLabel.isHidden = false
             timeLabel.isHidden = true
             combineChart.isHidden = false
             
