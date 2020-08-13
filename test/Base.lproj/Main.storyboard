@@ -44,7 +44,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sFA-NX-Ey5">
-                                                    <rect key="frame" x="18" y="11.000000000000002" width="22" height="19.999999999999996"/>
+                                                    <rect key="frame" x="18" y="11.333333333333334" width="22" height="19.999999999999996"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -428,7 +428,7 @@
                                 <rect key="frame" x="360" y="66" width="44" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="Today">
-                                    <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="0.53000541909999999" green="0.60809006450000003" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="toogle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hnu-oy-h7A"/>
@@ -640,7 +640,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KHj-di-c8V">
                                 <rect key="frame" x="273" y="67" width="79" height="30"/>
                                 <state key="normal" title="location DB">
-                                    <color key="titleColor" red="0.41864456760000002" green="0.48393132960000002" blue="0.89558310320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="0.53000541909999999" green="0.60809006450000003" blue="0.96354695430000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <segue destination="90B-u4-Xju" kind="show" id="RJn-Oy-q6a"/>

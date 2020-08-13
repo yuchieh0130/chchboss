@@ -197,13 +197,13 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             self.tableView.reloadData()
         }
-        let doItNowAction = UIContextualAction(style: .normal, title: "Do It Now") { (action, view, completionHandler) in
-            print("Do It Now")
-            completionHandler(true)
-        }
+//        let doItNowAction = UIContextualAction(style: .normal, title: "Do It Now") { (action, view, completionHandler) in
+//            print("Do It Now")
+//            completionHandler(true)
+//        }
         deleteAction.backgroundColor = UIColor.red
-        doneAction.backgroundColor = #colorLiteral(red: 0.2979176044, green: 0.6127660275, blue: 0.9929869771, alpha: 1)  //color literal
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction, doItNowAction])
+        doneAction.backgroundColor = UIColor(red: 135/255, green: 145/255, blue: 246/255, alpha: 1)
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
     }
@@ -238,7 +238,12 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
         let task = showTask![indexPath.row]
-        cell.taskName?.text = showTask![indexPath.row].taskName
+        if DBManager.getInstance().getAllUndoneTask() == nil{
+            cell.taskName?.text = "No Task Available"
+            cell.taskDeadline.text = "Add Tasks!"
+        }else{
+            cell.taskName?.text = showTask![indexPath.row].taskName
+        }
         if task.taskTime != ""{
             let t = formatter1.date(from: showTask![indexPath.row].taskTime)
             cell.addTaskTime.text = " \(formatter2.string(from: t!)) hr \(formatter3.string(from: t!)) min "
