@@ -96,7 +96,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Analysis"
-        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        let categoryTotal = values0.reduce(0, +)
 //        total = categoryTotal
 //        let categoryPercentage = values0.map{(round(($0/total)*1000))/10}
