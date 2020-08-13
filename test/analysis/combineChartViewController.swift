@@ -13,7 +13,6 @@ import Charts
 class combineChartViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet var combineChart: CombinedChartView!
-    @IBOutlet var returnBtn: UIButton!
     @IBOutlet var categoryName: UILabel!
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var todayTime: UIView!
@@ -33,10 +32,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var value = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
-    
-    @IBAction func returnBtn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
