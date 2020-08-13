@@ -19,10 +19,6 @@ class LoginViewController: UIViewController {
     let networkController = NetworkController()
     let signUpView = SignupViewController()
     
-    
-    @IBOutlet var logInbtn: UIButton!
-    @IBOutlet var signUpBtn: UIButton!
-    
     @IBAction func logInBtn(_ sender: Any) {
         UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
@@ -109,16 +105,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        signUpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
-        signUpBtn.layer.cornerRadius = signUpBtn.frame.height/2
-        signUpBtn.clipsToBounds = true
-        
-        logInbtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
-        logInbtn.layer.cornerRadius = signUpBtn.frame.height/2
-        logInbtn.clipsToBounds = true
-        
-        
     }
     
 }
