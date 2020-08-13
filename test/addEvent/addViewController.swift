@@ -259,51 +259,57 @@ class addViewController : UIViewController {
     
     //DatePopupViewController save回來後執行
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? DatePopupViewController
-        date = VC!.datePicker.date
-        tag = VC?.tag
-        if tag == "startDate"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
-            if autoRecord{
+        if segue.identifier == "timeSegueBack"{
+            let VC = segue.source as? DatePopupViewController
+            date = VC!.datePicker.date
+            tag = VC?.tag
+            if tag == "startDate"{
+                handletime()
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
+                if autoRecord{
+                    tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
+                    tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
+                }
+            }else if tag == "endDate"{
+                handletime()
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+                if autoRecord{
+                    tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
+                    tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
+                }
+            }else if tag == "autoStart"{
+                handletime()
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
+                tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
+                tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
+            }else if tag == "autoEnd"{
+                handletime()
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
+                tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
                 tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
                 tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
             }
-        }else if tag == "endDate"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
-            if autoRecord{
-                tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
-                tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
-            }
-        }else if tag == "autoStart"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
-        }else if tag == "autoEnd"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 4)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 2, section: 4)], with: .none)
         }
     }
     
     @IBAction func categorySegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? categoryViewController
-        let i = VC?.collectionView.indexPathsForSelectedItems
-        category = (VC?.showCategory[i![0].row])!
-        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
+        if segue.identifier == "categorySegueBack"{
+            let VC = segue.source as? categoryViewController
+            let i = VC?.collectionView.indexPathsForSelectedItems
+            category = (VC?.showCategory[i![0].row])!
+            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 4)], with: .none)
+        }
     }
     
     @IBAction func locationSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? searchLocationViewController
-        savePlace = VC?.savePlaceModel
-        tableView.reloadRows(at: [IndexPath.init(row: 4, section: 4)], with: .none)
+        if segue.identifier == "locationSegueBack"{
+            let VC = segue.source as? searchLocationViewController
+            savePlace = VC?.savePlaceModel
+            tableView.reloadRows(at: [IndexPath.init(row: 4, section: 4)], with: .none)
+        }
     }
     
     @IBAction func reminderSegueBack(segue: UIStoryboardSegue){

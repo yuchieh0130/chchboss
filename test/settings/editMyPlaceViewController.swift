@@ -55,7 +55,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         mapView.delegate = self
         marker.map = mapView
-        
+
         circle.position = marker.position
         circle.radius = 50
         circle.strokeColor = UIColor.red
@@ -82,10 +82,12 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     }
     
     @IBAction func myPlaceCategorySegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? myPlaceCategoryViewController
-        let i = VC?.tableView.indexPathForSelectedRow?.row
-        myPlaceCategory = VC?.myPlaceCategorys[i ?? 4] ?? "Others"
-        tbView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+        if segue.identifier == "myPlaceCategorySegueBack"{
+            let VC = segue.source as? myPlaceCategoryViewController
+            let i = VC?.tableView.indexPathForSelectedRow?.row
+            myPlaceCategory = VC?.myPlaceCategorys[i ?? 4] ?? "Others"
+            tbView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+        }
     }
     
     @objc func addMyPlaceButton(_ sender: UIButton){

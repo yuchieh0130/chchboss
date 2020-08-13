@@ -251,22 +251,28 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @IBAction func autoLocationSegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? mapViewController
-        savePlace = VC?.savePlace
-        tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+        if segue.identifier == "autoLocationSegueBack"{
+            let VC = segue.source as? mapViewController
+            savePlace = VC?.savePlace
+            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+        }
     }
     
     @IBAction func myPlaceSegueBack(segue: UIStoryboardSegue){
-           let VC = segue.source as? showMyPlaceController
-           savePlace = VC?.savePlace
-           tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+        if segue.identifier == "myPlaceSegueBack"{
+            let VC = segue.source as? showMyPlaceController
+            savePlace = VC?.savePlace
+            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+        }
        }
     
     @IBAction func categorySegueBack(segue: UIStoryboardSegue){
-        let VC = segue.source as? categoryViewController
-        let i = VC?.collectionView.indexPathsForSelectedItems
-        category = (VC?.showCategory[i![0].row])!
-        tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
+        if segue.identifier == "categorySegueBack"{
+            let VC = segue.source as? categoryViewController
+            let i = VC?.collectionView.indexPathsForSelectedItems
+            category = (VC?.showCategory[i![0].row])!
+            tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
+        }
     }
     
 }

@@ -178,16 +178,18 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
-           let VC = segue.source as? DatePopupViewController
-           date = VC!.datePicker.date
-           tag = VC?.tag
-        if tag == "addTaskTime"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 1)], with: .none)
+        if segue.identifier == "timeSegueBack"{
+            let VC = segue.source as? DatePopupViewController
+            date = VC!.datePicker.date
+            tag = VC?.tag
+            if tag == "addTaskTime"{
+                handletime()
+                tableView.reloadRows(at: [IndexPath.init(row: 1, section: 1)], with: .none)
+                }
+            if tag == "deadline"{
+                handletime()
+                tableView.reloadRows(at: [IndexPath.init(row: 1, section: 2)], with: .none)
             }
-        if tag == "deadline"{
-            handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 2)], with: .none)
         }
     }
     

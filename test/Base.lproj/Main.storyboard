@@ -31,20 +31,20 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="selectMyPlaceCell" id="rcx-0n-tS4">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="42.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rcx-0n-tS4" id="ZFm-mo-bU1">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="42.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJ7-iN-S3h">
-                                                    <rect key="frame" x="48" y="11.000000000000002" width="164" height="21.666666666666671"/>
+                                                    <rect key="frame" x="48" y="11.000000000000002" width="164" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sFA-NX-Ey5">
-                                                    <rect key="frame" x="18" y="11.333333333333334" width="22" height="19.999999999999996"/>
+                                                    <rect key="frame" x="18" y="11.000000000000002" width="22" height="19.999999999999996"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -61,7 +61,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="placecell" textLabel="Jfq-Ee-SgD" detailTextLabel="Jmh-vp-3mH" style="IBUITableViewCellStyleSubtitle" id="ivh-is-hGr">
-                                        <rect key="frame" x="0.0" y="71.666667938232422" width="414" height="55.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="70.666667938232422" width="414" height="55.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ivh-is-hGr" id="IRM-tw-1al">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="55.666667938232422"/>
@@ -84,7 +84,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="kpO-EI-eLS" kind="unwind" unwindAction="locationSegueBackWithSegue:" id="ZgS-tz-cYJ"/>
+                                            <segue destination="kpO-EI-eLS" kind="unwind" identifier="locationSegueBack" unwindAction="locationSegueBackWithSegue:" id="ZgS-tz-cYJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -312,7 +312,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="2MZ-zf-2xz" kind="unwind" unwindAction="myPlaceCategorySegueBackWithSegue:" id="Wfp-IT-PGX"/>
+                                    <segue destination="2MZ-zf-2xz" kind="unwind" identifier="myPlaceCategorySegueBack" unwindAction="myPlaceCategorySegueBackWithSegue:" id="Wfp-IT-PGX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2415,7 +2415,7 @@
                                         <state key="normal" title="OK"/>
                                         <connections>
                                             <action selector="btnSave:" destination="nNZ-yj-YqY" eventType="touchUpInside" id="74s-Yr-GBg"/>
-                                            <segue destination="Ew2-DA-RDg" kind="unwind" unwindAction="TimeSegueBackWithSegue:" id="8C7-zb-ScH"/>
+                                            <segue destination="Ew2-DA-RDg" kind="unwind" identifier="timeSegueBack" unwindAction="TimeSegueBackWithSegue:" id="8C7-zb-ScH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meq-8x-R8w">
@@ -2529,7 +2529,7 @@
                                             <outlet property="categoryName" destination="bzr-Rl-Yqn" id="i8B-1t-GJf"/>
                                             <outlet property="circle" destination="ZFn-BW-nkp" id="KEh-cB-NZp"/>
                                             <outlet property="imageView" destination="mjd-sK-d0d" id="eYN-lI-N84"/>
-                                            <segue destination="6Jn-Cc-GCu" kind="unwind" unwindAction="categorySegueBackWithSegue:" id="Zic-OA-bpo"/>
+                                            <segue destination="6Jn-Cc-GCu" kind="unwind" identifier="categorySegueBack" unwindAction="categorySegueBackWithSegue:" id="Zic-OA-bpo"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addCategoryCell" id="phQ-QT-TAd" customClass="addCategoryViewCell" customModule="test" customModuleProvider="target">
@@ -2567,7 +2567,7 @@
                     <connections>
                         <outlet property="collectionView" destination="Gh5-iy-STv" id="wBb-1m-PrX"/>
                         <outlet property="layout" destination="u6a-la-vA1" id="xHF-6l-ZM4"/>
-                        <segue destination="6Jn-Cc-GCu" kind="unwind" identifier="editAutoSegueBack" unwindAction="editAutoSegueBackWithSegue:" id="xd0-UU-Agd"/>
+                        <segue destination="6Jn-Cc-GCu" kind="unwind" identifier="editAutoSegueBackCategory" unwindAction="editAutoSegueBackWithSegue:" id="xd0-UU-Agd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw5-Da-Wcw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2611,7 +2611,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="9hK-tS-Tgg" kind="unwind" unwindAction="myPlaceSegueBackWithSegue:" id="z0r-mX-B7G"/>
+                                            <segue destination="9hK-tS-Tgg" kind="unwind" identifier="myPlaceSegueBack" unwindAction="myPlaceSegueBackWithSegue:" id="z0r-mX-B7G"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2726,7 +2726,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="CmP-Wk-PdL" kind="unwind" unwindAction="autoLocationSegueBackWithSegue:" id="gpF-jM-eyr"/>
+                                            <segue destination="CmP-Wk-PdL" kind="unwind" identifier="autoLocationSegueBack" unwindAction="autoLocationSegueBackWithSegue:" id="gpF-jM-eyr"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addPlaceCell" id="ZzX-Fe-jzK">
@@ -2750,9 +2750,6 @@
                                                 <constraint firstItem="gUW-c6-U8Z" firstAttribute="top" secondItem="c6X-W9-iHB" secondAttribute="topMargin" id="ceS-nB-zz4"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="CmP-Wk-PdL" kind="unwind" unwindAction="autoLocationSegueBackWithSegue:" id="3QG-C2-DCv"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -3380,7 +3377,7 @@
                                         <state key="normal" title="OK"/>
                                         <connections>
                                             <action selector="saveBtn:" destination="M3L-MZ-EPF" eventType="touchUpInside" id="ycz-Qy-XpL"/>
-                                            <segue destination="0Vv-YQ-x2H" kind="unwind" unwindAction="TimeSegueBackWithSegue:" id="27a-jK-pGz"/>
+                                            <segue destination="0Vv-YQ-x2H" kind="unwind" identifier="timeSegueBack" unwindAction="TimeSegueBackWithSegue:" id="27a-jK-pGz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uV6-X1-cKw">
@@ -3461,7 +3458,7 @@
                                         <state key="normal" title="OK"/>
                                         <connections>
                                             <action selector="saveBtn:" destination="7ys-h6-x7E" eventType="touchUpInside" id="dBD-eH-3fD"/>
-                                            <segue destination="yqH-zs-zG3" kind="unwind" unwindAction="TimeSegueBackWithSegue:" id="eRM-QY-3Ix"/>
+                                            <segue destination="yqH-zs-zG3" kind="unwind" identifier="timeSegueBack" unwindAction="TimeSegueBackWithSegue:" id="eRM-QY-3Ix"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="03f-MB-reY">
@@ -3542,7 +3539,7 @@
                                         <state key="normal" title="OK"/>
                                         <connections>
                                             <action selector="saveBtn:" destination="2nq-pR-BbJ" eventType="touchUpInside" id="TPF-wT-UFo"/>
-                                            <segue destination="WaQ-wb-DDN" kind="unwind" unwindAction="TimeSegueBackWithSegue:" id="Oku-XB-B7h"/>
+                                            <segue destination="WaQ-wb-DDN" kind="unwind" identifier="timeSegueBack" unwindAction="TimeSegueBackWithSegue:" id="Oku-XB-B7h"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f2-HS-GyW">
@@ -3695,12 +3692,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="54J-Uw-fAs"/>
+        <segue reference="bEa-Xr-2tt"/>
         <segue reference="9Rl-2J-tqH"/>
-        <segue reference="0SZ-0C-Z6S"/>
-        <segue reference="zct-ls-NvB"/>
+        <segue reference="2v3-r9-Jbk"/>
+        <segue reference="F6N-r1-0ti"/>
         <segue reference="d6S-kX-z6W"/>
-        <segue reference="yLI-1s-8Dj"/>
+        <segue reference="dh3-ww-BEF"/>
         <segue reference="RtK-wd-Kze"/>
     </inferredMetricsTieBreakers>
     <resources>

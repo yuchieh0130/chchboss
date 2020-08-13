@@ -5,7 +5,6 @@ import Floaty
 class ViewController: UIViewController{
     
     @IBOutlet var calendarView: JTAppleCalendarView!
-    @IBOutlet weak var constraint: NSLayoutConstraint!
     @IBOutlet weak var calendarLayout: UICollectionViewFlowLayout!
     @IBOutlet var addEventButtom : UIButton!
     @IBOutlet weak var monthLabel: UILabel!
@@ -263,7 +262,6 @@ class ViewController: UIViewController{
     /*button to change between week and month*/
     @IBAction func toogle(_ sender: Any){
         if numberOfRows == 6 {
-            self.constraint.constant = 50
             self.numberOfRows = 1
             UIView.animate(withDuration: 0.2, animations: {
                 self.view.layoutIfNeeded()
@@ -272,7 +270,6 @@ class ViewController: UIViewController{
                 self.calendarView.reloadData(withanchor: Date()) //anchordDate is optional
             }
         }else{
-            self.constraint.constant = 300
             self.numberOfRows = 6
 //            if calendarView.visibleDates().outdates.count < 7{
 //                self.numberOfRows = 5

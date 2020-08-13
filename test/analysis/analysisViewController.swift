@@ -442,36 +442,38 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
-        if segConIndex == 0{
-            let vc = segue.source as? DatePopupViewController
-            date = vc!.datePicker.date
-            tag = vc?.tag
-            if tag == "analysis"{
-                timeLabel.text = showDayformatter.string(from: date)
-                selectedDay = "\(timeLabel.text!)"
-                for (index, value) in valuesDay.enumerated(){
-                    valuesDay[index] = value*0.0
+        if segue.identifier == "timeSegueBack"{
+            if segConIndex == 0{
+                let vc = segue.source as? DatePopupViewController
+                date = vc!.datePicker.date
+                tag = vc?.tag
+                if tag == "analysis"{
+                    timeLabel.text = showDayformatter.string(from: date)
+                    selectedDay = "\(timeLabel.text!)"
+                    for (index, value) in valuesDay.enumerated(){
+                        valuesDay[index] = value*0.0
+                    }
+                    getTrackTime()
+                    customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
                 }
-                getTrackTime()
-                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-            }
-        }else if segConIndex == 1{
-            let vc = segue.source as? PickerViewWeekViewController
-            tag = vc?.tag
-            if tag == "analysisWeek"{
-                timeLabel.text = vc?.pickerViewWeek.dateWeek
-            }
-        }else if segConIndex == 2{
-            let vc = segue.source as? PickerViewController
-            tag = vc?.tag
-            if tag == "analysisMonthYear"{
-                timeLabel.text = vc?.pickerViewMonthYear.dateMonthYear
-            }
-        }else if segConIndex == 3{
-            let vc = segue.source as? PickerViewYearController
-            tag = vc?.tag
-            if tag == "analysisYear"{
-                timeLabel.text = vc?.pickerViewYear.dateYear
+            }else if segConIndex == 1{
+                let vc = segue.source as? PickerViewWeekViewController
+                tag = vc?.tag
+                if tag == "analysisWeek"{
+                    timeLabel.text = vc?.pickerViewWeek.dateWeek
+                }
+            }else if segConIndex == 2{
+                let vc = segue.source as? PickerViewController
+                tag = vc?.tag
+                if tag == "analysisMonthYear"{
+                    timeLabel.text = vc?.pickerViewMonthYear.dateMonthYear
+                }
+            }else if segConIndex == 3{
+                let vc = segue.source as? PickerViewYearController
+                tag = vc?.tag
+                if tag == "analysisYear"{
+                    timeLabel.text = vc?.pickerViewYear.dateYear
+                }
             }
         }
     }
