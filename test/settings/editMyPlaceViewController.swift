@@ -65,7 +65,11 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         circle.radius = 50
         circle.strokeColor = UIColor.red
         circle.map = mapView
-        
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+    
+        if self.tbView.tableFooterView == nil {
+            tbView.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
     func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
@@ -100,28 +104,26 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         self.view.endEditing(true)
         if myPlaceName == ""{
             alertMessage()
+        }else{
+            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+            _ = DBManager.getInstance().addPlace(modelInfo)
+            self.dismiss(animated: true, completion: nil)
         }
-        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
-        _ = DBManager.getInstance().addPlace(modelInfo)
-        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func editMyPlaceButton(_ sender: UIButton){
         self.view.endEditing(true)
         if myPlaceName == ""{
             alertMessage()
+        }else{
+            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+            DBManager.getInstance().editPlace(modelInfo)
+            self.dismiss(animated: true, completion: nil)
         }
-        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
-        DBManager.getInstance().editPlace(modelInfo)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func cancel(_ sender: UIButton){
-        self.dismiss(animated: true, completion: nil)
     }
     
     func alertMessage(){
-            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default){_ in
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)
