@@ -119,18 +119,21 @@ def insertSaveplace():
 @app.route("/pushTrack", methods=["POST"])
 def pushTrack():
     data = request.get_json()
-    
-    last_track_id = data["last_track_id"]
-    user_id = data["user_id"]
+    last_track_id = int(data["last_track_id"])
+    user_id = int(data["user_id"])
 
     cur = conn.cursor()
-    sql = "SELECT * FROM location WHERE user_id = %s AND location_id > %s"
+    sql = "SELECT * FROM track WHERE user_id = %s AND track_id > %s"
     adr = (user_id, last_track_id)
     cur.execute(sql,adr)
     fetch_data = cur.fetchall()
+    track_data = fetch_data
     print(fetch_data)
-    
-    return jsonify({"status_code": 200})
+    last_track_id = track_data[-1][0]
+    print(last_track_id)
+    return jsonify({"status_code": 200,
+                "data":track_data,
+                "last_track_id":last_track_id})
 
 @app.route("/updateTrack", methods=["POST"])
 def updateTrack():
@@ -423,7 +426,7 @@ def login():
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
-    # print(fetch_data[0][0])
+    print(fetch_data[0][0])
     if fetch_data:
         return jsonify({"status_code": 200, "user_id": fetch_data[0][0]})
     else:
