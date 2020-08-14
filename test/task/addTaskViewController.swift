@@ -95,7 +95,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         switchcalendar.addTarget(self, action: #selector(self.calendarOpen(_ :)), for: .valueChanged)
         switchcalendar.onTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         
-        let btnAddTask = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTaskButton(_:)))
+        let btnAddTask = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addTaskButton(_:)))
         let btnEditTask = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editTaskButton(_:)))
         let btnDeleteTask = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteTaskButton(_:)))
         let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))

@@ -25,7 +25,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     var myPlace: PlaceModel?
     
     let currentLocation = CLLocationManager()
-    var location = CLLocation()
+    //var location = CLLocation()
     let marker = GMSMarker()
     let circle = GMSCircle()
     
@@ -35,28 +35,31 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     
     override func viewDidLoad() {
         
-        let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addMyPlaceButton(_:)))
+        let btnAdd = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addMyPlaceButton(_:)))
         let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editMyPlaceButton(_:)))
         
         if myPlace != nil{
-            loadData()
             navigationItem.rightBarButtonItems = [btnEdit]
-            location = CLLocation(latitude: myPlaceLatitude, longitude: myPlaceLongitude)
+            loadData()
         }else{
             navigationItem.rightBarButtonItems = [btnAdd]
+            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
+            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
-        myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
-        myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
+//        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
+//        myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
+//        myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
+        let camera = GMSCameraPosition.camera(withLatitude: myPlaceLatitude, longitude: myPlaceLongitude, zoom: 17)
         mapView.camera = camera
         mapView.animate(to: camera)
-        
-        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         mapView.delegate = self
+        
+//        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
+        marker.position = CLLocationCoordinate2D(latitude: myPlaceLatitude, longitude: myPlaceLongitude)
         marker.map = mapView
 
         circle.position = marker.position
@@ -70,9 +73,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
 //    }
     
     func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
-        print("lat = " + "\(coordinate.latitude)" + " long = " +  "\(coordinate.longitude)")
         changePosition(marker: marker, a: coordinate)
-        location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        myPlaceLatitude = coordinate.latitude
+        myPlaceLongitude = coordinate.longitude
+        //location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
     
     func changePosition(marker : GMSMarker, a: CLLocationCoordinate2D){
@@ -83,6 +87,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     }
     
     func loadData(){
+        id = myPlace!.placeId!
         myPlaceCategory = myPlace!.placeCategory
         myPlaceName = myPlace!.placeName
         myPlaceLongitude = myPlace!.placeLongitude
@@ -103,8 +108,6 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }else{
-            myPlaceLongitude = location.coordinate.longitude
-            myPlaceLatitude = location.coordinate.latitude
             let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
             _ = DBManager.getInstance().addPlace(modelInfo)
             self.dismiss(animated: true, completion: nil)
@@ -117,11 +120,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }
-        myPlaceLongitude = location.coordinate.longitude
-        myPlaceLatitude = location.coordinate.latitude
         let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
         DBManager.getInstance().editPlace(modelInfo)
         self.dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
     }
     
     @IBAction func cancel(_ sender: UIButton){
@@ -135,11 +137,6 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             controller.addAction(okAction)
             self.present(controller, animated: true,completion: .none)
     }
-    
-//    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-//        let c = locations[0] as! CLLocation
-//        location = CLLocation(latitude: c.coordinate.latitude, longitude: c.coordinate.longitude)
-//    }
     
 }
 
@@ -158,9 +155,8 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceCategory") as! editMyplaceCategoryCell
             cell.accessoryType = .disclosureIndicator
-            cell.category.text = myPlaceCategory
             cell.selectionStyle = .none
-            cell.accessoryType = .disclosureIndicator
+            cell.category.text = myPlaceCategory
             return cell
         }
     }

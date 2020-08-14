@@ -31,7 +31,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var showAllPlace: [PlaceModel]?
     // var showAllPlace =  DBManager.getInstance().getAllPlace()
-    var savePlace : PlaceModel?
+    var selectedPlace: PlaceModel?
     var track: TrackModel = TrackModel(trackId: 0, startDate: "", startTime: "", weekDay: 0, endDate:"" , endTime: "", categoryId: 0, locationId: 0, placeId: nil)
     let net = NetworkController()
     
@@ -94,7 +94,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         
-        let addBtn = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBtn(_:)))
+        let addBtn = UIBarButtonItem(title: "＋", style: .plain, target: self, action: #selector(addBtn(_:)))
         navigationItem.rightBarButtonItems = [addBtn]
         
 //        if noAdd == true{
@@ -119,7 +119,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
         switch segue.identifier{
             case"editMyPlace":
                 if let VC = segue.destination as? editMyPlaceViewController{
-                VC.myPlace = savePlace
+                VC.myPlace = selectedPlace
                 }
             default :
                 print("")
@@ -134,20 +134,8 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
                 showAllPlace = [PlaceModel]()
             }
             tblView.reloadData()
-
         }
     }
-    
-//    func alertMessage(){
-//        if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
-//            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "OK", style: .default){_ in
-//                controller.dismiss(animated: true, completion: nil)}
-//            controller.addAction(okAction)
-//            self.present(controller, animated: true,completion: .none)
-//          self.view.addSubview(popover)
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showAllPlace!.count
@@ -198,7 +186,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
         let place = self.showAllPlace![indexPath.row]
-        savePlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: placeCategory, placeLongitude: place.placeLongitude, placeLatitude: placeLatitude, myPlace: place.myPlace)
+        selectedPlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: place.placeCategory, placeLongitude: place.placeLongitude, placeLatitude: place.placeLatitude, myPlace: place.myPlace)
         return indexPath
     }
     
