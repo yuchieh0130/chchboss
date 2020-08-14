@@ -22,6 +22,8 @@ def home():
 
 @app.route("/testGet")
 def test():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     cur = conn.cursor()
     cur.execute("SELECT * FROM appdb.test")
     results = cur.fetchall()
@@ -33,6 +35,8 @@ def test():
 
 @app.route("/testInsert",methods=["GET"])
 def inserttest():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     cur = conn.cursor()
     sql = "INSERT INTO test (test_id, test_number, test_null) VALUES (%s, %s, %s)"
     val = ("1234567890", "12345678","123")
@@ -43,6 +47,8 @@ def inserttest():
 
 @app.route("/insertLocation", methods=["POST"])
 def insertLocation():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
     
     longitude = data["longitude"]
@@ -75,6 +81,8 @@ def insertLocation():
 
 @app.route("/insertSaveplace", methods=["POST"])
 def insertSaveplace():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
 
     place_id = data["place_id"]
@@ -118,6 +126,8 @@ def insertSaveplace():
 
 @app.route("/pushTrack", methods=["POST"])
 def pushTrack():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
     last_track_id = int(data["last_track_id"])
     user_id = int(data["user_id"])
@@ -137,6 +147,8 @@ def pushTrack():
 
 @app.route("/updateTrack", methods=["POST"])
 def updateTrack():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
 
     # track_id = data["track_id"]
@@ -284,6 +296,8 @@ def updateTrack():
 
 @app.route("/deleteTrack", methods=["POST"])
 def deleteTrack():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
     start_date = data["start_date"]
     start_time = data["start_time"]
@@ -303,6 +317,8 @@ def deleteTrack():
 
 @app.route("/insertTrack", methods=["POST"])
 def insertTrack():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
 
     start_date = data["start_date"]
@@ -356,6 +372,8 @@ def insertTrack():
 
 @app.route("/insertCategory", methods=["POST"])
 def insertCategory():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
 
     category_id = data["category_id"]
@@ -376,6 +394,8 @@ def insertCategory():
 
 @app.route("/register", methods=["POST"])
 def register():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
     email = str(data["email"])
     print("current email"+email)
@@ -415,6 +435,8 @@ def register():
 
 @app.route("/login", methods=["POST"])
 def login():
+    import mysql.connector
+    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
     # print(data)
     email = data["email"]
