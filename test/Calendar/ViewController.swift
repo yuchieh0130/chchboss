@@ -97,7 +97,7 @@ class ViewController: UIViewController{
         let addBtn = UIBarButtonItem(title: "＋", style: .plain, target: self, action: #selector(addEvent(_:)))
         navigationItem.leftBarButtonItems = [addBtn]
         let locationDBBtn = UIBarButtonItem(title: "loc", style: .plain, target: self, action: #selector(locationDB(_:)))
-        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(transToTaday(_:)))
+        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(transToToday(_:)))
 //        let weekBtn = UIBarButtonItem(title: "Week", style: .plain, target: self, action: #selector(toogle(_:)))
         navigationItem.rightBarButtonItems = [todayBtn, locationDBBtn]
         
@@ -283,9 +283,12 @@ class ViewController: UIViewController{
     //        }
     //    }
     
-    @objc func transToTaday(_ sender: Any){
+    @objc func transToToday(_ sender: Any){
         calendarView.reloadData(withanchor: Date())
         monthLabel.text = showMonthFormatter.string(from: Date())
+        var today = [Date]()
+        today.append(Date())
+        calendarView.selectDates(today)
     }
     
     /*button to change between week and month*/
