@@ -10,8 +10,8 @@ class ViewController: UIViewController{
     @IBOutlet weak var yearLabel: UILabel!
     
     var testCalendar = Calendar.current
-    
-    let fullScreenSize = UIScreen.main.bounds.size
+    //let fullScreenSize = UIScreen.main.bounds.size
+    //let height = guide.layoutFrame.size.height
     
     var showDayFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -102,13 +102,21 @@ class ViewController: UIViewController{
         let addBtn = UIBarButtonItem(title: "＋", style: .plain, target: self, action: #selector(addEvent(_:)))
         navigationItem.leftBarButtonItems = [addBtn]
         let locationDBBtn = UIBarButtonItem(title: "loc", style: .plain, target: self, action: #selector(locationDB(_:)))
-        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(toogle(_:)))
+        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(transToTaday(_:)))
+//        let weekBtn = UIBarButtonItem(title: "Week", style: .plain, target: self, action: #selector(toogle(_:)))
         navigationItem.rightBarButtonItems = [todayBtn, locationDBBtn]
-        
         
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
+        let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
+        print(calendarView.frame.size.height)
+        calendarView.frame = CGRect(x: 0, y: 0, width: safeArea.width, height: self.view.frame.height/2)
+        //alendarView.frame.size.height = CGFloat(safeAreaHeight/2)
+        print(calendarView.frame.size.height)
+        //let safeAreaHeight = self.view.safeAreaLayoutGuide.layoutFrame.size.height
+//        let constraint = calendarView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/2)
+//        c
         //初始畫面顯示
         yearLabel.text = showYearFormatter.string(from: Date())
         monthLabel.text = showMonthFormatter.string(from: Date())
@@ -157,7 +165,7 @@ class ViewController: UIViewController{
         
         if selectedDay == ""{
             calendarView.reloadData(withanchor: Date())
-             monthLabel.text = showMonthFormatter.string(from: Date())
+            monthLabel.text = showMonthFormatter.string(from: Date())
         }else{
             calendarView.reloadData(withanchor: showDayFormatter.date(from: selectedDay))
             monthLabel.text = showMonthFormatter.string(from: showDayFormatter.date(from: selectedDay)!)
@@ -180,7 +188,10 @@ class ViewController: UIViewController{
             let VC = segue.source as? addViewController
             var added = [Date]()
             added.append(showDayFormatter.date(from: VC!.startDate)!)
-            calendarView.selectDates(added)
+        if calendarView.selectedDates != added{
+             calendarView.selectDates(added)
+        }
+            calendarView.reloadData()
         }
     }
     
@@ -283,6 +294,11 @@ class ViewController: UIViewController{
     //        }
     //    }
     
+    @objc func transToTaday(_ sender: Any){
+        calendarView.reloadData(withanchor: Date())
+        monthLabel.text = showMonthFormatter.string(from: Date())
+    }
+    
     /*button to change between week and month*/
     @objc func toogle(_ sender: Any){
         if numberOfRows == 6 {
@@ -291,7 +307,14 @@ class ViewController: UIViewController{
                 self.view.layoutIfNeeded()
             }){
                 completed in
-                self.calendarView.reloadData(withanchor: Date()) //anchordDate is optional
+                if self.selectedDay == ""{
+                    self.calendarView.reloadData(withanchor: Date())
+                    self.monthLabel.text = self.showMonthFormatter.string(from: Date())
+                }else{
+                    self.calendarView.reloadData(withanchor: self.showDayFormatter.date(from: self.selectedDay))
+                    self.monthLabel.text = self.showMonthFormatter.string(from: self.showDayFormatter.date(from: self.selectedDay)!)
+                }
+                //self.calendarView.reloadData(withanchor: Date()) //anchordDate is optional
             }
         }else{
             self.numberOfRows = 6

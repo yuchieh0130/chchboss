@@ -31,7 +31,6 @@ class addViewController : UIViewController {
     var reminderData_allDay = [reminderConfig]()
     let switchallDay = UISwitch()
     let switchauto = UISwitch()
-    //let switchtask = UISwitch()
     let switchreminder = UISwitch()
     
     //db variables
@@ -43,7 +42,6 @@ class addViewController : UIViewController {
     var allDay: Bool! = false
     var autoRecord: Bool! = false
     var autoCategory: Int32 = 18
-    //var autoPlace: Int32?
     var autoLocation: Int32 = 0
     var reminder =  ""
     var id: Int32 = 0
@@ -53,8 +51,6 @@ class addViewController : UIViewController {
     var category = CategoryModel(categoryId: 18, categoryName: "Others", categoryColor: "", category_image: "default")
     var savePlace : PlaceModel?
     //var trackModel : TrackModel?
-//    var oldReminder_index: Set<Int> = <0>
-//    var reminder_index: Set<Int> = <0>
     var oldReminder_index: [String] = [""]
     var reminder_index: [Int] = [0]
     var allDayReminder_index: [Int] = [0]
@@ -98,7 +94,7 @@ class addViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addEventButton(_:)))
+        let btnAdd = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addEventButton(_:)))
         let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editEventButton(_:)))
         let btnDelete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteEventButton(_:)))
         let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
@@ -462,12 +458,12 @@ class addViewController : UIViewController {
     }
     
     func delete(){
-           //reminder = reminder_index.map { String($0) }.joined(separator: ",")
-        performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
-           let modelInfo = EventModel(eventId: id, eventName: name, startDate: startDate, startTime: startTime, endDate: endDate, endTime: endTime, allDay: allDay, autoRecord: autoRecord, autoCategory: autoCategory, autoLocation: autoLocation, reminder: reminder)
-           DBManager.getInstance().deleteEvent(id: modelInfo.eventId)
+        //reminder = reminder_index.map { String($0) }.joined(separator: ",")
+        let modelInfo = EventModel(eventId: id, eventName: name, startDate: startDate, startTime: startTime, endDate: endDate, endTime: endTime, allDay: allDay, autoRecord: autoRecord, autoCategory: autoCategory, autoLocation: autoLocation, reminder: reminder)
+        DBManager.getInstance().deleteEvent(id: modelInfo.eventId)
            //刪除當下問是不是在做這件事的通知
-           makeNotification(action: "delete")
+        makeNotification(action: "delete")
+        performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
        }
        
     //alert message
@@ -746,11 +742,9 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         case [4,2]:
             performSegue(withIdentifier: "newAutoEnd", sender: self)
         case [4,3]:
-            //performSegue(withIdentifier: "Category", sender: self)
             performSegue(withIdentifier: "newAutoCategory", sender: self)
         case [4,4]:
             performSegue(withIdentifier: "searchLocation", sender: self)
-            //performSegue(withIdentifier: "", sender: self)???
         case [5,0]:
             performSegue(withIdentifier: "Reminder", sender: self)
         default:

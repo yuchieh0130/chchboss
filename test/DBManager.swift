@@ -603,9 +603,8 @@ class DBManager: NSObject {
             shareInstance.database?.executeUpdate("UPDATE track SET category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(newModelInfo.trackId!)", withArgumentsIn: [])
         }else if newStart < oldStart && newEnd < oldEnd{
         //6-9改成5-8
-            
             //刪掉包含在5-8的
-//            shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
+            //shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //結束時間在5-8中間的UPDATE成5
             shareInstance.database?.executeUpdate("UPDATE track SET end_date = '\(newModelInfo.startDate)',end_time = '\(newModelInfo.startTime)' WHERE (end_date || ' ' || end_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)' ",withArgumentsIn:[])
             //UPDATE該筆資料6-9改成5-8
@@ -614,7 +613,6 @@ class DBManager: NSObject {
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[newModelInfo.endDate,newModelInfo.endTime,newModelInfo.weekDay,oldModelInfo.endDate,oldModelInfo.endTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
         }else if newStart > oldStart && newEnd > oldEnd {
         //6-9改成7-10
-            
             //刪掉包含在7-10的
             shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //開始時間在7-10中間的UPDATE成10
@@ -625,7 +623,6 @@ class DBManager: NSObject {
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
         }else if (newStart < oldStart && newEnd > oldEnd) || (newStart <= oldStart && newEnd > oldEnd) || (newStart < oldStart && newEnd >= oldEnd){
         //6-9改成5-10
-        
             //刪掉包含在5-10的
             shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //結束時間在5-10中間的UPDATE成5
@@ -637,15 +634,12 @@ class DBManager: NSObject {
             
         }else if (newStart > oldStart && newEnd < oldEnd) || (newStart >= oldStart && newEnd < oldEnd) || (newStart > oldStart && newEnd <= oldEnd){
         //6-9改成7-8
-            
             //UPDATE該筆資料6-9改成7-8
             shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
-            
             if newStart != oldStart{
             //新增一筆6-7
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,newModelInfo.locationId,newModelInfo.placeId!])
             }
-            
             if newEnd != oldEnd{
             //新增一筆8-9
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[newModelInfo.endDate,newModelInfo.endTime,newModelInfo.weekDay,oldModelInfo.endDate,oldModelInfo.endTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
