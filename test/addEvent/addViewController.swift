@@ -410,8 +410,8 @@ class addViewController : UIViewController {
             DBManager.getInstance().addEvent(modelInfo)
             if reminder != "0" { makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
         }
-        performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
     }
     
     @objc func editEventButton(_ sender: UIButton){
@@ -443,8 +443,8 @@ class addViewController : UIViewController {
             makeNotification(action: "delete")
             if reminder != "0" {makeNotification(action: "add")}
             self.dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
         }
-        performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
     }
     
     @objc func deleteEventButton(_ sender: UIButton){
