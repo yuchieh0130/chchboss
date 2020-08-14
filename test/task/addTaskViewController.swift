@@ -274,7 +274,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     
     @objc func deleteTaskButton(_ sender: UIButton) {
-        let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the event", preferredStyle: .alert)
+        let controller = UIAlertController(title: "WARNING", message: "Are you sure to delete the task", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default){_ in
             controller.dismiss(animated: true, completion: nil); self.dismiss(animated: true, completion: nil); self.delete()}
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){_ in controller.dismiss(animated: true, completion: nil)}
@@ -284,9 +284,9 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func delete(){
-        performSegue(withIdentifier: "taskUnwindSegue", sender: self)
         let modelInfo = TaskModel(taskId: id, taskName: taskName, taskTime: taskTime, taskDeadline: deadline, taskLocation: taskLocation, reminder: reminder, addToCal: addToCal, isPinned: isPinned, isDone: isDone)
         DBManager.getInstance().deleteTask(id: modelInfo.taskId)
+        performSegue(withIdentifier: "taskUnwindSegue", sender: self)
     }
     
     func makeNotification(action: String){

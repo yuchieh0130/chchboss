@@ -57,19 +57,22 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "addTask":
-            if let navVC = segue.destination as? UINavigationController, let
-                addVC = navVC.topViewController as? addTaskViewController {
-                addVC.task = task
-            }
+//        case "addTask":
+//            if let navVC = segue.destination as? UINavigationController, let
+//                addVC = navVC.topViewController as? addTaskViewController {
+//            }
         case "editTask":
             if let navVC = segue.destination as? UINavigationController, let
                 editVC = navVC.topViewController as? addTaskViewController{
                 editVC.task = task
             }
-        case "addEvent":
+        case "taskAddEvent":
             if let navVC = segue.destination as? UINavigationController, let
-                _ = navVC.topViewController as? addViewController{
+                addVC = navVC.topViewController as? addViewController{
+                let VC = segue.source as? ViewController
+                if VC?.calendarView.selectedDates.isEmpty == false{
+                    addVC.selectedDay = VC!.calendarView.selectedDates
+                }
             }
         default:
             print("")
@@ -79,11 +82,13 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
         if segue.identifier == "taskUnwindSegue"{
-            if DBManager.getInstance().getAllDoneTask() != nil{
-                showTask = DBManager.getInstance().getAllUndoneTask()
+            if DBManager.getInstance().getAllUndoneTask() == nil{
+                self.showTask = [TaskModel]()
             }else{
-                showTask = [TaskModel]()
+                self.showTask = DBManager.getInstance().getAllUndoneTask()
             }
+            self.tableView.reloadData()
+            print("jeir")
         }
     }
     

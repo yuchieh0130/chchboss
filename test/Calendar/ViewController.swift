@@ -67,10 +67,6 @@ class ViewController: UIViewController{
                 editVC = navVC.topViewController as? addTaskViewController{
                 editVC.task = task
             }
-        case "eventAddTask":
-            if let navVC = segue.destination as? UINavigationController, let addVC = navVC.topViewController as? addTaskViewController{
-                addVC.task = task
-            }
         case "timeline":
             if let VC = segue.destination as? timeline{
                 VC.date = selectedDay
@@ -108,7 +104,7 @@ class ViewController: UIViewController{
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
-        calendarLayout.constant = safeArea.frame.size.height/2.5
+        calendarLayout.constant = safeArea.frame.size.height/2.75
 
         //初始畫面顯示
         yearLabel.text = showYearFormatter.string(from: Date())
