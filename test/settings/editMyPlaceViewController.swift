@@ -66,6 +66,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         circle.radius = 50
         circle.strokeColor = UIColor.red
         circle.map = mapView
+        
+        if self.tbView.tableFooterView == nil {
+            tbView.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
 //    override func viewDidDisappear(_ animated: Bool) {

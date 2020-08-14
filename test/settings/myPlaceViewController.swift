@@ -109,11 +109,11 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
 
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        if self.tblView.tableFooterView == nil {
-//            tblView.tableFooterView = UIView(frame: CGRect.zero)
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        if self.tblView.tableFooterView == nil {
+            tblView.tableFooterView = UIView(frame: CGRect.zero)
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier{
