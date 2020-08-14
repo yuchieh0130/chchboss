@@ -154,6 +154,10 @@ class addViewController : UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.5)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)]
+        
         if self.tableView.tableFooterView == nil {
             tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
@@ -366,7 +370,7 @@ class addViewController : UIViewController {
     }
     
     @objc func cancel(_ sender: UIButton){
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func addEventButton(_ sender: UIButton){

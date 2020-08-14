@@ -73,6 +73,12 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
         if segue.identifier == "taskUnwindSegue"{
+            if DBManager.getInstance().getAllDoneTask() != nil{
+                showTask = DBManager.getInstance().getAllUndoneTask()
+            }else{
+                showTask = [TaskModel]()
+            }
+            tableView.reloadData()
         }
     }
     
@@ -84,7 +90,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        let addTaskBtn = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTask(_:)))
+        let addTaskBtn = UIBarButtonItem(title: "＋", style: .plain, target: self, action: #selector(addTask(_:)))
         navigationItem.rightBarButtonItems = [addTaskBtn]
         let doneTaskBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTask(_:)))
         navigationItem.leftBarButtonItems = [doneTaskBtn]
@@ -93,7 +99,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 0.8)
-        floaty.itemTitleColor =  UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 1)
+        floaty.itemTitleColor =  UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 0.8)
 //        UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 1)
         floaty.overlayColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         floaty.itemShadowColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
@@ -203,7 +209,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
 //            completionHandler(true)
 //        }
         deleteAction.backgroundColor = UIColor.red
-        doneAction.backgroundColor = UIColor(red: 135/255, green: 145/255, blue: 246/255, alpha: 1)
+        doneAction.backgroundColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
@@ -213,6 +219,10 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
+//        self.navigationController?.navigationBar.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)]
+        
         if DBManager.getInstance().getAllUndoneTask() != nil{
             showTask = DBManager.getInstance().getAllUndoneTask()
         }else{
@@ -223,6 +233,13 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         tableView.reloadData()
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.5)
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)]
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -262,12 +279,16 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.taskDeadline.textColor = UIColor.red
             }else if interval<3600{
                 cell.taskDeadline.text = "\(min) Minute(s) Till Deadline"
+                cell.taskDeadline.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
             }else if interval<86400{
                 cell.taskDeadline.text = "\(hour) Hour(s) Till Deadline"
+                cell.taskDeadline.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
             }else if interval>86400 && interval<172800{
                 cell.taskDeadline.text = " \(day) Day Till Deadline"
+                cell.taskDeadline.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
             }else if interval>172800{
                 cell.taskDeadline.text = "\(day) Days Till Deadline"
+                cell.taskDeadline.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
             }
         }else{
             cell.taskDeadline.text = "No Deadline"

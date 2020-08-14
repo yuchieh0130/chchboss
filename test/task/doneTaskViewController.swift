@@ -21,8 +21,6 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        
         self.tableView.allowsMultipleSelectionDuringEditing = true
 
 //        let doneBack = UIBarButtonItem(title: "Return", style: .plain, target: self, action: #selector(doneReturn))
@@ -38,6 +36,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if DBManager.getInstance().getAllDoneTask() != nil{
             showTask = DBManager.getInstance().getAllDoneTask()
         }else{

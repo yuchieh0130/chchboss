@@ -51,6 +51,8 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if allDay == true{
             reminderData = reminderData_allDay
         }else{

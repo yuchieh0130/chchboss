@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class myPlaceViewController: UIViewController{
+class myPlaceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 //    @IBAction func cancelButton(_ sender: Any) {
 //        self.dismiss(animated: true, completion: nil)
 //    }
@@ -149,10 +149,6 @@ class myPlaceViewController: UIViewController{
 //        }
 //    }
     
-}
-
-extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showAllPlace!.count
     }
@@ -162,12 +158,7 @@ extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        var cell: UITableViewCell?
 //        cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
-        let cellIdentifier = "myPlaceCell"
-
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: cellIdentifier)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceTableViewCell", for: indexPath) as! myPlaceTableViewCell
         
 //        var locality: String = ""
 //        var subAdministrativeArea: String = ""
@@ -198,11 +189,11 @@ extension myPlaceViewController: UITableViewDataSource, UITableViewDelegate{
 //                }
 //            }
 //        }
-        cell?.textLabel?.text = place.placeName
+        cell.myPlaceName.text = place.placeName
  //       cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
 //        cell?.detailTextLabel?.isHidden = false
         
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{

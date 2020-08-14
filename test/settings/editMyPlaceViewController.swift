@@ -49,7 +49,6 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
         myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
         myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!

@@ -113,10 +113,22 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.5)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)]
+        
         if self.tableView.tableFooterView == nil {
             tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
+//        self.navigationController?.navigationBar.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)]
+//    }
     
     func loadData(){
         id = task!.taskId
@@ -215,7 +227,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @objc func cancel(_ sender: UIButton){
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
