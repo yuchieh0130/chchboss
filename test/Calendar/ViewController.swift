@@ -4,14 +4,13 @@ import Floaty
 
 class ViewController: UIViewController{
     
+    @IBOutlet var safeArea: UIView!
     @IBOutlet var calendarView: JTAppleCalendarView!
-    @IBOutlet weak var calendarLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var calendarLayout: NSLayoutConstraint!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     
     var testCalendar = Calendar.current
-    //let fullScreenSize = UIScreen.main.bounds.size
-    //let height = guide.layoutFrame.size.height
     
     var showDayFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -105,14 +104,8 @@ class ViewController: UIViewController{
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
-        let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
-        print(calendarView.frame.size.height)
-        calendarView.frame = CGRect(x: 0, y: 0, width: safeArea.width, height: self.view.frame.height/2)
-        //alendarView.frame.size.height = CGFloat(safeAreaHeight/2)
-        print(calendarView.frame.size.height)
-        //let safeAreaHeight = self.view.safeAreaLayoutGuide.layoutFrame.size.height
-//        let constraint = calendarView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/2)
-//        c
+        calendarLayout.constant = safeArea.frame.size.height/2.5
+
         //初始畫面顯示
         yearLabel.text = showYearFormatter.string(from: Date())
         monthLabel.text = showMonthFormatter.string(from: Date())
