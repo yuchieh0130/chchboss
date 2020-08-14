@@ -136,7 +136,9 @@ class addViewController : UIViewController {
         
         //func for accessoryView
         switchallDay.addTarget(self, action: #selector(self.allDayOpen(_ :)), for: .valueChanged)
+        switchallDay.onTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         switchauto.addTarget(self, action: #selector(self.autoOpen(_ :)), for: .valueChanged)
+        switchauto.onTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         //switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
         
         //檢查是要新增還是編輯event

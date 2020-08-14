@@ -88,9 +88,12 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         
 //        switchdeadline.addTarget(self, action: #selector(self.deadlineOpen(_ :)), for: .valueChanged)
         switchtasktime.addTarget(self, action: #selector(self.taskTimeOpen(_ :)), for: .valueChanged)
+        switchtasktime.onTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         switchdeadline.addTarget(self, action: #selector(self.deadlineOpen(_ :)), for: .valueChanged)
+        switchdeadline.onTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
 //        switchreminder.addTarget(self, action: #selector(self.reminderOpen(_ :)), for: .valueChanged)
         switchcalendar.addTarget(self, action: #selector(self.calendarOpen(_ :)), for: .valueChanged)
+        switchcalendar.onTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         
         let btnAddTask = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTaskButton(_:)))
         let btnEditTask = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editTaskButton(_:)))
