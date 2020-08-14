@@ -77,6 +77,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         }else{
             cell.doneTaskCalendar.isHidden = false
         }
+        cell.tintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         
         return cell
     }
@@ -119,10 +120,10 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         
         let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         let deleteButton: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(didPressDelete))
-        deleteButton.tintColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
+        deleteButton.tintColor = UIColor.red
         
         if tableView.isEditing == true{
-            editButtonItem.title = "Done"
+            editButtonItem.title = "Finish"
              self.toolbarItems = [flexible, deleteButton, flexible]
         }else if tableView.isEditing == false{
             editButtonItem.title = "Select"
@@ -142,10 +143,6 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
                     self.tableView.deleteRows(at: [selectionIndex], with: .left)
                     DBManager.getInstance().deleteDoneTask(id: id!)
                     self.tableView.reloadData()
-//                    while selectionIndex.item >= self.showTask!.count {
-//                        selectionIndex.item -= 1
-//                    }
-//                    self.tableView(self.tableView, commit: .delete, forRowAt: selectionIndex)
                 }
             }
             print("OK")
