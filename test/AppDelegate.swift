@@ -69,18 +69,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         placesClient = GMSPlacesClient.shared()
     
         myLocationManager.delegate = self
-        myLocationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
-        //kCLLocationAccuracyHundredMeters
-        //kCLLocationAccuracyNearestTenMeters
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //kCLLocationAccuracyNearestTenMeters
-        //kCLLocationAccuracyBestForNavigation
+        myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+//kCLLocationAccuracyBestForNavigation：導航最高精確，，需要使用GPS。例如：汽車導航時使用。
+//kCLLocationAccuracyBest;//高精確
+//kCLLocationAccuracyNearestTenMeters：10米，10米附近的精準度可能是GPS & WiFi混用
+//kCLLocationAccuracyHundredMeters：百米，百米附近的精準度只用 WiFi
+//kCLLocationAccuracyKilometer：千米
+//kCLLocationAccuracyThreeKilometers：三公里，1～3公里內用基地台來確認位置。
         myLocationManager.allowsBackgroundLocationUpdates = true
         myLocationManager.pausesLocationUpdatesAutomatically = false
         //myLocationManager.activityType = CLActivityType.fitness
-        myLocationManager.activityType = .automotiveNavigation
-        myLocationManager.requestAlwaysAuthorization()
-        myLocationManager.startUpdatingLocation()
+        myLocationManager.activityType = .other
+//        myLocationManager.requestAlwaysAuthorization()
+        //myLocationManager.startUpdatingLocation()
+        myLocationManager.startMonitoringSignificantLocationChanges()
         
 //        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         
@@ -112,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
-        if CLLocationManager.authorizationStatus() == .notDetermined{
+        if CLLocationManager.authorizationStatus() == .notDetermined || CLLocationManager.authorizationStatus() == .authorizedWhenInUse{
              myLocationManager.requestAlwaysAuthorization()
         }else if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
             DispatchQueue.main.async(){
