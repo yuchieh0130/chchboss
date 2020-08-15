@@ -68,7 +68,6 @@ def insertLocation():
     category3 = data["category3"]
     category4 = data["category4"]
     category5 = data["category5"] 
-    
     user_id  = data["user_id"]
 
     cur = conn.cursor()
@@ -85,16 +84,17 @@ def insertSaveplace():
     conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
 
-    place_id = data["place_id"]
+
+    user_id = data["user_id"]
+    user_place_id = data["user_place_id"]
     place_name = data["place_name"]
     place_longitude = data["place_longitude"]
     place_latitude = data["place_latitude"]
     my_place = data["my_place"]
 
-    user_id  = data["user_id"]
 
     cur = conn.cursor()
-    sql = "INSERT INTO saveplace (place_id, place_name, place_longitude, place_latitude, my_place, user_id) VALUES (%s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO saveplace (user_place_id, place_name, place_longitude, place_latitude, my_place, user_id) VALUES (%s, %s, %s, %s, %s, %s)"
     adr = (place_id, place_name, place_longitude, place_latitude, my_place, user_id)
     cur.execute(sql, adr)
     conn.commit()
@@ -151,8 +151,10 @@ def updateTrack():
     conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
 
-    # track_id = data["track_id"]
-    
+    track_id = data["track_id"]
+    track_user_id = data["track_user_id"]
+    user_id = data["user_id"]
+
     new_start_date = data["new_start_date"]
     new_start_time = data["new_start_time"]
     new_end_date = data["new_end_date"]
@@ -160,6 +162,7 @@ def updateTrack():
     new_category_id = data["new_category_id"]
     new_location_id = data["new_location_id"]
     new_place_id = data["new_place_id"]
+    
     old_start_date = data["old_start_date"]
     old_start_time = data["old_start_time"]
     old_end_date = data["old_end_date"]
@@ -168,7 +171,6 @@ def updateTrack():
     old_location_id = data["old_location_id"]
     old_place_id = data["old_place_id"]
 
-    user_id  = data["user_id"]
 
     nw_start_datetime = new_start_date + new_start_time
     od_start_datetime = old_start_date +old_start_time
@@ -299,6 +301,7 @@ def deleteTrack():
     import mysql.connector
     conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
+    user_id = data["user_id"]
     start_date = data["start_date"]
     start_time = data["start_time"]
     end_date = data["end_date"]
@@ -306,7 +309,6 @@ def deleteTrack():
     category_id = data["category_id"]
     loaction_id = data["loaction_id"]
     place_id = data["place_id"]
-    user_id = data["user_id"]
 
     cur = conn.cursor()
     sql = "UPDATE track SET(category_id) VALUES(%s) WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
@@ -321,6 +323,8 @@ def insertTrack():
     conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
 
+    
+    user_id = data["user_id"]
     start_date = data["start_date"]
     start_time = data["start_time"]
     end_date = data["end_date"]
@@ -328,12 +332,12 @@ def insertTrack():
     category_id = data["category_id"]
     loaction_id = data["loaction_id"]
     place_id = data["place_id"]
-    user_id = data["user_id"]
+    
 
     nw_end_datetime = end_date + end_time
     nw_start_datetime = start_date + start_time
     cur = conn.cursor()
-    sql = "SELECT category_id FROM track WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
+    sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
     adr = (nw_start_datetime, user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall
@@ -375,15 +379,16 @@ def insertCategory():
     import mysql.connector
     conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
     data = request.get_json()
-
+    
+    user_id = dara["user_id"]
     category_id = data["category_id"]
     category_name = data["category_name"]
     category_color = data["category_color"]
     category_image = data["category_image"]
 
     cur = conn.cursor()
-    sql = "INSERT INTO category (category_id, category_name, category_color, category_image) VALUES (%s, %s, %s, %s)"
-    adr = (category_id, category_name, category_color, category_image)
+    sql = "INSERT INTO category (category_id, category_name, category_color, category_image, user_id) VALUES (%s, %s, %s, %s, %s)"
+    adr = (category_id, category_name, category_color, category_image, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
