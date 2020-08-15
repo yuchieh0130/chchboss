@@ -92,9 +92,10 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    var fab: Floaty!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.viewDidLayoutSubviews()
         title = "Task"
         tableView.delegate = self
         tableView.dataSource = self
@@ -107,7 +108,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let doneTaskBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTask(_:)))
         navigationItem.leftBarButtonItems = [doneTaskBtn]
         
-        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 145, width: 45, height: 45))
+        let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 140, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 67/255, green: 76/255, blue: 123/255, alpha: 1)
@@ -127,6 +128,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
         self.view.addSubview(floaty)
+        fab = floaty
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     @objc func addTask(_ sender: Any) {
@@ -174,6 +180,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         if showTask?[indexPath.row].isPinned == false{
             let configuration = UISwipeActionsConfiguration(actions: [pinAction])
+            pinAction.backgroundColor = UIColor(red: 218/255, green: 64/255, blue: 122/255, alpha: 1)
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
         }else{
@@ -221,7 +228,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
 //            completionHandler(true)
 //        }
         deleteAction.backgroundColor = UIColor.red
-        doneAction.backgroundColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8)
+        doneAction.backgroundColor = UIColor(red: 103/255, green: 112/255, blue: 150/255, alpha: 1)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration

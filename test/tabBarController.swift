@@ -29,24 +29,24 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 145, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         floaty.plusColor = UIColor.white
-        floaty.itemButtonColor = UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 0.8)
-        floaty.itemTitleColor =  UIColor(red: 34/255, green: 45/255, blue: 97/255, alpha: 1)
+        floaty.itemButtonColor = UIColor(red: 67/255, green: 76/255, blue: 123/255, alpha: 1)
+        floaty.itemTitleColor =  UIColor(red: 67/255, green: 76/255, blue: 123/255, alpha: 1)
 //        UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 1)
         floaty.overlayColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         floaty.itemShadowColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         if #available(iOS 13.0, *) {
             floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
-                self.performSegue(withIdentifier: "eventAddTask", sender: self)
+                self.performSegue(withIdentifier: "tabBarAddTask", sender: self)
             })
             floaty.addItem("Add Event", icon: UIImage(systemName: "calendar"), handler: {_ in
-                self.performSegue(withIdentifier: "addEvent", sender: self)
+                self.performSegue(withIdentifier: "tabBarAddEvent", sender: self)
             })
         } else {
             floaty.addItem("Add Task", icon: UIImage(named: "task"), handler: {_ in
-                self.performSegue(withIdentifier: "eventAddTask", sender: self)
+                self.performSegue(withIdentifier: "tabBarAddTask", sender: self)
             })
             floaty.addItem("Add Event", icon: UIImage(named: "calendar"), handler: {_ in
-                self.performSegue(withIdentifier: "addEvent", sender: self)
+                self.performSegue(withIdentifier: "tabBarAddEvent", sender: self)
             })
         }
         floaty.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,18 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
         floaty.isDraggable = true
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
-        //self.view.addSubview(floaty)
+//        self.view.addSubview(floaty)
+//        
+//        let tabBarIndex = tabBarController?.selectedIndex
+//        if tabBarIndex == 0{
+//            floaty.isHidden = true
+//        }else if tabBarIndex == 1{
+//            floaty.isHidden = true
+//        }else if tabBarIndex == 2{
+//            floaty.isHidden = true
+//        }else if tabBarIndex == 3{
+//            floaty.isHidden = true
+//        }
         }
     
     //讓你按中間的tab bar item 不會跑出view controller
