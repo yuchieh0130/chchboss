@@ -35,8 +35,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     
     override func viewDidLoad() {
         
-        let btnAdd = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addMyPlaceButton(_:)))
-        let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editMyPlaceButton(_:)))
+        let btnAdd = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addMyPlaceButton(_:)))
+        let btnEdit = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editMyPlaceButton(_:)))
         
         if myPlace != nil{
             navigationItem.rightBarButtonItems = [btnEdit]

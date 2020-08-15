@@ -95,7 +95,7 @@ class ViewController: UIViewController{
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        let addBtn = UIBarButtonItem(title: "＋", style: .plain, target: self, action: #selector(addEvent(_:)))
+        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent(_:)))
         navigationItem.leftBarButtonItems = [addBtn]
         let locationDBBtn = UIBarButtonItem(title: "loc", style: .plain, target: self, action: #selector(locationDB(_:)))
         let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(transToToday(_:)))

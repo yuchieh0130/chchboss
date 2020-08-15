@@ -94,8 +94,8 @@ class addViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let btnAdd = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addEventButton(_:)))
-        let btnEdit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editEventButton(_:)))
+        let btnAdd = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addEventButton(_:)))
+        let btnEdit = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editEventButton(_:)))
         let btnDelete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteEventButton(_:)))
         let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
         navigationItem.leftBarButtonItems = [btnCancel]

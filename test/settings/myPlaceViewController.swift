@@ -94,7 +94,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         
-        let addBtn = UIBarButtonItem(title: "＋", style: .plain, target: self, action: #selector(addBtn(_:)))
+        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBtn(_:)))
         navigationItem.rightBarButtonItems = [addBtn]
         
 //        if noAdd == true{

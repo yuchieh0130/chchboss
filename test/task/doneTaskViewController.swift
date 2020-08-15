@@ -17,22 +17,16 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     var task: TaskModel?
     var selectedTask: String = ""
     var showTask: [TaskModel]?
+    var btnSelect: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.allowsMultipleSelectionDuringEditing = true
-
-//        let doneBack = UIBarButtonItem(title: "Return", style: .plain, target: self, action: #selector(doneReturn))
-        //navigationItem.leftBarButtonItems = [doneBack]
-        
         editButtonItem.title = "Select"
         navigationItem.rightBarButtonItems = [editButtonItem]
+        btnSelect = editButtonItem
     }
-    
-//    @objc func doneReturn() {
-//        self.navigationController?.popViewController(animated: true)
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -116,18 +110,20 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.setEditing(editing, animated: true)
         
         self.navigationController?.setToolbarHidden(false, animated: false)
-        self.navigationController?.toolbar.barTintColor = UIColor.white
+        self.navigationController?.toolbar.barTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         
         let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         let deleteButton: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(didPressDelete))
         deleteButton.tintColor = UIColor.red
         
         if tableView.isEditing == true{
-            editButtonItem.title = "Finish"
-             self.toolbarItems = [flexible, deleteButton, flexible]
+            editButtonItem.title = "Cancel"
+            self.toolbarItems = [flexible, deleteButton, flexible]
+            navigationItem.hidesBackButton = true
         }else if tableView.isEditing == false{
             editButtonItem.title = "Select"
             self.navigationController?.setToolbarHidden(true, animated: true)
+            navigationItem.hidesBackButton = false
         }
     }
     
