@@ -254,6 +254,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChart.rotationAngle = 0
         pieChart.legend.direction = .leftToRight
+        pieChartDataSet.selectionShift = 5
     }
     
     func customizeCategoryChartWeek(dataPoints: [String], values: [Double]) {
@@ -281,6 +282,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartWeek.rotationAngle = 0
         pieChartWeek.legend.direction = .leftToRight
+        pieChartDataSet.selectionShift = 5
     }
     
     func customizeCategoryChartMonth(dataPoints: [String], values: [Double]) {
@@ -308,6 +310,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartMonth.rotationAngle = 0
         pieChartMonth.legend.direction = .leftToRight
+        pieChartDataSet.selectionShift = 5
     }
     
     func customizeCategoryChartYear(dataPoints: [String], values: [Double]) {
@@ -335,6 +338,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartYear.rotationAngle = 0
         pieChartYear.legend.direction = .leftToRight
+        pieChartDataSet.selectionShift = 5
     }
     
     func getTrackTime(){
