@@ -330,14 +330,14 @@ def insertTrack():
     end_date = data["end_date"]
     end_time = data["end_time"]
     category_id = data["category_id"]
-    loaction_id = data["loaction_id"]
+    location_id = data["location_id"]
     place_id = data["place_id"]
     
-
+# 若insert在某一段在最後,延長
     nw_end_datetime = end_date + end_time
     nw_start_datetime = start_date + start_time
     cur = conn.cursor()
-    sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
+    sql = "SELECT category_id FROM track WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
     adr = (nw_start_datetime, user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall
@@ -365,8 +365,8 @@ def insertTrack():
         cur.close()
         
     cur = conn.cursor()
-    sql = "INSERT INTO track (start_date, start_time, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    adr = (start_date, start_time, end_time, category_id, loaction_id, place_id, user_id)
+    sql = "INSERT INTO track (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    adr = (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
