@@ -194,5 +194,34 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
         performSegue(withIdentifier: "editMyPlace",sender: nil)
     }
     
+    @available(iOS 11.0, *)
+    public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let id =  showAllPlace?[indexPath.row].placeId
+        //let task = showTask?[indexPath.row]
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
+            print("Delete")
+            completionHandler(true)
+            let controller = UIAlertController(title: "Delete My Place?", message: nil, preferredStyle: .actionSheet)
+            let action = UIAlertAction(title: "Delete", style: .default) { (_) in
+                self.showAllPlace!.remove(at: indexPath.row)
+                self.tblView.deleteRows(at: [indexPath], with: .fade)
+                //DBManager.getInstance().deleteMyPlace(id: id!)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            action.setValue(UIColor.red, forKey: "titleTextColor")
+            controller.addAction(action)
+            controller.addAction(cancel)
+            self.present(controller, animated: true, completion: nil)
+        }
+        deleteAction.backgroundColor = UIColor.red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     
 }

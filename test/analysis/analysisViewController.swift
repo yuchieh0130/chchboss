@@ -38,12 +38,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var valuesWeek = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
     var valuesMonth = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
+    //for chart selected view
     var indexDay = 0
     var indexWeek = 0
     var indexMonth = 0
     var indexYear = 0
-    var total = 0.0
-    var percentage = Array<Double>()
     var segConIndex = 0
     
     var selectedDay = ""
@@ -101,15 +100,15 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //        total = categoryTotal
 //        let categoryPercentage = values0.map{(round(($0/total)*1000))/10}
 //        percentage = categoryPercentage
-        
-        //會直接取代原本array裡面的value
+//
+//        會直接取代原本array裡面的value
 //        for (index, value) in categoryValues.enumerated(){
 //            print("Item \(index + 1): \((round((value/total)*1000))/10)")
 //        }
 //        categoryPercentage.enumerated().forEach{index, value in
 //            categoryPercentage[index] = (round((value/total)*1000))/10
 //        }
-        
+
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-2{
             showCategoryStr.append(showCategory[i].categoryName)
@@ -170,8 +169,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                showTrack = [TrackModel]()
            }
     }
-    
-    
     
     @IBAction func segConChoose(_ sender: Any) {
         let getIndex = segCon.selectedSegmentIndex
