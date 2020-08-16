@@ -197,15 +197,16 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     @available(iOS 11.0, *)
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id =  showAllPlace?[indexPath.row].placeId
+        let name = showAllPlace?[indexPath.row].placeName
         //let task = showTask?[indexPath.row]
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            let controller = UIAlertController(title: "Delete My Place?", message: nil, preferredStyle: .actionSheet)
+            let controller = UIAlertController(title: "Delete 「 " + name! + " 」 from My Place?", message: nil, preferredStyle: .actionSheet)
             let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                 self.showAllPlace!.remove(at: indexPath.row)
                 self.tblView.deleteRows(at: [indexPath], with: .fade)
-                //DBManager.getInstance().deleteMyPlace(id: id!)
+                DBManager.getInstance().deleteMyPlace(id: id!)
             }
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             action.setValue(UIColor.red, forKey: "titleTextColor")

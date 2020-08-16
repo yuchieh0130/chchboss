@@ -385,7 +385,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let id =  self.showTask?[selectionIndex.row].taskId
                     //let task = self.showTask?[selectionIndex.row]
                     self.showTask!.remove(at: selectionIndex.row)
-                    self.tableView.deleteRows(at: [selectionIndex], with: .left)
+                    self.tableView.deleteRows(at: [selectionIndex], with: .fade)
                     DBManager.getInstance().deleteDoneTask(id: id!)
                     self.tableView.reloadData()
                 }

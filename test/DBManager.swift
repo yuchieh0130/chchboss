@@ -360,6 +360,12 @@ class DBManager: NSObject {
         return places
     }
     
+    func deleteMyPlace(id: Int32) {
+        shareInstance.database?.open()
+        shareInstance.database?.executeUpdate("DELETE FROM savedPlace WHERE place_id = \(id)", withArgumentsIn:[id])
+        shareInstance.database?.close()
+    }
+    
     func getMaxPlace() -> Int32{
         
         var id : Int32!
