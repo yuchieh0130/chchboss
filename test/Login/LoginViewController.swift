@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class LoginViewController: UIViewController {
     
@@ -22,6 +23,17 @@ class LoginViewController: UIViewController {
     
     @IBOutlet var logInbtn: UIButton!
     @IBOutlet var signUpBtn: UIButton!
+    
+    let bottomLine1: UIView = {
+        let tmpView = UIView()
+        tmpView.backgroundColor = .lightGray
+        return tmpView
+    }()
+    let bottomLine2: UIView = {
+        let tmpView = UIView()
+        tmpView.backgroundColor = .lightGray
+        return tmpView
+    }()
     
     @IBAction func logInBtn(_ sender: Any) {
         UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
@@ -92,6 +104,9 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUI()
+        
         warningLabel.isHidden = true
         emailTextField.text = UserDefaults.standard.value(forKey: "userEmail") as? String
         passwordTextField.text = UserDefaults.standard.value(forKey: "userPassword") as? String
@@ -122,6 +137,35 @@ class LoginViewController: UIViewController {
         
     }
     
+}
+
+extension LoginViewController {
+    func setupUI() {
+        emailTextField.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview().offset(-100)
+            make.leading.equalTo(70)
+            make.trailing.equalTo(-70)
+        }
+        passwordTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(emailTextField.snp.bottom).offset(30)
+            make.leading.equalTo(70)
+            make.trailing.equalTo(-70)
+        }
+        view.addSubview(bottomLine1)
+        bottomLine1.snp.makeConstraints { (make) in
+            make.top.equalTo(emailTextField.snp.bottom)
+            make.height.equalTo(1)
+            make.width.equalTo(emailTextField.snp.width)
+            make.leading.trailing.equalTo(emailTextField)
+        }
+        view.addSubview(bottomLine2)
+        bottomLine2.snp.makeConstraints { (make) in
+            make.top.equalTo(passwordTextField.snp.bottom)
+            make.height.equalTo(1)
+            make.width.equalTo(passwordTextField.snp.width)
+            make.leading.trailing.equalTo(passwordTextField)
+        }
+    }
 }
 
 extension LoginViewController: UITextFieldDelegate {
