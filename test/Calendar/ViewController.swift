@@ -105,7 +105,7 @@ class ViewController: UIViewController{
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
-        calendarLayout.constant = safeArea.frame.size.height/2.75
+        calendarLayout.constant = view.frame.size.height/2.5
 
         //初始畫面顯示
         yearLabel.text = showYearFormatter.string(from: Date())
