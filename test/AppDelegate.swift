@@ -263,8 +263,10 @@ extension AppDelegate: CLLocationManagerDelegate {
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
         
         DBManager.getInstance().saveLocation(modelInfo)
-        
-        let data : [String: String] = ["location_id":"0", "longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id)]
+        let myLocation = DBManager.getInstance().getMaxLocation()
+        let data : [String: String] = ["location_id":"0",
+                                       "user_location_id": String(myLocation.locationId),
+                                       "longitude":String(myLocation.longitude), "latitude":String(myLocation.latitude), "start_date":myLocation.startDate, "start_time":myLocation.startTime,"weekday":String(myLocation.weekday), "duration":"0", "speed":String(myLocation.speed), "name1":myLocation.name1!, "name2":myLocation.name2!, "name3":myLocation.name3!, "name4":myLocation.name4!, "name5":myLocation.name5!, "category1":myLocation.category1!, "category2":myLocation.category2!, "category3":myLocation.category3!, "category4":myLocation.category4!, "category5":myLocation.category5!, "user_id":String(user_id)]
                    
         self.net.postLocationData(data: data){
             (status_code) in
