@@ -17,12 +17,15 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     @IBOutlet weak var mapView: GMSMapView!
     //@IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var tbView: UITableView!
+    @IBOutlet weak var txtSearch: UISearchBar!
     var myPlaceCategory = "Others"
     var myPlaceName = ""
     var id: Int32 = 0
     var myPlaceLongitude: Double! = 0
     var myPlaceLatitude: Double! = 0
     var myPlace: PlaceModel?
+    
+    var resultsArray:[Dictionary<String, AnyObject>] = Array()
     
     let currentLocation = CLLocationManager()
     //var location = CLLocation()
@@ -153,7 +156,11 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
 extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if txtSearch.text!.isEmpty{
+            return nameArray.count+savePlaceArray.count+1
+        }else{
+            return resultsArray.count+1
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -192,4 +199,44 @@ extension editMyPlaceViewController: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
         myPlaceName = textField.text!
     }
+    
+    @objc func searchPlaceFromGoogle(_ textField:UITextField) {
+        
+        if let searchQuery = textField.text {
+            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
+            strGoogleApi = strGoogleApi.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            
+            var urlRequest = URLRequest(url: URL(string: strGoogleApi)!)
+            urlRequest.httpMethod = "GET"
+            let task = URLSession.shared.dataTask(with: urlRequest) { (data, resopnse, error) in
+                if error == nil {
+                    
+                    if let responseData = data {
+                        let jsonDict = try? JSONSerialization.jsonObject(with: responseData, options: .mutableContainers)
+                        
+                        if let dict = jsonDict as? Dictionary<String, AnyObject>{
+                            
+                            if let results = dict["results"] as? [Dictionary<String, AnyObject>] {
+                                //                            print("json == \(results)")
+                                self.resultsArray.removeAll()
+                                for dct in results {
+                                    self.resultsArray.append(dct)
+                                }
+                                
+                                DispatchQueue.main.async {
+                                    self.tbView.reloadData()
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                } else {
+                    //we have error connection google api
+                }
+            }
+            task.resume()
+        }
+    }
+    
 }
