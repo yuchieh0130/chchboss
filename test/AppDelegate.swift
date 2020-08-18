@@ -298,12 +298,12 @@ extension AppDelegate: CLLocationManagerDelegate {
     
     // 1. 當用戶進入一個 region
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        showAlert(String: "You enter \(region.identifier)!!!")
+        makeNotification(String: "You enter \(region.identifier)!!!")
     }
 
     // 2. 當用戶退出一個 region
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        showAlert(String: "You exit \(region.identifier)!!!")
+        makeNotification(String: "You exit \(region.identifier)!!!")
     }
     
     func showAlert(String: String){
@@ -312,6 +312,15 @@ extension AppDelegate: CLLocationManagerDelegate {
             controller.dismiss(animated: true, completion: nil)}
         controller.addAction(okAction)
         self.window?.rootViewController?.present(controller, animated: true,completion: .none)
+    }
+    
+    func makeNotification(String: String){
+        let no = UNMutableNotificationContent()
+            no.title = "Motitor Region Notification"
+            no.body = String
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0, repeats: false)
+        let request = UNNotificationRequest(identifier: "Motitor Region Notification", content: no, trigger: trigger)
+        UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
     }
     
 }
