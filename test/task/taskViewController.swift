@@ -135,6 +135,16 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.autoCloseOnTap = true
         self.view.addSubview(floaty)
         fab = floaty
+        floatyConstraints()
+    }
+    
+    func floatyConstraints(){
+        fab.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(self.view.frame.height-140)
+            make.leading.equalToSuperview().offset(self.view.frame.width-67)
+            make.height.equalTo(45)
+            make.width.equalTo(45)
+        }
     }
     
     override func viewDidLayoutSubviews() {
