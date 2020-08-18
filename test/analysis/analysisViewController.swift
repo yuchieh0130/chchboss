@@ -96,6 +96,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         super.viewDidLoad()
         title = "Analysis"
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        pieChart.translatesAutoresizingMaskIntoConstraints = false
+        pieChartWeek.translatesAutoresizingMaskIntoConstraints = false
+        pieChartMonth.translatesAutoresizingMaskIntoConstraints = false
+        pieChartYear.translatesAutoresizingMaskIntoConstraints = false
 //        let categoryTotal = values0.reduce(0, +)
 //        total = categoryTotal
 //        let categoryPercentage = values0.map{(round(($0/total)*1000))/10}

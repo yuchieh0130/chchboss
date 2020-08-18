@@ -57,6 +57,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tblView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.translatesAutoresizingMaskIntoConstraints = false
         // Do any additional setup after loading the view, typically from a nib.
 //        txtSearch.addTarget(self, action: #selector(searchPlaceFromGoogle(_:)), for: .editingChanged)
         tblPlaces.estimatedRowHeight = 44.0

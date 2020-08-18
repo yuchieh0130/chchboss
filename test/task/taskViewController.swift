@@ -102,6 +102,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
         let addTaskBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask(_:)))

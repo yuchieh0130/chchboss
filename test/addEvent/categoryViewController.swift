@@ -17,6 +17,7 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         
     super.viewDidLoad()
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView.backgroundColor = UIColor.white
         layout.scrollDirection = .vertical
