@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     //var filterList = [String]()
     //var collectionArr = [String]()
     
-    let myPlaces = [PlaceModel]()
+    var myPlaces = [PlaceModel]()
     
     let net = NetworkController()
     
@@ -159,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                     let regionRadius = 200.0
                     let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
                         longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-                    locationManager.startMonitoringForRegion(region)
+                    myLocationManager.startMonitoring(for: region)
                 }
             }
         }
@@ -296,13 +296,21 @@ extension AppDelegate: CLLocationManagerDelegate {
     }
     
     // 1. 當用戶進入一個 region
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        showAlert("You enter \(region.identifier)!!!")
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        showAlert(String: "You enter \(region.identifier)!!!")
     }
 
     // 2. 當用戶退出一個 region
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
-        showAlert("You exit \(region.identifier)!!!")
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        showAlert(String: "You exit \(region.identifier)!!!")
+    }
+    
+    func showAlert(String: String){
+        let controller = UIAlertController(title: "WOW", message: String, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            controller.dismiss(animated: true, completion: nil)}
+        controller.addAction(okAction)
+        self.window?.rootViewController?.present(controller, animated: true,completion: .none)
     }
     
 }

@@ -114,6 +114,12 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         }else{
             let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
             _ = DBManager.getInstance().addPlace(modelInfo)
+//            let title = myPlaceName
+//            let coordinate = CLLocationCoordinate2DMake(myPlaceLatitude, myPlaceLongitude)
+//            let regionRadius = 200.0
+//            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
+//                longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+//            myLocationManager.startMonitoring(for: region)
             self.dismiss(animated: true, completion: nil)
             performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
         }
