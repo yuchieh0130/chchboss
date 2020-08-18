@@ -86,10 +86,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 //        myLocationManager.requestAlwaysAuthorization()
         //myLocationManager.startUpdatingLocation()
         myLocationManager.startMonitoringSignificantLocationChanges()
-        
-        if DBManager.getInstance().getMyPlaces() != nil{
-             myPlaces = DBManager.getInstance().getMyPlaces()
-        }
 //        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge, .carPlay], completionHandler: { (granted, error) in
@@ -155,13 +151,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                                 }
             
             if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-                for i in 0...myPlaces.count-1{
-                    let title = myPlaces[i].placeName
-                    let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
-                    let regionRadius = 200.0
-                    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
-                        longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-                    myLocationManager.startMonitoring(for: region)
+                if DBManager.getInstance().getMyPlaces() != nil{
+                    myPlaces = DBManager.getInstance().getMyPlaces()
+                    for i in 0...myPlaces.count-1{
+                        let title = myPlaces[i].placeName
+                        let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
+                        let regionRadius = 200.0
+                        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
+                            longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+                        myLocationManager.startMonitoring(for: region)
+                    }
                 }
             }
         }
