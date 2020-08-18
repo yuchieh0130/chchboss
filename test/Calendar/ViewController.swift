@@ -93,9 +93,9 @@ class ViewController: UIViewController{
     /*viewcontroller viewdidload*/
     override func viewDidLoad() {
         super.viewDidLoad()
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+//        calendarView.translatesAutoresizingMaskIntoConstraints = false
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//
         self.navigationController?.navigationBar.shadowImage = UIImage()
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent(_:)))
         navigationItem.leftBarButtonItems = [addBtn]
@@ -107,7 +107,6 @@ class ViewController: UIViewController{
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
         calendarView.showsVerticalScrollIndicator = false
-        calendarLayout.constant = view.frame.size.height/2.5
 
         //初始畫面顯示
         yearLabel.text = showYearFormatter.string(from: Date())
@@ -161,6 +160,7 @@ class ViewController: UIViewController{
     }
     
     override func viewDidLayoutSubviews() {
+        calendarLayout.constant = view.frame.size.height/2.5
         super.viewDidLayoutSubviews()
     }
     
