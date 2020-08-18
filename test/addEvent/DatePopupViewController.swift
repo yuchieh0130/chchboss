@@ -43,7 +43,7 @@ class DatePopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         datePicker.locale = Locale(identifier: "zh_TW")
         datePicker.timeZone = TimeZone.ReferenceType.system

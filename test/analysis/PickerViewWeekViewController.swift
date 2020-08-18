@@ -20,6 +20,7 @@ class PickerViewWeekViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pickerViewWeek.translatesAutoresizingMaskIntoConstraints = false
         
         if tag == "analysisWeek"{
             pickerViewWeek.dateWeek = "\(pickerViewWeek.week)"

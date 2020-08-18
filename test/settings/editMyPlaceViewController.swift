@@ -34,6 +34,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
 //    var userLocation = CLLocation()
     
     override func viewDidLoad() {
+        tbView.translatesAutoresizingMaskIntoConstraints = false
         
         let btnAdd = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addMyPlaceButton(_:)))
         let btnEdit = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editMyPlaceButton(_:)))

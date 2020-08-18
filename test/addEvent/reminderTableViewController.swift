@@ -44,6 +44,7 @@ class reminderTableViewController: UIViewController,UITableViewDataSource,UITabl
         tableView.allowsMultipleSelection = true
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let btnAdd = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(addReminder(_:)))
         navigationItem.rightBarButtonItems = [btnAdd]

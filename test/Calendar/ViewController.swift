@@ -93,6 +93,8 @@ class ViewController: UIViewController{
     /*viewcontroller viewdidload*/
     override func viewDidLoad() {
         super.viewDidLoad()
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent(_:)))

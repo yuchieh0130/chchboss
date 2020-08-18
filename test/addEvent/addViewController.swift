@@ -93,6 +93,7 @@ class addViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let btnAdd = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addEventButton(_:)))
         let btnEdit = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editEventButton(_:)))

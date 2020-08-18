@@ -93,6 +93,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewDidLoad() {
+        tblView.translatesAutoresizingMaskIntoConstraints = false
         
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBtn(_:)))
         navigationItem.rightBarButtonItems = [addBtn]

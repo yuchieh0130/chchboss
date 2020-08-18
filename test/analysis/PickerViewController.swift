@@ -19,6 +19,7 @@ class PickerViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pickerViewMonthYear.translatesAutoresizingMaskIntoConstraints = false
         
         if tag == "analysisMonthYear"{
             pickerViewMonthYear.dateMonthYear = "\(pickerViewMonthYear.month) \(pickerViewMonthYear.year)"

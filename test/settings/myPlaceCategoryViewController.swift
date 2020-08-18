@@ -11,8 +11,13 @@ import UIKit
 
 class myPlaceCategoryViewController: UIViewController{
     
+    
     let myPlaceCategorys = ["Home","School","Work Place","Dorm","Others"]
     @IBOutlet var tableView : UITableView!
+    
+    override func viewDidLoad() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+    }
     
 }
 extension myPlaceCategoryViewController: UITableViewDelegate,UITableViewDataSource{

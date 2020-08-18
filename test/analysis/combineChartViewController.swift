@@ -41,6 +41,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        combineChart.translatesAutoresizingMaskIntoConstraints = false
     
         var years: [String] = []
         if years.count == 0 {
