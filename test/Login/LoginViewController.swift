@@ -147,7 +147,7 @@ extension LoginViewController {
             make.trailing.equalTo(-70)
         }
         passwordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(emailTextField.snp.bottom).offset(30)
+            make.top.equalTo(emailTextField.snp.bottom).offset(40)
             make.leading.equalTo(70)
             make.trailing.equalTo(-70)
         }
@@ -173,5 +173,13 @@ extension LoginViewController: UITextFieldDelegate {
        self.view.endEditing(true)
        return true
     }
+    
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        textField.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.3)
+//    }
+//
+//    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+//        textField.backgroundColor = .white
+//    }
 }
 
