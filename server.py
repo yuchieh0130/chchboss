@@ -333,6 +333,20 @@ def insertTrack():
     location_id = data["location_id"]
     place_id = data["place_id"]
     
+    nw_start_datetime = start_date + start_time
+    nw_end_datetime = end_date + end_time
+
+    # 覆寫包含下一筆
+    cur = conn.cursor()
+    sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) BETWEEN %s and %s AND user_id = %s"
+    adr = (nw_start_datetime, nw_end_datetime, user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    if(fetch_data):
+        if(category_id != fetch_data):
+            cur = conn.cursor()
+            sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE "
 # 若insert在某一段在最後,延長
     nw_end_datetime = end_date + end_time
     nw_start_datetime = start_date + start_time
