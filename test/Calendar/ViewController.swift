@@ -305,7 +305,9 @@ class ViewController: UIViewController{
         monthLabel.text = showMonthFormatter.string(from: Date())
         var today = [Date]()
         today.append(Date())
-        calendarView.selectDates(today)
+        if calendarView.selectedDates != today{
+            calendarView.selectDates(today)
+        }
     }
     
     /*button to change between week and month*/
