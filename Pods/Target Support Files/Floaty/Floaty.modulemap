@@ -1,4 +1,4 @@
-framework module Floaty {
+module Floaty {
   umbrella header "Floaty-umbrella.h"
 
   export *
