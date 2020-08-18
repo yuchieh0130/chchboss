@@ -87,7 +87,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //myLocationManager.startUpdatingLocation()
         myLocationManager.startMonitoringSignificantLocationChanges()
         
-        myPlaces = DBManager.getInstance().getMyPlaces()
+        if DBManager.getInstance().getMyPlaces() != nil{
+             myPlaces = DBManager.getInstance().getMyPlaces()
+        }
 //        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge, .carPlay], completionHandler: { (granted, error) in
