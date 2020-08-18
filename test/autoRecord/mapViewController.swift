@@ -17,7 +17,8 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     @IBOutlet var tblView: UIView!
     @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var txtSearch: UITextField!
+    //@IBOutlet weak var txtSearch: UITextField!
+    @IBOutlet weak var txtSearch: UISearchBar!
     @IBOutlet weak var tblPlaces: UITableView!
     
     var modelLoc : LocationModel?
@@ -57,13 +58,12 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        txtSearch.addTarget(self, action: #selector(searchPlaceFromGoogle(_:)), for: .editingChanged)
+//        txtSearch.addTarget(self, action: #selector(searchPlaceFromGoogle(_:)), for: .editingChanged)
         tblPlaces.estimatedRowHeight = 44.0
         tblPlaces.dataSource = self
         tblPlaces.delegate = self
-        txtSearch.delegate = self
-        
-        txtSearch.placeholder = "Search places..."
+        //txtSearch.delegate = self
+        self.txtSearch.placeholder = "Search places..."
         
         savePlaceArray = DBManager.getInstance().getNotMyPlaces()
         
@@ -344,7 +344,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     //            }
     //   }
     
-    @objc func searchPlaceFromGoogle(_ textField:UITextField) {
+    @objc func searchPlaceFromGoogle(_ textField: UISearchBar) {
         
         if let searchQuery = textField.text {
             var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
@@ -442,6 +442,13 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
 
 extension mapViewController: UISearchBarDelegate, UITextFieldDelegate{
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        searchPlaceFromGoogle(searchBar)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
     //
     //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     //        self.view.endEditing(true)

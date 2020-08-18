@@ -8,10 +8,11 @@
 
 import UIKit
 
-class searchLocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class searchLocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate ,UISearchBarDelegate{
     
     
-    @IBOutlet weak var txtSearch: UITextField!
+    //@IBOutlet weak var txtSearch: UITextField!
+    @IBOutlet weak var txtSearch: UISearchBar!
     @IBOutlet weak var tblPlaces: UITableView!
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
     
@@ -28,10 +29,13 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        txtSearch.addTarget(self, action: #selector(searchPlaceFromGoogle(_:)), for: .editingChanged)
+//        txtSearch.addTarget(self, action: #selector(searchPlaceFromGoogle(_:)), for: .editingChanged)
         tblPlaces.estimatedRowHeight = 44.0
         tblPlaces.dataSource = self
         tblPlaces.delegate = self
+        
+        self.txtSearch.placeholder = "search place"
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -112,7 +116,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
     
     
     
-    @objc func searchPlaceFromGoogle(_ textField:UITextField) {
+    @objc func searchPlaceFromGoogle(_ textField: UISearchBar) {
         
         if let searchQuery = textField.text {
             var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
@@ -151,6 +155,13 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        searchPlaceFromGoogle(txtSearch)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

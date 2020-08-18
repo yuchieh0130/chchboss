@@ -41,13 +41,17 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         let btnAdd = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addMyPlaceButton(_:)))
         let btnEdit = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editMyPlaceButton(_:)))
         
+        self.txtSearch.placeholder = "search place"
+        
         if myPlace != nil{
             navigationItem.rightBarButtonItems = [btnEdit]
             loadData()
         }else{
             navigationItem.rightBarButtonItems = [btnAdd]
-            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
-            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
+             myPlaceLatitude = 25
+            myPlaceLongitude = 121
+//            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
+//            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         }
         
     }
@@ -157,36 +161,54 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if txtSearch.text!.isEmpty{
-            return nameArray.count+savePlaceArray.count+1
+            return 2
         }else{
-            return resultsArray.count+1
+            return resultsArray.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceName",for: indexPath) as! editMyplaceNameCell
-            cell.txtName.text = myPlaceName
-            cell.selectionStyle = .none
-            return cell
-        }else {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceCategory") as! editMyplaceCategoryCell
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .none
-            cell.category.text = myPlaceCategory
-            return cell
+        if !txtSearch.text!.isEmpty{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
+            if resultsArray.count != 0{
+                cell?.textLabel?.text = "\(resultsArray[indexPath.row]["name"]!)"
+            }
+            return cell!
+        }else{
+            if indexPath.row == 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceName",for: indexPath) as! editMyplaceNameCell
+                cell.txtName.text = myPlaceName
+                cell.selectionStyle = .none
+                return cell
+            }else {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"myPlaceCategory") as! editMyplaceCategoryCell
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .none
+                cell.category.text = myPlaceCategory
+                return cell
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        if indexPath.row == 1{
-            performSegue(withIdentifier: "myPlaceCategory", sender: nil)
+        if !txtSearch.text!.isEmpty{
+            var location = [String:[String:Any]]()
+            location["location"] = resultsArray[indexPath.row]["geometry"]!["location"] as? [String:Any]
+            myPlaceLatitude = location["location"]!["lat"] as? Double
+            myPlaceLongitude = location["location"]!["lng"] as? Double
+            changePosition(marker: marker, a: CLLocationCoordinate2DMake(myPlaceLatitude, myPlaceLongitude))
+            txtSearch.text = nil
+            tbView.reloadData()
+        }else{
+            if indexPath.row == 1{
+                performSegue(withIdentifier: "myPlaceCategory", sender: nil)
+            }
         }
     }
 
 }
 
-extension editMyPlaceViewController: UITextFieldDelegate{
+extension editMyPlaceViewController: UITextFieldDelegate,UISearchBarDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -200,7 +222,15 @@ extension editMyPlaceViewController: UITextFieldDelegate{
         myPlaceName = textField.text!
     }
     
-    @objc func searchPlaceFromGoogle(_ textField:UITextField) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        searchPlaceFromGoogle(searchBar)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    @objc func searchPlaceFromGoogle(_ textField: UISearchBar) {
         
         if let searchQuery = textField.text {
             var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
