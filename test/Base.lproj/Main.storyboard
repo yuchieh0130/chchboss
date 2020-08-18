@@ -3400,7 +3400,7 @@
         <scene sceneID="q98-ex-vBg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NkT-0a-vzX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="" image="doc.text" catalog="system" selectedImage="doc.text.fill" id="dlq-P7-ObU"/>
+                    <tabBarItem key="tabBarItem" title="" image="doc.text" catalog="system" selectedImage="doc.text.fill" id="dlq-P7-ObU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w3M-mg-Aez">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -3425,7 +3425,7 @@
         <scene sceneID="OBW-5V-fxT">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gV0-cO-L84" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="4" title="" image="chart.pie" catalog="system" selectedImage="chart.pie.fill" id="EsJ-Wy-Q9H"/>
+                    <tabBarItem key="tabBarItem" title="" image="chart.bar" catalog="system" selectedImage="chart.bar.fill" id="EsJ-Wy-Q9H"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vtu-vd-2bb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -3522,8 +3522,8 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="camera.circle" catalog="system" width="128" height="121"/>
-        <image name="chart.pie" catalog="system" width="128" height="121"/>
-        <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
+        <image name="chart.bar" catalog="system" width="128" height="90"/>
+        <image name="chart.bar.fill" catalog="system" width="128" height="92"/>
         <image name="doc.text" catalog="system" width="115" height="128"/>
         <image name="doc.text.fill" catalog="system" width="115" height="128"/>
         <image name="gear" catalog="system" width="128" height="119"/>
