@@ -16,12 +16,35 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var cancelLabel: UILabel!
     
     let userDefaults = UserDefaults.standard
     let networkController = NetworkController()
     
     @IBOutlet var signUpBtn: UIButton!
     @IBOutlet var cancelBtn: UIButton!
+    
+    let bottomLine1: UIView = {
+        let tmpView = UIView()
+        tmpView.backgroundColor = .lightGray
+        return tmpView
+    }()
+    let bottomLine2: UIView = {
+        let tmpView = UIView()
+        tmpView.backgroundColor = .lightGray
+        return tmpView
+    }()
+    let bottomLine3: UIView = {
+        let tmpView = UIView()
+        tmpView.backgroundColor = .lightGray
+        return tmpView
+    }()
+    let bottomLine4: UIView = {
+        let tmpView = UIView()
+        tmpView.backgroundColor = .lightGray
+        return tmpView
+    }()
+    
     
     @IBAction func signUpBtn(_ sender: Any) {
         userDefaults.set(userNameTextField.text, forKey: "userName")
@@ -51,7 +74,7 @@ class SignupViewController: UIViewController {
                             self.performSegue(withIdentifier: "aaapple", sender: sender)
                         }
                     }
-//    登入錯誤(登入不正常)
+                        //    登入錯誤(登入不正常)
                     else{
                         print(status_code)
                         DispatchQueue.main.async {
@@ -61,7 +84,7 @@ class SignupViewController: UIViewController {
                         }
                         
                     }
-//    登入請求沒有送出
+                    //    登入請求沒有送出
                 }else{
                     DispatchQueue.main.async {
                         self.warningLabel.text = "Connection error"
@@ -80,40 +103,100 @@ class SignupViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        warningLabel.isHidden = true
         
+        signUpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        signUpBtn.layer.cornerRadius = signUpBtn.frame.height/2
+        signUpBtn.clipsToBounds = true
         
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            self.view.endEditing(true)
-        }
+        cancelBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        cancelBtn.layer.cornerRadius = signUpBtn.frame.height/2
+        cancelBtn.clipsToBounds = true
         
-        
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            warningLabel.isHidden = true
-            
-            signUpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
-            signUpBtn.layer.cornerRadius = signUpBtn.frame.height/2
-            signUpBtn.clipsToBounds = true
-            
-            cancelBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
-            cancelBtn.layer.cornerRadius = signUpBtn.frame.height/2
-            cancelBtn.clipsToBounds = true
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+}
 
+extension SignupViewController {
+    func setupUI() {
+        userNameTextField.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview().offset(-160)
+            make.leading.equalTo(70)
+            make.trailing.equalTo(-70)
+        }
+        emailTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(userNameTextField.snp.bottom).offset(40)
+            make.leading.equalTo(70)
+            make.trailing.equalTo(-70)
+        }
+        passwordTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(emailTextField.snp.bottom).offset(40)
+            make.leading.equalTo(70)
+            make.trailing.equalTo(-70)
+        }
+        confirmPasswordTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(40)
+            make.leading.equalTo(70)
+            make.trailing.equalTo(-70)
         }
         
+        addTextFieldWithLine(line: bottomLine1, field: userNameTextField)
+        addTextFieldWithLine(line: bottomLine2, field: emailTextField)
+        addTextFieldWithLine(line: bottomLine3, field: passwordTextField)
+        addTextFieldWithLine(line: bottomLine4, field: confirmPasswordTextField)
         
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
+        warningLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(confirmPasswordTextField.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
         }
-        
-        override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
+        signUpBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(warningLabel.snp.bottom).offset(40)
+            make.centerX.equalToSuperview()
+        }
+        cancelLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(signUpBtn.snp.bottom).offset(100)
+            make.centerX.equalToSuperview()
+        }
+        cancelBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(cancelLabel.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
         }
     }
     
-    extension SignupViewController: UITextFieldDelegate {
-        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            self.view.endEditing(true)
-            return true
+    func addTextFieldWithLine(line: UIView, field: UITextField) {
+        view.addSubview(line)
+        line.snp.makeConstraints { (make) in
+            make.top.equalTo(field.snp.bottom)
+            make.height.equalTo(1)
+            make.width.equalTo(field.snp.width)
+            make.leading.trailing.equalTo(field)
         }
+    }
 }
+
+
+extension SignupViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+}
+
