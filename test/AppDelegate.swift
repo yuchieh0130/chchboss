@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     //var filterList = [String]()
     //var collectionArr = [String]()
     
+    let myPlaces = [PlaceModel]()
+    
     let net = NetworkController()
     
     var showDate: DateFormatter {
@@ -85,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         //myLocationManager.startUpdatingLocation()
         myLocationManager.startMonitoringSignificantLocationChanges()
         
+        myPlaces = DBManager.getInstance().getMyPlaces()
 //        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge, .carPlay], completionHandler: { (granted, error) in
@@ -124,31 +127,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 alertController.addAction(okAction)
                 self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
             }
+        }else{
+            let user_id = UserDefaults.standard.integer(forKey: "user_id")
+                    let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
+                    let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+                    self.net.pushTrackData(data: data){
+                                    (return_list) in
+                                    if let status_code = return_list?[0],
+                                        let data = return_list?[1] as? [[Any]],
+                                        let last_track_id = return_list?[2]{
+                                        if status_code as! Int == 200{
+                                            UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+            //                                for i in 0...data.count-1{
+            //                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2], startTime: data[i], weekDay: data[i], endDate: data[i], endTime: data[i], categoryId: data[i], locationId: data[i], placeId: data[i])
+            //                                    DBManager.getInstance().addTrack(modelInfo)
+            //                                }
+                                        }
+                                        else{
+                                            print(status_code)
+                                        }
+                                    }else{
+                                        print("error")
+                                        }
+                                    }
+                                }
+            
+            if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+                for i in 0...myPlaces.count-1{
+                    let title = myPlaces[i].placeName
+                    let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
+                    let regionRadius = 200.0
+                    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
+                        longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+                    locationManager.startMonitoringForRegion(region)
+                }
+            }
         }
-        
-        let user_id = UserDefaults.standard.integer(forKey: "user_id")
-        let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
-        let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
-        self.net.pushTrackData(data: data){
-                        (return_list) in
-                        if let status_code = return_list?[0],
-                            let data = return_list?[1] as? [[Any]],
-                            let last_track_id = return_list?[2]{
-                            if status_code as! Int == 200{
-                                UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
-//                                for i in 0...data.count-1{
-//                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2], startTime: data[i], weekDay: data[i], endDate: data[i], endTime: data[i], categoryId: data[i], locationId: data[i], placeId: data[i])
-//                                    DBManager.getInstance().addTrack(modelInfo)
-//                                }
-                            }
-                            else{
-                                print(status_code)
-                            }
-                        }else{
-                            print("error")
-                            }
-                        }
-                    }
         
     }
     
@@ -279,6 +293,16 @@ extension AppDelegate: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
+    }
+    
+    // 1. 當用戶進入一個 region
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        showAlert("You enter \(region.identifier)!!!")
+    }
+
+    // 2. 當用戶退出一個 region
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        showAlert("You exit \(region.identifier)!!!")
     }
     
 }
