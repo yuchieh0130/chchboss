@@ -20,6 +20,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
         userIcon.layer.cornerRadius = userIcon.frame.size.width/2.0
         userIcon.clipsToBounds = true

@@ -19,6 +19,7 @@ class PickerViewYearController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pickerViewYear.translatesAutoresizingMaskIntoConstraints = false
         
         if tag == "analysisYear"{
             pickerViewYear.dateYear = "\(pickerViewYear.year)"

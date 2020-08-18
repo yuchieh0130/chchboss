@@ -57,6 +57,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     override func viewDidLoad() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let btnOK = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(editBtn(_:)))
         let btnDelete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteBtn(_:)))

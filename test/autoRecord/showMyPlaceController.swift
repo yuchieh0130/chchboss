@@ -94,6 +94,7 @@ class showMyPlaceController: UIViewController{
     }
     
     override func viewDidLoad() {
+        tblView.translatesAutoresizingMaskIntoConstraints = false
         
         let addBtn = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addBtn(_:)))
         

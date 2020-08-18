@@ -75,6 +75,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableViewData = [cellConfig(opened: false, title: "taskTime"),
                          cellConfig(opened: false, title: "daealine")]
