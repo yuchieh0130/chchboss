@@ -55,42 +55,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         return formatter
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-//        case "addTask":
-//            if let navVC = segue.destination as? UINavigationController, let
-//                addVC = navVC.topViewController as? addTaskViewController {
-//            }
-        case "editTask":
-            if let navVC = segue.destination as? UINavigationController, let
-                editVC = navVC.topViewController as? addTaskViewController{
-                editVC.task = task
-            }
-        case "taskAddEvent":
-            if let navVC = segue.destination as? UINavigationController, let
-                addVC = navVC.topViewController as? addViewController{
-                let VC = segue.source as? ViewController
-                if VC?.calendarView.selectedDates.isEmpty == false{
-                    addVC.selectedDay = VC!.calendarView.selectedDates
-                }
-            }
-        default:
-            print("")
-        }
-        
-    }
-    
-    @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
-        if segue.identifier == "taskUnwindSegue"{
-            if DBManager.getInstance().getAllUndoneTask() == nil{
-                self.showTask = [TaskModel]()
-            }else{
-                self.showTask = DBManager.getInstance().getAllUndoneTask()
-            }
-            self.tableView.reloadData()
-        }
-    }
-    
     var fab: Floaty!
     var btnAdd: UIBarButtonItem!
     var btnDone: UIBarButtonItem!
@@ -289,6 +253,42 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         return showTask!.count
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+//        case "addTask":
+//            if let navVC = segue.destination as? UINavigationController, let
+//                addVC = navVC.topViewController as? addTaskViewController {
+//            }
+        case "editTask":
+            if let navVC = segue.destination as? UINavigationController, let
+                editVC = navVC.topViewController as? addTaskViewController{
+                editVC.task = task
+            }
+        case "taskAddEvent":
+            if let navVC = segue.destination as? UINavigationController, let
+                addVC = navVC.topViewController as? addViewController{
+                let VC = segue.source as? ViewController
+                if VC?.calendarView.selectedDates.isEmpty == false{
+                    addVC.selectedDay = VC!.calendarView.selectedDates
+                }
+            }
+        default:
+            print("")
+        }
+        
+    }
+    
+    @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
+        if segue.identifier == "taskUnwindSegue"{
+            if DBManager.getInstance().getAllUndoneTask() == nil{
+                self.showTask = [TaskModel]()
+            }else{
+                self.showTask = DBManager.getInstance().getAllUndoneTask()
+            }
+            tableView.reloadData()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:taskTableViewCell = tableView.dequeueReusableCell(withIdentifier: "taskTableViewCell", for: indexPath) as! taskTableViewCell
         let task = showTask![indexPath.row]
@@ -389,7 +389,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func didPressDelete() {
         let selectedRows = self.tableView.indexPathsForSelectedRows
-        let controller = UIAlertController(title: "Delete Done Task?", message: "Tasks will also be deleted from the calendar.", preferredStyle: .alert)
+        let controller = UIAlertController(title: "Delete Tasks?", message: "Tasks will also be deleted from the calendar.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
             if selectedRows != nil {
                 for selectionIndex in selectedRows! {
@@ -397,11 +397,15 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                     //let task = self.showTask?[selectionIndex.row]
                     self.showTask!.remove(at: selectionIndex.row)
                     self.tableView.deleteRows(at: [selectionIndex], with: .fade)
-                    DBManager.getInstance().deleteDoneTask(id: id!)
+                    DBManager.getInstance().deleteTask(id: id!)
+                    if DBManager.getInstance().getAllUndoneTask() == nil{
+                        self.showTask = [TaskModel]()
+                    }else{
+                        self.showTask = DBManager.getInstance().getAllUndoneTask()
+                    }
                     self.tableView.reloadData()
                 }
             }
-            print("OK")
             }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         deleteAction.setValue(UIColor.red, forKey: "titleTextColor")
@@ -412,7 +416,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func didPressDone() {
         let selectedRows = self.tableView.indexPathsForSelectedRows
-        let controller = UIAlertController(title: "Task Done?", message: "Tasks added to the DONE list could not be revertible.", preferredStyle: .alert)
+        let controller = UIAlertController(title: "Tasks Done?", message: "Tasks added to the DONE list could not be revertible.", preferredStyle: .alert)
         let doneAction = UIAlertAction(title: "Done", style: .default) { (_) in
             if selectedRows != nil {
                 for selectionIndex in selectedRows! {
@@ -427,7 +431,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.tableView.reloadData()
                 }
             }
-            print("OK")
             }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         doneAction.setValue(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), forKey: "titleTextColor")

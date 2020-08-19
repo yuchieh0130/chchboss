@@ -138,6 +138,11 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
                     self.showTask!.remove(at: selectionIndex.row)
                     self.tableView.deleteRows(at: [selectionIndex], with: .fade)
                     DBManager.getInstance().deleteDoneTask(id: id!)
+                    if DBManager.getInstance().getAllDoneTask() != nil{
+                        self.showTask = DBManager.getInstance().getAllDoneTask()
+                    }else{
+                        self.showTask = [TaskModel]()
+                    }
                     self.tableView.reloadData()
                 }
             }
