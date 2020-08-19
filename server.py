@@ -187,7 +187,7 @@ def updateTrack():
     nw_end_datetime = new_end_date + new_end_time
     od_end_datetime = old_end_date + old_end_time
 
-    if(nw_start_datetime=od_start_datetime and nw_end_datetime=od_end_datetime):
+    if(nw_start_datetime == od_start_datetime and nw_end_datetime == od_end_datetime):
         cur = conn.cursor()
         sql = "UPDATE track SET(category_id) VALUES (%s) WHERE start_time = %s and start_date = %s and user_id = %s"
         adr = (new_category_id, new_start_time, new_start_date, user_id)
