@@ -1,11 +1,12 @@
-from flask import Flask ,jsonify, request
+from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 import mysql.connector
 import uuid
-app = Flask(__name__) 
+app = Flask(__name__)
 
 
-conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+conn = mysql.connector.Connect(
+    host='localhost', user='root', password='chchboss', database='mo')
 
 # app.config["MYSQL_HOST"] = "127.0.0.1"
 # app.config["MYSQL_USER"] = "root"
@@ -20,10 +21,12 @@ mysql = MySQL(app)
 def home():
     return "Hello Flask"
 
+
 @app.route("/testGet")
 def test():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     cur = conn.cursor()
     cur.execute("SELECT * FROM appdb.test")
     results = cur.fetchall()
@@ -32,25 +35,27 @@ def test():
     return jsonify(results)
 
 
-
-@app.route("/testInsert",methods=["GET"])
+@app.route("/testInsert", methods=["GET"])
 def inserttest():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     cur = conn.cursor()
     sql = "INSERT INTO test (test_id, test_number, test_null) VALUES (%s, %s, %s)"
-    val = ("1234567890", "12345678","123")
+    val = ("1234567890", "12345678", "123")
     cur.execute(sql, val)
     conn.commit()
     cur.close()
     return jsonify({"status_code": 200})
 
+
 @app.route("/insertLocation", methods=["POST"])
 def insertLocation():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
-    
+
     longitude = data["longitude"]
     latitude = data["latitude"]
     start_date = data["start_date"]
@@ -67,23 +72,25 @@ def insertLocation():
     category2 = data["category2"]
     category3 = data["category3"]
     category4 = data["category4"]
-    category5 = data["category5"] 
-    user_id  = data["user_id"]
+    category5 = data["category5"]
+    user_id = data["user_id"]
 
     cur = conn.cursor()
     sql = "INSERT INTO location (longitude, latitude, start_date, start_time, weekday, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    adr = (longitude, latitude, start_date, start_time, weekday, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id)
+    adr = (longitude, latitude, start_date, start_time, weekday, duration, speed, name1, name2,
+           name3, name4, name5, category1, category2, category3, category4, category5, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
     return jsonify({"status_code": 200})
 
+
 @app.route("/insertSaveplace", methods=["POST"])
 def insertSaveplace():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
-
 
     user_id = data["user_id"]
     user_place_id = data["user_place_id"]
@@ -92,10 +99,10 @@ def insertSaveplace():
     place_latitude = data["place_latitude"]
     my_place = data["my_place"]
 
-
     cur = conn.cursor()
     sql = "INSERT INTO saveplace (user_place_id, place_name, place_longitude, place_latitude, my_place, user_id) VALUES (%s, %s, %s, %s, %s, %s)"
-    adr = (place_id, place_name, place_longitude, place_latitude, my_place, user_id)
+    adr = (place_id, place_name, place_longitude,
+           place_latitude, my_place, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
@@ -115,7 +122,7 @@ def insertSaveplace():
 #     place_id = data["place_id"]
 
 #     user_id  = data["user_id"]
-    
+
 #     cur = conn.cursor()
 #     sql = "INSERT INTO track (track_id, start_date, start_time, end_date, end_time, category_id, loaction_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
 #     adr = (track_id, start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id)
@@ -124,10 +131,12 @@ def insertSaveplace():
 #     cur.close()
 #     return jsonify({"status_code": 200})
 
+
 @app.route("/pushTrack", methods=["POST"])
 def pushTrack():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
     last_track_id = int(data["last_track_id"])
     user_id = int(data["user_id"])
@@ -135,20 +144,22 @@ def pushTrack():
     cur = conn.cursor()
     sql = "SELECT * FROM track WHERE user_id = %s AND track_id > %s"
     adr = (user_id, last_track_id)
-    cur.execute(sql,adr)
+    cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     track_data = fetch_data
     print(fetch_data)
     last_track_id = track_data[-1][0]
     print(last_track_id)
     return jsonify({"status_code": 200,
-                "data":track_data,
-                "last_track_id":last_track_id})
+                    "data": track_data,
+                    "last_track_id": last_track_id})
+
 
 @app.route("/updateTrack", methods=["POST"])
 def updateTrack():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
 
     track_id = data["track_id"]
@@ -162,7 +173,7 @@ def updateTrack():
     new_category_id = data["new_category_id"]
     new_location_id = data["new_location_id"]
     new_place_id = data["new_place_id"]
-    
+
     old_start_date = data["old_start_date"]
     old_start_time = data["old_start_time"]
     old_end_date = data["old_end_date"]
@@ -171,29 +182,37 @@ def updateTrack():
     old_location_id = data["old_location_id"]
     old_place_id = data["old_place_id"]
 
-
     nw_start_datetime = new_start_date + new_start_time
-    od_start_datetime = old_start_date +old_start_time
+    od_start_datetime = old_start_date + old_start_time
     nw_end_datetime = new_end_date + new_end_time
     od_end_datetime = old_end_date + old_end_time
 
-
-    if(nw_start_datetime>od_start_datetime and nw_end_datetime>od_end_datetime):
+    if(nw_start_datetime=od_start_datetime and nw_end_datetime=od_end_datetime):
+        cur = conn.cursor()
+        sql = "UPDATE track SET(category_id) VALUES (%s) WHERE start_time = %s and start_date = %s and user_id = %s"
+        adr = (new_category_id, new_start_time, new_start_date, user_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+    elif(nw_start_datetime > od_start_datetime and nw_end_datetime > od_end_datetime):
         cur = conn.cursor()
         sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) between %s and %s AND CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
-        adr =(nw_start_datetime, nw_end_datetime, nw_start_datetime, nw_end_datetime, user_id)
+        adr = (nw_start_datetime, nw_end_datetime,
+               nw_start_datetime, nw_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         cur = conn.cursor()
         sql = "UPDATE track SET (start_date, start_time, end_time, category_id, location_id, place_id) VALUES (%s, %s, %s, %s, %s, %s) WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, nw_end_datetime, new_category_id, new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
+        adr = (new_start_date, new_start_time, nw_end_datetime, new_category_id,
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         cur = conn.cursor()
         sql = "UPDATE track SET (start_date, start_time) VALUES(%s, %s) WHERE CONCAT(start_date, start_time) between %s and %s AND user_id = %s"
-        adr = (new_end_date, new_end_time, nw_start_datetime, nw_end_datetime, user_id)
+        adr = (new_end_date, new_end_time,
+               nw_start_datetime, nw_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -202,24 +221,27 @@ def updateTrack():
         adr = (new_start_date, new_start_time, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
-        cur.close()        
+        cur.close()
         return jsonify({"status_code": 200})
-    elif(nw_start_datetime<od_start_datetime and nw_end_datetime<od_end_datetime):
+    elif(nw_start_datetime < od_start_datetime and nw_end_datetime < od_end_datetime):
         cur = conn.cursor()
         sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) between %s and %s AND CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
-        adr =(nw_start_datetime, nw_end_datetime, nw_start_datetime, nw_end_datetime, user_id)
+        adr = (nw_start_datetime, nw_end_datetime,
+               nw_start_datetime, nw_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         cur = conn.cursor()
         sql = "UPDATE track SET (start_date, start_time, end_date, end_time, category_id, location_id, place_id) VALUES (%s, %s, %s, %s, %s, %s) WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, new_end_date, new_end_time, new_category_id, new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
+        adr = (new_start_date, new_start_time, new_end_date, new_end_time, new_category_id,
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         cur = conn.cursor()
         sql = "UPDATE track SET (end_date, end_time) VALUES(%s, %s) WHERE CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, nw_start_datetime, nw_end_datetime, user_id)
+        adr = (new_start_date, new_start_time,
+               nw_start_datetime, nw_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -228,38 +250,43 @@ def updateTrack():
         adr = (new_end_date, new_end_time, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
-        cur.close()      
+        cur.close()
         return jsonify({"status_code": 200})
-    elif(nw_start_datetime<od_start_datetime and nw_end_datetime>od_end_datetime):
+    elif((nw_start_datetime < od_start_datetime and nw_end_datetime > od_end_datetime) or (nw_start_datetime <= od_start_datetime and nw_end_datetime > od_end_datetime) or (nw_start_datetime < od_start_datetime and nw_end_datetime >= od_end_datetime)):
         cur = conn.cursor()
         sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) between %s and %s AND CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
-        adr =(nw_start_datetime, nw_end_datetime, nw_start_datetime, nw_end_datetime, user_id)
+        adr = (nw_start_datetime, nw_end_datetime,
+               nw_start_datetime, nw_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         cur = conn.cursor()
         sql = "INSERT INTO track(start_date, start_time, end_date, end_time, category_id, loaction_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        adr = (new_start_date, new_start_time, new_end_date, new_end_time, new_category_id, new_location_id, new_place_id, user_id)
+        adr = (new_start_date, new_start_time, new_end_date, new_end_time,
+               new_category_id, new_location_id, new_place_id, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         cur = conn.cursor()
         sql = "UPDATE track SET (end_date, end_time) VALUES(%s, %s) WHERE CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, nw_start_datetime, nw_end_datetime, user_id)
+        adr = (new_start_date, new_start_time,
+               nw_start_datetime, nw_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         cur = conn.cursor()
         sql = "UPDATE track SET (start_date, start_time) VALUES(%s, %s) WHERE CONCAT(start_date, start_time) between %s and %s AND user_id = %s"
-        adr = (new_end_date, new_end_time, nw_start_datetime, nw_end_datetime, user_id)
+        adr = (new_end_date, new_end_time,
+               nw_start_datetime, nw_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
-    elif(nw_start_datetime>od_start_datetime and nw_end_datetime<od_end_datetime):
+    elif((nw_start_datetime > od_start_datetime and nw_end_datetime < od_end_datetime) or (nw_start_datetime >= od_start_datetime and nw_end_datetime <= od_end_datetime)):
         cur = conn.cursor()
         sql = "UPDATE track SET (start_date, start_time, end_date, end_time, category_id, loaction_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) WHERE start_time = %s AND end_time = %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, new_end_date, new_end_time, new_category_id, new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
+        adr = (new_start_date, new_start_time, new_end_date, new_end_time, new_category_id,
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -268,7 +295,7 @@ def updateTrack():
         adr = (new_end_date, new_end_time, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
-        cur.close()  
+        cur.close()
         cur = conn.cursor()
         sql = "UPDATE track SET (end_date, end_time) VALUES(%s, %s) WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
         adr = (new_start_date, new_start_time, od_start_datetime, user_id)
@@ -286,7 +313,6 @@ def updateTrack():
     # fetch_data = cur.fetchall()
     # user_id = fetch_data[0][0]
     # cur.close()
-    
 
     # cur = conn.cursor()
     # sql = "UPDATE track SET (track_id, start_date, start_time, end_date, end_time, category_id, loaction_id, place_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) WHERE user_id = %s"
@@ -296,10 +322,12 @@ def updateTrack():
     # cur.close()
     # return jsonify({"status_code": 200})
 
+
 @app.route("/deleteTrack", methods=["POST"])
 def deleteTrack():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
     user_id = data["user_id"]
     start_date = data["start_date"]
@@ -317,13 +345,14 @@ def deleteTrack():
     conn.commit()
     cur.close()
 
+
 @app.route("/insertTrack", methods=["POST"])
 def insertTrack():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
 
-    
     user_id = data["user_id"]
     start_date = data["start_date"]
     start_time = data["start_time"]
@@ -332,21 +361,27 @@ def insertTrack():
     category_id = data["category_id"]
     location_id = data["location_id"]
     place_id = data["place_id"]
-    
+
     nw_start_datetime = start_date + start_time
     nw_end_datetime = end_date + end_time
 
     # 覆寫包含下一筆
     cur = conn.cursor()
-    sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) BETWEEN %s and %s AND user_id = %s"
+    sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) > %s AND CONCAT(start_date, start_time) < %s AND user_id = %s"
     adr = (nw_start_datetime, nw_end_datetime, user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
-    if(fetch_data):
+    if(len(fetch_data) == 1):
         if(category_id != fetch_data):
             cur = conn.cursor()
+            sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) BETWEEN %s and %s AND CONCAT(start_date, start_time) BETWEEN"
+
+            cur = conn.cursor()
             sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE "
+            adr = (end_date, end_time)
+
+    else
 # 若insert在某一段在最後,延長
     nw_end_datetime = end_date + end_time
     nw_start_datetime = start_date + start_time
@@ -377,23 +412,25 @@ def insertTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        
+
     cur = conn.cursor()
     sql = "INSERT INTO track (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    adr = (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id)
+    adr = (start_date, start_time, end_date, end_time,
+           category_id, location_id, place_id, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
 
-
     return jsonify({"status_code": 200})
+
 
 @app.route("/insertCategory", methods=["POST"])
 def insertCategory():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
-    
+
     user_id = dara["user_id"]
     category_id = data["category_id"]
     category_name = data["category_name"]
@@ -409,12 +446,11 @@ def insertCategory():
     return jsonify({"status_code": 200})
 
 
-
-
 @app.route("/register", methods=["POST"])
 def register():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
     email = str(data["email"])
     print("current email"+email)
@@ -455,7 +491,8 @@ def register():
 @app.route("/login", methods=["POST"])
 def login():
     import mysql.connector
-    conn = mysql.connector.Connect(host='localhost', user='root',password='chchboss',database='mo')
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
     # print(data)
     email = data["email"]
@@ -471,8 +508,8 @@ def login():
     if fetch_data:
         return jsonify({"status_code": 200, "user_id": fetch_data[0][0]})
     else:
-        return jsonify({"status_code": 400,"user_id": 0})
-    
+        return jsonify({"status_code": 400, "user_id": 0})
+
 
 # @app.route("/logout", methods=["POST"])
 # def logout():
@@ -490,4 +527,4 @@ def login():
 #     except:4
 #         return jsonify({"status_code": 400})
 if __name__ == "__main__":
-    app.run(host = "140.119.19.42")
+    app.run(host="140.119.19.42")
