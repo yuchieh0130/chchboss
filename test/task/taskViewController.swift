@@ -55,42 +55,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         return formatter
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-//        case "addTask":
-//            if let navVC = segue.destination as? UINavigationController, let
-//                addVC = navVC.topViewController as? addTaskViewController {
-//            }
-        case "editTask":
-            if let navVC = segue.destination as? UINavigationController, let
-                editVC = navVC.topViewController as? addTaskViewController{
-                editVC.task = task
-            }
-        case "taskAddEvent":
-            if let navVC = segue.destination as? UINavigationController, let
-                addVC = navVC.topViewController as? addViewController{
-                let VC = segue.source as? ViewController
-                if VC?.calendarView.selectedDates.isEmpty == false{
-                    addVC.selectedDay = VC!.calendarView.selectedDates
-                }
-            }
-        default:
-            print("")
-        }
-        
-    }
-    
-    @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
-        if segue.identifier == "taskUnwindSegue"{
-            if DBManager.getInstance().getAllUndoneTask() == nil{
-                self.showTask = [TaskModel]()
-            }else{
-                self.showTask = DBManager.getInstance().getAllUndoneTask()
-            }
-            self.tableView.reloadData()
-        }
-    }
-    
     var fab: Floaty!
     var btnAdd: UIBarButtonItem!
     var btnDone: UIBarButtonItem!
@@ -287,6 +251,38 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return showTask!.count
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+//        case "addTask":
+//            if let navVC = segue.destination as? UINavigationController, let
+//                addVC = navVC.topViewController as? addTaskViewController {
+//            }
+        case "editTask":
+            if let navVC = segue.destination as? UINavigationController, let
+                editVC = navVC.topViewController as? addTaskViewController{
+                editVC.task = task
+            }
+        case "taskAddEvent":
+            if let navVC = segue.destination as? UINavigationController, let
+                addVC = navVC.topViewController as? addViewController{
+                let VC = segue.source as? ViewController
+                if VC?.calendarView.selectedDates.isEmpty == false{
+                    addVC.selectedDay = VC!.calendarView.selectedDates
+                }
+            }
+        default:
+            print("")
+        }
+        
+    }
+    
+    @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
+        if segue.identifier == "taskUnwindSegue"{
+            self.showTask = DBManager.getInstance().getAllUndoneTask()
+            tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
