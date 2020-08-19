@@ -95,6 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 print("不允許")
             }
         })
+        UNUserNotificationCenter.current().delegate = self
         
         return true
     }
@@ -118,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         if CLLocationManager.authorizationStatus() == .notDetermined{
              myLocationManager.requestAlwaysAuthorization()
+            
         }else if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
             DispatchQueue.main.async(){
                 let alertController = UIAlertController(title: "定位權限已被關閉或限制", message: "可能影響app紀錄準確度 \n如要變更權限，請至 設定>隱私權>定位服務 開啟永遠允許", preferredStyle: .alert)
@@ -126,6 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
             }
         }else{
+            startMonitorRegion()
             let user_id = UserDefaults.standard.integer(forKey: "user_id")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
@@ -148,21 +151,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                                         print("error")
                                         }
                                     }
-                                }
-            
-            if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-                if DBManager.getInstance().getMyPlaces() != nil{
-                    myPlaces = DBManager.getInstance().getMyPlaces()
-                    for i in 0...myPlaces.count-1{
-                        let title = myPlaces[i].placeName
-                        let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
-                        let regionRadius = 200.0
-                        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
-                            longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-                        myLocationManager.startMonitoring(for: region)
-                    }
-                }
             }
+
         }
         
     }
@@ -174,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
 
 
-extension AppDelegate: CLLocationManagerDelegate {
+extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelegate{
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
@@ -296,9 +286,39 @@ extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
     }
     
+    func startMonitorRegion(){
+        print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
+        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+//
+//            let title = "Lorrenzillo's"
+//            let coordinate = CLLocationCoordinate2DMake(37.703026, -121.759735)
+//            let regionRadius = 300.0
+//
+//            // 3. 設置 region 的相關屬性
+//            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
+//                longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+//            myLocationManager.startMonitoring(for: region)
+            if DBManager.getInstance().getMyPlaces() != nil{
+                myPlaces = DBManager.getInstance().getMyPlaces()
+                for i in 0...myPlaces.count-1{
+                    let title = myPlaces[i].placeName
+                    let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
+                    let regionRadius = 200.0
+                    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
+                        longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+                    myLocationManager.startMonitoring(for: region)
+                }
+            }
+        }
+    }
+    
     // 1. 當用戶進入一個 region
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         makeNotification(String: "You enter \(region.identifier)!!!")
+    }
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        makeNotification(String: "didStartMonitoringFor")
+        print(region)
     }
 
     // 2. 當用戶退出一個 region
@@ -306,21 +326,26 @@ extension AppDelegate: CLLocationManagerDelegate {
         makeNotification(String: "You exit \(region.identifier)!!!")
     }
     
-    func showAlert(String: String){
-        let controller = UIAlertController(title: "WOW", message: String, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default){_ in
-            controller.dismiss(animated: true, completion: nil)}
-        controller.addAction(okAction)
-        self.window?.rootViewController?.present(controller, animated: true,completion: .none)
-    }
+//    func showAlert(String: String){
+//        let controller = UIAlertController(title: "WOW", message: String, preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+//            controller.dismiss(animated: true, completion: nil)}
+//        controller.addAction(okAction)
+//        self.window?.rootViewController?.present(controller, animated: true,completion: .none)
+//    }
     
     func makeNotification(String: String){
         let no = UNMutableNotificationContent()
             no.title = "Motitor Region Notification"
             no.body = String
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
         let request = UNNotificationRequest(identifier: "Motitor Region Notification", content: no, trigger: trigger)
         UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("在前景收到通知...")
+        completionHandler([.alert,.sound,.badge])
     }
     
 }

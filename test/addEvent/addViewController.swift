@@ -482,7 +482,7 @@ class addViewController : UIViewController {
         var fireDate = s
         var notificationIndex = [0]
         if allDay{
-            fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: e)) 0:00")!
+            fireDate = showDateformatter.date(from: "\(showDayformatter.string(from: s)) 0:00")!
             reminderData = reminderData_allDay
             notificationIndex = allDayReminder_index
         }else{
