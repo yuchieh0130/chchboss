@@ -94,7 +94,7 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
 //        calendarView.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
 //
         self.navigationController?.navigationBar.shadowImage = UIImage()
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent(_:)))
@@ -140,7 +140,7 @@ class ViewController: UIViewController{
             })
         }
         floaty.openAnimationType = .slideUp
-        floaty.isDraggable = true
+        //floaty.isDraggable = true
         floaty.hasShadow = false
         floaty.autoCloseOnTap = true
         floaty.friendlyTap = false
@@ -194,9 +194,9 @@ class ViewController: UIViewController{
             let VC = segue.source as? addViewController
             var added = [Date]()
             added.append(showDayFormatter.date(from: VC!.startDate)!)
-        if calendarView.selectedDates != added{
-             calendarView.selectDates(added)
-        }
+            if calendarView.selectedDates != added{
+                 calendarView.selectDates(added)
+            }
             calendarView.reloadData()
         }
     }

@@ -96,7 +96,8 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         super.viewDidLoad()
         title = "Analysis"
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
+        segCon.translatesAutoresizingMaskIntoConstraints = false
+        timeView.translatesAutoresizingMaskIntoConstraints = false
         pieChart.translatesAutoresizingMaskIntoConstraints = false
         pieChartWeek.translatesAutoresizingMaskIntoConstraints = false
         pieChartMonth.translatesAutoresizingMaskIntoConstraints = false
