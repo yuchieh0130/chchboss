@@ -280,10 +280,10 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
         if segue.identifier == "taskUnwindSegue"{
-            if DBManager.getInstance().getAllUndoneTask() == nil{
-                self.showTask = [TaskModel]()
+            if DBManager.getInstance().getAllUndoneTask() != nil{
+                showTask = DBManager.getInstance().getAllUndoneTask()
             }else{
-                self.showTask = DBManager.getInstance().getAllUndoneTask()
+                showTask = [TaskModel]()
             }
             tableView.reloadData()
         }

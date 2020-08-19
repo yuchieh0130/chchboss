@@ -327,17 +327,16 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
                 let okAction = UIAlertAction(title: "OK", style: .default){_ in
                     controller.dismiss(animated: true, completion: nil)}
                 controller.addAction(okAction)
-                self.present(controller, animated: true,completion: .none)
+                self.present(controller, animated: true, completion: .none)
             }
     }
     
     func alertMessage1(){
                if deadline == "" {
-                   let controller = UIAlertController(title: "Error", message: "Enter a deadline", preferredStyle: .alert)
-                   let okAction = UIAlertAction(title: "OK", style: .default){_ in
-                       controller.dismiss(animated: true, completion: nil)}
-                   controller.addAction(okAction)
-                   self.present(controller, animated: true,completion: .none)
+                let controller = UIAlertController(title: "Error", message: "Enter a deadline", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .cancel)
+                controller.addAction(okAction)
+                self.present(controller, animated: true, completion: .none)
                }
        }
     
@@ -360,6 +359,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         case [0,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "taskNameCell", for: indexPath) as! taskNameCell
             cell.txtTaskName.text = taskName
+            cell.txtTaskName.delegate = self
             cell.selectionStyle = .none
             return cell
         case [1,0]:
@@ -393,7 +393,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "addToCalendarCell", for: indexPath)
             cell.accessoryView = switchcalendar
             switchcalendar.setOn(addToCal, animated: .init())
-            cell.selectionStyle = .none
+            cell.selectionStyle = .default
             return cell
         case [4,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reminderCell", for: indexPath) as! reminderCell
