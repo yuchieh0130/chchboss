@@ -346,82 +346,81 @@ def deleteTrack():
     cur.close()
 
 
-@app.route("/insertTrack", methods=["POST"])
-def insertTrack():
-    import mysql.connector
-    conn = mysql.connector.Connect(
-        host='localhost', user='root', password='chchboss', database='mo')
-    data = request.get_json()
+# @app.route("/insertTrack", methods=["POST"])
+# def insertTrack():
+#     import mysql.connector
+#     conn = mysql.connector.Connect( host='localhost', user='root', password='chchboss', database='mo')
+#     data = request.get_json()
 
-    user_id = data["user_id"]
-    start_date = data["start_date"]
-    start_time = data["start_time"]
-    end_date = data["end_date"]
-    end_time = data["end_time"]
-    category_id = data["category_id"]
-    location_id = data["location_id"]
-    place_id = data["place_id"]
+#     user_id = data["user_id"]
+#     start_date = data["start_date"]
+#     start_time = data["start_time"]
+#     end_date = data["end_date"]
+#     end_time = data["end_time"]
+#     category_id = data["category_id"]
+#     location_id = data["location_id"]
+#     place_id = data["place_id"]
 
-    nw_start_datetime = start_date + start_time
-    nw_end_datetime = end_date + end_time
+#     nw_start_datetime = start_date + start_time
+#     nw_end_datetime = end_date + end_time
 
-    # 覆寫包含下一筆
-    cur = conn.cursor()
-    sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) > %s AND CONCAT(start_date, start_time) < %s AND user_id = %s"
-    adr = (nw_start_datetime, nw_end_datetime, user_id)
-    cur.execute(sql, adr)
-    fetch_data = cur.fetchall()
-    cur.close()
-    if(len(fetch_data) == 1):
-        if(category_id != fetch_data):
-            cur = conn.cursor()
-            sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) BETWEEN %s and %s AND CONCAT(start_date, start_time) BETWEEN"
+#     # 覆寫包含下一筆
+#     cur = conn.cursor()
+#     sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) > %s AND CONCAT(start_date, start_time) < %s AND user_id = %s"
+#     adr = (nw_start_datetime, nw_end_datetime, user_id)
+#     cur.execute(sql, adr)
+#     fetch_data = cur.fetchall()
+#     cur.close()
+#     if(len(fetch_data) == 1):
+#         if(category_id != fetch_data):
+#             cur = conn.cursor()
+#             sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) BETWEEN %s and %s AND CONCAT(start_date, start_time) BETWEEN"
 
-            cur = conn.cursor()
-            sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE "
-            adr = (end_date, end_time)
+#             cur = conn.cursor()
+#             sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE "
+#             adr = (end_date, end_time)
 
-    else
-# 若insert在某一段在最後,延長
-    nw_end_datetime = end_date + end_time
-    nw_start_datetime = start_date + start_time
-    cur = conn.cursor()
-    sql = "SELECT category_id FROM track WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
-    adr = (nw_start_datetime, user_id)
-    cur.execute(sql, adr)
-    fetch_data = cur.fetchall
-    cur.close()
-    if(fetch_data == category_id):
-        cur = conn.cursor()
-        sql = "UPDATE track SET (end_date, end_time) VALUES (%s, %s) WHERE user_id = %s AND CONCAT(end_date, end_time) = %s"
-        adr = (end_date, end_time, user_id, nw_start_datetime)
-        cur.execute(sql, adr)
-        conn.commit()
-        cur.close()
+#     else
+# # 若insert在某一段在最後,延長
+#     nw_end_datetime = end_date + end_time
+#     nw_start_datetime = start_date + start_time
+#     cur = conn.cursor()
+#     sql = "SELECT category_id FROM track WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
+#     adr = (nw_start_datetime, user_id)
+#     cur.execute(sql, adr)
+#     fetch_data = cur.fetchall
+#     cur.close()
+#     if(fetch_data == category_id):
+#         cur = conn.cursor()
+#         sql = "UPDATE track SET (end_date, end_time) VALUES (%s, %s) WHERE user_id = %s AND CONCAT(end_date, end_time) = %s"
+#         adr = (end_date, end_time, user_id, nw_start_datetime)
+#         cur.execute(sql, adr)
+#         conn.commit()
+#         cur.close()
 
-    cur = conn.cursor()
-    sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-    adr = (nw_end_datetime, user_id)
-    cur.execute(sql, adr)
-    fetch_data = cur.fetchall
-    cur.close()
-    if(fetch_data == category_id):
-        cur = conn.cursor()
-        sql = "UPDATE track SET (start_date, start_time) VALUES (%s, %s) WHERE user_id = %s AND CONCAT(start_date, start_time) = %s"
-        adr = (start_date, start_time, user_id, nw_end_datetime)
-        cur.execute(sql, adr)
-        conn.commit()
-        cur.close()
+#     cur = conn.cursor()
+#     sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
+#     adr = (nw_end_datetime, user_id)
+#     cur.execute(sql, adr)
+#     fetch_data = cur.fetchall
+#     cur.close()
+#     if(fetch_data == category_id):
+#         cur = conn.cursor()
+#         sql = "UPDATE track SET (start_date, start_time) VALUES (%s, %s) WHERE user_id = %s AND CONCAT(start_date, start_time) = %s"
+#         adr = (start_date, start_time, user_id, nw_end_datetime)
+#         cur.execute(sql, adr)
+#         conn.commit()
+#         cur.close()
 
-    cur = conn.cursor()
-    sql = "INSERT INTO track (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    adr = (start_date, start_time, end_date, end_time,
-           category_id, location_id, place_id, user_id)
-    cur.execute(sql, adr)
-    conn.commit()
-    cur.close()
+#     cur = conn.cursor()
+#     sql = "INSERT INTO track (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+#     adr = (start_date, start_time, end_date, end_time,
+#            category_id, location_id, place_id, user_id)
+#     cur.execute(sql, adr)
+#     conn.commit()
+#     cur.close()
 
-    return jsonify({"status_code": 200})
+#     return jsonify({"status_code": 200})
 
 
 @app.route("/insertCategory", methods=["POST"])
