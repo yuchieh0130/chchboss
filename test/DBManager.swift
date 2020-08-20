@@ -624,7 +624,7 @@ class DBManager: NSObject {
     //新增track
     func addTrack(_ modelInfo: TrackModel) {
         shareInstance.database?.open()
-        shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId!])
+        shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.weekDay,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId!])
         shareInstance.database?.close()
     }
     

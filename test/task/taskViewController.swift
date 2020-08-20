@@ -29,7 +29,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
