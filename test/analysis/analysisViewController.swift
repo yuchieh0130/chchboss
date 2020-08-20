@@ -348,12 +348,12 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
         var startDay = ""
         var endDay = ""
-        var startWeek = ""
-        var endWeek = 0
-        var startMonth = ""
-        var endMonth = ""
-        var startYear = ""
-        var endYear = ""
+//        var startWeek = ""
+//        var endWeek = 0
+//        var startMonth = ""
+//        var endMonth = ""
+//        var startYear = ""
+//        var endYear = ""
         for i in 0...showTrack.count-1{
             startDay = showTrack[i].startTime
             endDay = showTrack[i].endTime
@@ -439,6 +439,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         tag = nil
         if (segue.identifier == "analysisToCombineChart"){
             if let vc = segue.destination as? combineChartViewController{
+                vc.hidesBottomBarWhenPushed = true
                 if segConIndex == 0{
                     vc.name = "\(showCategory[indexDay].categoryName)"
                     vc.color = hexStringToUIColor (hex:"\(showCategory[indexDay].categoryColor)")
