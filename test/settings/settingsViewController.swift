@@ -16,6 +16,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var userName: UILabel!
     @IBOutlet var userID: UILabel!
     @IBOutlet var addPhotoBtn: UIButton!
+    @IBOutlet var logOutBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,14 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationController?.navigationBar.shadowImage = UIImage()
         userIcon.layer.cornerRadius = userIcon.frame.size.width/2.0
         userIcon.clipsToBounds = true
+        logOutBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        logOutBtn.layer.cornerRadius = logOutBtn.frame.height/2
+        logOutBtn.clipsToBounds = true
+        logOutBtn.snp.makeConstraints { (make) in
+            make.leading.equalTo(100)
+            make.trailing.equalTo(-100)
+            make.height.equalTo(70)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +103,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func logOutBtn(_ sender: Any) {
         UserDefaults.standard.set(false, forKey: "isLogIn")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
