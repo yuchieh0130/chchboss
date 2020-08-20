@@ -142,7 +142,12 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
             trackView.tag = i
             trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
             trackView.addTarget(self, action: #selector(self.editAutoRecord), for: .touchUpInside)
-            let categoryLabel = UILabel(frame:CGRect(x:20,y:20,width: 500,height: 50))
+            let categoryLabel: UILabel!
+            if height < 70{
+                categoryLabel = UILabel(frame:CGRect(x:20,y:0,width: 500,height: height))
+            }else{
+                categoryLabel = UILabel(frame:CGRect(x:20,y:20,width: 500,height: 50))
+            }
             categoryLabel.text = "\(category!.categoryName)"
             trackView.addSubview(categoryLabel)
             //trackView.layer.borderColor = hexStringToUIColor_border(hex: category!.categoryColor).cgColor

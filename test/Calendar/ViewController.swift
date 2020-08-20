@@ -71,7 +71,6 @@ class ViewController: UIViewController{
             if let VC = segue.destination as? timeline{
                 VC.date = selectedDay
                 VC.hidesBottomBarWhenPushed = true
-                print(VC.date)
             }
         default:
             print("")
@@ -302,12 +301,15 @@ class ViewController: UIViewController{
     //    }
     
     @objc func transToToday(_ sender: Any){
-        calendarView.reloadData(withanchor: Date())
-        monthLabel.text = showMonthFormatter.string(from: Date())
+//        calendarView.reloadData(withanchor: Date())
+//        monthLabel.text = showMonthFormatter.string(from: Date())
         var today = [Date]()
-        today.append(Date())
+        today.append(showDayFormatter.date(from: showDayFormatter.string(from: Date()))!)
         if calendarView.selectedDates != today{
             calendarView.selectDates(today)
+            calendarView.reloadData(withanchor: Date())
+            monthLabel.text = showMonthFormatter.string(from: Date())
+            print("rwrrhe\(calendarView.selectedDates)")
         }
     }
     
