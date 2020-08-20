@@ -129,7 +129,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             }
         }else{
             startMonitorRegion()
-            let user_id = UserDefaults.standard.integer(forKey: "user_id")
+            //let user_id = UserDefaults.standard.integer(forKey: "user_id")
+            let user_id = 2
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
                     self.net.pushTrackData(data: data){
@@ -140,11 +141,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                                         if status_code as! Int == 200{
                                             UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
                                             for i in 0...data.count-1{
-                                                print(data)
-                                                let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i] as! String, weekDay: data[i] as! Int32, endDate: data[i] as! String, endTime: data[i]  as! String, categoryId: data[i] as! Int32, locationId: data[i] as! Int32, placeId: data[i] as? Int32)
-                                                print(data[i][2] as! String)
-                                                
-                                                DBManager.getInstance().addTrack(modelInfo)
+                                                //print(data)
+//                                                let modelInfo = TrackModel(trackId: 0, startDate: data[i][3] as! String, startTime: data[i][4] as! String, weekDay: data[i][5] as! Int32, endDate: data[i][6] as! String, endTime: data[i][7]  as! String, categoryId: data[i] as! Int32, locationId: data[i] as! Int32, placeId: data[i] as! Int32)
+//                                                print(modelInfo)
+                                                //DBManager.getInstance().addTrack(modelInfo)
                                             }
                                         }
                                         else{
@@ -320,8 +320,8 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         makeNotification(String: "You enter \(region.identifier)!!!")
     }
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        makeNotification(String: "didStartMonitoringFor")
-        print(region)
+//        makeNotification(String: "didStartMonitoringFor")
+//        print(region)
     }
 
     // 2. 當用戶退出一個 region
