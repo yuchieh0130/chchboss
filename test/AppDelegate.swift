@@ -116,10 +116,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
+        print("active")
         if CLLocationManager.authorizationStatus() == .notDetermined{
+            print("????")
             myLocationManager.requestAlwaysAuthorization()
-            
         }else if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
             DispatchQueue.main.async(){
                 let alertController = UIAlertController(title: "定位權限已被關閉或限制", message: "可能影響app紀錄準確度 \n如要變更權限，請至 設定>隱私權>定位服務 開啟永遠允許", preferredStyle: .alert)
@@ -128,55 +128,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
             }
         }else{
+            print("accept!")
             startMonitorRegion()
             //let user_id = UserDefaults.standard.integer(forKey: "user_id")
-            let user_id = 1
-            //String(user_id)
-            let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
+            let user_id = 2
+                                let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
             print(last_track_id)
-            let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
-            self.net.pushTrackData(data: data){
-                (return_list) in
-                print(return_list)
-//                if let status_code = return_list?[0],
-//                    let data = return_list?[1] as? [[Any]],
-//                    let last_track_id = return_list?[2]{
-//                        if status_code as! Int == 200{
-//                            UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
-////                            for i in 0...data.count-1{
-//                                print(data)
-                        //                                            for i in 0...582{
-                        //                                                let trackId : Int32!
-                        //                                                let startDate: String!
-                        //                                                let startTime: String!
-                        //                                                let weekDay: Int32!
-                        //                                                let endDate: String!
-                        //                                                let endTime: String!
-                        //                                                let categoryId: Int32!
-                        //                                                let locationId: Int32!
-                        //                                                let placeId: Int32!
-                        //
-                        //                                                trackId = 0
-                        //                                                startDate = data[i][3]
-                        //                                                startTime = data[i][4]
-                        //                                                weekDay = data[i][5]
-                        //                                                endDate = data[i][6]
-                        //                                                endTime = data[i][7]
-                        //                                                categoryId = data[i][8] as? Int32
-                        //                                                locationId = 1
-                        //                                                placeId = 1
-                        
-                        //                                                let modelInfo = TrackModel(trackId: 0, startDate: String(data[i][3] as! NSString) , startTime: String(data[i][4] as! NSString) , weekDay: (data[i][5] as! NSString).intValue, endDate: String(data[i][6] as! NSString) , endTime: String(data[i][7] as! NSString) , categoryId: (data[i][8] as! NSString).intValue, locationId: 1, placeId: 0)
-                        //                                                print(modelInfo)
-                        //                                                DBManager.getInstance().addTrack(modelInfo)
-                       // }
-//                    }
-//                    else{
-//                        print(status_code)
-//                    }
-//                }else{
-//                    print("error")
-//                }
+                                let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+                                self.net.pushTrackData(data: data){
+                                                (return_list) in
+                                                if let status_code = return_list?[0],
+                                                    let data = return_list?[1] as? [[AnyObject]],
+                                                    let last_track_id = return_list?[2]{
+                                                    if status_code as! Int == 200{
+                                                        UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+                                                        for i in 0...582{
+                                                            let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+                                                            //print(modelInfo)
+                                                            DBManager.getInstance().addTrack(modelInfo)
+                                                        }
+                                                    }
+                                                    else{
+                                                        print(status_code)
+                                                    }
+                                                }else{
+                                                    print("error")
+                                                    }
             }
         }
         
