@@ -71,6 +71,7 @@ class ViewController: UIViewController{
             if let VC = segue.destination as? timeline{
                 VC.date = selectedDay
                 VC.hidesBottomBarWhenPushed = true
+                print(VC.date)
             }
         default:
             print("")
