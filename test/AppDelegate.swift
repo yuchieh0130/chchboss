@@ -339,10 +339,10 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     
     func makeNotification(String: String){
         let no = UNMutableNotificationContent()
-            no.title = "Motitor Region Notification"
+            no.title = "Monitor Region Notification"
             no.body = String
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
-        let request = UNNotificationRequest(identifier: "Motitor Region Notification", content: no, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "Monitor Region Notification", content: no, trigger: trigger)
         UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
     }
     

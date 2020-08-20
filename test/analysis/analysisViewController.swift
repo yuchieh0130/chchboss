@@ -52,10 +52,10 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var currentMonth = Calendar.current.component(.month, from: Date())
     var currentDay = Calendar.current.component(.day, from: Date())
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    var startWeek = Date().startOfWeek
-    var endWeek = Date().endOfWeek
-    var start = ""
-    var end = ""
+    var startOfWeek = Date().startOfWeek
+    var endOfWeek = Date().endOfWeek
+    var startWeekDay = ""
+    var endWeekDay = ""
     var numberOfWeeksInYear: Int {
         let calendar = Calendar(identifier: .gregorian)
         let weekRange = calendar.range(of: .weekOfYear,
@@ -346,24 +346,58 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     
     func getTrackTime(){
         showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
-        var start = ""
-        var end = ""
+        var startDay = ""
+        var endDay = ""
+        var startWeek = ""
+        var endWeek = 0
+        var startMonth = ""
+        var endMonth = ""
+        var startYear = ""
+        var endYear = ""
         for i in 0...showTrack.count-1{
-            start = showTrack[i].startTime
-            end = showTrack[i].endTime
+            startDay = showTrack[i].startTime
+            endDay = showTrack[i].endTime
+//            startWeek = showTrack[i].startTime
+//            endWeek = Calendar.current.component(.weekOfYear, from: Date())
+//            startMonth = showTrack[i].startTime
+//            endMonth = showTrack[i].endTime
+//            startYear = showTrack[i].startTime
+//            endYear = showTrack[i].endTime
+            
             if showTrack[i].startDate != selectedDay{
-                start = "00:00"
+                startDay = "00:00"
             }
             if showTrack[i].endDate != selectedDay{
-                end = "23:59"
+                endDay = "23:59"
             }
-            let trackTime = round(10*(showTimeformatter.date(from: end)?.timeIntervalSince(showTimeformatter.date(from: start)!))!/3600)/10
-            print("Item \(showTrack[i].categoryId): \(trackTime)")
+            
+            let trackTimeDay = round(10*(showTimeformatter.date(from: endDay)?.timeIntervalSince(showTimeformatter.date(from: startDay)!))!/3600)/10
+//            let trackTimeWeek = round(10*(showTimeformatter.date(from: endWeek)?.timeIntervalSince(showTimeformatter.date(from: startWeek)!))!/3600)/10
+//            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
+//            let trackTimeYear = round(10*(showTimeformatter.date(from: endYear)?.timeIntervalSince(showTimeformatter.date(from: startYear)!))!/3600)/10
+            
+            print("Item \(showTrack[i].categoryId): \(trackTimeDay)")
+            
             valuesDay.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
-                    valuesDay[index] = value+trackTime
+                    valuesDay[index] = value+trackTimeDay
                 }
             }
+//            valuesWeek.enumerated().forEach{index, value in
+//                if showTrack[i].categoryId-1 == index{
+//                    valuesWeek[index] = value+trackTimeWeek
+//                }
+//            }
+//            valuesMonth.enumerated().forEach{index, value in
+//                if showTrack[i].categoryId-1 == index{
+//                    valuesMonth[index] = value+trackTimeMonth
+//                }
+//            }
+//            valuesYear.enumerated().forEach{index, value in
+//                if showTrack[i].categoryId-1 == index{
+//                    valuesYear[index] = value+trackTimeYear
+//                }
+//            }
         }
     }
     
@@ -496,9 +530,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     func setUpWeek(){
-        start = showDayformatter.string(from: startWeek!)
-        end = showDayformatter.string(from: endWeek!)
-        timeLabel.text = "\(start) ~ \(end)"
+        startWeekDay = showDayformatter.string(from: startOfWeek!)
+        endWeekDay = showDayformatter.string(from: endOfWeek!)
+        timeLabel.text = "\(startWeekDay) ~ \(endWeekDay)"
     }
     
     func setUpMonth(){
@@ -509,51 +543,51 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         timeLabel.text = "\(currentYear)"
     }
     
-    @IBAction func leftBtnAction(_ sender: UIButton) {
-        if segConIndex == 0{
-            currentDate = showDayformatter.string(from: Date.yesterday)
-            timeLabel.text = currentDate
-        }else if segConIndex == 1{
-            let lastWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
-            start = "\(showDayformatter.string(from: lastWeek.startOfWeek!))"
-            end = "\(showDayformatter.string(from: lastWeek.endOfWeek!))"
-            timeLabel.text = "\(start) ~ \(end)"
-        }else if segConIndex == 2{
-            currentMonth -= 1
-            if currentMonth == 0{
-                currentMonth = 12
-                currentYear -= 1
-            }
-            setUpMonth()
-        }else if segConIndex == 3{
-            currentYear -= 1
-            setUpYear()
-        }
-    }
-    
-    @IBAction func rightBtnAction(_ sender: UIButton) {
-        if segConIndex == 0{
-            currentDay += 1
-            setUpDay()
-        }else if segConIndex == 1{
-            let dateFormat = DateFormatter()
-            dateFormat.dateFormat =  "yyyy-MM-dd"
-            let nextWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date())!
-            start = "\(dateFormat.string(from: nextWeek.startOfWeek!))"
-            end = "\(dateFormat.string(from: nextWeek.endOfWeek!))"
-            timeLabel.text = "\(start) ~ \(end)"
-        }else if segConIndex == 2{
-            currentMonth += 1
-            if currentMonth == 13{
-                currentMonth = 1
-                currentYear += 1
-                }
-            setUpMonth()
-        }else if segConIndex == 3{
-            currentYear += 1
-            setUpYear()
-        }
-    }
+//    @IBAction func leftBtnAction(_ sender: UIButton) {
+//        if segConIndex == 0{
+//            currentDate = showDayformatter.string(from: Date.yesterday)
+//            timeLabel.text = currentDate
+//        }else if segConIndex == 1{
+//            let lastWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
+//            start = "\(showDayformatter.string(from: lastWeek.startOfWeek!))"
+//            end = "\(showDayformatter.string(from: lastWeek.endOfWeek!))"
+//            timeLabel.text = "\(start) ~ \(end)"
+//        }else if segConIndex == 2{
+//            currentMonth -= 1
+//            if currentMonth == 0{
+//                currentMonth = 12
+//                currentYear -= 1
+//            }
+//            setUpMonth()
+//        }else if segConIndex == 3{
+//            currentYear -= 1
+//            setUpYear()
+//        }
+//    }
+//
+//    @IBAction func rightBtnAction(_ sender: UIButton) {
+//        if segConIndex == 0{
+//            currentDay += 1
+//            setUpDay()
+//        }else if segConIndex == 1{
+//            let dateFormat = DateFormatter()
+//            dateFormat.dateFormat =  "yyyy-MM-dd"
+//            let nextWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date())!
+//            start = "\(dateFormat.string(from: nextWeek.startOfWeek!))"
+//            end = "\(dateFormat.string(from: nextWeek.endOfWeek!))"
+//            timeLabel.text = "\(start) ~ \(end)"
+//        }else if segConIndex == 2{
+//            currentMonth += 1
+//            if currentMonth == 13{
+//                currentMonth = 1
+//                currentYear += 1
+//                }
+//            setUpMonth()
+//        }else if segConIndex == 3{
+//            currentYear += 1
+//            setUpYear()
+//        }
+//    }
     
     @IBAction func timeLabelBtnDatePopUp(_ sender: Any) {
         if segConIndex == 0{
