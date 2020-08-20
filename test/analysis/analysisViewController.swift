@@ -69,7 +69,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     var showDate: String = ""
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -81,13 +81,13 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     var showDayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
     var showWeekdayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd EEE HH:mm"
+        formatter.dateFormat = "MM-dd EEE HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -122,7 +122,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }
         
         setUpDay()
-        selectedDay = "2020/07/02"
+        selectedDay = "2020-07-02"
         getTrackTime()
         
         customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)

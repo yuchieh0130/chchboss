@@ -36,7 +36,7 @@ class DatePopupViewController: UIViewController {
     }
     var showDayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }

@@ -33,7 +33,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -45,13 +45,13 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     var showDayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
     var showWeekdayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd EEE"
+        formatter.dateFormat = "MM-dd EEE"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
