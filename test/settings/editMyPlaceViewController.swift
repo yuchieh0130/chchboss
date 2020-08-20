@@ -41,15 +41,20 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         
         let btnAdd = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addMyPlaceButton(_:)))
         let btnEdit = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editMyPlaceButton(_:)))
+        let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
         
         self.txtSearch.placeholder = "search place"
         
         if myPlace != nil{
             navigationItem.rightBarButtonItems = [btnEdit]
+            navigationItem.leftBarButtonItems = [btnCancel]
+            navigationItem.title = "Edit My Place"
             loadData()
         }else{
             navigationItem.rightBarButtonItems = [btnAdd]
-             myPlaceLatitude = 25
+            navigationItem.leftBarButtonItems = [btnCancel]
+            navigationItem.title = "Add My Place"
+            myPlaceLatitude = 25
             myPlaceLongitude = 121
 //            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
 //            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
@@ -58,6 +63,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.5)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)]
+        
 //        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
 //        myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
 //        myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
@@ -144,12 +153,12 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
     }
     
-    @IBAction func cancel(_ sender: UIButton){
+    @objc func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
     
     func alertMessage(){
-            let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default){_ in
                 controller.dismiss(animated: true, completion: nil)}
             controller.addAction(okAction)

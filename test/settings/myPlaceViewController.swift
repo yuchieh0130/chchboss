@@ -119,8 +119,9 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier{
             case"editMyPlace":
-                if let VC = segue.destination as? editMyPlaceViewController{
-                VC.myPlace = selectedPlace
+                if let navVC = segue.destination as? UINavigationController, let
+                    VC = navVC.topViewController as? editMyPlaceViewController{
+                    VC.myPlace = selectedPlace
                 }
             default :
                 print("")
