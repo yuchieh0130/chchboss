@@ -139,10 +139,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                                         let last_track_id = return_list?[2]{
                                         if status_code as! Int == 200{
                                             UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
-            //                                for i in 0...data.count-1{
-            //                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2], startTime: data[i], weekDay: data[i], endDate: data[i], endTime: data[i], categoryId: data[i], locationId: data[i], placeId: data[i])
-            //                                    DBManager.getInstance().addTrack(modelInfo)
-            //                                }
+                                            for i in 0...data.count-1{
+                                                print(data)
+                                                let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i] as! String, weekDay: data[i] as! Int32, endDate: data[i] as! String, endTime: data[i]  as! String, categoryId: data[i] as! Int32, locationId: data[i] as! Int32, placeId: data[i] as? Int32)
+                                                print(data[i][2] as! String)
+                                                
+                                                DBManager.getInstance().addTrack(modelInfo)
+                                            }
                                         }
                                         else{
                                             print(status_code)
