@@ -90,7 +90,7 @@ class showMyPlaceController: UIViewController{
 //    }
     
     @objc func addBtn(_ sender: Any){
-        performSegue(withIdentifier: "editMyPlace", sender: nil)
+        performSegue(withIdentifier: "showMyPlaceAdd", sender: nil)
     }
     
     override func viewDidLoad() {
@@ -121,9 +121,12 @@ class showMyPlaceController: UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier{
-            case"editMyPlace":
-                if let VC = segue.destination as? editMyPlaceViewController{
-                VC.myPlace = savePlace
+            case"showMyPlaceAdd":
+                if let navVC = segue.destination as? UINavigationController, let
+                    VC = navVC.topViewController as? editMyPlaceViewController{
+                    VC.myPlace = savePlace
+                    VC.myPlaceLongitude = placeLongitude
+                    VC.myPlaceLatitude = placeLatitude
                 }
             default :
                 print("")

@@ -93,9 +93,8 @@ class ViewController: UIViewController{
     /*viewcontroller viewdidload*/
     override func viewDidLoad() {
         super.viewDidLoad()
-//        calendarView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-//
+
         self.navigationController?.navigationBar.shadowImage = UIImage()
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent(_:)))
         navigationItem.leftBarButtonItems = [addBtn]
@@ -522,9 +521,9 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return UIScreen.main.bounds.height/24
+            return 44
         }else{
-            return UIScreen.main.bounds.height/12
+            return 60
         }
     }
     

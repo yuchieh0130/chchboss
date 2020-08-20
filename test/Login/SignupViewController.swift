@@ -57,6 +57,9 @@ class SignupViewController: UIViewController {
             warningLabel!.text = "Please fill in every field."
             warningLabel.isHidden = false
             
+        } else if !(emailTextField.text?.contains("@") ?? false) {
+            warningLabel.text = "Incorrect Email format."
+            warningLabel!.isHidden = false
         } else if passwordTextField.text != confirmPasswordTextField.text {
             warningLabel!.text = "Confirm your password again."
             warningLabel!.isHidden = false
@@ -97,6 +100,10 @@ class SignupViewController: UIViewController {
             
             
         }
+    }
+    
+    func signUp() {
+        
     }
     
     @IBAction func cancelBtn(_ sender: Any) {
