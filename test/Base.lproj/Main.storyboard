@@ -382,7 +382,7 @@
                                 <rect key="frame" x="0.0" y="402" width="414" height="357"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" alpha="0.65000000000000002" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timelineCell" rowHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="5wh-9X-zQW" customClass="timelineCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" alpha="0.65000000000000002" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timelineCell" rowHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="5wh-9X-zQW" customClass="timelineCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5wh-9X-zQW" id="AFN-Zc-c3o">
@@ -1432,7 +1432,7 @@
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbR-rL-hbh">
-                                                    <rect key="frame" x="20" y="20.5" width="101" height="16"/>
+                                                    <rect key="frame" x="20" y="21" width="91" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1441,7 +1441,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="wbR-rL-hbh" secondAttribute="bottom" constant="20.333333333333329" id="070-le-7dQ"/>
                                                 <constraint firstItem="Ogh-Jb-0d5" firstAttribute="top" secondItem="MOy-CQ-4Ht" secondAttribute="topMargin" constant="4.5" id="HIY-Mu-88l"/>
-                                                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="wbR-rL-hbh" secondAttribute="trailing" constant="293" id="Nrq-rf-wYb"/>
+                                                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="wbR-rL-hbh" secondAttribute="trailing" constant="303" id="Nrq-rf-wYb"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Ogh-Jb-0d5" secondAttribute="bottom" constant="4.5" id="Pci-bL-all"/>
                                                 <constraint firstItem="wbR-rL-hbh" firstAttribute="leading" secondItem="MOy-CQ-4Ht" secondAttribute="leading" constant="20" id="Wwq-mt-fBD"/>
                                                 <constraint firstItem="Ogh-Jb-0d5" firstAttribute="leading" secondItem="MOy-CQ-4Ht" secondAttribute="leadingMargin" constant="147" id="ZPZ-pu-uvT"/>
