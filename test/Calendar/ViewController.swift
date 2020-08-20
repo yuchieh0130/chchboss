@@ -521,9 +521,9 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return UIScreen.main.bounds.height/24
+            return 44
         }else{
-            return UIScreen.main.bounds.height/12
+            return 60
         }
     }
     
