@@ -56,23 +56,17 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     var fab: Floaty!
-    var btnAdd: UIBarButtonItem!
-    var btnDone: UIButton!
-    var btnSelect: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Task"
         tableView.delegate = self
         tableView.dataSource = self
-        self.tableView.allowsMultipleSelectionDuringEditing = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
         let addTaskBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask(_:)))
-        editButtonItem.title = "Select"
-        editButtonItem.customView?.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1).cgColor
-        editButtonItem.customView?.frame = CGRect(x:0, y:0, width:70, height:34)
+        let editTaskBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTask(_:)))
 //        let doneTaskBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTask(_:)))
 //        navigationItem.rightBarButtonItems = [editButtonItem]
 //        navigationItem.leftBarButtonItems = [addTaskBtn,doneTaskBtn]
@@ -85,11 +79,8 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         doneTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1).cgColor
         doneTaskBtn.frame = CGRect(x:0, y:0, width:70, height:34)
         doneTaskBtn.addTarget(self, action: #selector(doneTask(_:)), for: .touchUpInside)
-        navigationItem.rightBarButtonItems = [editButtonItem]
+        navigationItem.rightBarButtonItems = [editTaskBtn]
         navigationItem.leftBarButtonItems = [addTaskBtn, UIBarButtonItem(customView: doneTaskBtn)]
-        btnAdd = addTaskBtn
-        btnDone = doneTaskBtn
-        btnSelect = editButtonItem
         
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 140, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
@@ -147,14 +138,25 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func addTask(_ sender: Any) {
         task = nil
-        performSegue(withIdentifier: "addTask", sender: sender)
+        performSegue(withIdentifier: "addTask", sender: self)
+    }
+    @objc func editTask(_ sender: Any){
+        if DBManager.getInstance().getAllUndoneTask() != nil{
+            performSegue(withIdentifier: "taskToEditMode", sender: self)
+        }else{
+            let controller = UIAlertController(title: "No Tasks Available", message: "Add task to let BunnyTrack make better plans for you", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            controller.addAction(action)
+            present(controller, animated: true, completion: nil)
+        }
+        
     }
     
     @objc func doneTask(_ sender: UIButton) {
         if DBManager.getInstance().getAllDoneTask() != nil {
             performSegue(withIdentifier: "doneTask", sender: self)
         }else{
-            let controller = UIAlertController(title: "Unavailable", message: "No task marked as DONE", preferredStyle: .alert)
+            let controller = UIAlertController(title: "No Done Tasks Available", message: "No task marked as DONE", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             controller.addAction(action)
             present(controller, animated: true, completion: nil)
@@ -244,13 +246,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         return configuration
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.5)
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)]
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -286,6 +281,11 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let doneVC = segue.destination as? doneTaskViewController{
                 doneVC.hidesBottomBarWhenPushed = true
             }
+        case "taskToEditMode":
+            if let navVC = segue.destination as? UINavigationController, let
+                editModeVC = navVC.topViewController as? taskEditModeViewController{
+                editModeVC.hidesBottomBarWhenPushed = true
+                }
         default:
             print("")
         }
@@ -294,6 +294,14 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func taskUnwindSegue(segue: UIStoryboardSegue){
         if segue.identifier == "taskUnwindSegue"{
+            if DBManager.getInstance().getAllUndoneTask() != nil{
+                showTask = DBManager.getInstance().getAllUndoneTask()
+            }else{
+                showTask = [TaskModel]()
+            }
+            tableView.reloadData()
+        }
+        if segue.identifier == "taskEditUnwindSegue"{
             if DBManager.getInstance().getAllUndoneTask() != nil{
                 showTask = DBManager.getInstance().getAllUndoneTask()
             }else{
@@ -364,112 +372,10 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         task = showTask![indexPath.row]
-        if self.tableView.isEditing == false{
-            performSegue(withIdentifier: "editTask", sender: nil)
-        }
+        performSegue(withIdentifier: "editTask", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.setEditing(editing, animated: true)
-        
-        self.navigationController?.setToolbarHidden(false, animated: false)
-        self.navigationController?.toolbar.barTintColor = UIColor.white
-        self.navigationController?.toolbar.barStyle = .blackOpaque
-        
-        let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
-//        let deleteButton: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(didPressDelete))
-//        let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didPressDone))
-        let deleteButton = UIButton.init(type: .system)
-        deleteButton.setTitle("Delete", for: .normal)
-        deleteButton.setTitleColor(UIColor.white, for: .normal)
-        deleteButton.backgroundColor = UIColor.red
-        deleteButton.titleLabel?.font = UIFont(name: "System", size: 18)
-        deleteButton.layer.cornerRadius = 5
-        deleteButton.frame = CGRect(x:0, y:0, width:150, height:32)
-        deleteButton.addTarget(self, action: #selector(didPressDelete), for: .touchUpInside)
-        let doneButton = UIButton.init(type: .system)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.setTitleColor(UIColor.white, for: .normal)
-        doneButton.backgroundColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
-        doneButton.titleLabel?.font = UIFont(name: "System", size: 18)
-        doneButton.layer.cornerRadius = 5
-        doneButton.frame = CGRect(x:0, y:0, width:150, height:32)
-        doneButton.addTarget(self, action: #selector(didPressDone), for: .touchUpInside)
-
-//        deleteButton.tintColor = UIColor.red
-//        doneButton.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
-        
-        if tableView.isEditing == true{
-            editButtonItem.title = "Cancel"
-            self.toolbarItems = [flexible, UIBarButtonItem(customView: doneButton), flexible, UIBarButtonItem(customView: deleteButton), flexible]
-            fab.isHidden = true
-            navigationItem.rightBarButtonItems = [btnSelect]
-            navigationItem.leftBarButtonItems = []
-        }else if tableView.isEditing == false{
-            editButtonItem.title = "Select"
-            self.navigationController?.setToolbarHidden(true, animated: true)
-            fab.isHidden = false
-            navigationItem.rightBarButtonItems = [btnSelect]
-            navigationItem.leftBarButtonItems = [btnAdd, UIBarButtonItem(customView: btnDone)]
-        }
-    }
-    
-    @objc func didPressDelete() {
-        let selectedRows = self.tableView.indexPathsForSelectedRows
-        let controller = UIAlertController(title: "Delete Tasks?", message: "Tasks will also be deleted from the calendar.", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
-            if selectedRows != nil {
-                for selectionIndex in selectedRows! {
-                    let id =  self.showTask?[selectionIndex.row].taskId
-                    //let task = self.showTask?[selectionIndex.row]
-                    self.showTask!.remove(at: selectionIndex.row)
-                    self.tableView.deleteRows(at: [selectionIndex], with: .fade)
-                    DBManager.getInstance().deleteTask(id: id!)
-                    if DBManager.getInstance().getAllUndoneTask() == nil{
-                        self.showTask = [TaskModel]()
-                    }else{
-                        self.showTask = DBManager.getInstance().getAllUndoneTask()
-                    }
-                    self.tableView.reloadData()
-                }
-            }
-            }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        deleteAction.setValue(UIColor.red, forKey: "titleTextColor")
-        controller.addAction(deleteAction)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
-    }
-    
-    @objc func didPressDone() {
-        let selectedRows = self.tableView.indexPathsForSelectedRows
-        let controller = UIAlertController(title: "Tasks Done?", message: "Tasks added to the DONE list could not be revertible.", preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: "Done", style: .default) { (_) in
-            if selectedRows != nil {
-                for selectionIndex in selectedRows! {
-                    let id =  self.showTask?[selectionIndex.row].taskId
-                    self.showTask!.remove(at: selectionIndex.row)
-                    self.tableView.deleteRows(at: [selectionIndex], with: .fade)
-                    DBManager.getInstance().doneTask(id: id!)
-                    if DBManager.getInstance().getAllUndoneTask() == nil{
-                        self.showTask = [TaskModel]()
-                    }else{
-                        self.showTask = DBManager.getInstance().getAllUndoneTask()
-                    }
-                    self.tableView.reloadData()
-                }
-            }
-            }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        doneAction.setValue(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), forKey: "titleTextColor")
-        controller.addAction(doneAction)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
-    }
-    
 }

@@ -541,7 +541,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="AA5-3s-fjv">
-                                                    <rect key="frame" x="0.0" y="14" width="50" height="22"/>
+                                                    <rect key="frame" x="0.0" y="14" width="50" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
@@ -1693,7 +1693,7 @@
         <!--Task Edit Mode View Controller-->
         <scene sceneID="zzi-L7-QhK">
             <objects>
-                <viewController id="twg-64-YzF" customClass="taskEditModeViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="twg-64-YzF" customClass="taskEditModeViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bwi-Zx-tBF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1702,7 +1702,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Pij-DB-b3g" customClass="taskEditModeTableViewCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskEditModeTableViewCell" id="Pij-DB-b3g" customClass="taskEditModeTableViewCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pij-DB-b3g" id="dfc-fl-s86">
@@ -1783,9 +1783,11 @@
                     <navigationItem key="navigationItem" id="dql-JX-ozW"/>
                     <connections>
                         <outlet property="tableView" destination="7qN-jl-2xg" id="dL3-Ha-3Yb"/>
+                        <segue destination="EwB-PR-aYo" kind="unwind" identifier="taskEditUnwindSegue" unwindAction="taskUnwindSegueWithSegue:" id="jVP-7e-XUj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FFa-zo-GhX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="EwB-PR-aYo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5271.0144927536239" y="14.732142857142856"/>
         </scene>
@@ -3532,7 +3534,7 @@
         <!--Navigation Controller-->
         <scene sceneID="tjU-s3-xOg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S2Q-ek-5I7" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="S2Q-ek-5I7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cJw-Az-274"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SYn-4m-W4o">
