@@ -47,8 +47,6 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
     var btnEdit: UIBarButtonItem!
     var btnCancel: UIBarButtonItem!
     var btnSelectAll: UIBarButtonItem!
-    var selectAllArray = Array<Any>()
-    var isSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,14 +18,17 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     var selectedTask: String = ""
     var showTask: [TaskModel]?
     var btnSelect: UIBarButtonItem!
+    var btnSelectAll: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let selectAllBtn = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(selectAllRows(_:)))
         self.tableView.allowsMultipleSelectionDuringEditing = true
         editButtonItem.title = "Select"
         navigationItem.rightBarButtonItems = [editButtonItem]
         btnSelect = editButtonItem
+        btnSelectAll = selectAllBtn
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +43,14 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
         tableView.reloadData()
+    }
+    
+    @objc func selectAllRows(_ sender: UIButton){
+        for section in 0..<tableView.numberOfSections {
+                for row in 0..<tableView.numberOfRows(inSection: section) {
+                    tableView.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: .none)
+                }
+            }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -127,10 +138,12 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             editButtonItem.title = "Cancel"
             self.toolbarItems = [flexible, UIBarButtonItem(customView: deleteButton), flexible]
             navigationItem.hidesBackButton = true
+            navigationItem.leftBarButtonItems = [btnSelectAll]
         }else if tableView.isEditing == false{
             editButtonItem.title = "Edit"
             self.navigationController?.setToolbarHidden(true, animated: true)
             navigationItem.hidesBackButton = false
+            navigationItem.leftBarButtonItems = []
         }
     }
     

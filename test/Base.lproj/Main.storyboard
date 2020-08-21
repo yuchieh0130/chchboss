@@ -1298,41 +1298,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLd-ii-1EE" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="219" width="414" height="540"/>
+                                <rect key="frame" x="0.0" y="200" width="414" height="559"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jD-2W-Lw7" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="219" width="414" height="540"/>
+                                <rect key="frame" x="0.0" y="200" width="414" height="559"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPC-CF-KML" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="219" width="414" height="540"/>
+                                <rect key="frame" x="0.0" y="200" width="414" height="559"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnP-nn-Mu1" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="219" width="414" height="540"/>
+                                <rect key="frame" x="0.0" y="200" width="414" height="559"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AiO-HF-iZi">
-                                <rect key="frame" x="0.0" y="114" width="414" height="97"/>
+                                <rect key="frame" x="0.0" y="114" width="414" height="88"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHy-VG-tPp">
-                                        <rect key="frame" x="8" y="8" width="398" height="81"/>
+                                        <rect key="frame" x="8" y="8" width="398" height="80"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="81" id="bLg-ig-2kb"/>
+                                            <constraint firstAttribute="height" constant="80" id="bLg-ig-2kb"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZ7-cc-5Xd">
-                                        <rect key="frame" x="8" y="0.0" width="398" height="97"/>
+                                        <rect key="frame" x="8" y="0.0" width="398" height="87"/>
                                         <connections>
                                             <action selector="timeLabelBtnDatePopUp:" destination="3xM-0D-h9c" eventType="touchUpInside" id="Tvw-C6-FjT"/>
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Vc6-iy-5X7">
-                                        <rect key="frame" x="359" y="35" width="22" height="25.5"/>
+                                        <rect key="frame" x="359" y="35" width="22" height="24.5"/>
                                         <color key="tintColor" red="0.90588235289999997" green="0.67843137249999996" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="Lbl-yg-w11"/>
@@ -1346,10 +1346,10 @@
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="top" secondItem="AiO-HF-iZi" secondAttribute="topMargin" id="HIG-4C-FrB"/>
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="leading" secondItem="AiO-HF-iZi" secondAttribute="leadingMargin" id="To4-je-IDU"/>
                                     <constraint firstAttribute="trailing" secondItem="Vc6-iy-5X7" secondAttribute="trailing" constant="33" id="hHp-TW-YAw"/>
-                                    <constraint firstItem="nZ7-cc-5Xd" firstAttribute="centerY" secondItem="vHy-VG-tPp" secondAttribute="centerY" id="hqB-LV-566"/>
+                                    <constraint firstItem="nZ7-cc-5Xd" firstAttribute="centerY" secondItem="vHy-VG-tPp" secondAttribute="centerY" constant="-4.5" id="hqB-LV-566"/>
                                     <constraint firstItem="nZ7-cc-5Xd" firstAttribute="top" secondItem="AiO-HF-iZi" secondAttribute="top" id="mdI-zv-sOT"/>
                                     <constraint firstItem="vHy-VG-tPp" firstAttribute="trailing" secondItem="AiO-HF-iZi" secondAttribute="trailingMargin" id="scd-oK-DdV"/>
-                                    <constraint firstItem="Vc6-iy-5X7" firstAttribute="centerY" secondItem="nZ7-cc-5Xd" secondAttribute="centerY" constant="-0.5" id="sgO-ef-SV1"/>
+                                    <constraint firstItem="Vc6-iy-5X7" firstAttribute="centerY" secondItem="nZ7-cc-5Xd" secondAttribute="centerY" constant="4" id="sgO-ef-SV1"/>
                                     <constraint firstItem="nZ7-cc-5Xd" firstAttribute="leading" secondItem="vHy-VG-tPp" secondAttribute="leading" id="uuh-kf-SeA"/>
                                 </constraints>
                             </view>
@@ -1378,7 +1378,7 @@
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="WLd-ii-1EE" firstAttribute="top" secondItem="sfp-gm-cKQ" secondAttribute="top" constant="219" id="0My-hS-N2U"/>
+                            <constraint firstItem="WLd-ii-1EE" firstAttribute="top" secondItem="sfp-gm-cKQ" secondAttribute="top" constant="200" id="0My-hS-N2U"/>
                             <constraint firstItem="AiO-HF-iZi" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" id="5o6-w8-Ocw"/>
                             <constraint firstItem="AiO-HF-iZi" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="8" id="6SR-Q3-Nau"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="1jD-2W-Lw7" secondAttribute="leading" id="BDv-ln-DjP"/>
@@ -1400,7 +1400,7 @@
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="AiO-HF-iZi" secondAttribute="leading" id="igV-aa-u3N"/>
                             <constraint firstItem="qPC-CF-KML" firstAttribute="leading" secondItem="WLd-ii-1EE" secondAttribute="leading" id="j5Y-FP-oVT"/>
                             <constraint firstItem="qPC-CF-KML" firstAttribute="bottom" secondItem="1jD-2W-Lw7" secondAttribute="bottom" id="olI-di-Rz2"/>
-                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="AiO-HF-iZi" secondAttribute="bottom" constant="8" id="sYG-K9-BrI"/>
+                            <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="AiO-HF-iZi" secondAttribute="bottom" constant="-2" id="sYG-K9-BrI"/>
                             <constraint firstItem="A4y-84-b0t" firstAttribute="leading" secondItem="1hb-Ki-UBc" secondAttribute="leading" id="tFg-UR-PqC"/>
                             <constraint firstItem="A4y-84-b0t" firstAttribute="trailing" secondItem="1hb-Ki-UBc" secondAttribute="trailing" id="wgt-eX-XsI"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="trailing" secondItem="1jD-2W-Lw7" secondAttribute="trailing" id="xnu-To-4Fh"/>
@@ -2185,7 +2185,7 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="overCurrentContext" id="nNZ-yj-YqY" customClass="DatePopupViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bj0-wR-DwH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpL-Zv-UDT">
                                 <rect key="frame" x="15" y="323" width="384" height="250"/>
