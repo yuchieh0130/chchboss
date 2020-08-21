@@ -124,32 +124,27 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         setUpDay()
         selectedDay = "\(timeLabel.text!)"
         for (index, value) in valuesDay.enumerated(){
-            valuesDay[index] = value*0.0
+            valuesDay[index] = value*0
         }
         if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
             getTrackTime()
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-            noDataLabel.isHidden = true
         }else{
             showTrack = [TrackModel]()
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-            noDataLabel.isHidden = false
+            pieChart.isHidden = true
         }
         
-        customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
         pieChart.entryLabelColor = UIColor.black
-        pieChart.drawEntryLabelsEnabled = false
+        pieChart.drawEntryLabelsEnabled = true
         pieChart.usePercentValuesEnabled = true
-        //pieChart.setExtraOffsets(left: 5, top: 5, right: 5, bottom: 5)
         pieChart.transparentCircleRadiusPercent = 0.0
-        pieChart.legend.horizontalAlignment = .center
-        pieChart.legend.verticalAlignment = .bottom
+        pieChart.legend.enabled = false
         pieChart.holeRadiusPercent = 0.35
         
         pieChartWeek.entryLabelColor = UIColor.black
         pieChartWeek.drawEntryLabelsEnabled = false
         pieChartWeek.usePercentValuesEnabled = true
-        //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartWeek.transparentCircleRadiusPercent = 0.0
         pieChartWeek.legend.horizontalAlignment = .center
         pieChartWeek.legend.verticalAlignment = .bottom
@@ -158,7 +153,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartMonth.entryLabelColor = UIColor.black
         pieChartMonth.drawEntryLabelsEnabled = false
         pieChartMonth.usePercentValuesEnabled = true
-        //pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartMonth.transparentCircleRadiusPercent = 0.0
         pieChartMonth.legend.horizontalAlignment = .center
         pieChartMonth.legend.verticalAlignment = .bottom
@@ -167,7 +161,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChartYear.entryLabelColor = UIColor.black
         pieChartYear.drawEntryLabelsEnabled = false
         pieChartYear.usePercentValuesEnabled = true
-        //pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
         pieChartYear.transparentCircleRadiusPercent = 0.0
         pieChartYear.legend.horizontalAlignment = .center
         pieChartYear.legend.verticalAlignment = .bottom
@@ -191,10 +184,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
-            //pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChart.transparentCircleRadiusPercent = 0.0
-            pieChart.legend.horizontalAlignment = .center
-            pieChart.legend.verticalAlignment = .bottom
             pieChart.holeRadiusPercent = 0.35
             pieChart.isHidden = false
             pieChartWeek.isHidden = true
@@ -203,7 +193,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             setUpDay()
             selectedDay = "\(timeLabel.text!)"
             for (index, value) in valuesDay.enumerated(){
-                valuesDay[index] = value*0.0
+                valuesDay[index] = value*0
             }
             if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
                 getTrackTime()
@@ -216,7 +206,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             }
         }else if getIndex == 1{
             customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-            //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartWeek.transparentCircleRadiusPercent = 0.0
             pieChartWeek.legend.horizontalAlignment = .center
             pieChartWeek.legend.verticalAlignment = .bottom
@@ -229,7 +218,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             setUpWeek()
         }else if getIndex == 2{
             customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
-            //pieChartMonth.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartMonth.transparentCircleRadiusPercent = 0.0
             pieChartMonth.legend.horizontalAlignment = .center
             pieChartMonth.legend.verticalAlignment = .bottom
@@ -242,7 +230,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             setUpMonth()
         }else if getIndex == 3{
             customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
-            //pieChartYear.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChartYear.transparentCircleRadiusPercent = 0.0
             pieChartYear.legend.horizontalAlignment = .center
             pieChartYear.legend.verticalAlignment = .bottom
@@ -281,8 +268,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         pieChart.data = pieChartData
         
         pieChart.rotationAngle = 0
-        pieChart.legend.direction = .leftToRight
-        pieChartDataSet.selectionShift = 5
+        pieChartDataSet.selectionShift = 8
     }
     
     func customizeCategoryChartWeek(dataPoints: [String], values: [Double]) {
@@ -310,7 +296,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartWeek.rotationAngle = 0
         pieChartWeek.legend.direction = .leftToRight
-        pieChartDataSet.selectionShift = 5
+        pieChartDataSet.selectionShift = 8
     }
     
     func customizeCategoryChartMonth(dataPoints: [String], values: [Double]) {
@@ -338,7 +324,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartMonth.rotationAngle = 0
         pieChartMonth.legend.direction = .leftToRight
-        pieChartDataSet.selectionShift = 5
+        pieChartDataSet.selectionShift = 8
     }
     
     func customizeCategoryChartYear(dataPoints: [String], values: [Double]) {
@@ -366,7 +352,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
         pieChartYear.rotationAngle = 0
         pieChartYear.legend.direction = .leftToRight
-        pieChartDataSet.selectionShift = 5
+        pieChartDataSet.selectionShift = 8
     }
     
     func getTrackTime(){
@@ -518,7 +504,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                     timeLabel.text = showDayformatter.string(from: date)
                     selectedDay = "\(timeLabel.text!)"
                     for (index, value) in valuesDay.enumerated(){
-                        valuesDay[index] = value*0.0
+                        valuesDay[index] = value*0
                     }
                     if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
                         getTrackTime()
