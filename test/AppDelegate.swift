@@ -253,55 +253,46 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         
     }
     
-    func saveSpeed(){
-        
-        self.myLocationManager.delegate = nil
-        
-        let latitude = Double(self.currentLocation.coordinate.latitude)
-        let longitude = Double(self.currentLocation.coordinate.longitude)
-        let startDate = self.showDate.string(from: currentTime)
-        let startTime = self.showTime.string(from: currentTime)
-        let weekday = Calendar.current.component(.weekday, from: currentTime)
-        var total = 0.0
-        for i in lastSpeeds{
-            total += i
-        }
-        let speed = total/Double(lastSpeeds.count)
-        let user_id = UserDefaults.standard.integer(forKey: "user_id")
-        
-        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
-        
-        DBManager.getInstance().saveLocation(modelInfo)
-        let myLocation = (DBManager.getInstance().getMaxLocation())!
-        let data : [String: String] = ["location_id":"0",
-                                       "user_location_id": "\(myLocation.locationId!)",
-            "longitude":String(myLocation.longitude), "latitude":String(myLocation.latitude), "start_date":myLocation.startDate, "start_time":myLocation.startTime,"weekday":String(myLocation.weekday), "duration":"0", "speed":String(myLocation.speed), "name1":myLocation.name1!, "name2":myLocation.name2!, "name3":myLocation.name3!, "name4":myLocation.name4!, "name5":myLocation.name5!, "category1":myLocation.category1!, "category2":myLocation.category2!, "category3":myLocation.category3!, "category4":myLocation.category4!, "category5":myLocation.category5!, "user_id":String(user_id)]
-        
-        self.net.postLocationData(data: data){
-            (status_code) in
-            if (status_code != nil) {
-                print(status_code!)
-            }
-        }
-        
-        self.myLocationManager.delegate = self
-    }
+//    func saveSpeed(){
+//
+//        self.myLocationManager.delegate = nil
+//
+//        let latitude = Double(self.currentLocation.coordinate.latitude)
+//        let longitude = Double(self.currentLocation.coordinate.longitude)
+//        let startDate = self.showDate.string(from: currentTime)
+//        let startTime = self.showTime.string(from: currentTime)
+//        let weekday = Calendar.current.component(.weekday, from: currentTime)
+//        var total = 0.0
+//        for i in lastSpeeds{
+//            total += i
+//        }
+//        let speed = total/Double(lastSpeeds.count)
+//        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+//
+//        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
+//
+//        DBManager.getInstance().saveLocation(modelInfo)
+//        let myLocation = (DBManager.getInstance().getMaxLocation())!
+//        let data : [String: String] = ["location_id":"0",
+//                                       "user_location_id": "\(myLocation.locationId!)",
+//            "longitude":String(myLocation.longitude), "latitude":String(myLocation.latitude), "start_date":myLocation.startDate, "start_time":myLocation.startTime,"weekday":String(myLocation.weekday), "duration":"0", "speed":String(myLocation.speed), "name1":myLocation.name1!, "name2":myLocation.name2!, "name3":myLocation.name3!, "name4":myLocation.name4!, "name5":myLocation.name5!, "category1":myLocation.category1!, "category2":myLocation.category2!, "category3":myLocation.category3!, "category4":myLocation.category4!, "category5":myLocation.category5!, "user_id":String(user_id)]
+//
+//        self.net.postLocationData(data: data){
+//            (status_code) in
+//            if (status_code != nil) {
+//                print(status_code!)
+//            }
+//        }
+//
+//        self.myLocationManager.delegate = self
+//    }
     
     func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
     }
     
     func startMonitorRegion(){
-        print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
+        //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
         if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-            //
-            //            let title = "Lorrenzillo's"
-            //            let coordinate = CLLocationCoordinate2DMake(37.703026, -121.759735)
-            //            let regionRadius = 300.0
-            //
-            //            // 3. 設置 region 的相關屬性
-            //            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
-            //                longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-            //            myLocationManager.startMonitoring(for: region)
             if DBManager.getInstance().getMyPlaces() != nil{
                 myPlaces = DBManager.getInstance().getMyPlaces()
                 for i in 0...myPlaces.count-1{
