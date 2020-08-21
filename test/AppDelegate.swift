@@ -5,24 +5,28 @@ import GoogleMaps
 import GooglePlaces
 import UserNotifications
 
+var myLocationManager = CLLocationManager()
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate{
     
     var window: UIWindow?
-    var myLocationManager = CLLocationManager()
-    
+    //var myLocationManager = CLLocationManager()
     var currentLocation: CLLocation!
     var currentSpeed: Double = 55.66
     var currentTime = Date()
-    var lastSpeed:Double = 55.66
-    var lastLocation: CLLocation!
-    var lastSpeeds = [Double]()
+    
+    var enterTime = Date()
+    var exitTime = Date()
+    //var lastSpeed:Double = 55.66
+    //var lastLocation: CLLocation!
+    //var lastSpeeds = [Double]()
     
     var placesClient: GMSPlacesClient!
     //var filterList = [String]()
     //var collectionArr = [String]()
-    
-    var myPlaces = [PlaceModel]()
+    //var myPlaces = [PlaceModel]()
     
     let net = NetworkController()
     
@@ -55,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print("launcn")
+        print("BunnyTrack Launch")
         
         if UserDefaults.standard.bool(forKey: "isLogIn"){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -85,22 +89,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         myLocationManager.pausesLocationUpdatesAutomatically = false
         //myLocationManager.activityType = CLActivityType.fitness
         myLocationManager.activityType = .other
-        //        myLocationManager.requestAlwaysAuthorization()
-        //myLocationManager.startUpdatingLocation()
-        myLocationManager.startMonitoringSignificantLocationChanges()
+        //myLocationManager.requestAlwaysAuthorization()
+        myLocationManager.startUpdatingLocation()
+        //myLocationManager.startMonitoringSignificantLocationChanges()
         //        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
-        
+        //        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+        //            print(myLocationManager.monitoredRegions)
+        //            startMonitorRegion()
+        //        }
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge, .carPlay], completionHandler: { (granted, error) in
             if granted {
-                print("允許")
+                print("允許通知")
             } else {
-                print("不允許")
+                print("不允許通知")
+                DispatchQueue.main.async(){
+                    let alertController = UIAlertController(title: "通知權限已被關閉或限制", message: "將會無法接收來自BunnyTrack的貼心提醒 \n請至 設定>通知>BunnyTrack 開啟允許通知 🥕", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+                }
             }
         })
         UNUserNotificationCenter.current().delegate = self
         
         //sleep(2)
-        
         return true
     }
     
@@ -119,45 +131,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
+                if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+                    print(myLocationManager.monitoredRegions)
+                    
+        }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        print("active")
+        print("BunnyTrack Active")
         if CLLocationManager.authorizationStatus() == .notDetermined{
-            print("????")
             myLocationManager.requestAlwaysAuthorization()
         }else if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
             DispatchQueue.main.async(){
-                let alertController = UIAlertController(title: "定位權限已被關閉或限制", message: "可能影響app紀錄準確度 \n如要變更權限，請至 設定>隱私權>定位服務 開啟永遠允許", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "定位權限已被關閉或限制", message: "可能影響BunnyTrack預測行為的準確度 \n請至 設定>隱私權>定位服務 開啟永遠允許 🥕", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
             }
         }else{
-            print("accept!")
-            startMonitorRegion()
-            //let user_id = UserDefaults.standard.integer(forKey: "user_id")
-            let user_id = 2
-                                let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
-            print(last_track_id)
-                                let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
-                                self.net.pushTrackData(data: data){
-                                                (return_list) in
-                                                if let status_code = return_list?[0],
-                                                    let data = return_list?[1] as? [[AnyObject]],
-                                                    let last_track_id = return_list?[2]{
-                                                    if status_code as! Int == 200{
-                                                        UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
-                                                        for i in 0...582{
-                                                            let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
-                                                            //print(modelInfo)
-                                                            DBManager.getInstance().addTrack(modelInfo)
-                                                        }
-                                                    }
-                                                    else{
-                                                        print(status_code)
-                                                    }
-                                                }else{
-                                                    print("error")
-                                                    }
+            print("accept location Authorization!")
+        }
+        
+        //let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        let user_id = 2
+        let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
+        print(last_track_id)
+        let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+        self.net.pushTrackData(data: data){
+            (return_list) in
+            if let status_code = return_list?[0],
+                let data = return_list?[1] as? [[AnyObject]],
+                let last_track_id = return_list?[2]{
+                if status_code as! Int == 200{
+                    UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+                    for i in 0...582{
+                        let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+                        DBManager.getInstance().addTrack(modelInfo)
+                    }
+                }
+                else{
+                    print(status_code)
+                }
+            }else{
+                print("error")
             }
         }
         
@@ -168,9 +182,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-
-
 
 extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelegate{
     
@@ -195,13 +206,13 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         //            lastSpeeds.append(currentSpeed)
         //        }
         
-        self.lastSpeed = currentSpeed
-        self.lastLocation = currentLocation
+        //        self.lastSpeed = currentSpeed
+        //        self.lastLocation = currentLocation
         
     }
     
     func saveLocation(){
-        self.myLocationManager.delegate = nil
+        myLocationManager.delegate = nil
         
         likelyPlaces.removeAll()
         placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
@@ -217,11 +228,9 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
                     self.likelyPlaces.append(place)
                 }
             }
-            
-            //            for i in 0...4{
-            //                self.selectPlaces.append(self.likelyPlaces[i])
-            //            }
-            
+            //                        for i in 0...4{
+            //                            self.selectPlaces.append(self.likelyPlaces[i])
+            //                        }
             let latitude = Double(self.currentLocation.coordinate.latitude)
             let longitude = Double(self.currentLocation.coordinate.longitude)
             let startDate = self.showDate.string(from: Date())
@@ -240,7 +249,6 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
             let user_id = UserDefaults.standard.integer(forKey: "user_id")
             
             let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: self.currentSpeed)
-            
             let _ = DBManager.getInstance().saveLocation(modelInfo)
             
             let data : [String: String] = ["longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
@@ -253,91 +261,121 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
             }
             
         })
-        self.myLocationManager.delegate = self
+        myLocationManager.delegate = self
         
     }
-    
-//    func saveSpeed(){
-//
-//        self.myLocationManager.delegate = nil
-//
-//        let latitude = Double(self.currentLocation.coordinate.latitude)
-//        let longitude = Double(self.currentLocation.coordinate.longitude)
-//        let startDate = self.showDate.string(from: currentTime)
-//        let startTime = self.showTime.string(from: currentTime)
-//        let weekday = Calendar.current.component(.weekday, from: currentTime)
-//        var total = 0.0
-//        for i in lastSpeeds{
-//            total += i
-//        }
-//        let speed = total/Double(lastSpeeds.count)
-//        let user_id = UserDefaults.standard.integer(forKey: "user_id")
-//
-//        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: "", name2: "", name3: "", name4: "", name5: "", category1: "", category2: "", category3: "", category4: "", category5: "", speed: speed)
-//
-//        DBManager.getInstance().saveLocation(modelInfo)
-//        let myLocation = (DBManager.getInstance().getMaxLocation())!
-//        let data : [String: String] = ["location_id":"0",
-//                                       "user_location_id": "\(myLocation.locationId!)",
-//            "longitude":String(myLocation.longitude), "latitude":String(myLocation.latitude), "start_date":myLocation.startDate, "start_time":myLocation.startTime,"weekday":String(myLocation.weekday), "duration":"0", "speed":String(myLocation.speed), "name1":myLocation.name1!, "name2":myLocation.name2!, "name3":myLocation.name3!, "name4":myLocation.name4!, "name5":myLocation.name5!, "category1":myLocation.category1!, "category2":myLocation.category2!, "category3":myLocation.category3!, "category4":myLocation.category4!, "category5":myLocation.category5!, "user_id":String(user_id)]
-//
-//        self.net.postLocationData(data: data){
-//            (status_code) in
-//            if (status_code != nil) {
-//                print(status_code!)
-//            }
-//        }
-//
-//        self.myLocationManager.delegate = self
-//    }
     
     func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
     }
     
-    func startMonitorRegion(){
-        //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
-        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-            if DBManager.getInstance().getMyPlaces() != nil{
-                myPlaces = DBManager.getInstance().getMyPlaces()
-                for i in 0...myPlaces.count-1{
-                    let title = myPlaces[i].placeName
-                    let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
-                    let regionRadius = 200.0
-                    let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
-                                                                                 longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-                    myLocationManager.startMonitoring(for: region)
-                }
-            }
-        }
-    }
-    
-    // 1. 當用戶進入一個 region
+    // 當用戶進入一個 region
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        makeNotification(String: "You enter \(region.identifier)!!!")
+        makeNotification(String: "You enter \(region.identifier) 🥕")
+        enterTime = Date()
+        enterRegion(region: region)
     }
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        //        makeNotification(String: "didStartMonitoringFor")
-        //        print(region)
+        // makeNotification(String: "didStartMonitoringFor")
+        // print(region)
+        print("region:\(region)")
     }
     
-    // 2. 當用戶退出一個 region
+    // 當用戶退出一個 region
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        makeNotification(String: "You exit \(region.identifier)!!!")
+        makeNotification(String: "You exit \(region.identifier) 🥕")
+        exitTime = Date()
+        exitRegion(region: region)
     }
     
-    //    func showAlert(String: String){
-    //        let controller = UIAlertController(title: "WOW", message: String, preferredStyle: .alert)
-    //        let okAction = UIAlertAction(title: "OK", style: .default){_ in
-    //            controller.dismiss(animated: true, completion: nil)}
-    //        controller.addAction(okAction)
-    //        self.window?.rootViewController?.present(controller, animated: true,completion: .none)
-    //    }
+//    func startMonitorRegion(){
+//        //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
+//        //if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+//        if DBManager.getInstance().getMyPlaces() != nil{
+//            myPlaces = DBManager.getInstance().getMyPlaces()
+//            for i in 0...myPlaces.count-1{
+//                let title = "\(myPlaces[i].placeId!)"
+//                let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
+//                let regionRadius = 100.0
+//                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+//                myLocationManager.startMonitoring(for: region)
+//            }
+//        }
+//        // }
+//    }
+    
+    func enterRegion(region: CLRegion){
+        let placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+        let latitude = placeEntering!.placeLatitude
+        let longitude = placeEntering!.placeLatitude
+        let startDate = self.showDate.string(from: enterTime)
+        let startTime = self.showTime.string(from: enterTime)
+        let weekday = Calendar.current.component(.weekday, from: enterTime)
+        let name1 = placeEntering!.placeName
+        let name2 = ""
+        let name3 = ""
+        let name4 = ""
+        let name5 = ""
+        let category1 = "entering"
+        let category2 = ""
+        let category3 = ""
+        let category4 = ""
+        let category5 = ""
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        
+        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: myLocationManager.location!.speed)
+        
+        let _ = DBManager.getInstance().saveLocation(modelInfo)
+        
+        let data : [String: String] = ["longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
+        
+        self.net.postLocationData(data: data){
+            (status_code) in
+            if (status_code != nil) {
+                print(status_code!)
+            }
+        }
+        
+    }
+    
+    func exitRegion(region: CLRegion){
+        let placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+        let latitude = placeEntering!.placeLatitude
+        let longitude = placeEntering!.placeLatitude
+        let startDate = self.showDate.string(from: exitTime)
+        let startTime = self.showTime.string(from: exitTime)
+        let weekday = Calendar.current.component(.weekday, from: exitTime)
+        let name1 = placeEntering!.placeName
+        let name2 = ""
+        let name3 = ""
+        let name4 = ""
+        let name5 = ""
+        let category1 = "exiting"
+        let category2 = ""
+        let category3 = ""
+        let category4 = ""
+        let category5 = ""
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        
+        let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: myLocationManager.location!.speed)
+        
+        let _ = DBManager.getInstance().saveLocation(modelInfo)
+        
+        let data : [String: String] = ["longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
+        
+        self.net.postLocationData(data: data){
+            (status_code) in
+            if (status_code != nil) {
+                print(status_code!)
+            }
+        }
+        
+    }
     
     func makeNotification(String: String){
         let no = UNMutableNotificationContent()
         no.title = "Motitor Region Notification"
         no.body = String
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: "Monitor Region Notification", content: no, trigger: trigger)
         UNUserNotificationCenter.current().add(request,withCompletionHandler: nil)
     }
