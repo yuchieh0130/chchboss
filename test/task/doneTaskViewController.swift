@@ -131,7 +131,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         deleteButton.backgroundColor = UIColor.red
         deleteButton.titleLabel?.font = UIFont(name: "System", size: 18)
         deleteButton.layer.cornerRadius = 5
-        deleteButton.frame = CGRect(x:0, y:0, width:160, height:32)
+        deleteButton.frame = CGRect(x:0, y:0, width:200, height:32)
         deleteButton.addTarget(self, action: #selector(didPressDelete), for: .touchUpInside)
         
         if tableView.isEditing == true{
@@ -165,7 +165,11 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
                     self.tableView.reloadData()
                 }
             }
-            self.dismiss(animated: true, completion: nil)
+            self.tableView.setEditing(false, animated: true)
+            self.editButtonItem.title = "Edit"
+            self.navigationController?.setToolbarHidden(true, animated: true)
+            self.navigationItem.hidesBackButton = false
+            self.navigationItem.leftBarButtonItems = []
             }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         deleteAction.setValue(UIColor.red, forKey: "titleTextColor")

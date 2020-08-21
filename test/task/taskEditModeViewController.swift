@@ -44,7 +44,6 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         return formatter
     }
     
-    //var btnEdit: UIBarButtonItem!
     var btnCancel: UIBarButtonItem!
     var btnSelectAll: UIBarButtonItem!
     
@@ -56,20 +55,13 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        //tableView.isEditing = true
-        print(tableView.isEditing)
-        
-        //let editBtn = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: editButtonItem.action)
-        let cancelBtn = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(cancel(_:)))
+        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
         let selectAllBtn = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(selectAllRows(_:)))
-//        navigationItem.leftBarButtonItems = [cancelBtn]
-//        navigationItem.rightBarButtonItems = [editBtn]
-        navigationItem.leftBarButtonItems = [selectAllBtn]
-        navigationItem.rightBarButtonItems = [cancelBtn]
+        navigationItem.rightBarButtonItems = [selectAllBtn]
+        navigationItem.leftBarButtonItems = [cancelBtn]
         
-        //btnEdit = editBtn
-//        btnCancel = cancelBtn
-//        btnSelectAll = selectAllBtn
+        btnCancel = cancelBtn
+        btnSelectAll = selectAllBtn
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +76,30 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         }
         tableView.setEditing(true, animated: true)
         
+        
+        self.navigationController?.setToolbarHidden(false, animated: false)
+        self.navigationController?.toolbar.barTintColor = UIColor.white
+        self.navigationController?.toolbar.barStyle = .blackOpaque
+    
+        let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        let deleteButton = UIButton.init(type: .system)
+        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.setTitleColor(UIColor.white, for: .normal)
+        deleteButton.backgroundColor = UIColor.red
+        deleteButton.titleLabel?.font = UIFont(name: "System", size: 18)
+        deleteButton.layer.cornerRadius = 5
+        deleteButton.frame = CGRect(x:0, y:0, width:160, height:32)
+        deleteButton.addTarget(self, action: #selector(didPressDelete), for: .touchUpInside)
+        let doneButton = UIButton.init(type: .system)
+        doneButton.setTitle("Done", for: .normal)
+        doneButton.setTitleColor(UIColor.white, for: .normal)
+        doneButton.backgroundColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
+        doneButton.titleLabel?.font = UIFont(name: "System", size: 18)
+        doneButton.layer.cornerRadius = 5
+        doneButton.frame = CGRect(x:0, y:0, width:160, height:32)
+        doneButton.addTarget(self, action: #selector(didPressDone), for: .touchUpInside)
+
+        self.toolbarItems = [flexible, UIBarButtonItem(customView: doneButton), flexible, UIBarButtonItem(customView: deleteButton), flexible]
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,8 +162,6 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
             cell.taskEditDeadline.text = "No Deadline"
             cell.taskEditDeadline.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
         }
-        //        if showTask?[indexPath.row].taskDeadline?.endIndex = {
-        //            }
         if showTask?[indexPath.row].isPinned == false{
             cell.taskEditPin.isHidden = true
         }else{
@@ -171,41 +185,6 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.setEditing(editing, animated: true)
-        
-        self.navigationController?.setToolbarHidden(false, animated: false)
-        self.navigationController?.toolbar.barTintColor = UIColor.white
-        self.navigationController?.toolbar.barStyle = .blackOpaque
-        
-        print("qjerkl2")
-        let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
-        let deleteButton = UIButton.init(type: .system)
-        deleteButton.setTitle("Delete", for: .normal)
-        deleteButton.setTitleColor(UIColor.white, for: .normal)
-        deleteButton.backgroundColor = UIColor.red
-        deleteButton.titleLabel?.font = UIFont(name: "System", size: 18)
-        deleteButton.layer.cornerRadius = 5
-        deleteButton.frame = CGRect(x:0, y:0, width:160, height:32)
-        deleteButton.addTarget(self, action: #selector(didPressDelete), for: .touchUpInside)
-        let doneButton = UIButton.init(type: .system)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.setTitleColor(UIColor.white, for: .normal)
-        doneButton.backgroundColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
-        doneButton.titleLabel?.font = UIFont(name: "System", size: 18)
-        doneButton.layer.cornerRadius = 5
-        doneButton.frame = CGRect(x:0, y:0, width:160, height:32)
-        doneButton.addTarget(self, action: #selector(didPressDone), for: .touchUpInside)
-
-//        if tableView.isEditing == true{
-//            btnEdit.title = "Cancel"
-//            self.toolbarItems = [flexible, UIBarButtonItem(customView: doneButton), flexible, UIBarButtonItem(customView: deleteButton), flexible]
-//            navigationItem.rightBarButtonItems = [btnEdit]
-//            navigationItem.leftBarButtonItems = [btnSelectAll]
-//        }else if tableView.isEditing == false{
-//            btnEdit.title = "Edit"
-//            self.navigationController?.setToolbarHidden(true, animated: true)
-//            navigationItem.rightBarButtonItems = [btnEdit]
-//            navigationItem.leftBarButtonItems = [btnCancel]
-//        }
     }
     
     @objc func didPressDelete() {
