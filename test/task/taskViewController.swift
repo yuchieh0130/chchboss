@@ -63,7 +63,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        self.navigationController?.toolbar.isHidden = true
         self.navigationController?.navigationBar.shadowImage = UIImage()
         let addTaskBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask(_:)))
         let editTaskBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTask(_:)))
@@ -144,7 +144,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         if DBManager.getInstance().getAllUndoneTask() != nil{
             performSegue(withIdentifier: "taskToEditMode", sender: self)
         }else{
-            let controller = UIAlertController(title: "No Tasks Available", message: "Add task to let BunnyTrack make better plans for you", preferredStyle: .alert)
+            let controller = UIAlertController(title: "No Tasks Available", message: "Add task to let BunnyTrack 🥕 \n make better plans for you", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             controller.addAction(action)
             present(controller, animated: true, completion: nil)
