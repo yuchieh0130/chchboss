@@ -281,11 +281,17 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let doneVC = segue.destination as? doneTaskViewController{
                 doneVC.hidesBottomBarWhenPushed = true
             }
-        case "taskToEditMode":
-            if let navVC = segue.destination as? UINavigationController, let
-                editModeVC = navVC.topViewController as? taskEditModeViewController{
-                editModeVC.hidesBottomBarWhenPushed = true
-                }
+        //case "taskToEditMode":
+            //不用多navigation那層 不知道為什麼！
+            //if let editModeVC = segue.destination as? taskEditModeViewController{
+//                editModeVC.tableView.isEditing = true
+//                editModeVC.tableView.setEditing(true, animated: true)
+            //}
+//            if let navVC = segue.destination as? UINavigationController, let
+//                editModeVC = navVC.topViewController as? taskEditModeViewController{
+//                editModeVC.hidesBottomBarWhenPushed = true
+//                print(editModeVC.tableView.isEditing)
+//                }
         default:
             print("")
         }

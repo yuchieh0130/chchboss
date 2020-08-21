@@ -55,6 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        print("launcn")
+        
         if UserDefaults.standard.bool(forKey: "isLogIn"){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let tabBarController = storyboard.instantiateViewController(withIdentifier: "tabBarController") as! tabBarController
@@ -97,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         })
         UNUserNotificationCenter.current().delegate = self
         
-        sleep(2)
+        //sleep(2)
         
         return true
     }
