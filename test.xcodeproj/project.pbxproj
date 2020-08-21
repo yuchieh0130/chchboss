@@ -45,6 +45,8 @@
 		4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0F243847E3001B80C7 /* taskViewController.swift */; };
 		4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95704D2457FFB10067C4FB /* analysisViewController.swift */; };
 		4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B97DF9124176AB8005BD787 /* DBManager.swift */; };
+		4B98B65B24EF771000624D5D /* taskEditModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B98B65A24EF771000624D5D /* taskEditModeViewController.swift */; };
+		4B98B65D24EF773300624D5D /* taskEditModeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B98B65C24EF773300624D5D /* taskEditModeTableViewCell.swift */; };
 		4B9E6C0324CAD4B9002A1B80 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E6C0224CAD4B9002A1B80 /* MonthYearPickerView.swift */; };
 		4B9EBD542417799400162A77 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD532417799400162A77 /* EventModel.swift */; };
 		4B9EBD562417A7CE00162A77 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD552417A7CE00162A77 /* Util.swift */; };
@@ -124,6 +126,8 @@
 		4B95704D2457FFB10067C4FB /* analysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = analysisViewController.swift; sourceTree = "<group>"; };
 		4B97DF80241769B7005BD787 /* test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-Bridging-Header.h"; sourceTree = "<group>"; };
 		4B97DF9124176AB8005BD787 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		4B98B65A24EF771000624D5D /* taskEditModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskEditModeViewController.swift; sourceTree = "<group>"; };
+		4B98B65C24EF773300624D5D /* taskEditModeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskEditModeTableViewCell.swift; sourceTree = "<group>"; };
 		4B9E6C0224CAD4B9002A1B80 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
 		4B9EBD532417799400162A77 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		4B9EBD552417A7CE00162A77 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -219,9 +223,11 @@
 			isa = PBXGroup;
 			children = (
 				4B855D0F243847E3001B80C7 /* taskViewController.swift */,
+				4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */,
+				4B98B65A24EF771000624D5D /* taskEditModeViewController.swift */,
+				4B98B65C24EF773300624D5D /* taskEditModeTableViewCell.swift */,
 				4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */,
 				4B02C4BB243D6B440087DB4C /* addTaskCell.swift */,
-				4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */,
 				4BA5027D246B7F8600F70144 /* doneTaskViewController.swift */,
 				4BA5027F246B88D800F70144 /* doneTaskTableViewCell.swift */,
 			);
@@ -321,9 +327,9 @@
 				4B9FBA3124B30E690024D7CD /* NetworkController.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
-				4BA138C5243CB24E00C46CD3 /* task */,
-				4BA138C6243CB29800C46CD3 /* addEvent */,
 				582341EC242B5CF400FFC83B /* Calendar */,
+				4BA138C6243CB29800C46CD3 /* addEvent */,
+				4BA138C5243CB24E00C46CD3 /* task */,
 				4B95704C2457FF850067C4FB /* analysis */,
 				4BAB720924AB0184007D52A7 /* settings */,
 				4B4F0150243CCBD100A98C65 /* autoRecord */,
@@ -516,6 +522,7 @@
 				4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */,
 				4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */,
 				4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */,
+				4B98B65B24EF771000624D5D /* taskEditModeViewController.swift in Sources */,
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
 				FF76548E24AE0B4D00663E58 /* LoginViewController.swift in Sources */,
 				4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */,
@@ -532,6 +539,7 @@
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,
 				4B9E6C0324CAD4B9002A1B80 /* MonthYearPickerView.swift in Sources */,
+				4B98B65D24EF773300624D5D /* taskEditModeTableViewCell.swift in Sources */,
 				4B9FBA3224B30E6A0024D7CD /* NetworkController.swift in Sources */,
 				6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */,
 				4B9FB4FA24E296E300DBFAFA /* editMyPlaceViewController.swift in Sources */,

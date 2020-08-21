@@ -23,13 +23,13 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     @IBOutlet var leftBtn: UIButton!
     @IBOutlet var rightBtn: UIButton!
     @IBOutlet var timeLabelBtn: UIButton!
+    @IBOutlet var noDataLabel: UILabel!
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
     var showCategoryColor = [String]()
 
     var showTrack = [TrackModel]()
-    var trackDate = ""
     var hours = [String]()
     var track :TrackModel?
     var categoryName = ""
@@ -122,8 +122,19 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         }
         
         setUpDay()
-        selectedDay = "2020-07-02"
-        getTrackTime()
+        selectedDay = "\(timeLabel.text!)"
+        for (index, value) in valuesDay.enumerated(){
+            valuesDay[index] = value*0.0
+        }
+        if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+            getTrackTime()
+            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+            noDataLabel.isHidden = true
+        }else{
+            showTrack = [TrackModel]()
+            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+            noDataLabel.isHidden = false
+        }
         
         customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
         pieChart.entryLabelColor = UIColor.black
@@ -169,8 +180,8 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool){
-           if DBManager.getInstance().getDateTracks(String: trackDate) != nil{
-               showTrack = DBManager.getInstance().getDateTracks(String: trackDate)
+           if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+               showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
            }else{
                showTrack = [TrackModel]()
            }
@@ -180,7 +191,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             //pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChart.transparentCircleRadiusPercent = 0.0
             pieChart.legend.horizontalAlignment = .center
@@ -192,6 +202,18 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpDay()
             selectedDay = "\(timeLabel.text!)"
+            for (index, value) in valuesDay.enumerated(){
+                valuesDay[index] = value*0.0
+            }
+            if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+                getTrackTime()
+                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+                noDataLabel.isHidden = true
+            }else{
+                showTrack = [TrackModel]()
+                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+                noDataLabel.isHidden = false
+            }
         }else if getIndex == 1{
             customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
             //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
@@ -203,6 +225,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartWeek.isHidden = false
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
+            noDataLabel.isHidden = true
             setUpWeek()
         }else if getIndex == 2{
             customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
@@ -215,6 +238,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = false
             pieChartYear.isHidden = true
+            noDataLabel.isHidden = true
             setUpMonth()
         }else if getIndex == 3{
             customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
@@ -227,6 +251,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = false
+            noDataLabel.isHidden = true
             setUpYear()
         }
         
@@ -495,8 +520,15 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                     for (index, value) in valuesDay.enumerated(){
                         valuesDay[index] = value*0.0
                     }
-                    getTrackTime()
-                    customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+                    if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+                        getTrackTime()
+                        customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+                        noDataLabel.isHidden = true
+                    }else{
+                        showTrack = [TrackModel]()
+                        customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+                        noDataLabel.isHidden = false
+                    }
                 }
             }else if segConIndex == 1{
                 let vc = segue.source as? PickerViewWeekViewController

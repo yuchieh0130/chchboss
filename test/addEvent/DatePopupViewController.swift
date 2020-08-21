@@ -78,6 +78,8 @@ class DatePopupViewController: UIViewController {
         }else if tag == "analysis"{
             datePicker.datePickerMode = .date
             datePicker.date = showDate
+            let todayDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
+            datePicker.maximumDate = todayDate
         }else{
             datePicker.datePickerMode = .dateAndTime
             datePicker.date = showDate
