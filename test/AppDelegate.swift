@@ -97,6 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         })
         UNUserNotificationCenter.current().delegate = self
         
+        sleep(2)
+        
         return true
     }
     
