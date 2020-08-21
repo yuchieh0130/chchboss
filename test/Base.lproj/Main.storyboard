@@ -1355,11 +1355,18 @@
                                     <action selector="segConChoose:" destination="3xM-0D-h9c" eventType="valueChanged" id="yiJ-jC-K2J"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Analysis Data Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4y-84-b0t">
+                                <rect key="frame" x="55" y="397" width="304" height="62"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="WLd-ii-1EE" firstAttribute="top" secondItem="sfp-gm-cKQ" secondAttribute="top" constant="190" id="0My-hS-N2U"/>
+                            <constraint firstItem="Ymv-rs-qLb" firstAttribute="bottom" secondItem="A4y-84-b0t" secondAttribute="bottom" constant="300" id="1kX-6w-gXD"/>
                             <constraint firstItem="AiO-HF-iZi" firstAttribute="leading" secondItem="Ymv-rs-qLb" secondAttribute="leading" id="5o6-w8-Ocw"/>
                             <constraint firstItem="AiO-HF-iZi" firstAttribute="top" secondItem="1hb-Ki-UBc" secondAttribute="bottom" constant="8" id="6SR-Q3-Nau"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="1jD-2W-Lw7" secondAttribute="leading" id="BDv-ln-DjP"/>
@@ -1369,6 +1376,7 @@
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="top" secondItem="sfp-gm-cKQ" secondAttribute="topMargin" constant="19" id="Gi2-Kx-yIm"/>
                             <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="1hb-Ki-UBc" secondAttribute="trailing" constant="35" id="Gmv-Pr-6K0"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="trailing" secondItem="AiO-HF-iZi" secondAttribute="trailing" id="Gxh-TA-vSe"/>
+                            <constraint firstItem="A4y-84-b0t" firstAttribute="trailing" secondItem="1hb-Ki-UBc" secondAttribute="trailing" id="IlJ-hP-yOF"/>
                             <constraint firstItem="1jD-2W-Lw7" firstAttribute="bottom" secondItem="WLd-ii-1EE" secondAttribute="bottom" id="On7-qa-kXe"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="bottom" secondItem="WLd-ii-1EE" secondAttribute="bottom" id="SUm-os-NuA"/>
                             <constraint firstItem="1hb-Ki-UBc" firstAttribute="leading" relation="lessThanOrEqual" secondItem="sfp-gm-cKQ" secondAttribute="leadingMargin" constant="35" id="T3W-1v-hAb"/>
@@ -1378,7 +1386,9 @@
                             <constraint firstItem="1jD-2W-Lw7" firstAttribute="top" secondItem="WLd-ii-1EE" secondAttribute="top" id="eod-FH-AuP"/>
                             <constraint firstItem="qPC-CF-KML" firstAttribute="trailing" secondItem="1jD-2W-Lw7" secondAttribute="trailing" id="g6U-4e-OHS"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="leading" secondItem="AiO-HF-iZi" secondAttribute="leading" id="igV-aa-u3N"/>
+                            <constraint firstItem="A4y-84-b0t" firstAttribute="top" secondItem="AiO-HF-iZi" secondAttribute="bottom" constant="215" id="ihJ-2j-gby"/>
                             <constraint firstItem="qPC-CF-KML" firstAttribute="leading" secondItem="WLd-ii-1EE" secondAttribute="leading" id="j5Y-FP-oVT"/>
+                            <constraint firstItem="A4y-84-b0t" firstAttribute="leading" secondItem="1hb-Ki-UBc" secondAttribute="leading" id="jEL-fj-6DY"/>
                             <constraint firstItem="qPC-CF-KML" firstAttribute="bottom" secondItem="1jD-2W-Lw7" secondAttribute="bottom" id="olI-di-Rz2"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="top" secondItem="AiO-HF-iZi" secondAttribute="bottom" constant="8" symbolic="YES" id="sYG-K9-BrI"/>
                             <constraint firstItem="PnP-nn-Mu1" firstAttribute="trailing" secondItem="1jD-2W-Lw7" secondAttribute="trailing" id="xnu-To-4Fh"/>
@@ -1386,6 +1396,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Analysis" id="BlT-de-YHr"/>
                     <connections>
+                        <outlet property="noDataLabel" destination="A4y-84-b0t" id="DVv-ZO-Wbu"/>
                         <outlet property="pieChart" destination="PnP-nn-Mu1" id="x0r-A1-waa"/>
                         <outlet property="pieChartMonth" destination="1jD-2W-Lw7" id="lIq-VE-ZoM"/>
                         <outlet property="pieChartWeek" destination="qPC-CF-KML" id="Odp-XE-MR5"/>
@@ -2062,7 +2073,7 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="overCurrentContext" id="nNZ-yj-YqY" customClass="DatePopupViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bj0-wR-DwH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpL-Zv-UDT">
                                 <rect key="frame" x="15" y="323" width="384" height="250"/>
