@@ -191,7 +191,6 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
-            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             //pieChart.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
             pieChart.transparentCircleRadiusPercent = 0.0
             pieChart.legend.horizontalAlignment = .center
@@ -203,6 +202,18 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartYear.isHidden = true
             setUpDay()
             selectedDay = "\(timeLabel.text!)"
+            for (index, value) in valuesDay.enumerated(){
+                valuesDay[index] = value*0.0
+            }
+            if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+                getTrackTime()
+                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+                noDataLabel.isHidden = true
+            }else{
+                showTrack = [TrackModel]()
+                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+                noDataLabel.isHidden = false
+            }
         }else if getIndex == 1{
             customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
             //pieChartWeek.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
@@ -214,6 +225,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartWeek.isHidden = false
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
+            noDataLabel.isHidden = true
             setUpWeek()
         }else if getIndex == 2{
             customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
@@ -226,6 +238,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = false
             pieChartYear.isHidden = true
+            noDataLabel.isHidden = true
             setUpMonth()
         }else if getIndex == 3{
             customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
@@ -238,6 +251,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = false
+            noDataLabel.isHidden = true
             setUpYear()
         }
         
