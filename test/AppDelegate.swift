@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             } else {
                 print("不允許通知")
                 DispatchQueue.main.async(){
-                    let alertController = UIAlertController(title: "通知權限已被關閉或限制", message: "將會無法接收來自BunnyTrack的貼心提醒 \n請至 設定>通知>BunnyTrack 開啟允許通知 🥕", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Turn On Notifications", message: "Notifications have been turned off for BunnyTrack. \n Go to Settings > Notifications > BunnyTrack to allow notifiactions 🥕", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
                     alertController.addAction(okAction)
                     self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
@@ -141,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             myLocationManager.requestAlwaysAuthorization()
         }else if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
             DispatchQueue.main.async(){
-                let alertController = UIAlertController(title: "定位權限已被關閉或限制", message: "可能影響BunnyTrack預測行為的準確度 \n請至 設定>隱私權>定位服務 開啟永遠允許 🥕", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Turn On Location Services", message: "Location services have been turned off, which may affect BunnyTrack's accuracy of predicting behavior. \n Please go to Settings > Privacy > Location Services to allow BuunyTrack improve your lifestyle 🥕", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
