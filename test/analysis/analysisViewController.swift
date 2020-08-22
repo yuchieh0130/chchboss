@@ -36,7 +36,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     
     var valuesDay = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var valuesWeek = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
-    var valuesMonth = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
+    var valuesMonth = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     //for chart selected view
     var indexDay = 0
@@ -129,13 +129,14 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
             getTrackTime()
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+            pieChart.isHidden = false
+            noDataLabel.isHidden = true
         }else{
             showTrack = [TrackModel]()
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             pieChart.isHidden = true
+            noDataLabel.isHidden = false
         }
-        
-        pieChart.isHidden = false
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
         pieChartYear.isHidden = true
@@ -356,8 +357,8 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         var endDay = ""
 //        var startWeek = ""
 //        var endWeek = 0
-//        var startMonth = ""
-//        var endMonth = ""
+        var startMonth = ""
+        var endMonth = ""
 //        var startYear = ""
 //        var endYear = ""
         for i in 0...showTrack.count-1{
@@ -365,8 +366,8 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             endDay = showTrack[i].endTime
 //            startWeek = showTrack[i].startTime
 //            endWeek = Calendar.current.component(.weekOfYear, from: Date())
-//            startMonth = showTrack[i].startTime
-//            endMonth = showTrack[i].endTime
+            startMonth = showTrack[i].startTime
+            endMonth = showTrack[i].endTime
 //            startYear = showTrack[i].startTime
 //            endYear = showTrack[i].endTime
             
@@ -379,10 +380,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             
             let trackTimeDay = round(10*(showTimeformatter.date(from: endDay)?.timeIntervalSince(showTimeformatter.date(from: startDay)!))!/3600)/10
 //            let trackTimeWeek = round(10*(showTimeformatter.date(from: endWeek)?.timeIntervalSince(showTimeformatter.date(from: startWeek)!))!/3600)/10
-//            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
+            //算每一筆track有多久
+            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
 //            let trackTimeYear = round(10*(showTimeformatter.date(from: endYear)?.timeIntervalSince(showTimeformatter.date(from: startYear)!))!/3600)/10
             
-            print("Item \(showTrack[i].categoryId): \(trackTimeDay)")
+//            print("Item \(showTrack[i].categoryId): \(trackTimeDay)")
             
             valuesDay.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
@@ -394,11 +396,16 @@ class analysisViewController: UIViewController, ChartViewDelegate{
 //                    valuesWeek[index] = value+trackTimeWeek
 //                }
 //            }
-//            valuesMonth.enumerated().forEach{index, value in
-//                if showTrack[i].categoryId-1 == index{
-//                    valuesMonth[index] = value+trackTimeMonth
-//                }
-//            }
+            valuesMonth.enumerated().forEach{index, value in
+                if showTrack[i].categoryId-1 == index{
+                    if selectedDay.contains("-07-"){
+                        if showTrack[i].startDate.contains("-07-") == true && showTrack[i].endDate.contains("-07-"){
+                            valuesMonth[index] = value+trackTimeMonth
+                        }
+                    }
+                }
+            }
+            print("\(valuesMonth)")
 //            valuesYear.enumerated().forEach{index, value in
 //                if showTrack[i].categoryId-1 == index{
 //                    valuesYear[index] = value+trackTimeYear
@@ -646,7 +653,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(0.8)
+            alpha: CGFloat(0.7)
         )
     }
     

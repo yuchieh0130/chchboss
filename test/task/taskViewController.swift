@@ -87,7 +87,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         floaty.plusColor = UIColor.white
         floaty.itemButtonColor = UIColor(red: 67/255, green: 76/255, blue: 123/255, alpha: 1)
         floaty.itemTitleColor =  UIColor(red: 67/255, green: 76/255, blue: 123/255, alpha: 1)
-//        UIColor(red: 190/255, green: 155/255, blue: 116/255, alpha: 1)
         floaty.overlayColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         floaty.itemShadowColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0)
         floaty.addItem("Add Task", icon: UIImage(systemName: "doc.text"), handler: {_ in
@@ -108,10 +107,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
-//        self.navigationController?.navigationBar.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)]
-    
         if DBManager.getInstance().getAllUndoneTask() != nil{
             showTask = DBManager.getInstance().getAllUndoneTask()
         }else{
@@ -174,7 +169,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     @available(iOS 13.0, *)
     public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id = showTask?[indexPath.row].taskId
-        //let task = showTask?[indexPath.row]
         let pinAction = UIContextualAction(style: .normal, title: "Pin") { (action, view, completionHandler) in
             print("Pin")
             completionHandler(true)
@@ -260,10 +254,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-//        case "addTask":
-//            if let navVC = segue.destination as? UINavigationController, let
-//                addVC = navVC.topViewController as? addTaskViewController {
-//            }
         case "editTask":
             if let navVC = segue.destination as? UINavigationController, let
                 editVC = navVC.topViewController as? addTaskViewController{
@@ -281,17 +271,6 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let doneVC = segue.destination as? doneTaskViewController{
                 doneVC.hidesBottomBarWhenPushed = true
             }
-        //case "taskToEditMode":
-            //不用多navigation那層 不知道為什麼！
-            //if let editModeVC = segue.destination as? taskEditModeViewController{
-//                editModeVC.tableView.isEditing = true
-//                editModeVC.tableView.setEditing(true, animated: true)
-            //}
-//            if let navVC = segue.destination as? UINavigationController, let
-//                editModeVC = navVC.topViewController as? taskEditModeViewController{
-//                editModeVC.hidesBottomBarWhenPushed = true
-//                print(editModeVC.tableView.isEditing)
-//                }
         default:
             print("")
         }
@@ -358,8 +337,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.taskDeadline.text = "No Deadline"
             cell.taskDeadline.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
         }
-        //        if showTask?[indexPath.row].taskDeadline?.endIndex = {
-        //            }
+       
         if showTask?[indexPath.row].isPinned == false{
             cell.taskPin.isHidden = true
         }else{

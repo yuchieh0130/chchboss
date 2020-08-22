@@ -44,9 +44,6 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         return formatter
     }
     
-    var btnCancel: UIBarButtonItem!
-    var btnSelectAll: UIBarButtonItem!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -57,11 +54,8 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         
         let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
         let selectAllBtn = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(selectAllRows(_:)))
-        navigationItem.rightBarButtonItems = [selectAllBtn]
-        navigationItem.leftBarButtonItems = [cancelBtn]
-        
-        btnCancel = cancelBtn
-        btnSelectAll = selectAllBtn
+        navigationItem.leftBarButtonItems = [selectAllBtn]
+        navigationItem.rightBarButtonItems = [cancelBtn]
     }
     
     override func viewWillAppear(_ animated: Bool) {
