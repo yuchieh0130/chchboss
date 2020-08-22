@@ -30,6 +30,12 @@ class ViewController: UIViewController{
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
+    var showWeekDayFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd EEE"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     
     var numberOfRows = 6
     
@@ -39,6 +45,7 @@ class ViewController: UIViewController{
     var task: TaskModel?
 
     var selectedDay = ""
+    var selectedDayWithWeekday = ""
     var showEvent = [EventModel]()
     var showTask = [TaskModel]()
     
@@ -69,7 +76,7 @@ class ViewController: UIViewController{
             }
         case "timeline":
             if let VC = segue.destination as? timeline{
-                VC.date = selectedDay
+                VC.date = selectedDayWithWeekday
                 VC.hidesBottomBarWhenPushed = true
             }
         default:
@@ -237,6 +244,7 @@ class ViewController: UIViewController{
         if cellState.isSelected && cellState.dateBelongsTo == .thisMonth{
             cell.selectedView.isHidden = false
             selectedDay = showDayFormatter.string(from: cellState.date)
+            selectedDayWithWeekday = showWeekDayFormatter.string(from: cellState.date)
             if DBManager.getInstance().getEvents(String: selectedDay) != nil{
                 showEvent = DBManager.getInstance().getEvents(String: selectedDay)
             }else{

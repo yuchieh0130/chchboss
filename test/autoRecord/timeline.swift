@@ -47,7 +47,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
         hourSize = Int(fullSize.height/6)
         myScrollView = UIScrollView()
         //可見視圖範圍
-        myScrollView.frame = CGRect(x: 0, y: 100, width: fullSize.width,height: fullSize.height - 20)
+        myScrollView.frame = CGRect(x: 0, y: 60, width: fullSize.width,height: fullSize.height - 20)
         //實際視圖範圍
         myScrollView.contentSize = CGSize(width: fullSize.width,height:fullSize.height/6*24+80)
         //滑動條
@@ -60,9 +60,12 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
         self.view.addSubview(myScrollView)
         timelabel()
         createTimeLines(hours: hours,view:myScrollView)
-        let dateLabel = UILabel(frame:CGRect(x:view.center.x-50,y:50,width: 100,height: 40))
-        dateLabel.text = date
-        self.view.addSubview(dateLabel)
+
+        let dateLabel = UIButton.init(type: .custom)
+        dateLabel.setTitle("\(date)", for: .normal)
+        dateLabel.setTitleColor(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), for: .normal)
+        dateLabel.titleLabel?.font = UIFont(name: "Helvetica", size: 20)
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: dateLabel)]
         
 //        tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
         tap.delegate = self

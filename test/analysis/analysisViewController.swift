@@ -258,7 +258,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         // 2. Set ChartDataSet
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
         pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
-        pieChartDataSet.selectionShift = 8
+        pieChartDataSet.sliceSpace = 5
+        pieChartDataSet.xValuePosition = .insideSlice
+        pieChartDataSet.selectionShift = 10
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         let formatter = NumberFormatter()
@@ -293,7 +295,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         // 2. Set ChartDataSet
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
         pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
-        pieChartDataSet.selectionShift = 8
+        pieChartDataSet.sliceSpace = 5
+        pieChartDataSet.xValuePosition = .insideSlice
+        pieChartDataSet.selectionShift = 10
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         let formatter = NumberFormatter()
@@ -328,7 +332,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         // 2. Set ChartDataSet
         let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
         pieChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
-        pieChartDataSet.selectionShift = 8
+        pieChartDataSet.sliceSpace = 5
+        pieChartDataSet.xValuePosition = .insideSlice
+        pieChartDataSet.selectionShift = 10
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         let formatter = NumberFormatter()
@@ -356,62 +362,45 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
         var startDay = ""
         var endDay = ""
-//        var startWeek = ""
-//        var endWeek = 0
-//        var startMonth = ""
-//        var endMonth = ""
-//        var startYear = ""
-//        var endYear = ""
         for i in 0...showTrack.count-1{
             startDay = showTrack[i].startTime
             endDay = showTrack[i].endTime
-//            startWeek = showTrack[i].startTime
-//            endWeek = Calendar.current.component(.weekOfYear, from: Date())
-//            startMonth = showTrack[i].startTime
-//            endMonth = showTrack[i].endTime
-//            startYear = showTrack[i].startTime
-//            endYear = showTrack[i].endTime
-            
             if showTrack[i].startDate != selectedDay{
                 startDay = "00:00"
             }
             if showTrack[i].endDate != selectedDay{
                 endDay = "23:59"
             }
-            
             let trackTimeDay = round(10*(showTimeformatter.date(from: endDay)?.timeIntervalSince(showTimeformatter.date(from: startDay)!))!/3600)/10
-//            let trackTimeWeek = round(10*(showTimeformatter.date(from: endWeek)?.timeIntervalSince(showTimeformatter.date(from: startWeek)!))!/3600)/10
-            //算每一筆track有多久
-//            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
-//            let trackTimeYear = round(10*(showTimeformatter.date(from: endYear)?.timeIntervalSince(showTimeformatter.date(from: startYear)!))!/3600)/10
-            
-//            print("Item \(showTrack[i].categoryId): \(trackTimeDay)")
-            
             valuesDay.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
                     valuesDay[index] = value+trackTimeDay
                 }
             }
-//            valuesWeek.enumerated().forEach{index, value in
-//                if showTrack[i].categoryId-1 == index{
-//                    valuesWeek[index] = value+trackTimeWeek
-//                }
-//            }
-//            valuesMonth.enumerated().forEach{index, value in
-//                if showTrack[i].categoryId-1 == index{
-//                    if selectedDay.contains("-07-"){
-//                        if showTrack[i].startDate.contains("-07-") == true && showTrack[i].endDate.contains("-07-"){
-//                            valuesMonth[index] = value+trackTimeMonth
-//                        }
-//                    }
-//                }
-//            }
-//            print("\(valuesMonth)")
-//            valuesYear.enumerated().forEach{index, value in
-//                if showTrack[i].categoryId-1 == index{
-//                    valuesYear[index] = value+trackTimeYear
-//                }
-//            }
+        }
+    }
+    
+    func getTrackTimeMonth(){
+        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
+        var startMonth = ""
+        var endMonth = ""
+        for i in 0...showTrack.count-1{
+            startMonth = showTrack[i].startTime
+            endMonth = showTrack[i].endTime
+            if showTrack[i].startDate != selectedDay{
+                startMonth = "00:00"
+            }
+            if showTrack[i].endDate != selectedDay{
+                endMonth = "23:59"
+            }
+            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
+            valuesMonth.enumerated().forEach{index, value in
+                if showTrack[i].categoryId-1 == index{
+                    if selectedDay.contains("-07-"){
+                        valuesMonth[index] = value+trackTimeMonth
+                    }
+                }
+            }
         }
     }
     
@@ -543,13 +532,18 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 let vc = segue.source as? PickerViewController
                 tag = vc?.tag
                 if tag == "analysisMonthYear"{
-                    timeLabel.text = vc?.pickerViewMonthYear.dateMonthYear
+                    timeLabel.text = vc!.pickerViewMonthYear.dateMonthYear
+                    if vc!.pickerViewMonthYear.month < 10{
+                        print("0\(vc!.pickerViewMonthYear.month)")
+                    }else{
+                        print("\(vc!.pickerViewMonthYear.month)")
+                    }
                 }
             }else if segConIndex == 3{
                 let vc = segue.source as? PickerViewYearController
                 tag = vc?.tag
                 if tag == "analysisYear"{
-                    timeLabel.text = vc?.pickerViewYear.dateYear
+                    timeLabel.text = vc!.pickerViewYear.dateYear
                 }
             }
         }
