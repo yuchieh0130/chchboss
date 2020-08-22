@@ -76,7 +76,8 @@ class ViewController: UIViewController{
             }
         case "timeline":
             if let VC = segue.destination as? timeline{
-                VC.date = selectedDayWithWeekday
+                VC.date = selectedDay
+                VC.showDate = selectedDayWithWeekday
                 VC.hidesBottomBarWhenPushed = true
             }
         default:

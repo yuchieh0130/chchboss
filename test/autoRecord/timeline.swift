@@ -16,6 +16,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     var hourSize = 0
     var hours = [String]()
     var date = ""
+    var showDate = ""
     var trackViews = [UIButton]()
     
     var showTrack  = [TrackModel]()
@@ -62,7 +63,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
         createTimeLines(hours: hours,view:myScrollView)
 
         let dateLabel = UIButton.init(type: .custom)
-        dateLabel.setTitle("\(date)", for: .normal)
+        dateLabel.setTitle("\(showDate)", for: .normal)
         dateLabel.setTitleColor(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), for: .normal)
         dateLabel.titleLabel?.font = UIFont(name: "Helvetica", size: 20)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: dateLabel)]
