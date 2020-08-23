@@ -95,6 +95,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         title = "Analysis"
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         self.navigationController?.navigationBar.shadowImage = UIImage()
         segCon.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
