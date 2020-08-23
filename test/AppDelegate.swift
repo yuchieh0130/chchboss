@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         myLocationManager.delegate = self
         myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        //myLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         //kCLLocationAccuracyBestForNavigation：導航最高精確，，需要使用GPS。例如：汽車導航時使用。
         //kCLLocationAccuracyBest;//高精確
         //kCLLocationAccuracyNearestTenMeters：10米，10米附近的精準度可能是GPS & WiFi混用
@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         myLocationManager.activityType = .other
         //myLocationManager.requestAlwaysAuthorization()
         myLocationManager.startUpdatingLocation()
-        //myLocationManager.startMonitoringSignificantLocationChanges()
+        myLocationManager.startMonitoringSignificantLocationChanges()
         //        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         //        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
         //            print(myLocationManager.monitoredRegions)
@@ -111,7 +111,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             }
         })
         UNUserNotificationCenter.current().delegate = self
-        
         sleep(2)
         return true
     }
@@ -131,9 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-                if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
                     print(myLocationManager.monitoredRegions)
-                    
         }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         print("BunnyTrack Active")
@@ -311,12 +309,12 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         let startTime = self.showTime.string(from: enterTime)
         let weekday = Calendar.current.component(.weekday, from: enterTime)
         let name1 = placeEntering!.placeName
-        let name2 = ""
+        let name2 = "\(placeEntering!.placeId!)"
         let name3 = ""
         let name4 = ""
         let name5 = ""
-        let category1 = "entering"
-        let category2 = ""
+        let category1 = placeEntering!.placeCategory
+        let category2 = "entering"
         let category3 = ""
         let category4 = ""
         let category5 = ""
@@ -338,19 +336,19 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     }
     
     func exitRegion(region: CLRegion){
-        let placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
-        let latitude = placeEntering!.placeLatitude
-        let longitude = placeEntering!.placeLatitude
+        let placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+        let latitude = placeExiting!.placeLatitude
+        let longitude = placeExiting!.placeLatitude
         let startDate = self.showDate.string(from: exitTime)
         let startTime = self.showTime.string(from: exitTime)
         let weekday = Calendar.current.component(.weekday, from: exitTime)
-        let name1 = placeEntering!.placeName
-        let name2 = ""
+        let name1 = placeExiting!.placeName
+        let name2 = "\(placeExiting!.placeId!)"
         let name3 = ""
         let name4 = ""
         let name5 = ""
-        let category1 = "exiting"
-        let category2 = ""
+        let category1 = placeExiting!.placeCategory
+        let category2 = "exiting"
         let category3 = ""
         let category4 = ""
         let category5 = ""

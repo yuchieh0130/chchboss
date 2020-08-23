@@ -27,6 +27,7 @@
 		4B35331D24A9D9EE00408562 /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B35331C24A9D9EE00408562 /* settingsViewController.swift */; };
 		4B362F8524CADC2400E635C6 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B362F8424CADC2400E635C6 /* PickerViewController.swift */; };
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
+		4B3C287324F20B5E0097582B /* analysisTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */; };
 		4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B490B8E24B589A500A8249A /* combineChartViewController.swift */; };
 		4B4AB6232463197A00FC8A6D /* showMyPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
@@ -107,6 +108,7 @@
 		4B35331C24A9D9EE00408562 /* settingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
 		4B362F8424CADC2400E635C6 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
+		4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = analysisTableViewCell.swift; sourceTree = "<group>"; };
 		4B490B8E24B589A500A8249A /* combineChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = combineChartViewController.swift; sourceTree = "<group>"; };
 		4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showMyPlaceController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				4B95704D2457FFB10067C4FB /* analysisViewController.swift */,
+				4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */,
 				4B490B8E24B589A500A8249A /* combineChartViewController.swift */,
 				4B9E6C0224CAD4B9002A1B80 /* MonthYearPickerView.swift */,
 				4B362F8424CADC2400E635C6 /* PickerViewController.swift */,
@@ -544,6 +547,7 @@
 				6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */,
 				4B9FB4FA24E296E300DBFAFA /* editMyPlaceViewController.swift in Sources */,
 				4B351A4824188BE9003A474A /* FMDatabaseAdditions.m in Sources */,
+				4B3C287324F20B5E0097582B /* analysisTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
