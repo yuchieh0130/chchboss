@@ -11,19 +11,17 @@ import UIKit
 import Floaty
 import Charts
 
-class analysisViewController: UIViewController, ChartViewDelegate{
+class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var pieChart: PieChartView! //pieChartToday
     @IBOutlet var pieChartWeek: PieChartView!
     @IBOutlet var pieChartMonth: PieChartView!
     @IBOutlet var pieChartYear: PieChartView!
-    @IBOutlet var timeView: UIView!
-    @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var leftBtn: UIButton!
-    @IBOutlet var rightBtn: UIButton!
-    @IBOutlet var timeLabelBtn: UIButton!
     @IBOutlet var noDataLabel: UILabel!
+    @IBOutlet var tableView: UITableView!
+    
+    var showTimeLabel: String = ""
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
@@ -95,9 +93,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Analysis"
+        tableView.delegate = self
+        tableView.dataSource = self
         self.navigationController?.navigationBar.shadowImage = UIImage()
         segCon.translatesAutoresizingMaskIntoConstraints = false
-        timeView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         pieChart.translatesAutoresizingMaskIntoConstraints = false
         pieChartWeek.translatesAutoresizingMaskIntoConstraints = false
         pieChartMonth.translatesAutoresizingMaskIntoConstraints = false
@@ -120,9 +120,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             showCategoryStr.append(showCategory[i].categoryName)
             showCategoryColor.append(showCategory[i].categoryColor)
         }
-        
-        setUpDay()
-        selectedDay = "\(timeLabel.text!)"
+        currentDate = showDayformatter.string(from: Date())
+        showTimeLabel = currentDate
+        selectedDay = "\(showTimeLabel)"
         for (index, value) in valuesDay.enumerated(){
             valuesDay[index] = value*0
         }
@@ -143,11 +143,14 @@ class analysisViewController: UIViewController, ChartViewDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool){
-           if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
-               showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
-           }else{
-               showTrack = [TrackModel]()
-           }
+        if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+            showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
+        }else{
+            showTrack = [TrackModel]()
+        }
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
     @IBAction func segConChoose(_ sender: Any) {
@@ -157,8 +160,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
-            setUpDay()
-            selectedDay = "\(timeLabel.text!)"
+            currentDate = showDayformatter.string(from: Date())
+            showTimeLabel = currentDate
+            selectedDay = "\(showTimeLabel)"
             for (index, value) in valuesDay.enumerated(){
                 valuesDay[index] = value*0
             }
@@ -191,7 +195,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
             noDataLabel.isHidden = true
-            setUpWeek()
+            startWeekDay = showDayformatter.string(from: startOfWeek!)
+            endWeekDay = showDayformatter.string(from: endOfWeek!)
+            showTimeLabel = "\(startWeekDay) ~ \(endWeekDay)"
         }else if getIndex == 2{
             customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
             pieChart.isHidden = true
@@ -199,7 +205,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartMonth.isHidden = false
             pieChartYear.isHidden = true
             noDataLabel.isHidden = true
-            setUpMonth()
+            showTimeLabel = months[currentMonth - 1] + " \(currentYear)"
         }else if getIndex == 3{
             customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
             pieChart.isHidden = true
@@ -207,9 +213,9 @@ class analysisViewController: UIViewController, ChartViewDelegate{
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = false
             noDataLabel.isHidden = true
-            setUpYear()
+            showTimeLabel = "\(currentYear)"
         }
-        
+        self.tableView.reloadData()
     }
     
     func customizeCategoryChart(dataPoints: [String], values: [Double]) {
@@ -465,7 +471,7 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         if (segue.identifier == "analysisDatePopUp"){
             if let vc = segue.destination as? DatePopupViewController{
                 vc.tag = "analysis"
-                vc.showDate = showDayformatter.date(from: timeLabel.text!)!
+                vc.showDate = showDayformatter.date(from: showTimeLabel)!
             }
         }
         if (segue.identifier == "analysisPickerView"){
@@ -486,6 +492,30 @@ class analysisViewController: UIViewController, ChartViewDelegate{
         
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "analysisTableViewCell", for: indexPath) as! analysisTableViewCell
+        cell.timeLabel.text = showTimeLabel
+        cell.selectionStyle = .blue
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if segConIndex == 0{
+            performSegue(withIdentifier: "analysisDatePopUp", sender: self)
+        }else if segConIndex == 1{
+            performSegue(withIdentifier: "analysisPickerViewWeek", sender: self)
+        }else if segConIndex == 2{
+            performSegue(withIdentifier: "analysisPickerView", sender: self)
+        }else if segConIndex == 3{
+            performSegue(withIdentifier: "analysisPickerViewYear", sender: self)
+        }
+        
+    }
+    
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         if segue.identifier == "timeSegueBack"{
             if segConIndex == 0{
@@ -494,8 +524,8 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 tag = vc?.tag
                 if tag == "analysis"{
                     showCategory = DBManager.getInstance().getAllCategory()
-                    timeLabel.text = showDayformatter.string(from: date)
-                    selectedDay = "\(timeLabel.text!)"
+                    showTimeLabel = showDayformatter.string(from: date)
+                    selectedDay = "\(showTimeLabel)"
                     for (index, value) in valuesDay.enumerated(){
                         valuesDay[index] = value*0
                     }
@@ -526,13 +556,13 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 let vc = segue.source as? PickerViewWeekViewController
                 tag = vc?.tag
                 if tag == "analysisWeek"{
-                    timeLabel.text = vc?.pickerViewWeek.dateWeek
+                    showTimeLabel = (vc!.pickerViewWeek.dateWeek)
                 }
             }else if segConIndex == 2{
                 let vc = segue.source as? PickerViewController
                 tag = vc?.tag
                 if tag == "analysisMonthYear"{
-                    timeLabel.text = vc!.pickerViewMonthYear.dateMonthYear
+                    showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
                     if vc!.pickerViewMonthYear.month < 10{
                         print("0\(vc!.pickerViewMonthYear.month)")
                     }else{
@@ -543,93 +573,11 @@ class analysisViewController: UIViewController, ChartViewDelegate{
                 let vc = segue.source as? PickerViewYearController
                 tag = vc?.tag
                 if tag == "analysisYear"{
-                    timeLabel.text = vc!.pickerViewYear.dateYear
+                    showTimeLabel = vc!.pickerViewYear.dateYear
                 }
             }
+            self.tableView.reloadData()
         }
-    }
-    
-    func setUpDay(){
-//        if currentMonth < 9, currentDay < 10{
-//            timeLabel.text = "\(currentYear)-0\(currentMonth)-0\(currentDay)"
-//        }else{
-//            timeLabel.text = "\(currentYear)-\(currentMonth)-\(currentDay)"
-//        }
-        currentDate = showDayformatter.string(from: Date())
-        timeLabel.text = currentDate
-    }
-    
-    func setUpWeek(){
-        startWeekDay = showDayformatter.string(from: startOfWeek!)
-        endWeekDay = showDayformatter.string(from: endOfWeek!)
-        timeLabel.text = "\(startWeekDay) ~ \(endWeekDay)"
-    }
-    
-    func setUpMonth(){
-        timeLabel.text = months[currentMonth - 1] + " \(currentYear)"
-    }
-    
-    func setUpYear(){
-        timeLabel.text = "\(currentYear)"
-    }
-    
-//    @IBAction func leftBtnAction(_ sender: UIButton) {
-//        if segConIndex == 0{
-//            currentDate = showDayformatter.string(from: Date.yesterday)
-//            timeLabel.text = currentDate
-//        }else if segConIndex == 1{
-//            let lastWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
-//            start = "\(showDayformatter.string(from: lastWeek.startOfWeek!))"
-//            end = "\(showDayformatter.string(from: lastWeek.endOfWeek!))"
-//            timeLabel.text = "\(start) ~ \(end)"
-//        }else if segConIndex == 2{
-//            currentMonth -= 1
-//            if currentMonth == 0{
-//                currentMonth = 12
-//                currentYear -= 1
-//            }
-//            setUpMonth()
-//        }else if segConIndex == 3{
-//            currentYear -= 1
-//            setUpYear()
-//        }
-//    }
-//
-//    @IBAction func rightBtnAction(_ sender: UIButton) {
-//        if segConIndex == 0{
-//            currentDay += 1
-//            setUpDay()
-//        }else if segConIndex == 1{
-//            let dateFormat = DateFormatter()
-//            dateFormat.dateFormat =  "yyyy-MM-dd"
-//            let nextWeek: Date = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date())!
-//            start = "\(dateFormat.string(from: nextWeek.startOfWeek!))"
-//            end = "\(dateFormat.string(from: nextWeek.endOfWeek!))"
-//            timeLabel.text = "\(start) ~ \(end)"
-//        }else if segConIndex == 2{
-//            currentMonth += 1
-//            if currentMonth == 13{
-//                currentMonth = 1
-//                currentYear += 1
-//                }
-//            setUpMonth()
-//        }else if segConIndex == 3{
-//            currentYear += 1
-//            setUpYear()
-//        }
-//    }
-    
-    @IBAction func timeLabelBtnDatePopUp(_ sender: Any) {
-        if segConIndex == 0{
-            performSegue(withIdentifier: "analysisDatePopUp", sender: self)
-        }else if segConIndex == 1{
-            performSegue(withIdentifier: "analysisPickerViewWeek", sender: self)
-        }else if segConIndex == 2{
-            performSegue(withIdentifier: "analysisPickerView", sender: self)
-        }else if segConIndex == 3{
-            performSegue(withIdentifier: "analysisPickerViewYear", sender: self)
-        }
-        
     }
     
     func hexStringToUIColor (hex:String) -> UIColor {
