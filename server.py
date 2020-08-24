@@ -346,25 +346,116 @@ def deleteTrack():
     cur.close()
 
 
-# @app.route("/insertTrack", methods=["POST"])
-# def insertTrack():
-#     import mysql.connector
-#     conn = mysql.connector.Connect( host='localhost', user='root', password='chchboss', database='mo')
-#     data = request.get_json()
+@app.route("/insertTrack", methods=["POST"])
+def insertTrack():
+    import mysql.connector
+    conn = mysql.connector.Connect( host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
 
-#     user_id = data["user_id"]
-#     start_date = data["start_date"]
-#     start_time = data["start_time"]
-#     end_date = data["end_date"]
-#     end_time = data["end_time"]
-#     category_id = data["category_id"]
-#     location_id = data["location_id"]
-#     place_id = data["place_id"]
+    user_id = data["user_id"]
+    start_date = data["start_date"]
+    start_time = data["start_time"]
+    weekday = data["weekday"]
+    end_date = data["end_date"]
+    end_time = data["end_time"]
+    map_id = data["map_id"]
+    category_id = data["category_id"]
+    location_id = data["location_id"]
+    place_id = data["place_id"]
 
-#     nw_start_datetime = start_date + start_time
-#     nw_end_datetime = end_date + end_time
+    nw_start_datetime = start_date + start_time
+    nw_end_datetime = end_date + end_time
 
-#     # 覆寫包含下一筆
+    #新增insert資料
+    cur = conn.cursor()
+    sql = "INSERT INTO track(user_id, start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id, map_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    adr = (user_id, start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id, map_id)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+
+    # start_time有被包含在其中一筆
+    cur = conn.cursor()
+    sql = "SELECT track_id, category_id FROM track WHERE CONCAT(end_date, end_time) > %s AND CONCAT(start_date, start_time) < %s AND user_id = %s"
+    adr = (nw_start_datetime, nw_start_datetime, user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    if(fetch_data[0][1] == category_id):
+        cur = conn.cursor()
+        sql = "SELECT start_date, start_time FROM track WHERE track_id = %s"
+        adr = (fetch_data[0][0])
+        cur.execute(sql, adr)
+        fetch_time = cur.fetchall()
+        cur.close()
+        
+        cur = conn.cursor()
+        sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE start_date = %s and start_time = %s and user_id = %s"
+        adr = (fetch_time[0][0], fetch_time[0][1], start_date, start_time, user_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+    else:
+        cur = conn.cursor()
+        sql = "UPDATE track SET(end_date, end_time) VALUES(%s, %s) WHERE track_id = %s"
+        adr = (start_date, start_time, user_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+
+
+    #end_time被包含在其中一筆
+    cur = conn.cursor()
+    sql = "SELECT track_id, category_id FROM track WHERE CONCAT(end_date, end_time) > %s AND CONCAT(start_date, start_time) < %s AND user_id = %s"
+    adr = (nw_end_datetime, nw_end_datetime, user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+
+    if(fetch_data[0][1] == category_id):
+        cur = conn.cursor()
+        sql = "SELECT end_date, end_time FROM track WHERE track_id = %s"
+        adr = (fetch_data[0][0])
+        cur.execute(sql, adr)
+        fetch_time = cur.fetchall()
+        cur.close()
+
+        cur = conn.cursor()
+        sql = "UPDATE track SET(end_date, end_time) VALUES(%s, %s) WHERE end_date = %s and end_time = %s and user_id = %s"
+        adr = (fetch_time[0][0], fetch_time[0][1], end_date, end_time, user_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+    else:
+        cur = conn.cursor()
+        sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE track_id = %s"
+        adr = (end_date, end_time, user_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+
+
+    # 有資料完全包含於insert裡
+    cur = conn.cursor()
+    sql = "SELECT track_id WHERE start_date between %s and %s AND start_time between %s and %s AND end_date between %s and %s AND end_time between %s and %s AND user_id = %s"
+    adr = (start_date, end_date, start_time, end_time, start_date, end_date, start_time, end_time, user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+
+    for data in fetch_data:
+        cur = conn.cursor()
+        sql = "DELETE FROM track WHERE track_id = %s"
+        adr = (data)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+    # 覆寫包含下一筆
 #     cur = conn.cursor()
 #     sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) > %s AND CONCAT(start_date, start_time) < %s AND user_id = %s"
 #     adr = (nw_start_datetime, nw_end_datetime, user_id)
@@ -374,14 +465,15 @@ def deleteTrack():
 #     if(len(fetch_data) == 1):
 #         if(category_id != fetch_data):
 #             cur = conn.cursor()
-#             sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) BETWEEN %s and %s AND CONCAT(start_date, start_time) BETWEEN"
-
+#             sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) < %s and CONCAT(start_date, start_time) > %s AND CONCAT(end_date, end_time) < %s and CONCAT(end_date, end_time) > %s AND user_id = %s"
+#             adr = (nw_start_datetime, nw_end_datetime)
 #             cur = conn.cursor()
 #             sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE "
 #             adr = (end_date, end_time)
 
-#     else
-# # 若insert在某一段在最後,延長
+    
+
+# # 若insert在上一段的最後,延長
 #     nw_end_datetime = end_date + end_time
 #     nw_start_datetime = start_date + start_time
 #     cur = conn.cursor()
@@ -398,6 +490,7 @@ def deleteTrack():
 #         conn.commit()
 #         cur.close()
 
+# # 若insert在下一段的前面,延長
 #     cur = conn.cursor()
 #     sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
 #     adr = (nw_end_datetime, user_id)
@@ -412,6 +505,7 @@ def deleteTrack():
 #         conn.commit()
 #         cur.close()
 
+#     elif(len(fetch_data) == 0):
 #     cur = conn.cursor()
 #     sql = "INSERT INTO track (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 #     adr = (start_date, start_time, end_date, end_time,
