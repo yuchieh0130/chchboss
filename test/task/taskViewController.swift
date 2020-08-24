@@ -65,22 +65,31 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.navigationController?.toolbar.isHidden = true
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        let addTaskBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask(_:)))
-        let editTaskBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTask(_:)))
-//        let doneTaskBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTask(_:)))
-//        navigationItem.rightBarButtonItems = [editButtonItem]
-//        navigationItem.leftBarButtonItems = [addTaskBtn,doneTaskBtn]
+
+        let addTaskBtn = UIButton.init(type: .system)
+        addTaskBtn.setImage(UIImage(systemName: "plus"), for: .normal)
+        addTaskBtn.layer.borderWidth = 1.25
+        addTaskBtn.layer.cornerRadius = 5
+        addTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+        addTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+        addTaskBtn.addTarget(self, action: #selector(addTask(_:)), for: .touchUpInside)
+        let editTaskBtn = UIButton.init(type: .system)
+        editTaskBtn.setTitle("Edit", for: .normal)
+        editTaskBtn.layer.borderWidth = 1.25
+        editTaskBtn.layer.cornerRadius = 5
+        editTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+        editTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+        editTaskBtn.addTarget(self, action: #selector(editTask(_:)), for: .touchUpInside)
         let doneTaskBtn = UIButton.init(type: .system)
-        doneTaskBtn.setTitle("Done", for: .normal)
-        doneTaskBtn.setTitleColor(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), for: .normal)
-        doneTaskBtn.titleLabel?.font = UIFont(name: "System", size: 18)
-        doneTaskBtn.layer.borderWidth = 1
+        doneTaskBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        doneTaskBtn.layer.borderWidth = 1.25
         doneTaskBtn.layer.cornerRadius = 5
-        doneTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1).cgColor
-        doneTaskBtn.frame = CGRect(x:0, y:0, width:70, height:34)
+        doneTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+        doneTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
         doneTaskBtn.addTarget(self, action: #selector(doneTask(_:)), for: .touchUpInside)
-        navigationItem.rightBarButtonItems = [editTaskBtn]
-        navigationItem.leftBarButtonItems = [addTaskBtn, UIBarButtonItem(customView: doneTaskBtn)]
+        let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: addTaskBtn), flexible, flexible, UIBarButtonItem(customView: doneTaskBtn)]
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: editTaskBtn)]
         
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 140, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
@@ -234,7 +243,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
 //            completionHandler(true)
 //        }
         deleteAction.backgroundColor = UIColor.red
-        doneAction.backgroundColor = UIColor(red: 103/255, green: 112/255, blue: 150/255, alpha: 1)
+        doneAction.backgroundColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
@@ -357,6 +366,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         task = showTask![indexPath.row]
         performSegue(withIdentifier: "editTask", sender: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

@@ -500,7 +500,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "analysisTableViewCell", for: indexPath) as! analysisTableViewCell
         cell.timeLabel.text = showTimeLabel
-        cell.selectionStyle = .blue
         return cell
     }
     
@@ -514,7 +513,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         }else if segConIndex == 3{
             performSegue(withIdentifier: "analysisPickerViewYear", sender: self)
         }
-        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){

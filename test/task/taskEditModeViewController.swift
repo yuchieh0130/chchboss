@@ -15,6 +15,7 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
     
     var task: TaskModel?
     var showTask: [TaskModel]?
+    var isTapped = false
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -44,6 +45,8 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         return formatter
     }
     
+    var selectBtn: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -53,9 +56,10 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
-        let selectAllBtn = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(selectAllRows(_:)))
-        navigationItem.leftBarButtonItems = [selectAllBtn]
-        navigationItem.rightBarButtonItems = [cancelBtn]
+        let selectAllBtn = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(btnSelectDidTap))
+        navigationItem.rightBarButtonItems = [selectAllBtn]
+        navigationItem.leftBarButtonItems = [cancelBtn]
+        selectBtn = selectAllBtn
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,16 +104,39 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidAppear(animated)
     }
     
+    func updateBarButton(isTapped : Bool){
+        if isTapped {
+            selectBtn.title = "Deselect All"
+        }else{
+            selectBtn.title = "Select All"
+        }
+        self.navigationItem.rightBarButtonItems = [selectBtn]
+    }
+
+    @objc func btnSelectDidTap(){
+        self.isTapped = !self.isTapped;
+        if self.isTapped {
+            self.selectAllRows()
+        }else{
+            self.deselectAllRows()
+        }
+        self.updateBarButton(isTapped: self.isTapped)
+    }
+    
     @objc func cancel(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func selectAllRows(_ sender: UIButton){
-        //for section in 0..<tableView.numberOfSections {
-                for row in 0..<tableView.numberOfRows(inSection: 0) {
-                    tableView.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
-                }
-            //}
+    func selectAllRows(){
+        for row in 0..<tableView.numberOfRows(inSection: 0) {
+            tableView.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
+        }
+    }
+    
+    func deselectAllRows(){
+        for row in 0..<tableView.numberOfRows(inSection: 0) {
+            tableView.deselectRow(at: IndexPath(row: row, section: 0), animated: false)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
