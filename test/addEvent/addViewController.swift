@@ -142,8 +142,10 @@ class addViewController : UIViewController {
         if event != nil{
             loadData()
             navigationItem.rightBarButtonItems = [btnEdit, btnDelete]
+            navigationItem.title = "Edit Event"
         }else {
             navigationItem.rightBarButtonItems = [btnAdd]
+            navigationItem.title = "Add Event"
         }
         if selectedDay.isEmpty == false{
             s = showDateformatter.date(from: "\(showDayformatter.string(from: selectedDay[0])) \(showTimeformatter.string(from: Date()))")!

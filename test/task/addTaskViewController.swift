@@ -105,8 +105,10 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if task != nil{
             loadData()
             navigationItem.rightBarButtonItems = [btnEditTask, btnDeleteTask]
+            navigationItem.title = "Edit Task"
         }else{
             navigationItem.rightBarButtonItems = [btnAddTask]
+            navigationItem.title = "Add Task"
         }
 //        if taskTime == nil{ taskTime = "01:00"}
 //        if deadline == nil{
