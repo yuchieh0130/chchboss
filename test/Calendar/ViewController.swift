@@ -318,7 +318,7 @@ class ViewController: UIViewController{
             calendarView.selectDates(today)
             calendarView.reloadData(withanchor: Date())
             monthLabel.text = showMonthFormatter.string(from: Date())
-            print("rwrrhe\(calendarView.selectedDates)")
+//            print("rwrrhe\(calendarView.selectedDates)")
         }
     }
     
