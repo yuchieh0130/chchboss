@@ -168,96 +168,48 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell?
+        //var cell: UITableViewCell?
         
         if txtSearch.text!.isEmpty{
             
             if indexPath.row == 0{
-                cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
+                return cell!
             }else if indexPath.row <= nameArray.count{
-                cell = tableView.dequeueReusableCell(withIdentifier: "fivePlaceCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "fivePlaceCell")
                 let place = nameArray[indexPath.row-1]
                 cell?.textLabel?.text = place
                 cell?.detailTextLabel?.text = "(recommend place)"
+                return cell!
             }else{
-                cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
                 let place = savePlaceArray[indexPath.row-nameArray.count-1].placeName
                 cell?.textLabel?.text = place
                 cell?.detailTextLabel?.isHidden = false
                 let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
                 let distance = c.distance(from: userLocation)
                 cell?.detailTextLabel?.text = "\(Int(distance))m"
-                
+                return cell!
             }
-            
         }else{
             if indexPath.row < resultsArray.count{
-                cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
-                cell?.textLabel?.text = "\(resultsArray[indexPath.row]["name"]!)"
-                cell?.detailTextLabel?.isHidden = false
+                let cell = tableView.dequeueReusableCell(withIdentifier: "placeCell") as! placeCell
+                //cell.textLabel?.text = "\(resultsArray[indexPath.row]["name"]!)"
+                cell.placeName.text = "\(resultsArray[indexPath.row]["name"]!)"
+                cell.address.text = "\(resultsArray[indexPath.row]["formatted_address"] as! String)"
+                //cell.detailTextLabel?.isHidden = false
                 let distance = resultsArray[indexPath.row]["distance"]! as! NSNumber
-                cell?.detailTextLabel?.text = "\(Int(distance))m"
+                cell.distance.text = "\(Int(distance))m"
+                return cell
             }else{
-                cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
                 cell?.textLabel?.text = " name this place： \" \(txtSearch.text!) \" "
+                return cell!
             }
             
         }
         
-        //        if indexPath.row == 0{
-        //            cell = tableView.dequeueReusableCell(withIdentifier:"slelectMyPlaceCell")
-        //        }else if !txtSearch.text!.isEmpty && indexPath.row == resultsArray.count+1{
-        //            //resultsArray.count != 0 &&
-        //            cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
-        //            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
-        //        }else{
-        //            if txtSearch.text!.isEmpty{
-        //                if indexPath.row <= nameArray.count{
-        //                    cell = tableView.dequeueReusableCell(withIdentifier: "fivePlaceCell")
-        //                    let place = nameArray[indexPath.row-1]
-        //                    cell?.textLabel?.text = place
-        //                    cell?.detailTextLabel?.isHidden = true
-        //                }else{
-        //                    cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
-        //                    let place = savePlaceArray[indexPath.row-nameArray.count-1].placeName
-        //                    cell?.textLabel?.text = place
-        //                    cell?.detailTextLabel?.isHidden = false
-        //                    let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
-        //                    let distance = c.distance(from: userLocation)
-        //                    cell?.detailTextLabel?.text = "\(Int(distance))m"
-        //                }
-        //            }else{
-        //                print(resultsArray.count)
-        //                cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
-        //                cell?.textLabel?.text = "\(resultsArray[indexPath.row-1]["name"]!)"
-        //                cell?.detailTextLabel?.isHidden = false
-        //                let distance = resultsArray[indexPath.row-1]["distance"]! as! NSNumber
-        //                cell?.detailTextLabel?.text = "\(Int(distance))m"
-        //            }
-        //        }
-        //        }else if sortedName.count != 0 && indexPath.row == sortedName.count+1{
-        //            cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
-        //            cell?.textLabel?.text = " name place \" \(txtSearch.text!) \" "
-        //        }else{
-        //            cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
-        //            if txtSearch.text!.isEmpty{
-        //                let place = nameArray[indexPath.row-1]
-        //                cell?.textLabel?.text = place
-        //                cell?.detailTextLabel?.isHidden = true
-        //            }else{
-        //                if sortedName.count > 0 && sortedDist.count > 0{
-        //                    let place = self.sortedName[indexPath.row-1]
-        //                    cell?.textLabel?.text = "\(place)"
-        //                    let eachDistance = sortedDist[indexPath.row-1]
-        //                    cell?.detailTextLabel?.isHidden = false
-        //                    cell?.detailTextLabel?.text = "\(Int(eachDistance)) m"
-        //                }
-        //                //  cell?.textLabel?.text = "\(place["name"] as! String)"
-        //                //  cell?.detailTextLabel?.text = "\(place["formatted_address"] as! String)"
-        //            }
-        //        }
-        
-        return cell!
+//        return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

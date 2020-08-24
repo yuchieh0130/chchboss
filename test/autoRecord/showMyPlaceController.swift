@@ -24,8 +24,7 @@ class showMyPlaceController: UIViewController{
     var placeLatitude: Double! = 0
     var myPlace: Bool! = true
     var noAdd = false
-    var userLocation = CLLocation()
-    
+    //var userLocation = CLLocation()
     let ceo: CLGeocoder = CLGeocoder()
 //    let loc: CLLocation = CLLocation(latitude: lat, longitude: lon)
     
@@ -157,24 +156,25 @@ extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        var cell: UITableViewCell?
 //        cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell")
-        let cellIdentifier = "myPlaceCell"
+        //let cellIdentifier = "myPlaceCell"
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: cellIdentifier)
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myPlaceCell") as! placeCell
+//        if cell == nil {
+//            cell = UITableViewCell(style: UITableViewCell.CellStyle.value2, reuseIdentifier: "myPlaceCell")
+//        }
         var locality: String = ""
         var subAdministrativeArea: String = ""
-
-        let place = self.showAllPlace![indexPath.row]
-        let longitude = place.placeLongitude
-        let latitude = place.placeLatitude
-        let savedPlaceLocation = CLLocation(latitude: latitude, longitude: longitude)
         
-        userLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
-        let distance = lround(self.userLocation.distance(from: savedPlaceLocation))/1000
-        let locale = Locale(identifier: "zh_TW")
+        let place = self.showAllPlace![indexPath.row]
+//        let longitude = place.placeLongitude
+//        let latitude = place.placeLatitude
+        let savedPlaceLocation = CLLocation(latitude: place.placeLatitude, longitude: place.placeLongitude)
+
+        let userLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
+        let distance = lround(userLocation.distance(from: savedPlaceLocation))/1000
+        //let locale = Locale(identifier: "zh_TW")
+        let locale = Locale.current
+        print(locale)
         
         if #available(iOS 11.0, *) {
             ceo.reverseGeocodeLocation(savedPlaceLocation, preferredLocale: locale) {
@@ -185,19 +185,22 @@ extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
                         subAdministrativeArea = placemarks![0].subAdministrativeArea ?? ""
                         locality = placemarks![0].locality ?? ""
                     }
-                    cell?.textLabel?.text = place.placeName
-                    cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
+//                    cell?.textLabel?.text = place.placeName
+//                    cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
                     return
                 } else {
                     print("error")
                 }
             }
         }
-        cell?.textLabel?.text = place.placeName
-        cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
+        cell.placeName.text = "\(place.placeName)"
+        cell.address.text = "\(subAdministrativeArea) \(locality)"
+        cell.distance.text = "\(distance) km"
+//        cell?.textLabel?.text = place.placeName
+//        cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
 //        cell?.detailTextLabel?.isHidden = false
         
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{

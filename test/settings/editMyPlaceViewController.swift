@@ -54,8 +54,11 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             navigationItem.rightBarButtonItems = [btnAdd]
             navigationItem.leftBarButtonItems = [btnCancel]
             navigationItem.title = "Add My Place"
-            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
-            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
+            //用simulator的時候就跑這兩行
+            myPlaceLatitude = 24.986
+            myPlaceLongitude = 121.576
+//            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
+//            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         }
         
     }
@@ -196,6 +199,7 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
             let cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
             if resultsArray.count != 0{
                 cell?.textLabel?.text = "\(resultsArray[indexPath.row]["name"]!)"
+                cell?.detailTextLabel?.text = "\(resultsArray[indexPath.row]["formatted_address"] as! String)"
             }
             return cell!
         }else{
