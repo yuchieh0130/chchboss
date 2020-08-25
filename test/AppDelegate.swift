@@ -148,8 +148,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             print("accept location Authorization!")
         }
         
-        //let user_id = UserDefaults.standard.integer(forKey: "user_id")
-        let user_id = 2
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        //let user_id = 2
         let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
         print(last_track_id)
         let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
@@ -247,9 +247,9 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
             let user_id = UserDefaults.standard.integer(forKey: "user_id")
             
             let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: self.currentSpeed)
-            let _ = DBManager.getInstance().saveLocation(modelInfo)
+            let id = DBManager.getInstance().saveLocation(modelInfo)
             
-            let data : [String: String] = ["longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
+            let data : [String: String] = ["user_location_id":String(id),"longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
             
             self.net.postLocationData(data: data){
                 (status_code) in
@@ -322,9 +322,9 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: myLocationManager.location!.speed)
         
-        let _ = DBManager.getInstance().saveLocation(modelInfo)
+        let id = DBManager.getInstance().saveLocation(modelInfo)
         
-        let data : [String: String] = ["longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
+        let data : [String: String] = ["user_location_id":String(id),"longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
         
         self.net.postLocationData(data: data){
             (status_code) in
@@ -356,9 +356,9 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         
         let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5, speed: myLocationManager.location!.speed)
         
-        let _ = DBManager.getInstance().saveLocation(modelInfo)
+        let id = DBManager.getInstance().saveLocation(modelInfo)
         
-        let data : [String: String] = ["longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
+        let data : [String: String] = ["user_location_id":String(id),"longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
         
         self.net.postLocationData(data: data){
             (status_code) in

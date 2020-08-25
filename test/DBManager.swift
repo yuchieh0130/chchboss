@@ -26,6 +26,13 @@ class DBManager: NSObject {
         return shareInstance
     }
     
+    var showDayformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    
     /*func for event*/
     func addEvent(_ modelInfo: EventModel) {
         shareInstance.database?.open()
@@ -157,12 +164,21 @@ class DBManager: NSObject {
     //    }
     
     /*func for location*/
-    func saveLocation(_ modelInfo: LocationModel) {
+    func saveLocation(_ modelInfo: LocationModel) -> Int32 {
         shareInstance.database?.open()
-        shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration!,modelInfo.name1!,modelInfo.category1!,modelInfo.name2!,modelInfo.category2!,modelInfo.name3!,modelInfo.category3!,modelInfo.name4!,modelInfo.category4!,modelInfo.name5!,modelInfo.category5!,modelInfo.speed])
-        
-        shareInstance.database?.close()
+        var id : Int32!
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration!,modelInfo.name1!,modelInfo.category1!,modelInfo.name2!,modelInfo.category2!,modelInfo.name3!,modelInfo.category3!,modelInfo.name4!,modelInfo.category4!,modelInfo.name5!,modelInfo.category5!,modelInfo.speed])
+        if isAdded!{
+            let sqlString1 = "SELECT MAX(location_id) AS Id FROM location";
+            let set = try?shareInstance.database?.executeQuery(sqlString1, values: [])
+            while ((set?.next())!) {
+                let a = set?.int(forColumn: "Id")
+                id = a
+            }
         //return modelInfo.startTime
+        }
+        shareInstance.database?.close()
+        return id!
     }
     
 //    func getLocName() -> String!{
@@ -215,7 +231,7 @@ class DBManager: NSObject {
         
         var location : LocationModel!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location WHERE location_id = \(Int)";
+        let sqlString = "SELECT * FROM location WHERE location_id = \(Int) order by location_id DESC";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -606,6 +622,78 @@ class DBManager: NSObject {
         set?.close()
         return tracks
     }
+    
+    //get selected date當週的track
+    func getWeekTracks(year: Int,week: Int) -> [TrackModel]!{
+        //判斷同一年還沒寫！！！
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let sqlString = "select * from track where (strftime('%W',start_date)='\(week-1)' AND weekday = 0 or (strftime('%W',end_date)='\(week-1)' AND strftime('%W',end_date)= 0) or (strftime('%W',end_date)='\(week)' AND strftime('%w',end_date) != 0) or  (strftime('%W',start_date)='\(week)' AND weekday != 0)"
+        //let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
+        
+        //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "start_date")
+            let b = set?.string(forColumn: "start_time")
+            let w = set?.int(forColumn: "weekDay")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
+            
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
+    
+    //get selected date當月的track
+    //判斷同一年還沒寫！！！
+       func getMonthTracks(Month: Int) -> [TrackModel]!{
+           
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let sqlString =  "select * from track where strftime('%m',start_date)='\(Month)' or strftime('%m',end_date)='\(Month)'"
+//           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
+           
+           //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
+           let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+           
+           while ((set?.next())!) {
+               let i = set?.int(forColumn: "track_id")
+               let a = set?.string(forColumn: "start_date")
+               let b = set?.string(forColumn: "start_time")
+               let w = set?.int(forColumn: "weekDay")
+               let c = set?.string(forColumn: "end_date")
+               let d = set?.string(forColumn: "end_time")
+               let e = set?.int(forColumn: "category_id")
+               let f = set?.int(forColumn: "location_id")
+               let g = set?.int(forColumn: "place_id")
+               
+               let track: TrackModel
+               
+               if tracks == nil{
+                   tracks = [TrackModel]()
+               }
+               
+               track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+               tracks.append(track)
+           }
+           set?.close()
+           return tracks
+       }
+    
     
 //    func deleteTrackPlace(id: Int32) -> Bool{
 //        shareInstance.database?.open()
