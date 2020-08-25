@@ -197,9 +197,9 @@ def pushTrack():
     last_track_id = track_data[-1][0]
     cur.close()
 
-    cur = conn.curcor()
-    sql = "UPDATE track SET(record) VALUES(1) WHERE user_id = %s AND record = 0"
-    adr = (user_id)
+    cur = conn.cursor()
+    sql = "UPDATE track SET record = %s WHERE user_id = %s AND record = %s"
+    adr = (True, user_id, False)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
