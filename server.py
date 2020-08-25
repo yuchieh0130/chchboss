@@ -394,7 +394,7 @@ def updateTrack():
             cur.execute(sql, adr)
             conn.commit()
             cur.close()
-        if(new_end_time != old_end_time)
+        if(new_end_time != old_end_time):
             cur = conn.cursor()
             sql = "INSERT INTO track (start_date, start_time, weekday, end_date, end_time, category_id, place_id, location_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
             adr = (new_end_date, new_end_time, new_weekday, old_end_date,
