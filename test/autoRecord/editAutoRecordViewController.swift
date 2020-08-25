@@ -152,7 +152,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         if track!.placeId! != 0{   //原本有資料
              
             if savePlace == nil{//刪掉
-                //吃place_id刪掉那欄
+                //吃place_id刪掉那欄(不用)
                 //吃track_id把place_id的欄位改成nil（動track
                 //let a = DBManager.getInstance().deleteTrackPlace(id: track.trackId!)
                 newTrack = TrackModel(trackId: track!.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: track!.locationId , placeId: 0)

@@ -35,8 +35,32 @@ class NetworkController {
         task.resume( )
     }
     
-    func postSaveplaceData (data: [String: String], completion: @escaping(Int?) -> Void) {
-        let saveplaceURL = baseURL.appendingPathComponent("insertSaveplace")
+    func postSavedplaceData (data: [String: String], completion: @escaping(Int?) -> Void) {
+        let saveplaceURL = baseURL.appendingPathComponent("insertSavedplace")
+        var request = URLRequest(url: saveplaceURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func deleteSavedplaceData (data: [String: String], completion: @escaping(Int?) -> Void) {
+        let saveplaceURL = baseURL.appendingPathComponent("deleteSavedplace")
         var request = URLRequest(url: saveplaceURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
@@ -108,6 +132,7 @@ class NetworkController {
         }
         task.resume( )
     }
+    
     
     func register (email: String, password: String, user_name: String, completion: @escaping([Any]?) -> Void) {
         let registerURL = baseURL.appendingPathComponent("register")

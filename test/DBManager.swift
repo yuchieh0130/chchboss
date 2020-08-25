@@ -157,12 +157,21 @@ class DBManager: NSObject {
     //    }
     
     /*func for location*/
-    func saveLocation(_ modelInfo: LocationModel) {
+    func saveLocation(_ modelInfo: LocationModel) -> Int32 {
         shareInstance.database?.open()
-        shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration!,modelInfo.name1!,modelInfo.category1!,modelInfo.name2!,modelInfo.category2!,modelInfo.name3!,modelInfo.category3!,modelInfo.name4!,modelInfo.category4!,modelInfo.name5!,modelInfo.category5!,modelInfo.speed])
-        
-        shareInstance.database?.close()
+        var id : Int32!
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration!,modelInfo.name1!,modelInfo.category1!,modelInfo.name2!,modelInfo.category2!,modelInfo.name3!,modelInfo.category3!,modelInfo.name4!,modelInfo.category4!,modelInfo.name5!,modelInfo.category5!,modelInfo.speed])
+        if isAdded!{
+            let sqlString1 = "SELECT MAX(location_id) AS Id FROM location";
+            let set = try?shareInstance.database?.executeQuery(sqlString1, values: [])
+            while ((set?.next())!) {
+                let a = set?.int(forColumn: "Id")
+                id = a
+            }
         //return modelInfo.startTime
+        }
+        shareInstance.database?.close()
+        return id!
     }
     
 //    func getLocName() -> String!{
