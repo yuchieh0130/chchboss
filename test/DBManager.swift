@@ -628,7 +628,7 @@ class DBManager: NSObject {
         //判斷同一年還沒寫！！！
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "select * from track where (strftime('%W',start_date)=\(week-1) AND weekday = 0 or (strftime('%W',end_date)=\(week-1) AND strftime('%W',end_date)= 0) or (strftime('%W',end_date)=\(week) AND strftime('%w',end_date) != 0) or  (strftime('%W',start_date)=\(week) AND weekday != 0)"
+        let sqlString = "select * from track where (strftime('%W',start_date)='\(week-1)' AND weekday = 0 or (strftime('%W',end_date)='\(week-1)' AND strftime('%W',end_date)= 0) or (strftime('%W',end_date)='\(week)' AND strftime('%w',end_date) != 0) or  (strftime('%W',start_date)='\(week)' AND weekday != 0)"
         //let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
         
         //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
@@ -660,12 +660,12 @@ class DBManager: NSObject {
     
     //get selected date當月的track
     //判斷同一年還沒寫！！！
-       func getMonthTracks(String: String) -> [TrackModel]!{
+       func getMonthTracks(Month: Int) -> [TrackModel]!{
            
         var tracks: [TrackModel]!
         shareInstance.database?.open()
         let month = Calendar.current.component(.month, from: showDayformatter.date(from: String)!)
-        let sqlString =  "select * from track where strftime('%m',start_date)=\(month) or strftime('%m',end_date)=\(month)"
+        let sqlString =  "select * from track where strftime('%m',start_date)='\(month)' or strftime('%m',end_date)='\(month)'"
 //           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
            
            //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
