@@ -243,7 +243,7 @@ def updateTrack():
         cur = conn.cursor()
         sql = "UPDATE track SET(category_id, location_id, place_id) VALUES (%s, %s, %s) WHERE start_time = %s and start_date = %s and user_id = %s"
         adr = (new_category_id, new_location_id, new_place_id,
-               , new_start_time, new_start_date, user_id)
+               new_start_time, new_start_date, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -289,7 +289,7 @@ def updateTrack():
         cur = conn.cursor()
         sql = "UPDATE track SET (start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
         adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
-               new_location_id, new_place_id,, od_start_datetime, od_end_datetime, user_id)
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
