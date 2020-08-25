@@ -26,6 +26,13 @@ class DBManager: NSObject {
         return shareInstance
     }
     
+    var showDayformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    
     /*func for event*/
     func addEvent(_ modelInfo: EventModel) {
         shareInstance.database?.open()
@@ -621,8 +628,9 @@ class DBManager: NSObject {
         
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        
-        let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
+        let week = Calendar.current.component(.weekOfYear, from: showDayformatter.date(from: String)!)
+        let sqlString = "select * from track where (strftime('%W',start_date)=\(week-1) AND weekday = 0 or (strftime('%W',end_date)=\(week-1) AND strftime('%W',end_date)= 0) or (strftime('%W',end_date)=\(week) AND strftime('%w',end_date) != 0) or  (strftime('%W',start_date)=\(week) AND weekday != 0)"
+        //let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
         
         //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
@@ -654,10 +662,11 @@ class DBManager: NSObject {
     //get selected date當月的track
        func getMonthTracks(String: String) -> [TrackModel]!{
            
-           var tracks: [TrackModel]!
-           shareInstance.database?.open()
-           
-           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let month = Calendar.current.component(.month, from: showDayformatter.date(from: String)!)
+        let sqlString =  "select * from track where strftime('%m',start_date)=\(month) or strftime('%m',end_date)=\(month)"
+//           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
            
            //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
            let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
