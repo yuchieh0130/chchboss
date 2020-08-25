@@ -50,6 +50,12 @@ class autoLocationCell: UITableViewCell {
     @IBOutlet weak var txtLocation: UILabel!
 }
 
+class placeCell: UITableViewCell {
+    @IBOutlet var distance : UILabel!
+    @IBOutlet var placeName : UILabel!
+    @IBOutlet var address : UILabel!
+}
+
 //在addTaskCell.swift裡面
 //class reminderCell: UITableViewCell{
 //    @IBOutlet var txtReminder: UILabel!

@@ -13,7 +13,6 @@ class taskTableViewCell: UITableViewCell {
     @IBOutlet var taskName: UILabel!
     @IBOutlet var addTaskTime: UILabel!
     @IBOutlet var taskDeadline: UILabel!
-    @IBOutlet var taskShowButton: UIButton!
     @IBOutlet var taskPin: UIImageView!
     @IBOutlet var taskCalendar: UIImageView!
     

@@ -27,6 +27,7 @@
 		4B35331D24A9D9EE00408562 /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B35331C24A9D9EE00408562 /* settingsViewController.swift */; };
 		4B362F8524CADC2400E635C6 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B362F8424CADC2400E635C6 /* PickerViewController.swift */; };
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
+		4B3C287324F20B5E0097582B /* analysisTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */; };
 		4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B490B8E24B589A500A8249A /* combineChartViewController.swift */; };
 		4B4AB6232463197A00FC8A6D /* showMyPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
@@ -45,6 +46,8 @@
 		4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B855D0F243847E3001B80C7 /* taskViewController.swift */; };
 		4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95704D2457FFB10067C4FB /* analysisViewController.swift */; };
 		4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B97DF9124176AB8005BD787 /* DBManager.swift */; };
+		4B98B65B24EF771000624D5D /* taskEditModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B98B65A24EF771000624D5D /* taskEditModeViewController.swift */; };
+		4B98B65D24EF773300624D5D /* taskEditModeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B98B65C24EF773300624D5D /* taskEditModeTableViewCell.swift */; };
 		4B9E6C0324CAD4B9002A1B80 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E6C0224CAD4B9002A1B80 /* MonthYearPickerView.swift */; };
 		4B9EBD542417799400162A77 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD532417799400162A77 /* EventModel.swift */; };
 		4B9EBD562417A7CE00162A77 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9EBD552417A7CE00162A77 /* Util.swift */; };
@@ -105,6 +108,7 @@
 		4B35331C24A9D9EE00408562 /* settingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
 		4B362F8424CADC2400E635C6 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
+		4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = analysisTableViewCell.swift; sourceTree = "<group>"; };
 		4B490B8E24B589A500A8249A /* combineChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = combineChartViewController.swift; sourceTree = "<group>"; };
 		4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showMyPlaceController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		4B95704D2457FFB10067C4FB /* analysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = analysisViewController.swift; sourceTree = "<group>"; };
 		4B97DF80241769B7005BD787 /* test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-Bridging-Header.h"; sourceTree = "<group>"; };
 		4B97DF9124176AB8005BD787 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		4B98B65A24EF771000624D5D /* taskEditModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskEditModeViewController.swift; sourceTree = "<group>"; };
+		4B98B65C24EF773300624D5D /* taskEditModeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskEditModeTableViewCell.swift; sourceTree = "<group>"; };
 		4B9E6C0224CAD4B9002A1B80 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
 		4B9EBD532417799400162A77 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		4B9EBD552417A7CE00162A77 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -185,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				4B95704D2457FFB10067C4FB /* analysisViewController.swift */,
+				4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */,
 				4B490B8E24B589A500A8249A /* combineChartViewController.swift */,
 				4B9E6C0224CAD4B9002A1B80 /* MonthYearPickerView.swift */,
 				4B362F8424CADC2400E635C6 /* PickerViewController.swift */,
@@ -219,9 +226,11 @@
 			isa = PBXGroup;
 			children = (
 				4B855D0F243847E3001B80C7 /* taskViewController.swift */,
+				4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */,
+				4B98B65A24EF771000624D5D /* taskEditModeViewController.swift */,
+				4B98B65C24EF773300624D5D /* taskEditModeTableViewCell.swift */,
 				4B02C4B9243D64A70087DB4C /* addTaskViewController.swift */,
 				4B02C4BB243D6B440087DB4C /* addTaskCell.swift */,
-				4B02C4BD2442C8390087DB4C /* taskTableViewCell.swift */,
 				4BA5027D246B7F8600F70144 /* doneTaskViewController.swift */,
 				4BA5027F246B88D800F70144 /* doneTaskTableViewCell.swift */,
 			);
@@ -321,9 +330,9 @@
 				4B9FBA3124B30E690024D7CD /* NetworkController.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
-				4BA138C5243CB24E00C46CD3 /* task */,
-				4BA138C6243CB29800C46CD3 /* addEvent */,
 				582341EC242B5CF400FFC83B /* Calendar */,
+				4BA138C6243CB29800C46CD3 /* addEvent */,
+				4BA138C5243CB24E00C46CD3 /* task */,
 				4B95704C2457FF850067C4FB /* analysis */,
 				4BAB720924AB0184007D52A7 /* settings */,
 				4B4F0150243CCBD100A98C65 /* autoRecord */,
@@ -516,6 +525,7 @@
 				4B855D10243847E3001B80C7 /* taskViewController.swift in Sources */,
 				4B02C4BF2442C8390087DB4C /* taskTableViewCell.swift in Sources */,
 				4B95704E2457FFB10067C4FB /* analysisViewController.swift in Sources */,
+				4B98B65B24EF771000624D5D /* taskEditModeViewController.swift in Sources */,
 				4B052675242C9CE50048DB8D /* addCell.swift in Sources */,
 				FF76548E24AE0B4D00663E58 /* LoginViewController.swift in Sources */,
 				4B6C441B2472F9CB0009C281 /* trackCell.swift in Sources */,
@@ -532,10 +542,12 @@
 				4B855CF8242B0840001B80C7 /* (old)categoryTableViewController.swift in Sources */,
 				4B351A4924188BE9003A474A /* FMDatabaseQueue.m in Sources */,
 				4B9E6C0324CAD4B9002A1B80 /* MonthYearPickerView.swift in Sources */,
+				4B98B65D24EF773300624D5D /* taskEditModeTableViewCell.swift in Sources */,
 				4B9FBA3224B30E6A0024D7CD /* NetworkController.swift in Sources */,
 				6B6BB1B0225FAD04006F384C /* AppDelegate.swift in Sources */,
 				4B9FB4FA24E296E300DBFAFA /* editMyPlaceViewController.swift in Sources */,
 				4B351A4824188BE9003A474A /* FMDatabaseAdditions.m in Sources */,
+				4B3C287324F20B5E0097582B /* analysisTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,13 +696,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5P443M8366;
+				DEVELOPMENT_TEAM = HJ429Z62LX;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss22556.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo22556.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -706,13 +718,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5P443M8366;
+				DEVELOPMENT_TEAM = HJ429Z62LX;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss22556.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo22556.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

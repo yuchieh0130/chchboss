@@ -14,7 +14,7 @@ class ViewController: UIViewController{
     
     var showDayFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -30,6 +30,12 @@ class ViewController: UIViewController{
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
+    var showWeekDayFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd EEE"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     
     var numberOfRows = 6
     
@@ -39,6 +45,7 @@ class ViewController: UIViewController{
     var task: TaskModel?
 
     var selectedDay = ""
+    var selectedDayWithWeekday = ""
     var showEvent = [EventModel]()
     var showTask = [TaskModel]()
     
@@ -70,7 +77,8 @@ class ViewController: UIViewController{
         case "timeline":
             if let VC = segue.destination as? timeline{
                 VC.date = selectedDay
-                print(VC.date)
+                VC.showDate = selectedDayWithWeekday
+                VC.hidesBottomBarWhenPushed = true
             }
         default:
             print("")
@@ -95,14 +103,29 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent(_:)))
-        navigationItem.leftBarButtonItems = [addBtn]
+        
+        let addBtn = UIButton.init(type: .system)
+        if #available(iOS 13.0, *) {
+            addBtn.setImage(UIImage(systemName: "plus"), for: .normal)
+        } else {
+            addBtn.setTitle("\(UIBarButtonItem.SystemItem.add)", for: .normal)
+        }
+        addBtn.layer.borderWidth = 1.25
+        addBtn.layer.cornerRadius = 5
+        addBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+        addBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+        addBtn.addTarget(self, action: #selector(addEvent(_:)), for: .touchUpInside)
+        let todayBtn = UIButton.init(type: .system)
+        todayBtn.setTitle("Today", for: .normal)
+        todayBtn.layer.borderWidth = 1.25
+        todayBtn.layer.cornerRadius = 5
+        todayBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+        todayBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+        todayBtn.addTarget(self, action: #selector(transToToday(_:)), for: .touchUpInside)
         let locationDBBtn = UIBarButtonItem(title: "loc", style: .plain, target: self, action: #selector(locationDB(_:)))
-        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(transToToday(_:)))
-//        let weekBtn = UIBarButtonItem(title: "Week", style: .plain, target: self, action: #selector(toogle(_:)))
-        navigationItem.rightBarButtonItems = [todayBtn, locationDBBtn]
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: todayBtn)]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: addBtn), locationDBBtn]
         
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
@@ -237,6 +260,7 @@ class ViewController: UIViewController{
         if cellState.isSelected && cellState.dateBelongsTo == .thisMonth{
             cell.selectedView.isHidden = false
             selectedDay = showDayFormatter.string(from: cellState.date)
+            selectedDayWithWeekday = showWeekDayFormatter.string(from: cellState.date)
             if DBManager.getInstance().getEvents(String: selectedDay) != nil{
                 showEvent = DBManager.getInstance().getEvents(String: selectedDay)
             }else{
@@ -301,12 +325,15 @@ class ViewController: UIViewController{
     //    }
     
     @objc func transToToday(_ sender: Any){
-        calendarView.reloadData(withanchor: Date())
-        monthLabel.text = showMonthFormatter.string(from: Date())
+//        calendarView.reloadData(withanchor: Date())
+//        monthLabel.text = showMonthFormatter.string(from: Date())
         var today = [Date]()
-        today.append(Date())
+        today.append(showDayFormatter.date(from: showDayFormatter.string(from: Date()))!)
         if calendarView.selectedDates != today{
             calendarView.selectDates(today)
+            calendarView.reloadData(withanchor: Date())
+            monthLabel.text = showMonthFormatter.string(from: Date())
+//            print("rwrrhe\(calendarView.selectedDates)")
         }
     }
     

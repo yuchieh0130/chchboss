@@ -31,7 +31,6 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         logOutBtn.snp.makeConstraints { (make) in
             make.leading.equalTo(100)
             make.trailing.equalTo(-100)
-            make.height.equalTo(70)
         }
     }
     
@@ -57,6 +56,17 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editMyplaceCell", for: indexPath) as! editMyplaceCell
             return cell
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "settingsToMyPlace":
+            if let VC = segue.destination as? myPlaceViewController{
+                VC.hidesBottomBarWhenPushed = true
+            }
+        default:
+            print("")
         }
     }
     

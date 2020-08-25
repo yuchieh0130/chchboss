@@ -32,9 +32,9 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     let marker = GMSMarker()
     let circle = GMSCircle()
     
-//    var myPlace: Bool! = true
-//    var noAdd = false
-//    var userLocation = CLLocation()
+    //    var myPlace: Bool! = true
+    //    var noAdd = false
+    //    var userLocation = CLLocation()
     
     override func viewDidLoad() {
         tbView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,10 +54,11 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             navigationItem.rightBarButtonItems = [btnAdd]
             navigationItem.leftBarButtonItems = [btnCancel]
             navigationItem.title = "Add My Place"
-            myPlaceLatitude = 25
-            myPlaceLongitude = 121
-//            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
-//            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
+            //用simulator的時候就跑這兩行
+//            myPlaceLatitude = 24.986
+//            myPlaceLongitude = 121.576
+            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
+            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         }
         
     }
@@ -67,18 +68,18 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.5)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)]
         
-//        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
-//        myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
-//        myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
+        //        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
+        //        myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
+        //        myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         let camera = GMSCameraPosition.camera(withLatitude: myPlaceLatitude, longitude: myPlaceLongitude, zoom: 17)
         mapView.camera = camera
         mapView.animate(to: camera)
         mapView.delegate = self
         
-//        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
+        //        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         marker.position = CLLocationCoordinate2D(latitude: myPlaceLatitude, longitude: myPlaceLongitude)
         marker.map = mapView
-
+        
         circle.position = marker.position
         circle.radius = 50
         circle.strokeColor = UIColor.red
@@ -89,9 +90,9 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         }
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        currentLocationManager.startUpdatingLocation()
-//    }
+    //    override func viewDidDisappear(_ animated: Bool) {
+    //        currentLocationManager.startUpdatingLocation()
+    //    }
     
     func mapView(_ MapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D){
         changePosition(marker: marker, a: coordinate)
@@ -103,7 +104,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     func changePosition(marker : GMSMarker, a: CLLocationCoordinate2D){
         marker.position = CLLocationCoordinate2D(latitude: a.latitude, longitude: a.longitude)
         circle.position = marker.position
-        let cam = GMSCameraPosition.camera(withLatitude: a.latitude, longitude: a.longitude, zoom: 17.0)
+        let cam = GMSCameraPosition.camera(withLatitude: a.latitude, longitude: a.longitude, zoom: mapView.camera.zoom)
         mapView.camera = cam
     }
     
@@ -130,17 +131,32 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             alertMessage()
         }else{
             let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
-            _ = DBManager.getInstance().addPlace(modelInfo)
-//            let title = myPlaceName
-//            let coordinate = CLLocationCoordinate2DMake(myPlaceLatitude, myPlaceLongitude)
-//            let regionRadius = 200.0
-//            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
-//                longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-//            myLocationManager.startMonitoring(for: region)
+            let id = DBManager.getInstance().addPlace(modelInfo)
+            startMonitorRegion(placeId: id)
+            //            let title = myPlaceName
+            //            let coordinate = CLLocationCoordinate2DMake(myPlaceLatitude, myPlaceLongitude)
+            //            let regionRadius = 200.0
+            //            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
+            //                longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+            //            myLocationManager.startMonitoring(for: region)
             self.dismiss(animated: true, completion: nil)
             performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
         }
     }
+
+    func startMonitorRegion(placeId: Int32){
+    //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
+    if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+        let monitorPlace = DBManager.getInstance().getPlace(Int: placeId)
+        let title = "\(monitorPlace!.placeId!)"
+        let coordinate = CLLocationCoordinate2DMake(monitorPlace!.placeLatitude, monitorPlace!.placeLongitude)
+        let regionRadius = 100.0
+        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+        myLocationManager.startMonitoring(for: region)
+        print("startRegion")
+         }
+    }
+    
     
     @objc func editMyPlaceButton(_ sender: UIButton){
         self.view.endEditing(true)
@@ -149,6 +165,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         }
         let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
         DBManager.getInstance().editPlace(modelInfo)
+        startMonitorRegion(placeId: id)
         self.dismiss(animated: true, completion: nil)
         performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
     }
@@ -158,17 +175,17 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     }
     
     func alertMessage(){
-            let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default){_ in
-                controller.dismiss(animated: true, completion: nil)}
-            controller.addAction(okAction)
-            self.present(controller, animated: true,completion: .none)
+        let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            controller.dismiss(animated: true, completion: nil)}
+        controller.addAction(okAction)
+        self.present(controller, animated: true,completion: .none)
     }
     
 }
 
 extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if txtSearch.text!.isEmpty{
             return 2
@@ -176,12 +193,13 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
             return resultsArray.count
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !txtSearch.text!.isEmpty{
             let cell = tableView.dequeueReusableCell(withIdentifier: "placeCell")
             if resultsArray.count != 0{
                 cell?.textLabel?.text = "\(resultsArray[indexPath.row]["name"]!)"
+                cell?.detailTextLabel?.text = "\(resultsArray[indexPath.row]["formatted_address"] as! String)"
             }
             return cell!
         }else{
@@ -215,19 +233,19 @@ extension editMyPlaceViewController: UITableViewDataSource, UITableViewDelegate 
             }
         }
     }
-
+    
 }
 
 extension editMyPlaceViewController: UITextFieldDelegate,UISearchBarDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         myPlaceName = textField.text!
     }

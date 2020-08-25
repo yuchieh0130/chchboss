@@ -68,7 +68,7 @@ class addViewController : UIViewController {
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -80,7 +80,7 @@ class addViewController : UIViewController {
     }
     var showDayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -142,8 +142,10 @@ class addViewController : UIViewController {
         if event != nil{
             loadData()
             navigationItem.rightBarButtonItems = [btnEdit, btnDelete]
+            navigationItem.title = "Edit Event"
         }else {
             navigationItem.rightBarButtonItems = [btnAdd]
+            navigationItem.title = "Add Event"
         }
         if selectedDay.isEmpty == false{
             s = showDateformatter.date(from: "\(showDayformatter.string(from: selectedDay[0])) \(showTimeformatter.string(from: Date()))")!

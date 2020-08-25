@@ -18,14 +18,17 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
     var selectedTask: String = ""
     var showTask: [TaskModel]?
     var btnSelect: UIBarButtonItem!
+    var btnSelectAll: UIBarButtonItem!
+    var isTapped = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let selectAllBtn = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(btnSelectDidTap))
         self.tableView.allowsMultipleSelectionDuringEditing = true
-        editButtonItem.title = "Select"
         navigationItem.rightBarButtonItems = [editButtonItem]
         btnSelect = editButtonItem
+        btnSelectAll = selectAllBtn
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +43,37 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
         tableView.reloadData()
+    }
+    
+    func updateBarButton(isTapped : Bool){
+        if isTapped {
+            btnSelectAll.title = "Deselect All"
+        }else{
+            btnSelectAll.title = "Select All"
+        }
+        self.navigationItem.leftBarButtonItems = [btnSelectAll]
+    }
+
+    @objc func btnSelectDidTap(){
+        self.isTapped = !self.isTapped;
+        if self.isTapped {
+            self.selectAllRows()
+        }else{
+            self.deselectAllRows()
+        }
+        self.updateBarButton(isTapped: self.isTapped)
+    }
+    
+    func selectAllRows(){
+        for row in 0..<tableView.numberOfRows(inSection: 0) {
+            tableView.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
+        }
+    }
+    
+    func deselectAllRows(){
+        for row in 0..<tableView.numberOfRows(inSection: 0) {
+            tableView.deselectRow(at: IndexPath(row: row, section: 0), animated: false)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,7 +117,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            let controller = UIAlertController(title: "Delete this Done task?", message: nil, preferredStyle: .actionSheet)
+            let controller = UIAlertController(title: "Delete this Done task?", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                 self.showTask!.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -110,20 +144,29 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.setEditing(editing, animated: true)
         
         self.navigationController?.setToolbarHidden(false, animated: false)
-        self.navigationController?.toolbar.barTintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
+        self.navigationController?.toolbar.barTintColor = UIColor.white
+        self.navigationController?.toolbar.barStyle = .blackOpaque
         
         let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
-        let deleteButton: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(didPressDelete))
-        deleteButton.tintColor = UIColor.red
+        let deleteButton = UIButton.init(type: .system)
+        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.setTitleColor(UIColor.white, for: .normal)
+        deleteButton.backgroundColor = UIColor.red
+        deleteButton.titleLabel?.font = UIFont(name: "System", size: 18)
+        deleteButton.layer.cornerRadius = 5
+        deleteButton.frame = CGRect(x:0, y:0, width:200, height:32)
+        deleteButton.addTarget(self, action: #selector(didPressDelete), for: .touchUpInside)
         
         if tableView.isEditing == true{
             editButtonItem.title = "Cancel"
-            self.toolbarItems = [flexible, deleteButton, flexible]
+            self.toolbarItems = [flexible, UIBarButtonItem(customView: deleteButton), flexible]
             navigationItem.hidesBackButton = true
+            navigationItem.leftBarButtonItems = [btnSelectAll]
         }else if tableView.isEditing == false{
-            editButtonItem.title = "Select"
+            editButtonItem.title = "Edit"
             self.navigationController?.setToolbarHidden(true, animated: true)
             navigationItem.hidesBackButton = false
+            navigationItem.leftBarButtonItems = []
         }
     }
     
@@ -132,9 +175,8 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let controller = UIAlertController(title: "Delete Done Task?", message: "Tasks will also be deleted from the calendar.", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Delete", style: .default) { (_) in
             if selectedRows != nil {
-                for selectionIndex in selectedRows! {
+                for selectionIndex in selectedRows!.reversed() {
                     let id =  self.showTask?[selectionIndex.row].taskId
-                    //let task = self.showTask?[selectionIndex.row]
                     self.showTask!.remove(at: selectionIndex.row)
                     self.tableView.deleteRows(at: [selectionIndex], with: .fade)
                     DBManager.getInstance().deleteDoneTask(id: id!)
@@ -146,7 +188,11 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
                     self.tableView.reloadData()
                 }
             }
-            print("OK")
+            self.tableView.setEditing(false, animated: true)
+            self.editButtonItem.title = "Edit"
+            self.navigationController?.setToolbarHidden(true, animated: true)
+            self.navigationItem.hidesBackButton = false
+            self.navigationItem.leftBarButtonItems = []
             }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         deleteAction.setValue(UIColor.red, forKey: "titleTextColor")

@@ -200,15 +200,21 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let id =  showAllPlace?[indexPath.row].placeId
         let name = showAllPlace?[indexPath.row].placeName
+        let title = "\(self.showAllPlace![indexPath.row].placeId!)"
+        let coordinate = CLLocationCoordinate2DMake(self.showAllPlace![indexPath.row].placeLatitude, self.showAllPlace![indexPath.row].placeLongitude)
         //let task = showTask?[indexPath.row]
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            let controller = UIAlertController(title: "Delete 「 " + name! + " 」 from My Place?", message: nil, preferredStyle: .actionSheet)
+            let controller = UIAlertController(title: "Delete 「 " + name! + " 」 from My Place?", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                 self.showAllPlace!.remove(at: indexPath.row)
                 self.tblView.deleteRows(at: [indexPath], with: .fade)
                 DBManager.getInstance().deleteMyPlace(id: id!)
+                let regionRadius = 100.0
+                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
+                myLocationManager.stopMonitoring(for: region)
+                self.dismiss(animated: true, completion: nil)
             }
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             action.setValue(UIColor.red, forKey: "titleTextColor")
@@ -225,6 +231,5 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-    
+
 }

@@ -50,7 +50,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -62,13 +62,13 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     var showDayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
     var showWeekdayformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd EEE HH:mm"
+        formatter.dateFormat = "MM-dd EEE HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -105,8 +105,10 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
         if task != nil{
             loadData()
             navigationItem.rightBarButtonItems = [btnEditTask, btnDeleteTask]
+            navigationItem.title = "Edit Task"
         }else{
             navigationItem.rightBarButtonItems = [btnAddTask]
+            navigationItem.title = "Add Task"
         }
 //        if taskTime == nil{ taskTime = "01:00"}
 //        if deadline == nil{
