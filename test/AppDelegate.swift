@@ -6,6 +6,7 @@ import GooglePlaces
 import UserNotifications
 
 var myLocationManager = CLLocationManager()
+let net = NetworkController()
 
 
 @UIApplicationMain
@@ -28,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     //var collectionArr = [String]()
     //var myPlaces = [PlaceModel]()
     
-    let net = NetworkController()
+    //let net = NetworkController()
     
     var showDate: DateFormatter {
         let formatter = DateFormatter()
@@ -149,11 +150,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
         
         let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        print(user_id)
         //let user_id = 2
         let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
         print(last_track_id)
         let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
-        self.net.pushTrackData(data: data){
+        net.pushTrackData(data: data){
             (return_list) in
             if let status_code = return_list?[0],
                 let data = return_list?[1] as? [[AnyObject]],
@@ -166,10 +168,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                     }
                 }
                 else{
-                    print(status_code)
+                    print("pushTrackData\(status_code)")
                 }
             }else{
-                print("error")
+                print("pushTrackData error")
             }
         }
         
@@ -251,7 +253,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
             
             let data : [String: String] = ["user_location_id":String(id),"longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
             
-            self.net.postLocationData(data: data){
+            net.postLocationData(data: data){
                 (status_code) in
                 if (status_code != nil) {
                     print(status_code!)
@@ -326,7 +328,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         
         let data : [String: String] = ["user_location_id":String(id),"longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
         
-        self.net.postLocationData(data: data){
+        net.postLocationData(data: data){
             (status_code) in
             if (status_code != nil) {
                 print(status_code!)
@@ -360,7 +362,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         
         let data : [String: String] = ["user_location_id":String(id),"longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "speed":String(modelInfo.speed), "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
         
-        self.net.postLocationData(data: data){
+        net.postLocationData(data: data){
             (status_code) in
             if (status_code != nil) {
                 print(status_code!)

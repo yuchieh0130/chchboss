@@ -35,8 +35,32 @@ class NetworkController {
         task.resume( )
     }
     
-    func postSavedplaceData (data: [String: String], completion: @escaping(Int?) -> Void) {
+    func addSavedplaceData (data: [String: String], completion: @escaping(Int?) -> Void) {
         let saveplaceURL = baseURL.appendingPathComponent("insertSavedplace")
+        var request = URLRequest(url: saveplaceURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func updateSavedplaceData (data: [String: String], completion: @escaping(Int?) -> Void) {
+        let saveplaceURL = baseURL.appendingPathComponent("updateSavedplace")
         var request = URLRequest(url: saveplaceURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
@@ -111,6 +135,30 @@ class NetworkController {
     
     func updateTrackData (data: [String: String], completion: @escaping(Int?) -> Void) {
         let trackURL = baseURL.appendingPathComponent("updateTrack")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func deleteTrackData (data: [String: String], completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("deleteTrack")
         var request = URLRequest(url: trackURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
