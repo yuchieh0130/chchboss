@@ -664,8 +664,7 @@ class DBManager: NSObject {
            
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let month = Calendar.current.component(.month, from: showDayformatter.date(from: String)!)
-        let sqlString =  "select * from track where strftime('%m',start_date)='\(month)' or strftime('%m',end_date)='\(month)'"
+        let sqlString =  "select * from track where strftime('%m',start_date)='\(Month)' or strftime('%m',end_date)='\(Month)'"
 //           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
            
            //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
