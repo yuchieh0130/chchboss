@@ -132,6 +132,17 @@ class showMyPlaceController: UIViewController{
         }
     }
     
+    @IBAction func editMyPlaceSegueBack(segue: UIStoryboardSegue){
+        if segue.identifier == "editMyPlaceSegueBack"{
+            if DBManager.getInstance().getMyPlaces() != nil{
+                showAllPlace = DBManager.getInstance().getMyPlaces()
+            }else{
+                showAllPlace = [PlaceModel]()
+            }
+            tblView.reloadData()
+        }
+    }
+    
     func alertMessage(){
         if txtMyPlaceName.text == nil || txtMyPlaceName.text == ""{
             let controller = UIAlertController(title: "wrong", message: "need to enter a name", preferredStyle: .alert)
