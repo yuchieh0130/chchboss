@@ -100,10 +100,11 @@ def insertSavedplace():
     place_longitude = data["place_longitude"]
     place_latitude = data["place_latitude"]
     my_place = data["my_place"]
-
+    print(my_place)
+    print(type(my_place))
     cur = conn.cursor()
     sql = "INSERT INTO savedplace (user_place_id, place_name, place_category, place_longitude, place_latitude, my_place, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    adr = (place_id, place_name, place_category, place_longitude,
+    adr = (user_place_id, place_name, place_category, place_longitude,
            place_latitude, my_place, user_id)
     cur.execute(sql, adr)
     conn.commit()
