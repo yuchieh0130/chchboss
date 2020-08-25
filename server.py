@@ -198,12 +198,12 @@ def pushTrack():
     last_track_id = track_data[-1][0]
     cur.close()
 
-    cur = conn.cursor()
-    sql = "UPDATE track SET record = %s WHERE user_id = %s AND record = %s"
-    adr = (True, user_id, False)
-    cur.execute(sql, adr)
-    conn.commit()
-    cur.close()
+    # cur = conn.cursor()
+    # sql = "UPDATE track SET record = %s WHERE user_id = %s AND record = %s"
+    # adr = (True, user_id, False)
+    # cur.execute(sql, adr)
+    # conn.commit()
+    # cur.close()
 
     return jsonify({"status_code": 200,
                     "data": track_data,
