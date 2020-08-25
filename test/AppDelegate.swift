@@ -148,8 +148,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             print("accept location Authorization!")
         }
         
-        //let user_id = UserDefaults.standard.integer(forKey: "user_id")
-        let user_id = 2
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        //let user_id = 2
         let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
         print(last_track_id)
         let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
