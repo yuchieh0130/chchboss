@@ -321,17 +321,17 @@ class DBManager: NSObject {
             while ((set?.next())!) {
                 let a = set?.int(forColumn: "Id")
                 id = a
+                let data = ["user_id":String(user_id),"user_place_id":String(id),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":String(modelInfo.myPlace)]
+                net.addSavedplaceData(data: data){
+                    (status_code) in
+                    if (status_code != nil) {
+                        print("addSavedplaceData\(status_code!)")
+                    }
+                }
             }
         }
         shareInstance.database?.close()
-        
-        let data = ["user_id":String(user_id),"user_place_id":String(id),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":String(modelInfo.myPlace)]
-        net.addSavedplaceData(data: data){
-            (status_code) in
-            if (status_code != nil) {
-                print("addSavedplaceData\(status_code!)")
-            }
-        }
+
         return id!
         //return isAdded!
     }
