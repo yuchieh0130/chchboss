@@ -249,7 +249,7 @@ def updateTrack():
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
-    # 2-10=>5-13
+    # 7-11 -> 8-13
     elif(nw_start_datetime > od_start_datetime and nw_end_datetime > od_end_datetime):
         cur = conn.cursor()
         sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) between %s and %s AND CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
@@ -258,13 +258,7 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        cur = conn.cursor()
-        sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s, end_date = %s, end_time = %s, category_id = %s, location_id = %s, place_id = %s WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
-               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
-        cur.execute(sql, adr)
-        conn.commit()
-        cur.close()
+
         cur = conn.cursor()
         sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s WHERE CONCAT(start_date, start_time) between %s and %s AND user_id = %s"
         adr = (new_end_date, new_end_time, weekday,
@@ -272,13 +266,24 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
+
         cur = conn.cursor()
-        sql = "UPDATE track SET end_date = %s, end_time = %s WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, od_end_datetime, user_id)
+        sql = "INSERT INTO track (start_date, start_time, weekday, end_date, end_time, category_id, place_id, location_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        adr = (old_start_date, old_start_time, old_weekday, new_start_date,
+               new_start_time, 19, old_place_id, old_location_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+        cur = conn.cursor()
+        sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s, end_date = %s, end_time = %s, category_id = %s, location_id = %s, place_id = %s WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
+        adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
+    # 7-11-> 5-10
     elif(nw_start_datetime < od_start_datetime and nw_end_datetime < od_end_datetime):
         cur = conn.cursor()
         sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) between %s and %s AND CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
@@ -287,13 +292,7 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        cur = conn.cursor()
-        sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s, end_date = %s, end_time = %s, category_id = %s, location_id = %s, place_id = %s WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
-               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
-        cur.execute(sql, adr)
-        conn.commit()
-        cur.close()
+
         cur = conn.cursor()
         sql = "UPDATE track SET end_date = %s, end_time = %s WHERE CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
         adr = (new_start_date, new_start_time,
@@ -301,22 +300,41 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        if(new_start_time > new_end_time):
-            cur = conn.cursor()
-            sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-            adr = (new_end_date, new_end_time,
-                   new_weekday+1, od_end_datetime, user_id)
-            cur.execute(sql, adr)
-            conn.commit()
-            cur.close()
-        else:
-            cur = conn.cursor()
-            sql = "UPDATE track SET start_date = %s, start_time = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-            adr = (new_end_date, new_end_time, od_end_datetime, user_id)
-            cur.execute(sql, adr)
-            conn.commit()
-            cur.close()
+
+        cur = conn.cursor()
+        sql = "INSERT INTO track (start_date, start_time, weekday, end_date, end_time, category_id, place_id, location_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        adr = (new_end_date, new_end_time, new_weekday, old_end_date,
+               old_end_time, 19, old_place_id, old_location_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+        # if(new_start_time > new_end_time):
+        #     cur = conn.cursor()
+        #     sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
+        #     adr = (new_end_date, new_end_time,
+        #            new_weekday+1, od_end_datetime, user_id)
+        #     cur.execute(sql, adr)
+        #     conn.commit()
+        #     cur.close()
+        # else:
+        #     cur = conn.cursor()
+        #     sql = "UPDATE track SET start_date = %s, start_time = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
+        #     adr = (new_end_date, new_end_time, od_end_datetime, user_id)
+        #     cur.execute(sql, adr)
+        #     conn.commit()
+        #     cur.close()
+
+        cur = conn.cursor()
+        sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s, end_date = %s, end_time = %s, category_id = %s, location_id = %s, place_id = %s WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
+        adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
         return jsonify({"status_code": 200})
+
+    # 7-11->5-13 or 7-11-> (5-13,7-13) or 7-11->(5-13,5-11)
     elif((nw_start_datetime < od_start_datetime and nw_end_datetime > od_end_datetime) or (nw_start_datetime <= od_start_datetime and nw_end_datetime > od_end_datetime) or (nw_start_datetime < od_start_datetime and nw_end_datetime >= od_end_datetime)):
         cur = conn.cursor()
         sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) between %s and %s AND CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
@@ -325,13 +343,7 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        cur = conn.cursor()
-        sql = "INSERT INTO track(start_date, start_time, weekday, end_date, end_time, category_id, loaction_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time,
-               new_category_id, new_location_id, new_place_id, user_id)
-        cur.execute(sql, adr)
-        conn.commit()
-        cur.close()
+
         cur = conn.cursor()
         sql = "UPDATE track SET end_date = %s, end_time = %s WHERE CONCAT(end_date, end_time) between %s and %s AND user_id = %s"
         adr = (new_start_date, new_start_time,
@@ -339,11 +351,12 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
+
         if(new_start_time > new_end_time):
             cur = conn.cursor()
             sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s WHERE CONCAT(start_date, start_time) between %s and %s AND user_id = %s"
             adr = (new_end_date, new_end_time, new_weekday+1,
-                    nw_start_datetime, nw_end_datetime, user_id)
+                   nw_start_datetime, nw_end_datetime, user_id)
             cur.execute(sql, adr)
             conn.commit()
             cur.close()
@@ -351,12 +364,21 @@ def updateTrack():
             cur = conn.cursor()
             sql = "UPDATE track SET start_date = %s, start_time = %s WHERE CONCAT(start_date, start_time) between %s and %s AND user_id = %s"
             adr = (new_end_date, new_end_time,
-                    nw_start_datetime, nw_end_datetime, user_id)
+                   nw_start_datetime, nw_end_datetime, user_id)
             cur.execute(sql, adr)
             conn.commit()
             cur.close()
+
+        cur = conn.cursor()
+        sql = "INSERT INTO track(start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time,
+               new_category_id, new_location_id, new_place_id, user_id)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
         return jsonify({"status_code": 200})
-    elif((nw_start_datetime > od_start_datetime and nw_end_datetime < od_end_datetime) or (nw_start_datetime >= od_start_datetime and nw_end_datetime <= od_end_datetime)):
+    # 7-11 -> 8-10 or 7-11 -> 7-10 or 7-11 -> 8-11
+    elif((nw_start_datetime > od_start_datetime and nw_end_datetime < od_end_datetime) or (nw_start_datetime >= od_start_datetime and nw_end_datetime < od_end_datetime) or (nw_start_datetime >= od_start_datetime and nw_end_datetime <= od_end_datetime)):
         cur = conn.cursor()
         sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s, end_date = %s, end_time = %s, category_id = %s, loaction_id = %s, place_id = %s, user_id = %s WHERE start_time = %s AND end_time = %s AND user_id = %s"
         adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
@@ -364,27 +386,44 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        if(new_start_time > new_end_time):
+        if(new_start_time != old_start_time):
             cur = conn.cursor()
-            sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-            adr = (new_end_date, new_end_time, new_weekday+1, od_end_datetime, user_id)
+            sql = "INSERT INTO track (start_date, start_time, weekday, end_date, end_time, category_id, place_id, location_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            adr = (old_start_date, old_start_time, new_weekday, new_start_date,
+                new_start_time, 19, old_place_id, old_location_id)
             cur.execute(sql, adr)
             conn.commit()
             cur.close()
-        else:
+        if(new_end_time != old_end_time)
             cur = conn.cursor()
-            sql = "UPDATE track SET start_date = %s, start_time = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-            adr = (new_end_date, new_end_time, od_end_datetime, user_id)
+            sql = "INSERT INTO track (start_date, start_time, weekday, end_date, end_time, category_id, place_id, location_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            adr = (new_end_date, new_end_time, new_weekday, old_end_date,
+                old_end_time, 19, old_place_id, old_location_id)
             cur.execute(sql, adr)
             conn.commit()
             cur.close()
-        cur = conn.cursor()
-        sql = "UPDATE track SET end_date = %s, end_time = %s WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
-        adr = (new_start_date, new_start_time, od_start_datetime, user_id)
-        cur.execute(sql, adr)
-        conn.commit()
-        cur.close()
-        return jsonify({"status_code": 200})
+
+        # if(new_start_time > new_end_time):
+        #     cur = conn.cursor()
+        #     sql = "UPDATE track SET start_date = %s, start_time = %s, weekday = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
+        #     adr = (new_end_date, new_end_time, new_weekday+1, od_end_datetime, user_id)
+        #     cur.execute(sql, adr)
+        #     conn.commit()
+        #     cur.close()
+        # else:
+        #     cur = conn.cursor()
+        #     sql = "UPDATE track SET start_date = %s, start_time = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
+        #     adr = (new_end_date, new_end_time, od_end_datetime, user_id)
+        #     cur.execute(sql, adr)
+        #     conn.commit()
+        #     cur.close()
+        # cur = conn.cursor()
+        # sql = "UPDATE track SET end_date = %s, end_time = %s WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
+        # adr = (new_start_date, new_start_time, od_start_datetime, user_id)
+        # cur.execute(sql, adr)
+        # conn.commit()
+        # cur.close()
+        # return jsonify({"status_code": 200})
     else:
         return jsonify({"status_code": 400})
 
