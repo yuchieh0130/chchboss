@@ -314,6 +314,17 @@ class DBManager: NSObject {
             while ((set?.next())!) {
                 let a = set?.int(forColumn: "Id")
                 id = a
+                var isMyPlace = "0"
+                if modelInfo.myPlace{
+                    isMyPlace = "1"
+                }
+                let data = ["user_id":String(user_id),"user_place_id":String(id),"place_name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":isMyPlace]
+                net.addSavedplaceData(data: data){
+                    (status_code) in
+                    if (status_code != nil) {
+                        print("addSavedplaceData\(status_code!)")
+                    }
+                }
             }
         }else{
             let sqlString2 = "SELECT place_id AS Id FROM savedPlace WHERE place_name = '\(modelInfo.placeName)'";
@@ -321,13 +332,6 @@ class DBManager: NSObject {
             while ((set?.next())!) {
                 let a = set?.int(forColumn: "Id")
                 id = a
-                let data = ["user_id":String(user_id),"user_place_id":String(id),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":String(modelInfo.myPlace)]
-                net.addSavedplaceData(data: data){
-                    (status_code) in
-                    if (status_code != nil) {
-                        print("addSavedplaceData\(status_code!)")
-                    }
-                }
             }
         }
         shareInstance.database?.close()
