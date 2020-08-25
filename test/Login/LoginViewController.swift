@@ -39,41 +39,66 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
         //performSegue(withIdentifier: "bbbanana", sender: self)
-
+        
         self.networkController.login(email: emailTextField.text!, password: passwordTextField.text!) {
-                (return_list) in
-                if let status_code = return_list?[0],
-                    let user_id = return_list?[1]{
-                        if status_code as! Int == 200 {
-                                DispatchQueue.main.async {
-                                    UserDefaults.standard.set(user_id, forKey: "user_id")
-                                    self.goHomepage()
-//                                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
-                            }
-                            
-                        }
-//      登入錯誤(登入不正常)
-                        else {
-                            print(status_code)
-                            DispatchQueue.main.async {
-                                self.warningLabel.isHidden = false
-                                return
-                            }
-                            
-                        }
-                    }
-//    登入請求沒有送出
-                    else {
+            (return_list) in
+            if let status_code = return_list?[0],
+                let user_id = return_list?[1]{
+                if status_code as! Int == 200 {
                     DispatchQueue.main.async {
-                        self.warningLabel.text = "Connection error"
+                        UserDefaults.standard.set(user_id, forKey: "user_id")
+                        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+                        print(user_id)
+                        //let user_id = 2
+                        let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
+                        print(last_track_id)
+                        let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+                        net.pushTrackData(data: data){
+                            (return_list) in
+                            if let status_code = return_list?[0],
+                                let data = return_list?[1] as? [[AnyObject]],
+                                let last_track_id = return_list?[2]{
+                                if status_code as! Int == 200{
+                                    UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+                                    for i in 0...582{
+                                        let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+                                        DBManager.getInstance().addTrack(modelInfo)
+                                    }
+                                }
+                                else{
+                                    print("pushTrackData\(status_code)")
+                                }
+                            }else{
+                                print("pushTrackData error")
+                            }
+                        }
+                        self.goHomepage()
+                        //                                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+                    }
+                    
+                }
+                    //      登入錯誤(登入不正常)
+                else {
+                    print(status_code)
+                    DispatchQueue.main.async {
                         self.warningLabel.isHidden = false
-                        print("error")
                         return
                     }
-                    }
+                    
+                }
+            }
+                //    登入請求沒有送出
+            else {
+                DispatchQueue.main.async {
+                    self.warningLabel.text = "Connection error"
+                    self.warningLabel.isHidden = false
+                    print("error")
+                    return
+                }
+            }
         }
         
-//        UserDefaults.standard.set(true, forKey: "isLogIn")
+        //        UserDefaults.standard.set(true, forKey: "isLogIn")
         
         
     }
@@ -170,16 +195,16 @@ extension LoginViewController {
 
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-       self.view.endEditing(true)
-       return true
+        self.view.endEditing(true)
+        return true
     }
     
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        textField.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.3)
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-//        textField.backgroundColor = .white
-//    }
+    //    func textFieldDidBeginEditing(_ textField: UITextField) {
+    //        textField.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.3)
+    //    }
+    //
+    //    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    //        textField.backgroundColor = .white
+    //    }
 }
 

@@ -13,6 +13,7 @@ var shareInstance = DBManager()
 
 class DBManager: NSObject {
     
+    let user_id = UserDefaults.standard.integer(forKey: "user_id")
     var database: FMDatabase? = nil //FMDatabase object
     override init() {
         super.init()
@@ -49,7 +50,7 @@ class DBManager: NSObject {
     func editEvent(_ modelInfo: EventModel){
         shareInstance.database?.open()
         shareInstance.database?.executeUpdate("REPLACE INTO event (event_id,event_name,start_date,start_time,end_date,end_time,isAllDay,isAutomated,autoCategory,autoLocation,reminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.eventId,modelInfo.eventName ,modelInfo.startDate,modelInfo.startTime,modelInfo.endDate,modelInfo.endTime,modelInfo.allDay,modelInfo.autoRecord,modelInfo.autoCategory,modelInfo.autoLocation,modelInfo.reminder])
-            shareInstance.database?.close()
+        shareInstance.database?.close()
     }
     
     func getEvents(String: String) -> [EventModel]!{
@@ -175,57 +176,57 @@ class DBManager: NSObject {
                 let a = set?.int(forColumn: "Id")
                 id = a
             }
-        //return modelInfo.startTime
+            //return modelInfo.startTime
         }
         shareInstance.database?.close()
         return id!
     }
     
-//    func getLocName() -> String!{
-//        var location = ""
-//        shareInstance.database?.open()
-//        let sqlString = "SELECT name1 FROM location ORDER BY location_id DESC limit 1";
-//        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
-//
-//        while ((set?.next())!) {
-//            let i = set?.string(forColumn: "name1")
-//            location = i
-//        }
-//        set?.close()
-//        return location
-//    }
+    //    func getLocName() -> String!{
+    //        var location = ""
+    //        shareInstance.database?.open()
+    //        let sqlString = "SELECT name1 FROM location ORDER BY location_id DESC limit 1";
+    //        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+    //
+    //        while ((set?.next())!) {
+    //            let i = set?.string(forColumn: "name1")
+    //            location = i
+    //        }
+    //        set?.close()
+    //        return location
+    //    }
     
-//    func getLocation() -> LocationModel!{
-//        
-//        var location : LocationModel!
-//        shareInstance.database?.open()
-//        let sqlString = "SELECT * FROM location ORDER BY start_time DESC limit 1";
-//        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
-//        
-//        while ((set?.next())!) {
-//            let id = set?.int(forColumn: "location_id")
-//            let a = set?.double(forColumn: "longitude")
-//            let b = set?.double(forColumn: "latitude")
-//            let c = set?.string(forColumn: "start_time")!
-//            let d = set?.double(forColumn: "duration")
-//            let e = set?.string(forColumn: "name1")
-//            let f = set?.string(forColumn: "category1")
-//            let g = set?.string(forColumn: "name2")
-//            let h = set?.string(forColumn: "category2")
-//            let i = set?.string(forColumn: "name3")
-//            let j = set?.string(forColumn: "category3")
-//            let k = set?.string(forColumn: "name4")
-//            let l = set?.string(forColumn: "category4")
-//            let m = set?.string(forColumn: "name5")
-//            let n = set?.string(forColumn: "category5")
-//            let o = set?.double(forColumn: "speed")
-//            
-//            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
-//        }
-//        
-//        set?.close()
-//        return location
-//    }
+    //    func getLocation() -> LocationModel!{
+    //
+    //        var location : LocationModel!
+    //        shareInstance.database?.open()
+    //        let sqlString = "SELECT * FROM location ORDER BY start_time DESC limit 1";
+    //        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+    //
+    //        while ((set?.next())!) {
+    //            let id = set?.int(forColumn: "location_id")
+    //            let a = set?.double(forColumn: "longitude")
+    //            let b = set?.double(forColumn: "latitude")
+    //            let c = set?.string(forColumn: "start_time")!
+    //            let d = set?.double(forColumn: "duration")
+    //            let e = set?.string(forColumn: "name1")
+    //            let f = set?.string(forColumn: "category1")
+    //            let g = set?.string(forColumn: "name2")
+    //            let h = set?.string(forColumn: "category2")
+    //            let i = set?.string(forColumn: "name3")
+    //            let j = set?.string(forColumn: "category3")
+    //            let k = set?.string(forColumn: "name4")
+    //            let l = set?.string(forColumn: "category4")
+    //            let m = set?.string(forColumn: "name5")
+    //            let n = set?.string(forColumn: "category5")
+    //            let o = set?.double(forColumn: "speed")
+    //
+    //            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startTime: c!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
+    //        }
+    //
+    //        set?.close()
+    //        return location
+    //    }
     
     func getLocation(Int: Int32) -> LocationModel!{
         
@@ -323,6 +324,14 @@ class DBManager: NSObject {
             }
         }
         shareInstance.database?.close()
+        
+        let data = ["user_id":String(user_id),"user_place_id":String(id),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":String(modelInfo.myPlace)]
+        net.addSavedplaceData(data: data){
+            (status_code) in
+            if (status_code != nil) {
+                print("addSavedplaceData\(status_code!)")
+            }
+        }
         return id!
         //return isAdded!
     }
@@ -330,7 +339,14 @@ class DBManager: NSObject {
     func editPlace(_ modelInfo: PlaceModel){
         shareInstance.database?.open()
         shareInstance.database?.executeUpdate("REPLACE INTO savedPlace (place_id,place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.placeId!,modelInfo.placeName,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
-            shareInstance.database?.close()
+        shareInstance.database?.close()
+        let data = ["user_id":String(user_id),"user_place_id":String(modelInfo.placeId!),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":String(modelInfo.myPlace)]
+        net.updateSavedplaceData(data: data){
+            (status_code) in
+            if (status_code != nil) {
+                print("updateSavedplaceData\(status_code!)")
+            }
+        }
     }
     
     func getPlace(Int: Int32) -> PlaceModel!{
@@ -413,6 +429,14 @@ class DBManager: NSObject {
         shareInstance.database?.open()
         shareInstance.database?.executeUpdate("DELETE FROM savedPlace WHERE place_id = \(id)", withArgumentsIn:[id])
         shareInstance.database?.close()
+        
+        let data = ["user_id":String(user_id),"user_place_id":String(id)]
+        net.deleteSavedplaceData(data: data){
+            (status_code) in
+            if (status_code != nil) {
+                print("deleteSavedplaceData\(status_code!)")
+            }
+        }
     }
     
     func getMaxPlace() -> Int32{
@@ -430,12 +454,12 @@ class DBManager: NSObject {
         return id
     }
     
-//    func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
-//        shareInstance.database?.open()
-//        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
-//        shareInstance.database?.close()
-//        return isDone!
-//    }
+    //    func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
+    //        shareInstance.database?.open()
+    //        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
+    //        shareInstance.database?.close()
+    //        return isDone!
+    //    }
     
     /*func for task*/
     func addTask(_ modelInfo: TaskModel) {
@@ -660,54 +684,54 @@ class DBManager: NSObject {
     
     //get selected date當月的track
     //判斷同一年還沒寫！！！
-       func getMonthTracks(Month: Int) -> [TrackModel]!{
-           
+    func getMonthTracks(Month: Int) -> [TrackModel]!{
+        
         var tracks: [TrackModel]!
         shareInstance.database?.open()
         let sqlString =  "select * from track where strftime('%m',start_date)='\(Month)' or strftime('%m',end_date)='\(Month)'"
-//           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
-           
-           //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
-           let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
-           
-           while ((set?.next())!) {
-               let i = set?.int(forColumn: "track_id")
-               let a = set?.string(forColumn: "start_date")
-               let b = set?.string(forColumn: "start_time")
-               let w = set?.int(forColumn: "weekDay")
-               let c = set?.string(forColumn: "end_date")
-               let d = set?.string(forColumn: "end_time")
-               let e = set?.int(forColumn: "category_id")
-               let f = set?.int(forColumn: "location_id")
-               let g = set?.int(forColumn: "place_id")
-               
-               let track: TrackModel
-               
-               if tracks == nil{
-                   tracks = [TrackModel]()
-               }
-               
-               track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
-               tracks.append(track)
-           }
-           set?.close()
-           return tracks
-       }
+        //           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
+        
+        //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "start_date")
+            let b = set?.string(forColumn: "start_time")
+            let w = set?.int(forColumn: "weekDay")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
+            
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
     
     
-//    func deleteTrackPlace(id: Int32) -> Bool{
-//        shareInstance.database?.open()
-//        let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = NULL WHERE track_id = \(id)", withArgumentsIn: [id])
-//        shareInstance.database?.close()
-//        return isDone!
-//    }
-//
-//    func editTrackPlace(a: Int32, b: Int32) -> Bool{
-//        shareInstance.database?.open()
-//        let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = \(a) WHERE track_id = \(b)", withArgumentsIn: [a,b])
-//        shareInstance.database?.close()
-//        return isDone!
-//    }
+    //    func deleteTrackPlace(id: Int32) -> Bool{
+    //        shareInstance.database?.open()
+    //        let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = NULL WHERE track_id = \(id)", withArgumentsIn: [id])
+    //        shareInstance.database?.close()
+    //        return isDone!
+    //    }
+    //
+    //    func editTrackPlace(a: Int32, b: Int32) -> Bool{
+    //        shareInstance.database?.open()
+    //        let isDone = shareInstance.database?.executeUpdate("UPDATE track SET place_id = \(a) WHERE track_id = \(b)", withArgumentsIn: [a,b])
+    //        shareInstance.database?.close()
+    //        return isDone!
+    //    }
     
     //新增track
     func addTrack(_ modelInfo: TrackModel) {
@@ -720,6 +744,14 @@ class DBManager: NSObject {
     func editTrack(oldModelInfo: TrackModel,newModelInfo: TrackModel){
         shareInstance.database?.open()
         
+        let data :[String:String] = ["user_id":String(user_id), "new_start_date":String(newModelInfo.startDate), "new_start_time":String(newModelInfo.startTime), "new_weekday":String(newModelInfo.weekDay), "new_end_date":String(newModelInfo.endDate), "new_end_time":String(newModelInfo.endTime), "new_category_id":String(newModelInfo.categoryId), "new_location_id":String(newModelInfo.locationId), "new_place_id":String(newModelInfo.placeId ?? 0), "old_start_date":String(oldModelInfo.startDate), "old_start_time":String(oldModelInfo.startTime), "old_weekday":String(oldModelInfo.weekDay), "old_end_date":String(oldModelInfo.endDate), "old_end_time":String(oldModelInfo.endTime), "old_category_id":String(oldModelInfo.categoryId), "old_location_id":String(oldModelInfo.locationId), "old_place_id":String(oldModelInfo.placeId ?? 0)]
+        net.updateTrackData(data: data){
+            (status_code) in
+            if (status_code != nil) {
+                print("updateTrackData\(status_code!)")
+            }
+        }
+        
         let newStart = newModelInfo.startDate+" "+newModelInfo.startTime
         let newEnd = newModelInfo.endDate+" "+newModelInfo.endTime
         let oldStart = oldModelInfo.startDate+" "+oldModelInfo.startTime
@@ -729,7 +761,7 @@ class DBManager: NSObject {
         if newStart == oldStart && newEnd == oldEnd{
             shareInstance.database?.executeUpdate("UPDATE track SET category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(newModelInfo.trackId!)", withArgumentsIn: [])
         }else if newStart < oldStart && newEnd < oldEnd{
-        //6-9改成5-8
+            //6-9改成5-8
             //刪掉包含在5-8的
             //shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //結束時間在5-8中間的UPDATE成5
@@ -739,7 +771,7 @@ class DBManager: NSObject {
             //新增一筆8-9第19類
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[newModelInfo.endDate,newModelInfo.endTime,newModelInfo.weekDay,oldModelInfo.endDate,oldModelInfo.endTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
         }else if newStart > oldStart && newEnd > oldEnd {
-        //6-9改成7-10
+            //6-9改成7-10
             //刪掉包含在7-10的
             shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //開始時間在7-10中間的UPDATE成10
@@ -749,7 +781,7 @@ class DBManager: NSObject {
             //新增一筆6-7第19類
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
         }else if (newStart < oldStart && newEnd > oldEnd) || (newStart <= oldStart && newEnd > oldEnd) || (newStart < oldStart && newEnd >= oldEnd){
-        //6-9改成5-10
+            //6-9改成5-10
             //刪掉包含在5-10的
             shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //結束時間在5-10中間的UPDATE成5
@@ -760,29 +792,48 @@ class DBManager: NSObject {
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[newModelInfo.startDate,newModelInfo.startTime,newModelInfo.weekDay,newModelInfo.endDate,newModelInfo.endTime,newModelInfo.categoryId,newModelInfo.locationId,newModelInfo.placeId!])
             
         }else if (newStart > oldStart && newEnd < oldEnd) || (newStart >= oldStart && newEnd < oldEnd) || (newStart > oldStart && newEnd <= oldEnd){
-        //6-9改成7-8
+            //6-9改成7-8
             //UPDATE該筆資料6-9改成7-8
             shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
             if newStart != oldStart{
-            //新增一筆6-7
-            shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,newModelInfo.locationId,newModelInfo.placeId!])
+                //新增一筆6-7
+                shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,newModelInfo.locationId,newModelInfo.placeId!])
             }
             if newEnd != oldEnd{
-            //新增一筆8-9
-            shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[newModelInfo.endDate,newModelInfo.endTime,newModelInfo.weekDay,oldModelInfo.endDate,oldModelInfo.endTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
+                //新增一筆8-9
+                shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[newModelInfo.endDate,newModelInfo.endTime,newModelInfo.weekDay,oldModelInfo.endDate,oldModelInfo.endTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
             }
         }
         shareInstance.database?.close()
+    
+        
     }
     
     func deleteTrack(Int: Int32){
         shareInstance.database?.open()
         shareInstance.database?.executeUpdate("UPDATE track SET category_id = 19 WHERE track_id = \(Int) ", withArgumentsIn:[Int])
+        
+        let sqlString = "SELECT * FROM track WHERE track_id = \(Int)";
+               let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+               
+        while ((set?.next())!) {
+            let sd = set?.string(forColumn: "start_date")
+            let st = set?.string(forColumn: "start_time")
+            let data = ["user_id":String(user_id),"start_date":String(sd!),"start_time":String(st!)]
+                   net.deleteTrackData(data: data){
+                       (status_code) in
+                       if (status_code != nil) {
+                           print("deleteTrackData\(status_code!)")
+                       }
+                   }
+            
+        }
+        set?.close()
         shareInstance.database?.close()
         
     }
     
-//測試用
+    //測試用
     func tete() -> [LocationModel]!{
         
         var locations: [LocationModel]!
