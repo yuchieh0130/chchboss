@@ -215,7 +215,7 @@ class DBManager: NSObject {
         
         var location : LocationModel!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location WHERE location_id = \(Int)";
+        let sqlString = "SELECT * FROM location WHERE location_id = \(Int) order by location_id DESC";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
