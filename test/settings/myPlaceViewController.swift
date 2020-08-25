@@ -206,7 +206,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            let controller = UIAlertController(title: "Delete 「 " + name! + " 」 from My Place?", message: nil, preferredStyle: .actionSheet)
+            let controller = UIAlertController(title: "Delete 「 " + name! + " 」 from My Place?", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                 self.showAllPlace!.remove(at: indexPath.row)
                 self.tblView.deleteRows(at: [indexPath], with: .fade)

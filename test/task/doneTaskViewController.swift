@@ -117,7 +117,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            let controller = UIAlertController(title: "Delete this Done task?", message: nil, preferredStyle: .actionSheet)
+            let controller = UIAlertController(title: "Delete this Done task?", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                 self.showTask!.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)

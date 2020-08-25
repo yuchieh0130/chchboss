@@ -213,7 +213,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
             completionHandler(true)
-            let controller = UIAlertController(title: "Delete this task?", message: nil, preferredStyle: .actionSheet)
+            let controller = UIAlertController(title: "Delete task?", message: "Tasks will also be deleted from the calendar.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Delete", style: .default) { (_) in
                     self.showTask!.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -229,8 +229,18 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let doneAction = UIContextualAction(style: .normal, title: "Done") { (action, view, completionHandler) in
             print("Done")
             completionHandler(true)
-            DBManager.getInstance().doneTask(id: id!)
-            self.showTask!.remove(at: indexPath.row)
+            let controller = UIAlertController(title: "Task Done?", message: "Tasks added to the DONE list could not be revertible. Tasks added to calendar will be shown as DONE.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Done", style: .default) { (_) in
+                self.showTask!.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                DBManager.getInstance().doneTask(id: id!)
+                self.dismiss(animated: true, completion: nil)
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            action.setValue(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), forKey: "titleTextColor")
+            controller.addAction(action)
+            controller.addAction(cancel)
+            self.present(controller, animated: true, completion: nil)
             if DBManager.getInstance().getAllUndoneTask() == nil{
                 self.showTask = [TaskModel]()
             }else{
@@ -243,7 +253,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
 //            completionHandler(true)
 //        }
         deleteAction.backgroundColor = UIColor.red
-        doneAction.backgroundColor = UIColor(red: 107/255, green: 123/255, blue: 228/255, alpha: 1)
+        doneAction.backgroundColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction, doneAction])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
