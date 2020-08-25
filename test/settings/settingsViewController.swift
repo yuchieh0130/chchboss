@@ -49,12 +49,15 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         switch  indexPath {
         case [0,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "changeUsernameCell", for: indexPath) as! changeUsernameCell
+            cell.selectionStyle = .none
             return cell
         case [0,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as! changePasswordCell
+            cell.selectionStyle = .none
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editMyplaceCell", for: indexPath) as! editMyplaceCell
+            cell.selectionStyle = .none
             return cell
         }
     }
