@@ -215,19 +215,15 @@ def updateTrack():
     conn = mysql.connector.Connect(
         host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
-
-    track_id = data["track_id"]
     user_id = data["user_id"]
-
     new_start_date = data["new_start_date"]
     new_start_time = data["new_start_time"]
     new_weekday = data["new_weekday"]
     new_end_date = data["new_end_date"]
     new_end_time = data["new_end_time"]
-    new_category_id = data["new_category_id"]
-    new_location_id = data["new_location_id"]
-    new_place_id = data["new_place_id"]
-    new_map_id = data["new_map_id"]
+    new_category_id = int(data["new_category_id"])
+    new_location_id = int(data["new_location_id"])
+    new_place_id = int(data["new_place_id"])
 
     old_start_date = data["old_start_date"]
     old_start_time = data["old_start_time"]
@@ -237,7 +233,6 @@ def updateTrack():
     old_category_id = int(data["old_category_id"])
     old_location_id = int(data["old_location_id"])
     old_place_id = int(data["old_place_id"])
-    old_map_id = int(data["old_map_id"])
 
     nw_start_datetime = new_start_date + new_start_time
     od_start_datetime = old_start_date + old_start_time
@@ -246,9 +241,9 @@ def updateTrack():
 
     if(nw_start_datetime == od_start_datetime and nw_end_datetime == od_end_datetime):
         cur = conn.cursor()
-        sql = "UPDATE track SET(category_id, location_id, place_id, map_id) VALUES (%s, %s, %s, %s) WHERE start_time = %s and start_date = %s and user_id = %s"
+        sql = "UPDATE track SET(category_id, location_id, place_id) VALUES (%s, %s, %s) WHERE start_time = %s and start_date = %s and user_id = %s"
         adr = (new_category_id, new_location_id, new_place_id,
-               new_map_id, new_start_time, new_start_date, user_id)
+               , new_start_time, new_start_date, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -263,9 +258,9 @@ def updateTrack():
         conn.commit()
         cur.close()
         cur = conn.cursor()
-        sql = "UPDATE track SET (start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id, map_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
+        sql = "UPDATE track SET (start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
         adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
-               new_location_id, new_place_id, new_map_id, od_start_datetime, od_end_datetime, user_id)
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -292,9 +287,9 @@ def updateTrack():
         conn.commit()
         cur.close()
         cur = conn.cursor()
-        sql = "UPDATE track SET (start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id, map_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
+        sql = "UPDATE track SET (start_date, start_time, weekday, end_date, end_time, category_id, location_id, place_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE CONCAT(start_date, start_time) = %s AND CONCAT(end_date, end_time) = %s AND user_id = %s"
         adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
-               new_location_id, new_place_id, new_map_id, od_start_datetime, od_end_datetime, user_id)
+               new_location_id, new_place_id,, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -330,9 +325,9 @@ def updateTrack():
         conn.commit()
         cur.close()
         cur = conn.cursor()
-        sql = "INSERT INTO track(start_date, start_time, weekday, end_date, end_time, category_id, loaction_id, place_id, map_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO track(start_date, start_time, weekday, end_date, end_time, category_id, loaction_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time,
-               new_category_id, new_location_id, new_place_id, new_map_id, user_id)
+               new_category_id, new_location_id, new_place_id, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -362,9 +357,9 @@ def updateTrack():
         return jsonify({"status_code": 200})
     elif((nw_start_datetime > od_start_datetime and nw_end_datetime < od_end_datetime) or (nw_start_datetime >= od_start_datetime and nw_end_datetime <= od_end_datetime)):
         cur = conn.cursor()
-        sql = "UPDATE track SET (start_date, start_time, weekday, end_date, end_time, category_id, loaction_id, place_id, map_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE start_time = %s AND end_time = %s AND user_id = %s"
+        sql = "UPDATE track SET (start_date, start_time, weekday, end_date, end_time, category_id, loaction_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE start_time = %s AND end_time = %s AND user_id = %s"
         adr = (new_start_date, new_start_time, new_weekday, new_end_date, new_end_time, new_category_id,
-               new_location_id, new_place_id, new_map_id, od_start_datetime, od_end_datetime, user_id)
+               new_location_id, new_place_id, od_start_datetime, od_end_datetime, user_id)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
@@ -440,10 +435,10 @@ def insertTrack():
     weekday = data["weekday"]
     end_date = data["end_date"]
     end_time = data["end_time"]
-    map_id = data["map_id"]
-    category_id = data["category_id"]
-    location_id = data["location_id"]
-    place_id = data["place_id"]
+    map_id = int(data["map_id"])
+    category_id = int(data["category_id"])
+    location_id = int(data["location_id"])
+    place_id = int(data["place_id"])
     record = 1
 
     nw_start_datetime = start_date + start_time
@@ -606,7 +601,7 @@ def insertCategory():
     data = request.get_json()
 
     user_id = dara["user_id"]
-    category_id = data["category_id"]
+    category_id = int(data["category_id"])
     category_name = data["category_name"]
     category_color = data["category_color"]
     category_image = data["category_image"]
