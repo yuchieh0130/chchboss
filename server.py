@@ -247,7 +247,7 @@ def updateTrack():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-
+        return jsonify({"status_code": 200})
     # 2-10=>5-13
     elif(nw_start_datetime > od_start_datetime and nw_end_datetime > od_end_datetime):
         cur = conn.cursor()
