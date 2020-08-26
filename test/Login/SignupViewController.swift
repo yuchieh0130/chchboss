@@ -19,7 +19,7 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var cancelLabel: UILabel!
     
     let userDefaults = UserDefaults.standard
-    let networkController = NetworkController()
+    //let networkController = NetworkController()
     
     @IBOutlet var signUpBtn: UIButton!
     @IBOutlet var cancelBtn: UIButton!
@@ -66,7 +66,7 @@ class SignupViewController: UIViewController {
         } else if passwordTextField.text == confirmPasswordTextField.text {
             
             
-            self.networkController.register(email:emailTextField.text!, password: passwordTextField.text!, user_name: userNameTextField.text!){
+            net.register(email:emailTextField.text!, password: passwordTextField.text!, user_name: userNameTextField.text!){
                 (return_list) in
                 if let status_code = return_list?[0],
                     let user_id = return_list?[1]{

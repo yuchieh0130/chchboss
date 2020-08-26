@@ -17,7 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var Daily: UIButton!
     @IBOutlet weak var warningLabel: UILabel!
     
-    let networkController = NetworkController()
+    //let networkController = NetworkController()
     let signUpView = SignupViewController()
     
     
@@ -40,51 +40,55 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
         //performSegue(withIdentifier: "bbbanana", sender: self)
         
-        self.networkController.login(email: emailTextField.text!, password: passwordTextField.text!) {
+        net.login(email: emailTextField.text!, password: passwordTextField.text!) {
             (return_list) in
             if let status_code = return_list?[0],
                 let user_id = return_list?[1]{
                 if status_code as! Int == 200 {
                     DispatchQueue.main.async {
-                        UserDefaults.standard.set(user_id, forKey: "user_id")
-                        let user_id = UserDefaults.standard.integer(forKey: "user_id")
-                        print(user_id)
-                        //let user_id = 2
-                        let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
-                        print(last_track_id)
-                        let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
-                        net.pushTrackData(data: data){
-                            (return_list) in
-                            if let status_code = return_list?[0],
-                                let data = return_list?[1] as? [[AnyObject]],
-                                let last_track_id = return_list?[2]{
-                                if status_code as! Int == 200{
-                                    UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
-                                    for i in 0...582{
-                                        let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
-                                        DBManager.getInstance().addTrack(modelInfo)
-                                    }
+                        self.warningLabel.text = "Loading your data...🥕"
+                        self.warningLabel.isHidden = false
+                        return
+                    }
+                    print("login")
+                    UserDefaults.standard.set(user_id, forKey: "user_id")
+                    let user_id = UserDefaults.standard.integer(forKey: "user_id")
+                    print("login in : userId_\(user_id)")
+                    let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
+                    print(last_track_id)
+                    let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+                    net.pushTrackData(data: data){
+                        (return_list) in
+                        if let status_code = return_list?[0],
+                            let data = return_list?[1] as? [[AnyObject]],
+                            let last_track_id = return_list?[2]{
+                            if status_code as! Int == 200{
+                                UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+                                for i in 0...data.count-1{
+                                    print(data[i])
+                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+                                    DBManager.getInstance().addTrack(modelInfo)
                                 }
-                                else{
-                                    print("pushTrackData\(status_code)")
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
                                 }
-                            }else{
-                                print("pushTrackData error")
                             }
+                            else{
+                                print("pushTrackData\(status_code)")
+                            }
+                        }else{
+                            print("pushTrackData error")
                         }
-                        self.goHomepage()
-                        //                                    self.performSegue(withIdentifier: "LoginSegue", sender: nil)
                     }
                     
                 }
                     //      登入錯誤(登入不正常)
                 else {
-                    print(status_code)
+                    print("login\(status_code)")
                     DispatchQueue.main.async {
                         self.warningLabel.isHidden = false
                         return
                     }
-                    
                 }
             }
                 //    登入請求沒有送出
