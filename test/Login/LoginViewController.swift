@@ -42,6 +42,12 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
         //performSegue(withIdentifier: "bbbanana", sender: self)
         
+        if emailTextField.text == "" || passwordTextField.text == "" {
+            warningLabel!.text = "Please fill in every field."
+            warningLabel.isHidden = false
+            return
+        }
+        
         net.login(email: emailTextField.text!, password: passwordTextField.text!) {
             (return_list) in
             if let status_code = return_list?[0],
@@ -88,6 +94,7 @@ class LoginViewController: UIViewController {
                     print("login\(status_code)")
                     DispatchQueue.main.async {
                         self.warningLabel.isHidden = false
+                        self.warningLabel.text = "Connection Error"
                         return
                     }
                 }
@@ -181,7 +188,7 @@ extension LoginViewController {
         }
         
         emailTextField.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview().offset(-100)
+            make.centerY.equalToSuperview()
             make.leading.equalTo(70)
             make.trailing.equalTo(-70)
         }
@@ -189,6 +196,11 @@ extension LoginViewController {
             make.top.equalTo(emailTextField.snp.bottom).offset(40)
             make.leading.equalTo(70)
             make.trailing.equalTo(-70)
+        }
+        
+        warningLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
         }
         view.addSubview(bottomLine1)
         bottomLine1.snp.makeConstraints { (make) in

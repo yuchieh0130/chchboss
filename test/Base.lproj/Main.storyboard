@@ -878,7 +878,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYD-Pr-HpI">
-                                <rect key="frame" x="147" y="509" width="120" height="38"/>
+                                <rect key="frame" x="147" y="549" width="120" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="XCw-Ev-YPI"/>
                                 </constraints>
@@ -899,14 +899,6 @@
                                     <outlet property="delegate" destination="8kr-6C-ze8" id="jxO-O3-FMW"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me1-8w-IeN">
-                                <rect key="frame" x="315" y="743" width="53" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="skip"/>
-                                <connections>
-                                    <action selector="skipLogin:" destination="8kr-6C-ze8" eventType="touchUpInside" id="opG-hV-JSe"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reX-0b-arM">
                                 <rect key="frame" x="147" y="595" width="120" height="38"/>
                                 <constraints>
@@ -930,24 +922,30 @@
                                     <outlet property="delegate" destination="8kr-6C-ze8" id="7ac-GK-5MV"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect Email or Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpt-we-xij" userLabel="Warning Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Incorrect Email or Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpt-we-xij" userLabel="Warning Label">
                                 <rect key="frame" x="99" y="465" width="217" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me1-8w-IeN">
+                                <rect key="frame" x="317" y="120" width="53" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="skip"/>
+                                <connections>
+                                    <action selector="skipLogin:" destination="8kr-6C-ze8" eventType="touchUpInside" id="opG-hV-JSe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Tpt-we-xij" firstAttribute="leading" secondItem="oNw-NL-RoZ" secondAttribute="leading" constant="99" id="3WD-Gx-qHs"/>
                             <constraint firstItem="reX-0b-arM" firstAttribute="top" secondItem="oNw-NL-RoZ" secondAttribute="top" constant="551" id="3eJ-QT-c7c"/>
-                            <constraint firstItem="oNw-NL-RoZ" firstAttribute="bottom" secondItem="Me1-8w-IeN" secondAttribute="bottom" constant="85" id="7cw-tH-YkV"/>
+                            <constraint firstItem="oNw-NL-RoZ" firstAttribute="bottom" secondItem="Me1-8w-IeN" secondAttribute="bottom" constant="708" id="7cw-tH-YkV"/>
                             <constraint firstItem="reX-0b-arM" firstAttribute="centerX" secondItem="vox-2o-65w" secondAttribute="centerX" id="CYS-Ya-ied"/>
-                            <constraint firstItem="reX-0b-arM" firstAttribute="top" secondItem="yYD-Pr-HpI" secondAttribute="bottom" constant="48" id="FRt-DP-BG4"/>
-                            <constraint firstItem="oNw-NL-RoZ" firstAttribute="trailing" secondItem="Tpt-we-xij" secondAttribute="trailing" constant="98" id="TfD-p0-6xE"/>
-                            <constraint firstItem="yYD-Pr-HpI" firstAttribute="top" secondItem="Tpt-we-xij" secondAttribute="bottom" constant="26" id="bhy-iW-jSo"/>
-                            <constraint firstItem="oNw-NL-RoZ" firstAttribute="trailing" secondItem="Me1-8w-IeN" secondAttribute="trailing" constant="46" id="eeB-vq-u7n"/>
-                            <constraint firstItem="Me1-8w-IeN" firstAttribute="leading" relation="lessThanOrEqual" secondItem="oNw-NL-RoZ" secondAttribute="leading" constant="315" id="mzf-bT-dDC"/>
+                            <constraint firstItem="reX-0b-arM" firstAttribute="top" secondItem="yYD-Pr-HpI" secondAttribute="bottom" constant="8" id="FRt-DP-BG4"/>
+                            <constraint firstItem="oNw-NL-RoZ" firstAttribute="trailing" secondItem="Me1-8w-IeN" secondAttribute="trailing" constant="44" id="eeB-vq-u7n"/>
+                            <constraint firstItem="Me1-8w-IeN" firstAttribute="leading" relation="lessThanOrEqual" secondItem="oNw-NL-RoZ" secondAttribute="leading" constant="341" id="mzf-bT-dDC"/>
                             <constraint firstItem="yYD-Pr-HpI" firstAttribute="centerX" secondItem="vox-2o-65w" secondAttribute="centerX" id="v5k-Ap-yxv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oNw-NL-RoZ"/>
