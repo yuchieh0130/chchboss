@@ -24,6 +24,8 @@ class LoginViewController: UIViewController {
     @IBOutlet var logInbtn: UIButton!
     @IBOutlet var signUpBtn: UIButton!
     
+    @IBOutlet weak var bgImageView: UIImageView!
+    
     let bottomLine1: UIView = {
         let tmpView = UIView()
         tmpView.backgroundColor = .lightGray
@@ -169,6 +171,15 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     func setupUI() {
+        
+        bgImageView.image = UIImage(named: "loginBackground")
+        bgImageView.contentMode = .scaleAspectFill
+        
+        bgImageView.snp.setLabel("bgImageView")
+        bgImageView.snp.makeConstraints { (make) in
+            make.center.size.equalToSuperview()
+        }
+        
         emailTextField.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview().offset(-100)
             make.leading.equalTo(70)
