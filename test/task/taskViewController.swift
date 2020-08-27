@@ -67,7 +67,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
         let addTaskBtn = UIButton.init(type: .system)
-        addTaskBtn.setImage(UIImage(systemName: "plus"), for: .normal)
+        addTaskBtn.setTitle("➕", for: .normal)
         addTaskBtn.layer.borderWidth = 1.25
         addTaskBtn.layer.cornerRadius = 5
         addTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
@@ -81,7 +81,7 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         editTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
         editTaskBtn.addTarget(self, action: #selector(editTask(_:)), for: .touchUpInside)
         let doneTaskBtn = UIButton.init(type: .system)
-        doneTaskBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        doneTaskBtn.setTitle("✔", for: .normal)
         doneTaskBtn.layer.borderWidth = 1.25
         doneTaskBtn.layer.cornerRadius = 5
         doneTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
