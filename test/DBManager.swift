@@ -688,7 +688,7 @@ class DBManager: NSObject {
     
     //get selected date當月的track
     //判斷同一年還沒寫！！！
-    func getMonthTracks(Month: Int) -> [TrackModel]!{
+    func getMonthTracks(Month: String) -> [TrackModel]!{
         
         var tracks: [TrackModel]!
         shareInstance.database?.open()

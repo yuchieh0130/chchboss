@@ -34,7 +34,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     
     var valuesDay = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var valuesWeek = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
-    var valuesMonth = [54.0, 67.0, 89.0, 0.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 0.0, 37.0, 0.0, 0.0,0.0, 0.0]
+    var valuesMonth = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     //for chart selected view
     var indexDay = 0
@@ -44,6 +44,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var segConIndex = 0
     
     var selectedDay = ""
+    var selectedMonth = ""
     var currentDate = ""
     var currentWeek = Calendar.current.component(.weekOfYear, from: Date())
     var currentYear = Calendar.current.component(.year, from: Date())
@@ -86,6 +87,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var showWeekdayformatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd EEE HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showMonthformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -137,6 +144,14 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             pieChart.isHidden = true
             noDataLabel.isHidden = false
+        }
+        print(currentMonth)
+        selectedMonth = "08"
+        if DBManager.getInstance().getMonthTracks(Month: selectedMonth) != nil{
+            getTrackTimeMonth()
+            print(valuesMonth)
+        }else{
+            print("nil month track")
         }
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
@@ -200,13 +215,40 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             endWeekDay = showDayformatter.string(from: endOfWeek!)
             showTimeLabel = "\(startWeekDay) ~ \(endWeekDay)"
         }else if getIndex == 2{
-            customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
-            pieChartMonth.isHidden = false
             pieChartYear.isHidden = true
-            noDataLabel.isHidden = true
             showTimeLabel = months[currentMonth - 1] + " \(currentYear)"
+            if currentMonth < 10{
+                selectedMonth = "0\(currentMonth)"
+            }else{
+                selectedMonth = "\(currentMonth)"
+            }
+            for (index, value) in valuesMonth.enumerated(){
+                valuesMonth[index] = value*0
+            }
+            showCategoryStr.enumerated().forEach{index, value in
+                showCategoryStr = [String]()
+            }
+            for i in 0...showCategory.count-2{
+                showCategoryStr.append(showCategory[i].categoryName)
+            }
+            if DBManager.getInstance().getMonthTracks(Month: selectedMonth) != nil{
+                getTrackTimeMonth()
+                showCategoryStr.enumerated().forEach{index, value in
+                    if valuesMonth[index] == 0.0{
+                        showCategoryStr[index] = ""
+                    }
+                }
+                customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
+                pieChartMonth.isHidden = false
+                noDataLabel.isHidden = true
+            }else{
+                showTrack = [TrackModel]()
+                customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
+                pieChartMonth.isHidden = true
+                noDataLabel.isHidden = false
+            }
         }else if getIndex == 3{
             customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
             pieChart.isHidden = true
@@ -281,13 +323,11 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartWeek.data = pieChartData
         
         pieChartWeek.rotationAngle = 0
-        pieChartWeek.legend.direction = .leftToRight
         pieChartWeek.entryLabelColor = UIColor.black
         pieChartWeek.drawEntryLabelsEnabled = false
         pieChartWeek.usePercentValuesEnabled = true
         pieChartWeek.transparentCircleRadiusPercent = 0.0
-        pieChartWeek.legend.horizontalAlignment = .center
-        pieChartWeek.legend.verticalAlignment = .bottom
+        pieChartWeek.legend.enabled = false
         pieChartWeek.holeRadiusPercent = 0.35
     }
     
@@ -318,13 +358,11 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartMonth.data = pieChartData
         
         pieChartMonth.rotationAngle = 0
-        pieChartMonth.legend.direction = .leftToRight
         pieChartMonth.entryLabelColor = UIColor.black
-        pieChartMonth.drawEntryLabelsEnabled = false
+        pieChartMonth.drawEntryLabelsEnabled = true
         pieChartMonth.usePercentValuesEnabled = true
         pieChartMonth.transparentCircleRadiusPercent = 0.0
-        pieChartMonth.legend.horizontalAlignment = .center
-        pieChartMonth.legend.verticalAlignment = .bottom
+        pieChartMonth.legend.enabled = false
         pieChartMonth.holeRadiusPercent = 0.35
     }
     
@@ -355,60 +393,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartYear.data = pieChartData
         
         pieChartYear.rotationAngle = 0
-        pieChartYear.legend.direction = .leftToRight
         pieChartYear.entryLabelColor = UIColor.black
         pieChartYear.drawEntryLabelsEnabled = false
         pieChartYear.usePercentValuesEnabled = true
         pieChartYear.transparentCircleRadiusPercent = 0.0
-        pieChartYear.legend.horizontalAlignment = .center
-        pieChartYear.legend.verticalAlignment = .bottom
+        pieChartYear.legend.enabled = false
         pieChartYear.holeRadiusPercent = 0.35
-    }
-    
-    func getTrackTime(){
-        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
-        var startDay = ""
-        var endDay = ""
-        for i in 0...showTrack.count-1{
-            startDay = showTrack[i].startTime
-            endDay = showTrack[i].endTime
-            if showTrack[i].startDate != selectedDay{
-                startDay = "00:00"
-            }
-            if showTrack[i].endDate != selectedDay{
-                endDay = "23:59"
-            }
-            let trackTimeDay = round(10*(showTimeformatter.date(from: endDay)?.timeIntervalSince(showTimeformatter.date(from: startDay)!))!/3600)/10
-            valuesDay.enumerated().forEach{index, value in
-                if showTrack[i].categoryId-1 == index{
-                    valuesDay[index] = value+trackTimeDay
-                }
-            }
-        }
-    }
-    
-    func getTrackTimeMonth(){
-        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
-        var startMonth = ""
-        var endMonth = ""
-        for i in 0...showTrack.count-1{
-            startMonth = showTrack[i].startTime
-            endMonth = showTrack[i].endTime
-            if showTrack[i].startDate != selectedDay{
-                startMonth = "00:00"
-            }
-            if showTrack[i].endDate != selectedDay{
-                endMonth = "23:59"
-            }
-            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
-            valuesMonth.enumerated().forEach{index, value in
-                if showTrack[i].categoryId-1 == index{
-                    if selectedDay.contains("-07-"){
-                        valuesMonth[index] = value+trackTimeMonth
-                    }
-                }
-            }
-        }
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
@@ -516,6 +506,50 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func getTrackTime(){
+        showTrack = DBManager.getInstance().getDateTracks(String: selectedDay)
+        var startDay = ""
+        var endDay = ""
+        for i in 0...showTrack.count-1{
+            startDay = showTrack[i].startTime
+            endDay = showTrack[i].endTime
+            if showTrack[i].startDate != selectedDay{
+                startDay = "00:00"
+            }
+            if showTrack[i].endDate != selectedDay{
+                endDay = "23:59"
+            }
+            let trackTimeDay = round(10*(showTimeformatter.date(from: endDay)?.timeIntervalSince(showTimeformatter.date(from: startDay)!))!/3600)/10
+            valuesDay.enumerated().forEach{index, value in
+                if showTrack[i].categoryId-1 == index{
+                    valuesDay[index] = value+trackTimeDay
+                }
+            }
+        }
+    }
+    
+    func getTrackTimeMonth(){
+        showTrack = DBManager.getInstance().getMonthTracks(Month: selectedMonth)
+        var startMonth = ""
+        var endMonth = ""
+        for i in 0...showTrack.count-1{
+            startMonth = showTrack[i].startTime
+            endMonth = showTrack[i].endTime
+            if showTrack[i].startDate.contains("-\(selectedMonth)-") == false{
+                startMonth = "00:00"
+            }
+            if showTrack[i].endDate.contains("-\(selectedMonth)-") == false{
+                endMonth = "23:59"
+            }
+            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
+            valuesMonth.enumerated().forEach{index, value in
+                if showTrack[i].categoryId-1 == index{
+                    valuesMonth[index] = value+trackTimeMonth
+                }
+            }
+        }
+    }
+    
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         if segue.identifier == "timeSegueBack"{
             if segConIndex == 0{
@@ -537,6 +571,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     }
                     if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
                         getTrackTime()
+                        print(valuesDay)
                         showCategoryStr.enumerated().forEach{index, value in
                             if valuesDay[index] == 0.0{
                                 showCategoryStr[index] = ""
@@ -562,11 +597,37 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 let vc = segue.source as? PickerViewController
                 tag = vc?.tag
                 if tag == "analysisMonthYear"{
+                    showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
-                    if vc!.pickerViewMonthYear.month < 10{
-                        print("0\(vc!.pickerViewMonthYear.month)")
+                    if currentMonth < 10{
+                        selectedMonth = "0\(vc!.pickerViewMonthYear.month)"
                     }else{
-                        print("\(vc!.pickerViewMonthYear.month)")
+                        selectedMonth = "\(vc!.pickerViewMonthYear.month)"
+                    }
+                    for (index, value) in valuesMonth.enumerated(){
+                        valuesMonth[index] = value*0
+                    }
+                    showCategoryStr.enumerated().forEach{index, value in
+                        showCategoryStr = [String]()
+                    }
+                    for i in 0...showCategory.count-2{
+                        showCategoryStr.append(showCategory[i].categoryName)
+                    }
+                    if DBManager.getInstance().getMonthTracks(Month: selectedMonth) != nil{
+                        getTrackTimeMonth()
+                        showCategoryStr.enumerated().forEach{index, value in
+                            if valuesMonth[index] == 0.0{
+                                showCategoryStr[index] = ""
+                            }
+                        }
+                        customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
+                        pieChartMonth.isHidden = false
+                        noDataLabel.isHidden = true
+                    }else{
+                        showTrack = [TrackModel]()
+                        customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
+                        pieChartMonth.isHidden = true
+                        noDataLabel.isHidden = false
                     }
                 }
             }else if segConIndex == 3{
