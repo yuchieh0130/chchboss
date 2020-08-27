@@ -44,7 +44,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var segConIndex = 0
     
     var selectedDay = ""
-    var selectedMonth: Int!
+    var selectedMonth = ""
     var currentDate = ""
     var currentWeek = Calendar.current.component(.weekOfYear, from: Date())
     var currentYear = Calendar.current.component(.year, from: Date())
@@ -87,6 +87,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var showWeekdayformatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd EEE HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showMonthformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -140,7 +146,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             noDataLabel.isHidden = false
         }
         print(currentMonth)
-        selectedMonth = 08
+        selectedMonth = "08"
         if DBManager.getInstance().getMonthTracks(Month: selectedMonth) != nil{
             getTrackTimeMonth()
             print(valuesMonth)
@@ -211,11 +217,13 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         }else if getIndex == 2{
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
-            pieChartMonth.isHidden = false
             pieChartYear.isHidden = true
-            noDataLabel.isHidden = true
             showTimeLabel = months[currentMonth - 1] + " \(currentYear)"
-            selectedMonth = currentMonth
+            if currentMonth < 10{
+                selectedMonth = "0\(currentMonth)"
+            }else{
+                selectedMonth = "\(currentMonth)"
+            }
             for (index, value) in valuesMonth.enumerated(){
                 valuesMonth[index] = value*0
             }
@@ -351,7 +359,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         
         pieChartMonth.rotationAngle = 0
         pieChartMonth.entryLabelColor = UIColor.black
-        pieChartMonth.drawEntryLabelsEnabled = false
+        pieChartMonth.drawEntryLabelsEnabled = true
         pieChartMonth.usePercentValuesEnabled = true
         pieChartMonth.transparentCircleRadiusPercent = 0.0
         pieChartMonth.legend.enabled = false
@@ -527,6 +535,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         for i in 0...showTrack.count-1{
             startMonth = showTrack[i].startTime
             endMonth = showTrack[i].endTime
+            if showTrack[i].startDate.contains("-\(selectedMonth)-") == false{
+                startMonth = "00:00"
+            }
+            if showTrack[i].endDate.contains("-\(selectedMonth)-") == false{
+                endMonth = "23:59"
+            }
             let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
             valuesMonth.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
@@ -557,6 +571,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     }
                     if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
                         getTrackTime()
+                        print(valuesDay)
                         showCategoryStr.enumerated().forEach{index, value in
                             if valuesDay[index] == 0.0{
                                 showCategoryStr[index] = ""
@@ -584,7 +599,11 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 if tag == "analysisMonthYear"{
                     showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
-                    selectedMonth = vc!.pickerViewMonthYear.month
+                    if currentMonth < 10{
+                        selectedMonth = "0\(vc!.pickerViewMonthYear.month)"
+                    }else{
+                        selectedMonth = "\(vc!.pickerViewMonthYear.month)"
+                    }
                     for (index, value) in valuesMonth.enumerated(){
                         valuesMonth[index] = value*0
                     }
