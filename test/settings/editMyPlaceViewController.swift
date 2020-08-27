@@ -110,7 +110,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     
     func loadData(){
         id = myPlace!.placeId!
-        myPlaceCategory = myPlace!.placeCategory
+        myPlaceCategory = myPlace!.placeCategory.uppercased()
         myPlaceName = myPlace!.placeName
         myPlaceLongitude = myPlace!.placeLongitude
         myPlaceLatitude = myPlace!.placeLatitude
@@ -120,7 +120,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if segue.identifier == "myPlaceCategorySegueBack"{
             let VC = segue.source as? myPlaceCategoryViewController
             let i = VC?.tableView.indexPathForSelectedRow?.row
-            myPlaceCategory = VC?.myPlaceCategorys[i ?? 4] ?? "Others"
+            myPlaceCategory = VC?.myPlaceCategorys[i ?? 4] ?? "others"
             tbView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }
     }
@@ -130,7 +130,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }else{
-            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
             let id = DBManager.getInstance().addPlace(modelInfo)
             startMonitorRegion(placeId: id)
             //            let title = myPlaceName
@@ -163,7 +163,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }
-        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory, placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
         DBManager.getInstance().editPlace(modelInfo)
         startMonitorRegion(placeId: id)
         self.dismiss(animated: true, completion: nil)
