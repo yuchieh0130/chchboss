@@ -785,6 +785,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfE-e6-lnJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J7M-gl-bLt">
                                 <rect key="frame" x="106" y="190" width="237" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -847,6 +851,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="40z-cP-S5X"/>
                     <connections>
+                        <outlet property="bgImageView" destination="qfE-e6-lnJ" id="bRx-m8-wrh"/>
                         <outlet property="confirmPasswordTextField" destination="CIy-IU-SRd" id="PNh-8H-C0L"/>
                         <outlet property="emailTextField" destination="BUC-SM-stO" id="WiU-JS-fGV"/>
                         <outlet property="passwordTextField" destination="KXj-6m-Xad" id="t2C-sq-gTY"/>
@@ -868,6 +873,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7KU-8z-f37">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYD-Pr-HpI">
                                 <rect key="frame" x="147" y="509" width="120" height="38"/>
                                 <constraints>
@@ -945,6 +954,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Adb-Ue-aBJ"/>
                     <connections>
+                        <outlet property="bgImageView" destination="7KU-8z-f37" id="f78-oD-YmX"/>
                         <outlet property="emailTextField" destination="wXK-S2-vnB" id="a3v-O6-pNe"/>
                         <outlet property="logInbtn" destination="yYD-Pr-HpI" id="pCl-l4-aki"/>
                         <outlet property="passwordTextField" destination="gJ2-WZ-y3B" id="OI9-G2-tfJ"/>

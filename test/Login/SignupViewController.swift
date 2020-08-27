@@ -24,6 +24,16 @@ class SignupViewController: UIViewController {
     @IBOutlet var signUpBtn: UIButton!
 //    @IBOutlet var cancelBtn: UIButton!
     
+    @IBOutlet weak var bgImageView: UIImageView!
+    
+    
+//    private let bgImageView: UIImageView = {
+//        let tmpImageView = UIImageView()
+//        tmpImageView.image = UIImage(named: "loginBackground")
+//        tmpImageView.contentMode = .scaleAspectFill
+//        return tmpImageView
+//    }()
+    
     let bottomLine1: UIView = {
         let tmpView = UIView()
         tmpView.backgroundColor = .lightGray
@@ -157,8 +167,14 @@ class SignupViewController: UIViewController {
 
 extension SignupViewController {
     func setupUI() {
+        bgImageView.image = UIImage(named: "loginBackground")
+        bgImageView.contentMode = .scaleAspectFill
         
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "loginBackground")!)
+        bgImageView.snp.setLabel("bgImageView")
+        bgImageView.snp.makeConstraints { (make) in
+            make.center.size.equalToSuperview()
+        }
+        
         userNameTextField.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview().offset(-160)
             make.leading.equalTo(70)
