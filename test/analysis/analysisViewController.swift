@@ -45,6 +45,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     
     var selectedDay = ""
     var selectedMonth = ""
+    var selectedYear = ""
+    
     var currentDate = ""
     var currentWeek = Calendar.current.component(.weekOfYear, from: Date())
     var currentYear = Calendar.current.component(.year, from: Date())
@@ -92,7 +94,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     }
     var showMonthformatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM"
+        formatter.dateFormat = "yyyy-MM"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -144,14 +146,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             pieChart.isHidden = true
             noDataLabel.isHidden = false
-        }
-        print(currentMonth)
-        selectedMonth = "08"
-        if DBManager.getInstance().getMonthTracks(Month: selectedMonth) != nil{
-            getTrackTimeMonth()
-            print(valuesMonth)
-        }else{
-            print("nil month track")
         }
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
@@ -219,6 +213,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChartWeek.isHidden = true
             pieChartYear.isHidden = true
             showTimeLabel = months[currentMonth - 1] + " \(currentYear)"
+            selectedYear = "\(currentYear)"
             if currentMonth < 10{
                 selectedMonth = "0\(currentMonth)"
             }else{
@@ -532,16 +527,36 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         showTrack = DBManager.getInstance().getMonthTracks(Month: selectedMonth)
         var startMonth = ""
         var endMonth = ""
+        var selectedDay = selectedYear+"-"+selectedMonth
+        print(selectedDay)
+        //每月第一天
+        //let components = calendar.components([.Year, .Month, .Day, . ], fromDate: date)
+//        let startOfMonth = calendar.dateFromComponents(components)!
+//        print(dateFormatter.stringFromDate(startOfMonth))
+//        //每月最後一天
+//        let comps2 = NSDateComponents()
+//        comps2.month = 1
+//        comps2.day = -1
+//        let endOfMonth = calendar.dateByAddingComponents(comps2, toDate: startOfMonth, options: [])!
+//        print(dateFormatter.stringFromDate(endOfMonth)) // 2015-11-30
+        
         for i in 0...showTrack.count-1{
-            startMonth = showTrack[i].startTime
-            endMonth = showTrack[i].endTime
+            startMonth = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
+            endMonth = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
             if showTrack[i].startDate.contains("-\(selectedMonth)-") == false{
-                startMonth = "00:00"
+                let components = NSCalendar.current.dateComponents(Set<Calendar.Component>([.year, .month]),from: showMonthformatter.date(from: selectedDay)!)
+                let s = NSCalendar.current.date(from: components)!
+                startMonth = showDateformatter.string(from: s)
             }
             if showTrack[i].endDate.contains("-\(selectedMonth)-") == false{
-                endMonth = "23:59"
+//                let components = NSCalendar.current.dateComponents(Set<Calendar.Component>([.year, .month, .day, .hour, .minute]),from: showMonthformatter.date(from: selectedDay)!)
+                var com = DateComponents()
+                com.month = 1
+                com.second = -1
+                let e = NSCalendar.current.date(byAdding: com, to: showMonthformatter.date(from: selectedDay)!)!
+                endMonth = showDateformatter.string(from: e)
             }
-            let trackTimeMonth = round(10*(showTimeformatter.date(from: endMonth)?.timeIntervalSince(showTimeformatter.date(from: startMonth)!))!/3600)/10
+            let trackTimeMonth = round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
             valuesMonth.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
                     valuesMonth[index] = value+trackTimeMonth
@@ -599,6 +614,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 if tag == "analysisMonthYear"{
                     showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
+                    selectedYear = "\(vc!.pickerViewMonthYear.year)"
                     if currentMonth < 10{
                         selectedMonth = "0\(vc!.pickerViewMonthYear.month)"
                     }else{
