@@ -12,7 +12,7 @@ import UIKit
 class myPlaceCategoryViewController: UIViewController{
     
     
-    let myPlaceCategorys = ["Home","School","Work Place","Dorm","Others"]
+    let myPlaceCategorys = ["Home","School","Work Place","Dorm","Gym","Others"]
     @IBOutlet var tableView : UITableView!
     
     override func viewDidLoad() {

@@ -340,7 +340,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     func exitRegion(region: CLRegion){
         let placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
         let latitude = placeExiting!.placeLatitude
-        let longitude = placeExiting!.placeLatitude
+        let longitude = placeExiting!.placeLongitude
         let startDate = self.showDate.string(from: exitTime)
         let startTime = self.showTime.string(from: exitTime)
         let weekday = Calendar.current.component(.weekday, from: exitTime)
