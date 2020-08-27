@@ -23,9 +23,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Press OK to take photo</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We recommend you to choose &quot;Always&quot; to have better experience. (This will not consume more electricity)</string>
+	<string>We recommend you choosing &quot;Always&quot; to have better experience. (This will not consume more electricity)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We recommend you to choose &quot;While using app&quot; to have better experience. (This will not consume more electricity)</string>
+	<string>We recommend you choosing &quot;While using app&quot; to have better experience. (This will not consume more electricity)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Press OK to choose photos</string>
 	<key>UIBackgroundModes</key>

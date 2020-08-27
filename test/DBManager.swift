@@ -744,6 +744,8 @@ class DBManager: NSObject {
         shareInstance.database?.close()
     }
     
+    //insert Track（還沒寫完！）
+    
     //編輯track（不包含location）
     func editTrack(oldModelInfo: TrackModel,newModelInfo: TrackModel){
         shareInstance.database?.open()
