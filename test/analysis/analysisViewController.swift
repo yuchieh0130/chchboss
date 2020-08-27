@@ -228,7 +228,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             for i in 0...showCategory.count-2{
                 showCategoryStr.append(showCategory[i].categoryName)
             }
-            if DBManager.getInstance().getMonthTracks(Month: selectedMonth) != nil{
+            if DBManager.getInstance().getMonthTracks(Year: selectedYear, Month: selectedMonth) != nil{
                 getTrackTimeMonth()
                 showCategoryStr.enumerated().forEach{index, value in
                     if valuesMonth[index] == 0.0{
@@ -354,11 +354,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         
         pieChartMonth.rotationAngle = 0
         pieChartMonth.entryLabelColor = UIColor.black
-        pieChartMonth.drawEntryLabelsEnabled = true
+        pieChartMonth.drawEntryLabelsEnabled = false
         pieChartMonth.usePercentValuesEnabled = true
+        pieChartMonth.drawCenterTextEnabled = true
         pieChartMonth.transparentCircleRadiusPercent = 0.0
         pieChartMonth.legend.enabled = false
-        pieChartMonth.holeRadiusPercent = 0.35
+        pieChartMonth.holeRadiusPercent = 0.7
     }
     
     func customizeCategoryChartYear(dataPoints: [String], values: [Double]) {
@@ -411,6 +412,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
                  let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
                  indexMonth = sliceIndex
+                pieChartMonth.centerText = "\(sliceIndex)"
              }
         }else if segConIndex == 3{
             if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
@@ -524,27 +526,15 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     }
     
     func getTrackTimeMonth(){
-        showTrack = DBManager.getInstance().getMonthTracks(Month: selectedMonth)
+        showTrack = DBManager.getInstance().getMonthTracks(Year: selectedYear, Month: selectedMonth)
         var startMonth = ""
         var endMonth = ""
-        var selectedDay = selectedYear+"-"+selectedMonth
-        print(selectedDay)
-        //每月第一天
-        //let components = calendar.components([.Year, .Month, .Day, . ], fromDate: date)
-//        let startOfMonth = calendar.dateFromComponents(components)!
-//        print(dateFormatter.stringFromDate(startOfMonth))
-//        //每月最後一天
-//        let comps2 = NSDateComponents()
-//        comps2.month = 1
-//        comps2.day = -1
-//        let endOfMonth = calendar.dateByAddingComponents(comps2, toDate: startOfMonth, options: [])!
-//        print(dateFormatter.stringFromDate(endOfMonth)) // 2015-11-30
-        
+        let monthSelected = selectedYear+"-"+selectedMonth
         for i in 0...showTrack.count-1{
             startMonth = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
             endMonth = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
             if showTrack[i].startDate.contains("-\(selectedMonth)-") == false{
-                let components = NSCalendar.current.dateComponents(Set<Calendar.Component>([.year, .month]),from: showMonthformatter.date(from: selectedDay)!)
+                let components = NSCalendar.current.dateComponents(Set<Calendar.Component>([.year, .month]),from: showMonthformatter.date(from: monthSelected)!)
                 let s = NSCalendar.current.date(from: components)!
                 startMonth = showDateformatter.string(from: s)
             }
@@ -553,7 +543,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 var com = DateComponents()
                 com.month = 1
                 com.second = -1
-                let e = NSCalendar.current.date(byAdding: com, to: showMonthformatter.date(from: selectedDay)!)!
+                let e = NSCalendar.current.date(byAdding: com, to: showMonthformatter.date(from: monthSelected)!)!
                 endMonth = showDateformatter.string(from: e)
             }
             let trackTimeMonth = round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
@@ -629,7 +619,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     for i in 0...showCategory.count-2{
                         showCategoryStr.append(showCategory[i].categoryName)
                     }
-                    if DBManager.getInstance().getMonthTracks(Month: selectedMonth) != nil{
+                    if DBManager.getInstance().getMonthTracks(Year: selectedYear, Month: selectedMonth) != nil{
                         getTrackTimeMonth()
                         showCategoryStr.enumerated().forEach{index, value in
                             if valuesMonth[index] == 0.0{
