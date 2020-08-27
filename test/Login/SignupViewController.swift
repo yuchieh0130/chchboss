@@ -16,13 +16,13 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var warningLabel: UILabel!
-    @IBOutlet weak var cancelLabel: UILabel!
+//    @IBOutlet weak var cancelLabel: UILabel!
     
     let userDefaults = UserDefaults.standard
     //let networkController = NetworkController()
     
     @IBOutlet var signUpBtn: UIButton!
-    @IBOutlet var cancelBtn: UIButton!
+//    @IBOutlet var cancelBtn: UIButton!
     
     let bottomLine1: UIView = {
         let tmpView = UIView()
@@ -45,14 +45,32 @@ class SignupViewController: UIViewController {
         return tmpView
     }()
     
+    let cancelView: UIView = {
+        let tmpView = UIView()
+        return tmpView
+    }()
+    
+    let cancelLabel: UILabel = {
+        let tmpLabel = UILabel()
+        tmpLabel.text = "Already have an account?"
+        return tmpLabel
+    }()
+    
+    let cancelBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.setTitle("Log In", for: .normal)
+        tmpBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .semibold)
+        tmpBtn.titleLabel?.textColor = .darkText
+        tmpBtn.setTitleColor(.blue, for: .normal)
+        return tmpBtn
+    }()
+    
     
     @IBAction func signUpBtn(_ sender: Any) {
         userDefaults.set(userNameTextField.text, forKey: "userName")
         userDefaults.set(emailTextField.text, forKey: "userEmail")
         userDefaults.set(passwordTextField.text, forKey: "userPassword")
-        //        userNameTextField.text = ""
-        //        emailTextField.text = ""
-        //        passwordTextField.text = ""
+        
         if userNameTextField.text == "" || emailTextField.text == "" || passwordTextField.text == "" || confirmPasswordTextField.text == "" {
             warningLabel!.text = "Please fill in every field."
             warningLabel.isHidden = false
@@ -102,21 +120,16 @@ class SignupViewController: UIViewController {
         }
     }
     
-    func signUp() {
-        
-    }
-    
-    @IBAction func cancelBtn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+//    @IBAction func cancelBtn(_ sender: Any) {
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -126,9 +139,9 @@ class SignupViewController: UIViewController {
         signUpBtn.layer.cornerRadius = signUpBtn.frame.height/2
         signUpBtn.clipsToBounds = true
         
-        cancelBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
-        cancelBtn.layer.cornerRadius = signUpBtn.frame.height/2
-        cancelBtn.clipsToBounds = true
+//        cancelBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+//        cancelBtn.layer.cornerRadius = signUpBtn.frame.height/2
+//        cancelBtn.clipsToBounds = true
         
     }
     
@@ -144,6 +157,8 @@ class SignupViewController: UIViewController {
 
 extension SignupViewController {
     func setupUI() {
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "loginBackground")!)
         userNameTextField.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview().offset(-160)
             make.leading.equalTo(70)
@@ -178,14 +193,28 @@ extension SignupViewController {
             make.top.equalTo(warningLabel.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
         }
-        cancelLabel.snp.makeConstraints { (make) in
+        
+        view.addSubview(cancelView)
+        cancelView.snp.makeConstraints { (make) in
             make.top.equalTo(signUpBtn.snp.bottom).offset(100)
             make.centerX.equalToSuperview()
         }
-        cancelBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(cancelLabel.snp.bottom).offset(15)
-            make.centerX.equalToSuperview()
+        
+        cancelView.addSubview(cancelLabel)
+        cancelView.addSubview(cancelBtn)
+        cancelLabel.snp.makeConstraints { (make) in
+            make.leading.greaterThanOrEqualToSuperview()
+            make.centerY.equalToSuperview()
         }
+        cancelBtn.snp.makeConstraints { (make) in
+            make.trailing.bottom.lessThanOrEqualToSuperview()
+            make.leading.equalTo(cancelLabel.snp.trailing).offset(5)
+            make.top.greaterThanOrEqualToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        cancelBtn.addTarget(self, action: #selector(didPressedCancelBtn(sender:)),
+                            for: .touchUpInside)
     }
     
     func addTextFieldWithLine(line: UIView, field: UITextField) {
@@ -196,6 +225,10 @@ extension SignupViewController {
             make.width.equalTo(field.snp.width)
             make.leading.trailing.equalTo(field)
         }
+    }
+    
+    @objc func didPressedCancelBtn(sender: SignupViewController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
