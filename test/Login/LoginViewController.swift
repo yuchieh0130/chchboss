@@ -77,9 +77,6 @@ class LoginViewController: UIViewController {
                                     let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
                                     DBManager.getInstance().addTrack(modelInfo)
                                 }
-                                DispatchQueue.main.async{
-                                    self.goHomepage()
-                                }
                             }
                             else{
                                 print("pushTrackData\(status_code)")
@@ -88,7 +85,9 @@ class LoginViewController: UIViewController {
                             print("pushTrackData error")
                         }
                     }
-                    
+                    DispatchQueue.main.async{
+                        self.goHomepage()
+                    }
                 }
                     //      登入錯誤(登入不正常)
                 else {
