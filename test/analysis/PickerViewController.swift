@@ -16,13 +16,14 @@ class PickerViewController: UIViewController{
     @IBOutlet var pickerViewMonthYear: MonthYearPickerView!
     
     var tag: String?
+    var monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerViewMonthYear.translatesAutoresizingMaskIntoConstraints = false
         
         if tag == "analysisMonthYear"{
-            pickerViewMonthYear.dateMonthYear = "\(pickerViewMonthYear.month) \(pickerViewMonthYear.year)"
+            pickerViewMonthYear.dateMonthYear = "\(monthName[pickerViewMonthYear.month-1]) \(pickerViewMonthYear.year)"
         }
     }
     

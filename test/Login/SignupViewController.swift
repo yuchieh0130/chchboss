@@ -176,7 +176,7 @@ extension SignupViewController {
         }
         
         userNameTextField.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview().offset(-160)
+            make.centerY.equalToSuperview().offset(-60)
             make.leading.equalTo(70)
             make.trailing.equalTo(-70)
         }
@@ -212,7 +212,7 @@ extension SignupViewController {
         
         view.addSubview(cancelView)
         cancelView.snp.makeConstraints { (make) in
-            make.top.equalTo(signUpBtn.snp.bottom).offset(100)
+            make.top.equalTo(signUpBtn.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         
