@@ -18,6 +18,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     //@IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var tbView: UITableView!
     @IBOutlet weak var txtSearch: UISearchBar!
+    
     var myPlaceCategory = "Others"
     var myPlaceName = ""
     var id: Int32 = 0

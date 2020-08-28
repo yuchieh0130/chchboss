@@ -27,9 +27,11 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
-    let net = NetworkController()
+//    let net = NetworkController()
+    
     @IBOutlet var txtDate: UILabel!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var gifImgView: UIImageView!
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -76,6 +78,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             latitude = location?.latitude
             longitude = location?.longitude
         }
+        
+        let animatedImage = UIImage.animatedImageNamed("work-", duration: 1)
+        gifImgView.image = animatedImage
+        
     }
     
 //   override func viewDidAppear(_ animated: Bool) {
