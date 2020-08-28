@@ -55,10 +55,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             navigationItem.leftBarButtonItems = [btnCancel]
             navigationItem.title = "Add My Place"
             //用simulator的時候就跑這兩行
-//            myPlaceLatitude = 24.986
-//            myPlaceLongitude = 121.576
-            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
-            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
+            myPlaceLatitude = 24.986
+            myPlaceLongitude = 121.576
+//            myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
+//            myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         }
         
     }
@@ -110,7 +110,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     
     func loadData(){
         id = myPlace!.placeId!
-        myPlaceCategory = myPlace!.placeCategory.uppercased()
+        myPlaceCategory = myPlace!.placeCategory.capitalized
         myPlaceName = myPlace!.placeName
         myPlaceLongitude = myPlace!.placeLongitude
         myPlaceLatitude = myPlace!.placeLatitude
