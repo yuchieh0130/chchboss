@@ -18,6 +18,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     //@IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var tbView: UITableView!
     @IBOutlet weak var txtSearch: UISearchBar!
+    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var txtRegionRadius: UILabel!
     
     var myPlaceCategory = "Others"
     var myPlaceName = ""
@@ -31,7 +33,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     let currentLocation = CLLocationManager()
     //var location = CLLocation()
     let marker = GMSMarker()
-    let circle = GMSCircle()
+    var circle = GMSCircle()
     
     //    var myPlace: Bool! = true
     //    var noAdd = false
@@ -64,6 +66,15 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         
     }
     
+    @IBAction func cricleZoom(_ sender: UISlider){
+        sender.value = roundf(sender.value/50)*50
+        print(sender.value)
+        circle.radius = CLLocationDistance(sender.value)
+        let update = GMSCameraUpdate.fit(circle.bounds())
+        mapView.animate(with: update)
+        txtRegionRadius.text = "Region Size: \(Int(sender.value)) m"
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.tintColor = UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.5)
@@ -72,19 +83,32 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         //        let camera = GMSCameraPosition.camera(withLatitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!, zoom: 17.0)
         //        myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
         //        myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
-        let camera = GMSCameraPosition.camera(withLatitude: myPlaceLatitude, longitude: myPlaceLongitude, zoom: 17)
+        
+        mapView.delegate = self
+        let camera = GMSCameraPosition.camera(withLatitude: myPlaceLatitude, longitude: myPlaceLongitude, zoom: 18)
         mapView.camera = camera
         mapView.animate(to: camera)
-        mapView.delegate = self
         
-        //        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         marker.position = CLLocationCoordinate2D(latitude: myPlaceLatitude, longitude: myPlaceLongitude)
-        marker.map = mapView
-        
+        circle = GMSCircle(position: marker.position, radius: 200)
+        //circle.radius = 200
         circle.position = marker.position
-        circle.radius = 50
+        circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.1)
         circle.strokeColor = UIColor.red
+        circle.strokeWidth = 2
+        marker.map = mapView
         circle.map = mapView
+        print(circle)
+        
+        let update = GMSCameraUpdate.fit(circle.bounds())
+        mapView.animate(with: update)
+
+        //        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
+//        circle.position = marker.position
+//        circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.2)
+//        circle.radius = 200
+//        circle.strokeColor = UIColor.red
+        //circle.map = mapView
         
         if self.tbView.tableFooterView == nil {
             tbView.tableFooterView = UIView(frame: CGRect.zero)
@@ -103,10 +127,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     }
     
     func changePosition(marker : GMSMarker, a: CLLocationCoordinate2D){
-        marker.position = CLLocationCoordinate2D(latitude: a.latitude, longitude: a.longitude)
-        circle.position = marker.position
         let cam = GMSCameraPosition.camera(withLatitude: a.latitude, longitude: a.longitude, zoom: mapView.camera.zoom)
         mapView.camera = cam
+        marker.position = CLLocationCoordinate2D(latitude: a.latitude, longitude: a.longitude)
+        circle.position = marker.position
     }
     
     func loadData(){
@@ -131,17 +155,30 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }else{
-            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
-            let id = DBManager.getInstance().addPlace(modelInfo)
-            startMonitorRegion(placeId: id)
+            let controller = UIAlertController(title: "Friendly Reminders 🥕", message: "Check whether the marker on the map is in the correct region of your place \"\(self.myPlaceName)\"" , preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "add", style: .default){_ in
+                let modelInfo = PlaceModel(placeId: self.id, placeName: self.myPlaceName, placeCategory: self.myPlaceCategory.lowercased(), placeLongitude: self.myPlaceLongitude, placeLatitude: self.myPlaceLatitude, myPlace: true)
+                           let id = DBManager.getInstance().addPlace(modelInfo)
+                           self.startMonitorRegion(placeId: id)
+                controller.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
+                self.performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
+            }
+            let cancelAction = UIAlertAction(title: "Go Check", style: .default){_ in
+            controller.dismiss(animated: true, completion: nil)}
+            controller.addAction(cancelAction)
+            controller.addAction(okAction)
+            self.present(controller, animated: true,completion: .none)
+            
+//            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+//            let id = DBManager.getInstance().addPlace(modelInfo)
+//            startMonitorRegion(placeId: id)
             //            let title = myPlaceName
             //            let coordinate = CLLocationCoordinate2DMake(myPlaceLatitude, myPlaceLongitude)
             //            let regionRadius = 200.0
             //            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,
             //                longitude: coordinate.longitude), radius: regionRadius, identifier: title)
             //            myLocationManager.startMonitoring(for: region)
-            self.dismiss(animated: true, completion: nil)
-            performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
         }
     }
 
@@ -151,10 +188,10 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         let monitorPlace = DBManager.getInstance().getPlace(Int: placeId)
         let title = "\(monitorPlace!.placeId!)"
         let coordinate = CLLocationCoordinate2DMake(monitorPlace!.placeLatitude, monitorPlace!.placeLongitude)
-        let regionRadius = 100.0
+        let regionRadius = 200.0
         let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
         myLocationManager.startMonitoring(for: region)
-        print("startRegion")
+        print("startMonitorRegion\(placeId)")
          }
     }
     
@@ -298,4 +335,19 @@ extension editMyPlaceViewController: UITextFieldDelegate,UISearchBarDelegate{
         }
     }
     
+}
+
+extension GMSCircle {
+    func bounds () -> GMSCoordinateBounds {
+        func locationMinMax(positive : Bool) -> CLLocationCoordinate2D {
+            let sign:Double = positive ? 1 : -1
+            let dx = sign * self.radius  / 6378000 * (180/M_PI)
+            let lat = position.latitude + dx
+            let lon = position.longitude + dx / cos(position.latitude * M_PI/180)
+            return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        }
+
+        return GMSCoordinateBounds(coordinate: locationMinMax(positive: true),
+                                   coordinate: locationMinMax(positive: false))
+    }
 }

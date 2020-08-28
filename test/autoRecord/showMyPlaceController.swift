@@ -182,7 +182,8 @@ extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
         let savedPlaceLocation = CLLocation(latitude: place.placeLatitude, longitude: place.placeLongitude)
 
         let userLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
-        let distance = lround(userLocation.distance(from: savedPlaceLocation))/1000
+        //let distance = lround(userLocation.distance(from: savedPlaceLocation))/1000
+        let distance = userLocation.distance(from: savedPlaceLocation) as NSNumber
         //let locale = Locale(identifier: "zh_TW")
         let locale = Locale.current
         print(locale)
@@ -206,7 +207,14 @@ extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
         }
         cell.placeName.text = "\(place.placeName)"
         cell.address.text = "\(subAdministrativeArea) \(locality)"
-        cell.distance.text = "\(distance) km"
+        //let distance = c.distance(from: userLocation) as NSNumber
+        if Double(truncating: distance) >= 1000{
+            cell.distance.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
+        }else{
+            cell.distance.text = "\(Double(truncating: distance).rounded()) m"
+        }
+        
+        //cell.distance.text = "\(distance) km"
 //        cell?.textLabel?.text = place.placeName
 //        cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
 //        cell?.detailTextLabel?.isHidden = false

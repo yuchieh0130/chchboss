@@ -187,8 +187,12 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 cell?.textLabel?.text = place
                 cell?.detailTextLabel?.isHidden = false
                 let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
-                let distance = c.distance(from: userLocation)
-                cell?.detailTextLabel?.text = "\(Int(distance))m"
+                let distance = c.distance(from: userLocation) as NSNumber
+                if Double(truncating: distance) >= 1000{
+                    cell?.detailTextLabel?.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
+                }else{
+                    cell?.detailTextLabel?.text = "\(Double(truncating: distance).rounded()) m"
+                }
                 return cell!
             }
         }else{
@@ -199,7 +203,11 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 cell.address.text = "\(resultsArray[indexPath.row]["formatted_address"] as! String)"
                 //cell.detailTextLabel?.isHidden = false
                 let distance = resultsArray[indexPath.row]["distance"]! as! NSNumber
-                cell.distance.text = "\(Int(distance))m"
+                if Double(truncating: distance) >= 1000{
+                    cell.distance.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
+                }else{
+                    cell.distance.text = "\(Double(truncating: distance).rounded()) m"
+                }
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
@@ -410,6 +418,13 @@ extension mapViewController: UISearchBarDelegate, UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension Double {
+    func rounding(toDecimal decimal: Int) -> Double {
+        let numberOfDigits = pow(10.0, Double(decimal))
+        return (self * numberOfDigits).rounded(.toNearestOrAwayFromZero) / numberOfDigits
     }
 }
 

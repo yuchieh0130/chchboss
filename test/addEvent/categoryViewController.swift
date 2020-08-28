@@ -48,7 +48,9 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! categoryViewCell
             cell.categoryName?.text = showCategory[indexPath.row].categoryName
             cell.backgroundColor = UIColor.white
-            cell.imageView.image = UIImage(named: "\(showCategory[indexPath.row].category_image)")
+        let animatedImage = UIImage.animatedImageNamed("work-", duration: 1)
+        cell.imageView.image = animatedImage
+            //cell.imageView.image = UIImage(named: "\(showCategory[indexPath.row].category_image)")
             cell.circle.backgroundColor = hexStringToUIColor(hex: "\(showCategory[indexPath.row].categoryColor)")
             return cell
 //        }

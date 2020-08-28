@@ -294,6 +294,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="376" id="oGN-6x-asm"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="8Q0-60-Kz4" id="QFH-3o-KTf"/>
+                                </connections>
                             </view>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="2Er-C8-Oya">
                                 <rect key="frame" x="0.0" y="464" width="414" height="56"/>
@@ -302,18 +305,37 @@
                                     <outlet property="delegate" destination="8Q0-60-Kz4" id="KiY-lv-fb0"/>
                                 </connections>
                             </searchBar>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="200" minValue="100" maxValue="500" minimumValueImage="minus" catalog="system" maximumValueImage="plus" translatesAutoresizingMaskIntoConstraints="NO" id="neO-Ez-dTJ">
+                                <rect key="frame" x="142" y="421" width="261" height="31"/>
+                                <color key="minimumTrackTintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="thumbTintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="cricleZoom:" destination="8Q0-60-Kz4" eventType="valueChanged" id="YBU-nG-rsI"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region Size: 200 m" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSn-BB-KFq">
+                                <rect key="frame" x="10" y="428" width="124" height="16"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="GJi-G9-gly" firstAttribute="leading" secondItem="zpI-Wm-K34" secondAttribute="leading" id="3XD-I8-DT2"/>
+                            <constraint firstItem="neO-Ez-dTJ" firstAttribute="centerY" secondItem="JSn-BB-KFq" secondAttribute="centerY" id="5hy-i6-SHC"/>
                             <constraint firstItem="2Er-C8-Oya" firstAttribute="trailing" secondItem="zpI-Wm-K34" secondAttribute="trailing" id="Aj6-Dl-o5F"/>
                             <constraint firstItem="K96-gr-om8" firstAttribute="trailing" secondItem="zpI-Wm-K34" secondAttribute="trailing" id="C9p-TC-EMY"/>
                             <constraint firstItem="GJi-G9-gly" firstAttribute="top" secondItem="2Er-C8-Oya" secondAttribute="bottom" id="DCA-wT-Mlp"/>
+                            <constraint firstItem="neO-Ez-dTJ" firstAttribute="leading" secondItem="JSn-BB-KFq" secondAttribute="trailing" constant="10" id="MzN-JB-bmh"/>
+                            <constraint firstItem="neO-Ez-dTJ" firstAttribute="trailing" secondItem="K96-gr-om8" secondAttribute="trailingMargin" constant="-5" id="N9e-06-N51"/>
                             <constraint firstItem="K96-gr-om8" firstAttribute="leading" secondItem="zpI-Wm-K34" secondAttribute="leading" id="Xj6-45-FnG"/>
                             <constraint firstItem="GJi-G9-gly" firstAttribute="bottom" secondItem="zpI-Wm-K34" secondAttribute="bottom" id="aSz-w9-TGa"/>
+                            <constraint firstItem="JSn-BB-KFq" firstAttribute="leading" secondItem="K96-gr-om8" secondAttribute="leading" constant="10" id="cUt-cJ-FbN"/>
                             <constraint firstItem="K96-gr-om8" firstAttribute="top" secondItem="zpI-Wm-K34" secondAttribute="top" id="cxh-tj-plm"/>
                             <constraint firstItem="2Er-C8-Oya" firstAttribute="leading" secondItem="zpI-Wm-K34" secondAttribute="leading" id="hWD-gl-Ket"/>
                             <constraint firstItem="GJi-G9-gly" firstAttribute="trailing" secondItem="zpI-Wm-K34" secondAttribute="trailing" id="hfp-27-fyf"/>
+                            <constraint firstItem="K96-gr-om8" firstAttribute="bottom" secondItem="JSn-BB-KFq" secondAttribute="bottom" constant="20" id="mCg-eT-KnC"/>
                             <constraint firstItem="2Er-C8-Oya" firstAttribute="top" secondItem="K96-gr-om8" secondAttribute="bottom" id="xZI-Y2-nV8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zpI-Wm-K34"/>
@@ -321,7 +343,9 @@
                     <navigationItem key="navigationItem" id="Z4E-aM-BVc"/>
                     <connections>
                         <outlet property="mapView" destination="K96-gr-om8" id="4qs-NR-wjV"/>
+                        <outlet property="slider" destination="neO-Ez-dTJ" id="ya3-5O-gYE"/>
                         <outlet property="tbView" destination="GJi-G9-gly" id="tuM-ok-WG7"/>
+                        <outlet property="txtRegionRadius" destination="JSn-BB-KFq" id="oHe-yw-mOU"/>
                         <outlet property="txtSearch" destination="2Er-C8-Oya" id="2fz-X5-sOU"/>
                         <segue destination="Z4G-WR-HCe" kind="show" identifier="myPlaceCategory" id="DQf-r5-LfW"/>
                         <segue destination="prI-ib-T0V" kind="unwind" identifier="editMyPlaceSegueBack" unwindAction="editMyPlaceSegueBackWithSegue:" id="Y1Q-qn-bIQ"/>
@@ -2363,11 +2387,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" hidesBottomBarWhenPushed="YES" id="n8m-Ye-yaB" customClass="showMyPlaceController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZkE-Vx-G4l">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mpg-ly-MDh">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myPlaceCell" textLabel="pZX-dU-2V8" detailTextLabel="l7n-VV-RiT" rowHeight="57" style="IBUITableViewCellStyleSubtitle" id="cJl-mV-1VC" customClass="placeCell" customModule="test" customModuleProvider="target">
@@ -3612,7 +3636,7 @@
         <segue reference="x6x-0p-r3g"/>
         <segue reference="F6N-r1-0ti"/>
         <segue reference="d6S-kX-z6W"/>
-        <segue reference="54J-Uw-fAs"/>
+        <segue reference="bEa-Xr-2tt"/>
         <segue reference="RdI-zR-oJx"/>
         <segue reference="Jd4-bf-VuF"/>
         <segue reference="yLI-1s-8Dj"/>
@@ -3624,8 +3648,10 @@
         <image name="calendar.fill" width="23" height="21"/>
         <image name="calendar.task" width="23" height="22"/>
         <image name="camera.circle" catalog="system" width="128" height="121"/>
+        <image name="minus" catalog="system" width="128" height="24"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="pin" width="35" height="35"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="reminder_deselect" width="96" height="96"/>
         <image name="settings" width="25" height="22.5"/>
