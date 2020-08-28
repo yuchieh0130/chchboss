@@ -211,7 +211,7 @@ extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
         if Double(truncating: distance) >= 1000{
             cell.distance.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
         }else{
-            cell.distance.text = "\(Double(truncating: distance).rounded()) m"
+            cell.distance.text = "\(Int(truncating: distance)) m"
         }
         
         //cell.distance.text = "\(distance) km"

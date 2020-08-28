@@ -78,7 +78,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
                 let distance = c.distance(from: userLocation)
                 let name = $0.placeName.elementsEqual(savePlace!.placeName)
-                return distance <= 100 && name == false
+                return distance <= 250 && name == false
             })
             
         }else{
@@ -91,7 +91,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             savePlaceArray = savePlaceArray.filter({
                 let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
                 let distance = c.distance(from: userLocation)
-                return distance <= 200
+                return distance <= 250
             })
             if savePlaceArray.count != 0{
                 for i in 0...savePlaceArray.count-1{
@@ -191,7 +191,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 if Double(truncating: distance) >= 1000{
                     cell?.detailTextLabel?.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
                 }else{
-                    cell?.detailTextLabel?.text = "\(Double(truncating: distance).rounded()) m"
+                    cell?.detailTextLabel?.text = "\(Int(truncating: distance)) m"
                 }
                 return cell!
             }
@@ -206,7 +206,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 if Double(truncating: distance) >= 1000{
                     cell.distance.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
                 }else{
-                    cell.distance.text = "\(Double(truncating: distance).rounded()) m"
+                    cell.distance.text = "\(Int(truncating: distance)) m"
                 }
                 return cell
             }else{
