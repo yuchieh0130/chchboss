@@ -33,7 +33,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var categoryName = ""
     
     var valuesDay = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    var valuesWeek = [34.0, 67.0, 89.0, 45.0, 44.0, 12.0, 28.0, 90.0, 23.0, 60.0, 57.0, 17.0, 26.0, 37.0, 95.0, 54.0, 64.0, 87.0]
+    var valuesWeek = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var valuesMonth = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     //for chart selected view
@@ -151,10 +151,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
         pieChartYear.isHidden = true
-        
-        selectedWeek = 27
-        selectedYear = "\(currentYear)"
-        getTrackTimeWeek()
     }
     
     override func viewWillAppear(_ animated: Bool){
@@ -225,22 +221,22 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             for i in 0...showCategory.count-2{
                 showCategoryStr.append(showCategory[i].categoryName)
             }
-//            if DBManager.getInstance().getWeekTracks(year: selectedYear, week: selectedWeek) != nil{
-//                getTrackTimeWeek()
-//                showCategoryStr.enumerated().forEach{index, value in
-//                    if valuesWeek[index] == 0.0{
-//                        showCategoryStr[index] = ""
-//                    }
-//                }
-//                customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-//                pieChartWeek.isHidden = false
-//                noDataLabel.isHidden = true
-//            }else{
-//                showTrack = [TrackModel]()
-//                customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-//                pieChartWeek.isHidden = true
-//                noDataLabel.isHidden = false
-//            }
+            if DBManager.getInstance().getWeekTracks(year: selectedYear, week: selectedWeek) != nil{
+                getTrackTimeWeek()
+                showCategoryStr.enumerated().forEach{index, value in
+                    if valuesWeek[index] == 0.0{
+                        showCategoryStr[index] = ""
+                    }
+                }
+                customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
+                pieChartWeek.isHidden = false
+                noDataLabel.isHidden = true
+            }else{
+                showTrack = [TrackModel]()
+                customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
+                pieChartWeek.isHidden = true
+                noDataLabel.isHidden = false
+            }
         }else if getIndex == 2{
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
@@ -563,21 +559,13 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         var startWeek = ""
         var endWeek = ""
         for i in 0...showTrack.count-1{
-            startWeek = showTrack[i].startTime
-            endWeek = showTrack[i].endTime
-            if showTrack[i].startDate != selectedDay{
-                startWeek = "00:00"
-            }
-            if showTrack[i].endDate != selectedDay{
-                endWeek = "23:59"
-            }
+            startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
+            endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
             let trackTimeWeek = round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
-            print(trackTimeWeek)
             valuesWeek.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
                     valuesWeek[index] = value+trackTimeWeek
                 }
-                print(valuesWeek)
             }
         }
     }
@@ -665,22 +653,22 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     for i in 0...showCategory.count-2{
                         showCategoryStr.append(showCategory[i].categoryName)
                     }
-//                    if DBManager.getInstance().getWeekTracks(year: selectedYear, week: selectedWeek) != nil{
-//                        getTrackTimeWeek()
-//                        showCategoryStr.enumerated().forEach{index, value in
-//                            if valuesWeek[index] == 0.0{
-//                                showCategoryStr[index] = ""
-//                            }
-//                        }
-//                        customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-//                        pieChartWeek.isHidden = false
-//                        noDataLabel.isHidden = true
-//                    }else{
-//                        showTrack = [TrackModel]()
-//                        customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-//                        pieChartWeek.isHidden = true
-//                        noDataLabel.isHidden = false
-//                    }
+                    if DBManager.getInstance().getWeekTracks(year: selectedYear, week: selectedWeek) != nil{
+                        getTrackTimeWeek()
+                        showCategoryStr.enumerated().forEach{index, value in
+                            if valuesWeek[index] == 0.0{
+                                showCategoryStr[index] = ""
+                            }
+                        }
+                        customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
+                        pieChartWeek.isHidden = false
+                        noDataLabel.isHidden = true
+                    }else{
+                        showTrack = [TrackModel]()
+                        customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
+                        pieChartWeek.isHidden = true
+                        noDataLabel.isHidden = false
+                    }
                 }
             }else if segConIndex == 2{
                 let vc = segue.source as? PickerViewController

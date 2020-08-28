@@ -28,15 +28,14 @@ class PickerViewWeekViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerViewWeek.translatesAutoresizingMaskIntoConstraints = false
+        pickerViewWeek.reloadComponent(0)
+        pickerViewWeek.selectRow(currentWeek-1, inComponent: 0, animated: true)
         
         let start = dateFormat.string(from: pickerViewWeek.startWeek!)
         let end = dateFormat.string(from: pickerViewWeek.endWeek!)
-        
         if tag == "analysisWeek"{
             pickerViewWeek.dateWeek = "\(start) ~ \(end)"
         }
-        
-        pickerViewWeek.selectRow(currentWeek-1, inComponent: 0, animated: true)
     }
     
     @IBAction func saveBtn(_ sender: Any) {
