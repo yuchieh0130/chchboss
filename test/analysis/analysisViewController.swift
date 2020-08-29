@@ -561,6 +561,26 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         for i in 0...showTrack.count-1{
             startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
             endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
+            guard let year = Int(selectedYear), let weekOfYear = selectedWeek else {return}
+            let components = DateComponents(weekOfYear: weekOfYear+1, yearForWeekOfYear: year)
+            guard let date = Calendar.current.date(from: components) else {return}
+            let s = showDayformatter.string(from: date)
+            var dateComponent = DateComponents()
+            dateComponent.day = 6
+            let end = Calendar.current.date(byAdding: dateComponent, to: date)
+            let e = showDayformatter.string(from: end!)
+            if i == 0{
+                if startWeek.contains("\(s)") == false{
+                    startWeek = "\(s) 00:00"
+                }
+            }
+            if i == showTrack.count-1{
+                if endWeek.contains("\(e)") == false{
+                    endWeek = "\(e) 23:59"
+                }
+            }
+            print(startWeek)
+            print(endWeek)
             let trackTimeWeek = round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
             valuesWeek.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
@@ -643,7 +663,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = (vc!.pickerViewWeek.dateWeek)
                     selectedYear = "\(currentYear)"
-                    selectedWeek = vc!.pickerViewWeek.week+1
+                    selectedWeek = vc!.pickerViewWeek.week
                     for (index, value) in valuesWeek.enumerated(){
                         valuesWeek[index] = value*0
                     }
