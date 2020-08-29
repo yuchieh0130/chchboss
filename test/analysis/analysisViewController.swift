@@ -570,12 +570,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             let end = Calendar.current.date(byAdding: dateComponent, to: date)
             let e = showDayformatter.string(from: end!)
             if i == 0{
-                if startWeek != "\(s) 00:00"{
+                if startWeek.contains("\(s)") == false{
                     startWeek = "\(s) 00:00"
                 }
             }
             if i == showTrack.count-1{
-                if endWeek != "\(e) 23:59"{
+                if endWeek.contains("\(e)") == false{
                     endWeek = "\(e) 23:59"
                 }
             }
