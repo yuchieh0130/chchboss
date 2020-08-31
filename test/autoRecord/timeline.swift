@@ -73,6 +73,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     }
     
     override func viewWillAppear(_ animated: Bool){
+           trackViews.forEach({$0.removeFromSuperview()})
            if DBManager.getInstance().getDateTracks(String: date) != nil{
                showTrack = DBManager.getInstance().getDateTracks(String: date)
             createTracks(view: myScrollView)
@@ -91,11 +92,11 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     
     @IBAction func editAutoSegueBack(segue: UIStoryboardSegue){
         if segue.identifier == "editAutoSegueBack"{
-            showTrack = DBManager.getInstance().getDateTracks(String: date)
-            trackViews.forEach({$0.removeFromSuperview()})
+            //showTrack = DBManager.getInstance().getDateTracks(String: date)
             //view.subviews.forEach({$0.removeFromSuperview()})
             //subviews
             //subviews.forEach({ $0.removeFromSuperview() })
+            
             createTracks(view: myScrollView)
         }
     }

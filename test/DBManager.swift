@@ -318,7 +318,7 @@ class DBManager: NSObject {
                 if modelInfo.myPlace{
                     isMyPlace = "1"
                 }
-                let data = ["user_id":String(user_id),"user_place_id":String(id),"place_name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":isMyPlace]
+                let data = ["user_id":String(user_id),"user_place_id":String(id),"place_name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"regionRadius":String(modelInfo.regionRadius),"my_place":isMyPlace]
                 net.addSavedplaceData(data: data){
                     (status_code) in
                     if (status_code != nil) {
@@ -344,7 +344,7 @@ class DBManager: NSObject {
         shareInstance.database?.open()
         shareInstance.database?.executeUpdate("REPLACE INTO savedPlace (place_id,place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.placeId!,modelInfo.placeName,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
         shareInstance.database?.close()
-        let data = ["user_id":String(user_id),"user_place_id":String(modelInfo.placeId!),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"my_place":String(modelInfo.myPlace)]
+        let data = ["user_id":String(user_id),"user_place_id":String(modelInfo.placeId!),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"regionRadius":String(modelInfo.regionRadius),"my_place":String(modelInfo.myPlace)]
         net.updateSavedplaceData(data: data){
             (status_code) in
             if (status_code != nil) {
@@ -367,8 +367,9 @@ class DBManager: NSObject {
             let c = set?.double(forColumn: "place_longitude")
             let d = set?.double(forColumn: "place_latitude")
             let e = set?.bool(forColumn: "my_place")
+            let f = set?.double(forColumn: "regionRadius")
             
-            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, myPlace: e!)
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, regionRadius: f!, myPlace: e!)
         }
         set?.close()
         return place
@@ -388,6 +389,7 @@ class DBManager: NSObject {
             let c = set?.double(forColumn: "place_longitude")
             let d = set?.double(forColumn: "place_latitude")
             let e = set?.bool(forColumn: "my_place")
+            let f = set?.double(forColumn: "regionRadius")
             
             let place: PlaceModel
             
@@ -395,7 +397,7 @@ class DBManager: NSObject {
                 places = [PlaceModel]()
             }
             
-            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, myPlace: e!)
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, regionRadius: f!, myPlace: e!)
             places.append(place)
         }
         set?.close()
@@ -416,13 +418,14 @@ class DBManager: NSObject {
             let c = set?.double(forColumn: "place_longitude")
             let d = set?.double(forColumn: "place_latitude")
             let e = set?.bool(forColumn: "my_place")
+            let f = set?.double(forColumn: "regionRadius")
             
             let place: PlaceModel
             
             if places == nil{
                 places = [PlaceModel]()
             }
-            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, myPlace: e!)
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, regionRadius: f!, myPlace: e!)
             places.append(place)
         }
         set?.close()
@@ -652,11 +655,10 @@ class DBManager: NSObject {
     }
     
     //get selected date當週的track
-    func getWeekTracks(year: Int,week: Int) -> [TrackModel]!{
-        //判斷同一年還沒寫！！！
+    func getWeekTracks(year: String, week: Int) -> [TrackModel]!{
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "select * from track where (strftime('%W',start_date)='\(week-1)' AND weekday = 0 or (strftime('%W',end_date)='\(week-1)' AND strftime('%W',end_date)= 0) or (strftime('%W',end_date)='\(week)' AND strftime('%w',end_date) != 0) or  (strftime('%W',start_date)='\(week)' AND weekday != 0)"
+        let sqlString = "select * from track where (strftime('%Y %W',start_date)='\(year) \(week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(year) \(week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(year) \(week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(year) \(week-1)' AND strftime('%w',end_date) = '0')"
         //let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
         
         //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
@@ -687,12 +689,11 @@ class DBManager: NSObject {
     }
     
     //get selected date當月的track
-    //判斷同一年還沒寫！！！
-    func getMonthTracks(Month: Int) -> [TrackModel]!{
-        
+    func getMonthTracks(Year: String,Month: String) -> [TrackModel]!{
+        let select = "\(Year)-\(Month)"
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString =  "select * from track where strftime('%m',start_date)='\(Month)' or strftime('%m',end_date)='\(Month)'"
+        let sqlString =  "select * from track where strftime('%Y-%m',start_date)='\(select)' or strftime('&Y-%m',end_date)='\(select)'"
         //           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
         
         //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
@@ -743,6 +744,8 @@ class DBManager: NSObject {
         shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)" ,withArgumentsIn: [modelInfo.startDate,modelInfo.startTime,modelInfo.weekDay,modelInfo.endDate,modelInfo.endTime,modelInfo.categoryId,modelInfo.locationId,modelInfo.placeId!])
         shareInstance.database?.close()
     }
+    
+    //insert Track（還沒寫完！）
     
     //編輯track（不包含location）
     func editTrack(oldModelInfo: TrackModel,newModelInfo: TrackModel){

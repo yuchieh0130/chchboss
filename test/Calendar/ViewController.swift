@@ -106,11 +106,7 @@ class ViewController: UIViewController{
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         let addBtn = UIButton.init(type: .system)
-        if #available(iOS 13.0, *) {
-            addBtn.setImage(UIImage(systemName: "plus"), for: .normal)
-        } else {
-            addBtn.setTitle("\(UIBarButtonItem.SystemItem.add)", for: .normal)
-        }
+        addBtn.setTitle("➕", for: .normal)
         addBtn.layer.borderWidth = 1.25
         addBtn.layer.cornerRadius = 5
         addBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor

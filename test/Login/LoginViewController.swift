@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import LineSDK
 
 class LoginViewController: UIViewController {
     
@@ -23,6 +24,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet var logInbtn: UIButton!
     @IBOutlet var signUpBtn: UIButton!
+    
+    @IBOutlet weak var bgImageView: UIImageView!
     
     let bottomLine1: UIView = {
         let tmpView = UIView()
@@ -39,6 +42,12 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(emailTextField.text, forKey: "userEmail")
         UserDefaults.standard.set(passwordTextField.text, forKey: "userPassword")
         //performSegue(withIdentifier: "bbbanana", sender: self)
+        
+        if emailTextField.text == "" || passwordTextField.text == "" {
+            warningLabel!.text = "Please fill in every field."
+            warningLabel.isHidden = false
+            return
+        }
         
         net.login(email: emailTextField.text!, password: passwordTextField.text!) {
             (return_list) in
@@ -75,18 +84,24 @@ class LoginViewController: UIViewController {
                             }
                             else{
                                 print("pushTrackData\(status_code)")
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
+                                }
                             }
                         }else{
                             print("pushTrackData error")
+                            DispatchQueue.main.async{
+                                self.goHomepage()
+                            }
                         }
                     }
-                    
                 }
                     //      登入錯誤(登入不正常)
                 else {
                     print("login\(status_code)")
                     DispatchQueue.main.async {
                         self.warningLabel.isHidden = false
+                        self.warningLabel.text = "Connection Error"
                         return
                     }
                 }
@@ -136,6 +151,35 @@ class LoginViewController: UIViewController {
         
         setupUI()
         
+        // Create Login Button.
+        let loginButton = LoginButton()
+        loginButton.delegate = self
+        
+        // Configuration for permissions and presenting.
+        loginButton.permissions = [.profile]
+        loginButton.presentingViewController = self
+        
+        // Add button to view and layout it.
+        view.addSubview(loginButton)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.centerYAnchor.constraint(equalTo: signUpBtn.bottomAnchor, constant: 30).isActive = true
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        LoginManager.shared.login(permissions: [.profile], in: self) {
+            result in
+            switch result {
+            case .success(let loginResult):
+                if let profile = loginResult.userProfile {
+                    print("User ID: \(profile.userID)")
+                    print("User Display Name: \(profile.displayName)")
+                    print("User Icon: \(String(describing: profile.pictureURL))")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
         warningLabel.isHidden = true
         emailTextField.text = UserDefaults.standard.value(forKey: "userEmail") as? String
         passwordTextField.text = UserDefaults.standard.value(forKey: "userPassword") as? String
@@ -170,8 +214,17 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     func setupUI() {
+        
+        bgImageView.image = UIImage(named: "loginBackground")
+        bgImageView.contentMode = .scaleAspectFill
+        
+        bgImageView.snp.setLabel("bgImageView")
+        bgImageView.snp.makeConstraints { (make) in
+            make.center.size.equalToSuperview()
+        }
+        
         emailTextField.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview().offset(-100)
+            make.centerY.equalToSuperview()
             make.leading.equalTo(70)
             make.trailing.equalTo(-70)
         }
@@ -179,6 +232,11 @@ extension LoginViewController {
             make.top.equalTo(emailTextField.snp.bottom).offset(40)
             make.leading.equalTo(70)
             make.trailing.equalTo(-70)
+        }
+        
+        warningLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
         }
         view.addSubview(bottomLine1)
         bottomLine1.snp.makeConstraints { (make) in
@@ -210,5 +268,23 @@ extension LoginViewController: UITextFieldDelegate {
     //    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
     //        textField.backgroundColor = .white
     //    }
+}
+
+extension LoginViewController: LoginButtonDelegate {
+    
+    func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
+        //hideIndicator()
+        print("Login Succeeded.")
+    }
+    
+    func loginButton(_ button: LoginButton, didFailLogin error: LineSDKError) {
+        //hideIndicator()
+        print("Error: \(error)")
+    }
+    
+    func loginButtonDidStartLogin(_ button: LoginButton) {
+        //showIndicator()
+        print("Login Started.")
+    }
 }
 

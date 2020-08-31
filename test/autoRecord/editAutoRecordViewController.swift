@@ -27,9 +27,11 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
-    let net = NetworkController()
+    //    let net = NetworkController()
+    
     @IBOutlet var txtDate: UILabel!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var gifImgView: UIImageView!
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -76,11 +78,15 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             latitude = location?.latitude
             longitude = location?.longitude
         }
+        
+        let animatedImage = UIImage.animatedImageNamed("home-", duration: 1)
+        gifImgView.image = animatedImage
+        
     }
     
-//   override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//    }
+    //   override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         tag = nil
@@ -121,19 +127,19 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     func dayConstraint(i:String) -> Int{
-           let c1 = s.compare(e)
-           let c2 = e.compare(s)
-           var c = 0
-           switch i {
-           case "start":
-               if c1 == .orderedDescending {c = 1}
-           case "end":
-               if c2 == .orderedAscending {c = 1}
-           default:
-               c = 0
-           }
-           return c
-       }
+        let c1 = s.compare(e)
+        let c2 = e.compare(s)
+        var c = 0
+        switch i {
+        case "start":
+            if c1 == .orderedDescending {c = 1}
+        case "end":
+            if c2 == .orderedAscending {c = 1}
+        default:
+            c = 0
+        }
+        return c
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         if self.tableView.tableFooterView == nil {
@@ -147,10 +153,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     @objc func editBtn(_ sender: UIButton){
-//        newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
+        //        newTrack = TrackModel(trackId: track.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: 0, placeId: nil)
         
         if track!.placeId! != 0{   //原本有資料
-             
+            
             if savePlace == nil{//刪掉
                 //吃place_id刪掉那欄(不用)
                 //吃track_id把place_id的欄位改成nil（動track
@@ -161,10 +167,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
                 //要：新增完回傳id 寫進track
                 //不要：回傳已經存在的savePlacce id寫進track
                 let id = DBManager.getInstance().addPlace(savePlace!)
-//                if isAdded{
-//                    let id = DBManager.getInstance().getMaxPlace()
-//                }else{
-//                }
+                //                if isAdded{
+                //                    let id = DBManager.getInstance().getMaxPlace()
+                //                }else{
+                //                }
                 //let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
                 newTrack = TrackModel(trackId: track!.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: track!.locationId , placeId: id)
             }
@@ -179,24 +185,24 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
                 newTrack = TrackModel(trackId: track!.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: track!.locationId , placeId: savePlace?.placeId!)
                 
             }
-                //let id = DBManager.getInstance().getMaxPlace()
-                //let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
-                
-//                let data:[String:String] = ["place_id":"0", "place_name":savePlace!.placeName, "place_longitude":String(savePlace!.placeLongitude), "place_latitude":String(savePlace!.placeLatitude)]
-//
-//                self.net.postSaveplaceData(data: data){
-//                    (status_code) in
-//                    if (status_code != nil) {
-//                        print(status_code!)
-//                    }
-//                }
-                
+            //let id = DBManager.getInstance().getMaxPlace()
+            //let a = DBManager.getInstance().editTrackPlace(a: id, b: track.trackId!)
+            
+            //                let data:[String:String] = ["place_id":"0", "place_name":savePlace!.placeName, "place_longitude":String(savePlace!.placeLongitude), "place_latitude":String(savePlace!.placeLatitude)]
+            //
+            //                self.net.postSaveplaceData(data: data){
+            //                    (status_code) in
+            //                    if (status_code != nil) {
+            //                        print(status_code!)
+            //                    }
+            //                }
+            
             //}else{
-                //let a = DBManager.getInstance().editTrackPlace(a: (savePlace?.placeId)!, b: track.trackId!)
+            //let a = DBManager.getInstance().editTrackPlace(a: (savePlace?.placeId)!, b: track.trackId!)
             //}
-
+            
         }else{
-           newTrack = TrackModel(trackId: track!.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: track!.locationId , placeId: 0)
+            newTrack = TrackModel(trackId: track!.trackId!, startDate: showDayformatter.string(from: s), startTime: showTimeformatter.string(from: s), weekDay: Int32(Calendar.current.component(.weekday, from: s)),endDate: showDayformatter.string(from: e), endTime: showTimeformatter.string(from: e), categoryId: category.categoryId!, locationId: track!.locationId , placeId: 0)
             
         }
         
@@ -223,7 +229,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         let VC = segue.source as? DatePopupViewController
         date = VC!.datePicker.date
         tag = VC?.tag
-
+        
         if tag == "editAutoStart"{
             handletime()
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
@@ -249,7 +255,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             savePlace = VC?.savePlace
             tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
         }
-       }
+    }
     
     @IBAction func categorySegueBack(segue: UIStoryboardSegue){
         if segue.identifier == "categorySegueBack"{
@@ -313,7 +319,7 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
         }else if indexPath.row == 0 {
             performSegue(withIdentifier: "editAutoStart", sender: self)
         }
-
+        
     }
     
     

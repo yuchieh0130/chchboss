@@ -14,5 +14,6 @@ struct PlaceModel{
     let placeCategory: String
     let placeLongitude: Double
     let placeLatitude: Double
+    let regionRadius: Double
     let myPlace: Bool
 }

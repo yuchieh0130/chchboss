@@ -78,7 +78,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
                 let distance = c.distance(from: userLocation)
                 let name = $0.placeName.elementsEqual(savePlace!.placeName)
-                return distance <= 100 && name == false
+                return distance <= 250 && name == false
             })
             
         }else{
@@ -91,7 +91,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
             savePlaceArray = savePlaceArray.filter({
                 let c = CLLocation(latitude: $0.placeLatitude, longitude: $0.placeLongitude)
                 let distance = c.distance(from: userLocation)
-                return distance <= 200
+                return distance <= 250
             })
             if savePlaceArray.count != 0{
                 for i in 0...savePlaceArray.count-1{
@@ -187,8 +187,12 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 cell?.textLabel?.text = place
                 cell?.detailTextLabel?.isHidden = false
                 let c = CLLocation(latitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, longitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude)
-                let distance = c.distance(from: userLocation)
-                cell?.detailTextLabel?.text = "\(Int(distance))m"
+                let distance = c.distance(from: userLocation) as NSNumber
+                if Double(truncating: distance) >= 1000{
+                    cell?.detailTextLabel?.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
+                }else{
+                    cell?.detailTextLabel?.text = "\(Int(truncating: distance)) m"
+                }
                 return cell!
             }
         }else{
@@ -199,7 +203,11 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 cell.address.text = "\(resultsArray[indexPath.row]["formatted_address"] as! String)"
                 //cell.detailTextLabel?.isHidden = false
                 let distance = resultsArray[indexPath.row]["distance"]! as! NSNumber
-                cell.distance.text = "\(Int(distance))m"
+                if Double(truncating: distance) >= 1000{
+                    cell.distance.text = "\((Double(truncating: distance)/1000).rounding(toDecimal: 1)) km"
+                }else{
+                    cell.distance.text = "\(Int(truncating: distance)) m"
+                }
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCell(withIdentifier:"addPlaceCell")
@@ -228,7 +236,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 txtSearch.text = nameArray[indexPath.row-1]
                 searchPlaceFromGoogle(txtSearch)
             }else{
-                savePlace = PlaceModel(placeId: savePlaceArray[indexPath.row-nameArray.count-1].placeId, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, myPlace: false)
+                savePlace = PlaceModel(placeId: savePlaceArray[indexPath.row-nameArray.count-1].placeId, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, regionRadius: 0, myPlace: false)
             }
         }else{
             if indexPath.row < resultsArray.count{
@@ -240,9 +248,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 placeName = resultsArray[indexPath.row]["name"] as? String
                 placeLongitude = location["location"]!["lng"] as? Double
                 placeLatitude = location["location"]!["lat"] as? Double
-                savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: false)
+                savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, regionRadius: 0, myPlace: false)
             }else{
-                savePlace = PlaceModel(placeId: id, placeName: txtSearch.text!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, myPlace: false)
+                savePlace = PlaceModel(placeId: id, placeName: txtSearch.text!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, regionRadius: 0, myPlace: false)
             }
             
         }
@@ -410,6 +418,13 @@ extension mapViewController: UISearchBarDelegate, UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension Double {
+    func rounding(toDecimal decimal: Int) -> Double {
+        let numberOfDigits = pow(10.0, Double(decimal))
+        return (self * numberOfDigits).rounded(.toNearestOrAwayFromZero) / numberOfDigits
     }
 }
 

@@ -4,6 +4,7 @@ import CoreLocation
 import GoogleMaps
 import GooglePlaces
 import UserNotifications
+import LineSDK
 
 var myLocationManager = CLLocationManager()
 let net = NetworkController()
@@ -61,6 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         print("BunnyTrack Launch")
+        
+        LoginManager.shared.setup(channelID: "1654804934", universalLinkURL: nil)
         
         if UserDefaults.standard.bool(forKey: "isLogIn"){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -132,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-                    print(myLocationManager.monitoredRegions)
+            print(myLocationManager.monitoredRegions)
         }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         print("BunnyTrack Active")
@@ -181,6 +184,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
 func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    return LoginManager.shared.application(app, open: url)
 }
 
 extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelegate{
@@ -287,21 +294,21 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         exitRegion(region: region)
     }
     
-//    func startMonitorRegion(){
-//        //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
-//        //if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-//        if DBManager.getInstance().getMyPlaces() != nil{
-//            myPlaces = DBManager.getInstance().getMyPlaces()
-//            for i in 0...myPlaces.count-1{
-//                let title = "\(myPlaces[i].placeId!)"
-//                let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
-//                let regionRadius = 100.0
-//                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-//                myLocationManager.startMonitoring(for: region)
-//            }
-//        }
-//        // }
-//    }
+    //    func startMonitorRegion(){
+    //        //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
+    //        //if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+    //        if DBManager.getInstance().getMyPlaces() != nil{
+    //            myPlaces = DBManager.getInstance().getMyPlaces()
+    //            for i in 0...myPlaces.count-1{
+    //                let title = "\(myPlaces[i].placeId!)"
+    //                let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
+    //                let regionRadius = 100.0
+    //                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+    //                myLocationManager.startMonitoring(for: region)
+    //            }
+    //        }
+    //        // }
+    //    }
     
     func enterRegion(region: CLRegion){
         let placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
@@ -340,7 +347,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     func exitRegion(region: CLRegion){
         let placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
         let latitude = placeExiting!.placeLatitude
-        let longitude = placeExiting!.placeLatitude
+        let longitude = placeExiting!.placeLongitude
         let startDate = self.showDate.string(from: exitTime)
         let startTime = self.showTime.string(from: exitTime)
         let weekday = Calendar.current.component(.weekday, from: exitTime)

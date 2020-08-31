@@ -23,18 +23,17 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     
     var weeksArray: [String] = []
     var weeks: [String]!
-    var week = Calendar.current.component(.weekOfYear, from: Date()){
-        didSet{
-            selectRow(week, inComponent: 0, animated: true)
-        }
-        
-    }
+    var week = Calendar.current.component(.weekOfYear, from: Date())
     
     let startWeek = Date().startOfWeek
     let endWeek = Date().endOfWeek
 
     var onDateSelected: ((_ week: Int) -> Void)?
     var dateWeek = ""
+    
+    var selected: String {
+        return UserDefaults.standard.string(forKey: "selected") ?? ""
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,11 +81,13 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedRow = row
+        UserDefaults.standard.set(weeks[row], forKey: "selected")
         
-        let week = self.selectedRow(inComponent: 0)
+        let weekSelected = self.selectedRow(inComponent: 0)
+        selectedRow = weekSelected
+        print(weekSelected)
         if let block = onDateSelected {
-            block(week)
+            block(weekSelected)
         }
         
         dateFormat.dateFormat =  "yyyy-MM-dd"
@@ -97,7 +98,7 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         let sat = dateFormat.string(from: satOfWeek!)
         dateWeek = "\(sun) ~ \(sat)"
         
-        self.week = week
+        self.week = weekSelected
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
