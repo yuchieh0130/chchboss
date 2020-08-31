@@ -26,6 +26,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     var id: Int32 = 0
     var myPlaceLongitude: Double! = 0
     var myPlaceLatitude: Double! = 0
+    var regionRadius: Double! = 200
     var myPlace: PlaceModel?
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
@@ -68,7 +69,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     
     @IBAction func cricleZoom(_ sender: UISlider){
         sender.value = roundf(sender.value/50)*50
-        print(sender.value)
+        regionRadius = Double(sender.value)
         circle.radius = CLLocationDistance(sender.value)
         let update = GMSCameraUpdate.fit(circle.bounds())
         mapView.animate(with: update)
@@ -157,7 +158,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         }else{
             let controller = UIAlertController(title: "Friendly Reminders 🥕", message: "Check whether the marker on the map is in the correct region of your place \"\(self.myPlaceName)\"" , preferredStyle: .alert)
             let okAction = UIAlertAction(title: "add", style: .default){_ in
-                let modelInfo = PlaceModel(placeId: self.id, placeName: self.myPlaceName, placeCategory: self.myPlaceCategory.lowercased(), placeLongitude: self.myPlaceLongitude, placeLatitude: self.myPlaceLatitude, myPlace: true)
+                let modelInfo = PlaceModel(placeId: self.id, placeName: self.myPlaceName, placeCategory: self.myPlaceCategory.lowercased(), placeLongitude: self.myPlaceLongitude, placeLatitude: self.myPlaceLatitude, regionRadius: self.regionRadius, myPlace: true)
                            let id = DBManager.getInstance().addPlace(modelInfo)
                            self.startMonitorRegion(placeId: id)
                 controller.dismiss(animated: true, completion: nil)
@@ -201,7 +202,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         if myPlaceName == ""{
             alertMessage()
         }
-        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+        let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, regionRadius: regionRadius, myPlace: true)
         DBManager.getInstance().editPlace(modelInfo)
         startMonitorRegion(placeId: id)
         self.dismiss(animated: true, completion: nil)

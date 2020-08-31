@@ -166,6 +166,20 @@ class LoginViewController: UIViewController {
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         //loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+        LoginManager.shared.login(permissions: [.profile], in: self) {
+            result in
+            switch result {
+            case .success(let loginResult):
+                if let profile = loginResult.userProfile {
+                    print("User ID: \(profile.userID)")
+                    print("User Display Name: \(profile.displayName)")
+                    print("User Icon: \(String(describing: profile.pictureURL))")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
         warningLabel.isHidden = true
         emailTextField.text = UserDefaults.standard.value(forKey: "userEmail") as? String
         passwordTextField.text = UserDefaults.standard.value(forKey: "userPassword") as? String
@@ -257,6 +271,7 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 extension LoginViewController: LoginButtonDelegate {
+    
     func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
         //hideIndicator()
         print("Login Succeeded.")

@@ -224,7 +224,7 @@ extension showMyPlaceController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
         let place = self.showAllPlace![indexPath.row]
-        savePlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: placeCategory, placeLongitude: place.placeLongitude, placeLatitude: placeLatitude, myPlace: place.myPlace)
+        savePlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: placeCategory, placeLongitude: place.placeLongitude, placeLatitude: placeLatitude, regionRadius: place.regionRadius, myPlace: place.myPlace)
         return indexPath
     }
     

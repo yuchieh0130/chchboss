@@ -91,7 +91,7 @@ class searchLocationViewController: UIViewController, UITableViewDataSource, UIT
             //placeCategory = resultsArray[indexPath.row-1]["types"]![0] as? String
             placeLongitude = location["location"]!["lng"] as? Double
             placeLatitude = location["location"]!["lat"] as? Double
-            savePlaceModel = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: false)
+            savePlaceModel = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, regionRadius: 0, myPlace: false)
         }
         return indexPath
     }

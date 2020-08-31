@@ -188,7 +188,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
         let place = self.showAllPlace![indexPath.row]
-        selectedPlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: place.placeCategory, placeLongitude: place.placeLongitude, placeLatitude: place.placeLatitude, myPlace: place.myPlace)
+        selectedPlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: place.placeCategory, placeLongitude: place.placeLongitude, placeLatitude: place.placeLatitude, regionRadius: 0, myPlace: place.myPlace)
         return indexPath
     }
     

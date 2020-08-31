@@ -236,7 +236,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 txtSearch.text = nameArray[indexPath.row-1]
                 searchPlaceFromGoogle(txtSearch)
             }else{
-                savePlace = PlaceModel(placeId: savePlaceArray[indexPath.row-nameArray.count-1].placeId, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, myPlace: false)
+                savePlace = PlaceModel(placeId: savePlaceArray[indexPath.row-nameArray.count-1].placeId, placeName: savePlaceArray[indexPath.row-nameArray.count-1].placeName, placeCategory: savePlaceArray[indexPath.row-nameArray.count-1].placeCategory, placeLongitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLongitude, placeLatitude: savePlaceArray[indexPath.row-nameArray.count-1].placeLatitude, regionRadius: 0, myPlace: false)
             }
         }else{
             if indexPath.row < resultsArray.count{
@@ -248,9 +248,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
                 placeName = resultsArray[indexPath.row]["name"] as? String
                 placeLongitude = location["location"]!["lng"] as? Double
                 placeLatitude = location["location"]!["lat"] as? Double
-                savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, myPlace: false)
+                savePlace = PlaceModel(placeId: id, placeName: placeName!, placeCategory: placeCategory, placeLongitude: placeLongitude, placeLatitude: placeLatitude, regionRadius: 0, myPlace: false)
             }else{
-                savePlace = PlaceModel(placeId: id, placeName: txtSearch.text!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, myPlace: false)
+                savePlace = PlaceModel(placeId: id, placeName: txtSearch.text!, placeCategory: placeCategory, placeLongitude: longitude, placeLatitude: latitude, regionRadius: 0, myPlace: false)
             }
             
         }
