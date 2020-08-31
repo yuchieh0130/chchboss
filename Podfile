@@ -12,5 +12,6 @@ target 'test' do
   pod 'Floaty', '~> 4.2.0'
   pod 'Charts'
   pod 'SnapKit'
-  source 'https://github.com/CocoaPods/Specs.git'
+  pod 'LineSDKSwift', '~> 5.0'
+  #source 'https://github.com/CocoaPods/Specs.git'
 end

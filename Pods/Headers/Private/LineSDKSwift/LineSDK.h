@@ -1,0 +1,1 @@
+../../../LineSDKSwift/LineSDK/LineSDK/LineSDK.h
