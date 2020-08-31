@@ -100,12 +100,13 @@ def insertSavedplace():
     place_longitude = data["place_longitude"]
     place_latitude = data["place_latitude"]
     my_place = data["my_place"]
+    region_radius = data["region_radius"]
     print(my_place)
     print(type(my_place))
     cur = conn.cursor()
-    sql = "INSERT INTO savedplace (user_place_id, place_name, place_category, place_longitude, place_latitude, my_place, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO savedplace (user_place_id, place_name, place_category, place_longitude, place_latitude, my_place, user_id, regionradius) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     adr = (user_place_id, place_name, place_category, place_longitude,
-           place_latitude, my_place, user_id)
+           place_latitude, my_place, user_id, region_radius)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
@@ -126,11 +127,12 @@ def updateSavedplace():
     place_longitude = data["place_longitude"]
     place_latitude = data["place_latitude"]
     my_place = data["my_place"]
+    region_radius = data["region_radius"]
 
     cur = conn.cursor()
-    sql = "UPDATE savedplace SET place_name = %s, place_category = %s, place_longitude = %s, place_latitude = %s, my_place = %s WHERE user_id = %s AND user_location_id = %s"
+    sql = "UPDATE savedplace SET place_name = %s, place_category = %s, place_longitude = %s, place_latitude = %s, my_place = %s, regionradius = %s WHERE user_id = %s AND user_location_id = %s"
     adr = (place_name, place_category, place_longitude, place_latitude,
-           my_place, user_id, user_place_id)
+           my_place, region_radius, user_id, user_place_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
