@@ -318,7 +318,7 @@ class DBManager: NSObject {
                 if modelInfo.myPlace{
                     isMyPlace = "1"
                 }
-                let data = ["user_id":String(user_id),"user_place_id":String(id),"place_name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"regionRadius":String(modelInfo.regionRadius),"my_place":isMyPlace]
+                let data = ["user_id":String(user_id),"user_place_id":String(id),"place_name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"region_radius":String(modelInfo.regionRadius),"my_place":isMyPlace]
                 net.addSavedplaceData(data: data){
                     (status_code) in
                     if (status_code != nil) {
@@ -344,7 +344,7 @@ class DBManager: NSObject {
         shareInstance.database?.open()
         shareInstance.database?.executeUpdate("REPLACE INTO savedPlace (place_id,place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.placeId!,modelInfo.placeName,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
         shareInstance.database?.close()
-        let data = ["user_id":String(user_id),"user_place_id":String(modelInfo.placeId!),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"regionRadius":String(modelInfo.regionRadius),"my_place":String(modelInfo.myPlace)]
+        let data = ["user_id":String(user_id),"user_place_id":String(modelInfo.placeId!),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"region_radius":String(modelInfo.regionRadius),"my_place":String(modelInfo.myPlace)]
         net.updateSavedplaceData(data: data){
             (status_code) in
             if (status_code != nil) {
