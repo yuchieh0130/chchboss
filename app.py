@@ -41,6 +41,9 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, message)
 
 
+# 主動傳訊息
+@ha
+
 @app.route('/')
 def index():
     return 'Hello World'
