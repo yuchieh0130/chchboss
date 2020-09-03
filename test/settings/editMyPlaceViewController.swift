@@ -59,8 +59,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             navigationItem.leftBarButtonItems = [btnCancel]
             navigationItem.title = "Add My Place"
             //用simulator的時候就跑這兩行
-//            myPlaceLatitude = 24.986
-//            myPlaceLongitude = 121.576
+            //            myPlaceLatitude = 24.986
+            //            myPlaceLongitude = 121.576
             myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
             myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         }
@@ -103,12 +103,12 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         
         let update = GMSCameraUpdate.fit(circle.bounds())
         mapView.animate(with: update)
-
+        
         //        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
-//        circle.position = marker.position
-//        circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.2)
-//        circle.radius = 200
-//        circle.strokeColor = UIColor.red
+        //        circle.position = marker.position
+        //        circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.2)
+        //        circle.radius = 200
+        //        circle.strokeColor = UIColor.red
         //circle.map = mapView
         
         if self.tbView.tableFooterView == nil {
@@ -159,21 +159,21 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             let controller = UIAlertController(title: "Friendly Reminders 🥕", message: "Check whether the marker on the map is in the correct region of your place \"\(self.myPlaceName)\"" , preferredStyle: .alert)
             let okAction = UIAlertAction(title: "add", style: .default){_ in
                 let modelInfo = PlaceModel(placeId: self.id, placeName: self.myPlaceName, placeCategory: self.myPlaceCategory.lowercased(), placeLongitude: self.myPlaceLongitude, placeLatitude: self.myPlaceLatitude, regionRadius: self.regionRadius, myPlace: true)
-                           let id = DBManager.getInstance().addPlace(modelInfo)
-                           self.startMonitorRegion(placeId: id)
+                let id = DBManager.getInstance().addPlace(modelInfo)
+                self.startMonitorRegion(placeId: id)
                 controller.dismiss(animated: true, completion: nil)
                 self.dismiss(animated: true, completion: nil)
                 self.performSegue(withIdentifier: "editMyPlaceSegueBack", sender: self)
             }
             let cancelAction = UIAlertAction(title: "Go Check", style: .default){_ in
-            controller.dismiss(animated: true, completion: nil)}
+                controller.dismiss(animated: true, completion: nil)}
             controller.addAction(cancelAction)
             controller.addAction(okAction)
             self.present(controller, animated: true,completion: .none)
             
-//            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
-//            let id = DBManager.getInstance().addPlace(modelInfo)
-//            startMonitorRegion(placeId: id)
+            //            let modelInfo = PlaceModel(placeId: id, placeName: myPlaceName, placeCategory: myPlaceCategory.lowercased(), placeLongitude: myPlaceLongitude, placeLatitude: myPlaceLatitude, myPlace: true)
+            //            let id = DBManager.getInstance().addPlace(modelInfo)
+            //            startMonitorRegion(placeId: id)
             //            let title = myPlaceName
             //            let coordinate = CLLocationCoordinate2DMake(myPlaceLatitude, myPlaceLongitude)
             //            let regionRadius = 200.0
@@ -182,18 +182,18 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             //            myLocationManager.startMonitoring(for: region)
         }
     }
-
+    
     func startMonitorRegion(placeId: Int32){
-    //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
-    if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-        let monitorPlace = DBManager.getInstance().getPlace(Int: placeId)
-        let title = "\(monitorPlace!.placeId!)"
-        let coordinate = CLLocationCoordinate2DMake(monitorPlace!.placeLatitude, monitorPlace!.placeLongitude)
-        let regionRadius = 200.0
-        let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
-        myLocationManager.startMonitoring(for: region)
-        print("startMonitorRegion\(placeId)")
-         }
+        //print(CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self))
+        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
+            let monitorPlace = DBManager.getInstance().getPlace(Int: placeId)
+            let title = "\(monitorPlace!.placeId!)"
+            let coordinate = CLLocationCoordinate2DMake(monitorPlace!.placeLatitude, monitorPlace!.placeLongitude)
+            let regionRadius = 200.0
+            let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
+            myLocationManager.startMonitoring(for: region)
+            print("startMonitorRegion\(placeId)")
+        }
     }
     
     
@@ -300,7 +300,7 @@ extension editMyPlaceViewController: UITextFieldDelegate,UISearchBarDelegate{
     @objc func searchPlaceFromGoogle(_ textField: UISearchBar) {
         
         if let searchQuery = textField.text {
-            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
+            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyA1aip55jDmoNfeOeSwXfGlBFtTlU5olrA"
             strGoogleApi = strGoogleApi.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             
             var urlRequest = URLRequest(url: URL(string: strGoogleApi)!)
@@ -347,7 +347,7 @@ extension GMSCircle {
             let lon = position.longitude + dx / cos(position.latitude * M_PI/180)
             return CLLocationCoordinate2D(latitude: lat, longitude: lon)
         }
-
+        
         return GMSCoordinateBounds(coordinate: locationMinMax(positive: true),
                                    coordinate: locationMinMax(positive: false))
     }
