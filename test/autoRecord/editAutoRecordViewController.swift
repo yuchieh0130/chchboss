@@ -40,6 +40,12 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
+    var showDateformatterForBtn: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd \n HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     var showTimeformatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
@@ -78,10 +84,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         let tmpBtn = UIButton()
         tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
         tmpBtn.layer.cornerRadius = 10
-        tmpBtn.setTitle("00:00", for: .normal)
         tmpBtn.titleLabel?.textAlignment = .center
         tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
         tmpBtn.addTarget(self, action: #selector(pressedStartTimeBtn), for: .touchUpInside)
+        tmpBtn.titleLabel?.numberOfLines = 2
         return tmpBtn
     }()
     
@@ -89,10 +95,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         let tmpBtn = UIButton()
         tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
         tmpBtn.layer.cornerRadius = 10
-        tmpBtn.setTitle("00:00", for: .normal)
         tmpBtn.titleLabel?.textAlignment = .center
         tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
         tmpBtn.addTarget(self, action: #selector(pressedEndTimeBtn), for: .touchUpInside)
+        tmpBtn.titleLabel?.numberOfLines = 2
         return tmpBtn
     }()
     
@@ -133,7 +139,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     
     override func viewDidLoad() {
         
-        setUpBtns()
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -157,6 +162,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         
         let animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
         gifImgView.image = animatedImage
+        
+        setUpBtns()
         
     }
     
@@ -192,6 +199,12 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     func setUpBtns() {
+        startTimeBtn.setTitle("\(showDateformatterForBtn.string(from: s))", for: .normal)
+        endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
+        
+        categoryBtn.setTitle("Category    \(category.categoryName)", for: .normal)
+        locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+        
         view.addSubview(timeContainerView)
         timeContainerView.addSubview(startTimeBtn)
         timeContainerView.addSubview(endTimeBtn)
