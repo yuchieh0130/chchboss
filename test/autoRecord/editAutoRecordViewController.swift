@@ -79,7 +79,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             longitude = location?.longitude
         }
         
-        let animatedImage = UIImage.animatedImageNamed("home-", duration: 1)
+        let animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
         gifImgView.image = animatedImage
         
     }
