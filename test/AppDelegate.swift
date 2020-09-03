@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
         
         // Override point for customization after application launch.
-        let googleApiKey = "AIzaSyBTAFGciHct-17-WxKEBZCebj0-6gwMDRY"
+        let googleApiKey = "AIzaSyA1aip55jDmoNfeOeSwXfGlBFtTlU5olrA"
         GMSPlacesClient.provideAPIKey(googleApiKey)
         GMSServices.provideAPIKey(googleApiKey)
         
