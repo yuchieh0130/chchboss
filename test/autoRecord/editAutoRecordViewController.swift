@@ -11,6 +11,7 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 import GooglePlaces
+import SnapKit
 
 class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDelegate{
     
@@ -58,7 +59,82 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         return formatter
     }
     
+    let timeContainerView: UIView = {
+        let tmpView = UIView()
+        return tmpView
+    }()
+    
+    let btnFontColor: UIColor = UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1)
+    
+    let arrowLabel: UILabel = {
+        let tmpLabel = UILabel()
+        tmpLabel.text = "  〉"
+        tmpLabel.font = tmpLabel.font.withSize(40.0)
+        tmpLabel.textColor = UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1)
+        return tmpLabel
+    }()
+    
+    let startTimeBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.setTitle("00:00", for: .normal)
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedStartTimeBtn), for: .touchUpInside)
+        return tmpBtn
+    }()
+    
+    let endTimeBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.setTitle("00:00", for: .normal)
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedEndTimeBtn), for: .touchUpInside)
+        return tmpBtn
+    }()
+    
+    let categoryBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.setTitle("Category     Shopping", for: .normal)
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedCategoryBtn), for: .touchUpInside)
+        return tmpBtn
+    }()
+    
+    let locationBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.setTitle("Location     Dorm", for: .normal)
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedLocationBtn), for: .touchUpInside)
+        return tmpBtn
+    }()
+    
+    @objc func pressedStartTimeBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoStart", sender: self)
+    }
+    @objc func pressedEndTimeBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoEnd", sender: self)
+    }
+    @objc func pressedCategoryBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoCategory", sender: self)
+    }
+    @objc func pressedLocationBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoLocation", sender: self)
+    }
+    
     override func viewDidLoad() {
+        
+        setUpBtns()
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let btnOK = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(editBtn(_:)))
@@ -112,6 +188,56 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         default:
             print("")
         }
+        
+    }
+    
+    func setUpBtns() {
+        view.addSubview(timeContainerView)
+        timeContainerView.addSubview(startTimeBtn)
+        timeContainerView.addSubview(endTimeBtn)
+        timeContainerView.addSubview(arrowLabel)
+        view.addSubview(categoryBtn)
+        view.addSubview(locationBtn)
+        
+        
+        timeContainerView.snp.makeConstraints { (make) in
+            make.top.equalTo(gifImgView.snp.bottom).offset(50)
+            make.leading.equalTo(50)
+            make.trailing.equalTo(-50)
+            make.bottom.lessThanOrEqualToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        arrowLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        
+        startTimeBtn.snp.makeConstraints { (make) in
+            make.top.leading.greaterThanOrEqualToSuperview()
+            make.bottom.lessThanOrEqualToSuperview()
+            make.height.equalTo(80)
+            make.width.equalTo(120)
+        }
+        
+        endTimeBtn.snp.makeConstraints { (make) in
+            make.top.greaterThanOrEqualToSuperview()
+            make.bottom.trailing.lessThanOrEqualToSuperview()
+            make.height.equalTo(80)
+            make.width.equalTo(120)
+        }
+        
+        categoryBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(timeContainerView.snp.bottom).offset(50)
+            make.leading.equalTo(50)
+            make.trailing.equalTo(-50)
+            make.height.equalTo(50)
+        }
+        locationBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(categoryBtn.snp.bottom).offset(30)
+            make.leading.equalTo(50)
+            make.trailing.equalTo(-50)
+            make.height.equalTo(50)
+        }
+        
         
     }
     
