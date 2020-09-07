@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         print("BunnyTrack Launch")
         
-        LoginManager.shared.setup(channelID: "1654804934", universalLinkURL: nil)
+        LoginManager.shared.setup(channelID: "1654884598", universalLinkURL: nil)
         
         if UserDefaults.standard.bool(forKey: "isLogIn"){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
