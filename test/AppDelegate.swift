@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         myLocationManager.delegate = self
         myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         //kCLLocationAccuracyBestForNavigation：導航最高精確，，需要使用GPS。例如：汽車導航時使用。
         //kCLLocationAccuracyBest;//高精確
         //kCLLocationAccuracyNearestTenMeters：10米，10米附近的精準度可能是GPS & WiFi混用
