@@ -86,6 +86,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         _ = LoginManager.shared.application(.shared, open: URLContexts.first?.url)
     }
 
-
 }
 

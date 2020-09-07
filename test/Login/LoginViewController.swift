@@ -157,6 +157,11 @@ class LoginViewController: UIViewController {
         
         // Configuration for permissions and presenting.
         loginButton.permissions = [.profile]
+            
+        var parameters = LoginManager.Parameters()
+        parameters.botPromptStyle = .normal
+        loginButton.parameters = parameters
+        
         loginButton.presentingViewController = self
         
         // Add button to view and layout it.
@@ -165,20 +170,21 @@ class LoginViewController: UIViewController {
         loginButton.centerYAnchor.constraint(equalTo: signUpBtn.bottomAnchor, constant: 30).isActive = true
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         //loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        LoginManager.shared.login(permissions: [.profile], in: self) {
-            result in
-            switch result {
-            case .success(let loginResult):
-                if let profile = loginResult.userProfile {
-                    print("User ID: \(profile.userID)")
-                    print("User Display Name: \(profile.displayName)")
-                    print("User Icon: \(String(describing: profile.pictureURL))")
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+//        var parameters = LoginManager.Parameters()
+//        parameters.botPromptStyle = .normal
+//        LoginManager.shared.login(permissions: [.profile], parameters: parameters) {
+//            result in
+//            switch result {
+//            case .success(let loginResult):
+//                if let profile = loginResult.userProfile {
+//                    print("User ID: \(profile.userID)")
+//                    print("User Display Name: \(profile.displayName)")
+//                    print("User Icon: \(String(describing: profile.pictureURL))")
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
         
         warningLabel.isHidden = true
         emailTextField.text = UserDefaults.standard.value(forKey: "userEmail") as? String
@@ -275,6 +281,7 @@ extension LoginViewController: LoginButtonDelegate {
     func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
         //hideIndicator()
         print("Login Succeeded.")
+        print(loginResult)
     }
     
     func loginButton(_ button: LoginButton, didFailLogin error: LineSDKError) {
@@ -286,5 +293,6 @@ extension LoginViewController: LoginButtonDelegate {
         //showIndicator()
         print("Login Started.")
     }
+    
 }
 
