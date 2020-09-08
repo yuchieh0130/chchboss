@@ -122,9 +122,8 @@ class NetworkController {
                    let jsonDictionary = try?
                    JSONSerialization.jsonObject(with: data) as? [String:Any],
                    let status_code = jsonDictionary["status_code"],
-                   let user_data = jsonDictionary["data"] as? [[Any]],
-                   let last_track_id = jsonDictionary["last_track_id"]{
-                   completion([status_code,user_data, last_track_id])
+                   let user_data = jsonDictionary["data"] as? [[Any]]{
+                   completion([status_code,user_data])
                    //print(jsonDictionary)
                } else {
                    completion(nil)
