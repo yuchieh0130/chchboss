@@ -190,6 +190,7 @@ def pushTrack():
     data = request.get_json()
     last_track_id = int(data["last_track_id"])
     user_id = int(data["user_id"])
+    print("first:",last_track_id)
 
     cur = conn.cursor()
     sql = "SELECT * FROM track WHERE user_id = %s AND track_id > %s AND record = 0"
@@ -199,6 +200,7 @@ def pushTrack():
     track_data = fetch_data
     last_track_id = track_data[-1][0]
     cur.close()
+    print("last:",last_track_id)
 
     # cur = conn.cursor()
     # sql = "UPDATE track SET record = %s WHERE user_id = %s AND record = %s"
