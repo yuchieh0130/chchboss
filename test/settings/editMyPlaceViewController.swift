@@ -192,7 +192,6 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             let regionRadius = 200.0
             let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude,longitude: coordinate.longitude), radius: regionRadius, identifier: title)
             myLocationManager.startMonitoring(for: region)
-            print("startMonitorRegion\(placeId)")
         }
     }
     

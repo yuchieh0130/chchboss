@@ -415,4 +415,8 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         completionHandler([.alert,.sound,.badge])
     }
     
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print("fail to monitor region:\(region)")
+    }
+    
 }

@@ -108,8 +108,8 @@ class NetworkController {
     }
     
     func pushSavedPlaceData (data: [String: String], completion: @escaping([Any]?) -> Void) {
-           let SavedPlaceURL = baseURL.appendingPathComponent("pushSavedplace")
-           var request = URLRequest(url: SavedPlaceURL)
+           let savedPlaceURL = baseURL.appendingPathComponent("pushSavedplace")
+           var request = URLRequest(url: savedPlaceURL)
            request.httpMethod = "POST"
            request.setValue("application/json", forHTTPHeaderField:
                "Content-Type")
@@ -260,7 +260,7 @@ class NetworkController {
     //    }
     
     func lineLogin (user_lineid: String, user_name: String, completion: @escaping([Any]?) -> Void) {
-        let lineLoginURL = baseURL.appendingPathComponent("lineLogin")
+        let lineLoginURL = baseURL.appendingPathComponent("linelogin")
         var request = URLRequest(url: lineLoginURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
