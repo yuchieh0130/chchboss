@@ -113,18 +113,18 @@ def handler_postback(event):
                 )
             ]
         )
-        line_bot_api.reply_message(event.reply_token, buttons_template)
     )
+    line_bot_api.reply_message(event.reply_token, buttons_template)
     elif(postback == "right"):
-        line_bot_api.reply_message(event.reply_token, "apple")
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='Hello World!'))
 
     elif(postback == "start_time"):
         # start_time = event.postback.params
         # start_time = start_time.replace("t", " ")
-        line_bot_api.reply_message(event.reply_token, "apple")
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='Hello World!'))
 
     elif(postback == "end_time"):
-        line_bot_api.reply_message(event.reply_token, "apple")
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='Hello World!'))
 
 
 
