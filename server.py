@@ -157,6 +157,25 @@ def deleteSavedplace():
     cur.close()
     return jsonify({"status_code": 200})
 
+@app.route("/pushSavedplace", methods=["POST"])
+def pushSavedplace():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_id = data["user_id"]
+
+    cur = conn.cursor()
+    sql = "SELECT user_place_id, place_name, place_category, place_longitude, place_latitude, my_place, regionradius FROM savedplace WHERE user_id = %s"
+    adr = (user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    return jsonify({"status_code": 200, "data":fetch_data})
+
+
+
 
 # @app.route("/insertTrack", methods=["POST"])
 # def insertTrack():
