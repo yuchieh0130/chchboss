@@ -34,13 +34,15 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     let currentLocation = CLLocationManager()
     //var location = CLLocation()
     let marker = GMSMarker()
-    var circle : GMSCircle!
+    var circle = GMSCircle()
     
     //    var myPlace: Bool! = true
     //    var noAdd = false
     //    var userLocation = CLLocation()
     
     override func viewDidLoad() {
+        
+        mapView.delegate = self
         tbView.translatesAutoresizingMaskIntoConstraints = false
         
         let btnAdd = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addMyPlaceButton(_:)))
@@ -85,15 +87,14 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         //        myPlaceLatitude = (currentLocation.location?.coordinate.latitude)!
         //        myPlaceLongitude = (currentLocation.location?.coordinate.longitude)!
         
-        mapView.delegate = self
         let camera = GMSCameraPosition.camera(withLatitude: myPlaceLatitude, longitude: myPlaceLongitude, zoom: 18)
         mapView.camera = camera
         mapView.animate(to: camera)
         
         marker.position = CLLocationCoordinate2D(latitude: myPlaceLatitude, longitude: myPlaceLongitude)
-        circle = GMSCircle(position: marker.position, radius: 200)
         //circle.radius = 200
         circle.position = marker.position
+        circle.radius = regionRadius
         circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.1)
         circle.strokeColor = UIColor.red
         circle.strokeWidth = 2
