@@ -65,36 +65,64 @@ class LoginViewController: UIViewController {
                     print("login in : userId_\(user_id)")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     print(last_track_id)
-                    let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
-                    net.pushTrackData(data: data){
+                    let savedPlaceData = ["user_id":String(user_id)]
+                    net.pushSavedPlaceData(data: savedPlaceData){
                         (return_list) in
                         if let status_code = return_list?[0],
-                            let data = return_list?[1] as? [[AnyObject]],
-                            let last_track_id = return_list?[2]{
+                            let data = return_list?[1] as? [[AnyObject]]{
                             if status_code as! Int == 200{
-                                UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
                                 for i in 0...data.count-1{
                                     print(data[i])
-                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
-                                    DBManager.getInstance().addTrack(modelInfo)
+                                    let modelInfo = PlaceModel(placeId: 0, placeName: data[i][2] as! String, placeCategory: data[i][3] as! String, placeLongitude: data[i][4] as! Double, placeLatitude: data[i][5] as! Double, regionRadius: data[i][5] as! Double, myPlace: data[i][6] as! Bool)
+                                    DBManager.getInstance().addPlace(modelInfo)
                                 }
-                                DispatchQueue.main.async{
-                                    self.goHomepage()
-                                }
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
                             }
                             else{
-                                print("pushTrackData\(status_code)")
-                                DispatchQueue.main.async{
-                                    self.goHomepage()
-                                }
+                                print("pushSavedPlaceData\(status_code)")
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
                             }
                         }else{
-                            print("pushTrackData error")
-                            DispatchQueue.main.async{
-                                self.goHomepage()
-                            }
+                            print("pushSavedPlaceData error")
+                            //                            DispatchQueue.main.async{
+                            //                                self.goHomepage()
+                            //                            }
                         }
                     }
+                    let trackData = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+//                    net.pushTrackData(data: trackData){
+//                        (return_list) in
+//                        if let status_code = return_list?[0],
+//                            let data = return_list?[1] as? [[AnyObject]],
+//                            let last_track_id = return_list?[2]{
+//                            if status_code as! Int == 200{
+//                                UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+//                                for i in 0...data.count-1{
+//                                    print(data[i])
+//                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+//                                    DBManager.getInstance().addTrack(modelInfo)
+//                                }
+//                                DispatchQueue.main.async{
+//                                    self.goHomepage()
+//                                }
+//                            }
+//                            else{
+//                                print("pushTrackData\(status_code)")
+//                                DispatchQueue.main.async{
+//                                    self.goHomepage()
+//                                }
+//                            }
+//                        }else{
+//                            print("pushTrackData error")
+//                            DispatchQueue.main.async{
+//                                self.goHomepage()
+//                            }
+//                        }
+//                    }
                 }
                     //      登入錯誤(登入不正常)
                 else {
@@ -316,8 +344,36 @@ extension LoginViewController: LoginButtonDelegate {
                     print("login in : userId_\(user_id)")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     print(last_track_id)
-                    let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
-                    net.pushTrackData(data: data){
+                    let savedPlaceData = ["user_id":String(user_id)]
+                    net.pushSavedPlaceData(data: savedPlaceData){
+                        (return_list) in
+                        if let status_code = return_list?[0],
+                            let data = return_list?[1] as? [[AnyObject]]{
+                            if status_code as! Int == 200{
+                                for i in 0...data.count-1{
+                                    print(data[i])
+                                    let modelInfo = PlaceModel(placeId: 0, placeName: data[i][2] as! String, placeCategory: data[i][3] as! String, placeLongitude: data[i][4] as! Double, placeLatitude: data[i][5] as! Double, regionRadius: data[i][5] as! Double, myPlace: data[i][6] as! Bool)
+                                    let _ = DBManager.getInstance().addPlace(modelInfo)
+                                }
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
+                            }
+                            else{
+                                print("pushSavedPlaceData\(status_code)")
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
+                            }
+                        }else{
+                            print("pushSavedPlaceData error")
+                            //                            DispatchQueue.main.async{
+                            //                                self.goHomepage()
+                            //                            }
+                        }
+                    }
+                    let trackData = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+                    net.pushTrackData(data: trackData){
                         (return_list) in
                         if let status_code = return_list?[0],
                             let data = return_list?[1] as? [[AnyObject]],
