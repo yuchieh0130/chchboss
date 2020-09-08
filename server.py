@@ -165,14 +165,18 @@ def pushSavedplace():
     data = request.get_json()
 
     user_id = data["user_id"]
+    print(123,user_id)
 
     cur = conn.cursor()
     sql = "SELECT user_place_id, place_name, place_category, place_longitude, place_latitude, my_place, regionradius FROM savedplace WHERE user_id = %s"
-    adr = (user_id)
+    adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
-    return jsonify({"status_code": 200, "data":fetch_data})
+    if(fetch_data):
+        return jsonify({"status_code": 200, "data":fetch_data})
+    else:
+        return jsonify({"status_code": 400})
 
 
 
@@ -216,10 +220,11 @@ def pushTrack():
     adr = (user_id, last_track_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
-    track_data = fetch_data
-    last_track_id = track_data[-1][0]
-    cur.close()
-    print("last:",last_track_id)
+    if(fetch_data):
+        track_data = fetch_data
+        last_track_id = track_data[-1][0]
+        cur.close()
+        print("last:",last_track_id)
 
     # cur = conn.cursor()
     # sql = "UPDATE track SET record = %s WHERE user_id = %s AND record = %s"
@@ -228,10 +233,11 @@ def pushTrack():
     # conn.commit()
     # cur.close()
 
-    return jsonify({"status_code": 200,
-                    "data": track_data,
-                    "last_track_id": last_track_id})
-
+        return jsonify({"status_code": 200,
+                        "data": track_data,
+                        "last_track_id": last_track_id})
+    else:
+        return jsonify({"status_code": 400})
 
 @app.route("/updateTrack", methods=["POST"])
 def updateTrack():
@@ -673,6 +679,39 @@ def insertTrack():
 #     return jsonify({"status_code": 200})
 
 
+@app.route("/linelogin", methods=["POST"])
+def linelogin():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_lineid = data["user_lineid"]
+    user_name = data["user_name"]
+
+    cur = conn.cursor()
+    sql = "SELECT user_id FROM user WHERE user_lineid = %s"
+    adr = (user_lineid,)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    if(fetch_data):
+        return jsonify({"status_code": 200, "user_id":fetch_data[0][0]})
+    else:
+        cur = conn.cursor()
+        sql = "INSERT INTO user (user_lineid, user_name) VALUES(%s, %s)"
+        adr = (user_lineid, user_name)
+        cur.execute(sql, adr)
+        conn.commit()
+        cur.close()
+
+        cur = conn.cursor()
+        sql = "SELECT user_id FROM user WHERE user_lineid = %s"
+        adr = (user_lineid,)
+        cur.execute(sql, adr)
+        fetch_data = cur.fetchall()
+        cur.close()
+        return jsonify({"status_code": 200, "user_id":fetch_data[0][0]})
 @app.route("/insertCategory", methods=["POST"])
 def insertCategory():
     import mysql.connector
