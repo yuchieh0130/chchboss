@@ -514,6 +514,27 @@ class DBManager: NSObject {
         return places
     }
     
+    func getCommonPlace(Int: Int32) -> PlaceModel!{
+        
+        var place : PlaceModel!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM savedPlace WHERE place_id = \(Int) ";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "cplace_id")
+            let a = set?.string(forColumn: "cplace_name")
+            let b = set?.string(forColumn: "cplace_category")
+            let c = set?.double(forColumn: "cplace_longitude")
+            let d = set?.double(forColumn: "cplace_latitude")
+            let f = set?.double(forColumn: "regionRadius")
+            
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, regionRadius: f!, myPlace: false)
+        }
+        set?.close()
+        return place
+    }
+    
     //    func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
     //        shareInstance.database?.open()
     //        let isDone =  shareInstance.database?.executeUpdate("UPDATE savedPlace SET place_name = '\(p.placeName)', place_category = '\(p.placeCategory)', place_longitude = \(p.placeLongitude), place_latitude = \(p.placeLatitude),my_place = \(p.myPlace) WHERE place_id = \(id)" ,withArgumentsIn:[id,p])
