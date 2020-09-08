@@ -686,24 +686,31 @@ def linelogin():
         host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
 
-    user_id = data["user_id"]
+    user_lineid = data["user_lineid"]
     user_name = data["user_name"]
 
     cur = conn.cursor()
-    sql = "SELECT user_id FROM user WHERE user_id = %s"
-    adr = (user_id,)
+    sql = "SELECT user_id FROM user WHERE user_lineid = %s"
+    adr = (user_lineid,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
+    cur.close()
     if(fetch_data):
         return jsonify({"status_code": 200, "user_id":fetch_data[0][0]})
     else:
         cur = conn.cursor()
-        sql = "INSERT INTO user (user_id, user_name) VALUES(%s, %s)"
-        adr = (user_id, user_name)
+        sql = "INSERT INTO user (user_lineid, user_name) VALUES(%s, %s)"
+        adr = (user_lineid, user_name)
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        return jsonify({"status_code": 200, "user_id":user_id})
+
+        sql = "SELECT user_id FROM user WHERE user_lineid = %s"
+        adr = (user_lineid,)
+        cur.execute(sql, adr)
+        fetch_data = cur.fetchall()
+        cur.close()
+        return jsonify({"status_code": 200, "user_id":fetch_data[0][0]})
 @app.route("/insertCategory", methods=["POST"])
 def insertCategory():
     import mysql.connector
