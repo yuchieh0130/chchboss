@@ -58,8 +58,8 @@ class addViewController : UIViewController {
     //variable for handling  DatePopViewController
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
-//    var showStart: String = "" //format show out on storyboard
-//    var showEnd: String = "" //format show out on storyboard
+    //    var showStart: String = "" //format show out on storyboard
+    //    var showEnd: String = "" //format show out on storyboard
     //用來處理dayconstraint
     var s = Date()
     var e = Date()+3600
@@ -100,15 +100,15 @@ class addViewController : UIViewController {
         let btnDelete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteEventButton(_:)))
         let btnCancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
         navigationItem.leftBarButtonItems = [btnCancel]
-
+        
         //查看手機內佇列的notification
-//        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
-//            for request in requests {
-//                print("notifi \(request)")
-//            }
-//        })
+        //        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+        //            for request in requests {
+        //                print("notifi \(request)")
+        //            }
+        //        })
         //查看所有已推送的notification
-//         UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
+        //         UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: nil)
         
         tableViewData = [cellConfig(opened: false, title: "Name"),
                          cellConfig(opened: false, title: "Start"),
@@ -117,18 +117,18 @@ class addViewController : UIViewController {
                          cellConfig(opened: false, title: "AutoRecord"),
                          cellConfig(opened: false, title: "Reminder")]
         
-       reminderData_notallDay = [reminderConfig( rname: "none", fireTime: 0),
-        reminderConfig( rname: "At time of event", fireTime: 0),
-        reminderConfig( rname: "5 minutes before", fireTime: 300),
-        reminderConfig( rname: "10 minutes before", fireTime: 600),
-        reminderConfig( rname: "30 minutes before", fireTime: 1800),
-        reminderConfig( rname: "1 hour before", fireTime: 3600),
-        reminderConfig( rname: "1 day before", fireTime: 86400),]
+        reminderData_notallDay = [reminderConfig( rname: "none", fireTime: 0),
+                                  reminderConfig( rname: "At time of event", fireTime: 0),
+                                  reminderConfig( rname: "5 minutes before", fireTime: 300),
+                                  reminderConfig( rname: "10 minutes before", fireTime: 600),
+                                  reminderConfig( rname: "30 minutes before", fireTime: 1800),
+                                  reminderConfig( rname: "1 hour before", fireTime: 3600),
+                                  reminderConfig( rname: "1 day before", fireTime: 86400),]
         
         reminderData_allDay = [reminderConfig( rname: "none", fireTime: 0),
-        reminderConfig( rname: "on that day (default 07:00)", fireTime: -25200),
-        reminderConfig( rname: "one day before (default 21:00)", fireTime: 10800),
-        reminderConfig( rname: "two days before (default 21:00)", fireTime: 97200)]
+                               reminderConfig( rname: "on that day (default 07:00)", fireTime: -25200),
+                               reminderConfig( rname: "one day before (default 21:00)", fireTime: 10800),
+                               reminderConfig( rname: "two days before (default 21:00)", fireTime: 97200)]
         
         
         //func for accessoryView
@@ -195,7 +195,7 @@ class addViewController : UIViewController {
             }
         }else{
             reminder_index = event!.reminder.components(separatedBy: ",").map{ NSString(string: $0).integerValue }
-                //?? [0]
+            //?? [0]
             oldReminder_index = oldReminder_index.map{ (index) -> String in
                 return "event\(id)_\(index)"
             }
@@ -247,10 +247,10 @@ class addViewController : UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-           super.viewWillDisappear(animated)
-           event = nil
-           selectedDay = []
-       }
+        super.viewWillDisappear(animated)
+        event = nil
+        selectedDay = []
+    }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "eventUnwindSegue"{
@@ -323,7 +323,7 @@ class addViewController : UIViewController {
             if allDay{
                 allDayReminder_index = (VC?.reminder)!
             }else{
-               reminder_index = (VC?.reminder)!
+                reminder_index = (VC?.reminder)!
             }
             tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
         }
@@ -396,15 +396,15 @@ class addViewController : UIViewController {
             if autoRecord {
                 autoCategory = category.categoryId!
                 if savePlace != nil {
-                autoLocation = DBManager.getInstance().addPlace(savePlace!)
-//                    let data:[String:String] = ["place_id":"0", "place_name":savePlaceModel!.placeName, "place_longitude":String(savePlaceModel!.placeLongitude), "place_latitude":String(savePlaceModel!.placeLatitude)]
-//
-//                    self.net.postSaveplaceData(data: data){
-//                        (status_code) in
-//                        if (status_code != nil) {
-//                            print(status_code!)
-//                        }
-//                    }
+                    autoLocation = DBManager.getInstance().addPlace(savePlace!)
+                    //                    let data:[String:String] = ["place_id":"0", "place_name":savePlaceModel!.placeName, "place_longitude":String(savePlaceModel!.placeLongitude), "place_latitude":String(savePlaceModel!.placeLatitude)]
+                    //
+                    //                    self.net.postSaveplaceData(data: data){
+                    //                        (status_code) in
+                    //                        if (status_code != nil) {
+                    //                            print(status_code!)
+                    //                        }
+                    //                    }
                 }
                 //askNotification()
             }
@@ -464,18 +464,18 @@ class addViewController : UIViewController {
         //reminder = reminder_index.map { String($0) }.joined(separator: ",")
         let modelInfo = EventModel(eventId: id, eventName: name, startDate: startDate, startTime: startTime, endDate: endDate, endTime: endTime, allDay: allDay, autoRecord: autoRecord, autoCategory: autoCategory, autoLocation: autoLocation, reminder: reminder)
         DBManager.getInstance().deleteEvent(id: modelInfo.eventId)
-           //刪除當下問是不是在做這件事的通知
+        //刪除當下問是不是在做這件事的通知
         makeNotification(action: "delete")
         performSegue(withIdentifier: "eventUnwindSegue", sender: nil)
-       }
-       
+    }
+    
     //alert message
     func alertMessage(){
-            let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default){_ in
-                controller.dismiss(animated: true, completion: nil)}
-            controller.addAction(okAction)
-            self.present(controller, animated: true,completion: .none)
+        let controller = UIAlertController(title: "Error", message: "Enter a name", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default){_ in
+            controller.dismiss(animated: true, completion: nil)}
+        controller.addAction(okAction)
+        self.present(controller, animated: true,completion: .none)
     }
     
     //manage the notification
@@ -494,8 +494,8 @@ class addViewController : UIViewController {
         switch action {
         case "add":
             let no = UNMutableNotificationContent()
-                no.title = "Event Notification"
-                no.body = "name: " + name + "\ntime: " + startDate + startTime
+            no.title = "Event Notification"
+            no.body = "name: " + name + "\ntime: " + startDate + startTime
             for i in 0...notificationIndex.count-1{
                 var notificationid = ""
                 if event == nil{
@@ -521,32 +521,32 @@ class addViewController : UIViewController {
         }
     }
     
-//    func askNotification() {
-//        let yes = UNNotificationAction(identifier: "yes", title: "YES", options: [])
-//        let no = UNNotificationAction(identifier: "no", title: "NO", options: [])
-//        let ctgr = UNNotificationCategory(identifier: "yesOrNo", actions: [yes, no], intentIdentifiers:[] , options: [])
-//        UNUserNotificationCenter.current().setNotificationCategories([ctgr])
-//
-//        let calendar = Calendar.current
-//        let components = calendar.dateComponents([ .hour, .minute], from: s)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//        let content = UNMutableNotificationContent()
-//        content.title = "Are you Eating?"
-//        content.body = "Having dinner with family in XXX ?"
-//        content.sound = UNNotificationSound.default
-//        content.categoryIdentifier = "yesOrNo"
-//
-//        let request = UNNotificationRequest(identifier: "askNotification", content: content, trigger: trigger)
-//
-//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-//        UNUserNotificationCenter.current().add(request) { (error: Error?) in
-//            if let error = error {
-//                print("Errorrrrr: \(error.localizedDescription)")
-//            }
-//        }
-//        
-//        
-//    }
+    //    func askNotification() {
+    //        let yes = UNNotificationAction(identifier: "yes", title: "YES", options: [])
+    //        let no = UNNotificationAction(identifier: "no", title: "NO", options: [])
+    //        let ctgr = UNNotificationCategory(identifier: "yesOrNo", actions: [yes, no], intentIdentifiers:[] , options: [])
+    //        UNUserNotificationCenter.current().setNotificationCategories([ctgr])
+    //
+    //        let calendar = Calendar.current
+    //        let components = calendar.dateComponents([ .hour, .minute], from: s)
+    //        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+    //        let content = UNMutableNotificationContent()
+    //        content.title = "Are you Eating?"
+    //        content.body = "Having dinner with family in XXX ?"
+    //        content.sound = UNNotificationSound.default
+    //        content.categoryIdentifier = "yesOrNo"
+    //
+    //        let request = UNNotificationRequest(identifier: "askNotification", content: content, trigger: trigger)
+    //
+    //        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    //        UNUserNotificationCenter.current().add(request) { (error: Error?) in
+    //            if let error = error {
+    //                print("Errorrrrr: \(error.localizedDescription)")
+    //            }
+    //        }
+    //
+    //
+    //    }
     
     @IBAction func clearLocation(_ sender: UIButton){
         savePlace = nil
@@ -588,12 +588,12 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
                 cell.txtStartDate.text = "\(showWeekdayformatter.string(from: s)) \(showTimeformatter.string(from: s))"
             }
             
-//            if allDay == true{
-//                showStart = showWeekdayformatter.string(from: s)
-//            }else{
-//                showStart = "\(showWeekdayformatter.string(from: s)) \(showTimeformatter.string(from: s))"
-//            }
-//            cell.txtStartDate.text = showStart
+            //            if allDay == true{
+            //                showStart = showWeekdayformatter.string(from: s)
+            //            }else{
+            //                showStart = "\(showWeekdayformatter.string(from: s)) \(showTimeformatter.string(from: s))"
+            //            }
+            //            cell.txtStartDate.text = showStart
             return cell
         case [2,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! endCell
@@ -602,12 +602,12 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
             }else{
                 cell.txtEndDate.text = "\(showWeekdayformatter.string(from: e)) \(showTimeformatter.string(from: e))"
             }
-//            if allDay == true{
-//                showEnd = showWeekdayformatter.string(from: e)
-//            }else{
-//                showEnd = "\(showWeekdayformatter.string(from: e)) \(showTimeformatter.string(from: e))"
-//            }
-//            cell.txtEndDate.text = showEnd
+            //            if allDay == true{
+            //                showEnd = showWeekdayformatter.string(from: e)
+            //            }else{
+            //                showEnd = "\(showWeekdayformatter.string(from: e)) \(showTimeformatter.string(from: e))"
+            //            }
+            //            cell.txtEndDate.text = showEnd
             return cell
         case [3,0]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "allDayCell", for: indexPath)
@@ -679,10 +679,10 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 1)], with: .none)
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 2)], with: .none)
         tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
-//        if reminder_index != [0]{
-//            reminder_index = [0]
-//                   tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
-//        }
+        //        if reminder_index != [0]{
+        //            reminder_index = [0]
+        //                   tableView.reloadRows(at: [IndexPath.init(row: 0, section: 5)], with: .none)
+        //        }
     }
     
     //autoRecord Switch
@@ -701,13 +701,13 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     }
     
     //reminder Switch
-//    @objc func reminderOpen(_ sender: UISwitch){
-//        if sender.isOn == true{
-//            reminder = true
-//        }else{
-//            reminder = false
-//        }
-//    }
+    //    @objc func reminderOpen(_ sender: UISwitch){
+    //        if sender.isOn == true{
+    //            reminder = true
+    //        }else{
+    //            reminder = false
+    //        }
+    //    }
     
     func changeRow(i:String,j:String){
         
@@ -730,15 +730,15 @@ extension addViewController: UITableViewDataSource,UITableViewDelegate,UITextFie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath {
-        //        case [0,0]:
+            //        case [0,0]:
         //            <#code#>
         case [1,0]:
             performSegue(withIdentifier: "newStartDate", sender: self)
         case [2,0]:
             performSegue(withIdentifier: "newEndDate", sender: self)
-        //        case [3,0]:
-        //            <#code#>
-        //        case [4,0]:
+            //        case [3,0]:
+            //            <#code#>
+            //        case [4,0]:
         //            <#code#>
         case [4,1]:
             performSegue(withIdentifier: "newAutoStart", sender: self)

@@ -306,8 +306,8 @@ class DBManager: NSObject {
     func addPlace(_ modelInfo: PlaceModel) -> Int32{
         var id : Int32!
         shareInstance.database?.open()
-        let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
-        let isAdded = shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
+        let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,regionRadius,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude),\(modelInfo.regionRadius), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
+        let isAdded = shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.regionRadius,modelInfo.myPlace])
         if isAdded!{
             let sqlString1 = "SELECT MAX(place_id) AS Id FROM savedPlace";
             let set = try?shareInstance.database?.executeQuery(sqlString1, values: [])
@@ -342,7 +342,7 @@ class DBManager: NSObject {
     
     func editPlace(_ modelInfo: PlaceModel){
         shareInstance.database?.open()
-        shareInstance.database?.executeUpdate("REPLACE INTO savedPlace (place_id,place_name,place_category,place_longitude,place_latitude,my_place) VALUES (?,?,?,?,?,?)", withArgumentsIn:[modelInfo.placeId!,modelInfo.placeName,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.myPlace])
+        shareInstance.database?.executeUpdate("REPLACE INTO savedPlace (place_id,place_name,place_category,place_longitude,place_latitude,regionRadius,my_place) VALUES (?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.placeId!,modelInfo.placeName,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.regionRadius,modelInfo.myPlace])
         shareInstance.database?.close()
         let data = ["user_id":String(user_id),"user_place_id":String(modelInfo.placeId!),"place_Name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"region_radius":String(modelInfo.regionRadius),"my_place":String(modelInfo.myPlace)]
         net.updateSavedplaceData(data: data){
@@ -873,6 +873,20 @@ class DBManager: NSObject {
         }
         set?.close()
         return locations
+    }
+    
+    
+    func logOut(){
+        shareInstance.database?.open()
+        
+        let table = ["savedPlace","track","event","task"]
+        for i in 0...table.count-1{
+            print(table[i])
+            shareInstance.database?.executeUpdate("DELETE FROM \(table[i])", withArgumentsIn:[])
+            shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])
+        }
+        shareInstance.database?.close()
+        
     }
     
     

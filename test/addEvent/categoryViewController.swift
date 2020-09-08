@@ -21,7 +21,7 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
         
         collectionView.backgroundColor = UIColor.white
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.itemSize = CGSize(width: 120, height: 120)
         if DBManager.getInstance().getAllCategory() != nil{
             showCategory = DBManager.getInstance().getAllCategory()
         }else{
@@ -48,7 +48,7 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! categoryViewCell
         cell.categoryName?.text = showCategory[indexPath.row].categoryName
         cell.backgroundColor = UIColor.white
-        let animatedImage = UIImage.animatedImageNamed("home-", duration: 1)
+        let animatedImage = UIImage.animatedImageNamed("\(showCategory[indexPath.row].categoryName)-", duration: 1)
         cell.imageView.image = animatedImage
         //cell.imageView.image = UIImage(named: "\(showCategory[indexPath.row].category_image)")
         cell.circle.backgroundColor = hexStringToUIColor(hex: "\(showCategory[indexPath.row].categoryColor)")
@@ -78,7 +78,7 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(0.7)
+            alpha: CGFloat(0.5)
         )
     }
 }

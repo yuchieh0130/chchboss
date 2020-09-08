@@ -11,6 +11,7 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 import GooglePlaces
+import SnapKit
 
 class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDelegate{
     
@@ -25,6 +26,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     var longitude: Double?
     var savePlace : PlaceModel?
     
+    var animatedImage: UIImage!
+    
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
     //    let net = NetworkController()
@@ -36,6 +39,12 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
+    var showDateformatterForBtn: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd \n HH:mm"
         formatter.timeZone = TimeZone.ReferenceType.system
         return formatter
     }
@@ -58,7 +67,81 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         return formatter
     }
     
+    let timeContainerView: UIView = {
+        let tmpView = UIView()
+        return tmpView
+    }()
+    
+    let btnFontColor: UIColor = UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1)
+    
+    let arrowLabel: UILabel = {
+        let tmpLabel = UILabel()
+        tmpLabel.text = "  〉"
+        tmpLabel.font = tmpLabel.font.withSize(40.0)
+        tmpLabel.textColor = UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1)
+        return tmpLabel
+    }()
+    
+    let startTimeBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedStartTimeBtn), for: .touchUpInside)
+        tmpBtn.titleLabel?.numberOfLines = 2
+        return tmpBtn
+    }()
+    
+    let endTimeBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedEndTimeBtn), for: .touchUpInside)
+        tmpBtn.titleLabel?.numberOfLines = 2
+        return tmpBtn
+    }()
+    
+    let categoryBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.setTitle("Category     Shopping", for: .normal)
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedCategoryBtn), for: .touchUpInside)
+        return tmpBtn
+    }()
+    
+    let locationBtn: UIButton = {
+        let tmpBtn = UIButton()
+        tmpBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
+        tmpBtn.layer.cornerRadius = 10
+        tmpBtn.setTitle("Location     Dorm", for: .normal)
+        tmpBtn.titleLabel?.textAlignment = .center
+        tmpBtn.setTitleColor(UIColor(red: 77/255, green: 38/255, blue: 0/255, alpha: 1), for: .normal)
+        tmpBtn.addTarget(self, action: #selector(pressedLocationBtn), for: .touchUpInside)
+        return tmpBtn
+    }()
+    
+    @objc func pressedStartTimeBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoStart", sender: self)
+    }
+    @objc func pressedEndTimeBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoEnd", sender: self)
+    }
+    @objc func pressedCategoryBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoCategory", sender: self)
+    }
+    @objc func pressedLocationBtn(sender: UIButton!) {
+        performSegue(withIdentifier: "editAutoLocation", sender: self)
+    }
+    
     override func viewDidLoad() {
+        
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let btnOK = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(editBtn(_:)))
@@ -79,8 +162,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             longitude = location?.longitude
         }
         
-        let animatedImage = UIImage.animatedImageNamed("home-", duration: 1)
+        animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
         gifImgView.image = animatedImage
+        
+        setUpBtns()
         
     }
     
@@ -112,6 +197,62 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         default:
             print("")
         }
+        
+    }
+    
+    func setUpBtns() {
+        startTimeBtn.setTitle("\(showDateformatterForBtn.string(from: s))", for: .normal)
+        endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
+        
+        categoryBtn.setTitle("Category    \(category.categoryName)", for: .normal)
+        locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+        
+        view.addSubview(timeContainerView)
+        timeContainerView.addSubview(startTimeBtn)
+        timeContainerView.addSubview(endTimeBtn)
+        timeContainerView.addSubview(arrowLabel)
+        view.addSubview(categoryBtn)
+        view.addSubview(locationBtn)
+        
+        
+        timeContainerView.snp.makeConstraints { (make) in
+            make.top.equalTo(gifImgView.snp.bottom).offset(50)
+            make.leading.equalTo(50)
+            make.trailing.equalTo(-50)
+            make.bottom.lessThanOrEqualToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        arrowLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        
+        startTimeBtn.snp.makeConstraints { (make) in
+            make.top.leading.greaterThanOrEqualToSuperview()
+            make.bottom.lessThanOrEqualToSuperview()
+            make.height.equalTo(80)
+            make.width.equalTo(120)
+        }
+        
+        endTimeBtn.snp.makeConstraints { (make) in
+            make.top.greaterThanOrEqualToSuperview()
+            make.bottom.trailing.lessThanOrEqualToSuperview()
+            make.height.equalTo(80)
+            make.width.equalTo(120)
+        }
+        
+        categoryBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(timeContainerView.snp.bottom).offset(50)
+            make.leading.equalTo(50)
+            make.trailing.equalTo(-50)
+            make.height.equalTo(50)
+        }
+        locationBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(categoryBtn.snp.bottom).offset(30)
+            make.leading.equalTo(50)
+            make.trailing.equalTo(-50)
+            make.height.equalTo(50)
+        }
+        
         
     }
     
@@ -232,12 +373,14 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         
         if tag == "editAutoStart"{
             handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+            startTimeBtn.setTitle("\(showDateformatterForBtn.string(from: s))", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }else if tag == "editAutoEnd"{
             handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+            endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }
     }
     
@@ -245,7 +388,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         if segue.identifier == "autoLocationSegueBack"{
             let VC = segue.source as? mapViewController
             savePlace = VC?.savePlace
-            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+            locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
         }
     }
     
@@ -253,7 +397,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         if segue.identifier == "myPlaceSegueBack"{
             let VC = segue.source as? showMyPlaceController
             savePlace = VC?.savePlace
-            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+            locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
         }
     }
     
@@ -262,7 +407,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             let VC = segue.source as? categoryViewController
             let i = VC?.collectionView.indexPathsForSelectedItems
             category = (VC?.showCategory[i![0].row])!
-            tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
+            categoryBtn.setTitle("Category    \(category.categoryName)", for: .normal)
+            animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
+            gifImgView.image = animatedImage
+            //tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
         }
     }
     

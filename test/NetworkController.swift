@@ -107,6 +107,31 @@ class NetworkController {
         task.resume( )
     }
     
+    func pushSavedPlaceData (data: [String: String], completion: @escaping([Any]?) -> Void) {
+           let SavedPlaceURL = baseURL.appendingPathComponent("SavedPlace")
+           var request = URLRequest(url: SavedPlaceURL)
+           request.httpMethod = "POST"
+           request.setValue("application/json", forHTTPHeaderField:
+               "Content-Type")
+           let jsonEncoder = JSONEncoder()
+           let jsonData = try? jsonEncoder.encode(data)
+           request.httpBody = jsonData
+           let task = URLSession.shared.dataTask(with: request)
+           { (data, response, error) in
+               if let data = data,
+                   let jsonDictionary = try?
+                   JSONSerialization.jsonObject(with: data) as? [String:Any],
+                   let status_code = jsonDictionary["status_code"],
+                   let user_data = jsonDictionary["data"] as? [[Any]]{
+                   completion([status_code,user_data])
+                   //print(jsonDictionary)
+               } else {
+                   completion(nil)
+               }
+           }
+           task.resume( )
+       }
+    
     func pushTrackData (data: [String: String], completion: @escaping([Any]?) -> Void) {
         let trackURL = baseURL.appendingPathComponent("pushTrack")
         var request = URLRequest(url: trackURL)
@@ -233,6 +258,33 @@ class NetworkController {
     //            }
     //        task.resume( )
     //    }
+    
+    func lineLogin (user_lineid: String, user_name: String, completion: @escaping([Any]?) -> Void) {
+        let lineLoginURL = baseURL.appendingPathComponent("lineLogin")
+        var request = URLRequest(url: lineLoginURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let data: [String: String] = ["user_lineid": user_lineid, "user_name": user_name]
+        let jsonEncoder = JSONEncoder( )
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int], //[[Any]]
+                let status_code = jsonDictionary["status_code"],
+                let user_id = jsonDictionary["user_id"]{
+                completion([status_code, user_id])
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
     func login (email: String, password: String, completion: @escaping([Any]?) -> Void) {
         let loginURL = baseURL.appendingPathComponent("login")
         var request = URLRequest(url: loginURL)

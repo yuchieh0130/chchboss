@@ -117,7 +117,7 @@ class LoginViewController: UIViewController {
             }
         }
         
-        //        UserDefaults.standard.set(true, forKey: "isLogIn")
+        //UserDefaults.standard.set(true, forKey: "isLogIn")
         
         
     }
@@ -157,6 +157,11 @@ class LoginViewController: UIViewController {
         
         // Configuration for permissions and presenting.
         loginButton.permissions = [.profile]
+        
+        var parameters = LoginManager.Parameters()
+        parameters.botPromptStyle = .normal
+        loginButton.parameters = parameters
+        
         loginButton.presentingViewController = self
         
         // Add button to view and layout it.
@@ -165,20 +170,21 @@ class LoginViewController: UIViewController {
         loginButton.centerYAnchor.constraint(equalTo: signUpBtn.bottomAnchor, constant: 30).isActive = true
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         //loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        LoginManager.shared.login(permissions: [.profile], in: self) {
-            result in
-            switch result {
-            case .success(let loginResult):
-                if let profile = loginResult.userProfile {
-                    print("User ID: \(profile.userID)")
-                    print("User Display Name: \(profile.displayName)")
-                    print("User Icon: \(String(describing: profile.pictureURL))")
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+        //        var parameters = LoginManager.Parameters()
+        //        parameters.botPromptStyle = .normal
+        //        LoginManager.shared.login(permissions: [.profile], parameters: parameters) {
+        //            result in
+        //            switch result {
+        //            case .success(let loginResult):
+        //                if let profile = loginResult.userProfile {
+        //                    print("User ID: \(profile.userID)")
+        //                    print("User Display Name: \(profile.displayName)")
+        //                    print("User Icon: \(String(describing: profile.pictureURL))")
+        //                }
+        //            case .failure(let error):
+        //                print(error)
+        //            }
+        //        }
         
         warningLabel.isHidden = true
         emailTextField.text = UserDefaults.standard.value(forKey: "userEmail") as? String
@@ -275,6 +281,12 @@ extension LoginViewController: LoginButtonDelegate {
     func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
         //hideIndicator()
         print("Login Succeeded.")
+        print(loginResult)
+        
+        let user_lineid = loginResult.userProfile?.userID
+        let user_name = loginResult.userProfile?.displayName
+        lineLogin(user_lineid: user_lineid!, user_name: user_name!)
+        
     }
     
     func loginButton(_ button: LoginButton, didFailLogin error: LineSDKError) {
@@ -286,5 +298,76 @@ extension LoginViewController: LoginButtonDelegate {
         //showIndicator()
         print("Login Started.")
     }
+    
+    func lineLogin(user_lineid: String, user_name: String){
+        net.lineLogin(user_lineid: user_lineid, user_name: user_name) {
+            (return_list) in
+            if let status_code = return_list?[0],
+                let user_id = return_list?[1]{
+                if status_code as! Int == 200 {
+                    DispatchQueue.main.async {
+                        self.warningLabel.text = "Loading your data...🥕"
+                        self.warningLabel.isHidden = false
+                        return
+                    }
+                    print("login")
+                    UserDefaults.standard.set(user_id, forKey: "user_id")
+                    let user_id = UserDefaults.standard.integer(forKey: "user_id")
+                    print("login in : userId_\(user_id)")
+                    let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
+                    print(last_track_id)
+                    let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
+                    net.pushTrackData(data: data){
+                        (return_list) in
+                        if let status_code = return_list?[0],
+                            let data = return_list?[1] as? [[AnyObject]],
+                            let last_track_id = return_list?[2]{
+                            if status_code as! Int == 200{
+                                UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
+                                for i in 0...data.count-1{
+                                    print(data[i])
+                                    let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+                                    DBManager.getInstance().addTrack(modelInfo)
+                                }
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
+                                }
+                            }
+                            else{
+                                print("pushTrackData\(status_code)")
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
+                                }
+                            }
+                        }else{
+                            print("pushTrackData error")
+                            DispatchQueue.main.async{
+                                self.goHomepage()
+                            }
+                        }
+                    }
+                }
+                    //      登入錯誤(登入不正常)
+                else {
+                    print("login\(status_code)")
+                    DispatchQueue.main.async {
+                        self.warningLabel.isHidden = false
+                        self.warningLabel.text = "Connection Error"
+                        return
+                    }
+                }
+            }
+                //    登入請求沒有送出
+            else {
+                DispatchQueue.main.async {
+                    self.warningLabel.text = "Connection error"
+                    self.warningLabel.isHidden = false
+                    print("error")
+                    return
+                }
+            }
+        }
+    }
+    
 }
 

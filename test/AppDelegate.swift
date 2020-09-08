@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         print("BunnyTrack Launch")
         
-        LoginManager.shared.setup(channelID: "1654804934", universalLinkURL: nil)
+        LoginManager.shared.setup(channelID: "1654884598", universalLinkURL: nil)
         
         if UserDefaults.standard.bool(forKey: "isLogIn"){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
         
         // Override point for customization after application launch.
-        let googleApiKey = "AIzaSyDby_1_EFPvVbDWYx06bwgMwt_Sz3io2xQ"
+        let googleApiKey = "AIzaSyA1aip55jDmoNfeOeSwXfGlBFtTlU5olrA"
         GMSPlacesClient.provideAPIKey(googleApiKey)
         GMSServices.provideAPIKey(googleApiKey)
         
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         myLocationManager.delegate = self
         myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         //kCLLocationAccuracyBestForNavigation：導航最高精確，，需要使用GPS。例如：汽車導航時使用。
         //kCLLocationAccuracyBest;//高精確
         //kCLLocationAccuracyNearestTenMeters：10米，10米附近的精準度可能是GPS & WiFi混用
@@ -180,26 +180,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(
+        _ application: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
+    {
+        return LoginManager.shared.application(application, open: url, options: options)
+    }
+    
 }
 
-func applicationWillTerminate(_ application: UIApplication) {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
+//func applicationWillTerminate(_ application: UIApplication) {
+//    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+//}
 
-func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    return LoginManager.shared.application(app, open: url)
-}
+//func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//    print("open url")
+//    return LoginManager.shared.application(app, open: url)
+//}
+
+//func application(
+//    _ application: UIApplication,
+//    open url: URL,
+//    options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
+//{
+//    return LoginManager.shared.application(application, open: url, options: options)
+//}
 
 extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelegate{
     
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
         
+        myLocationManager.delegate = nil
+        
         self.currentSpeed = myLocationManager.location!.speed
         self.currentLocation = locations[0] as CLLocation
         self.currentTime = Date()
         
         saveLocation()
+        
         //        if lastLocation == nil{
         //            lastSpeeds.append(0)
         //            saveLocation()
