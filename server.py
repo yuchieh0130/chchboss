@@ -703,7 +703,7 @@ def linelogin():
         cur.execute(sql, adr)
         conn.commit()
         cur.close()
-        return jsonify({"status_code": 200, "user_id":user_id)
+        return jsonify({"status_code": 200, "user_id":user_id})
 @app.route("/insertCategory", methods=["POST"])
 def insertCategory():
     import mysql.connector
