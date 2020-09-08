@@ -876,5 +876,19 @@ class DBManager: NSObject {
     }
     
     
+    func logOut(){
+        shareInstance.database?.open()
+        
+        let table = ["savedPlace","track","event","task"]
+        for i in 0...table.count-1{
+            print(table[i])
+            shareInstance.database?.executeUpdate("DELETE FROM \(table[i])", withArgumentsIn:[])
+            shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])
+        }
+        shareInstance.database?.close()
+        
+    }
+    
+    
     
 }
