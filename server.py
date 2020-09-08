@@ -705,6 +705,7 @@ def linelogin():
         conn.commit()
         cur.close()
 
+        cur = conn.cursor()
         sql = "SELECT user_id FROM user WHERE user_lineid = %s"
         adr = (user_lineid,)
         cur.execute(sql, adr)
