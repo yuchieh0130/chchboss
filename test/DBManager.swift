@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 /*inplement singleton*/
 var shareInstance = DBManager()
@@ -301,7 +302,6 @@ class DBManager: NSObject {
         shareInstance.database?.close()
     }
     
-    
     /*func for savePlace*/
     func addPlace(_ modelInfo: PlaceModel) -> Int32{
         var id : Int32!
@@ -325,6 +325,32 @@ class DBManager: NSObject {
                         print("addSavedplaceData\(status_code!)")
                     }
                 }
+            }
+        }else{
+            let sqlString2 = "SELECT place_id AS Id FROM savedPlace WHERE place_name = '\(modelInfo.placeName)'";
+            let set = try?shareInstance.database?.executeQuery(sqlString2, values: [])
+            while ((set?.next())!) {
+                let a = set?.int(forColumn: "Id")
+                id = a
+            }
+        }
+        shareInstance.database?.close()
+
+        return id!
+        //return isAdded!
+    }
+    
+   func addPlace_noBackServer(_ modelInfo: PlaceModel) -> Int32{
+        var id : Int32!
+        shareInstance.database?.open()
+        let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,regionRadius,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude),\(modelInfo.regionRadius), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
+        let isAdded = shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.regionRadius,modelInfo.myPlace])
+        if isAdded!{
+            let sqlString1 = "SELECT MAX(place_id) AS Id FROM savedPlace";
+            let set = try?shareInstance.database?.executeQuery(sqlString1, values: [])
+            while ((set?.next())!) {
+                let a = set?.int(forColumn: "Id")
+                id = a
             }
         }else{
             let sqlString2 = "SELECT place_id AS Id FROM savedPlace WHERE place_name = '\(modelInfo.placeName)'";
@@ -459,6 +485,33 @@ class DBManager: NSObject {
         }
         set?.close()
         return id
+    }
+    
+    func getCommonPlaces() -> [PlaceModel]!{
+        
+        var places : [PlaceModel]!
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM commonPlace";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "cplace_id")
+            let a = set?.string(forColumn: "cplace_name")
+            let b = set?.string(forColumn: "cplace_category")
+            let c = set?.double(forColumn: "cplace_longitude")
+            let d = set?.double(forColumn: "cplace_latitude")
+            let f = set?.double(forColumn: "regionRadius")
+            
+            let place: PlaceModel
+            
+            if places == nil{
+                places = [PlaceModel]()
+            }
+            place = PlaceModel(placeId: i!, placeName: a!, placeCategory: b!, placeLongitude: c!, placeLatitude: d!, regionRadius: f!, myPlace: false)
+            places.append(place)
+        }
+        set?.close()
+        return places
     }
     
     //    func editPlaceData(id: Int32, p: PlaceModel) -> Bool{
@@ -877,9 +930,29 @@ class DBManager: NSObject {
     
     
     func logOut(){
-        shareInstance.database?.open()
+//        if let myPlaces = DBManager.getInstance().getMyPlaces(){
+//            for i in 0...myPlaces.count-1{
+//                let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
+//                let regionRadius = myPlaces[i].regionRadius
+//                let title = "\(myPlaces[i].placeId!)"
+//                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
+//                myLocationManager.stopMonitoring(for: region)
+//            }
+//        }
+        for region in myLocationManager.monitoredRegions{
+            myLocationManager.stopMonitoring(for: region)
+        }
         
-        let table = ["savedPlace","track","event","task"]
+//        for i in 0...myLocationManager.monitoredRegions.count-1{
+//            let regionRadius = myLocationManager.monitoredRegions<i>.radius
+//            let title = "\(myLocationManager.monitoredRegions<i>.identifer)"
+//            let region = CLCircularRegion(center: myLocationManager.monitoredRegions<i>.center), radius: regionRadius, identifier: title)
+//            myLocationManager.stopMonitoring(for: region)
+//        }
+        
+        shareInstance.database?.open()
+        //let table = ["savedPlace","track","event","task"]
+        let table = ["savedPlace","track"]
         for i in 0...table.count-1{
             shareInstance.database?.executeUpdate("DELETE FROM \(table[i])", withArgumentsIn:[])
             shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])

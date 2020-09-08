@@ -202,6 +202,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
         let name = showAllPlace?[indexPath.row].placeName
         let title = "\(self.showAllPlace![indexPath.row].placeId!)"
         let coordinate = CLLocationCoordinate2DMake(self.showAllPlace![indexPath.row].placeLatitude, self.showAllPlace![indexPath.row].placeLongitude)
+        let regionRadius = self.showAllPlace![indexPath.row].regionRadius
         //let task = showTask?[indexPath.row]
         let deleteAction = UIContextualAction(style: .normal, title: "Delete") { (action, view, completionHandler) in
             print("Delete")
@@ -211,7 +212,6 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.showAllPlace!.remove(at: indexPath.row)
                 self.tblView.deleteRows(at: [indexPath], with: .fade)
                 DBManager.getInstance().deleteMyPlace(id: id!)
-                let regionRadius = 100.0
                 let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
                 myLocationManager.stopMonitoring(for: region)
                 self.dismiss(animated: true, completion: nil)
