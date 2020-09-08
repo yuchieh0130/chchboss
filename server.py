@@ -165,10 +165,11 @@ def pushSavedplace():
     data = request.get_json()
 
     user_id = data["user_id"]
+    print(123,user_id)
 
     cur = conn.cursor()
     sql = "SELECT user_place_id, place_name, place_category, place_longitude, place_latitude, my_place, regionradius FROM savedplace WHERE user_id = %s"
-    adr = (user_id)
+    adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
