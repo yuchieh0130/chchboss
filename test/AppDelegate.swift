@@ -216,11 +216,14 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]){
         
+        myLocationManager.delegate = nil
+        
         self.currentSpeed = myLocationManager.location!.speed
         self.currentLocation = locations[0] as CLLocation
         self.currentTime = Date()
         
         saveLocation()
+        
         //        if lastLocation == nil{
         //            lastSpeeds.append(0)
         //            saveLocation()

@@ -26,6 +26,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     var longitude: Double?
     var savePlace : PlaceModel?
     
+    var animatedImage: UIImage!
+    
     var tag: String? //which? (startDate,EndDate,editTask)
     var date = Date() //date from DatePopViewController
     //    let net = NetworkController()
@@ -160,7 +162,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             longitude = location?.longitude
         }
         
-        let animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
+        animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
         gifImgView.image = animatedImage
         
         setUpBtns()
@@ -371,12 +373,14 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         
         if tag == "editAutoStart"{
             handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+            startTimeBtn.setTitle("\(showDateformatterForBtn.string(from: s))", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }else if tag == "editAutoEnd"{
             handletime()
-            tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
-            tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
+            endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
+            //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }
     }
     
@@ -384,7 +388,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         if segue.identifier == "autoLocationSegueBack"{
             let VC = segue.source as? mapViewController
             savePlace = VC?.savePlace
-            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+            locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
         }
     }
     
@@ -392,7 +397,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         if segue.identifier == "myPlaceSegueBack"{
             let VC = segue.source as? showMyPlaceController
             savePlace = VC?.savePlace
-            tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
+            locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+            //tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
         }
     }
     
@@ -401,7 +407,10 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             let VC = segue.source as? categoryViewController
             let i = VC?.collectionView.indexPathsForSelectedItems
             category = (VC?.showCategory[i![0].row])!
-            tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
+            categoryBtn.setTitle("Category    \(category.categoryName)", for: .normal)
+            animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
+            gifImgView.image = animatedImage
+            //tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .none)
         }
     }
     
