@@ -176,7 +176,7 @@ def pushSavedplace():
     if(fetch_data):
         return jsonify({"status_code": 200, "data":fetch_data})
     else:
-        return jsonify({"status_code": 400)
+        return jsonify({"status_code": 400})
 
 
 
