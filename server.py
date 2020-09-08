@@ -157,6 +157,25 @@ def deleteSavedplace():
     cur.close()
     return jsonify({"status_code": 200})
 
+@app.route("/pushSavedplace", methods=["POST"])
+def pushSavedplace():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_id = data["user_id"]
+
+    cur = conn.cursor()
+    sql = "SELECT user_place_id, place_name, place_category, place_longitude, place_latitude, my_place, regionradius FROM savedplace WHERE user_id = %s"
+    adr = (user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    return jsonify({"status_code": 200, "data":fetch_data})
+
+
+
 
 # @app.route("/insertTrack", methods=["POST"])
 # def insertTrack():
@@ -190,6 +209,7 @@ def pushTrack():
     data = request.get_json()
     last_track_id = int(data["last_track_id"])
     user_id = int(data["user_id"])
+    print("first:",last_track_id)
 
     cur = conn.cursor()
     sql = "SELECT * FROM track WHERE user_id = %s AND track_id > %s AND record = 0"
@@ -199,6 +219,7 @@ def pushTrack():
     track_data = fetch_data
     last_track_id = track_data[-1][0]
     cur.close()
+    print("last:",last_track_id)
 
     # cur = conn.cursor()
     # sql = "UPDATE track SET record = %s WHERE user_id = %s AND record = %s"
@@ -472,10 +493,10 @@ def deleteTrack():
     user_id = data["user_id"]
     start_date = data["start_date"]
     start_time = data["start_time"]
-
+    new_start_time = start_date+start_time
     cur = conn.cursor()
     sql = "UPDATE track SET category_id = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-    adr = (19, start_date, start_time, user_id)
+    adr = (19, new_start_time, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()

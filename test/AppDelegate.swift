@@ -153,10 +153,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
         
         let user_id = UserDefaults.standard.integer(forKey: "user_id")
-        print(user_id)
-        //let user_id = 2
         let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
-        print(last_track_id)
+        print("User ID : \(user_id), Last Track ID : \(last_track_id)")
+        
         let data = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
         net.pushTrackData(data: data){
             (return_list) in
@@ -174,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                     print("pushTrackData\(status_code)")
                 }
             }else{
-                print("pushTrackData error")
+                print("pushTrackData ERROR")
             }
         }
         
