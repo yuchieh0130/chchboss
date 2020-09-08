@@ -494,10 +494,10 @@ def deleteTrack():
     user_id = data["user_id"]
     start_date = data["start_date"]
     start_time = data["start_time"]
-
+    new_start_time = start_date+start_time
     cur = conn.cursor()
     sql = "UPDATE track SET category_id = %s WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-    adr = (19, start_date, start_time, user_id)
+    adr = (19, new_start_time, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()

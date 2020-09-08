@@ -108,7 +108,7 @@ class NetworkController {
     }
     
     func pushSavedPlaceData (data: [String: String], completion: @escaping([Any]?) -> Void) {
-           let SavedPlaceURL = baseURL.appendingPathComponent("SavedPlace")
+           let SavedPlaceURL = baseURL.appendingPathComponent("pushSavedplace")
            var request = URLRequest(url: SavedPlaceURL)
            request.httpMethod = "POST"
            request.setValue("application/json", forHTTPHeaderField:

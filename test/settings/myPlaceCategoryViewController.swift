@@ -22,7 +22,7 @@ class myPlaceCategoryViewController: UIViewController{
 }
 extension myPlaceCategoryViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        return myPlaceCategorys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

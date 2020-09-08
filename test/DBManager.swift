@@ -881,12 +881,11 @@ class DBManager: NSObject {
         
         let table = ["savedPlace","track","event","task"]
         for i in 0...table.count-1{
-            print(table[i])
             shareInstance.database?.executeUpdate("DELETE FROM \(table[i])", withArgumentsIn:[])
             shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])
         }
         shareInstance.database?.close()
-        
+        UserDefaults.standard.set(0, forKey: "last_track_id")
     }
     
     
