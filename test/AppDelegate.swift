@@ -332,7 +332,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         }
         
         let latitude = placeEntering!.placeLatitude
-        let longitude = placeEntering!.placeLatitude
+        let longitude = placeEntering!.placeLongitude
         let startDate = self.showDate.string(from: enterTime)
         let startTime = self.showTime.string(from: enterTime)
         let weekday = Calendar.current.component(.weekday, from: enterTime)
