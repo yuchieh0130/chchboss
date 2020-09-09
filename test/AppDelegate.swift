@@ -335,6 +335,14 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     
     func enterRegion(region: CLRegion){
         var placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+        var category2 = "entering myPlace"
+        
+        if region.identifier.contains("c"){
+            let id = region.identifier.dropFirst()
+            placeEntering = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
+            category2 = "entering commonPlace"
+        }
+        
         let latitude = placeEntering!.placeLatitude
         let longitude = placeEntering!.placeLatitude
         let startDate = self.showDate.string(from: enterTime)
@@ -346,16 +354,9 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         let name4 = ""
         let name5 = ""
         let category1 = placeEntering!.placeCategory
-        var category2 = "entering myPlace"
         let category3 = ""
         let category4 = ""
         let category5 = ""
-        
-        if region.identifier.contains("c"){
-            let id = region.identifier.dropFirst()
-            placeEntering = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
-            category2 = "entering commonPlace"
-        }
         
         let user_id = UserDefaults.standard.integer(forKey: "user_id")
         
@@ -376,6 +377,14 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     
     func exitRegion(region: CLRegion){
         var placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+        var category2 = "exiting myPlace"
+        
+        if region.identifier.contains("c"){
+            let id = region.identifier.dropFirst()
+            placeExiting = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
+            category2 = "exiting commonPlace"
+        }
+        
         let latitude = placeExiting!.placeLatitude
         let longitude = placeExiting!.placeLongitude
         let startDate = self.showDate.string(from: exitTime)
@@ -387,16 +396,9 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         let name4 = ""
         let name5 = ""
         let category1 = placeExiting!.placeCategory
-        var category2 = "exiting myPlace"
         let category3 = ""
         let category4 = ""
         let category5 = ""
-        
-        if region.identifier.contains("c"){
-            let id = region.identifier.dropFirst()
-            placeExiting = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
-            category2 = "exiting commonPlace"
-        }
         
         let user_id = UserDefaults.standard.integer(forKey: "user_id")
         
