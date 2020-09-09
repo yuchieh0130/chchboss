@@ -60,12 +60,12 @@ class LoginViewController: UIViewController {
                         self.warningLabel.isHidden = false
                         return
                     }
-                    print("login")
+                    print("login!")
                     UserDefaults.standard.set(user_id, forKey: "user_id")
                     let user_id = UserDefaults.standard.integer(forKey: "user_id")
                     print("login in : userId_\(user_id)")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
-                    print(last_track_id)
+                    print("last_track_id : \(last_track_id)")
                     let savedPlaceData = ["user_id":String(user_id)]
                     net.pushSavedPlaceData(data: savedPlaceData){
                         (return_list) in
@@ -83,20 +83,11 @@ class LoginViewController: UIViewController {
                                         myLocationManager.startMonitoring(for: region)
                                     }
                                 }
-                                //                                DispatchQueue.main.async{
-                                //                                    self.goHomepage()
-                                //                                }
                             }else{
                                 print("pushSavedPlaceData \(status_code)")
-                                //                                DispatchQueue.main.async{
-                                //                                    self.goHomepage()
-                                //                                }
                             }
                         }else{
                             print("pushSavedPlaceData error")
-                            //                            DispatchQueue.main.async{
-                            //                                self.goHomepage()
-                            //                            }
                         }
                     }
                     let trackData = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
@@ -131,7 +122,7 @@ class LoginViewController: UIViewController {
                         }
                     }
                 }
-                    //      登入錯誤(登入不正常)
+                    //登入錯誤(登入不正常)
                 else {
                     print("login\(status_code)")
                     DispatchQueue.main.async {
@@ -141,7 +132,7 @@ class LoginViewController: UIViewController {
                     }
                 }
             }
-                //    登入請求沒有送出
+                //登入請求沒有送出
             else {
                 DispatchQueue.main.async {
                     self.warningLabel.text = "Connection error"
@@ -153,7 +144,6 @@ class LoginViewController: UIViewController {
         }
         
         //UserDefaults.standard.set(true, forKey: "isLogIn")
-        
         
     }
     
@@ -297,14 +287,14 @@ extension LoginViewController {
     
     func monitiorCommonPlace(){
         if let CommonPlaces = DBManager.getInstance().getCommonPlaces(){
-               for common in CommonPlaces{
-                   let coordinate = CLLocationCoordinate2DMake(common.placeLatitude, common.placeLongitude)
-                   let regionRadius = common.regionRadius
-                   let title = "c\(common.placeId)"
-                   let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
-                   myLocationManager.startMonitoring(for: region)
-               }
-           }
+            for common in CommonPlaces{
+                let coordinate = CLLocationCoordinate2DMake(common.placeLatitude, common.placeLongitude)
+                let regionRadius = common.regionRadius
+                let title = "c\(common.placeId)"
+                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
+                myLocationManager.startMonitoring(for: region)
+            }
+        }
     }
     
 }
@@ -329,8 +319,7 @@ extension LoginViewController: LoginButtonDelegate {
     func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
         //hideIndicator()
         print("Login Succeeded.")
-//        print(loginResult)
-        
+        //        print(loginResult)
         let user_lineid = loginResult.userProfile?.userID
         let user_name = loginResult.userProfile?.displayName
         lineLogin(user_lineid: user_lineid!, user_name: user_name!)
@@ -358,12 +347,12 @@ extension LoginViewController: LoginButtonDelegate {
                         self.warningLabel.isHidden = false
                         return
                     }
-                    print("login")
+                    print("login!")
                     UserDefaults.standard.set(user_id, forKey: "user_id")
                     let user_id = UserDefaults.standard.integer(forKey: "user_id")
                     print("login in : userId_\(user_id)")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
-                    print(last_track_id)
+                    print("last_track_id : \(last_track_id)")
                     let savedPlaceData = ["user_id":String(user_id)]
                     net.pushSavedPlaceData(data: savedPlaceData){
                         (return_list) in
@@ -371,8 +360,8 @@ extension LoginViewController: LoginButtonDelegate {
                             let data = return_list?[1] as? [[AnyObject]]{
                             if status_code as! Int == 200{
                                 for i in 0...data.count-1{
-                                    let modelInfo = PlaceModel(placeId: 0, placeName: data[i][2] as! String, placeCategory: data[i][3] as! String, placeLongitude: data[i][4] as! Double, placeLatitude: data[i][5] as! Double, regionRadius: data[i][5] as! Double, myPlace: data[i][6] as! Bool)
-                                    let id = DBManager.getInstance().addPlace(modelInfo)
+                                    let modelInfo = PlaceModel(placeId: 0, placeName: data[i][1] as! String, placeCategory: data[i][2] as! String, placeLongitude: data[i][3] as! Double, placeLatitude: data[i][4] as! Double, regionRadius: data[i][6] as! Double, myPlace: data[i][5] as! Bool)
+                                    let id = DBManager.getInstance().addPlace_noBackServer(modelInfo)
                                     if modelInfo.myPlace{
                                         let coordinate = CLLocationCoordinate2DMake(modelInfo.placeLatitude, modelInfo.placeLongitude)
                                         let regionRadius = modelInfo.regionRadius
@@ -381,21 +370,11 @@ extension LoginViewController: LoginButtonDelegate {
                                         myLocationManager.startMonitoring(for: region)
                                     }
                                 }
-                                //                                DispatchQueue.main.async{
-                                //                                    self.goHomepage()
-                                //                                }
-                            }
-                            else{
+                            }else{
                                 print("pushSavedPlaceData \(status_code)")
-                                //                                DispatchQueue.main.async{
-                                //                                    self.goHomepage()
-                                //                                }
                             }
                         }else{
                             print("pushSavedPlaceData error")
-                            //                            DispatchQueue.main.async{
-                            //                                self.goHomepage()
-                            //                            }
                         }
                     }
                     let trackData = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
@@ -410,12 +389,13 @@ extension LoginViewController: LoginButtonDelegate {
                                     let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
                                     DBManager.getInstance().addTrack(modelInfo)
                                 }
+                                self.monitiorCommonPlace()
                                 DispatchQueue.main.async{
                                     self.goHomepage()
                                 }
                             }
                             else{
-                                print("pushTrackData\(status_code)")
+                                print("pushTrackData \(status_code)")
                                 DispatchQueue.main.async{
                                     self.goHomepage()
                                 }
@@ -428,7 +408,7 @@ extension LoginViewController: LoginButtonDelegate {
                         }
                     }
                 }
-                    //      登入錯誤(登入不正常)
+                    //登入錯誤(登入不正常)
                 else {
                     print("login\(status_code)")
                     DispatchQueue.main.async {
@@ -438,7 +418,7 @@ extension LoginViewController: LoginButtonDelegate {
                     }
                 }
             }
-                //    登入請求沒有送出
+                //登入請求沒有送出
             else {
                 DispatchQueue.main.async {
                     self.warningLabel.text = "Connection error"
@@ -449,5 +429,5 @@ extension LoginViewController: LoginButtonDelegate {
             }
         }
     }
+    
 }
-
