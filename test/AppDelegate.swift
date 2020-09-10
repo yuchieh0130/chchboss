@@ -326,7 +326,8 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         var category2 = "entering myPlace"
         
         if region.identifier.contains("c"){
-            let id = region.identifier.dropFirst()
+            var id = region.identifier
+            id.remove(at: id.startIndex)
             placeEntering = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
             category2 = "entering commonPlace"
         }
@@ -368,7 +369,8 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         var category2 = "exiting myPlace"
         
         if region.identifier.contains("c"){
-            let id = region.identifier.dropFirst()
+            var id = region.identifier
+            id.remove(at: id.startIndex)
             placeExiting = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
             category2 = "exiting commonPlace"
         }

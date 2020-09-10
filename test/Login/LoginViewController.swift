@@ -290,7 +290,7 @@ extension LoginViewController {
             for common in CommonPlaces{
                 let coordinate = CLLocationCoordinate2DMake(common.placeLatitude, common.placeLongitude)
                 let regionRadius = common.regionRadius
-                let title = "c\(common.placeId)"
+                let title = "c\(common.placeId!)"
                 let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
                 myLocationManager.startMonitoring(for: region)
             }
