@@ -67,7 +67,9 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
         //txtSearch.delegate = self
         self.txtSearch.placeholder = "Search places..."
         
-        savePlaceArray = DBManager.getInstance().getNotMyPlaces()
+        if DBManager.getInstance().getNotMyPlaces() != nil{
+             savePlaceArray = DBManager.getInstance().getNotMyPlaces()
+        }
         
         if savePlace != nil{
             latitude = savePlace?.placeLatitude

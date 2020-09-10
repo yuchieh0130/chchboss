@@ -373,12 +373,16 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         
         if tag == "editAutoStart"{
             handletime()
-            startTimeBtn.setTitle("\(showDateformatterForBtn.string(from: s))", for: .normal)
+            //startTimeBtn.setTitle("\(showDateformatterForBtn.string(from: s))", for: .normal)
+            startTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: s))"
+            endTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: e))"
             //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
             //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }else if tag == "editAutoEnd"{
             handletime()
-            endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
+            //endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
+            startTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: s))"
+            endTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: e))"
             //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
             //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }
@@ -419,33 +423,33 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
 
 extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath{
-        case [0,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoStartCell", for: indexPath) as! autoStartCell
-            cell.txtAutoStart.text = showDateformatter.string(from: s)
-            cell.selectionStyle = .none
-            return cell
-        case [0,1]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoEndCell", for: indexPath) as! autoEndCell
-            cell.txtAutoEnd.text = showDateformatter.string(from: e)
-            cell.selectionStyle = .none
-            return cell
-        case [0,2]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoCategoryCell", for: indexPath) as! autoCategoryCell
-            cell.txtAutoCategory.text = category.categoryName
-            cell.selectionStyle = .none
-            cell.accessoryType = .disclosureIndicator
-            return cell
-        case [0,3]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
-            cell.txtLocation.text = savePlace?.placeName
-            cell.selectionStyle = .none
-            cell.accessoryType = .disclosureIndicator
-            return cell
+//        case [0,0]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoStartCell", for: indexPath) as! autoStartCell
+//            cell.txtAutoStart.text = showDateformatter.string(from: s)
+//            cell.selectionStyle = .none
+//            return cell
+//        case [0,1]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoEndCell", for: indexPath) as! autoEndCell
+//            cell.txtAutoEnd.text = showDateformatter.string(from: e)
+//            cell.selectionStyle = .none
+//            return cell
+//        case [0,2]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoCategoryCell", for: indexPath) as! autoCategoryCell
+//            cell.txtAutoCategory.text = category.categoryName
+//            cell.selectionStyle = .none
+//            cell.accessoryType = .disclosureIndicator
+//            return cell
+//        case [0,3]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
+//            cell.txtLocation.text = savePlace?.placeName
+//            cell.selectionStyle = .none
+//            cell.accessoryType = .disclosureIndicator
+//            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editAutoLocationCell", for: indexPath) as! autoLocationCell
             cell.txtLocation.text = savePlace?.placeName
@@ -457,16 +461,16 @@ extension editAutoRecordViewController: UITableViewDelegate,UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 3{
-            performSegue(withIdentifier: "editAutoLocation", sender: self)
-            print("aaaaa")
-        }else if indexPath.row == 2 {
-            performSegue(withIdentifier: "editAutoCategory", sender: self)
-        }else if indexPath.row == 1 {
-            performSegue(withIdentifier: "editAutoEnd", sender: self)
-        }else if indexPath.row == 0 {
-            performSegue(withIdentifier: "editAutoStart", sender: self)
-        }
+//        if indexPath.row == 3{
+//            performSegue(withIdentifier: "editAutoLocation", sender: self)
+//            print("aaaaa")
+//        }else if indexPath.row == 2 {
+//            performSegue(withIdentifier: "editAutoCategory", sender: self)
+//        }else if indexPath.row == 1 {
+//            performSegue(withIdentifier: "editAutoEnd", sender: self)
+//        }else if indexPath.row == 0 {
+//            performSegue(withIdentifier: "editAutoStart", sender: self)
+//        }
         
     }
     
