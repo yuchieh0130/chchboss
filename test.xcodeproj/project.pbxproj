@@ -75,6 +75,8 @@
 		6B6BB1BA225FAD05006F384C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6BB1B8225FAD05006F384C /* LaunchScreen.storyboard */; };
 		6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1C1225FE06B006F384C /* DateCell.swift */; };
 		D7EEB6892459874E00D72B63 /* searchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */; };
+		FF053275250B79A100EFE32F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF053274250B79A100EFE32F /* HealthKit.framework */; };
+		FF275EBD24FF510500C16A79 /* HealthKitAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF275EBC24FF510500C16A79 /* HealthKitAuthorization.swift */; };
 		FF76548E24AE0B4D00663E58 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76548D24AE0B4D00663E58 /* LoginViewController.swift */; };
 		FF76549124AE0E1E00663E58 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76549024AE0E1E00663E58 /* SignupViewController.swift */; };
 /* End PBXBuildFile section */
@@ -159,6 +161,9 @@
 		6B6BB1C1225FE06B006F384C /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		829C947D900C99017F760445 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
 		D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationViewController.swift; sourceTree = "<group>"; };
+		FF053273250B79A100EFE32F /* testDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = testDebug.entitlements; sourceTree = "<group>"; };
+		FF053274250B79A100EFE32F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		FF275EBC24FF510500C16A79 /* HealthKitAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitAuthorization.swift; sourceTree = "<group>"; };
 		FF76548D24AE0B4D00663E58 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FF76549024AE0E1E00663E58 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				633B293E1DFBBA86A0411B82 /* libPods-test.a in Frameworks */,
+				FF053275250B79A100EFE32F /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +320,7 @@
 		6B6BB1AE225FAD04006F384C /* test */ = {
 			isa = PBXGroup;
 			children = (
+				FF053273250B79A100EFE32F /* testDebug.entitlements */,
 				FF76548F24AE0B7000663E58 /* Login */,
 				6B6BB1B6225FAD05006F384C /* Assets.xcassets */,
 				6B6BB1AF225FAD04006F384C /* AppDelegate.swift */,
@@ -328,6 +335,7 @@
 				4BF6625424613D8F0021D85E /* tabBar.swift */,
 				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
 				4B9FBA3124B30E690024D7CD /* NetworkController.swift */,
+				FF275EBC24FF510500C16A79 /* HealthKitAuthorization.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
 				582341EC242B5CF400FFC83B /* Calendar */,
@@ -343,6 +351,7 @@
 		DCE5271C797DC78BCA7A7ACD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FF053274250B79A100EFE32F /* HealthKit.framework */,
 				2145D7CF217110738423175A /* libPods-test.a */,
 			);
 			name = Frameworks;
@@ -495,6 +504,7 @@
 				4BA50280246B88D800F70144 /* doneTaskTableViewCell.swift in Sources */,
 				4B9FBA3024ACE18B0024D7CD /* timeline.swift in Sources */,
 				4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */,
+				FF275EBD24FF510500C16A79 /* HealthKitAuthorization.swift in Sources */,
 				4B9FB4FC24E2CEF800DBFAFA /* editMyPlaceTableViewCell.swift in Sources */,
 				4B351A4724188BE9003A474A /* FMDatabase.m in Sources */,
 				6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */,
@@ -695,14 +705,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = test/testDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HJ429Z62LX;
+				DEVELOPMENT_TEAM = VN4HX374FA;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo22556.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo256.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -718,13 +729,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HJ429Z62LX;
+				DEVELOPMENT_TEAM = VN4HX374FA;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo22556.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo256.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
