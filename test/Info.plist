@@ -38,6 +38,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Press OK to take photo</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>We will use your health information to provide health recommendation</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We recommend you choosing "Always" to have a better experience. (This will not consume more electricity)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

@@ -22,6 +22,7 @@ class LoginViewController: UIViewController {
     //let networkController = NetworkController()
     let signUpView = SignupViewController()
     
+    var authCheck = true
     
     @IBOutlet var logInbtn: UIButton!
     @IBOutlet var signUpBtn: UIButton!
@@ -175,6 +176,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        authorizeHealthKit()
         
         // Create Login Button.
         let loginButton = LoginButton()
@@ -430,4 +432,25 @@ extension LoginViewController: LoginButtonDelegate {
         }
     }
     
+}
+
+extension LoginViewController {
+    private func authorizeHealthKit() {
+        HealthKitAuthorization.authorizeHealthKit { (authorized, error, check) in
+        guard authorized else {
+          let baseMessage = "HealthKit Authorization Failed"
+          if let error = error {
+            print("\(baseMessage). Reason: \(error.localizedDescription)")
+          } else {
+            print(baseMessage)
+          }
+          if check == true {
+            self.authCheck = true
+          } else {
+            self.authCheck = false
+          }
+          return
+        }
+      }
+    }
 }
