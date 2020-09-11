@@ -80,6 +80,11 @@ class DatePopupViewController: UIViewController {
             datePicker.date = showDate
             let todayDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
             datePicker.maximumDate = todayDate
+        }else if tag == "combineChart"{
+            datePicker.datePickerMode = .date
+            datePicker.date = showDate
+            let todayDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
+            datePicker.maximumDate = todayDate
         }else{
             datePicker.datePickerMode = .dateAndTime
             datePicker.date = showDate

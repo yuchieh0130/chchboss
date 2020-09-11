@@ -23,6 +23,8 @@ class PickerViewYearController: UIViewController{
         
         if tag == "analysisYear"{
             pickerViewYear.dateYear = "\(pickerViewYear.year)"
+        }else if tag == "combineChartYear"{
+            pickerViewYear.dateYear = "\(pickerViewYear.year)"
         }
     }
     

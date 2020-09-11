@@ -10,12 +10,25 @@ import Foundation
 import UIKit
 import Charts
 
-class combineChartViewController: UIViewController, ChartViewDelegate{
+class combineChartViewController: UIViewController, ChartViewDelegate, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet var combineChart: CombinedChartView!
-    @IBOutlet var categoryName: UILabel!
     @IBOutlet var segCon: UISegmentedControl!
     @IBOutlet var timeLabel: UILabel!  //顯示時長
+    @IBOutlet var tableView: UITableView!
+    
+    var tag: String?
+    var showTimeLabel: String = ""
+    var date = Date()+86400
+    var showDate: String = ""
+    var startOfWeek = Date().startOfWeek
+    var endOfWeek = Date().endOfWeek
+    var showDayformatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone.ReferenceType.system
+        return formatter
+    }
     
     var showCategory = [CategoryModel]()
     var showCategoryStr = [String]()
@@ -26,6 +39,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     var segConIndex = 0
     var years: [String]!
     var currentYear = Calendar.current.component(.year, from: Date())
+    var currentMonth = Calendar.current.component(.month, from: Date())
+    var monthsFullName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -37,12 +52,34 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         combineChart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+//        super.viewWillAppear(animated)
+//        self.navigationController?.navigationBar.tintColor = UIColor.white
+//        self.navigationController?.navigationBar.barTintColor = color
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         segCon.translatesAutoresizingMaskIntoConstraints = false
         combineChart.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        
+        navigationItem.title = name
+        
+        let categoryLabel = UIButton.init(type: .custom)
+        categoryLabel.setTitle("\(name)", for: .normal)
+        categoryLabel.setTitleColor(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), for: .normal)
+        categoryLabel.titleLabel?.font = UIFont(name: "Helvetica", size: 20)
+        
+        let currentDate = showDayformatter.string(from: Date())
+        showTimeLabel = currentDate
     
         var years: [String] = []
         if years.count == 0 {
@@ -56,8 +93,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         
         timeLabel.isHidden = false
         combineChart.isHidden = true
-        
-        categoryName.text = name
         timeLabel.textColor = UIColor.black
         timeLabel.backgroundColor = color
         timeLabel.text = time
@@ -91,9 +126,13 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         if getIndex == 0{
             timeLabel.isHidden = false
             combineChart.isHidden = true
+            showTimeLabel = showDayformatter.string(from: Date())
         }else if getIndex == 1{
             timeLabel.isHidden = true
             combineChart.isHidden = false
+            let startWeekDay = showDayformatter.string(from: startOfWeek!)
+            let endWeekDay = showDayformatter.string(from: endOfWeek!)
+            showTimeLabel = "\(startWeekDay) ~ \(endWeekDay)"
             
             let data = CombinedChartData()
             data.lineData = generateLineData(dataPoints: days, values: value)
@@ -112,6 +151,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         }else if getIndex == 2{
             timeLabel.isHidden = true
             combineChart.isHidden = false
+            showTimeLabel = monthsFullName[currentMonth - 1] + " \(currentYear)"
             
             let data = CombinedChartData()
             data.lineData = generateLineData(dataPoints: months, values: value)
@@ -130,6 +170,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
         }else if getIndex == 3{
             timeLabel.isHidden = true
             combineChart.isHidden = false
+            showTimeLabel = "\(currentYear)"
             
             let data = CombinedChartData()
             data.lineData = generateLineData(dataPoints: years, values: value)
@@ -146,7 +187,90 @@ class combineChartViewController: UIViewController, ChartViewDelegate{
             combineChart.xAxis.labelCount = 12
             combineChart.xAxis.valueFormatter = self
         }
-        
+        self.tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "combineChartTableViewCell", for: indexPath) as! combineChartTableViewCell
+        cell.dateLabel.text = showTimeLabel
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if segConIndex == 0{
+            performSegue(withIdentifier: "combineChartDatePopUp", sender: self)
+        }else if segConIndex == 1{
+            performSegue(withIdentifier: "combineChartWeek", sender: self)
+        }else if segConIndex == 2{
+            performSegue(withIdentifier: "combineChartMonthYear", sender: self)
+        }else if segConIndex == 3{
+            performSegue(withIdentifier: "combineChartYear", sender: self)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        tag = nil
+        if (segue.identifier == "combineChartDatePopUp"){
+            if let vc = segue.destination as? DatePopupViewController{
+                vc.tag = "combineChart"
+                vc.showDate = showDayformatter.date(from: showTimeLabel)!
+            }
+        }
+        if (segue.identifier == "combineChartMonthYear"){
+            if let vc = segue.destination as? PickerViewController{
+                vc.tag = "combineChartMonthYear"
+            }
+        }
+        if (segue.identifier == "combineChartYear"){
+            if let vc = segue.destination as? PickerViewYearController{
+                vc.tag = "combineChartYear"
+            }
+        }
+        if (segue.identifier == "combineChartWeek"){
+            if let vc = segue.destination as? PickerViewWeekViewController{
+                vc.tag = "analysisWeek"
+            }
+        }
+    }
+    
+    @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
+        if segue.identifier == "timeSegueBack"{
+            if segConIndex == 0{
+                let vc = segue.source as? DatePopupViewController
+                date = vc!.datePicker.date
+                tag = vc?.tag
+                if tag == "combineChart"{
+                    showCategory = DBManager.getInstance().getAllCategory()
+                    showTimeLabel = showDayformatter.string(from: date)
+                }
+            }else if segConIndex == 1{
+                let vc = segue.source as? PickerViewWeekViewController
+                tag = vc?.tag
+                if tag == "combineChartWeek"{
+                    showCategory = DBManager.getInstance().getAllCategory()
+                    showTimeLabel = (vc!.pickerViewWeek.dateWeek)
+                }
+            }else if segConIndex == 2{
+                let vc = segue.source as? PickerViewController
+                tag = vc?.tag
+                if tag == "combineChartMonthYear"{
+                    showCategory = DBManager.getInstance().getAllCategory()
+                    showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
+                }
+            }else if segConIndex == 3{
+                let vc = segue.source as? PickerViewYearController
+                tag = vc?.tag
+                if tag == "combineChartYear"{
+                    showTimeLabel = vc!.pickerViewYear.dateYear
+                }
+            }
+            self.tableView.reloadData()
+        }
     }
     
     func generateLineData(dataPoints: [String], values: [Double]) -> LineChartData{

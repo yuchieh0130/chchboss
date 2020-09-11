@@ -12,3 +12,7 @@ import UIKit
 class analysisTableViewCell: UITableViewCell {
     @IBOutlet var timeLabel: UILabel!
 }
+
+class combineChartTableViewCell: UITableViewCell {
+    @IBOutlet var dateLabel: UILabel!
+}

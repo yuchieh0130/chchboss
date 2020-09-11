@@ -113,6 +113,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartWeek.translatesAutoresizingMaskIntoConstraints = false
         pieChartMonth.translatesAutoresizingMaskIntoConstraints = false
         pieChartYear.translatesAutoresizingMaskIntoConstraints = false
+        
+        let categoryBtn = UIBarButtonItem(title: "Category", style: .plain, target: self, action: #selector(categoryBtn(_:)))
+        navigationItem.rightBarButtonItems = [categoryBtn]
 //        let categoryTotal = values0.reduce(0, +)
 //        total = categoryTotal
 //        let categoryPercentage = values0.map{(round(($0/total)*1000))/10}
@@ -162,6 +165,10 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         if self.tableView.tableFooterView == nil {
             tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
+    }
+    
+    @objc func categoryBtn(_ sender: Any){
+        performSegue(withIdentifier: "analysisToCategory", sender: self)
     }
     
     @IBAction func segConChoose(_ sender: Any) {
@@ -431,25 +438,29 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             if let dataSet0 = pieChart.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet0.entryIndex(entry: entry)
                 indexDay = sliceIndex
+                pieChart.centerText = "\(showCategory[indexDay].categoryName)\n\(valuesDay[indexDay])"
+                pieChart.centerTextRadiusPercent = 100
             }
         }else if segConIndex == 1{
             if let dataSet1 = pieChartWeek.data?.dataSets[ highlight.dataSetIndex] {
-                 let sliceIndex: Int = dataSet1.entryIndex(entry: entry)
-                 indexWeek = sliceIndex
+                let sliceIndex: Int = dataSet1.entryIndex(entry: entry)
+                indexWeek = sliceIndex
+                pieChartWeek.centerText = "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])"
              }
         }else if segConIndex == 2{
             if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
-                 let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
-                 indexMonth = sliceIndex
-                pieChartMonth.centerText = "\(sliceIndex)"
+                let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
+                indexMonth = sliceIndex
+                pieChartMonth.centerText = "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])"
              }
         }else if segConIndex == 3{
             if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
-                 let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
-                 indexYear = sliceIndex
+                let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
+                indexYear = sliceIndex
+                pieChartYear.centerText = "\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear])"
              }
         }
-        performSegue(withIdentifier: "analysisToCombineChart", sender: self)
+//        performSegue(withIdentifier: "analysisToCombineChart", sender: self)
     }
     
     private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
@@ -463,28 +474,28 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         tag = nil
-        if (segue.identifier == "analysisToCombineChart"){
-            if let vc = segue.destination as? combineChartViewController{
-                vc.hidesBottomBarWhenPushed = true
-                if segConIndex == 0{
-                    vc.name = "\(showCategory[indexDay].categoryName)"
-                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexDay].categoryColor)")
-                    vc.time = "\(valuesDay[indexDay])"
-                }else if segConIndex == 1{
-                    vc.name = "\(showCategory[indexWeek].categoryName)"
-                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexWeek].categoryColor)")
-                    vc.time = "\(valuesWeek[indexWeek])"
-                }else if segConIndex == 2{
-                    vc.name = "\(showCategory[indexMonth].categoryName)"
-                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexMonth].categoryColor)")
-                    vc.time = "\(valuesMonth[indexMonth])"
-                }else if segConIndex == 3{
-                    vc.name = "\(showCategory[indexYear].categoryName)"
-                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexYear].categoryColor)")
-                    vc.time = "\(valuesYear[indexYear])"
-                }
-            }
-        }
+//        if (segue.identifier == "analysisToCombineChart"){
+//            if let vc = segue.destination as? combineChartViewController{
+//                vc.hidesBottomBarWhenPushed = true
+//                if segConIndex == 0{
+//                    vc.name = "\(showCategory[indexDay].categoryName)"
+//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexDay].categoryColor)")
+//                    vc.time = "\(valuesDay[indexDay])"
+//                }else if segConIndex == 1{
+//                    vc.name = "\(showCategory[indexWeek].categoryName)"
+//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexWeek].categoryColor)")
+//                    vc.time = "\(valuesWeek[indexWeek])"
+//                }else if segConIndex == 2{
+//                    vc.name = "\(showCategory[indexMonth].categoryName)"
+//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexMonth].categoryColor)")
+//                    vc.time = "\(valuesMonth[indexMonth])"
+//                }else if segConIndex == 3{
+//                    vc.name = "\(showCategory[indexYear].categoryName)"
+//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexYear].categoryColor)")
+//                    vc.time = "\(valuesYear[indexYear])"
+//                }
+//            }
+//        }
         if (segue.identifier == "analysisDatePopUp"){
             if let vc = segue.destination as? DatePopupViewController{
                 vc.tag = "analysis"
@@ -504,6 +515,11 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         if (segue.identifier == "analysisPickerViewWeek"){
             if let vc = segue.destination as? PickerViewWeekViewController{
                 vc.tag = "analysisWeek"
+            }
+        }
+        if (segue.identifier == "analysisToCategory"){
+            if let vc = segue.destination as? categoryViewController{
+                vc.tag = "analysisToCategory"
             }
         }
         
@@ -579,8 +595,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     endWeek = "\(e) 23:59"
                 }
             }
-            print(startWeek)
-            print(endWeek)
             let trackTimeWeek = round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
             valuesWeek.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
@@ -623,6 +637,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         if segue.identifier == "timeSegueBack"{
             if segConIndex == 0{
+                pieChart.centerText = nil
                 let vc = segue.source as? DatePopupViewController
                 date = vc!.datePicker.date
                 tag = vc?.tag
@@ -657,6 +672,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     }
                 }
             }else if segConIndex == 1{
+                pieChartWeek.centerText = nil
                 let vc = segue.source as? PickerViewWeekViewController
                 tag = vc?.tag
                 if tag == "analysisWeek"{
@@ -691,6 +707,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     }
                 }
             }else if segConIndex == 2{
+                pieChartMonth.centerText = nil
                 let vc = segue.source as? PickerViewController
                 tag = vc?.tag
                 if tag == "analysisMonthYear"{
@@ -729,6 +746,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     }
                 }
             }else if segConIndex == 3{
+                pieChartYear.centerText = nil
                 let vc = segue.source as? PickerViewYearController
                 tag = vc?.tag
                 if tag == "analysisYear"{

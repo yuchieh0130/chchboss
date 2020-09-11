@@ -12,7 +12,8 @@ import UIKit
 class categoryViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     var showCategory = [CategoryModel]()
-    
+    var tag: String?
+    var row = 0
     
     override func viewDidLoad() {
         
@@ -52,12 +53,27 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
         cell.imageView.image = animatedImage
         //cell.imageView.image = UIImage(named: "\(showCategory[indexPath.row].category_image)")
         cell.circle.backgroundColor = hexStringToUIColor(hex: "\(showCategory[indexPath.row].categoryColor)")
+        row = indexPath.row
         return cell
         //        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if tag == "analysisToCategory"{
+            performSegue(withIdentifier: "categoryToCombineChart", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "categoryToCombineChart"){
+            if let vc = segue.destination as? combineChartViewController{
+                let indexPath = collectionView.indexPathsForSelectedItems
+                vc.hidesBottomBarWhenPushed = true
+                vc.name = "\(showCategory[indexPath![0].row].categoryName)"
+                vc.color = hexStringToUIColor (hex:"\(showCategory[indexPath![0].row].categoryColor)")
+                vc.time = "time"
+            }
+        }
     }
     
     func hexStringToUIColor (hex:String) -> UIColor {

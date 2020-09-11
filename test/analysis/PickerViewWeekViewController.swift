@@ -35,6 +35,8 @@ class PickerViewWeekViewController: UIViewController{
         let end = dateFormat.string(from: pickerViewWeek.endWeek!)
         if tag == "analysisWeek"{
             pickerViewWeek.dateWeek = "\(start) ~ \(end)"
+        }else if tag == "combineChartWeek"{
+            pickerViewWeek.dateWeek = "\(start) ~ \(end)"
         }
     }
     

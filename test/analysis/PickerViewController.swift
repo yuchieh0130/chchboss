@@ -24,6 +24,8 @@ class PickerViewController: UIViewController{
         
         if tag == "analysisMonthYear"{
             pickerViewMonthYear.dateMonthYear = "\(monthName[pickerViewMonthYear.month-1]) \(pickerViewMonthYear.year)"
+        }else if tag == "combineChartMonthYear"{
+            pickerViewMonthYear.dateMonthYear = "\(monthName[pickerViewMonthYear.month-1]) \(pickerViewMonthYear.year)"
         }
     }
     
