@@ -322,14 +322,17 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     //    }
     
     func enterRegion(region: CLRegion){
-        var placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
-        var category2 = "entering myPlace"
+        var placeEntering : PlaceModel?
+        var category2 = ""
         
         if region.identifier.contains("c"){
             var id = region.identifier
             id.remove(at: id.startIndex)
             placeEntering = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
             category2 = "entering commonPlace"
+        }else{
+            placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+            category2 = "entering myPlace"
         }
         
         let latitude = placeEntering!.placeLatitude
@@ -365,14 +368,17 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     }
     
     func exitRegion(region: CLRegion){
-        var placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
-        var category2 = "exiting myPlace"
+        var placeExiting : PlaceModel?
+        var category2 = ""
         
         if region.identifier.contains("c"){
             var id = region.identifier
             id.remove(at: id.startIndex)
             placeExiting = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
             category2 = "exiting commonPlace"
+        }else{
+            placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+            category2 = "exiting myPlace"
         }
         
         let latitude = placeExiting!.placeLatitude
