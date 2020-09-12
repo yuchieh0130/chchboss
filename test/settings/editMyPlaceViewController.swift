@@ -157,7 +157,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             alertMessage()
         }else{
             let controller = UIAlertController(title: "Friendly Reminders 🥕", message: "Check whether the marker on the map is in the correct region of your place \"\(self.myPlaceName)\"" , preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "add", style: .default){_ in
+            let okAction = UIAlertAction(title: "Add", style: .default){_ in
                 let modelInfo = PlaceModel(placeId: self.id, placeName: self.myPlaceName, placeCategory: self.myPlaceCategory.lowercased(), placeLongitude: self.myPlaceLongitude, placeLatitude: self.myPlaceLatitude, regionRadius: self.regionRadius, myPlace: true)
                 let id = DBManager.getInstance().addPlace(modelInfo)
                 self.startMonitorRegion(placeId: id)

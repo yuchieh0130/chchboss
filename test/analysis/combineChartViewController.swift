@@ -44,14 +44,16 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    var monthDays: [String] = []
     var value = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
+    var valueForMonth = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        combineChart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+//        combineChart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
 //        super.viewWillAppear(animated)
 //        self.navigationController?.navigationBar.tintColor = UIColor.white
 //        self.navigationController?.navigationBar.barTintColor = color
@@ -153,6 +155,38 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             combineChart.isHidden = false
             showTimeLabel = monthsFullName[currentMonth - 1] + " \(currentYear)"
             
+            let dateComponents = DateComponents(year: currentYear, month: currentMonth)
+            let dateMonthYear = Calendar.current.date(from: dateComponents)!
+            let range = Calendar.current.range(of: .day, in: .month, for: dateMonthYear)!
+            let numDays = range.count
+            var dayOfMonth = 1
+            for (_, _) in monthDays.enumerated(){
+                monthDays = []
+            }
+            for _ in 1...numDays{
+                monthDays.append("\(dayOfMonth)")
+                dayOfMonth += 1
+            }
+            
+            let data = CombinedChartData()
+            data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth)
+            data.barData = generateBarData(dataPoints: monthDays, values: valueForMonth)
+            combineChart.data = data
+            //x axis
+            combineChart.xAxis.labelPosition = .bothSided
+            combineChart.xAxis.drawGridLinesEnabled = true
+            combineChart.xAxis.granularityEnabled = true
+            combineChart.xAxis.granularity = 1.0  //距離
+            combineChart.xAxis.axisMinimum = data.xMin - 0.5
+            combineChart.xAxis.axisMaximum = data.xMax + 0.5
+            combineChart.xAxis.centerAxisLabelsEnabled = false
+            combineChart.xAxis.labelCount = numDays+1
+            combineChart.xAxis.valueFormatter = self
+        }else if getIndex == 3{
+            timeLabel.isHidden = true
+            combineChart.isHidden = false
+            showTimeLabel = "\(currentYear)"
+            
             let data = CombinedChartData()
             data.lineData = generateLineData(dataPoints: months, values: value)
             data.barData = generateBarData(dataPoints: months, values: value)
@@ -166,25 +200,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             combineChart.xAxis.axisMaximum = data.xMax + 0.5
             combineChart.xAxis.centerAxisLabelsEnabled = false
             combineChart.xAxis.labelCount = 13
-            combineChart.xAxis.valueFormatter = self
-        }else if getIndex == 3{
-            timeLabel.isHidden = true
-            combineChart.isHidden = false
-            showTimeLabel = "\(currentYear)"
-            
-            let data = CombinedChartData()
-            data.lineData = generateLineData(dataPoints: years, values: value)
-            data.barData = generateBarData(dataPoints: years, values: value)
-            combineChart.data = data
-            //x axis
-            combineChart.xAxis.labelPosition = .bothSided
-            combineChart.xAxis.drawGridLinesEnabled = true
-            combineChart.xAxis.granularityEnabled = true
-            combineChart.xAxis.granularity = 1.0  //距離
-            combineChart.xAxis.axisMinimum = data.xMin - 0.5
-            combineChart.xAxis.axisMaximum = data.xMax + 0.5
-            combineChart.xAxis.centerAxisLabelsEnabled = false
-            combineChart.xAxis.labelCount = 12
             combineChart.xAxis.valueFormatter = self
         }
         self.tableView.reloadData()
@@ -261,6 +276,33 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 if tag == "combineChartMonthYear"{
                     showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
+                    
+                    let dateComponents = DateComponents(year: vc?.pickerViewMonthYear.year, month: vc?.pickerViewMonthYear.month)
+                    let dateMonthYear = Calendar.current.date(from: dateComponents)!
+                    let range = Calendar.current.range(of: .day, in: .month, for: dateMonthYear)!
+                    let numDays = range.count
+                    var dayOfMonth = 1
+                    for (_, _) in monthDays.enumerated(){
+                        monthDays = []
+                    }
+                    for _ in 1...numDays{
+                        monthDays.append("\(dayOfMonth)")
+                        dayOfMonth += 1
+                    }
+                    let data = CombinedChartData()
+                    data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth)
+                    data.barData = generateBarData(dataPoints: monthDays, values: valueForMonth)
+                    combineChart.data = data
+                    //x axis
+                    combineChart.xAxis.labelPosition = .bothSided
+                    combineChart.xAxis.drawGridLinesEnabled = true
+                    combineChart.xAxis.granularityEnabled = true
+                    combineChart.xAxis.granularity = 1.0  //距離
+                    combineChart.xAxis.axisMinimum = data.xMin - 0.5
+                    combineChart.xAxis.axisMaximum = data.xMax + 0.5
+                    combineChart.xAxis.centerAxisLabelsEnabled = false
+                    combineChart.xAxis.labelCount = numDays+1
+                    combineChart.xAxis.valueFormatter = self
                 }
             }else if segConIndex == 3{
                 let vc = segue.source as? PickerViewYearController
@@ -353,13 +395,16 @@ extension combineChartViewController: IAxisValueFormatter {
         if segConIndex == 1{
             let moduDay = Double(value).truncatingRemainder(dividingBy: Double(days.count))
             return days[Int(moduDay)]
+        }else if segConIndex == 2{
+            let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(monthDays.count))
+            return monthDays[Int(moduMonth)]
         }else if segConIndex == 3{
             let moduYear =
-                Double(value).truncatingRemainder(dividingBy: Double(years.count))
-            return years[Int(moduYear)]
+                Double(value).truncatingRemainder(dividingBy: Double(months.count))
+            return months[Int(moduYear)]
         }
-        let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
-        return months[Int(moduMonth)]
+        let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(years.count))
+        return years[Int(moduMonth)]
         }
 }
 
