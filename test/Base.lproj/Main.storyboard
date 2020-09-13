@@ -1218,12 +1218,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="gwz-GR-tNU">
+                                                    <rect key="frame" x="371" y="17" width="23" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="23" id="Osg-JF-IwO"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="zwM-4O-A7S" secondAttribute="bottom" id="CcP-ji-b2q"/>
                                                 <constraint firstAttribute="trailing" secondItem="zwM-4O-A7S" secondAttribute="trailing" constant="20" symbolic="YES" id="Emc-V2-gS5"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gwz-GR-tNU" secondAttribute="trailing" constant="-1" id="F1S-0F-Ze5"/>
                                                 <constraint firstItem="zwM-4O-A7S" firstAttribute="leading" secondItem="oQP-lF-JDg" secondAttribute="leading" constant="20" symbolic="YES" id="NgB-kG-Vod"/>
                                                 <constraint firstItem="zwM-4O-A7S" firstAttribute="top" secondItem="oQP-lF-JDg" secondAttribute="top" id="VZX-sL-2jk"/>
+                                                <constraint firstItem="gwz-GR-tNU" firstAttribute="centerY" secondItem="zwM-4O-A7S" secondAttribute="centerY" id="bVi-6H-n5R"/>
+                                                <constraint firstItem="gwz-GR-tNU" firstAttribute="top" secondItem="oQP-lF-JDg" secondAttribute="topMargin" constant="6" id="vPv-o5-6Ay"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1392,16 +1401,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHy-VG-tPp">
-                                                    <rect key="frame" x="20" y="11" width="374" height="33"/>
+                                                    <rect key="frame" x="0.0" y="11" width="414" height="33"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="MT5-9d-12Y">
+                                                    <rect key="frame" x="371" y="17" width="23" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="23" id="nAs-K3-hRh"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="vHy-VG-tPp" firstAttribute="centerY" secondItem="fq6-rF-2vi" secondAttribute="centerY" id="7Uh-Lw-yZ4"/>
-                                                <constraint firstItem="vHy-VG-tPp" firstAttribute="leading" secondItem="fq6-rF-2vi" secondAttribute="leadingMargin" id="dG5-YL-jPL"/>
+                                                <constraint firstItem="MT5-9d-12Y" firstAttribute="trailing" secondItem="fq6-rF-2vi" secondAttribute="trailingMargin" id="Mza-Eq-zp0"/>
+                                                <constraint firstItem="vHy-VG-tPp" firstAttribute="leading" secondItem="fq6-rF-2vi" secondAttribute="leadingMargin" constant="-20" id="dG5-YL-jPL"/>
                                                 <constraint firstItem="vHy-VG-tPp" firstAttribute="top" secondItem="fq6-rF-2vi" secondAttribute="topMargin" id="fnF-MC-wBX"/>
+                                                <constraint firstItem="MT5-9d-12Y" firstAttribute="centerY" secondItem="vHy-VG-tPp" secondAttribute="centerY" id="ich-6v-H4A"/>
+                                                <constraint firstItem="MT5-9d-12Y" firstAttribute="top" secondItem="fq6-rF-2vi" secondAttribute="topMargin" constant="6" id="uZd-Zl-gAZ"/>
                                                 <constraint firstItem="vHy-VG-tPp" firstAttribute="centerX" secondItem="fq6-rF-2vi" secondAttribute="centerX" id="x9d-dy-K3A"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -3657,12 +3675,12 @@
         <segue reference="jIU-gU-dL9"/>
         <segue reference="F6N-r1-0ti"/>
         <segue reference="d6S-kX-z6W"/>
-        <segue reference="Gzg-26-yUX"/>
-        <segue reference="xf9-aG-tJ0"/>
-        <segue reference="NnR-u6-Zjt"/>
+        <segue reference="lFt-3D-Ule"/>
+        <segue reference="Oag-qC-jfG"/>
+        <segue reference="U7q-In-7Hs"/>
         <segue reference="bEa-Xr-2tt"/>
         <segue reference="hhh-XW-lIo"/>
-        <segue reference="0SZ-0C-Z6S"/>
+        <segue reference="nsD-kG-Var"/>
         <segue reference="WGP-Ss-XWI"/>
         <segue reference="dh3-ww-BEF"/>
     </inferredMetricsTieBreakers>
@@ -3673,6 +3691,7 @@
         <image name="calendar.fill" width="23" height="21"/>
         <image name="calendar.task" width="23" height="22"/>
         <image name="camera.circle" catalog="system" width="128" height="121"/>
+        <image name="downArrow" width="16.666666030883789" height="16.666666030883789"/>
         <image name="minus" catalog="system" width="128" height="24"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="pin" width="35" height="35"/>
