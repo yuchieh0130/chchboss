@@ -138,10 +138,10 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
                 }
             }
             let lastSample = sample.last as? HKCategorySample
-            let inBed = lastSample!.value == HKCategoryValueSleepAnalysis.inBed.rawValue
-            let asleep = lastSample!.value == HKCategoryValueSleepAnalysis.asleep.rawValue
-            let sleepStartDate = lastSample!.startDate
-            let sleepEndDate = lastSample!.endDate
+            let inBed = lastSample?.value == HKCategoryValueSleepAnalysis.inBed.rawValue
+            let asleep = lastSample?.value == HKCategoryValueSleepAnalysis.asleep.rawValue
+            let sleepStartDate = lastSample?.startDate
+            let sleepEndDate = lastSample?.endDate
             self.user.inBedTime = inBed
             self.user.asleepTime = asleep
             self.user.sleepStart = sleepStartDate
