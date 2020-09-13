@@ -76,6 +76,7 @@
 		6B6BB1C2225FE06B006F384C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BB1C1225FE06B006F384C /* DateCell.swift */; };
 		D7EEB6892459874E00D72B63 /* searchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */; };
 		FF053275250B79A100EFE32F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF053274250B79A100EFE32F /* HealthKit.framework */; };
+		FF053277250E0AD800EFE32F /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF053276250E0AD800EFE32F /* UserController.swift */; };
 		FF275EBD24FF510500C16A79 /* HealthKitAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF275EBC24FF510500C16A79 /* HealthKitAuthorization.swift */; };
 		FF76548E24AE0B4D00663E58 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76548D24AE0B4D00663E58 /* LoginViewController.swift */; };
 		FF76549124AE0E1E00663E58 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76549024AE0E1E00663E58 /* SignupViewController.swift */; };
@@ -163,6 +164,7 @@
 		D7EEB6882459874E00D72B63 /* searchLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationViewController.swift; sourceTree = "<group>"; };
 		FF053273250B79A100EFE32F /* testDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = testDebug.entitlements; sourceTree = "<group>"; };
 		FF053274250B79A100EFE32F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		FF053276250E0AD800EFE32F /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		FF275EBC24FF510500C16A79 /* HealthKitAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitAuthorization.swift; sourceTree = "<group>"; };
 		FF76548D24AE0B4D00663E58 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FF76549024AE0E1E00663E58 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				4B855D0B2438477C001B80C7 /* tabBarController.swift */,
 				4B9FBA3124B30E690024D7CD /* NetworkController.swift */,
 				FF275EBC24FF510500C16A79 /* HealthKitAuthorization.swift */,
+				FF053276250E0AD800EFE32F /* UserController.swift */,
 				4B97DF7F24176957005BD787 /* fmdb */,
 				582341EA242B5C5C00FFC83B /* model */,
 				582341EC242B5CF400FFC83B /* Calendar */,
@@ -502,6 +505,7 @@
 				4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */,
 				4B6C44192472EAB10009C281 /* TrackModel.swift in Sources */,
 				4BA50280246B88D800F70144 /* doneTaskTableViewCell.swift in Sources */,
+				FF053277250E0AD800EFE32F /* UserController.swift in Sources */,
 				4B9FBA3024ACE18B0024D7CD /* timeline.swift in Sources */,
 				4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */,
 				FF275EBD24FF510500C16A79 /* HealthKitAuthorization.swift in Sources */,
@@ -713,7 +717,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo256.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss444.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -735,7 +739,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchbossmo256.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss444.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
