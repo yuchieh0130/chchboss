@@ -51,7 +51,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
         }else{
             btnSelectAll.title = "Select All"
         }
-        self.navigationItem.leftBarButtonItems = [btnSelectAll]
+        self.navigationItem.rightBarButtonItems = [btnSelectAll]
     }
 
     @objc func btnSelectDidTap(){
@@ -161,12 +161,14 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             editButtonItem.title = "Cancel"
             self.toolbarItems = [flexible, UIBarButtonItem(customView: deleteButton), flexible]
             navigationItem.hidesBackButton = true
-            navigationItem.leftBarButtonItems = [btnSelectAll]
+            navigationItem.rightBarButtonItems = [btnSelectAll]
+            navigationItem.leftBarButtonItems = [editButtonItem]
         }else if tableView.isEditing == false{
             editButtonItem.title = "Edit"
             self.navigationController?.setToolbarHidden(true, animated: true)
             navigationItem.hidesBackButton = false
             navigationItem.leftBarButtonItems = []
+            navigationItem.rightBarButtonItems = [editButtonItem]
         }
     }
     
@@ -193,6 +195,7 @@ class doneTaskViewController: UIViewController, UITableViewDelegate, UITableView
             self.navigationController?.setToolbarHidden(true, animated: true)
             self.navigationItem.hidesBackButton = false
             self.navigationItem.leftBarButtonItems = []
+            self.navigationItem.rightBarButtonItems = [self.editButtonItem]
             }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         deleteAction.setValue(UIColor.red, forKey: "titleTextColor")

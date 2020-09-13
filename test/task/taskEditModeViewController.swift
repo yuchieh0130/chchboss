@@ -55,7 +55,7 @@ class taskEditModeViewController: UIViewController, UITableViewDelegate, UITable
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
+        let cancelBtn = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
         let selectAllBtn = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(btnSelectDidTap))
         navigationItem.rightBarButtonItems = [selectAllBtn]
         navigationItem.leftBarButtonItems = [cancelBtn]
