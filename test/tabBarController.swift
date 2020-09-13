@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Floaty
+import HealthKit
 
 class tabBarController: UITabBarController, UITabBarControllerDelegate{
 
@@ -16,8 +17,21 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
 //        super.init(coder: aDecoder)!
 //    }
     
+    let user = UserController()
+    let networkController = NetworkController()
+    
+    let date: Date = Date()
+    let dateFormatter: DateFormatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.loadAndDisplayMostRecentSleepAnalysis()
+        
+        dateFormatter.dateFormat = "yyyy/MM/dddd HH:mm"
+        dateFormatter.timeZone = TimeZone.ReferenceType.system
+        
+        
 //        self.delegate = self
         self.tabBarController?.delegate = self
             
@@ -67,6 +81,86 @@ class tabBarController: UITabBarController, UITabBarControllerDelegate{
 //            floaty.isHidden = true
 //        }
         }
+    
+    public func loadAndDisplayMostRecentSleepAnalysis() {
+        guard let sleepAnalysisType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) else {
+            print("Sleep Analysis Sample Type is no longer available in HealthKit")
+            return
+        }
+
+        UserController.getCategoryTypeData(for: sleepAnalysisType) {(sample, error) in
+            if (sample != nil){
+                print("Got Sleep")
+            }else{
+                print("Sleep Not Found ")
+            }
+            guard let sample = sample else {
+
+                if let error = error {
+                    self.displayAlert(for: error)
+                }
+                return
+            }
+
+            for each in sample {
+                if let data = each as? HKCategorySample {
+                    print(data)
+                    let inBed = data.value == HKCategoryValueSleepAnalysis.inBed.rawValue
+                    print("inbed:", inBed)
+                    let asleep = data.value == HKCategoryValueSleepAnalysis.asleep.rawValue
+                    print("asleep:", asleep)
+                    let startDate = data.startDate
+                    let startDateFormatString: String = self.dateFormatter.string(from: startDate)
+                    print("startDate:", startDateFormatString)
+                    let endDate = data.endDate
+                    let endDateFormatString: String = self.dateFormatter.string(from: endDate)
+                    print("endDate:", endDateFormatString)
+
+                    let now = NSDate()
+                    let nowTimeStamp: TimeInterval = now.timeIntervalSince1970
+                    let weekAgo = nowTimeStamp - 604800
+                    //604800 one week
+                    //86400 one day
+
+                    let startDateStamp: TimeInterval = startDate.timeIntervalSince1970
+                    let endDateStamp: TimeInterval = endDate.timeIntervalSince1970
+//                    if (startDateStamp > weekAgo && endDateStamp > weekAgo) {
+//                        let startDateStampString = String(startDateStamp)
+//                        let endDateStampString = String(endDateStamp)
+
+//                        self.networkController.postSleepData(inBed: inBed, startDate: startDateStampString, endDate: endDateStampString, session_id: self.user.session_id!) {
+//                            (status_code) in
+//                                if (status_code != nil) {
+//                                    print(status_code!)
+//                                }
+//                        }
+//                    }
+                }
+            }
+            let lastSample = sample.last as? HKCategorySample
+            let inBed = lastSample!.value == HKCategoryValueSleepAnalysis.inBed.rawValue
+            let asleep = lastSample!.value == HKCategoryValueSleepAnalysis.asleep.rawValue
+            let sleepStartDate = lastSample!.startDate
+            let sleepEndDate = lastSample!.endDate
+            self.user.inBedTime = inBed
+            self.user.asleepTime = asleep
+            self.user.sleepStart = sleepStartDate
+            self.user.sleepEnd = sleepEndDate
+        }
+    }
+    
+    private func displayAlert(for error: Error) {
+
+        let alert = UIAlertController(title: nil,
+                                      message: error.localizedDescription,
+                                      preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "O.K.",
+                                      style: .default,
+                                      handler: nil))
+
+        present(alert, animated: true, completion: nil)
+    }
     
     //讓你按中間的tab bar item 不會跑出view controller
 //    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
