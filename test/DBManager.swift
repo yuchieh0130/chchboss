@@ -919,7 +919,7 @@ class DBManager: NSObject {
         
         var locations: [LocationModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location";
+        let sqlString = "SELECT * FROM location order by location_id DESC ";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
