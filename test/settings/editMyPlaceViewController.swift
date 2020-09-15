@@ -104,6 +104,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         let update = GMSCameraUpdate.fit(circle.bounds())
         mapView.animate(with: update)
         
+        slider.setValue(Float(regionRadius), animated: true)
+        txtRegionRadius.text = "Region Size: \(Int(regionRadius)) m"
         //        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         //        circle.position = marker.position
         //        circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.2)
@@ -140,6 +142,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         myPlaceName = myPlace!.placeName
         myPlaceLongitude = myPlace!.placeLongitude
         myPlaceLatitude = myPlace!.placeLatitude
+        regionRadius = myPlace!.regionRadius
+        print(regionRadius)
     }
     
     @IBAction func myPlaceCategorySegueBack(segue: UIStoryboardSegue){
