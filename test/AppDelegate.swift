@@ -207,7 +207,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         
         self.currentSpeed = myLocationManager.location!.speed
         self.currentLocation = locations[0] as CLLocation
-        self.currentTime = Date()
+        //self.currentTime = Date()
         
         saveLocation()
         

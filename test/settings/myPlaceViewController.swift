@@ -22,6 +22,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     var placeCategory: String! = ""
     var placeLongitude: Double! = 0
     var placeLatitude: Double! = 0
+    var regionRadius: Double! = 0
     var myPlace: Bool! = true
     var noAdd = false
     var userLocation = CLLocation()
@@ -188,7 +189,7 @@ class myPlaceViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?{
         let place = self.showAllPlace![indexPath.row]
-        selectedPlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: place.placeCategory, placeLongitude: place.placeLongitude, placeLatitude: place.placeLatitude, regionRadius: 0, myPlace: place.myPlace)
+        selectedPlace = PlaceModel(placeId: place.placeId, placeName: place.placeName, placeCategory: place.placeCategory, placeLongitude: place.placeLongitude, placeLatitude: place.placeLatitude, regionRadius: place.regionRadius, myPlace: place.myPlace)
         return indexPath
     }
     
