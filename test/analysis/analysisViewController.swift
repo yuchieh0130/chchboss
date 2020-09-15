@@ -324,7 +324,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChart.usePercentValuesEnabled = false
         pieChart.transparentCircleRadiusPercent = 0.0
         pieChart.legend.enabled = false
-        pieChart.holeRadiusPercent = 0.35
+        pieChart.holeRadiusPercent = 0.7
     }
     
     func customizeCategoryChartWeek(dataPoints: [String], values: [Double]) {
@@ -359,7 +359,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartWeek.usePercentValuesEnabled = true
         pieChartWeek.transparentCircleRadiusPercent = 0.0
         pieChartWeek.legend.enabled = false
-        pieChartWeek.holeRadiusPercent = 0.35
+        pieChartWeek.holeRadiusPercent = 0.7
     }
     
     func customizeCategoryChartMonth(dataPoints: [String], values: [Double]) {
@@ -428,9 +428,10 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartYear.entryLabelColor = UIColor.black
         pieChartYear.drawEntryLabelsEnabled = false
         pieChartYear.usePercentValuesEnabled = true
+        pieChartYear.drawCenterTextEnabled = true
         pieChartYear.transparentCircleRadiusPercent = 0.0
         pieChartYear.legend.enabled = false
-        pieChartYear.holeRadiusPercent = 0.35
+        pieChartYear.holeRadiusPercent = 0.7
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
@@ -438,26 +439,37 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             if let dataSet0 = pieChart.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet0.entryIndex(entry: entry)
                 indexDay = sliceIndex
-                pieChart.centerText = "\(showCategory[indexDay].categoryName)\n\(valuesDay[indexDay])"
-                pieChart.centerTextRadiusPercent = 100
+                let style = NSMutableParagraphStyle()
+                style.alignment = NSTextAlignment.center
+                let string = NSAttributedString(string: "\(showCategory[indexDay].categoryName)\n\(valuesDay[indexDay])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                pieChart.centerAttributedText = string
             }
         }else if segConIndex == 1{
             if let dataSet1 = pieChartWeek.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet1.entryIndex(entry: entry)
                 indexWeek = sliceIndex
-                pieChartWeek.centerText = "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])"
+                let style = NSMutableParagraphStyle()
+                style.alignment = NSTextAlignment.center
+                let string = NSAttributedString(string: "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                pieChartWeek.centerAttributedText = string
              }
         }else if segConIndex == 2{
             if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
                 indexMonth = sliceIndex
-                pieChartMonth.centerText = "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])"
+                let style = NSMutableParagraphStyle()
+                style.alignment = NSTextAlignment.center
+                let string = NSAttributedString(string: "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                pieChartMonth.centerAttributedText = string
              }
         }else if segConIndex == 3{
             if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
                 indexYear = sliceIndex
-                pieChartYear.centerText = "\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear])"
+                let style = NSMutableParagraphStyle()
+                style.alignment = NSTextAlignment.center
+                let string = NSAttributedString(string: "\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                pieChartYear.centerAttributedText = string
              }
         }
 //        performSegue(withIdentifier: "analysisToCombineChart", sender: self)
