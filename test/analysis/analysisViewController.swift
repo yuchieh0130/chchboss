@@ -450,16 +450,21 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 indexWeek = sliceIndex
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])\n\(round(10*valuesWeek[indexWeek]/7)/10)", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartWeek.centerAttributedText = string
              }
         }else if segConIndex == 2{
             if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
                 indexMonth = sliceIndex
+                //selectedyear selectedmonth
+                let dateComponents = DateComponents(year: currentYear, month: currentMonth)
+                let dateMonthYear = Calendar.current.date(from: dateComponents)!
+                let range = Calendar.current.range(of: .day, in: .month, for: dateMonthYear)!
+                let numDays = range.count
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])\n\(round(10*valuesMonth[indexMonth]/Double(numDays))/10)", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartMonth.centerAttributedText = string
              }
         }else if segConIndex == 3{
@@ -638,6 +643,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 endMonth = showDateformatter.string(from: e)
             }
             let trackTimeMonth = round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
+            
             valuesMonth.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
                     valuesMonth[index] = value+trackTimeMonth
