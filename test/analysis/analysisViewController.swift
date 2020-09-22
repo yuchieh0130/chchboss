@@ -20,6 +20,11 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     @IBOutlet var pieChartYear: PieChartView!
     @IBOutlet var noDataLabel: UILabel!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var compareLabel: UILabel!
+    
+    var animatedImage: UIImage!
+    var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
+    var gifImgView: UIImageView!
     
     var showTimeLabel: String = ""
     
@@ -113,6 +118,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartWeek.translatesAutoresizingMaskIntoConstraints = false
         pieChartMonth.translatesAutoresizingMaskIntoConstraints = false
         pieChartYear.translatesAutoresizingMaskIntoConstraints = false
+        compareLabel.isHidden = true
+        compareLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let categoryBtn = UIBarButtonItem(title: "Category", style: .plain, target: self, action: #selector(categoryBtn(_:)))
         navigationItem.rightBarButtonItems = [categoryBtn]
@@ -450,27 +457,34 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 indexWeek = sliceIndex
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])\n\(round(10*valuesWeek[indexWeek]/7)/10)", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartWeek.centerAttributedText = string
              }
         }else if segConIndex == 2{
             if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
                 indexMonth = sliceIndex
-                //selectedyear selectedmonth
-                let dateComponents = DateComponents(year: currentYear, month: currentMonth)
-                let dateMonthYear = Calendar.current.date(from: dateComponents)!
-                let range = Calendar.current.range(of: .day, in: .month, for: dateMonthYear)!
-                let numDays = range.count
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])\n\(round(10*valuesMonth[indexMonth]/Double(numDays))/10)", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 25.0)!])
                 pieChartMonth.centerAttributedText = string
+                compareLabel.isHidden = false
+                let stringOne = "You spent more time on Exercise\nthan 85% of the users."
+                let stringTwo = "85%"
+                let range = (stringOne as NSString).range(of: stringTwo)
+                let attributedText = NSMutableAttributedString.init(string: stringOne)
+                attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: hexStringToUIColor(hex: "#F3B23E"), range: range)
+                attributedText.addAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 25.0)!], range: range)
+                compareLabel.attributedText = attributedText
              }
         }else if segConIndex == 3{
             if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
                 indexYear = sliceIndex
+                category = DBManager.getInstance().getCategory(Int: Int32(indexYear))
+                animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
+                gifImgView.image = animatedImage
+                gifImgView.center = pieChartYear.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
                 let string = NSAttributedString(string: "\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
@@ -635,7 +649,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 startMonth = showDateformatter.string(from: s)
             }
             if showTrack[i].endDate.contains("-\(selectedMonth)-") == false{
-//                let components = NSCalendar.current.dateComponents(Set<Calendar.Component>([.year, .month, .day, .hour, .minute]),from: showMonthformatter.date(from: selectedDay)!)
                 var com = DateComponents()
                 com.month = 1
                 com.second = -1
@@ -647,6 +660,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             valuesMonth.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
                     valuesMonth[index] = value+trackTimeMonth
+                    print(valuesMonth)
                 }
             }
         }

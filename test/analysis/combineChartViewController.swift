@@ -45,7 +45,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var monthDays: [String] = []
-    var value = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
+    var value = [0.0, 0.0, 0.0, 0.0, 0.0, 32.5, 49.8, 21.7, 12.1, 0.0, 0.0, 0.0]
     var valueForMonth = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
     
     override func viewDidAppear(_ animated: Bool) {
