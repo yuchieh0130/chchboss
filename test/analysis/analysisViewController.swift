@@ -297,6 +297,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = false
+            gifImgView.isHidden = true
             noDataLabel.isHidden = true
             showTimeLabel = "\(currentYear)"
         }
@@ -450,27 +451,39 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             if let dataSet0 = pieChart.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet0.entryIndex(entry: entry)
                 indexDay = sliceIndex
+                animatedImage = UIImage.animatedImageNamed("\(showCategory[indexDay].categoryName)-", duration: 1)
+                gifImgView.isHidden = false
+                gifImgView.image = animatedImage
+                gifImgView.center = pieChart.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexDay].categoryName)\n\(valuesDay[indexDay])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexDay].categoryName)\n\(valuesDay[indexDay])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChart.centerAttributedText = string
             }
         }else if segConIndex == 1{
             if let dataSet1 = pieChartWeek.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet1.entryIndex(entry: entry)
                 indexWeek = sliceIndex
+                animatedImage = UIImage.animatedImageNamed("\(showCategory[indexWeek].categoryName)-", duration: 1)
+                gifImgView.isHidden = false
+                gifImgView.image = animatedImage
+                gifImgView.center = pieChartWeek.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartWeek.centerAttributedText = string
              }
         }else if segConIndex == 2{
             if let dataSet2 = pieChartMonth.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet2.entryIndex(entry: entry)
                 indexMonth = sliceIndex
+                animatedImage = UIImage.animatedImageNamed("\(showCategory[indexMonth].categoryName)-", duration: 1)
+                gifImgView.isHidden = false
+                gifImgView.image = animatedImage
+                gifImgView.center = pieChartMonth.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 25.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartMonth.centerAttributedText = string
                 compareLabel.isHidden = false
                 let stringOne = "You spent more time on Exercise\nthan 85% of the users."
