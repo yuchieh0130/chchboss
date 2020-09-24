@@ -21,10 +21,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     @IBOutlet var noDataLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var compareLabel: UILabel!
+    @IBOutlet var gifImgView: UIImageView!
     
     var animatedImage: UIImage!
-    var category = CategoryModel(categoryId: 9, categoryName: "default", categoryColor: "Grey", category_image: "default")
-    var gifImgView: UIImageView!
     
     var showTimeLabel: String = ""
     
@@ -161,6 +160,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
         pieChartYear.isHidden = true
+        
+        gifImgView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool){
@@ -185,6 +186,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
+            gifImgView.isHidden = true
             currentDate = showDayformatter.string(from: Date())
             showTimeLabel = currentDate
             selectedDay = "\(showTimeLabel)"
@@ -220,6 +222,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
             noDataLabel.isHidden = true
+            gifImgView.isHidden = true
             startWeekDay = showDayformatter.string(from: startOfWeek!)
             endWeekDay = showDayformatter.string(from: endOfWeek!)
             showTimeLabel = "\(startWeekDay) ~ \(endWeekDay)"
@@ -255,6 +258,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
             pieChartYear.isHidden = true
+            gifImgView.isHidden = true
             showTimeLabel = months[currentMonth - 1] + " \(currentYear)"
             selectedYear = "\(currentYear)"
             if currentMonth < 10{
@@ -481,13 +485,13 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             if let dataSet3 = pieChartYear.data?.dataSets[ highlight.dataSetIndex] {
                 let sliceIndex: Int = dataSet3.entryIndex(entry: entry)
                 indexYear = sliceIndex
-                category = DBManager.getInstance().getCategory(Int: Int32(indexYear))
-                animatedImage = UIImage.animatedImageNamed("\(category.categoryName)-", duration: 1)
+                animatedImage = UIImage.animatedImageNamed("\(showCategory[indexYear].categoryName)-", duration: 1)
+                gifImgView.isHidden = false
                 gifImgView.image = animatedImage
                 gifImgView.center = pieChartYear.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartYear.centerAttributedText = string
              }
         }

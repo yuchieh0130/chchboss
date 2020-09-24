@@ -1439,6 +1439,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KuQ-ds-vIw">
+                                <rect key="frame" x="87" y="327" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ymv-rs-qLb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1478,6 +1482,7 @@
                     <navigationItem key="navigationItem" title="Analysis" id="BlT-de-YHr"/>
                     <connections>
                         <outlet property="compareLabel" destination="4cb-vC-cT7" id="RBn-eC-GSI"/>
+                        <outlet property="gifImgView" destination="KuQ-ds-vIw" id="ewe-9p-ZeF"/>
                         <outlet property="noDataLabel" destination="A4y-84-b0t" id="DVv-ZO-Wbu"/>
                         <outlet property="pieChart" destination="PnP-nn-Mu1" id="x0r-A1-waa"/>
                         <outlet property="pieChartMonth" destination="1jD-2W-Lw7" id="lIq-VE-ZoM"/>
