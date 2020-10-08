@@ -121,7 +121,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         compareLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let categoryBtn = UIBarButtonItem(title: "Category", style: .plain, target: self, action: #selector(categoryBtn(_:)))
+        let rankBtn = UIBarButtonItem(image: UIImage(named: "Trophy")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(rankBtn(_:)))
         navigationItem.rightBarButtonItems = [categoryBtn]
+        navigationItem.leftBarButtonItems = [rankBtn]
 //        let categoryTotal = values0.reduce(0, +)
 //        total = categoryTotal
 //        let categoryPercentage = values0.map{(round(($0/total)*1000))/10}
@@ -176,7 +178,11 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     }
     
     @objc func categoryBtn(_ sender: Any){
-        performSegue(withIdentifier: "analysisToCategory", sender: self)
+        performSegue(withIdentifier: "analysisToCategoryView", sender: self)
+    }
+    
+    @objc func rankBtn(_ sender: Any){
+        performSegue(withIdentifier: "analysisToRank", sender: self)
     }
     
     @IBAction func segConChoose(_ sender: Any) {
@@ -565,8 +571,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 vc.tag = "analysisWeek"
             }
         }
-        if (segue.identifier == "analysisToCategory"){
-            if let vc = segue.destination as? categoryViewController{
+        if (segue.identifier == "analysisToCategoryView"){
+            if let navVC = segue.destination as? UINavigationController, let vc = navVC.topViewController as? categoryViewController{
                 vc.tag = "analysisToCategory"
             }
         }

@@ -16,3 +16,9 @@ class analysisTableViewCell: UITableViewCell {
 class combineChartTableViewCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel!
 }
+
+class rankTableViewCell: UITableViewCell {
+    @IBOutlet var name: UILabel!
+    @IBOutlet var rank: UILabel!
+    @IBOutlet var percentage: UILabel!
+}
