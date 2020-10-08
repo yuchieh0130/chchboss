@@ -18,6 +18,8 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var winnerIcon: UIImageView!
     @IBOutlet var winnerName: UILabel!
     
+    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
@@ -33,6 +35,25 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.layer.cornerRadius = 10.0
         exitBtn.clipsToBounds = true
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
+    }
+    
+    @IBAction func swipeDownGesture(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: self.view?.window)
+        if sender.state == UIGestureRecognizer.State.began{
+            initialTouchPoint = touchPoint
+        }else if sender.state == UIGestureRecognizer.State.changed{
+            if touchPoint.y - initialTouchPoint.y > 0{
+                self.view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y, width: self.view.frame.width, height: self.view.frame.height)
+            }
+        }else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled{
+            if touchPoint.y - initialTouchPoint.y > 100{
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                })
+            }
+        }
     }
     
     @objc func exit(){
