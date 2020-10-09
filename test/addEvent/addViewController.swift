@@ -495,7 +495,7 @@ class addViewController : UIViewController {
         case "add":
             let no = UNMutableNotificationContent()
             no.title = "Event Notification"
-            no.body = "name: " + name + "\ntime: " + startDate + startTime
+            no.body = "Name: " + name + "\nTime: " + startDate + " " + startTime
             for i in 0...notificationIndex.count-1{
                 var notificationid = ""
                 if event == nil{

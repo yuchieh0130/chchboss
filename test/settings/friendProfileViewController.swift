@@ -11,10 +11,13 @@ import UIKit
 
 class friendProfileViewController: UIViewController {
     
+    @IBOutlet var friendName: UILabel!
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        friendName.layer.cornerRadius = 10.0
+        friendName.clipsToBounds = true
     }
     
     

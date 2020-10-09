@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import FacebookLikeReaction
 
 class rankViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
@@ -34,15 +33,6 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.layer.cornerRadius = 10.0
         exitBtn.clipsToBounds = true
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
-        
-        let btnReaction = UIButton(frame: CGRect(x: 100, y: 300, width: 200, height: 30))
-        btnReaction.setTitle("Long Press here", for: .normal)
-        btnReaction.setTitleColor(UIColor.red, for: .normal)
-        view.addSubview(btnReaction)
-
-        let reactionView = ReactionView()
-        let reactions: [Reaction] = [Reaction(title: "Study", imageName: "Study-3"), Reaction(title: "Leisure", imageName: "Leisure-3"), Reaction(title: "Meeting", imageName: "Meeting-3"), Reaction(title: "Sleep", imageName: "Sleep-4"), Reaction(title: "Exercise", imageName: "Exercise-3")]
-        reactionView.initialize(delegate: self , reactionsArray: reactions, sourceView: self.view, gestureView: btnReaction)
     }
     
     @objc func exit(){
@@ -54,19 +44,42 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-        cell.name.text = "CHCHBOSS"
-        cell.rank.text = "2"
-        cell.percentage.text = "70%"
-        cell.selectionStyle = .none
-        return cell
-    }
-}
-
-//MARK: - FacebookLikeReactionDelegate
-extension ViewController: FacebookLikeReactionDelegate {
-    
-    func selectedReaction(reaction: Reaction) {
-        print("Selected-------\(reaction.title)")
+        switch indexPath {
+        case [0,0]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+            cell.name.text = "Mo"
+            cell.rank.text = "2"
+            cell.percentage.text = "72%"
+            cell.selectionStyle = .none
+            return cell
+        case [0,1]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+            cell.name.text = "WJ"
+            cell.rank.text = "3"
+            cell.percentage.text = "67%"
+            cell.selectionStyle = .none
+            return cell
+        case [0,2]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+            cell.name.text = "Sherry"
+            cell.rank.text = "4"
+            cell.percentage.text = "38%"
+            cell.selectionStyle = .none
+            return cell
+        case [0,3]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+            cell.name.text = "Vincent"
+            cell.rank.text = "5"
+            cell.percentage.text = "10%"
+            cell.selectionStyle = .none
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+            cell.name.text = "CHCHBOSS"
+            cell.rank.text = "2"
+            cell.percentage.text = "70%"
+            cell.selectionStyle = .none
+            return cell
+        }
     }
 }

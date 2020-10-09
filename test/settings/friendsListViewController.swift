@@ -20,17 +20,44 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         navigationItem.rightBarButtonItems = [addFriendBtn]
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.tableView.tableFooterView == nil {
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        }
+    }
+    
     @objc func addFriend(_ sender: Any){
         performSegue(withIdentifier: "addFriend", sender: self)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-        return cell
+        switch indexPath {
+        case [0,0]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+            cell.friendName.text = "Vincent"
+            return cell
+        case [0,1]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+            cell.friendName.text = "Red Xin Rou"
+            return cell
+        case [0,2]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+            cell.friendName.text = "Mo"
+            return cell
+        case [0,3]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+            cell.friendName.text = "Sherry"
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+            cell.friendName.text = "WJ"
+            return cell
+        }
+       
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -29,4 +29,5 @@ class myFriendCell: UITableViewCell{
 }
 
 class friendListCell: UITableViewCell{
+    @IBOutlet var friendName: UILabel!
 }

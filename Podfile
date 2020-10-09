@@ -13,6 +13,5 @@ target 'test' do
   pod 'Charts'
   pod 'SnapKit'
   pod 'LineSDKSwift', '~> 5.0'
-  pod 'FacebookLikeReaction'
   #source 'https://github.com/CocoaPods/Specs.git'
 end
