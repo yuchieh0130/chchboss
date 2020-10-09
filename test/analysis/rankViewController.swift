@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FacebookLikeReaction
 
 class rankViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
@@ -17,8 +18,6 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var tableView: UITableView!
     @IBOutlet var winnerIcon: UIImageView!
     @IBOutlet var winnerName: UILabel!
-    
-    var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,25 +34,15 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.layer.cornerRadius = 10.0
         exitBtn.clipsToBounds = true
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
-    }
-    
-    @IBAction func swipeDownGesture(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: self.view?.window)
-        if sender.state == UIGestureRecognizer.State.began{
-            initialTouchPoint = touchPoint
-        }else if sender.state == UIGestureRecognizer.State.changed{
-            if touchPoint.y - initialTouchPoint.y > 0{
-                self.view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y, width: self.view.frame.width, height: self.view.frame.height)
-            }
-        }else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled{
-            if touchPoint.y - initialTouchPoint.y > 100{
-                self.dismiss(animated: true, completion: nil)
-            }else{
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-                })
-            }
-        }
+        
+        let btnReaction = UIButton(frame: CGRect(x: 100, y: 300, width: 200, height: 30))
+        btnReaction.setTitle("Long Press here", for: .normal)
+        btnReaction.setTitleColor(UIColor.red, for: .normal)
+        view.addSubview(btnReaction)
+
+        let reactionView = ReactionView()
+        let reactions: [Reaction] = [Reaction(title: "Study", imageName: "Study-3"), Reaction(title: "Leisure", imageName: "Leisure-3"), Reaction(title: "Meeting", imageName: "Meeting-3"), Reaction(title: "Sleep", imageName: "Sleep-4"), Reaction(title: "Exercise", imageName: "Exercise-3")]
+        reactionView.initialize(delegate: self , reactionsArray: reactions, sourceView: self.view, gestureView: btnReaction)
     }
     
     @objc func exit(){
@@ -71,5 +60,13 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.percentage.text = "70%"
         cell.selectionStyle = .none
         return cell
+    }
+}
+
+//MARK: - FacebookLikeReactionDelegate
+extension ViewController: FacebookLikeReactionDelegate {
+    
+    func selectedReaction(reaction: Reaction) {
+        print("Selected-------\(reaction.title)")
     }
 }

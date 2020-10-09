@@ -2,6 +2,7 @@ PODS:
   - Charts (3.5.0):
     - Charts/Core (= 3.5.0)
   - Charts/Core (3.5.0)
+  - FacebookLikeReaction (0.1.0)
   - Floaty (4.2.0)
   - GoogleMaps (3.10.0):
     - GoogleMaps/Maps (= 3.10.0)
@@ -18,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Charts
+  - FacebookLikeReaction
   - Floaty (~> 4.2.0)
   - GoogleMaps
   - GooglePlaces
@@ -28,6 +30,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Charts
+    - FacebookLikeReaction
     - Floaty
     - GoogleMaps
     - GooglePlaces
@@ -37,6 +40,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
+  FacebookLikeReaction: 20eb0a24018c703d8dd1cca4b50aa4502ea08855
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
   GoogleMaps: 8c080862ff2748ece9929471b30feb56a6c5079d
   GooglePlaces: 9a6f5f3a0c88da2aa1bf7426a65d3e004f5e69a1
@@ -44,6 +48,6 @@ SPEC CHECKSUMS:
   LineSDKSwift: af1423010655264eac6271a61db2a53cf54b3bdb
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 53fc2b13094daa3283893776f7cfa240c3dfdb56
+PODFILE CHECKSUM: 7f09fa16c67a3515fcd654d53706bbbfb4fc551f
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.8.4

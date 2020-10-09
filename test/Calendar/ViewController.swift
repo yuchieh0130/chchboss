@@ -123,7 +123,7 @@ class ViewController: UIViewController{
         let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(transToToday(_:)))
         let locationDBBtn = UIBarButtonItem(title: "loc", style: .plain, target: self, action: #selector(locationDB(_:)))
         navigationItem.leftBarButtonItems = [todayBtn]
-        navigationItem.rightBarButtonItems = [addBtn, locationDBBtn]
+        navigationItem.rightBarButtonItems = [addBtn]
         
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal
