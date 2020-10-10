@@ -24,7 +24,7 @@ class friendProfileViewController: UIViewController {
         
         profileImage.layer.cornerRadius = 0.5*profileImage.bounds.size.width
         profileImage.layer.borderWidth = 2
-        profileImage.layer.borderColor = CGColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8)
+        profileImage.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
         profileImage.clipsToBounds = true
     }
     

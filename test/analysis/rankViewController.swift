@@ -34,7 +34,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         winnerIcon.layer.cornerRadius = 0.5*winnerIcon.bounds.size.width
         winnerIcon.layer.borderWidth = 2
-        winnerIcon.layer.borderColor = CGColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8)
+        winnerIcon.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
         winnerIcon.clipsToBounds = true
         
         emojiAngry.layer.cornerRadius = 0.5*emojiAngry.bounds.size.width

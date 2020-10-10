@@ -11,9 +11,13 @@ import UIKit
 
 class addFriendViewController: UIViewController {
     
+    @IBOutlet var profileImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Add Friend"
+        profileImage.layer.cornerRadius = 0.5*profileImage.bounds.size.width
+        profileImage.layer.borderWidth = 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
