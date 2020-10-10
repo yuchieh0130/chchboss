@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-@available(iOS 13.0, *)
 class rankViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet var labelView: UIView!
