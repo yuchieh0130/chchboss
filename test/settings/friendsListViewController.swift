@@ -12,6 +12,7 @@ import UIKit
 class friendsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet var tableView: UITableView!
+    let headerTitles = ["", "Pending Friends"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +31,49 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         performSegue(withIdentifier: "addFriend", sender: self)
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        var rowCount = 0
+        if section == 0{
+            rowCount = 5
+        }else if section == 1{
+            rowCount = 2
+        }
+        return rowCount
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section < headerTitles.count {
+            return headerTitles[section]
+        }
+        return nil
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        if section == 1{
+//            headerView.backgroundColor = UIColor.white
+//        }
+//        return headerView
+//
+//    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        var rowHeight = 0
+        if section == 1{
+            rowHeight = 40
+        }
+        return CGFloat(rowHeight)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        if section == 1{
+            view.tintColor = UIColor(red: 148/255, green: 148/255, blue: 149/255, alpha: 0.3)
+            let header = view as! UITableViewHeaderFooterView
+            header.textLabel?.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,6 +93,18 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         case [0,3]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
             cell.friendName.text = "Sherry"
+            return cell
+        case [0,4]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+            cell.friendName.text = "WJ"
+            return cell
+        case [1,0]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
+            cell.pendingFriendName.text = "Jessica"
+            return cell
+        case [1,1]:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
+            cell.pendingFriendName.text = "Benson"
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell

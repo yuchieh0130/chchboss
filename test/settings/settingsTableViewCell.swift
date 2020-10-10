@@ -31,3 +31,6 @@ class myFriendCell: UITableViewCell{
 class friendListCell: UITableViewCell{
     @IBOutlet var friendName: UILabel!
 }
+class pendingFriendListCell: UITableViewCell {
+    @IBOutlet var pendingFriendName: UILabel!
+}

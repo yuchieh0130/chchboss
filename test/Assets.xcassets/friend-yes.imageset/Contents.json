@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "rsz_trophy2拷貝.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -10,6 +9,7 @@
       "scale" : "2x"
     },
     {
+      "filename" : "friendyes.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
