@@ -9,15 +9,23 @@
 import Foundation
 import UIKit
 
+@available(iOS 13.0, *)
 class friendProfileViewController: UIViewController {
     
+    @IBOutlet var profileImage: UIImageView!
     @IBOutlet var friendName: UILabel!
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         friendName.layer.cornerRadius = 10.0
         friendName.clipsToBounds = true
+        
+        profileImage.layer.cornerRadius = 0.5*profileImage.bounds.size.width
+        profileImage.layer.borderWidth = 2
+        profileImage.layer.borderColor = CGColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8)
+        profileImage.clipsToBounds = true
     }
     
     

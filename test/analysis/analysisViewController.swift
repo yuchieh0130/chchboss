@@ -121,7 +121,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         compareLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let categoryBtn = UIBarButtonItem(title: "Category", style: .plain, target: self, action: #selector(categoryBtn(_:)))
-        let rankBtn = UIBarButtonItem(image: UIImage(named: "Trophy")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(rankBtn(_:)))
+        let rankBtn = UIBarButtonItem(image: UIImage(named: "trophy-2")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(rankBtn(_:)))
         navigationItem.rightBarButtonItems = [categoryBtn]
         navigationItem.leftBarButtonItems = [rankBtn]
 //        let categoryTotal = values0.reduce(0, +)

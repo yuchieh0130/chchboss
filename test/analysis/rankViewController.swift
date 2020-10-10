@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+@available(iOS 13.0, *)
 class rankViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet var labelView: UIView!
@@ -17,6 +18,9 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var tableView: UITableView!
     @IBOutlet var winnerIcon: UIImageView!
     @IBOutlet var winnerName: UILabel!
+    @IBOutlet var emojiAngry: UIButton!
+    @IBOutlet var emojiThumb: UIButton!
+    @IBOutlet var emojiHeart: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,18 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         rankView.layer.cornerRadius = 10.0
         rankView.clipsToBounds = true
+        
+        winnerIcon.layer.cornerRadius = 0.5*winnerIcon.bounds.size.width
+        winnerIcon.layer.borderWidth = 2
+        winnerIcon.layer.borderColor = CGColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8)
+        winnerIcon.clipsToBounds = true
+        
+        emojiAngry.layer.cornerRadius = 0.5*emojiAngry.bounds.size.width
+        emojiAngry.clipsToBounds = true
+        emojiThumb.layer.cornerRadius = 0.5*emojiThumb.bounds.size.width
+        emojiThumb.clipsToBounds = true
+        emojiHeart.layer.cornerRadius = 0.5*emojiHeart.bounds.size.width
+        emojiHeart.clipsToBounds = true
         
         exitBtn.backgroundColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         exitBtn.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
