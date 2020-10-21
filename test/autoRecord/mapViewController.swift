@@ -311,7 +311,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     @objc func searchPlaceFromGoogle(_ textField: UISearchBar) {
         
         if let searchQuery = textField.text {
-            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyA1aip55jDmoNfeOeSwXfGlBFtTlU5olrA"
+            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyB9u6VwFRAbX7wFldR7MJHfhmcodVzEaIs"
             strGoogleApi = strGoogleApi.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             
             var urlRequest = URLRequest(url: URL(string: strGoogleApi)!)
