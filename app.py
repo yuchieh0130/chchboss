@@ -16,6 +16,63 @@ line_bot_api = LineBotApi(
 # Channel Secret
 handler = WebhookHandler('fd75bd7b8acf53ad43072efcbd358226')
 
+def changestarttime(userid, date, time):
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    cur = conn.cursor()
+
+    sql = "UPDATE track SET start_date = %s, start_time = %s WHERE user_id = %s"
+    adr = (date, time, userid)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+
+def changeendtime(userid, date, time):
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    cur = conn.cursor()
+
+    sql = "UPDATE track SET end_date = %s, end_time = %s WHERE user_id = %s"
+    adr = (date, time, userid)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+
+def changestarttime(userid, date, time):
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    cur = conn.cursor()
+
+    sql = "UPDATE track SET start_date = %s, start_time = %s WHERE user_id = %s"
+    adr = (date, time, userid)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+    
+def checkstatus(userid):
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    cur = conn.cursor()
+
+    sql = "SELECT status FROM userstatus Where user_id = %s"
+    adr = (userid, )
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    user_status = fetch_data[0][0]
+    cur.close()
+    return user_status
+
+def changestatus(userid, userstatus):
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    cur = conn.cursor()
+
+    sql = "UPDATE userstatus SET status = %s WHERE user_id = %s"
+    adr = (userstatus, userid)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -36,10 +93,9 @@ def callback():
     return 'OK'
 
 # 處理訊息
-
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    user_id = event.source.user_id
     if(event.message.text == "Analysis!"):
         buttons_template = TemplateSendMessage(
             alt_text='Buttons Template',
@@ -147,8 +203,10 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handler_postback(event):
     postback = event.postback.data
-    print(postback)
+    user_id = event.source.user_id
     if(postback == "wrong"):
+        status = checkstatus(user_id)
+        if(status ==  "confirmstatus"):
         buttons_template = TemplateSendMessage(
             alt_text='Buttons Template',
             template=ButtonsTemplate(
@@ -180,20 +238,45 @@ def handler_postback(event):
             )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
+        userstatus = "wrongstatus"
+        changestatus(user_id, userstatus)
+
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=''))
     elif(postback == "right"):
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=' Perfect!'))
-
+        userstatus = "default"
+        changestatus(user_id, userstatus)
+        
     elif(postback == "start_time"):
-        # start_time = event.postback.params
-        # start_time = start_time.replace("t", " ")
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text='Changed successfully!'))
-
+        start_time = event.postback.params
+        start_date, start_time = start_time.split("T")
+        status = checkstatus(user_id)
+        if(status == "wrongstatus"):
+            changestarttime(user_id, start_date, start_time)
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text='Changed successfully!'))
+            userstatus = "default"
+            changestatus(user_id, userstatus)
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=''))
+    
     elif(postback == "end_time"):
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text='Changed successfully!'))
+        end_time = event.postback.params
+        end_date, end_time = end_time.split("T")
+        status = checkstatus(user_id)
+        if(status == "wromgstatus"):
+            changeendtime(user_id, end_date, end_time)
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text='Changed successfully!'))
+            userstatus = "default"
+            changestatus(user_id, userstatus)
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=''))
     elif(postback == "category"):
+        status = checkstatus(user_id)
+        if(status ==  
         carousel_template_message = TemplateSendMessage(
             alt_text='Carousel template',
             template=CarouselTemplate(
