@@ -1424,6 +1424,18 @@
                                 <color key="textColor" red="0.13472521309999999" green="0.1748577952" blue="0.39610034230000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsi-57-OAa">
+                                <rect key="frame" x="113" y="208" width="189" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.79822754539999996" blue="0.0074770109010000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleColor" red="0.13472521309999999" green="0.1748577952" blue="0.39610034230000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="search:" destination="8Tk-kK-IRg" eventType="touchUpInside" id="tIh-dz-TKH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7IR-iF-VT2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1431,8 +1443,10 @@
                     <navigationItem key="navigationItem" id="LMG-Ln-9vV"/>
                     <connections>
                         <outlet property="addBtn" destination="DK6-EF-cXS" id="t5X-p1-Qoe"/>
+                        <outlet property="nameLabel" destination="E1e-0K-b3Z" id="LWx-Em-R8U"/>
                         <outlet property="profileImage" destination="0se-1D-ZFD" id="Qn9-Va-ZWN"/>
                         <outlet property="searchBar" destination="9Sg-cp-pr0" id="p2x-Gf-Pc8"/>
+                        <outlet property="searchBtn" destination="fsi-57-OAa" id="A8O-kC-suU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yRO-WX-HtD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
