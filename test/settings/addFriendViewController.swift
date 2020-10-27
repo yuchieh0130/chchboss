@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class addFriendViewController: UIViewController {
+class addFriendViewController: UIViewController,UISearchBarDelegate {
     
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var profileImage: UIImageView!
@@ -62,4 +62,18 @@ class addFriendViewController: UIViewController {
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
