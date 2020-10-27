@@ -618,65 +618,6 @@ def insertTrack():
         conn.commit()
         cur.close()
 
-    # 覆寫包含下一筆
-#     cur = conn.cursor()
-#     sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) > %s AND CONCAT(start_date, start_time) < %s AND user_id = %s"
-#     adr = (nw_start_datetime, nw_end_datetime, user_id)
-#     cur.execute(sql, adr)
-#     fetch_data = cur.fetchall()
-#     cur.close()
-#     if(len(fetch_data) == 1):
-#         if(category_id != fetch_data):
-#             cur = conn.cursor()
-#             sql = "DELETE FROM track WHERE CONCAT(start_date, start_time) < %s and CONCAT(start_date, start_time) > %s AND CONCAT(end_date, end_time) < %s and CONCAT(end_date, end_time) > %s AND user_id = %s"
-#             adr = (nw_start_datetime, nw_end_datetime)
-#             cur = conn.cursor()
-#             sql = "UPDATE track SET(start_date, start_time) VALUES(%s, %s) WHERE "
-#             adr = (end_date, end_time)
-
-
-# # 若insert在上一段的最後,延長
-#     nw_end_datetime = end_date + end_time
-#     nw_start_datetime = start_date + start_time
-#     cur = conn.cursor()
-#     sql = "SELECT category_id FROM track WHERE CONCAT(end_date, end_time) = %s AND user_id = %s"
-#     adr = (nw_start_datetime, user_id)
-#     cur.execute(sql, adr)
-#     fetch_data = cur.fetchall
-#     cur.close()
-#     if(fetch_data == category_id):
-#         cur = conn.cursor()
-#         sql = "UPDATE track SET (end_date, end_time) VALUES (%s, %s) WHERE user_id = %s AND CONCAT(end_date, end_time) = %s"
-#         adr = (end_date, end_time, user_id, nw_start_datetime)
-#         cur.execute(sql, adr)
-#         conn.commit()
-#         cur.close()
-
-# # 若insert在下一段的前面,延長
-#     cur = conn.cursor()
-#     sql = "SELECT category_id FROM track WHERE CONCAT(start_date, start_time) = %s AND user_id = %s"
-#     adr = (nw_end_datetime, user_id)
-#     cur.execute(sql, adr)
-#     fetch_data = cur.fetchall
-#     cur.close()
-#     if(fetch_data == category_id):
-#         cur = conn.cursor()
-#         sql = "UPDATE track SET (start_date, start_time) VALUES (%s, %s) WHERE user_id = %s AND CONCAT(start_date, start_time) = %s"
-#         adr = (start_date, start_time, user_id, nw_end_datetime)
-#         cur.execute(sql, adr)
-#         conn.commit()
-#         cur.close()
-
-#     elif(len(fetch_data) == 0):
-#     cur = conn.cursor()
-#     sql = "INSERT INTO track (start_date, start_time, end_date, end_time, category_id, location_id, place_id, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-#     adr = (start_date, start_time, end_date, end_time,
-#            category_id, location_id, place_id, user_id)
-#     cur.execute(sql, adr)
-#     conn.commit()
-#     cur.close()
-
-#     return jsonify({"status_code": 200})
 
 
 @app.route("/linelogin", methods=["POST"])
@@ -733,7 +674,109 @@ def insertCategory():
     cur.close()
     return jsonify({"status_code": 200})
 
+@app.route("/searchFriendList", methods=["POST"])
+def searchFriendList():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
 
+    user_id = data[user_id]
+    
+    cur = conn.cursor()
+    sql = "SELECT friend_id FROM friend WHERE user_id = %s"
+    adr = (user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    if(fetch_data):
+        return jsonify({"status_code": 400})
+    else:
+        return jsonify({"status_code": 200, "friend": fetch_data[0]})
+
+
+@app.route("/insertFriend", methods=["POST"])
+def insertFriend():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_id = data["user_id"]
+    friend_id = data["friend_id"]
+
+    cur = conn.cursor()
+    sql = "SELECT user_id FROM friend WHERE user_id = %s and friend_id = %s"
+    adr = (user_id, friend_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    if(fetch_data):
+        return jsonify({"status_code": 400})
+    cur = conn.cursor()
+    sql = "INSERT INTO friend (user_id, friend_id) VALUES(%s, %s, %s)"
+    adr = (user_id, friend_id)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+    return jsonify({"status_code": 200})
+    
+@app.route("/getEmoji", methods=["POST"])
+def getEmoji():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_id = data["user_id"]
+
+    cur = conn.cursor()
+    sql = "SELECT mad, cry FROM emoji WHERE user_id = %s"
+    adr = (user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    return jsonify({"status_code": 200, "emoji" :fetch_data[0]})
+
+@app.route("/addEmoji", methods=["POST"])
+def addEmoji():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    emoji = data["emoji"]
+    user_id = data["user_id"]
+
+    if(emoji == "mad"):
+        cur = conn.cursor()
+        sql = "SELECT mad FROM emoji WHERE user_id = %s"
+        adr = (user_id)
+        cur.execute(sql, adr)
+        fetch_data = cur.fetchall()[0][0]
+        cur.close()
+        
+        cur = conn.cursor()
+        sql = "UPDATE emoji SET mad = %s WHERE user_id = %s"
+        adr = (fetch_data+1, user_id)
+        conn.commit()
+        cur.close()
+        return jsonify({"status_code": 200})
+    elif(emoji == "cry"):
+        cur = conn.cursor()
+        sql = "SELECT cry FROM emoji WHERE user_id = %s"
+        adr = (user_id)
+        cur.execute(sql, adr)
+        fetch_data = cur.fetchall()[0][0]
+        cur.close()
+        
+        cur = conn.cursor()
+        sql = "UPDATE emoji SET cry = %s WHERE user_id = %s"
+        adr = (fetch_data+1, user_id)
+        conn.commit()
+        cur.close()
+        return jsonify({"status_code": 200})
+        
 @app.route("/register", methods=["POST"])
 def register():
     import mysql.connector
@@ -765,13 +808,7 @@ def register():
     cur.execute(sql_precheck, adr_precheck)
     fetch_data = cur.fetchall()
     cur.close()
-    # session_id = uuid.uuid1()
-    # cur = mysql.connection.cursor()
-    # sql = "INSERT INTO session (session_id, user_id, is_login) VALUES (%s, %s, %s);"
-    # adr = (session_id, fetch_data[0][0], True)
-    # cur.execute(sql, adr)
-    # mysql.connection.commit()
-    # cur.close()
+
     print(200)
     return jsonify({"status_code": 200, "user_id": fetch_data[0][0]})
 
@@ -798,21 +835,5 @@ def login():
     else:
         return jsonify({"status_code": 400, "user_id": 0})
 
-
-# @app.route("/logout", methods=["POST"])
-# def logout():
-#     try:
-#         data = request.get_json()
-#         session_id = data["session_id"]
-#         print(session_id)
-#         cur = mysql.connection.cursor()
-#         sql = "DELETE FROM session WHERE session_id = %s"
-#         adr = (session_id,)
-#         cur.execute(sql, adr)
-#         mysql.connection.commit()
-#         cur.close()
-#         return jsonify({"status_code": 200})
-#     except:4
-#         return jsonify({"status_code": 400})
 if __name__ == "__main__":
     app.run(host="140.119.19.42")
