@@ -692,7 +692,8 @@ def searchFriendList():
     if(fetch_data):
         return jsonify({"status_code": 400})
     else:
-        return jsonify({"status_code": 200, "friend": fetch_data[0]})
+        # friendlist = ["user1","user2"]
+        return jsonify({"status_code": 200, "friendlist": fetch_data[0]})
 
 
 @app.route("/searchFriend", methods=["POST"])
@@ -713,6 +714,7 @@ def searchFriend():
     if(fetch_data):
         return jsonify({"status_code": 400})
     else:
+        # friend = ["name", like, heart, mad]
         return jsonify({"status_code": 200, "friend": fetch_data[0]})
 
 @app.route("/insertFriend", methods=["POST"])
@@ -751,11 +753,12 @@ def getEmoji():
     user_id = data["user_id"]
 
     cur = conn.cursor()
-    sql = "SELECT like, cry, mad FROM user WHERE user_id = %s"
+    sql = "SELECT like, heart, mad FROM user WHERE user_id = %s"
     adr = (user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
+    # emoji = [like, heart, mad]
     return jsonify({"status_code": 200, "emoji" :fetch_data[0]})
 
 @app.route("/addEmoji", methods=["POST"])
@@ -782,16 +785,16 @@ def addEmoji():
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
-    elif(emoji == "cry"):
+    elif(emoji == "heart"):
         cur = conn.cursor()
-        sql = "SELECT cry FROM user WHERE user_id = %s"
+        sql = "SELECT heart FROM user WHERE user_id = %s"
         adr = (user_id)
         cur.execute(sql, adr)
         fetch_data = cur.fetchall()[0][0]
         cur.close()
 
         cur = conn.cursor()
-        sql = "UPDATE user SET cry = %s WHERE user_id = %s"
+        sql = "UPDATE user SET heart = %s WHERE user_id = %s"
         adr = (fetch_data+1, user_id)
         conn.commit()
         cur.close()
