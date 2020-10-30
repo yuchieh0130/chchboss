@@ -20,6 +20,11 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var emojiAngry: UIButton!
     @IBOutlet var emojiThumb: UIButton!
     @IBOutlet var emojiHeart: UIButton!
+    @IBOutlet var categoryBtn: UIButton!
+    @IBAction func categoryBtn(_ sender: Any) {
+        performSegue(withIdentifier: "toCategoryPicker", sender: self)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +54,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.clipsToBounds = true
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
     }
+    
     
     @objc func exit(){
         self.dismiss(animated: true, completion: nil)
