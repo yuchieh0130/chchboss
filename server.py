@@ -695,6 +695,26 @@ def searchFriendList():
         return jsonify({"status_code": 200, "friend": fetch_data[0]})
 
 
+@app.route("/searchFriend", methods=["POST"])
+def searchFriend():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_id = data[user_id]
+    
+    cur = conn.cursor()
+    sql = "SELECT name, like, heart, mad FROM user WHERE user_id = %s"
+    adr = (user_id)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+    if(fetch_data):
+        return jsonify({"status_code": 400})
+    else:
+        return jsonify({"status_code": 200, "friend": fetch_data[0]})
+
 @app.route("/insertFriend", methods=["POST"])
 def insertFriend():
     import mysql.connector
@@ -706,8 +726,8 @@ def insertFriend():
     friend_id = data["friend_id"]
 
     cur = conn.cursor()
-    sql = "SELECT user_id FROM friend WHERE user_id = %s and friend_id = %s"
-    adr = (user_id, friend_id)
+    sql = "SELECT user_id FROM friend WHERE user_id = %s and friend_id = %s UNION ALL SELECT user_id FROM friend WHERE user_id = %s and friend_id = %s "
+    adr = (user_id, friend_id, friend_id, user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
@@ -731,7 +751,7 @@ def getEmoji():
     user_id = data["user_id"]
 
     cur = conn.cursor()
-    sql = "SELECT mad, cry FROM emoji WHERE user_id = %s"
+    sql = "SELECT like, cry, mad FROM user WHERE user_id = %s"
     adr = (user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
@@ -750,33 +770,85 @@ def addEmoji():
 
     if(emoji == "mad"):
         cur = conn.cursor()
-        sql = "SELECT mad FROM emoji WHERE user_id = %s"
+        sql = "SELECT mad FROM user WHERE user_id = %s"
         adr = (user_id)
         cur.execute(sql, adr)
         fetch_data = cur.fetchall()[0][0]
         cur.close()
         
         cur = conn.cursor()
-        sql = "UPDATE emoji SET mad = %s WHERE user_id = %s"
+        sql = "UPDATE user SET mad = %s WHERE user_id = %s"
         adr = (fetch_data+1, user_id)
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
     elif(emoji == "cry"):
         cur = conn.cursor()
-        sql = "SELECT cry FROM emoji WHERE user_id = %s"
+        sql = "SELECT cry FROM user WHERE user_id = %s"
+        adr = (user_id)
+        cur.execute(sql, adr)
+        fetch_data = cur.fetchall()[0][0]
+        cur.close()
+
+        cur = conn.cursor()
+        sql = "UPDATE user SET cry = %s WHERE user_id = %s"
+        adr = (fetch_data+1, user_id)
+        conn.commit()
+        cur.close()
+        return jsonify({"status_code": 200})
+    elif(emoji == "like"):
+        cur = conn.cursor()
+        sql = "SELECT like FROM user WHERE user_id = %s"
         adr = (user_id)
         cur.execute(sql, adr)
         fetch_data = cur.fetchall()[0][0]
         cur.close()
         
         cur = conn.cursor()
-        sql = "UPDATE emoji SET cry = %s WHERE user_id = %s"
+        sql = "UPDATE user SET like = %s WHERE user_id = %s"
         adr = (fetch_data+1, user_id)
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
-        
+
+@app.route("/rank", methods=["POST"])
+def rank():
+    import mysql.connector
+    import re
+
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    category = data["category"]
+    current_time = data["currenttime"]
+    
+    timelist = re.split("/|:", current_time)
+
+    current_datetime = datetime.datetime(int(timelist[0]), int(timelist[1]), int(timelist[2]), int(timelist[3]), int(timelist[4]), 00)
+    week = current_datetime + datetime.timedelta(days=7)
+    week = str(week).replace(" ","")
+    current_time = str(current_time).replace(" ","")
+
+    cur = conn.cursor()
+    sql = "SELECT user_id ,duration FROM track WHERE category = %s and CONCAT(end_date, end_time) BETWEEN %s and %s" 
+    adr = (category, current_time, week)
+    cur.execute(sql, adr)
+    fetch_data = cur.fetchall()
+    cur.close()
+
+    dic1 = {}
+    for i in fetch_data:
+        dic1[i[0]] = i[1]
+    sortedlist = sorted(dic1.items(), key=lambda x:x[1])
+    sortedlist = sortedlist[:-1]
+    sortedlist = sortedlist[0:5]
+
+    # sortedlist = [('user1', '20'), ('user3', '40'), ('user2', '50')]
+    return jsonify({"status_code": 200, "sortedlist": sortedlist)
+
+
+
 @app.route("/register", methods=["POST"])
 def register():
     import mysql.connector
