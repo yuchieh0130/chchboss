@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17502"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -952,7 +952,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me1-8w-IeN">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me1-8w-IeN">
                                 <rect key="frame" x="317" y="120" width="53" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="skip"/>
@@ -1458,7 +1458,7 @@
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="uun-bz-T0X" customClass="combineChartViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s3G-bG-W5Y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIX-RI-p8s">
@@ -1697,28 +1697,33 @@
                                 </constraints>
                             </view>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSR-3a-lfC">
-                                <rect key="frame" x="45" y="210" width="289" height="41"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ranking - Exercise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H16-Hc-TkZ">
-                                        <rect key="frame" x="63.666666666666671" y="9" width="163.33333333333331" height="23"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                        <color key="textColor" red="0.96862745100000003" green="0.78039215689999997" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
+                                <rect key="frame" x="45" y="210" width="325" height="41"/>
                                 <color key="backgroundColor" red="0.13472521309999999" green="0.1748577952" blue="0.39610034230000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="H16-Hc-TkZ" firstAttribute="centerX" secondItem="zSR-3a-lfC" secondAttribute="centerX" constant="0.66666666666668561" id="K9X-8d-4gu"/>
-                                    <constraint firstItem="H16-Hc-TkZ" firstAttribute="centerY" secondItem="zSR-3a-lfC" secondAttribute="centerY" id="SdU-jF-gIW"/>
-                                </constraints>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES"/>
+                                </accessibility>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ranking - Exercise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H16-Hc-TkZ">
+                                <rect key="frame" x="130" y="219" width="163.33333333333337" height="23"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <color key="textColor" red="0.96862745100000003" green="0.78039215689999997" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CmG-ZH-BsD">
-                                <rect key="frame" x="333" y="210" width="39" height="41"/>
+                                <rect key="frame" x="72" y="721" width="279" height="41"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.78039215689999997" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="39" id="5Ui-9n-tqU"/>
+                                    <constraint firstAttribute="width" constant="279" id="5Ui-9n-tqU"/>
                                 </constraints>
                                 <state key="normal" image="cross"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vth-Dz-aMZ">
+                                <rect key="frame" x="45" y="158" width="325" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Ranking"/>
+                                <connections>
+                                    <action selector="categoryBtn:" destination="aUL-Xg-JXa" eventType="touchUpInside" id="b7z-5K-xSH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="anW-Ep-xYZ"/>
@@ -1727,17 +1732,20 @@
                             <constraint firstItem="lUE-tn-ZM8" firstAttribute="top" secondItem="anW-Ep-xYZ" secondAttribute="top" constant="200" id="CfC-dG-frO"/>
                             <constraint firstItem="anW-Ep-xYZ" firstAttribute="bottom" secondItem="zSR-3a-lfC" secondAttribute="bottom" constant="611" id="JiF-vP-yM8"/>
                             <constraint firstItem="lUE-tn-ZM8" firstAttribute="centerX" secondItem="CsD-I7-651" secondAttribute="centerX" id="KTd-ca-Vej"/>
-                            <constraint firstItem="anW-Ep-xYZ" firstAttribute="trailing" secondItem="zSR-3a-lfC" secondAttribute="trailing" constant="80" id="Vnn-wW-57v"/>
+                            <constraint firstItem="H16-Hc-TkZ" firstAttribute="centerX" secondItem="CsD-I7-651" secondAttribute="centerX" constant="4.6666666666666572" id="V7r-8c-usc"/>
+                            <constraint firstItem="anW-Ep-xYZ" firstAttribute="trailing" secondItem="zSR-3a-lfC" secondAttribute="trailing" constant="44" id="Vnn-wW-57v"/>
                             <constraint firstItem="zSR-3a-lfC" firstAttribute="top" secondItem="anW-Ep-xYZ" secondAttribute="top" constant="166" id="apS-re-DZr"/>
-                            <constraint firstItem="CmG-ZH-BsD" firstAttribute="top" secondItem="zSR-3a-lfC" secondAttribute="top" id="eK9-jA-3Uh"/>
-                            <constraint firstItem="zSR-3a-lfC" firstAttribute="leading" secondItem="CmG-ZH-BsD" secondAttribute="trailing" constant="-327" id="eUY-iu-71g"/>
+                            <constraint firstItem="CmG-ZH-BsD" firstAttribute="top" secondItem="zSR-3a-lfC" secondAttribute="top" constant="511" id="eK9-jA-3Uh"/>
+                            <constraint firstItem="zSR-3a-lfC" firstAttribute="leading" secondItem="CmG-ZH-BsD" secondAttribute="trailing" constant="-306" id="eUY-iu-71g"/>
+                            <constraint firstItem="H16-Hc-TkZ" firstAttribute="centerY" secondItem="CsD-I7-651" secondAttribute="centerY" constant="-217.5" id="i5S-4h-Mig"/>
                             <constraint firstItem="anW-Ep-xYZ" firstAttribute="bottom" secondItem="lUE-tn-ZM8" secondAttribute="bottom" constant="160" id="kpz-io-xwz"/>
-                            <constraint firstItem="CmG-ZH-BsD" firstAttribute="bottom" secondItem="zSR-3a-lfC" secondAttribute="bottom" id="owC-za-K2P"/>
-                            <constraint firstItem="CmG-ZH-BsD" firstAttribute="leading" secondItem="anW-Ep-xYZ" secondAttribute="leading" constant="333" id="qMR-ei-RCs"/>
+                            <constraint firstItem="CmG-ZH-BsD" firstAttribute="bottom" secondItem="zSR-3a-lfC" secondAttribute="bottom" constant="511" id="owC-za-K2P"/>
+                            <constraint firstItem="CmG-ZH-BsD" firstAttribute="leading" secondItem="anW-Ep-xYZ" secondAttribute="leading" constant="72" id="qMR-ei-RCs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IGP-bz-rsz"/>
                     <connections>
+                        <outlet property="categoryBtn" destination="vth-Dz-aMZ" id="7Ao-Tj-AgA"/>
                         <outlet property="emojiAngry" destination="R26-hz-wxG" id="aPa-p2-zeh"/>
                         <outlet property="emojiHeart" destination="dap-ji-SD9" id="afP-pU-xr4"/>
                         <outlet property="emojiThumb" destination="xMe-fV-uah" id="yZg-J1-pFv"/>
@@ -1747,11 +1755,50 @@
                         <outlet property="tableView" destination="PB2-Eg-j8Y" id="zSh-pZ-oju"/>
                         <outlet property="winnerIcon" destination="Pnb-dF-8aC" id="db0-Ft-REB"/>
                         <outlet property="winnerName" destination="HUB-J6-mwE" id="uqt-uj-ZYR"/>
+                        <segue destination="ckc-hg-oxe" kind="show" identifier="toCategoryPicker" id="1l9-kC-emO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ReR-Uf-z80" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7802.898550724638" y="14.732142857142856"/>
+        </scene>
+        <!--Category Popup View Controller-->
+        <scene sceneID="tMg-VQ-kzL">
+            <objects>
+                <viewController wantsFullScreenLayout="YES" id="ckc-hg-oxe" customClass="CategoryPopupViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wwU-oO-bgN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dHj-f0-85l">
+                                <rect key="frame" x="0.0" y="338" width="414" height="191"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ldz-op-mPf">
+                                <rect key="frame" x="111" y="521" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelBtn:" destination="ckc-hg-oxe" eventType="touchUpInside" id="Ed2-O0-TFi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZz-Tn-LQN">
+                                <rect key="frame" x="277" y="521" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="okBtn:" destination="ckc-hg-oxe" eventType="touchUpInside" id="he5-hQ-Nxr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZpQ-Ra-bfj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Xel-vX-p8h"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Ig-4F-3HW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8671.0144927536239" y="14.732142857142856"/>
         </scene>
         <!--My Place View Controller-->
         <scene sceneID="22l-LQ-Y1i">
@@ -2736,7 +2783,7 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="overCurrentContext" id="nNZ-yj-YqY" customClass="DatePopupViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bj0-wR-DwH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpL-Zv-UDT">
                                 <rect key="frame" x="15" y="323" width="384" height="250"/>
@@ -3799,11 +3846,11 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="overCurrentContext" id="7ys-h6-x7E" customClass="PickerViewYearController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7KC-DA-N3S">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geL-F7-gBV">
-                                <rect key="frame" x="15" y="323" width="384" height="250"/>
+                                <rect key="frame" x="15" y="296" width="384" height="250"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xU-8e-byA">
                                         <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
@@ -4205,12 +4252,12 @@
         <segue reference="Oag-qC-jfG"/>
         <segue reference="NnR-u6-Zjt"/>
         <segue reference="bEa-Xr-2tt"/>
-        <segue reference="bHU-5F-LTf"/>
-        <segue reference="zvw-7p-SrS"/>
+        <segue reference="Jd4-bf-VuF"/>
+        <segue reference="WGP-Ss-XWI"/>
         <segue reference="dh3-ww-BEF"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Image" width="212" height="213.33332824707031"/>
+        <image name="Image" width="144.66667175292969" height="144"/>
         <image name="Image-1" width="144.66667175292969" height="144"/>
         <image name="Image-2" width="180" height="192.66667175292969"/>
         <image name="analysis" width="23" height="23"/>
