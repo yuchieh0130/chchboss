@@ -37,6 +37,7 @@
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
 		4B4F0154243F12FD00A98C65 /* categoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0153243F12FD00A98C65 /* categoryViewController.swift */; };
 		4B4F0156243F1A1000A98C65 /* categoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */; };
+		4B51F189254EAC9100D57D5E /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51F188254EAC9100D57D5E /* FriendModel.swift */; };
 		4B52F06E24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */; };
 		4B5F4B8C24169D990043CA8C /* (old)addEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */; };
 		4B6C44192472EAB10009C281 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C44182472EAB10009C281 /* TrackModel.swift */; };
@@ -125,6 +126,7 @@
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
 		4B4F0153243F12FD00A98C65 /* categoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewController.swift; sourceTree = "<group>"; };
 		4B4F0155243F1A1000A98C65 /* categoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryViewCell.swift; sourceTree = "<group>"; };
+		4B51F188254EAC9100D57D5E /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
 		4B52F06D24E3D24F00EC4D90 /* myPlaceCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlaceCategoryViewController.swift; sourceTree = "<group>"; };
 		4B5F4B8B24169D990043CA8C /* (old)addEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(old)addEventViewController.swift"; sourceTree = "<group>"; };
 		4B6C44182472EAB10009C281 /* TrackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				583F59C1243E197F0018B383 /* PlaceModel.swift */,
 				4B02C4B7243D61630087DB4C /* TaskModel.swift */,
 				4B6C44182472EAB10009C281 /* TrackModel.swift */,
+				4B51F188254EAC9100D57D5E /* FriendModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				FF053277250E0AD800EFE32F /* UserController.swift in Sources */,
 				4B9FBA3024ACE18B0024D7CD /* timeline.swift in Sources */,
 				4B97DF9224176AB8005BD787 /* DBManager.swift in Sources */,
+				4B51F189254EAC9100D57D5E /* FriendModel.swift in Sources */,
 				FF275EBD24FF510500C16A79 /* HealthKitAuthorization.swift in Sources */,
 				4B9FB4FC24E2CEF800DBFAFA /* editMyPlaceTableViewCell.swift in Sources */,
 				4B351A4724188BE9003A474A /* FMDatabase.m in Sources */,

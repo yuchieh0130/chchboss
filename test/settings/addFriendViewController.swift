@@ -20,6 +20,7 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Add Friend"
+        searchBar.delegate = self
         
         let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
         navigationItem.leftBarButtonItems = [cancelBtn]
@@ -56,6 +57,7 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         addBtn.isHidden = false
         profileImage.isHidden = false
         nameLabel.isHidden = false
+        searchBar.resignFirstResponder()
     }
     
     

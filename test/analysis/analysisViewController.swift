@@ -144,12 +144,24 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         }
         currentDate = showDayformatter.string(from: Date())
         showTimeLabel = currentDate
+        selectedDay = "2020-09-05"
         selectedDay = "\(showTimeLabel)"
         for (index, value) in valuesDay.enumerated(){
             valuesDay[index] = value*0
         }
+        showCategoryStr.enumerated().forEach{index, value in
+            showCategoryStr = [String]()
+        }
+        for i in 0...showCategory.count-2{
+            showCategoryStr.append(showCategory[i].categoryName)
+        }
         if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
             getTrackTime()
+            showCategoryStr.enumerated().forEach{index, value in
+                if valuesDay[index] == 0.0{
+                    showCategoryStr[index] = ""
+                }
+            }
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             pieChart.isHidden = false
             noDataLabel.isHidden = true
@@ -159,6 +171,17 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChart.isHidden = true
             noDataLabel.isHidden = false
         }
+//        if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+//            getTrackTime()
+//            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+//            pieChart.isHidden = false
+//            noDataLabel.isHidden = true
+//        }else{
+//            showTrack = [TrackModel]()
+//            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+//            pieChart.isHidden = true
+//            noDataLabel.isHidden = false
+//        }
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
         pieChartYear.isHidden = true
