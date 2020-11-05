@@ -329,6 +329,33 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             gifImgView.isHidden = true
             noDataLabel.isHidden = true
             showTimeLabel = "\(currentYear)"
+            showCategory = DBManager.getInstance().getAllCategory()
+            selectedYear = "\(currentYear)"
+            for (index, value) in valuesYear.enumerated(){
+                valuesYear[index] = value*0
+            }
+            showCategoryStr.enumerated().forEach{index, value in
+                showCategoryStr = [String]()
+            }
+            for i in 0...showCategory.count-2{
+                showCategoryStr.append(showCategory[i].categoryName)
+            }
+            if DBManager.getInstance().getYearTracks(Year: selectedYear) != nil{
+                getTrackTimeYear()
+                showCategoryStr.enumerated().forEach{index, value in
+                    if valuesYear[index] == 0.0{
+                        showCategoryStr[index] = ""
+                    }
+                }
+                customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
+                pieChartYear.isHidden = false
+                noDataLabel.isHidden = true
+            }else{
+                showTrack = [TrackModel]()
+                customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
+                pieChartYear.isHidden = true
+                noDataLabel.isHidden = false
+            }
         }
         self.tableView.reloadData()
     }
@@ -632,6 +659,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         for i in 0...showTrack.count-1{
             startDay = showTrack[i].startTime
             endDay = showTrack[i].endTime
+            print(showTrack[i].startDate)
+            print(showTrack[i].startTime)
             if showTrack[i].startDate != selectedDay{
                 startDay = "00:00"
             }
@@ -708,6 +737,21 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     valuesMonth[index] = value+trackTimeMonth
                     print(valuesMonth)
                 }
+            }
+        }
+    }
+    
+    func getTrackTimeYear(){
+        showTrack = DBManager.getInstance().getYearTracks(Year: selectedYear)
+        var startYear = ""
+        var endYear = ""
+        let yearSelected = selectedYear
+        for i in 0...showTrack.count-1{
+            if showTrack[i].startDate.contains("\(selectedYear)") == true && showTrack[i].endDate.contains("\(selectedYear)") == false{
+                
+            }
+            if showTrack[i].startDate.contains("\(selectedYear)") == false && showTrack[i].endDate.contains("\(selectedYear)") == true{
+                
             }
         }
     }

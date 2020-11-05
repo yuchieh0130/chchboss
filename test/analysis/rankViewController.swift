@@ -75,7 +75,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return cell
         case [0,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-            cell.name.text = "WJ"
+            cell.name.text = "CWJ"
             cell.rank.text = "3"
             cell.percentage.text = "67%"
             cell.selectionStyle = .none
