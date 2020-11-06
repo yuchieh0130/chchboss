@@ -11,7 +11,6 @@ import UIKit
 
 class rankViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    @IBOutlet var labelView: UIView!
     @IBOutlet var rankView: UIView!
     @IBOutlet var exitBtn: UIButton!
     @IBOutlet var tableView: UITableView!
@@ -20,18 +19,20 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var emojiAngry: UIButton!
     @IBOutlet var emojiThumb: UIButton!
     @IBOutlet var emojiHeart: UIButton!
-    @IBOutlet var categoryBtn: UIButton!
-    @IBAction func categoryBtn(_ sender: Any) {
-        performSegue(withIdentifier: "toCategoryPicker", sender: self)
-    }
+    @IBOutlet var gifImgView: UIImageView!
+    @IBOutlet var titleBtn: UIButton!
+    @IBOutlet var options: [UIButton]!
     
-    
+    var animatedImage: UIImage!
+    var showCategory = [CategoryModel]()
+    var category = CategoryModel(categoryId: 7, categoryName: "default", categoryColor: "Grey", category_image: "default")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         
-        labelView.layer.cornerRadius = 10.0
-        labelView.clipsToBounds = true
+        titleBtn.layer.cornerRadius = 10.0
+        titleBtn.clipsToBounds = true
         
         rankView.layer.cornerRadius = 10.0
         rankView.clipsToBounds = true
@@ -55,6 +56,30 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
     }
     
+    @IBAction func startSelect(_ sender: UIButton) {
+        for option in options{
+                UIView.animate(withDuration: 0.3, animations: {
+                    option.isHidden = !option.isHidden
+                    self.view.layoutIfNeeded()
+                })
+            }
+    }
+    
+    @IBAction func optionPressed(_ sender: UIButton) {
+        for option in options{
+                UIView.animate(withDuration: 0.3, animations: {
+                    option.isHidden = !option.isHidden
+                    self.view.layoutIfNeeded()
+                })
+            }
+        showCategory = DBManager.getInstance().getAllCategory()
+        let categoryName = sender.currentTitle ?? ""
+        titleBtn.setTitle("Ranking - \(categoryName)", for: UIControl.State.normal)
+        animatedImage = UIImage.animatedImageNamed("\(showCategory[sender.tag-1].categoryName)-", duration: 1)
+        gifImgView.image = animatedImage
+        winnerIcon.image = UIImage(named: "Image-2")
+        winnerName.text = "宛先先"
+    }
     
     @objc func exit(){
         self.dismiss(animated: true, completion: nil)
