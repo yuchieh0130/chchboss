@@ -36,9 +36,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var track :TrackModel?
     var categoryName = ""
     
-    var valuesDay = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    var valuesWeek = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    var valuesMonth = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    var valuesDay = [5.1, 3.2, 4.3, 0.0, 0.0, 0.0, 0.0, 0.0, 2.1, 0.0, 3.7, 0.0, 1.1, 0.4, 2.7, 0.0, 1.4, 0.0]
+    var valuesWeek = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 4.0, 0.0, 0.0, 4.0, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
+    var valuesMonth = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 4.0, 0.0, 0.0, 4.0, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     //for chart selected view
     var indexDay = 0
@@ -144,11 +144,10 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         }
         currentDate = showDayformatter.string(from: Date())
         showTimeLabel = currentDate
-        selectedDay = "2020-09-05"
         selectedDay = "\(showTimeLabel)"
-        for (index, value) in valuesDay.enumerated(){
-            valuesDay[index] = value*0
-        }
+//        for (index, value) in valuesDay.enumerated(){
+//            valuesDay[index] = value*0
+//        }
         showCategoryStr.enumerated().forEach{index, value in
             showCategoryStr = [String]()
         }
@@ -167,9 +166,14 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             noDataLabel.isHidden = true
         }else{
             showTrack = [TrackModel]()
+            showCategoryStr.enumerated().forEach{index, value in
+                if valuesDay[index] == 0.0{
+                    showCategoryStr[index] = ""
+                }
+            }
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-            pieChart.isHidden = true
-            noDataLabel.isHidden = false
+            pieChart.isHidden = false
+            noDataLabel.isHidden = true
         }
 //        if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
 //            getTrackTime()
@@ -258,9 +262,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             showCategory = DBManager.getInstance().getAllCategory()
             selectedYear = "\(currentYear)"
             selectedWeek = currentWeek
-            for (index, value) in valuesWeek.enumerated(){
-                valuesWeek[index] = value*0
-            }
+//            for (index, value) in valuesWeek.enumerated(){
+//                valuesWeek[index] = value*0
+//            }
             showCategoryStr.enumerated().forEach{index, value in
                 showCategoryStr = [String]()
             }
@@ -280,8 +284,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             }else{
                 showTrack = [TrackModel]()
                 customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-                pieChartWeek.isHidden = true
-                noDataLabel.isHidden = false
+                pieChartWeek.isHidden = false
+                noDataLabel.isHidden = true
             }
         }else if getIndex == 2{
             pieChart.isHidden = true
@@ -542,8 +546,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartMonth.centerAttributedText = string
                 compareLabel.isHidden = false
-                let stringOne = "You spent more time on Exercise\nthan 85% of the users."
-                let stringTwo = "85%"
+                let stringOne = "You spent more time on Exercise\nthan 11% of the users."
+                let stringTwo = "11%"
                 let range = (stringOne as NSString).range(of: stringTwo)
                 let attributedText = NSMutableAttributedString.init(string: stringOne)
                 attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: hexStringToUIColor(hex: "#F3B23E"), range: range)

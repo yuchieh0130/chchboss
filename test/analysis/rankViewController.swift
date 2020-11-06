@@ -33,9 +33,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         titleBtn.layer.cornerRadius = 10.0
         titleBtn.clipsToBounds = true
-        
-        rankView.layer.cornerRadius = 10.0
-        rankView.clipsToBounds = true
+        titleBtn.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         winnerIcon.layer.cornerRadius = 0.5*winnerIcon.bounds.size.width
         winnerIcon.layer.borderWidth = 2
@@ -53,6 +51,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
         exitBtn.layer.cornerRadius = 10.0
         exitBtn.clipsToBounds = true
+        exitBtn.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
     }
     
