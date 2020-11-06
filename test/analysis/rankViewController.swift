@@ -53,6 +53,11 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.clipsToBounds = true
         exitBtn.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
+        
+        showCategory = DBManager.getInstance().getAllCategory()
+        titleBtn.setTitle("Ranking - Food", for: UIControl.State.normal)
+        animatedImage = UIImage.animatedImageNamed("\(showCategory[0].categoryName)-", duration: 1)
+        gifImgView.image = animatedImage
     }
     
     @IBAction func startSelect(_ sender: UIButton) {

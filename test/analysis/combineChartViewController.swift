@@ -413,13 +413,13 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
 }
 extension combineChartViewController: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        if segConIndex == 1{
+        if segConIndex == 0{
             let moduDay = Double(value).truncatingRemainder(dividingBy: Double(days.count))
             return days[Int(moduDay)]
-        }else if segConIndex == 2{
+        }else if segConIndex == 1{
             let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(monthDays.count))
             return monthDays[Int(moduMonth)]
-        }else if segConIndex == 3{
+        }else if segConIndex == 2{
             let moduYear =
                 Double(value).truncatingRemainder(dividingBy: Double(months.count))
             return months[Int(moduYear)]

@@ -37,7 +37,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var categoryName = ""
     
     var valuesDay = [5.1, 3.2, 4.3, 0.0, 0.0, 0.0, 0.0, 0.0, 2.1, 0.0, 3.7, 0.0, 1.1, 0.4, 2.7, 0.0, 1.4, 0.0]
-    var valuesWeek = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 4.0, 0.0, 0.0, 4.0, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
+    var valuesWeek = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 3.8, 0.0, 0.0, 4.2, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
     var valuesMonth = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 4.0, 0.0, 0.0, 4.0, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     //for chart selected view
@@ -530,7 +530,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 gifImgView.center = pieChartWeek.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek]) hrs", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartWeek.centerAttributedText = string
              }
         }else if segConIndex == 2{
