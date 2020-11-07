@@ -698,7 +698,7 @@ def searchFriendList():
     if(confirm_friend):
         return jsonify({"status_code": 400})
     else:
-        return jsonify({"status_code": 200, "confrim_friendlist": confirm_friend[0], "unconfrim_friendlist": unconfirm_friend[0]})
+        return jsonify({"status_code": 200, "confirm_friendlist": confirm_friend[0], "unconfirm_friendlist": unconfirm_friend[0]})
 
 
 @app.route("/searchFriend", methods=["POST"])
