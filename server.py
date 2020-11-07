@@ -690,7 +690,7 @@ def searchFriendList():
     confirm_friend = cur.fetchall()
     cur.close()
     cur = conn.cursor()
-    sql = "SELECT friend_id, name FROM friend WHERE user_id = %s and confirm_status = %s"
+    sql = "SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE user_id = %s and confirm_status = %s"
     adr = (user_id, False)
     cur.execute(sql, adr)
     unconfirm_friend = cur.fetchall()
