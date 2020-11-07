@@ -737,7 +737,8 @@ def addFriendRequest():
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
-    if(fetch_data != True):
+    print(fetch_data)
+    if(fetch_data):
         return jsonify({"status_code": 400})
     cur = conn.cursor()
     sql = "INSERT INTO friend (user_id, friend_id, confirm_status) VALUES(%s, %s, %s)"
