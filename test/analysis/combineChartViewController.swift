@@ -45,7 +45,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var monthDays: [String] = []
-    var value = [6.5, 7.0, 5.2, 4.0, 5.0, 3.5, 3.8, 21.7, 12.1, 0.0, 0.0, 0.0]
+    var value = [7.5, 7.0, 7.2, 5.9, 5.4, 4.5, 0.0, 21.7, 12.1, 0.0, 0.0, 0.0]
     var valueForMonth = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
     
     override func viewDidAppear(_ animated: Bool) {
@@ -88,12 +88,13 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         showTimeLabel = "\(startWeekDay) ~ \(endWeekDay)"
         
         let data = CombinedChartData()
-        data.lineData = generateLineData(dataPoints: days, values: value)
+        //data.lineData = generateLineData(dataPoints: days, values: value)
         data.barData = generateBarData(dataPoints: days, values: value)
         combineChart.data = data
         //x axis
-        combineChart.xAxis.labelPosition = .bothSided
-        combineChart.xAxis.drawGridLinesEnabled = true
+        combineChart.xAxis.labelPosition = .bottom
+        combineChart.xAxis.labelFont = UIFont.systemFont(ofSize: 15.0)
+        combineChart.xAxis.drawGridLinesEnabled = false
         combineChart.xAxis.granularityEnabled = true
         combineChart.xAxis.granularity = 1.0  //距離
         combineChart.xAxis.axisMinimum = data.xMin - 0.5
@@ -101,6 +102,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         combineChart.xAxis.centerAxisLabelsEnabled = false
         combineChart.xAxis.labelCount = 7
         combineChart.xAxis.valueFormatter = self
+        combineChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 15.0)
     
         var years: [String] = []
         if years.count == 0 {
@@ -139,6 +141,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         combineChart.legend.enabled = false
         //description
         combineChart.chartDescription?.enabled = false
+        combineChart.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
     }
     
     @IBAction func segConChoose(_ sender: Any) {
@@ -361,7 +364,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         let barChartDataSet = BarChartDataSet(entries: dataEntries, label: "Bar Chart")
         barChartDataSet.colors = colorsOfCategory(numbersOfColor: dataPoints.count)
         barChartDataSet.valueTextColor = UIColor.black
-        barChartDataSet.valueFont = NSUIFont.systemFont(ofSize: CGFloat(10.0))
+        barChartDataSet.valueFont = NSUIFont.systemFont(ofSize: CGFloat(18.0))
         barChartDataSet.axisDependency = .left
         
         let barWidth = 0.5

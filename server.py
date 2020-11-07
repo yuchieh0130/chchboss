@@ -887,7 +887,7 @@ def rank():
     sortedlist = sortedlist[0:5]
 
     # sortedlist = [('user1', '20'), ('user3', '40'), ('user2', '50')]
-    return jsonify({"status_code": 200, "sortedlist": sortedlist)
+    return jsonify({"status_code": 200, "sortedlist": sortedlist})
 
 
 

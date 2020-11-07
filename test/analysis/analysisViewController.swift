@@ -37,7 +37,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var categoryName = ""
     
     var valuesDay = [5.1, 3.2, 4.3, 0.0, 0.0, 0.0, 0.0, 0.0, 2.1, 0.0, 3.7, 0.0, 1.1, 0.4, 2.7, 0.0, 1.4, 0.0]
-    var valuesWeek = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 3.8, 0.0, 0.0, 4.2, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
+    var valuesWeek = [30.0, 22.5, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 3.8, 0.0, 0.0, 4.2, 9.5, 0.0, 0.0, 0.0, 10.0, 0.0]
     var valuesMonth = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 4.0, 0.0, 0.0, 4.0, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     //for chart selected view
@@ -216,6 +216,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
         if getIndex == 0{
+            pieChart.isHidden = false
+            noDataLabel.isHidden = true
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
@@ -223,31 +225,31 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             currentDate = showDayformatter.string(from: Date())
             showTimeLabel = currentDate
             selectedDay = "\(showTimeLabel)"
-            for (index, value) in valuesDay.enumerated(){
-                valuesDay[index] = value*0
-            }
-            showCategoryStr.enumerated().forEach{index, value in
-                showCategoryStr = [String]()
-            }
-            for i in 0...showCategory.count-2{
-                showCategoryStr.append(showCategory[i].categoryName)
-            }
-            if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
-                getTrackTime()
-                showCategoryStr.enumerated().forEach{index, value in
-                    if valuesDay[index] == 0.0{
-                        showCategoryStr[index] = ""
-                    }
-                }
-                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-                pieChart.isHidden = false
-                noDataLabel.isHidden = true
-            }else{
-                showTrack = [TrackModel]()
-                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-                pieChart.isHidden = true
-                noDataLabel.isHidden = false
-            }
+//            for (index, value) in valuesDay.enumerated(){
+//                valuesDay[index] = value*0
+//            }
+//            showCategoryStr.enumerated().forEach{index, value in
+//                showCategoryStr = [String]()
+//            }
+//            for i in 0...showCategory.count-2{
+//                showCategoryStr.append(showCategory[i].categoryName)
+//            }
+//            if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+//                getTrackTime()
+//                showCategoryStr.enumerated().forEach{index, value in
+//                    if valuesDay[index] == 0.0{
+//                        showCategoryStr[index] = ""
+//                    }
+//                }
+//                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+//                pieChart.isHidden = false
+//                noDataLabel.isHidden = true
+//            }else{
+//                showTrack = [TrackModel]()
+//                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+//                pieChart.isHidden = false
+//                noDataLabel.isHidden = true
+//            }
         }else if getIndex == 1{
             customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
             pieChart.isHidden = true
@@ -392,7 +394,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         
         pieChart.rotationAngle = 0
         pieChart.entryLabelColor = UIColor.black
-        pieChart.drawEntryLabelsEnabled = true
+        pieChart.drawEntryLabelsEnabled = false
         pieChart.usePercentValuesEnabled = false
         pieChart.transparentCircleRadiusPercent = 0.0
         pieChart.legend.enabled = false
