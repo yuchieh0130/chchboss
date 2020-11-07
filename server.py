@@ -695,10 +695,10 @@ def searchFriendList():
     cur.execute(sql, adr)
     unconfirm_friend = cur.fetchall()
     cur.close()
-    if(confirm_friend):
-        return jsonify({"status_code": 400})
-    else:
-        return jsonify({"status_code": 200, "confirm_friendlist": confirm_friend[0], "unconfirm_friendlist": unconfirm_friend[0]})
+    # if(confirm_friend):
+    #     return jsonify({"status_code": 400})
+    # else:
+    return jsonify({"status_code": 200, "confirm_friendlist": confirm_friend[0], "unconfirm_friendlist": unconfirm_friend[0]})
 
 
 @app.route("/searchFriend", methods=["POST"])
