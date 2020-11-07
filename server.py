@@ -716,11 +716,10 @@ def searchFriend():
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
-    if(fetch_data!):
-        return jsonify({"status_code": 400})
-    else:
-        # friend = ["name"]
+    if(fetch_data):
         return jsonify({"status_code": 200, "friend": fetch_data[0]})
+    else:
+        return jsonify({"status_code": 400})
 
 @app.route("/addFriendRequest", methods=["POST"])
 def addFriendRequest():
