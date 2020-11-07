@@ -93,7 +93,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         combineChart.data = data
         //x axis
         combineChart.xAxis.labelPosition = .bottom
-        combineChart.xAxis.labelFont = UIFont.systemFont(ofSize: 15.0)
+        combineChart.xAxis.labelFont = UIFont.systemFont(ofSize: 11.8)
         combineChart.xAxis.drawGridLinesEnabled = false
         combineChart.xAxis.granularityEnabled = true
         combineChart.xAxis.granularity = 1.0  //距離
