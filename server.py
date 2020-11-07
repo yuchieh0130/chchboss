@@ -712,7 +712,7 @@ def searchFriend():
     
     cur = conn.cursor()
     sql = "SELECT user_name FROM user WHERE user_id = %s"
-    adr = (user_id)
+    adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
