@@ -11,7 +11,6 @@ import UIKit
 
 class rankViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    @IBOutlet var labelView: UIView!
     @IBOutlet var rankView: UIView!
     @IBOutlet var exitBtn: UIButton!
     @IBOutlet var tableView: UITableView!
@@ -20,21 +19,21 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var emojiAngry: UIButton!
     @IBOutlet var emojiThumb: UIButton!
     @IBOutlet var emojiHeart: UIButton!
-    @IBOutlet var categoryBtn: UIButton!
-    @IBAction func categoryBtn(_ sender: Any) {
-        performSegue(withIdentifier: "toCategoryPicker", sender: self)
-    }
+    @IBOutlet var gifImgView: UIImageView!
+    @IBOutlet var titleBtn: UIButton!
+    @IBOutlet var options: [UIButton]!
     
-    
+    var animatedImage: UIImage!
+    var showCategory = [CategoryModel]()
+    var category = CategoryModel(categoryId: 7, categoryName: "default", categoryColor: "Grey", category_image: "default")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         
-        labelView.layer.cornerRadius = 10.0
-        labelView.clipsToBounds = true
-        
-        rankView.layer.cornerRadius = 10.0
-        rankView.clipsToBounds = true
+        titleBtn.layer.cornerRadius = 10.0
+        titleBtn.clipsToBounds = true
+        titleBtn.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         winnerIcon.layer.cornerRadius = 0.5*winnerIcon.bounds.size.width
         winnerIcon.layer.borderWidth = 2
@@ -52,9 +51,39 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
         exitBtn.layer.cornerRadius = 10.0
         exitBtn.clipsToBounds = true
+        exitBtn.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
+        
+        showCategory = DBManager.getInstance().getAllCategory()
+        titleBtn.setTitle("Ranking - Food", for: UIControl.State.normal)
+        animatedImage = UIImage.animatedImageNamed("\(showCategory[0].categoryName)-", duration: 1)
+        gifImgView.image = animatedImage
     }
     
+    @IBAction func startSelect(_ sender: UIButton) {
+        for option in options{
+                UIView.animate(withDuration: 0.3, animations: {
+                    option.isHidden = !option.isHidden
+                    self.view.layoutIfNeeded()
+                })
+            }
+    }
+    
+    @IBAction func optionPressed(_ sender: UIButton) {
+        for option in options{
+                UIView.animate(withDuration: 0.3, animations: {
+                    option.isHidden = !option.isHidden
+                    self.view.layoutIfNeeded()
+                })
+            }
+        showCategory = DBManager.getInstance().getAllCategory()
+        let categoryName = sender.currentTitle ?? ""
+        titleBtn.setTitle("Ranking - \(categoryName)", for: UIControl.State.normal)
+        animatedImage = UIImage.animatedImageNamed("\(showCategory[sender.tag-1].categoryName)-", duration: 1)
+        gifImgView.image = animatedImage
+        winnerIcon.image = UIImage(named: "Image-2")
+        winnerName.text = "宛先先"
+    }
     
     @objc func exit(){
         self.dismiss(animated: true, completion: nil)
@@ -75,7 +104,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return cell
         case [0,1]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-            cell.name.text = "WJ"
+            cell.name.text = "CWJ"
             cell.rank.text = "3"
             cell.percentage.text = "67%"
             cell.selectionStyle = .none

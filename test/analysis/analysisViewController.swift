@@ -36,9 +36,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     var track :TrackModel?
     var categoryName = ""
     
-    var valuesDay = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    var valuesWeek = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    var valuesMonth = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    var valuesDay = [5.1, 3.2, 4.3, 0.0, 0.0, 0.0, 0.0, 0.0, 2.1, 0.0, 3.7, 0.0, 1.1, 0.4, 2.7, 0.0, 1.4, 0.0]
+    var valuesWeek = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 3.8, 0.0, 0.0, 4.2, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
+    var valuesMonth = [30.0, 23.0, 42.0, 21.0, 5.0, 0.0, 20.0, 0.0, 4.0, 0.0, 0.0, 4.0, 9.0, 0.0, 0.0, 0.0, 10.0, 0.0]
     var valuesYear = [70.0, 67.0, 89.0, 74.0, 44.0, 12.0, 5.0, 90.0, 0.0, 60.0, 9.0, 0.0, 26.0, 0.0, 95.0, 54.0, 64.0, 87.0]
     //for chart selected view
     var indexDay = 0
@@ -145,20 +145,47 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         currentDate = showDayformatter.string(from: Date())
         showTimeLabel = currentDate
         selectedDay = "\(showTimeLabel)"
-        for (index, value) in valuesDay.enumerated(){
-            valuesDay[index] = value*0
+//        for (index, value) in valuesDay.enumerated(){
+//            valuesDay[index] = value*0
+//        }
+        showCategoryStr.enumerated().forEach{index, value in
+            showCategoryStr = [String]()
+        }
+        for i in 0...showCategory.count-2{
+            showCategoryStr.append(showCategory[i].categoryName)
         }
         if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
             getTrackTime()
+            showCategoryStr.enumerated().forEach{index, value in
+                if valuesDay[index] == 0.0{
+                    showCategoryStr[index] = ""
+                }
+            }
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             pieChart.isHidden = false
             noDataLabel.isHidden = true
         }else{
             showTrack = [TrackModel]()
+            showCategoryStr.enumerated().forEach{index, value in
+                if valuesDay[index] == 0.0{
+                    showCategoryStr[index] = ""
+                }
+            }
             customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-            pieChart.isHidden = true
-            noDataLabel.isHidden = false
+            pieChart.isHidden = false
+            noDataLabel.isHidden = true
         }
+//        if DBManager.getInstance().getDateTracks(String: selectedDay) != nil{
+//            getTrackTime()
+//            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+//            pieChart.isHidden = false
+//            noDataLabel.isHidden = true
+//        }else{
+//            showTrack = [TrackModel]()
+//            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
+//            pieChart.isHidden = true
+//            noDataLabel.isHidden = false
+//        }
         pieChartWeek.isHidden = true
         pieChartMonth.isHidden = true
         pieChartYear.isHidden = true
@@ -235,9 +262,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             showCategory = DBManager.getInstance().getAllCategory()
             selectedYear = "\(currentYear)"
             selectedWeek = currentWeek
-            for (index, value) in valuesWeek.enumerated(){
-                valuesWeek[index] = value*0
-            }
+//            for (index, value) in valuesWeek.enumerated(){
+//                valuesWeek[index] = value*0
+//            }
             showCategoryStr.enumerated().forEach{index, value in
                 showCategoryStr = [String]()
             }
@@ -257,8 +284,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             }else{
                 showTrack = [TrackModel]()
                 customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-                pieChartWeek.isHidden = true
-                noDataLabel.isHidden = false
+                pieChartWeek.isHidden = false
+                noDataLabel.isHidden = true
             }
         }else if getIndex == 2{
             pieChart.isHidden = true
@@ -306,6 +333,33 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             gifImgView.isHidden = true
             noDataLabel.isHidden = true
             showTimeLabel = "\(currentYear)"
+            showCategory = DBManager.getInstance().getAllCategory()
+            selectedYear = "\(currentYear)"
+            for (index, value) in valuesYear.enumerated(){
+                valuesYear[index] = value*0
+            }
+            showCategoryStr.enumerated().forEach{index, value in
+                showCategoryStr = [String]()
+            }
+            for i in 0...showCategory.count-2{
+                showCategoryStr.append(showCategory[i].categoryName)
+            }
+            if DBManager.getInstance().getYearTracks(Year: selectedYear) != nil{
+                getTrackTimeYear()
+                showCategoryStr.enumerated().forEach{index, value in
+                    if valuesYear[index] == 0.0{
+                        showCategoryStr[index] = ""
+                    }
+                }
+                customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
+                pieChartYear.isHidden = false
+                noDataLabel.isHidden = true
+            }else{
+                showTrack = [TrackModel]()
+                customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
+                pieChartYear.isHidden = true
+                noDataLabel.isHidden = false
+            }
         }
         self.tableView.reloadData()
     }
@@ -476,7 +530,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 gifImgView.center = pieChartWeek.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek]) hrs", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartWeek.centerAttributedText = string
              }
         }else if segConIndex == 2{
@@ -492,8 +546,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartMonth.centerAttributedText = string
                 compareLabel.isHidden = false
-                let stringOne = "You spent more time on Exercise\nthan 85% of the users."
-                let stringTwo = "85%"
+                let stringOne = "You spent more time on Exercise\nthan 11% of the users."
+                let stringTwo = "11%"
                 let range = (stringOne as NSString).range(of: stringTwo)
                 let attributedText = NSMutableAttributedString.init(string: stringOne)
                 attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: hexStringToUIColor(hex: "#F3B23E"), range: range)
@@ -609,6 +663,8 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         for i in 0...showTrack.count-1{
             startDay = showTrack[i].startTime
             endDay = showTrack[i].endTime
+            print(showTrack[i].startDate)
+            print(showTrack[i].startTime)
             if showTrack[i].startDate != selectedDay{
                 startDay = "00:00"
             }
@@ -685,6 +741,21 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     valuesMonth[index] = value+trackTimeMonth
                     print(valuesMonth)
                 }
+            }
+        }
+    }
+    
+    func getTrackTimeYear(){
+        showTrack = DBManager.getInstance().getYearTracks(Year: selectedYear)
+        var startYear = ""
+        var endYear = ""
+        let yearSelected = selectedYear
+        for i in 0...showTrack.count-1{
+            if showTrack[i].startDate.contains("\(selectedYear)") == true && showTrack[i].endDate.contains("\(selectedYear)") == false{
+                
+            }
+            if showTrack[i].startDate.contains("\(selectedYear)") == false && showTrack[i].endDate.contains("\(selectedYear)") == true{
+                
             }
         }
     }

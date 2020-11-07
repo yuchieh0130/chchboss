@@ -11,6 +11,7 @@ import UIKit
 class NetworkController {
     // API URL
     let baseURL = URL(string: "http://140.119.19.42:5000/")!
+    
     func postLocationData (data: [String: String], completion: @escaping(Int?) -> Void) {
         let locationURL = baseURL.appendingPathComponent("insertLocation")
         var request = URLRequest(url: locationURL)
@@ -335,4 +336,191 @@ class NetworkController {
         }
         task.resume( )
     }
+    
+    //
+    func searchFriend (completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("searchFriend")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id]
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func addFriendRequest (friendId: String, completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("addFriendRequest")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id,"friend_id": friendId]
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func searchFriendList (completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("searchFriendList")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id]
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    
+    func insertFriend (friendId: String, completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("insertFriend")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id,"friend_id": friendId]
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    
+    func deleteFriend (friendId: String, completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("deleteFriend")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id,"friend_id": friendId]
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func addEmoji (emoji: String, completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("addEmoji")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id,"emoji": emoji]
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func rank (category: String,currentTime: String,completion: @escaping(Int?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("rank")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id,"category": category,"currenttime":currentTime]
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    
 }
