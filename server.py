@@ -716,7 +716,7 @@ def searchFriend():
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
-    if(fetch_data):
+    if(fetch_data!):
         return jsonify({"status_code": 400})
     else:
         # friend = ["name"]
