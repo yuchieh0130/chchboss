@@ -684,7 +684,7 @@ def searchFriendList():
     user_id = data["user_id"]
     
     cur = conn.cursor()
-    sql = "SELECT friend.*, user.user_id, user.name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
+    sql = "SELECT friend.*, user.user_id, user.user_name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
     adr = (user_id, True)
     cur.execute(sql, adr)
     confirm_friend = cur.fetchall()
@@ -711,7 +711,7 @@ def searchFriend():
     user_id = data[user_id]
     
     cur = conn.cursor()
-    sql = "SELECT name FROM user WHERE user_id = %s"
+    sql = "SELECT user_name FROM user WHERE user_id = %s"
     adr = (user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
@@ -793,7 +793,7 @@ def getEmoji():
 
     cur = conn.cursor()
     sql = "SELECT liked, heart, mad FROM user WHERE user_id = %s"
-    adr = (user_id)
+    adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
