@@ -708,7 +708,7 @@ def searchFriend():
         host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
 
-    user_id = data[user_id]
+    user_id = data["user_id"]
     
     cur = conn.cursor()
     sql = "SELECT user_name FROM user WHERE user_id = %s"
@@ -741,7 +741,7 @@ def addFriendRequest():
     if(fetch_data):
         return jsonify({"status_code": 400})
     cur = conn.cursor()
-    sql = "INSERT INTO friend (user_id, friend_id, comfirm_status) VALUES(%s, %s, %s)"
+    sql = "INSERT INTO friend (user_id, friend_id, confirm_status) VALUES(%s, %s, %s)"
     adr = (user_id, friend_id, False)
     cur.execute(sql, adr)
     conn.commit()
@@ -764,6 +764,7 @@ def insertFriend():
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
+    return jsonify({"status_code": 200})
 
 @app.route("/deleteFriend", methods=["POST"])
 def deleteFriend():
@@ -781,6 +782,7 @@ def deleteFriend():
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
+    return jsonify({"status_code": 200})
 
 @app.route("/getEmoji", methods=["POST"])
 def getEmoji():
