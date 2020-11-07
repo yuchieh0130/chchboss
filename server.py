@@ -684,16 +684,21 @@ def searchFriendList():
     user_id = data[user_id]
     
     cur = conn.cursor()
-    sql = "SELECT friend_id FROM friend WHERE user_id = %s"
-    adr = (user_id)
+    sql = "SELECT friend_id, name, confirm_status, like, heart, mad FROM friend WHERE user_id = %s and confirm_status = %s"
+    adr = (user_id, True)
     cur.execute(sql, adr)
-    fetch_data = cur.fetchall()
+    confirm_friend = cur.fetchall()
     cur.close()
-    if(fetch_data):
+    cur = conn.cursor()
+    sql = "SELECT friend_id, name FROM friend WHERE user_id = %s and confirm_status = %s"
+    adr = (user_id, False)
+    cur.execute(sql, adr)
+    unconfirm_friend = cur.fetchall()
+    cur.close()
+    if(confirm_friend):
         return jsonify({"status_code": 400})
     else:
-        # friendlist = ["user1","user2"]
-        return jsonify({"status_code": 200, "friendlist": fetch_data[0]})
+        return jsonify({"status_code": 200, "confrim_friendlist": confirm_friend[0], "unconfrim_friendlist": unconfirm_friend[0]})
 
 
 @app.route("/searchFriend", methods=["POST"])
@@ -706,7 +711,7 @@ def searchFriend():
     user_id = data[user_id]
     
     cur = conn.cursor()
-    sql = "SELECT name, like, heart, mad FROM user WHERE user_id = %s"
+    sql = "SELECT name FROM user WHERE user_id = %s"
     adr = (user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
@@ -714,11 +719,11 @@ def searchFriend():
     if(fetch_data):
         return jsonify({"status_code": 400})
     else:
-        # friend = ["name", like, heart, mad]
+        # friend = ["name"]
         return jsonify({"status_code": 200, "friend": fetch_data[0]})
 
-@app.route("/insertFriend", methods=["POST"])
-def insertFriend():
+@app.route("/addFriendRequest", methods=["POST"])
+def addFriendRequest():
     import mysql.connector
     conn = mysql.connector.Connect(
         host='localhost', user='root', password='chchboss', database='mo')
@@ -736,13 +741,47 @@ def insertFriend():
     if(fetch_data):
         return jsonify({"status_code": 400})
     cur = conn.cursor()
-    sql = "INSERT INTO friend (user_id, friend_id) VALUES(%s, %s, %s)"
-    adr = (user_id, friend_id)
+    sql = "INSERT INTO friend (user_id, friend_id, comfirm_status) VALUES(%s, %s, %s)"
+    adr = (user_id, friend_id, False)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
     return jsonify({"status_code": 200})
-    
+
+@app.route("/insertFriend", methods=["POST"])
+def insertFriend():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_id = data["user_id"]
+    friend_id = data["friend_id"]
+
+    cur = conn.cursor()
+    sql = "UPDATE user SET confirm_status = %s WHERE user_id = %s and friend_id = %s"
+    adr = (True, user_id, friend_id)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+
+@app.route("/deleteFriend", methods=["POST"])
+def deleteFriend():
+    import mysql.connector
+    conn = mysql.connector.Connect(
+        host='localhost', user='root', password='chchboss', database='mo')
+    data = request.get_json()
+
+    user_id = data["user_id"]
+    friend_id = data["friend_id"]
+
+    cur = conn.cursor()
+    sql = "DELETE * FROM user WHERE (user_id = %s and friend_id = %s) OR (user_id = %s and friend_id = %s)"
+    adr = (True, user_id, friend_id, friend_id, user_id)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+
 @app.route("/getEmoji", methods=["POST"])
 def getEmoji():
     import mysql.connector
