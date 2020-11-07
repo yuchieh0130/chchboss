@@ -681,10 +681,10 @@ def searchFriendList():
         host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
 
-    user_id = data[user_id]
+    user_id = data["user_id"]
     
     cur = conn.cursor()
-    sql = "SELECT friend.*, user.user_id, user.name, user.like, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
+    sql = "SELECT friend.*, user.user_id, user.name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
     adr = (user_id, True)
     cur.execute(sql, adr)
     confirm_friend = cur.fetchall()
@@ -792,7 +792,7 @@ def getEmoji():
     user_id = data["user_id"]
 
     cur = conn.cursor()
-    sql = "SELECT like, heart, mad FROM user WHERE user_id = %s"
+    sql = "SELECT liked, heart, mad FROM user WHERE user_id = %s"
     adr = (user_id)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
@@ -838,16 +838,16 @@ def addEmoji():
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
-    elif(emoji == "like"):
+    elif(emoji == "liked"):
         cur = conn.cursor()
-        sql = "SELECT like FROM user WHERE user_id = %s"
+        sql = "SELECT liked FROM user WHERE user_id = %s"
         adr = (user_id)
         cur.execute(sql, adr)
         fetch_data = cur.fetchall()[0][0]
         cur.close()
         
         cur = conn.cursor()
-        sql = "UPDATE user SET like = %s WHERE user_id = %s"
+        sql = "UPDATE user SET liked = %s WHERE user_id = %s"
         adr = (fetch_data+1, user_id)
         conn.commit()
         cur.close()
