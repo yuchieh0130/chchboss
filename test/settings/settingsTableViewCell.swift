@@ -23,3 +23,14 @@ class changePasswordCell: UITableViewCell{
 class editMyplaceCell: UITableViewCell{
     @IBOutlet var editMyplace: UILabel!
 }
+
+class myFriendCell: UITableViewCell{
+    @IBOutlet var myFriend: UILabel!
+}
+
+class friendListCell: UITableViewCell{
+    @IBOutlet var friendName: UILabel!
+}
+class pendingFriendListCell: UITableViewCell {
+    @IBOutlet var pendingFriendName: UILabel!
+}

@@ -105,23 +105,25 @@ class ViewController: UIViewController{
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        let addBtn = UIButton.init(type: .system)
-        addBtn.setTitle("➕", for: .normal)
-        addBtn.layer.borderWidth = 1.25
-        addBtn.layer.cornerRadius = 5
-        addBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
-        addBtn.frame = CGRect(x:0, y:0, width:48, height:34)
-        addBtn.addTarget(self, action: #selector(addEvent(_:)), for: .touchUpInside)
-        let todayBtn = UIButton.init(type: .system)
-        todayBtn.setTitle("Today", for: .normal)
-        todayBtn.layer.borderWidth = 1.25
-        todayBtn.layer.cornerRadius = 5
-        todayBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
-        todayBtn.frame = CGRect(x:0, y:0, width:48, height:34)
-        todayBtn.addTarget(self, action: #selector(transToToday(_:)), for: .touchUpInside)
+//        let addBtn = UIButton.init(type: .system)
+//        addBtn.setTitle("➕", for: .normal)
+//        addBtn.layer.borderWidth = 1.25
+//        addBtn.layer.cornerRadius = 5
+//        addBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+//        addBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+//        addBtn.addTarget(self, action: #selector(addEvent(_:)), for: .touchUpInside)
+//        let todayBtn = UIButton.init(type: .system)
+//        todayBtn.setTitle("Today", for: .normal)
+//        todayBtn.layer.borderWidth = 1.25
+//        todayBtn.layer.cornerRadius = 5
+//        todayBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+//        todayBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+//        todayBtn.addTarget(self, action: #selector(transToToday(_:)), for: .touchUpInside)
+        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEvent(_:)))
+        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(transToToday(_:)))
         let locationDBBtn = UIBarButtonItem(title: "loc", style: .plain, target: self, action: #selector(locationDB(_:)))
-        navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: todayBtn)]
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: addBtn), locationDBBtn]
+        navigationItem.leftBarButtonItems = [todayBtn]
+        navigationItem.rightBarButtonItems = [addBtn]
         
         calendarView.scrollingMode = .stopAtEachSection //scrolling modes
         calendarView.scrollDirection = .horizontal

@@ -44,14 +44,16 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    var value = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
+    var monthDays: [String] = []
+    var value = [6.5, 7.0, 5.2, 4.0, 5.0, 3.5, 3.8, 21.7, 12.1, 0.0, 0.0, 0.0]
+    var valueForMonth = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        combineChart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+//        combineChart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
 //        super.viewWillAppear(animated)
 //        self.navigationController?.navigationBar.tintColor = UIColor.white
 //        self.navigationController?.navigationBar.barTintColor = color
@@ -78,8 +80,27 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         categoryLabel.setTitleColor(UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1), for: .normal)
         categoryLabel.titleLabel?.font = UIFont(name: "Helvetica", size: 20)
         
-        let currentDate = showDayformatter.string(from: Date())
-        showTimeLabel = currentDate
+//        let currentDate = showDayformatter.string(from: Date())
+//        showTimeLabel = currentDate
+        
+        let startWeekDay = showDayformatter.string(from: startOfWeek!)
+        let endWeekDay = showDayformatter.string(from: endOfWeek!)
+        showTimeLabel = "\(startWeekDay) ~ \(endWeekDay)"
+        
+        let data = CombinedChartData()
+        data.lineData = generateLineData(dataPoints: days, values: value)
+        data.barData = generateBarData(dataPoints: days, values: value)
+        combineChart.data = data
+        //x axis
+        combineChart.xAxis.labelPosition = .bothSided
+        combineChart.xAxis.drawGridLinesEnabled = true
+        combineChart.xAxis.granularityEnabled = true
+        combineChart.xAxis.granularity = 1.0  //距離
+        combineChart.xAxis.axisMinimum = data.xMin - 0.5
+        combineChart.xAxis.axisMaximum = data.xMax + 0.5
+        combineChart.xAxis.centerAxisLabelsEnabled = false
+        combineChart.xAxis.labelCount = 7
+        combineChart.xAxis.valueFormatter = self
     
         var years: [String] = []
         if years.count == 0 {
@@ -91,8 +112,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         }
         self.years = years
         
-        timeLabel.isHidden = false
-        combineChart.isHidden = true
+        timeLabel.isHidden = true
+        combineChart.isHidden = false
         timeLabel.textColor = UIColor.black
         timeLabel.backgroundColor = color
         timeLabel.text = time
@@ -123,11 +144,11 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     @IBAction func segConChoose(_ sender: Any) {
         let getIndex = segCon.selectedSegmentIndex
         segConIndex = getIndex
+//        if getIndex == 0{
+//            timeLabel.isHidden = false
+//            combineChart.isHidden = true
+//            showTimeLabel = showDayformatter.string(from: Date())
         if getIndex == 0{
-            timeLabel.isHidden = false
-            combineChart.isHidden = true
-            showTimeLabel = showDayformatter.string(from: Date())
-        }else if getIndex == 1{
             timeLabel.isHidden = true
             combineChart.isHidden = false
             let startWeekDay = showDayformatter.string(from: startOfWeek!)
@@ -148,10 +169,42 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             combineChart.xAxis.centerAxisLabelsEnabled = false
             combineChart.xAxis.labelCount = 7
             combineChart.xAxis.valueFormatter = self
-        }else if getIndex == 2{
+        }else if getIndex == 1{
             timeLabel.isHidden = true
             combineChart.isHidden = false
             showTimeLabel = monthsFullName[currentMonth - 1] + " \(currentYear)"
+            
+            let dateComponents = DateComponents(year: currentYear, month: currentMonth)
+            let dateMonthYear = Calendar.current.date(from: dateComponents)!
+            let range = Calendar.current.range(of: .day, in: .month, for: dateMonthYear)!
+            let numDays = range.count
+            var dayOfMonth = 1
+            for (_, _) in monthDays.enumerated(){
+                monthDays = []
+            }
+            for _ in 1...numDays{
+                monthDays.append("\(dayOfMonth)")
+                dayOfMonth += 1
+            }
+            
+            let data = CombinedChartData()
+            data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth)
+            data.barData = generateBarData(dataPoints: monthDays, values: valueForMonth)
+            combineChart.data = data
+            //x axis
+            combineChart.xAxis.labelPosition = .bothSided
+            combineChart.xAxis.drawGridLinesEnabled = true
+            combineChart.xAxis.granularityEnabled = true
+            combineChart.xAxis.granularity = 1.0  //距離
+            combineChart.xAxis.axisMinimum = data.xMin - 0.5
+            combineChart.xAxis.axisMaximum = data.xMax + 0.5
+            combineChart.xAxis.centerAxisLabelsEnabled = false
+            combineChart.xAxis.labelCount = numDays+1
+            combineChart.xAxis.valueFormatter = self
+        }else if getIndex == 2{
+            timeLabel.isHidden = true
+            combineChart.isHidden = false
+            showTimeLabel = "\(currentYear)"
             
             let data = CombinedChartData()
             data.lineData = generateLineData(dataPoints: months, values: value)
@@ -166,25 +219,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             combineChart.xAxis.axisMaximum = data.xMax + 0.5
             combineChart.xAxis.centerAxisLabelsEnabled = false
             combineChart.xAxis.labelCount = 13
-            combineChart.xAxis.valueFormatter = self
-        }else if getIndex == 3{
-            timeLabel.isHidden = true
-            combineChart.isHidden = false
-            showTimeLabel = "\(currentYear)"
-            
-            let data = CombinedChartData()
-            data.lineData = generateLineData(dataPoints: years, values: value)
-            data.barData = generateBarData(dataPoints: years, values: value)
-            combineChart.data = data
-            //x axis
-            combineChart.xAxis.labelPosition = .bothSided
-            combineChart.xAxis.drawGridLinesEnabled = true
-            combineChart.xAxis.granularityEnabled = true
-            combineChart.xAxis.granularity = 1.0  //距離
-            combineChart.xAxis.axisMinimum = data.xMin - 0.5
-            combineChart.xAxis.axisMaximum = data.xMax + 0.5
-            combineChart.xAxis.centerAxisLabelsEnabled = false
-            combineChart.xAxis.labelCount = 12
             combineChart.xAxis.valueFormatter = self
         }
         self.tableView.reloadData()
@@ -201,13 +235,14 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if segConIndex == 0{
+//            performSegue(withIdentifier: "combineChartDatePopUp", sender: self)
+//        }else
         if segConIndex == 0{
-            performSegue(withIdentifier: "combineChartDatePopUp", sender: self)
-        }else if segConIndex == 1{
             performSegue(withIdentifier: "combineChartWeek", sender: self)
-        }else if segConIndex == 2{
+        }else if segConIndex == 1{
             performSegue(withIdentifier: "combineChartMonthYear", sender: self)
-        }else if segConIndex == 3{
+        }else if segConIndex == 2{
             performSegue(withIdentifier: "combineChartYear", sender: self)
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -240,29 +275,57 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         if segue.identifier == "timeSegueBack"{
+//            if segConIndex == 0{
+//                let vc = segue.source as? DatePopupViewController
+//                date = vc!.datePicker.date
+//                tag = vc?.tag
+//                if tag == "combineChart"{
+//                    showCategory = DBManager.getInstance().getAllCategory()
+//                    showTimeLabel = showDayformatter.string(from: date)
+//                }
+//            }else
             if segConIndex == 0{
-                let vc = segue.source as? DatePopupViewController
-                date = vc!.datePicker.date
-                tag = vc?.tag
-                if tag == "combineChart"{
-                    showCategory = DBManager.getInstance().getAllCategory()
-                    showTimeLabel = showDayformatter.string(from: date)
-                }
-            }else if segConIndex == 1{
                 let vc = segue.source as? PickerViewWeekViewController
                 tag = vc?.tag
                 if tag == "combineChartWeek"{
                     showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = (vc!.pickerViewWeek.dateWeek)
                 }
-            }else if segConIndex == 2{
+            }else if segConIndex == 1{
                 let vc = segue.source as? PickerViewController
                 tag = vc?.tag
                 if tag == "combineChartMonthYear"{
                     showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
+                    
+                    let dateComponents = DateComponents(year: vc?.pickerViewMonthYear.year, month: vc?.pickerViewMonthYear.month)
+                    let dateMonthYear = Calendar.current.date(from: dateComponents)!
+                    let range = Calendar.current.range(of: .day, in: .month, for: dateMonthYear)!
+                    let numDays = range.count
+                    var dayOfMonth = 1
+                    for (_, _) in monthDays.enumerated(){
+                        monthDays = []
+                    }
+                    for _ in 1...numDays{
+                        monthDays.append("\(dayOfMonth)")
+                        dayOfMonth += 1
+                    }
+                    let data = CombinedChartData()
+                    data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth)
+                    data.barData = generateBarData(dataPoints: monthDays, values: valueForMonth)
+                    combineChart.data = data
+                    //x axis
+                    combineChart.xAxis.labelPosition = .bothSided
+                    combineChart.xAxis.drawGridLinesEnabled = true
+                    combineChart.xAxis.granularityEnabled = true
+                    combineChart.xAxis.granularity = 1.0  //距離
+                    combineChart.xAxis.axisMinimum = data.xMin - 0.5
+                    combineChart.xAxis.axisMaximum = data.xMax + 0.5
+                    combineChart.xAxis.centerAxisLabelsEnabled = false
+                    combineChart.xAxis.labelCount = numDays+1
+                    combineChart.xAxis.valueFormatter = self
                 }
-            }else if segConIndex == 3{
+            }else if segConIndex == 2{
                 let vc = segue.source as? PickerViewYearController
                 tag = vc?.tag
                 if tag == "combineChartYear"{
@@ -350,16 +413,19 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
 }
 extension combineChartViewController: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        if segConIndex == 1{
+        if segConIndex == 0{
             let moduDay = Double(value).truncatingRemainder(dividingBy: Double(days.count))
             return days[Int(moduDay)]
-        }else if segConIndex == 3{
+        }else if segConIndex == 1{
+            let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(monthDays.count))
+            return monthDays[Int(moduMonth)]
+        }else if segConIndex == 2{
             let moduYear =
-                Double(value).truncatingRemainder(dividingBy: Double(years.count))
-            return years[Int(moduYear)]
+                Double(value).truncatingRemainder(dividingBy: Double(months.count))
+            return months[Int(moduYear)]
         }
-        let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
-        return months[Int(moduMonth)]
+        let moduMonth =  Double(value).truncatingRemainder(dividingBy: Double(years.count))
+        return years[Int(moduMonth)]
         }
 }
 

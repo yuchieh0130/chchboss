@@ -104,6 +104,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         let update = GMSCameraUpdate.fit(circle.bounds())
         mapView.animate(with: update)
         
+        slider.setValue(Float(regionRadius), animated: true)
+        txtRegionRadius.text = "Region Size: \(Int(regionRadius)) m"
         //        marker.position = CLLocationCoordinate2D(latitude: (currentLocation.location?.coordinate.latitude)!, longitude: (currentLocation.location?.coordinate.longitude)!)
         //        circle.position = marker.position
         //        circle.fillColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.2)
@@ -140,6 +142,8 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
         myPlaceName = myPlace!.placeName
         myPlaceLongitude = myPlace!.placeLongitude
         myPlaceLatitude = myPlace!.placeLatitude
+        regionRadius = myPlace!.regionRadius
+        print(regionRadius)
     }
     
     @IBAction func myPlaceCategorySegueBack(segue: UIStoryboardSegue){
@@ -157,7 +161,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
             alertMessage()
         }else{
             let controller = UIAlertController(title: "Friendly Reminders 🥕", message: "Check whether the marker on the map is in the correct region of your place \"\(self.myPlaceName)\"" , preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "add", style: .default){_ in
+            let okAction = UIAlertAction(title: "Add", style: .default){_ in
                 let modelInfo = PlaceModel(placeId: self.id, placeName: self.myPlaceName, placeCategory: self.myPlaceCategory.lowercased(), placeLongitude: self.myPlaceLongitude, placeLatitude: self.myPlaceLatitude, regionRadius: self.regionRadius, myPlace: true)
                 let id = DBManager.getInstance().addPlace(modelInfo)
                 self.startMonitorRegion(placeId: id)
@@ -299,7 +303,7 @@ extension editMyPlaceViewController: UITextFieldDelegate,UISearchBarDelegate{
     @objc func searchPlaceFromGoogle(_ textField: UISearchBar) {
         
         if let searchQuery = textField.text {
-            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyA1aip55jDmoNfeOeSwXfGlBFtTlU5olrA"
+            var strGoogleApi = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchQuery)&key= AIzaSyB9u6VwFRAbX7wFldR7MJHfhmcodVzEaIs"
             strGoogleApi = strGoogleApi.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             
             var urlRequest = URLRequest(url: URL(string: strGoogleApi)!)

@@ -28,6 +28,21 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
         }else{
             showCategory = [CategoryModel]()
         }
+        
+        navigationItem.title = "Category"
+        let backBtn = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
+        navigationItem.leftBarButtonItems = [backBtn]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)]
+    }
+    
+    @objc func back(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBOutlet weak var collectionView: UICollectionView!

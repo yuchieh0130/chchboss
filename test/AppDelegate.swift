@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         }
         
         // Override point for customization after application launch.
-        let googleApiKey = "AIzaSyA1aip55jDmoNfeOeSwXfGlBFtTlU5olrA"
+        let googleApiKey = "AIzaSyB9u6VwFRAbX7wFldR7MJHfhmcodVzEaIs"
         GMSPlacesClient.provideAPIKey(googleApiKey)
         GMSServices.provideAPIKey(googleApiKey)
         
@@ -83,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         myLocationManager.delegate = self
         myLocationManager.distanceFilter = kCLLocationAccuracyHundredMeters
         myLocationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        //kCLLocationAccuracyBest
         //kCLLocationAccuracyBestForNavigation：導航最高精確，，需要使用GPS。例如：汽車導航時使用。
         //kCLLocationAccuracyBest;//高精確
         //kCLLocationAccuracyNearestTenMeters：10米，10米附近的精準度可能是GPS & WiFi混用
@@ -207,7 +208,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
         
         self.currentSpeed = myLocationManager.location!.speed
         self.currentLocation = locations[0] as CLLocation
-        self.currentTime = Date()
+        //self.currentTime = Date()
         
         saveLocation()
         
@@ -322,14 +323,17 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     //    }
     
     func enterRegion(region: CLRegion){
-        var placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
-        var category2 = "entering myPlace"
+        var placeEntering : PlaceModel?
+        var category2 = ""
         
         if region.identifier.contains("c"){
             var id = region.identifier
             id.remove(at: id.startIndex)
             placeEntering = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
             category2 = "entering commonPlace"
+        }else{
+            placeEntering = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+            category2 = "entering myPlace"
         }
         
         let latitude = placeEntering!.placeLatitude
@@ -365,14 +369,17 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     }
     
     func exitRegion(region: CLRegion){
-        var placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
-        var category2 = "exiting myPlace"
+        var placeExiting : PlaceModel?
+        var category2 = ""
         
         if region.identifier.contains("c"){
             var id = region.identifier
             id.remove(at: id.startIndex)
             placeExiting = DBManager.getInstance().getCommonPlace(Int: Int32(id)!)
             category2 = "exiting commonPlace"
+        }else{
+            placeExiting = DBManager.getInstance().getPlace(Int: Int32(region.identifier)!)
+            category2 = "exiting myPlace"
         }
         
         let latitude = placeExiting!.placeLatitude
@@ -409,7 +416,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     
     func makeNotification(String: String){
         let no = UNMutableNotificationContent()
-        no.title = "Motitor Region Notification"
+        no.title = "Monitor Region Notification"
         no.body = String
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: "Monitor Region Notification", content: no, trigger: trigger)

@@ -41,7 +41,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,9 +55,15 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as! changePasswordCell
             cell.selectionStyle = .none
             return cell
-        default:
+        case [0,2]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editMyplaceCell", for: indexPath) as! editMyplaceCell
             cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "myFriendCell", for: indexPath) as! myFriendCell
+            cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
             return cell
         }
     }

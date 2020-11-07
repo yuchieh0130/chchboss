@@ -66,30 +66,33 @@ class taskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.toolbar.isHidden = true
         self.navigationController?.navigationBar.shadowImage = UIImage()
 
-        let addTaskBtn = UIButton.init(type: .system)
-        addTaskBtn.setTitle("➕", for: .normal)
-        addTaskBtn.layer.borderWidth = 1.25
-        addTaskBtn.layer.cornerRadius = 5
-        addTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
-        addTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
-        addTaskBtn.addTarget(self, action: #selector(addTask(_:)), for: .touchUpInside)
-        let editTaskBtn = UIButton.init(type: .system)
-        editTaskBtn.setTitle("Edit", for: .normal)
-        editTaskBtn.layer.borderWidth = 1.25
-        editTaskBtn.layer.cornerRadius = 5
-        editTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
-        editTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
-        editTaskBtn.addTarget(self, action: #selector(editTask(_:)), for: .touchUpInside)
-        let doneTaskBtn = UIButton.init(type: .system)
-        doneTaskBtn.setTitle("✔", for: .normal)
-        doneTaskBtn.layer.borderWidth = 1.25
-        doneTaskBtn.layer.cornerRadius = 5
-        doneTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
-        doneTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
-        doneTaskBtn.addTarget(self, action: #selector(doneTask(_:)), for: .touchUpInside)
+//        let addTaskBtn = UIButton.init(type: .system)
+//        addTaskBtn.setTitle("➕", for: .normal)
+//        addTaskBtn.layer.borderWidth = 1.25
+//        addTaskBtn.layer.cornerRadius = 5
+//        addTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+//        addTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+//        addTaskBtn.addTarget(self, action: #selector(addTask(_:)), for: .touchUpInside)
+        let addTaskBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask(_:)))
+//        let editTaskBtn = UIButton.init(type: .system)
+//        editTaskBtn.setTitle("Edit", for: .normal)
+//        editTaskBtn.layer.borderWidth = 1.25
+//        editTaskBtn.layer.cornerRadius = 5
+//        editTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+//        editTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+//        editTaskBtn.addTarget(self, action: #selector(editTask(_:)), for: .touchUpInside)
+        let editTaskBtn = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTask(_:)))
+//        let doneTaskBtn = UIButton.init(type: .system)
+//        doneTaskBtn.setTitle("✔", for: .normal)
+//        doneTaskBtn.layer.borderWidth = 1.25
+//        doneTaskBtn.layer.cornerRadius = 5
+//        doneTaskBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+//        doneTaskBtn.frame = CGRect(x:0, y:0, width:48, height:34)
+//        doneTaskBtn.addTarget(self, action: #selector(doneTask(_:)), for: .touchUpInside)
+        let doneTaskBtn = UIBarButtonItem(title: "✔", style: .plain, target: self, action: #selector(doneTask(_:)))
         let flexible = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: addTaskBtn), flexible, flexible, UIBarButtonItem(customView: doneTaskBtn)]
-        navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: editTaskBtn)]
+        navigationItem.rightBarButtonItems = [addTaskBtn, flexible, flexible, flexible, doneTaskBtn]
+        navigationItem.leftBarButtonItems = [editTaskBtn]
         
         let floaty = Floaty(frame: CGRect(x: self.view.frame.width - 67, y: self.view.frame.height - 140, width: 45, height: 45))
         floaty.buttonColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)

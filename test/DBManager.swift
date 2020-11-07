@@ -767,7 +767,7 @@ class DBManager: NSObject {
         let select = "\(Year)-\(Month)"
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString =  "select * from track where strftime('%Y-%m',start_date)='\(select)' or strftime('&Y-%m',end_date)='\(select)'"
+        let sqlString =  "select * from track where strftime('%Y-%m',start_date)='\(select)' or strftime('%Y-%m',end_date)='\(select)'"
         //           let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
         
         //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
@@ -796,6 +796,172 @@ class DBManager: NSObject {
         set?.close()
         return tracks
     }
+    
+    //get selected date當年的track
+    func getYearTracks(Year: String) -> [TrackModel]!{
+        let select = "\(Year)"
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let sqlString =  "select * from track where strftime('%Y',start_date)='\(select)' or strftime('%Y',end_date)='\(select)'"
+        
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "start_date")
+            let b = set?.string(forColumn: "start_time")
+            let w = set?.int(forColumn: "weekDay")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
+            
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
+    
+    //get selected date當天的track for certain category
+    func getDateTracks_category(String: String, Category: Int32) -> [TrackModel]!{
+        
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        
+        let sqlString = "SELECT * FROM track WHERE ((start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )') AND category_id = \(Category) "
+        
+        //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "start_date")
+            let b = set?.string(forColumn: "start_time")
+            let w = set?.int(forColumn: "weekDay")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
+            
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
+    
+    //get selected date當週的track for certain category
+    func getWeekTracks_category(year: String, week: Int, Category: Int32) -> [TrackModel]!{
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(year) \(week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(year) \(week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(year) \(week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(year) \(week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
+       
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "start_date")
+            let b = set?.string(forColumn: "start_time")
+            let w = set?.int(forColumn: "weekDay")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
+            
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
+    
+    //get selected date當月的track for certain category
+    func getMonthTracks_category(Year: String,Month: String, Category: Int32) -> [TrackModel]!{
+        let select = "\(Year)-\(Month)"
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let sqlString =  "select * from track where (strftime('%Y-%m',start_date)='\(select)' or strftime('&Y-%m',end_date)='\(select)') AND category_id = \(Category)"
+       
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "start_date")
+            let b = set?.string(forColumn: "start_time")
+            let w = set?.int(forColumn: "weekDay")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
+            
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
+    
+    //get selected date當年的track for certain category
+    func getYearTracks_category(Year: String, Category: Int32) -> [TrackModel]!{
+           let select = "\(Year)"
+           var tracks: [TrackModel]!
+           shareInstance.database?.open()
+           let sqlString =  "select * from track where (strftime('%Y',start_date)='\(select)' or strftime('%Y',end_date)='\(select)') AND category_id = \(Category)"
+           
+           let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+           
+           while ((set?.next())!) {
+               let i = set?.int(forColumn: "track_id")
+               let a = set?.string(forColumn: "start_date")
+               let b = set?.string(forColumn: "start_time")
+               let w = set?.int(forColumn: "weekDay")
+               let c = set?.string(forColumn: "end_date")
+               let d = set?.string(forColumn: "end_time")
+               let e = set?.int(forColumn: "category_id")
+               let f = set?.int(forColumn: "location_id")
+               let g = set?.int(forColumn: "place_id")
+               
+               let track: TrackModel
+               
+               if tracks == nil{
+                   tracks = [TrackModel]()
+               }
+               
+               track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+               tracks.append(track)
+           }
+           set?.close()
+           return tracks
+       }
     
     
     //    func deleteTrackPlace(id: Int32) -> Bool{
@@ -919,7 +1085,7 @@ class DBManager: NSObject {
         
         var locations: [LocationModel]!
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM location";
+        let sqlString = "SELECT * FROM location order by location_id DESC ";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {

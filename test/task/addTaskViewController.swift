@@ -301,7 +301,7 @@ class addTaskViewController: UIViewController, UITableViewDataSource, UITableVie
             let fireDate = showDateformatter.date(from: deadline)!
             let no = UNMutableNotificationContent()
                 no.title = "Task Notification"
-            no.body = "name: " + taskName + "\ntime: " + deadline
+            no.body = "Name: " + taskName + "\nTime: " + deadline
             for i in 0...notificationIndex.count-1{
                 var notificationid = ""
                 if task == nil{
