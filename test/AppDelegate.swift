@@ -295,8 +295,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     }
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         // makeNotification(String: "didStartMonitoringFor")
-        // print(region)
-        print("region:\(region)")
+        //print("region:\(region)")
     }
     
     // 當用戶退出一個 region
