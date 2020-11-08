@@ -712,15 +712,14 @@ def searchFriend():
     
     cur = conn.cursor()
     sql = "SELECT user_name FROM user WHERE user_id = %s"
-    adr = (user_id)
+    adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
     if(fetch_data):
-        return jsonify({"status_code": 400})
-    else:
-        # friend = ["name"]
         return jsonify({"status_code": 200, "friend": fetch_data[0]})
+    else:
+        return jsonify({"status_code": 400})
 
 @app.route("/addFriendRequest", methods=["POST"])
 def addFriendRequest():
@@ -738,6 +737,7 @@ def addFriendRequest():
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
+    print(fetch_data)
     if(fetch_data):
         return jsonify({"status_code": 400})
     cur = conn.cursor()
