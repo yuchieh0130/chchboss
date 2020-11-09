@@ -116,9 +116,11 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     
     func createTimeLines(hours: [String],view: UIScrollView){
         for i in 0...24{
-            let time = UILabel(frame:CGRect(x:20,y:hourSize*i,width: 50,height: 50))
+            let time = UILabel(frame:CGRect(x:20,y:hourSize*i,width: 55,height: 50))
             time.text = hours[i]
-            let line = UIView(frame:CGRect(x:80,y:hourSize*i+25,width:Int(fullSize.width)-100,height: 1))
+            time.font = .boldSystemFont(ofSize: 18)
+            time.textColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
+            let line = UIView(frame:CGRect(x:90,y:hourSize*i+25,width:Int(fullSize.width)-110,height: 1))
             line.backgroundColor = UIColor.gray
             view.addSubview(time)
             view.addSubview(line)
@@ -143,9 +145,15 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
 //            let height = (showTimeformatter.date(from: showTrack[i].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[i].startTime)!))!/3600*Double(hourSize)
 //            let y = (showTimeformatter.date(from: showTrack[i].startTime)?.timeIntervalSince(showTimeformatter.date(from: "00:00")!))!/3600*Double(hourSize)
             let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
-            let trackView = UIButton(frame:CGRect(x:80,y:25+Int(y),width: Int(fullSize.width)-100,height: Int(height)))
+            let trackView = UIButton(frame:CGRect(x:90,y:25+Int(y),width: Int(fullSize.width)-110,height: Int(height)-4))
             trackView.tag = i
             trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
+            trackView.layer.borderWidth = 2.5
+            trackView.layer.borderColor = hexStringToUIColor_border(hex: category!.categoryColor).cgColor
+//            trackView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+//            trackView.layer.shadowOpacity = 0.2
+//            trackView.layer.shadowOffset = CGSize(width: 5, height: 5)
+            trackView.layer.cornerRadius = 10
             trackView.addTarget(self, action: #selector(self.editAutoRecord), for: .touchUpInside)
             let categoryLabel: UILabel!
             if height < 70{
@@ -154,6 +162,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
                 categoryLabel = UILabel(frame:CGRect(x:20,y:20,width: 500,height: 50))
             }
             categoryLabel.text = "\(category!.categoryName)"
+            categoryLabel.font = .boldSystemFont(ofSize: 16)
             trackView.addSubview(categoryLabel)
             //trackView.layer.borderColor = hexStringToUIColor_border(hex: category!.categoryColor).cgColor
             //trackView.layer.borderWidth = 3
