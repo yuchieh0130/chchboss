@@ -86,7 +86,7 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
                 vc.hidesBottomBarWhenPushed = true
                 vc.name = "\(showCategory[indexPath![0].row].categoryName)"
                 vc.color = hexStringToUIColor (hex:"\(showCategory[indexPath![0].row].categoryColor)")
-                vc.time = "time"
+                vc.category = showCategory[indexPath![0].row].categoryId!
             }
         }
     }

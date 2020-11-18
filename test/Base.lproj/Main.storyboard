@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17502"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1489,24 +1489,21 @@
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="uun-bz-T0X" customClass="combineChartViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s3G-bG-W5Y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIX-RI-p8s">
-                                <rect key="frame" x="97" y="314" width="219" height="180"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="H7s-km-6ZI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Analysis Data Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIX-RI-p8s">
+                                <rect key="frame" x="86" y="334" width="243" height="90"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJk-pf-oOW" customClass="CombinedChartView" customModule="Charts">
-                                <rect key="frame" x="31" y="235" width="352" height="590"/>
+                                <rect key="frame" x="31" y="203" width="352" height="568"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-BQ-eAl">
-                                <rect key="frame" x="55" y="102" width="303" height="33"/>
+                                <rect key="frame" x="55.666666666666657" y="70" width="303" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="qek-mU-wet"/>
                                 </constraints>
@@ -1520,27 +1517,27 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AVa-Kk-b7s">
-                                <rect key="frame" x="0.0" y="142" width="413" height="85"/>
+                                <rect key="frame" x="0.0" y="110" width="414" height="85"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="4Gj-KF-RvJ"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="combineChartTableViewCell" id="qGo-vZ-Jga" customClass="combineChartTableViewCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="413" height="55"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qGo-vZ-Jga" id="oQP-lF-JDg">
-                                            <rect key="frame" x="0.0" y="0.0" width="413" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwM-4O-A7S">
-                                                    <rect key="frame" x="20" y="0.0" width="373" height="55"/>
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="55"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="gwz-GR-tNU">
-                                                    <rect key="frame" x="371" y="17" width="23" height="21"/>
+                                                    <rect key="frame" x="372" y="17" width="23" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="23" id="Osg-JF-IwO"/>
                                                     </constraints>
@@ -1570,17 +1567,18 @@
                         <viewLayoutGuide key="safeArea" id="o7j-Ny-lzL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="CDO-BQ-eAl" firstAttribute="centerX" secondItem="hIX-RI-p8s" secondAttribute="centerX" id="13g-gf-Tch"/>
                             <constraint firstItem="FJk-pf-oOW" firstAttribute="centerX" secondItem="s3G-bG-W5Y" secondAttribute="centerX" id="4vF-Tj-6wi"/>
-                            <constraint firstItem="AVa-Kk-b7s" firstAttribute="centerX" secondItem="CDO-BQ-eAl" secondAttribute="centerX" id="7EI-1b-8eQ"/>
+                            <constraint firstItem="hIX-RI-p8s" firstAttribute="top" secondItem="AVa-Kk-b7s" secondAttribute="bottom" constant="139" id="7AF-qT-TFf"/>
                             <constraint firstItem="AVa-Kk-b7s" firstAttribute="top" secondItem="CDO-BQ-eAl" secondAttribute="bottom" constant="8" symbolic="YES" id="7Vg-i0-maP"/>
-                            <constraint firstItem="hIX-RI-p8s" firstAttribute="leading" relation="lessThanOrEqual" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="97" id="8ba-ny-FQC"/>
-                            <constraint firstItem="CDO-BQ-eAl" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="55" id="Fc4-Zb-XiV"/>
+                            <constraint firstItem="AVa-Kk-b7s" firstAttribute="centerX" secondItem="s3G-bG-W5Y" secondAttribute="centerX" id="AR2-gF-blU"/>
+                            <constraint firstItem="o7j-Ny-lzL" firstAttribute="bottom" secondItem="hIX-RI-p8s" secondAttribute="bottom" constant="384" id="BCK-rY-3gn"/>
+                            <constraint firstItem="CDO-BQ-eAl" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="55.5" id="Fc4-Zb-XiV"/>
+                            <constraint firstItem="o7j-Ny-lzL" firstAttribute="trailing" secondItem="hIX-RI-p8s" secondAttribute="trailing" constant="85" id="Hse-Lf-PMX"/>
                             <constraint firstItem="AVa-Kk-b7s" firstAttribute="leading" secondItem="s3G-bG-W5Y" secondAttribute="leading" id="JVy-o3-fsC"/>
                             <constraint firstItem="FJk-pf-oOW" firstAttribute="top" secondItem="AVa-Kk-b7s" secondAttribute="bottom" constant="8" symbolic="YES" id="Msk-Kf-bZH"/>
                             <constraint firstItem="CDO-BQ-eAl" firstAttribute="top" secondItem="o7j-Ny-lzL" secondAttribute="top" constant="14" id="XVY-Tc-Yx2"/>
-                            <constraint firstItem="o7j-Ny-lzL" firstAttribute="trailing" secondItem="hIX-RI-p8s" secondAttribute="trailing" constant="98" id="cI2-TS-rp8"/>
-                            <constraint firstItem="hIX-RI-p8s" firstAttribute="top" secondItem="AVa-Kk-b7s" secondAttribute="bottom" constant="87" id="o9h-Fp-YSs"/>
+                            <constraint firstItem="o7j-Ny-lzL" firstAttribute="trailing" secondItem="CDO-BQ-eAl" secondAttribute="trailing" constant="55.5" id="jRg-3j-u0r"/>
+                            <constraint firstItem="hIX-RI-p8s" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="86" id="kcl-r6-Zoa"/>
                             <constraint firstItem="FJk-pf-oOW" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="31" id="qL4-Fe-wHB"/>
                             <constraint firstItem="o7j-Ny-lzL" firstAttribute="bottom" secondItem="FJk-pf-oOW" secondAttribute="bottom" constant="37" id="wYm-nP-A8e"/>
                         </constraints>
@@ -4509,16 +4507,16 @@
         <segue reference="jIU-gU-dL9"/>
         <segue reference="F6N-r1-0ti"/>
         <segue reference="d6S-kX-z6W"/>
-        <segue reference="Gzg-26-yUX"/>
-        <segue reference="xf9-aG-tJ0"/>
-        <segue reference="NnR-u6-Zjt"/>
+        <segue reference="lFt-3D-Ule"/>
+        <segue reference="Oag-qC-jfG"/>
+        <segue reference="U7q-In-7Hs"/>
         <segue reference="bEa-Xr-2tt"/>
-        <segue reference="0SZ-0C-Z6S"/>
-        <segue reference="zvw-7p-SrS"/>
+        <segue reference="nsD-kG-Var"/>
+        <segue reference="WGP-Ss-XWI"/>
         <segue reference="dh3-ww-BEF"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Image" width="250" height="252.5"/>
+        <image name="Image" width="144.66667175292969" height="144"/>
         <image name="Image-1" width="144.66667175292969" height="144"/>
         <image name="Image-2" width="180" height="192.66667175292969"/>
         <image name="analysis" width="23" height="23"/>

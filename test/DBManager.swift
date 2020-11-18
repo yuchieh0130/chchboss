@@ -831,7 +831,7 @@ class DBManager: NSObject {
     }
     
     //get selected date當天的track for certain category
-    func getDateTracks_category(String: String, Category: Int32) -> [TrackModel]!{
+    func getDateTracks_category(String: String, Category: Int) -> [TrackModel]!{
         
         var tracks: [TrackModel]!
         shareInstance.database?.open()
@@ -866,10 +866,10 @@ class DBManager: NSObject {
     }
     
     //get selected date當週的track for certain category
-    func getWeekTracks_category(year: String, week: Int, Category: Int32) -> [TrackModel]!{
+    func getWeekTracks_category(Year: String, Week: Int, Category: Int) -> [TrackModel]!{
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(year) \(week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(year) \(week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(year) \(week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(year) \(week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
+        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(Year) \(Week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(Year) \(Week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
        
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
@@ -898,7 +898,7 @@ class DBManager: NSObject {
     }
     
     //get selected date當月的track for certain category
-    func getMonthTracks_category(Year: String,Month: String, Category: Int32) -> [TrackModel]!{
+    func getMonthTracks_category(Year: String, Month: String, Category: Int) -> [TrackModel]!{
         let select = "\(Year)-\(Month)"
         var tracks: [TrackModel]!
         shareInstance.database?.open()
@@ -931,7 +931,7 @@ class DBManager: NSObject {
     }
     
     //get selected date當年的track for certain category
-    func getYearTracks_category(Year: String, Category: Int32) -> [TrackModel]!{
+    func getYearTracks_category(Year: String, Category: Int) -> [TrackModel]!{
            let select = "\(Year)"
            var tracks: [TrackModel]!
            shareInstance.database?.open()
