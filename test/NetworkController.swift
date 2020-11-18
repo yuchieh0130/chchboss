@@ -381,7 +381,7 @@ class NetworkController {
                 let jsonDictionary = try?
                     JSONSerialization.jsonObject(with: data) as?
                         [String: Int],
-                let status_code = jsonDictionary["status_code"] {
+                let status_code = jsonDictionary["status_code"]{
                 completion(status_code)
             } else {
                 completion(nil)
@@ -390,7 +390,8 @@ class NetworkController {
         task.resume( )
     }
     
-    func searchFriendList (completion: @escaping(Int?) -> Void) {
+    
+    func searchFriendList (completion: @escaping([Any]?) -> Void) {
         let trackURL = baseURL.appendingPathComponent("searchFriendList")
         var request = URLRequest(url: trackURL)
         request.httpMethod = "POST"
@@ -403,12 +404,16 @@ class NetworkController {
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request)
         { (data, response, error) in
+//            print("data!")
+//            print(String(data: data!, encoding: .utf8))
             if let data = data,
                 let jsonDictionary = try?
                     JSONSerialization.jsonObject(with: data) as?
-                        [String: Int],
-                let status_code = jsonDictionary["status_code"] {
-                completion(status_code)
+                        [String: Any],
+                let status_code = jsonDictionary["status_code"],
+                let confirm_friendlist = jsonDictionary["confirm_friendlist"] as? [[Any]],
+                let unconfirm_friendlist = jsonDictionary["unconfirm_friendlist"] as? [[Any]]{
+                completion([status_code,confirm_friendlist,unconfirm_friendlist])
             } else {
                 completion(nil)
             }

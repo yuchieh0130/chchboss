@@ -148,9 +148,21 @@ class DBManager: NSObject {
         return categories
     }
     
+    /*func for friend*/
+    func refreshFriendList(_ modelInfo: [FriendModel]){
+        shareInstance.database?.open()
+        let refrechSQL = "DELETE FROM friendList"
+        shareInstance.database?.executeUpdate(refrechSQL, withArgumentsIn:[])
+        
+        for friend in modelInfo {
+            shareInstance.database?.executeUpdate("INSERT INTO friendList (friendId,name,like,heart,mad,isChecked) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [friend.friendId,friend.name,friend.like,friend.heart,friend.mad,friend.isChecked])
+        }
+
+        shareInstance.database?.close()
+        
+    }
+    
     func getFriendList() -> [FriendModel]!{
-        
-        
         
 //        net.searchFriend (data: data) {
 //            (status_code) in
@@ -161,11 +173,11 @@ class DBManager: NSObject {
 
         var friends : [FriendModel]!
         
-        net.searchFriendList { (status_code) in
-            if (status_code != nil) {
-                print(status_code!)
-            }
-        }
+//        net.searchFriendList { (status_code) in
+//            if (status_code != nil) {
+//                print(status_code!)
+//            }
+//        }
         shareInstance.database?.open()
         let sqlString = "SELECT * FROM friendList";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
@@ -177,8 +189,6 @@ class DBManager: NSObject {
             let c = set?.int(forColumn: "heart")
             let d = set?.int(forColumn: "mad")
             let e = set?.bool(forColumn: "isChecked")
-            
-            
             
             
             let friend: FriendModel
@@ -1185,7 +1195,7 @@ class DBManager: NSObject {
         
         shareInstance.database?.open()
         //let table = ["savedPlace","track","event","task"]
-        let table = ["savedPlace","track"]
+        let table = ["savedPlace","track","friendList"]
         for i in 0...table.count-1{
             shareInstance.database?.executeUpdate("DELETE FROM \(table[i])", withArgumentsIn:[])
             shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])

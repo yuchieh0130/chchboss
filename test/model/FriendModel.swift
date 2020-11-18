@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct FriendListModel {
-    let friends: [FriendModel]
-}
+//struct FriendListModel {
+//    let friends: [FriendModel]
+//}
 
 struct FriendModel {
-    let friendId:Int32?
+    let friendId: Int32?
     let name: String
     let like: Int32
     let heart: Int32

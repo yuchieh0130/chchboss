@@ -13,8 +13,9 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet var tableView: UITableView!
     let headerTitles = ["", "Pending Friends"]
+    var listToRefresh : [FriendModel] = []
     
-    var showAllFriends: [FriendModel]?
+//    var showAllFriends: [FriendModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +23,15 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         let addFriendBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFriend(_:)))
         navigationItem.rightBarButtonItems = [addFriendBtn]
         
+        refreshFriend() //refresh friendList table From API
         
-        
-        if DBManager.getInstance().getFriendList() != nil{
-            showAllFriends = DBManager.getInstance().getFriendList()
-        }else{
-            showAllFriends = [FriendModel]()
-        }
-        
-        print("rr",DBManager.getInstance().getFriendList())
+//        if DBManager.getInstance().getFriendList() != nil{
+//            showAllFriends = DBManager.getInstance().getFriendList()
+//        }else{
+//            showAllFriends = [FriendModel]()
+//        }
+//
+//        print("rr",DBManager.getInstance().getFriendList())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +42,35 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc func addFriend(_ sender: Any){
         performSegue(withIdentifier: "addFriend", sender: self)
+    }
+    
+    func refreshFriend(){
+        net.searchFriendList{ (return_list) in
+        if let status_code = return_list?[0],
+            let confirm = return_list?[1] as? [[AnyObject]],
+            let unconfirm = return_list?[2] as? [[AnyObject]]{
+            if status_code as! Int == 200{
+                if confirm.count>0 {
+                    for i in 0...confirm.count-1{
+                        let friend = FriendModel(friendId: confirm[i][0] as! Int32, name: confirm[i][1] as! String, like: confirm[i][2] as! Int32, heart: confirm[i][3] as! Int32, mad: confirm[i][4] as! Int32, isChecked: true)
+                        self.listToRefresh.append(friend)
+                    }
+                }
+                if unconfirm.count>0{
+                    for i in 0...unconfirm.count-1{
+                        let friend = FriendModel(friendId: unconfirm[i][0] as! Int32, name: unconfirm[i][1] as! String, like: 0, heart: 0, mad: 0, isChecked: false)
+                        self.listToRefresh.append(friend)
+                    }
+                }
+                DBManager.getInstance().refreshFriendList(self.listToRefresh)
+            }else{
+                print("searchFriendList \(status_code)")
+            }
+        }else{
+            print("searchFriendList error")
+        }
+        }
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -54,7 +84,8 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
 //        }else if section == 1{
 //            rowCount = 2
 //        }
-        return showAllFriends?.count ?? 0
+        //return showAllFriends?.count ?? 0
+        return 0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -90,7 +121,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-        let friend = self.showAllFriends![indexPath.row]
+        //let friend = self.showAllFriends![indexPath.row]
         
 //        cell.friendName.text = friend.friendId
         
