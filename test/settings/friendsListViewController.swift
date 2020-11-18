@@ -15,7 +15,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     let headerTitles = ["", "Pending Friends"]
     var listToRefresh : [FriendModel] = []
     
-//    var showAllFriends: [FriendModel]?
+    var showAllFriends: [FriendModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,15 +23,16 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         let addFriendBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFriend(_:)))
         navigationItem.rightBarButtonItems = [addFriendBtn]
         
-        refreshFriend() //refresh friendList table From API
+        refreshFriend() //refresh DB friendList table
         
-//        if DBManager.getInstance().getFriendList() != nil{
-//            showAllFriends = DBManager.getInstance().getFriendList()
-//        }else{
-//            showAllFriends = [FriendModel]()
-//        }
-//
-//        print("rr",DBManager.getInstance().getFriendList())
+        
+        if DBManager.getInstance().getFriendList() != nil{
+            showAllFriends = DBManager.getInstance().getFriendList()
+        }else{
+            showAllFriends = [FriendModel]()
+        }
+        
+        print("rr",DBManager.getInstance().getFriendList())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,29 +47,31 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func refreshFriend(){
         net.searchFriendList{ (return_list) in
-        if let status_code = return_list?[0],
-            let confirm = return_list?[1] as? [[AnyObject]],
-            let unconfirm = return_list?[2] as? [[AnyObject]]{
-            if status_code as! Int == 200{
-                if confirm.count>0 {
-                    for i in 0...confirm.count-1{
-                        let friend = FriendModel(friendId: confirm[i][0] as! Int32, name: confirm[i][1] as! String, like: confirm[i][2] as! Int32, heart: confirm[i][3] as! Int32, mad: confirm[i][4] as! Int32, isChecked: true)
-                        self.listToRefresh.append(friend)
+            if let status_code = return_list?[0],
+                let confirm = return_list?[1] as? [[AnyObject]],
+                let unconfirm = return_list?[2] as? [[AnyObject]]{
+                if status_code as! Int == 200{
+                    print("confirm Friends: \(confirm)")
+                    if confirm.count>0 {
+                        for i in 0...confirm.count-1{
+                            let friend = FriendModel(friendId: confirm[i][0] as! Int32, name: confirm[i][1] as! String, like: confirm[i][2] as! Int32, heart: confirm[i][3] as! Int32, mad: confirm[i][4] as! Int32, isChecked: true)
+                            self.listToRefresh.append(friend)
+                        }
                     }
-                }
-                if unconfirm.count>0{
-                    for i in 0...unconfirm.count-1{
-                        let friend = FriendModel(friendId: unconfirm[i][0] as! Int32, name: unconfirm[i][1] as! String, like: 0, heart: 0, mad: 0, isChecked: false)
-                        self.listToRefresh.append(friend)
+                    print("unconfirm Friends: \(unconfirm)")
+                    if unconfirm.count>0{
+                        for i in 0...unconfirm.count-1{
+                            let friend = FriendModel(friendId: unconfirm[i][0] as! Int32, name: unconfirm[i][1] as! String, like: 0, heart: 0, mad: 0, isChecked: false)
+                            self.listToRefresh.append(friend)
+                        }
                     }
+                    DBManager.getInstance().refreshFriendList(self.listToRefresh)
+                }else{
+                    print("searchFriendList \(status_code)")
                 }
-                DBManager.getInstance().refreshFriendList(self.listToRefresh)
             }else{
-                print("searchFriendList \(status_code)")
+                print("searchFriendList error")
             }
-        }else{
-            print("searchFriendList error")
-        }
         }
         
     }
@@ -78,14 +81,13 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        var rowCount = 0
-//        if section == 0{
-//            rowCount = 5
-//        }else if section == 1{
-//            rowCount = 2
-//        }
-        //return showAllFriends?.count ?? 0
-        return 0
+        //        var rowCount = 0
+        //        if section == 0{
+        //            rowCount = 5
+        //        }else if section == 1{
+        //            rowCount = 2
+        //        }
+        return showAllFriends?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -95,14 +97,14 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         return nil
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        if section == 1{
-//            headerView.backgroundColor = UIColor.white
-//        }
-//        return headerView
-//
-//    }
+    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //        let headerView = UIView()
+    //        if section == 1{
+    //            headerView.backgroundColor = UIColor.white
+    //        }
+    //        return headerView
+    //
+    //    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var rowHeight = 0
         if section == 1{
@@ -123,51 +125,52 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
         //let friend = self.showAllFriends![indexPath.row]
         
-//        cell.friendName.text = friend.friendId
+        //        cell.friendName.text = friend.friendId
         
- //       cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
-//        cell?.detailTextLabel?.isHidden = false
+        //       cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
+        //        cell?.detailTextLabel?.isHidden = false
         
         return cell
         
-//        switch indexPath {
-//        case [0,0]:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-//            cell.friendName.text = "Vincent"
-//            return cell
-//        case [0,1]:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-//            cell.friendName.text = "Red Xin Rou"
-//            return cell
-//        case [0,2]:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-//            cell.friendName.text = "Mo"
-//            return cell
-//        case [0,3]:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-//            cell.friendName.text = "Sherry"
-//            return cell
-//        case [0,4]:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-//            cell.friendName.text = "WJ"
-//            return cell
-//        case [1,0]:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
-//            cell.pendingFriendName.text = "Jessica"
-//            return cell
-//        case [1,1]:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
-//            cell.pendingFriendName.text = "Benson"
-//            return cell
-//        default:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-//            cell.friendName.text = "WJ"
-//            return cell
-//        }
-       
+        //        switch indexPath {
+        //        case [0,0]:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+        //            cell.friendName.text = "Vincent"
+        //            return cell
+        //        case [0,1]:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+        //            cell.friendName.text = "Red Xin Rou"
+        //            return cell
+        //        case [0,2]:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+        //            cell.friendName.text = "Mo"
+        //            return cell
+        //        case [0,3]:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+        //            cell.friendName.text = "Sherry"
+        //            return cell
+        //        case [0,4]:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+        //            cell.friendName.text = "WJ"
+        //            return cell
+        //        case [1,0]:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
+        //            cell.pendingFriendName.text = "Jessica"
+        //            return cell
+        //        case [1,1]:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
+        //            cell.pendingFriendName.text = "Benson"
+        //            return cell
+        //        default:
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+        //            cell.friendName.text = "WJ"
+        //            return cell
+        //        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "friendProfile", sender: self)
     }
+    
 }
