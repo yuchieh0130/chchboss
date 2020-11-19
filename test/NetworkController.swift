@@ -338,13 +338,12 @@ class NetworkController {
     }
     
     //
-    func searchFriend (completion: @escaping(Int?) -> Void) {
+    func searchFriend (user_id:String,completion: @escaping([Any]?) -> Void) {
         let trackURL = baseURL.appendingPathComponent("searchFriend")
         var request = URLRequest(url: trackURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
             "Content-Type")
-        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
         let data: [String: String] = ["user_id": user_id]
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
@@ -354,9 +353,10 @@ class NetworkController {
             if let data = data,
                 let jsonDictionary = try?
                     JSONSerialization.jsonObject(with: data) as?
-                        [String: Int],
-                let status_code = jsonDictionary["status_code"] {
-                completion(status_code)
+                        [String: Any],
+                let status_code = jsonDictionary["status_code"],
+                let friend = jsonDictionary["friend"] as? [Any] {
+                completion([status_code,friend])
             } else {
                 completion(nil)
             }
