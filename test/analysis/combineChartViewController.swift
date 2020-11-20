@@ -325,6 +325,12 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         for i in 0...showTrack.count-1{
             startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
             endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
+            
+            let startStringDate = showDayformatter.date(from: showTrack[i].startDate)!
+            let endStringDate = showDayformatter.date(from: showTrack[i].endDate)!
+            let startWeekday = Calendar.current.component(.weekday, from: startStringDate)
+            let endWeekday = Calendar.current.component(.weekday, from: endStringDate)
+            
             guard let year = Int(selectedYear), let weekOfYear = selectedWeek else {return}
             let components = DateComponents(weekOfYear: weekOfYear+1, yearForWeekOfYear: year)
             guard let date = Calendar.current.date(from: components) else {return}
@@ -343,10 +349,26 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                     endWeek = "\(e) 23:59"
                 }
             }
+            if i != 0 && i != showTrack.count-1{
+                if startWeekday != endWeekday{
+                    if showTrack[i].endTime != "23:59"{
+                        startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
+                        endWeek = "\(showTrack[i].startDate) 23:59"
+                    }
+                }
+            }
+            
             let trackTimeWeek = round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
             valueForWeek.enumerated().forEach{index, value in
-                if showTrack[i].categoryId-1 == index{
-                    valueForWeek[index] = value+trackTimeWeek
+                if showTrack[i].weekDay-1 == index{ //把日期轉成weekday
+                    if startWeekday != endWeekday{
+                        if showTrack[i].startTime != "00:00"{
+                            startWeek = "\(showTrack[i].endDate) 00:00"
+                            endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
+                        }
+                        valueForWeek[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
+                    }
+                    valueForWeek[index] += trackTimeWeek
                 }
             }
         }
@@ -373,7 +395,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 endMonth = showDateformatter.string(from: e)
             }
             let trackTimeMonth = round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
-            
             valueForMonth.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
                     valueForMonth[index] = value+trackTimeMonth
