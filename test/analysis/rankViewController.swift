@@ -26,9 +26,48 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var animatedImage: UIImage!
     var showCategory = [CategoryModel]()
     var category = CategoryModel(categoryId: 7, categoryName: "default", categoryColor: "Grey", category_image: "default")
-
+    
+    var rankList :[rankModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUI()
+        getRank(category: "1")
+        
+    }
+    
+    func getRank(category: String){
+        net.rank(category: category){ (return_list) in
+            if let status_code = return_list?[0],
+                let rank = return_list?[1] as? [[AnyObject]]{
+                if status_code as! Int == 200{
+                    var total = 0.0
+                    for i in rank{
+                        total += i[3] as! Double
+                    }
+                    for i in rank{
+                        let percent = Int(((i[3] as! Double)/total).rounding(toDecimal: 3)*100)
+                        let rankmodel = rankModel(id:i[0] as! Int,name:i[1] as! String,percent: percent)
+                        self.rankList.append(rankmodel)
+                    }
+                    print(self.rankList)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.reloadWinner()
+                    }
+                }else{
+                    print("rank error: \(status_code)")
+                }
+                
+            }else{
+                print("rank error")
+            }
+            
+        }
+    }
+    
+    func setupUI(){
         self.tabBarController?.tabBar.isHidden = true
         
         titleBtn.layer.cornerRadius = 10.0
@@ -62,72 +101,87 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction func startSelect(_ sender: UIButton) {
         for option in options{
-                UIView.animate(withDuration: 0.3, animations: {
-                    option.isHidden = !option.isHidden
-                    self.view.layoutIfNeeded()
-                })
-            }
+            UIView.animate(withDuration: 0.3, animations: {
+                option.isHidden = !option.isHidden
+                self.view.layoutIfNeeded()
+            })
+        }
     }
     
     @IBAction func optionPressed(_ sender: UIButton) {
         for option in options{
-                UIView.animate(withDuration: 0.3, animations: {
-                    option.isHidden = !option.isHidden
-                    self.view.layoutIfNeeded()
-                })
-            }
-        showCategory = DBManager.getInstance().getAllCategory()
+            UIView.animate(withDuration: 0.3, animations: {
+                option.isHidden = !option.isHidden
+                self.view.layoutIfNeeded()
+            })
+        }
+        self.rankList = []
+        getRank(category: "\(sender.tag)")
+//        winnerIcon.image = UIImage(named: "Image-2")
+//        winnerName.text = "宛先先"
         let categoryName = sender.currentTitle ?? ""
         titleBtn.setTitle("Ranking - \(categoryName)", for: UIControl.State.normal)
         animatedImage = UIImage.animatedImageNamed("\(showCategory[sender.tag-1].categoryName)-", duration: 1)
         gifImgView.image = animatedImage
-        winnerIcon.image = UIImage(named: "Image-2")
-        winnerName.text = "宛先先"
+    }
+    
+    func addEmoji(user_id:String,emoji:String){
+        net.addEmoji(emoji: emoji,user_id: user_id){ status_code in
+            if status_code == 200{
+                //新增成功！看要不要跳出可愛小圖案！
+            }
+        }
     }
     
     @objc func exit(){
         self.dismiss(animated: true, completion: nil)
     }
     
+    func reloadWinner(){
+        if rankList.count > 0{
+            self.winnerName.text = self.rankList[0].name
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return rankList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath {
-        case [0,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-            cell.name.text = "Mo"
-            cell.rank.text = "2"
-            cell.percentage.text = "72%"
-            cell.selectionStyle = .none
-            return cell
-        case [0,1]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-            cell.name.text = "CWJ"
-            cell.rank.text = "3"
-            cell.percentage.text = "67%"
-            cell.selectionStyle = .none
-            return cell
-        case [0,2]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-            cell.name.text = "Sherry"
-            cell.rank.text = "4"
-            cell.percentage.text = "38%"
-            cell.selectionStyle = .none
-            return cell
-        case [0,3]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-            cell.name.text = "Vincent"
-            cell.rank.text = "5"
-            cell.percentage.text = "10%"
-            cell.selectionStyle = .none
-            return cell
+//        case [0,0]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+//            cell.name.text = "Mo"
+//            cell.rank.text = "2"
+//            cell.percentage.text = "72%"
+//            cell.selectionStyle = .none
+//            return cell
+//        case [0,1]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+//            cell.name.text = "CWJ"
+//            cell.rank.text = "3"
+//            cell.percentage.text = "67%"
+//            cell.selectionStyle = .none
+//            return cell
+//        case [0,2]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+//            cell.name.text = "Sherry"
+//            cell.rank.text = "4"
+//            cell.percentage.text = "38%"
+//            cell.selectionStyle = .none
+//            return cell
+//        case [0,3]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
+//            cell.name.text = "Vincent"
+//            cell.rank.text = "5"
+//            cell.percentage.text = "10%"
+//            cell.selectionStyle = .none
+//            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
-            cell.name.text = "CHCHBOSS"
-            cell.rank.text = "2"
-            cell.percentage.text = "70%"
+            cell.name.text = rankList[indexPath.row].name
+            cell.rank.text = "\(indexPath.row+1)"
+            cell.percentage.text = "\(rankList[indexPath.row].percent) %"
             cell.selectionStyle = .none
             return cell
         }

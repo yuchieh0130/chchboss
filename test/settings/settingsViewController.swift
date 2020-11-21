@@ -32,6 +32,11 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
             make.leading.equalTo(100)
             make.trailing.equalTo(-100)
         }
+        
+        let user_name = UserDefaults.standard.string(forKey: "user_name")
+        userName.text = user_name
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        userID.text = "ID: \(user_id)"
     }
     
     override func viewWillAppear(_ animated: Bool) {

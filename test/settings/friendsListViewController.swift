@@ -26,7 +26,6 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         
         refreshFriend() //refresh DB friendList table
         
-        
         if DBManager.getInstance().getCheckedFriendList() != nil{
             showCheckedFriends = DBManager.getInstance().getCheckedFriendList()
         }else{
@@ -38,6 +37,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         }else{
             showUncheckedFriends = [FriendModel]()
         }
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +82,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        //return 2
         if showUncheckedFriends?.count == 0{ return 1 }else{ return 2}
     }
     

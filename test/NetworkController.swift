@@ -300,10 +300,11 @@ class NetworkController {
             if let data = data,
                 let jsonDictionary = try?
                     JSONSerialization.jsonObject(with: data) as?
-                        [String: Int], //[[Any]]
-                let status_code = jsonDictionary["status_code"],
-                let user_id = jsonDictionary["user_id"]{
-                completion([status_code, user_id])
+                        [String: Any], //[[Any]]
+                let status_code = jsonDictionary["status_code"] as? Int,
+                let user_id = jsonDictionary["user_id"] as? Int,
+                let user_name = jsonDictionary["user_name"]{
+                completion([status_code, user_id, user_name])
             } else {
                 completion(nil)
             }
@@ -328,8 +329,9 @@ class NetworkController {
                     JSONSerialization.jsonObject(with: data) as?
                         [String: Any],
                 let status_code = jsonDictionary["status_code"] as? Int,
-                let user_id = jsonDictionary["user_id"] as? Int{
-                completion([status_code, user_id])
+                let user_id = jsonDictionary["user_id"] as? Int,
+                let user_name = jsonDictionary["user_name"]{
+                completion([status_code, user_id,user_name])
             } else {
                 completion(nil)
             }
@@ -475,13 +477,12 @@ class NetworkController {
         task.resume( )
     }
     
-    func addEmoji (emoji: String, completion: @escaping(Int?) -> Void) {
+    func addEmoji (emoji: String, user_id:String, completion: @escaping(Int?) -> Void) {
         let trackURL = baseURL.appendingPathComponent("addEmoji")
         var request = URLRequest(url: trackURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
             "Content-Type")
-        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
         let data: [String: String] = ["user_id": user_id,"emoji": emoji]
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
@@ -501,14 +502,15 @@ class NetworkController {
         task.resume( )
     }
     
-    func rank (category: String,currentTime: String,completion: @escaping(Int?) -> Void) {
+    func rank (category: String,completion: @escaping([Any]?) -> Void) {
         let trackURL = baseURL.appendingPathComponent("rank")
         var request = URLRequest(url: trackURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
             "Content-Type")
         let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
-        let data: [String: String] = ["user_id": user_id,"category": category,"currenttime":currentTime]
+        //let data: [String: String] = ["user_id": user_id,"category": category,"currenttime":currentTime]
+        let data: [String: String] = ["user_id": user_id,"category": category]
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
         request.httpBody = jsonData
@@ -517,9 +519,10 @@ class NetworkController {
             if let data = data,
                 let jsonDictionary = try?
                     JSONSerialization.jsonObject(with: data) as?
-                        [String: Int],
-                let status_code = jsonDictionary["status_code"] {
-                completion(status_code)
+                        [String: Any],
+                let status_code = jsonDictionary["status_code"],
+                let rank = jsonDictionary["rank"] as? [Any]{
+                completion([status_code, rank])
             } else {
                 completion(nil)
             }
