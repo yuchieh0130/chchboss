@@ -82,16 +82,16 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        if showUncheckedFriends?.count == 0{ return 1 }else{ return 2}
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                var rowCount = 0
-                if section == 0{
-                    rowCount = showCheckedFriends?.count ?? 0
-                }else if section == 1{
-                    rowCount = showUncheckedFriends?.count ?? 0
-                }
+        var rowCount = 0
+        if section == 0{
+            rowCount = showCheckedFriends?.count ?? 0
+        }else if section == 1{
+            rowCount = showUncheckedFriends?.count ?? 0
+        }
         return rowCount
     }
     
@@ -128,14 +128,19 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
+        let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
+        //            cell.pendingFriendName.text = "Benson"
+        //            return cell
+        print(indexPath[0])
         if indexPath[0] == 0 {
             let friend = self.showCheckedFriends![indexPath.row]
             cell.friendName.text = friend.name
+            return cell
         } else {
             let friend = self.showUncheckedFriends![indexPath.row]
-            cell.friendName.text = friend.name
+            pendingCell.pendingFriendName.text = friend.name
+            return pendingCell
         }
-        return cell
         
         //        switch indexPath {
         //        case [0,0]:
