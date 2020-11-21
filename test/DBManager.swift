@@ -162,24 +162,12 @@ class DBManager: NSObject {
         
     }
     
-    func getFriendList() -> [FriendModel]!{
-        
-//        net.searchFriend (data: data) {
-//            (status_code) in
-//            if (status_code != nil) {
-//                print("getFriendList\(status_code)")
-//            }
-//        }
+    func getCheckedFriendList() -> [FriendModel]!{
 
         var friends : [FriendModel]!
-        
-//        net.searchFriendList { (status_code) in
-//            if (status_code != nil) {
-//                print(status_code!)
-//            }
-//        }
+
         shareInstance.database?.open()
-        let sqlString = "SELECT * FROM friendList";
+        let sqlString = "SELECT * FROM friendList WHERE isChecked = true";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -190,10 +178,36 @@ class DBManager: NSObject {
             let d = set?.int(forColumn: "mad")
             let e = set?.bool(forColumn: "isChecked")
             
+            let friend: FriendModel
+            
+            if friends == nil{
+                friends = [FriendModel]()
+            }
+            friend = FriendModel(friendId: i!, name: a!, like: b!, heart: c!, mad: d!, isChecked: e!)
+            friends.append(friend)
+        }
+        set?.close()
+        return friends
+    }
+    
+    func getUncheckedFriendList() -> [FriendModel]!{
+
+        var friends : [FriendModel]!
+
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM friendList WHERE isChecked = false";
+        let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "friendId")
+            let a = set?.string(forColumn: "name")!
+            let b = set?.int(forColumn: "like")
+            let c = set?.int(forColumn: "heart")
+            let d = set?.int(forColumn: "mad")
+            let e = set?.bool(forColumn: "isChecked")
             
             let friend: FriendModel
             
-
             if friends == nil{
                 friends = [FriendModel]()
             }

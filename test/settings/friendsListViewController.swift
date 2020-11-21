@@ -15,7 +15,8 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     let headerTitles = ["", "Pending Friends"]
     var listToRefresh : [FriendModel] = []
     
-    var showAllFriends: [FriendModel]?
+    var showCheckedFriends: [FriendModel]?
+    var showUncheckedFriends: [FriendModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +27,17 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         refreshFriend() //refresh DB friendList table
         
         
-        if DBManager.getInstance().getFriendList() != nil{
-            showAllFriends = DBManager.getInstance().getFriendList()
+        if DBManager.getInstance().getCheckedFriendList() != nil{
+            showCheckedFriends = DBManager.getInstance().getCheckedFriendList()
         }else{
-            showAllFriends = [FriendModel]()
+            showCheckedFriends = [FriendModel]()
         }
         
-        print("rr",DBManager.getInstance().getFriendList())
+        if DBManager.getInstance().getUncheckedFriendList() != nil{
+            showUncheckedFriends = DBManager.getInstance().getUncheckedFriendList()
+        }else{
+            showUncheckedFriends = [FriendModel]()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,13 +86,13 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        var rowCount = 0
-        //        if section == 0{
-        //            rowCount = 5
-        //        }else if section == 1{
-        //            rowCount = 2
-        //        }
-        return showAllFriends?.count ?? 0
+                var rowCount = 0
+                if section == 0{
+                    rowCount = showCheckedFriends?.count ?? 0
+                }else if section == 1{
+                    rowCount = showUncheckedFriends?.count ?? 0
+                }
+        return rowCount
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -123,13 +128,13 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as! friendListCell
-        //let friend = self.showAllFriends![indexPath.row]
-        
-        //        cell.friendName.text = friend.friendId
-        
-        //       cell?.detailTextLabel?.text = "\(distance) km \(subAdministrativeArea) \(locality) "
-        //        cell?.detailTextLabel?.isHidden = false
-        
+        if indexPath[0] == 0 {
+            let friend = self.showCheckedFriends![indexPath.row]
+            cell.friendName.text = friend.name
+        } else {
+            let friend = self.showUncheckedFriends![indexPath.row]
+            cell.friendName.text = friend.name
+        }
         return cell
         
         //        switch indexPath {
