@@ -722,11 +722,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 endMonth = showDateformatter.string(from: e)
             }
             let trackTimeMonth = round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
-            
             valuesMonth.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
                     valuesMonth[index] = value+trackTimeMonth
-                    print(valuesMonth)
                 }
             }
         }
@@ -827,7 +825,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                     showCategory = DBManager.getInstance().getAllCategory()
                     showTimeLabel = vc!.pickerViewMonthYear.dateMonthYear
                     selectedYear = "\(vc!.pickerViewMonthYear.year)"
-                    if currentMonth < 10{
+                    if (vc?.pickerViewMonthYear.month)! < 10{
                         selectedMonth = "0\(vc!.pickerViewMonthYear.month)"
                     }else{
                         selectedMonth = "\(vc!.pickerViewMonthYear.month)"

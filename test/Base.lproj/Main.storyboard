@@ -1499,7 +1499,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJk-pf-oOW" customClass="CombinedChartView" customModule="Charts">
-                                <rect key="frame" x="31" y="203" width="352" height="568"/>
+                                <rect key="frame" x="12" y="203" width="390" height="568"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-BQ-eAl">
@@ -1579,7 +1579,7 @@
                             <constraint firstItem="CDO-BQ-eAl" firstAttribute="top" secondItem="o7j-Ny-lzL" secondAttribute="top" constant="14" id="XVY-Tc-Yx2"/>
                             <constraint firstItem="o7j-Ny-lzL" firstAttribute="trailing" secondItem="CDO-BQ-eAl" secondAttribute="trailing" constant="55.5" id="jRg-3j-u0r"/>
                             <constraint firstItem="hIX-RI-p8s" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="86" id="kcl-r6-Zoa"/>
-                            <constraint firstItem="FJk-pf-oOW" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="31" id="qL4-Fe-wHB"/>
+                            <constraint firstItem="FJk-pf-oOW" firstAttribute="leading" secondItem="o7j-Ny-lzL" secondAttribute="leading" constant="12" id="qL4-Fe-wHB"/>
                             <constraint firstItem="o7j-Ny-lzL" firstAttribute="bottom" secondItem="FJk-pf-oOW" secondAttribute="bottom" constant="37" id="wYm-nP-A8e"/>
                         </constraints>
                     </view>
