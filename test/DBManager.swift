@@ -148,6 +148,76 @@ class DBManager: NSObject {
         return categories
     }
     
+    /*func for friend*/
+    func refreshFriendList(_ modelInfo: [FriendModel]){
+        shareInstance.database?.open()
+        let refrechSQL = "DELETE FROM friendList"
+        shareInstance.database?.executeUpdate(refrechSQL, withArgumentsIn:[])
+        
+        for friend in modelInfo {
+            shareInstance.database?.executeUpdate("INSERT INTO friendList (friendId,name,like,heart,mad,isChecked) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [friend.friendId,friend.name,friend.like,friend.heart,friend.mad,friend.isChecked])
+        }
+
+        shareInstance.database?.close()
+        
+    }
+    
+    func getCheckedFriendList() -> [FriendModel]!{
+
+        var friends : [FriendModel]!
+
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM friendList WHERE isChecked = true";
+        let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "friendId")
+            let a = set?.string(forColumn: "name")!
+            let b = set?.int(forColumn: "like")
+            let c = set?.int(forColumn: "heart")
+            let d = set?.int(forColumn: "mad")
+            let e = set?.bool(forColumn: "isChecked")
+            
+            let friend: FriendModel
+            
+            if friends == nil{
+                friends = [FriendModel]()
+            }
+            friend = FriendModel(friendId: i!, name: a!, like: b!, heart: c!, mad: d!, isChecked: e!)
+            friends.append(friend)
+        }
+        set?.close()
+        return friends
+    }
+    
+    func getUncheckedFriendList() -> [FriendModel]!{
+
+        var friends : [FriendModel]!
+
+        shareInstance.database?.open()
+        let sqlString = "SELECT * FROM friendList WHERE isChecked = false";
+        let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "friendId")
+            let a = set?.string(forColumn: "name")!
+            let b = set?.int(forColumn: "like")
+            let c = set?.int(forColumn: "heart")
+            let d = set?.int(forColumn: "mad")
+            let e = set?.bool(forColumn: "isChecked")
+            
+            let friend: FriendModel
+            
+            if friends == nil{
+                friends = [FriendModel]()
+            }
+            friend = FriendModel(friendId: i!, name: a!, like: b!, heart: c!, mad: d!, isChecked: e!)
+            friends.append(friend)
+        }
+        set?.close()
+        return friends
+    }
+    
     //    func getColor() -> [String:String]{
     //
     //        var result = [String:String]()
@@ -831,7 +901,7 @@ class DBManager: NSObject {
     }
     
     //get selected date當天的track for certain category
-    func getDateTracks_category(String: String, Category: Int32) -> [TrackModel]!{
+    func getDateTracks_category(String: String, Category: Int) -> [TrackModel]!{
         
         var tracks: [TrackModel]!
         shareInstance.database?.open()
@@ -866,10 +936,10 @@ class DBManager: NSObject {
     }
     
     //get selected date當週的track for certain category
-    func getWeekTracks_category(year: String, week: Int, Category: Int32) -> [TrackModel]!{
+    func getWeekTracks_category(Year: String, Week: Int, Category: Int) -> [TrackModel]!{
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(year) \(week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(year) \(week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(year) \(week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(year) \(week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
+        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(Year) \(Week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(Year) \(Week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
        
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
@@ -898,7 +968,7 @@ class DBManager: NSObject {
     }
     
     //get selected date當月的track for certain category
-    func getMonthTracks_category(Year: String,Month: String, Category: Int32) -> [TrackModel]!{
+    func getMonthTracks_category(Year: String, Month: String, Category: Int) -> [TrackModel]!{
         let select = "\(Year)-\(Month)"
         var tracks: [TrackModel]!
         shareInstance.database?.open()
@@ -931,7 +1001,7 @@ class DBManager: NSObject {
     }
     
     //get selected date當年的track for certain category
-    func getYearTracks_category(Year: String, Category: Int32) -> [TrackModel]!{
+    func getYearTracks_category(Year: String, Category: Int) -> [TrackModel]!{
            let select = "\(Year)"
            var tracks: [TrackModel]!
            shareInstance.database?.open()
@@ -1139,7 +1209,7 @@ class DBManager: NSObject {
         
         shareInstance.database?.open()
         //let table = ["savedPlace","track","event","task"]
-        let table = ["savedPlace","track"]
+        let table = ["savedPlace","track","friendList"]
         for i in 0...table.count-1{
             shareInstance.database?.executeUpdate("DELETE FROM \(table[i])", withArgumentsIn:[])
             shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])

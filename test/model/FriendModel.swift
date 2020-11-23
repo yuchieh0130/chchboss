@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct FriendListModel {
-    let friends: [FriendModel]
-}
+//struct FriendListModel {
+//    let friends: [FriendModel]
+//}
 
 struct FriendModel {
-    let friendId:Int32?
+    let friendId: Int32?
     let name: String
-    let like: Int
-    let heart: Int
-    let mad: Int
+    let like: Int32
+    let heart: Int32
+    let mad: Int32
     let isChecked: Bool
 }

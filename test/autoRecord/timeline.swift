@@ -145,7 +145,7 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
 //            let height = (showTimeformatter.date(from: showTrack[i].endTime)?.timeIntervalSince(showTimeformatter.date(from: showTrack[i].startTime)!))!/3600*Double(hourSize)
 //            let y = (showTimeformatter.date(from: showTrack[i].startTime)?.timeIntervalSince(showTimeformatter.date(from: "00:00")!))!/3600*Double(hourSize)
             let category = DBManager.getInstance().getCategory(Int: showTrack[i].categoryId)
-            let trackView = UIButton(frame:CGRect(x:90,y:25+Int(y),width: Int(fullSize.width)-110,height: Int(height)-4))
+            let trackView = UIButton(frame:CGRect(x:90,y:26+Int(y),width: Int(fullSize.width)-110,height: Int(height)-4))
             trackView.tag = i
             trackView.backgroundColor = hexStringToUIColor(hex: category!.categoryColor)
             trackView.layer.borderWidth = 2.5

@@ -27,6 +27,8 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
     
     let startWeek = Date().startOfWeek
     let endWeek = Date().endOfWeek
+    var sunOfWeek = Date()
+    var satOfWeek = Date()
 
     var onDateSelected: ((_ week: Int) -> Void)?
     var dateWeek = ""
@@ -92,10 +94,10 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         
         dateFormat.dateFormat =  "yyyy-MM-dd"
         
-        let sunOfWeek = startWeek!.startDateCorrespondingTo(weekNumber: Int(weeksArray[row])!)
-        let satOfWeek = endWeek!.endDateCorrespondingTo(weekNumber: Int(weeksArray[row])!)
-        let sun = dateFormat.string(from: sunOfWeek!)
-        let sat = dateFormat.string(from: satOfWeek!)
+        sunOfWeek = startWeek!.startDateCorrespondingTo(weekNumber: Int(weeksArray[row])!)!
+        satOfWeek = endWeek!.endDateCorrespondingTo(weekNumber: Int(weeksArray[row])!)!
+        let sun = dateFormat.string(from: sunOfWeek)
+        let sat = dateFormat.string(from: satOfWeek)
         dateWeek = "\(sun) ~ \(sat)"
         
         self.week = weekSelected

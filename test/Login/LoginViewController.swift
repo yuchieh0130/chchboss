@@ -54,7 +54,8 @@ class LoginViewController: UIViewController {
         net.login(email: emailTextField.text!, password: passwordTextField.text!) {
             (return_list) in
             if let status_code = return_list?[0],
-                let user_id = return_list?[1]{
+                let user_id = return_list?[1],
+                let user_name = return_list?[2]{
                 if status_code as! Int == 200 {
                     DispatchQueue.main.async {
                         self.warningLabel.text = "Loading your data...🥕"
@@ -65,6 +66,7 @@ class LoginViewController: UIViewController {
                     UserDefaults.standard.set(user_id, forKey: "user_id")
                     let user_id = UserDefaults.standard.integer(forKey: "user_id")
                     print("login in : userId_\(user_id)")
+                    UserDefaults.standard.set(user_name, forKey: "user_name")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     print("last_track_id : \(last_track_id)")
                     let savedPlaceData = ["user_id":String(user_id)]
@@ -342,7 +344,8 @@ extension LoginViewController: LoginButtonDelegate {
         net.lineLogin(user_lineid: user_lineid, user_name: user_name) {
             (return_list) in
             if let status_code = return_list?[0],
-                let user_id = return_list?[1]{
+                let user_id = return_list?[1],
+                let user_name = return_list?[2]{
                 if status_code as! Int == 200 {
                     DispatchQueue.main.async {
                         self.warningLabel.text = "Loading your data...🥕"
@@ -353,6 +356,7 @@ extension LoginViewController: LoginButtonDelegate {
                     UserDefaults.standard.set(user_id, forKey: "user_id")
                     let user_id = UserDefaults.standard.integer(forKey: "user_id")
                     print("login in : userId_\(user_id)")
+                    UserDefaults.standard.set(user_name, forKey: "user_name")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     print("last_track_id : \(last_track_id)")
                     let savedPlaceData = ["user_id":String(user_id)]
