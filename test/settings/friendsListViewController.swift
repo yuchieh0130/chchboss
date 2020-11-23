@@ -26,6 +26,9 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         
         refreshFriend() //refresh DB friendList table
         
+    }
+    
+    func getFriend(){
         if DBManager.getInstance().getCheckedFriendList() != nil{
             showCheckedFriends = DBManager.getInstance().getCheckedFriendList()
         }else{
@@ -37,7 +40,9 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         }else{
             showUncheckedFriends = [FriendModel]()
         }
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,14 +61,14 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
                 let confirm = return_list?[1] as? [[AnyObject]],
                 let unconfirm = return_list?[2] as? [[AnyObject]]{
                 if status_code as! Int == 200{
-                    print("confirm Friends: \(confirm)")
+                    //print("confirm Friends: \(confirm)")
                     if confirm.count>0 {
                         for i in 0...confirm.count-1{
                             let friend = FriendModel(friendId: confirm[i][0] as! Int32, name: confirm[i][1] as! String, like: confirm[i][2] as! Int32, heart: confirm[i][3] as! Int32, mad: confirm[i][4] as! Int32, isChecked: true)
                             self.listToRefresh.append(friend)
                         }
                     }
-                    print("unconfirm Friends: \(unconfirm)")
+                    //print("unconfirm Friends: \(unconfirm)")
                     if unconfirm.count>0{
                         for i in 0...unconfirm.count-1{
                             let friend = FriendModel(friendId: unconfirm[i][0] as! Int32, name: unconfirm[i][1] as! String, like: 0, heart: 0, mad: 0, isChecked: false)
@@ -71,11 +76,14 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
                         }
                     }
                     DBManager.getInstance().refreshFriendList(self.listToRefresh)
+                    self.getFriend()
                 }else{
                     print("searchFriendList \(status_code)")
+                    self.getFriend()
                 }
             }else{
                 print("searchFriendList error")
+                self.getFriend()
             }
         }
         

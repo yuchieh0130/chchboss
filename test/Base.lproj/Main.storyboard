@@ -3446,6 +3446,9 @@
                                                 <constraint firstItem="gUW-c6-U8Z" firstAttribute="top" secondItem="c6X-W9-iHB" secondAttribute="topMargin" id="ceS-nB-zz4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="CmP-Wk-PdL" kind="unwind" identifier="autoLocationSegueBack" unwindAction="autoLocationSegueBackWithSegue:" id="YPQ-Pa-A8z"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
