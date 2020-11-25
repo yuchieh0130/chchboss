@@ -572,7 +572,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="AA5-3s-fjv">
-                                                    <rect key="frame" x="0.0" y="14" width="50" height="20"/>
+                                                    <rect key="frame" x="0.0" y="14" width="50" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
@@ -1276,6 +1276,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="confirmBtn" destination="i1j-7l-oZO" id="Nfu-E2-Ark"/>
+                                            <outlet property="deleteBtn" destination="LJ3-7A-PdI" id="yNg-s1-7v8"/>
                                             <outlet property="pendingFriendName" destination="VhU-wD-vAc" id="434-hq-fK1"/>
                                         </connections>
                                     </tableViewCell>
