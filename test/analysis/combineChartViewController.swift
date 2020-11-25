@@ -52,6 +52,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     var selectedMonth = ""
     var selectedYear = ""
     var selectedCategory: Int!
+    var selectedMonthString = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -703,32 +704,33 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                     let data = CombinedChartData()
                     selectedYear = "\(vc!.pickerViewYear.dateYear)"
                     selectedCategory = Int(category)
+                    selectedMonth = "01"
                     for (index, value) in valueForYear.enumerated(){
                         valueForYear[index] = value*0
                     }
-                    if DBManager.getInstance().getYearTracks_category(Year: selectedYear, Category: selectedCategory) != nil{
-                        combineChart.isHidden = false
-                        timeLabel.isHidden = true
-                        for i in selectedMonth{
-                            
+                    for i in selectedMonthString{
+                        selectedMonth = i
+                        if DBManager.getInstance().getYearTracks_category(Year: selectedYear, Category: selectedCategory) != nil{
+                            combineChart.isHidden = false
+                            timeLabel.isHidden = true
                             getTrackTimeYear()
+    //                        data.lineData = generateLineData(dataPoints: months, values: valueForYear)
+                            data.barData = generateBarData(dataPoints: months, values: valueForYear)
+                            combineChart.data = data
+                            //x axis
+                            combineChart.xAxis.labelPosition = .bothSided
+                            combineChart.xAxis.drawGridLinesEnabled = true
+                            combineChart.xAxis.granularityEnabled = true
+                            combineChart.xAxis.granularity = 1.0  //距離
+                            combineChart.xAxis.axisMinimum = data.xMin - 0.5
+                            combineChart.xAxis.axisMaximum = data.xMax + 0.5
+                            combineChart.xAxis.centerAxisLabelsEnabled = false
+                            combineChart.xAxis.labelCount = 13
+                            combineChart.xAxis.valueFormatter = self
+                        }else{
+                            combineChart.isHidden = true
+                            timeLabel.isHidden = false
                         }
-//                        data.lineData = generateLineData(dataPoints: months, values: valueForYear)
-                        data.barData = generateBarData(dataPoints: months, values: valueForYear)
-                        combineChart.data = data
-                        //x axis
-                        combineChart.xAxis.labelPosition = .bothSided
-                        combineChart.xAxis.drawGridLinesEnabled = true
-                        combineChart.xAxis.granularityEnabled = true
-                        combineChart.xAxis.granularity = 1.0  //距離
-                        combineChart.xAxis.axisMinimum = data.xMin - 0.5
-                        combineChart.xAxis.axisMaximum = data.xMax + 0.5
-                        combineChart.xAxis.centerAxisLabelsEnabled = false
-                        combineChart.xAxis.labelCount = 13
-                        combineChart.xAxis.valueFormatter = self
-                    }else{
-                        combineChart.isHidden = true
-                        timeLabel.isHidden = false
                     }
                 }
             }
