@@ -12,11 +12,23 @@ import UIKit
 class friendsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet var tableView: UITableView!
+    
+    let net = NetworkController()
+    
     let headerTitles = ["", "Pending Friends"]
     var listToRefresh : [FriendModel] = []
     
     var showCheckedFriends: [FriendModel]?
     var showUncheckedFriends: [FriendModel]?
+    
+//    @IBAction func deleteFriendBtn(_ sender: Any) {
+//        net.deleteFriend(friendId: "0") {
+//            (status_code) in
+//            if (status_code != nil) {
+//                print("deleteFriend\(status_code!)")
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,6 +160,12 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         } else {
             let friend = self.showUncheckedFriends![indexPath.row]
             pendingCell.pendingFriendName.text = friend.name
+            pendingCell.confirmBtn.addTarget(self,
+                                             action: #selector(didPressConfirmBtn(_:friendId:)),
+                                             for: .touchUpInside)
+            pendingCell.deleteBtn.addTarget(self,
+                                            action: #selector(didPressDeleteBtn(_:friendId:)),
+                                            for: .touchUpInside)
             return pendingCell
         }
         
@@ -186,6 +204,35 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         //            return cell
         //        }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as? friendProfileViewController
+        let indexPath = self.tableView.indexPathForSelectedRow
+        controller?.name = showCheckedFriends![indexPath!.row].name
+        controller?.like  = showCheckedFriends![indexPath!.row].like
+        controller?.heart = showCheckedFriends![indexPath!.row].heart
+        controller?.mad = showCheckedFriends![indexPath!.row].mad
+    }
+    
+    @objc func didPressConfirmBtn(_ sender: UITapGestureRecognizer? = nil, friendId: Int) {
+        net.insertFriend(friendId: String(friendId)) {
+            (status_code) in
+            if (status_code != nil) {
+                print("confirmFriend\(status_code!)")
+            }
+        }
+        tableView.reloadData()
+    }
+    
+    @objc func didPressDeleteBtn(_ sender: UITapGestureRecognizer? = nil, friendId: Int) {
+        net.deleteFriend(friendId: String(friendId)) {
+            (status_code) in
+            if (status_code != nil) {
+                print("deleteFriend\(status_code!)")
+            }
+        }
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

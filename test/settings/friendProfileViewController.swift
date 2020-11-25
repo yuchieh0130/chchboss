@@ -14,13 +14,31 @@ class friendProfileViewController: UIViewController {
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var friendName: UILabel!
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
+    var name: String?
+    var like: Int32?
+    var heart: Int32?
+    var mad: Int32?
     
     @IBOutlet var emojiAngry: UIImageView!
     @IBOutlet var emojiThumb: UIImageView!
     @IBOutlet var emojiHeart: UIImageView!
     
+    @IBOutlet weak var likeLabel: UILabel!
+    @IBOutlet weak var heartLabel: UILabel!
+    @IBOutlet weak var madLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let name = name,
+           let like = like,
+           let heart = heart,
+           let mad = mad {
+            friendName.text = name
+            likeLabel.text = "x \(like)"
+            heartLabel.text = "x \(heart)"
+            madLabel.text = "x \(mad)"
+        }
         
         friendName.layer.cornerRadius = 10.0
         friendName.clipsToBounds = true
