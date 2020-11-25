@@ -21,6 +21,8 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     var showCheckedFriends: [FriendModel]?
     var showUncheckedFriends: [FriendModel]?
     
+    var dosthFriend: FriendModel?
+    
 //    @IBAction func deleteFriendBtn(_ sender: Any) {
 //        net.deleteFriend(friendId: "0") {
 //            (status_code) in
@@ -41,6 +43,8 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func getFriend(){
+        showCheckedFriends = []
+        showUncheckedFriends = []
         if DBManager.getInstance().getCheckedFriendList() != nil{
             showCheckedFriends = DBManager.getInstance().getCheckedFriendList()
         }else{
@@ -152,7 +156,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingFriendListCell", for: indexPath) as! pendingFriendListCell
         //            cell.pendingFriendName.text = "Benson"
         //            return cell
-        print(indexPath[0])
+        //print(indexPath[0])
         if indexPath[0] == 0 {
             let friend = self.showCheckedFriends![indexPath.row]
             cell.friendName.text = friend.name
@@ -161,11 +165,12 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
             let friend = self.showUncheckedFriends![indexPath.row]
             pendingCell.pendingFriendName.text = friend.name
             pendingCell.confirmBtn.addTarget(self,
-                                             action: #selector(didPressConfirmBtn(_:friendId:)),
+                                             action: #selector(didPressConfirmBtn(_:)),
                                              for: .touchUpInside)
             pendingCell.deleteBtn.addTarget(self,
-                                            action: #selector(didPressDeleteBtn(_:friendId:)),
+                                            action: #selector(didPressDeleteBtn(_:)),
                                             for: .touchUpInside)
+            dosthFriend = friend
             return pendingCell
         }
         
@@ -215,23 +220,28 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
         controller?.mad = showCheckedFriends![indexPath!.row].mad
     }
     
-    @objc func didPressConfirmBtn(_ sender: UITapGestureRecognizer? = nil, friendId: Int) {
-        net.insertFriend(friendId: String(friendId)) {
+    @objc func didPressConfirmBtn(_ sender: UITapGestureRecognizer? = nil) {
+        let friendId = "\(dosthFriend!.friendId!)"
+        net.insertFriend(friendId: friendId) {
             (status_code) in
             if (status_code != nil) {
                 print("confirmFriend\(status_code!)")
             }
         }
+        showUncheckedFriends = showUncheckedFriends?.filter{ $0.friendId != dosthFriend!.friendId! }
+        showCheckedFriends?.append(dosthFriend!)
         tableView.reloadData()
     }
     
-    @objc func didPressDeleteBtn(_ sender: UITapGestureRecognizer? = nil, friendId: Int) {
-        net.deleteFriend(friendId: String(friendId)) {
+    @objc func didPressDeleteBtn(_ sender: UITapGestureRecognizer? = nil) {
+        let friendId = "\(dosthFriend!.friendId!)"
+        net.deleteFriend(friendId: friendId) {
             (status_code) in
             if (status_code != nil) {
                 print("deleteFriend\(status_code!)")
             }
         }
+        showUncheckedFriends = showUncheckedFriends?.filter{ $0.friendId != dosthFriend!.friendId! }
         tableView.reloadData()
     }
     
