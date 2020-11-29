@@ -32,6 +32,7 @@
 		4B362F8524CADC2400E635C6 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B362F8424CADC2400E635C6 /* PickerViewController.swift */; };
 		4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */; };
 		4B3C287324F20B5E0097582B /* analysisTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */; };
+		4B44AB682569815E0031CB73 /* rankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B44AB672569815E0031CB73 /* rankModel.swift */; };
 		4B490B8F24B589A500A8249A /* combineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B490B8E24B589A500A8249A /* combineChartViewController.swift */; };
 		4B4AB6232463197A00FC8A6D /* showMyPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */; };
 		4B4F0149243CC78D00A98C65 /* eventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */; };
@@ -121,6 +122,7 @@
 		4B362F8424CADC2400E635C6 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		4B37752A242D04C70013E9C8 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
 		4B3C287224F20B5E0097582B /* analysisTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = analysisTableViewCell.swift; sourceTree = "<group>"; };
+		4B44AB672569815E0031CB73 /* rankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rankModel.swift; sourceTree = "<group>"; };
 		4B490B8E24B589A500A8249A /* combineChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = combineChartViewController.swift; sourceTree = "<group>"; };
 		4B4AB6222463197900FC8A6D /* showMyPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showMyPlaceController.swift; sourceTree = "<group>"; };
 		4B4F0148243CC78D00A98C65 /* eventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eventTableViewCell.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				4B02C4B7243D61630087DB4C /* TaskModel.swift */,
 				4B6C44182472EAB10009C281 /* TrackModel.swift */,
 				4B51F188254EAC9100D57D5E /* FriendModel.swift */,
+				4B44AB672569815E0031CB73 /* rankModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				4B37752B242D04C70013E9C8 /* DatePopupViewController.swift in Sources */,
 				4BAB720824A9E703007D52A7 /* settingsTableViewCell.swift in Sources */,
 				4B02C4B8243D61630087DB4C /* TaskModel.swift in Sources */,
+				4B44AB682569815E0031CB73 /* rankModel.swift in Sources */,
 				4B362F8524CADC2400E635C6 /* PickerViewController.swift in Sources */,
 				2D67BF82252EE0AB00A600B7 /* friendsListViewController.swift in Sources */,
 				4B127D1024D289C300B87B99 /* WeekPickerView.swift in Sources */,
@@ -731,13 +735,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = test/testDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VN4HX374FA;
+				DEVELOPMENT_TEAM = RHAPWFMXXU;
 				INFOPLIST_FILE = test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss444.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chchboss4454.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "test/fmdb/test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
