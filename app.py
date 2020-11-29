@@ -111,19 +111,19 @@ def handle_message(event):
                 thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
                 actions=[
                     PostbackTemplateAction(
-                        label='DAY',
-                        text='DAY',
-                        data='DAY'
+                        label='Yesterday',
+                        text='Yesterday',
+                        data='Yesterday'
                     ),
                     PostbackTemplateAction(
-                        label='WEEK',
-                        text='WEEK',
-                        data='WEEK'
+                        label='Last Week',
+                        text='Last Week',
+                        data='Last Week'
                     ),
                     PostbackTemplateAction(
-                        label='MONTH',
-                        text='MONTH',
-                        data='MONTH'
+                        label='Last Month',
+                        text='Last Month',
+                        data='Last Month'
                     )
                 ]
             )
@@ -462,9 +462,10 @@ def handler_postback(event):
         else:
             line_bot_api.reply_message(
                 event.reply_token, TextSendMessage(text='你回錯啦傻逼'))
-    elif(postback == "DAY"):
+    elif(postback == "Yesterday"):
         line_bot_api.reply_message(
-            event.reply_token, ImageSendMessage(original_content_url='https://upload.cc/i1/2020/10/12/ySN5UT.png', preview_image_url='https://upload.cc/i1/2020/10/12/ySN5UT.png'))
+            event.reply_token, line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text='Food（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）\nStudy（0 hrs）（⬇️）\nWork（0 hrs）\nMeeting（0 hrs）\nActivities（0 hrs）\nExercise（2.5 hrs）（⬆️）\nEntertainment（0 hrs）\nLeisure （3 hrs）（⬆️）\nHangout（0 hrs）\nShopping（0 hrs）（⬇️）\nHealth（0 hrs）\nTrip（0 hrs）'))
     elif any(s for s in categoryitem if s in postback):
         category = [s for s in categoryitem if s in postback][0]
         track_id = postback.replace(category, "")
