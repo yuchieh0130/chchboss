@@ -31,8 +31,8 @@ class PickerViewWeekViewController: UIViewController{
         pickerViewWeek.reloadComponent(0)
         pickerViewWeek.selectRow(currentWeek-1, inComponent: 0, animated: true)
         
-        let start = dateFormat.string(from: pickerViewWeek.startWeek!)
-        let end = dateFormat.string(from: pickerViewWeek.endWeek!)
+        let start = dateFormat.string(from: pickerViewWeek.satOfWeek)
+        let end = dateFormat.string(from: pickerViewWeek.sunOfWeek)
         if tag == "analysisWeek"{
             pickerViewWeek.dateWeek = "\(start) ~ \(end)"
         }else if tag == "combineChartWeek"{

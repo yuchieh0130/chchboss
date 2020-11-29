@@ -1,0 +1,288 @@
+location_id,user_id,longitude,latitude,start_date,start_time,duration,weekday,name1,name2,name3,name4,name5,category1,category2,category3,category4,category5
+1,1,121.4701013,25.0226062,2020-09-21,21:14,,2,HOME,1,,,,Home,entering myPlace,,,
+2,1,121.4709356,25.02278628,2020-09-21,22:53,,2,中山公園,台灣彩券,臨洋港生猛活海鮮(萬板店),吳宏誠小兒科診所,中山公園(莊敬路),park,point_of_interest,restaurant,health,transit_station
+3,1,121.4704538,25.02267961,2020-09-21,22:56,,2,翁林.林,漁網居酒屋,臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,台灣彩券,restaurant,restaurant,restaurant,supermarket,point_of_interest
+4,1,121.4704281,25.02267616,2020-09-21,23:08,,2,翁林.林,漁網居酒屋,吃啥冰品(民生店),臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,restaurant,restaurant,point_of_interest,restaurant,supermarket
+5,1,121.4705032,25.0226793,2020-09-21,23:58,,2,吃啥冰品飲料店,翁林.林Café,漁網居酒屋,桌遊二三事 Board Game Trivia,臨洋港生猛活海鮮(萬板店),point_of_interest,restaurant,restaurant,point_of_interest,restaurant
+6,1,121.4703691,25.02274501,2020-09-22,0:05,,3,吃啥冰品飲料店,翁林.林Café,漁網居酒屋,桌遊二三事 Board Game Trivia,全聯福利中心-新埔捷運店,point_of_interest,restaurant,restaurant,point_of_interest,supermarket
+7,1,121.4705394,25.02261401,2020-09-22,1:34,,3,翁林.林Café,漁網居酒屋,臨洋港生猛活海鮮(萬板店),吃啥冰品飲料店,全聯福利中心-新埔捷運店,restaurant,restaurant,restaurant,point_of_interest,supermarket
+8,1,121.4705497,25.02260149,2020-09-22,3:12,,3,翁林.林Café,漁網居酒屋,臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,吃啥冰品飲料店,restaurant,restaurant,restaurant,supermarket,point_of_interest
+9,1,121.4704382,25.02267579,2020-09-22,3:40,,3,吃啥冰品飲料店,翁林.林Café,漁網居酒屋,桌遊二三事 Board Game Trivia,全聯福利中心-新埔捷運店,point_of_interest,restaurant,restaurant,point_of_interest,supermarket
+10,1,121.4705026,25.02265583,2020-09-22,3:56,,3,吃啥冰品飲料店,翁林.林Café,漁網居酒屋,桌遊二三事 Board Game Trivia,臨洋港生猛活海鮮(萬板店),point_of_interest,restaurant,restaurant,point_of_interest,restaurant
+11,1,121.470538,25.02286625,2020-09-22,5:53,,3,采繪堂畫室,翁林.林Café,漁網居酒屋,吃啥冰品飲料店,全聯福利中心-新埔捷運店,point_of_interest,restaurant,restaurant,point_of_interest,supermarket
+12,1,121.4704302,25.02267505,2020-09-22,9:40,,3,吃啥冰品飲料店,翁林.林Café,漁網居酒屋,桌遊二三事 Board Game Trivia,全聯福利中心-新埔捷運店,point_of_interest,restaurant,restaurant,point_of_interest,supermarket
+13,1,121.4705032,25.0226793,2020-09-22,9:42,,3,吃啥冰品飲料店,翁林.林Café,漁網居酒屋,桌遊二三事 Board Game Trivia,臨洋港生猛活海鮮(萬板店),point_of_interest,restaurant,restaurant,point_of_interest,restaurant
+14,1,121.4701013,25.0226062,2020-09-22,11:25,,3,HOME,1,,,,Home,exiting myPlace,,,
+15,1,121.4687323,25.02226355,2020-09-22,11:26,,3,Oyami Cafe 新埔店,板橋花市,創價學會板橋藝文中心,爭鮮迴轉壽司-新埔店,全家便利商店 板橋文興店,restaurant,point_of_interest,point_of_interest,restaurant,convenience_store
+16,1,121.5436817,25.04066569,2020-09-22,12:02,,3,鼎泰豐 復興店,頂呱呱復興店,City’Super 復興SOGO店,成真咖啡台北sogo復興店,點水樓(復興店),restaurant,restaurant,supermarket,cafe,restaurant
+17,1,121.5436817,25.04066569,2020-09-22,12:04,,3,台北福華大飯店The Howard Plaza Hotel Taipei,丹堤咖啡,Plants,葛鎂診所,花園大道(自助餐) Park Avenue-台北福華大飯店,lodging,cafe,grocery_or_supermarket,health,restaurant
+18,1,121.5568103,25.0043122,2020-09-22,12:12,,3,7-ELEVEn 辛亥站門市,滑遍天下滑雪小舖(沒有夏天),信義房屋 捷運辛亥店,環遊市,滑雪小舖,convenience_store,point_of_interest,real_estate_agency,point_of_interest,point_of_interest
+19,1,121.5796858,24.99836141,2020-09-22,12:14,,3,動物園站,臺北市立動物園,木柵動物園停車場（河川高灘地）,葡而飛街角複合式簡餐,臺北市立動物園臺灣動物區,subway_station,zoo,parking,restaurant,zoo
+20,1,121.5767944,24.99029874,2020-09-22,12:22,,3,Taibeishiwenshanquwanxing Elementary School,萬興國小運動中心-恆動力萬興營業所,Da Cheng High School,Dacheng High School,神奇山莊社區,primary_school,point_of_interest,school,transit_station,point_of_interest
+22,1,121.5760445,24.9875223,2020-09-22,12:31,,3,國立政治大學,政大,米塔義式廚房-政大店,Louisa Coffee,全家(興政店),university,school,restaurant,cafe,convenience_store
+23,1,121.5767798,24.98645685,2020-09-22,12:32,,3,國立政治大學商學院圖書分館,NCCU Main Library,萊爾富便利商店,國立政治大學圖書館,國立政治大學商學院,library,library,convenience_store,university,university
+24,1,121.5767798,24.98645685,2020-09-22,12:45,,3,國立政治大學商學院圖書分館,NCCU Main Library,萊爾富便利商店,國立政治大學圖書館,國立政治大學商學院,library,library,convenience_store,university,university
+25,1,121.5768405,24.98674943,2020-09-22,17:04,,3,National Chengchi University,NCCU College of Commerce,Hilife,逸仙樓,國立政治大學商學院圖書分館,university,university,convenience_store,school,library
+26,1,121.5770836,24.98739579,2020-09-22,17:40,,3,國立政治大學,全家便利商店 政富店,7-ELEVEN 金恩門市,豚將-日本拉麵(政大店),今日書局有限公司,university,convenience_store,convenience_store,restaurant,book_store
+27,1,121.5770447,24.98737162,2020-09-22,17:42,,3,國立政治大學,全家便利商店 政富店,7-ELEVEN 金恩門市,老麥(麵)水煎包,今日書局有限公司,university,convenience_store,convenience_store,restaurant,book_store
+28,1,121.577282,24.98662911,2020-09-22,17:55,,3,DORM,2,,,,Dorm,entering myPlace,,,
+29,1,121.577408,24.98648699,2020-09-22,18:02,,3,National Chengchi University,政大莊敬一舍,金鮨日式料理,滇味廚房,NCCU College of Commerce,university,school,restaurant,restaurant,university
+30,1,121.577408,24.98648699,2020-09-22,20:21,,3,National Chengchi University,政大莊敬一舍,金鮨日式料理,滇味廚房,NCCU College of Commerce,university,school,restaurant,restaurant,university
+31,1,121.577282,24.98662911,2020-09-22,20:56,,3,DORM,2,,,,Dorm,exiting myPlace,,,
+32,1,121.5756543,24.98656509,2020-09-22,20:59,,3,National Chengchi University,NCCU College of Commerce,政大四維堂,政大行政大樓,NCCU Guo Fu Building,university,university,school,school,school
+33,1,121.5760964,24.98656139,2020-09-22,21:03,,3,National Chengchi University,NCCU College of Commerce,NCCU Main Library,政大四維堂,政大行政大樓,university,university,library,school,school
+34,1,121.5756543,24.98656509,2020-09-22,21:41,,3,National Chengchi University,NCCU College of Commerce,政大四維堂,政大行政大樓,NCCU Guo Fu Building,university,university,school,school,school
+35,1,121.577282,24.98662911,2020-09-22,22:15,,3,DORM,2,,,,Dorm,entering myPlace,,,
+36,1,121.5768686,24.98640773,2020-09-22,22:15,,3,National Chengchi University,NCCU College of Commerce,NCCU Main Library,Hilife,政大莊敬一舍,university,university,library,convenience_store,school
+37,1,121.5768686,24.98640773,2020-09-22,22:30,,3,National Chengchi University,NCCU College of Commerce,NCCU Main Library,Hilife,政大莊敬一舍,university,university,library,convenience_store,school
+38,1,121.5768341,24.98637629,2020-09-22,23:57,,3,National Chengchi University,NCCU College of Commerce,NCCU Main Library,Hilife,政大莊敬一舍,university,university,library,convenience_store,school
+39,1,121.577408,24.98648699,2020-09-23,8:40,,4,National Chengchi University,政大莊敬一舍,金鮨日式料理,滇味廚房,NCCU College of Commerce,university,school,restaurant,restaurant,university
+40,1,121.577408,24.98648699,2020-09-23,8:45,,4,National Chengchi University,政大莊敬一舍,金鮨日式料理,滇味廚房,NCCU College of Commerce,university,school,restaurant,restaurant,university
+41,1,121.5764097,24.98668584,2020-09-23,9:03,,4,國立政治大學商學院,國立政治大學,萊爾富便利商店,國立政治大學商學院圖書分館,逸仙樓,university,university,convenience_store,library,school
+42,1,121.577282,24.98662911,2020-09-23,9:03,,4,DORM,2,,,,Dorm,exiting myPlace,,,
+43,1,121.5764097,24.98668584,2020-09-23,09:10,,4,國立政治大學商學院,NCCU College of Commerce,萊爾富便利商店,國立政治大學商學院圖書分館,逸仙樓,university,university,convenience_store,library,school
+44,1,121.5768393,24.98644452,2020-09-23,09:12,,4,National Chengchi University,NCCU College of Commerce,萊爾富便利商店,NCCU Main Library,國立政治大學商學院圖書分館,university,university,convenience_store,library,library
+45,1,121.5767221,24.9863831,2020-09-23,11:30,,4,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,國立政治大學商學院圖書分館,university,university,library,convenience_store,library
+46,1,121.5767221,24.9863831,2020-09-23,11:35,,4,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,國立政治大學商學院圖書分館,university,university,library,convenience_store,library
+47,1,121.5759396,24.98720623,2020-09-23,12:13,,4,國立政治大學,米塔義式廚房-政大店,國立政治大學商學院,政大一,國立政治大學校警隊,university,restaurant,university,transit_station,point_of_interest
+48,1,121.5749569,24.98734423,2020-09-23,12:15,,4,H.I.Feeling Coffee早午餐,麥當勞-台北指南店,波波恰恰大馬風味餐,鬼匠拉麵-政大店,萊爾富便利商店 北市指南店,cafe,restaurant,restaurant,restaurant,convenience_store
+49,1,121.5768393,24.98644452,2020-09-23,13:29,,4,NCCU Main Library,NCCU College of Commerce,萊爾富便利商店,國立政治大學商學院,國立政治大學商學院圖書分館,library,university,convenience_store,university,library
+50,1,121.5767221,24.9863831,2020-09-23,13:29,,4,國立政治大學圖書館,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,國立政治大學商學院圖書分館,library,university,university,convenience_store,library
+51,1,121.5767221,24.9863831,2020-09-23,14:54,,4,國立政治大學圖書館,國立政治大學商學院,國立政治大學,萊爾富便利商店,國立政治大學商學院圖書分館,library,university,university,convenience_store,library
+52,1,121.5761223,24.98777236,2020-09-23,17:55,,4,米塔義式廚房-政大店,Juicy Bun Burger 就是棒 美式餐廳 政大店,政大,National Chengchi University 1,Yoshinoya National Chengchi University,restaurant,restaurant,school,transit_station,restaurant
+54,1,121.5704634,24.98772161,2020-09-23,18:01,,4,葉記鴨肉飯,永慶房屋指南店,Sunland 隆美窗飾 文山木柵指南門市,啟順汽車保養廠,木柵寶仁幼兒園,Syokudo and Teishoku restaurant,Real estate agents,Curtain store,Car repair and maintenance,Nursery school
+55,1,121.5650431,24.98849168,2020-09-23,18:04,,4,堤亞漢堡木柵店,益明眼鏡行(文山區),孫東寶 台式牛排教父 文山木柵店,大興雞腿王,鈞和五金建材,restaurant,Optician,steak house,restaurant,Building materials store
+56,1,121.5595341,24.99036402,2020-09-23,18:09,,4,39 Breakfast Restaurant,甜心烘培,雅芝實業有限公司,明益汽車材料行,佳嘉超商,restaurant,Bakery,Natural goods store,Auto parts store,Convenience store
+57,1,121.5598638,24.99627519,2020-09-23,18:18,,4,Seven-Eleven,金牛牛肉麵專門店,池上木片便當興隆一店,行政院海洋委員會 海巡署,詮釋音樂,Convenience store,restaurant,Box lunch supplier,Government office,Recording studio
+58,1,121.5503132,25.00095405,2020-09-23,18:21,,4,聚酩豐餐廳,暉軒茶行,7-ELEVEN,自然物語寵物店,金仙蝦捲店,restaurant,Tea store,Convenience store,Pet groomer,restaurant
+59,1,121.5426154,25.00129569,2020-09-23,18:25,,4,小馬租車-台北文山門市,順利成汽車精品百貨,德原汽配 電瓶專家 文山店,OK Mart,瑞興銀行 景美分行,Car leasing service,Car accessories store,Car battery store,Convenience store,Bank
+60,1,121.5374535,25.0100919,2020-09-23,18:31,,4,智瓔股份有限公司,地方煮夫,陽光樂器公司,抹抹設計,名家機車行-,Wholesaler,restaurant,Piano store,Corporate office,Motorcycle repair shop
+61,1,121.5352829,25.01376506,2020-09-23,18:36,,4,水源市場,水源劇場,臺北市大安區銘傳國民小學,台北公館夜市,索菲烤布蕾公館店,tourist_attraction,point_of_interest,primary_school,point_of_interest,restaurant
+62,1,121.5367041,25.01201453,2020-09-23,18:50,,4,臺灣法國文化協會(臺北),國立臺灣大學 進修推廣學院,Taiwan Power Research Institute,百老匯影城,桌兔子桌上遊戲休閒空間,point_of_interest,university,point_of_interest,movie_theater,point_of_interest
+63,1,121.5370191,25.01154064,2020-09-23,19:52,,4,臺灣法國文化協會(臺北),國立臺灣大學 進修推廣學院,百老匯影城,Taiwan Power Research Institute,THE WALL 公館,point_of_interest,university,movie_theater,point_of_interest,point_of_interest
+64,1,121.5361312,25.01293291,2020-09-23,22:06,,4,茗香園冰室 - 公館店,Lacuz 泰式無限,迷客夏milkshop 臺北公館店,哈啦星球,東南亞秀泰影城,restaurant,restaurant,point_of_interest,point_of_interest,movie_theater
+65,1,121.53404,25.01511506,2020-09-23,22:12,,4,youbike捷運公館站(2號出口,台北公館郵局,公館站,屈臣氏 羅二,茉莉二手書店 台大店,point_of_interest,post_office,subway_station,drugstore,book_store
+66,1,121.5387752,25.00687008,2020-09-23,22:19,,4,輪胎城重型機車 萬隆店,內政部警政署警察通訊所,滙豐汽車景美營業所,中租租車 - 台北公館站,亞運撞球館,Motorcycle rental agency,Sheriff's department,Mitsubishi dealer,Car rental agency,Pool hall
+67,1,121.5571858,24.99953196,2020-09-23,22:21,,4,Wanfang Hospital,萬芳醫院站,臺北市文山區興華國民小學,頂鼎食堂,福鼎湯包店,General hosipital,Subway station,Primary school,restaurant,restaurant
+68,1,121.5591633,24.99087154,2020-09-23,22:29,,4,炫超車業,合億汽車,39 Breakfast Restaurant,雅芝實業有限公司,Taipei Private Tsai Hsing School,Motorcycle repair shop,Auto repair shop,restaurant,Natural goods store,High school
+69,1,121.5692058,24.98883469,2020-09-23,22:32,,4,木柵市場,木柵市場溫州大餛飩,成發雜糧行,台新銀行(文山分行),宜康藥局,Traditional market,restaurant,Grocery store,Bank,Pharmacy
+70,1,121.5707638,24.9871826,2020-09-23,22:37,,4,啟順汽車保養廠,Sunland 隆美窗飾 文山木柵指南門市,木柵串霸,木南公園,指南路口,Car repair and maintenance,Curtain store,Grill,Park,Bus stop
+72,1,121.5747829,24.98783447,2020-09-23,22:41,,4,麥當勞-台北指南店,萊爾富便利商店 北市指南店,鬼匠拉麵-政大店,摩斯漢堡（政大指南店）,享窩咖啡 Cozy Room Cafe,restaurant,convenience_store,restaurant,restaurant,restaurant
+73,1,121.578202,24.98715526,2020-09-23,22:49,,4,金鮨日式料理,國立政治大學,國立政治大學達賢圖書館,滇味廚房,八角和食,restaurant,university,library,restaurant,restaurant
+74,1,121.577282,24.98662911,2020-09-23,22:50,,4,DORM,2,,,,Dorm,entering myPlace,,,
+75,1,121.5765226,24.98805193,2020-09-23,22:52,,5,5 Cafe,古早味蛋餅飯糰,永康街左撇子,飛捷廣告印刷有限公司,可麗餅,bakery,restaurant,restaurant,point_of_interest,restaurant
+76,1,121.5772073,24.98642819,2020-09-24,10:32,,5,國立政治大學,國立政治大學商學院,政大,政大莊敬一舍,素還真 政大店,university,university,school,school,restaurant
+77,1,121.5772073,24.98642819,2020-09-24,10:48,,5,國立政治大學,國立政治大學商學院,政大,政大莊敬一舍,素還真 政大店,university,university,school,school,restaurant
+78,1,121.577282,24.98662911,2020-09-24,11:43,,5,DORM,2,,,,Dorm,exiting myPlace,,,
+79,1,121.5775528,24.98672924,2020-09-24,11:44,,5,National Chengchi University,政大莊敬一舍,金鮨日式料理,滇味廚房,NCCU College of Commerce,university,school,restaurant,restaurant,university
+80,1,121.5780513,24.98750159,2020-09-24,11:46,,5,National Chengchi University,金鮨日式料理,滇味廚房,7-Eleven,大汗麻辣鴨血臭豆腐(政大店),university,restaurant,restaurant,convenience_store,restaurant
+81,1,121.5774454,24.98765294,2020-09-24,11:47,,5,滇味廚房,7-Eleven,提洛斯義式廚房,大汗麻辣鴨血臭豆腐(政大店),Da Hu Guo Yin,restaurant,convenience_store,restaurant,restaurant,restaurant
+82,1,121.5776123,24.98740318,2020-09-24,11:48,,5,大汗麻辣鴨血臭豆腐(政大店),LAZY PASTA 慵懶義式廚房 政大店,提洛斯義式廚房,7-Eleven,滇味廚房,restaurant,restaurant,restaurant,convenience_store,restaurant
+83,1,121.5776123,24.98740319,2020-09-24,12:35,,5,大汗麻辣鴨血臭豆腐(政大店),LAZY PASTA 慵懶義式廚房 政大店,提洛斯義式廚房,7-Eleven,滇味廚房,restaurant,restaurant,restaurant,convenience_store,restaurant
+84,1,121.5776124,24.98740318,2020-09-24,12:37,,5,大汗麻辣鴨血臭豆腐(政大店),LAZY PASTA 慵懶義式廚房 政大店,提洛斯義式廚房,7-Eleven,滇味廚房,restaurant,restaurant,restaurant,convenience_store,restaurant
+88,1,121.5765178,24.98646039,2020-09-24,13:05,,5,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,政大,university,university,library,convenience_store,school
+89,1,121.5765178,24.98646039,2020-09-24,13:06,,5,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,政大,university,university,library,convenience_store,school
+90,1,121.5765178,24.98646039,2020-09-24,14:10,,5,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,政大,university,university,library,convenience_store,school
+91,1,121.5765178,24.98646039,2020-09-24,15:03,,5,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,政大,university,university,library,convenience_store,school
+92,1,121.5764723,24.98645034,2020-09-24,15:43,,5,National Chengchi University,NCCU College of Commerce,NCCU Main Library,Hilife,政大,university,university,library,convenience_store,school
+93,1,121.5765518,24.98645226,2020-09-24,18:03,,5,國立政治大學,國立政治大學商學院,政大,國立政治大學圖書館,萊爾富便利商店,university,university,school,library,convenience_store
+94,1,121.5760445,24.9875223,2020-09-24,18:05,,5,國立政治大學,政大,米塔義式廚房-政大店,Louisa Coffee,全家(興政店),university,school,restaurant,cafe,convenience_store
+95,1,121.5759672,24.98733079,2020-09-24,18:06,,5,National Chengchi University,NCCU Studio 62 x cama café 台北政大店,政大,米塔義式廚房-政大店,政大校友服務中心,university,restaurant,school,restaurant,school
+96,1,121.5761734,24.98735017,2020-09-24,18:07,,5,National Chengchi University,國立政治大學宿舍,國立政治大學校警隊,國立政治大學選舉研究中心,麗文連鎖校園書局(巨流政大書城),university,point_of_interest,point_of_interest,school,book_store
+97,1,121.575173,24.98787043,2020-09-24,18:10,,5,Family Mart,康是美 (新政大門市),McDonald's Taipei Zhinan (National Chenchi University),仙草黑糖剉冰,神威影印-政大店,convenience_store,drugstore,restaurant,point_of_interest,point_of_interest
+98,1,121.5742045,24.98806073,2020-09-24,18:12,,5,McDonald's Taipei Zhinan (National Chenchi University),四五大街,Mos Burger National Chengchi University,八方雲集鍋貼水餃專賣店,鹽水雞,restaurant,restaurant,restaurant,restaurant,food
+99,1,121.5732056,24.988106,2020-09-24,18:14,,5,小曼谷滇泰料理,加賀日式料理,里克德義廚房,7-11政新門市,蛋蛋的幸福 蔬食料理,restaurant,restaurant,restaurant,convenience_store,cafe
+101,1,121.5735629,24.98889462,2020-09-24,18:17,,5,里克德義廚房,7-11政新門市,蛋蛋的幸福 蔬食料理,樂山食堂,韓大佬韓式精緻料理,restaurant,convenience_store,cafe,restaurant,restaurant
+102,1,121.5760443,24.98766707,2020-09-24,19:55,,5,米塔義式廚房-政大店,National Chengchi University,Yoshinoya National Chengchi University,NCCU Studio 62 x cama café 台北政大店,Cow Banana,restaurant,university,restaurant,restaurant,point_of_interest
+103,1,121.5770849,24.98745881,2020-09-24,20:01,,5,豚將-日本拉麵(政大店),全家便利商店 政富店,今日書局有限公司,581生活館,廣東粥，麵線,restaurant,convenience_store,book_store,store,restaurant
+105,1,121.577282,24.98662911,2020-09-24,20:03,,5,DORM,2,,,,Dorm,entering myPlace,,,
+106,1,121.5767415,24.98672461,2020-09-24,18:59,,5,NCCU College of Commerce,National Chengchi University,Hilife,國立政治大學商學院圖書分館,逸仙樓,university,university,convenience_store,library,school
+107,1,121.5765178,24.98646039,2020-09-24,15:03,,5,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,政大,university,university,library,convenience_store,school
+108,1,121.577282,24.98662911,2020-09-24,20:58,,5,DORM,2,,,,Dorm,exiting myPlace,,,
+109,1,121.5749106,24.98615386,2020-09-24,20:58,,5,National Chengchi University,政大行政大樓,NCCU Computer Center,NCCU Studio 62 x cama café 台北政大店,McDonald's Taipei Zhinan (National Chenchi University),university,school,premise,restaurant,restaurant
+110,1,121.5749106,24.98615385,2020-09-24,20:59,,5,NCCU Computer Center,政大行政大樓,National Chengchi University,NCCU Studio 62 x cama café 台北政大店,McDonald's Taipei Zhinan (National Chenchi University),premise,school,university,restaurant,restaurant
+111,1,121.5754814,24.98665525,2020-09-24,22:56,,5,National Chengchi University,政大,NCCU Guo Fu Building,政大行政大樓,NCCU College of Commerce,university,school,school,school,university
+112,1,121.577282,24.98662911,2020-09-24,22:56,,5,DORM,2,,,,Dorm,entering myPlace,,,
+113,1,121.5772574,24.986628,2020-09-24,22:57,,5,National Chengchi University,政大莊敬一舍,NCCU College of Commerce,Zhengda Library,全家便利商店 政富店,university,school,university,transit_station,convenience_store
+114,1,121.5772472,24.9864528,2020-09-24,23:59,,5,National Chengchi University,NCCU College of Commerce,政大莊敬一舍,素還真 政大店,政大,university,university,school,restaurant,school
+115,1,121.5774279,24.98662848,2020-09-25,10:52,,6,National Chengchi University,政大莊敬一舍,NCCU College of Commerce,全家便利商店 政富店,外交學系,university,school,university,convenience_store,school
+116,1,121.577282,24.98662911,2020-09-25,11:29,,6,DORM,2,,,,Dorm,exiting myPlace,,,
+118,1,121.5773155,24.98697634,2020-09-25,11:52,,6,7-ELEVEN 金恩門市,豚將-日本拉麵(政大店),今日書局有限公司,滇味廚房,NCCU International MBA,school,university,convenience_store,convenience_store,restaurant
+119,1,121.5773156,24.98697634,2020-09-25,11:52,,6,7-ELEVEN 金恩門市,老麥(麵)水煎包,今日書局有限公司,滇味廚房,NCCU International MBA,university,school,convenience_store,convenience_store,restaurant
+117,1,121.577282,24.98662911,2020-09-25,11:53,,6,DORM,2,,,,Dorm,entering myPlace,,,
+118,1,121.5773155,24.98697634,2020-09-25,11:54,,6,政大莊敬一舍,NCCU College of Commerce,National Chengchi University,滇味廚房,NCCU International MBA,school,university,university,restaurant,point_of_interest
+119,1,121.5773156,24.98697634,2020-09-25,11:54,,6,National Chengchi University,政大莊敬一舍,NCCU College of Commerce,滇味廚房,NCCU International MBA,university,school,university,restaurant,point_of_interest
+120,1,121.577282,24.98662911,2020-09-25,15:40,,6,DORM,2,,,,Dorm,exiting myPlace,,,
+122,1,121.5765271,24.9885118,2020-09-25,15:53,,3,Jasons Market Place,Subway,Taipei Municipal Library Wan-Hsing Branch,文山老人服務中心,Quick Quality Digital Printing Center,supermarket,restaurant,library,point_of_interest,point_of_interest
+123,1,121.5767617,24.99040904,2020-09-25,15:55,,3,Taibeishiwenshanquwanxing Elementary School,Da Cheng High School,臺北市文山區萬興國民小學附設幼兒,Dacheng High School,阿尼亞，造型蛋糕烘焙坊,primary_school,secondary_school,school,transit_station,bakery
+124,1,121.5780888,24.99751445,2020-09-25,16:02,,3,動物園站地下停車場,Taipei Zoo Formosan Animal Area,木柵動物園停車場（河川高灘地）,Daonan Soccer Field,Taipei Zoo,parking,zoo,parking,point_of_interest,zoo
+125,1,121.5635497,24.99785659,2020-09-25,16:08,,3,台北市私立義光育幼院附設世美家園,Hong Yu coin-operated self-service car wash,Palm Spring Community,Palm Spring Community,棕櫚泉社區,point_of_interest,car_wash,transit_station,transit_station,point_of_interest
+126,1,121.5626195,24.99747345,2020-09-25,16:12,,3,Taiwan Police College,棕櫚泉社區,Palm Spring Community,Palm Spring Community,棕櫚泉綠茵山莊,police,point_of_interest,transit_station,transit_station,point_of_interest
+127,1,121.5598218,25.0120906,2020-09-25,16:15,,3,Lihe Park,Daduhuiqiche Bus Gufen youxian gongsi lin guang Station,Dawoxinshe,原蔚錄音室,吉登租車(台北機場接送/商務車出租）,park,point_of_interest,transit_station,electronics_store,point_of_interest
+128,1,121.5599667,25.01736035,2020-09-25,16:18,,3,呷尚寶早餐店,大安麗池社區,耕云 - 接待中心,龍洞海產,Linguang Station,restaurant,point_of_interest,general_contractor,restaurant,subway_station
+129,1,121.5506521,25.02441672,2020-09-25,16:19,,3,南川麵館,7-ELEVEN 技安門市,PetPark,樂烘焙材料器具,友馨瑜珈UnisonYoga,restaurant,convenience_store,point_of_interest,grocery_or_supermarket,gym
+130,1,121.5496508,25.02444267,2020-09-25,16:20,,3,TEA BAR 米蓮娜茶餐酒吧,Chan Chi Hotpot,WUnique Pâtisserie 吳一無二法式甜點,Domino's Pizza,樂烘焙材料器具,bar,restaurant,bakery,restaurant,grocery_or_supermarket
+131,1,121.5435574,25.03220418,2020-09-25,16:23,,3,臺北市立大安高級工業職業學校,7-ELEVEN Fuwei Store,Core Space 健身房,Sukiya DaAn Restaurant,MeetUp CAFE,secondary_school,convenience_store,gym,restaurant,cafe
+132,1,121.5436033,25.03618582,2020-09-25,16:32,,3,台北市農會蔬果舖子,蔬果舖子 (台北市農會停車場),Plants,Happy Dumpling DongFeng Restaurant,南蠻堂有限公司（復興分店）,food,food,grocery_or_supermarket,restaurant,bakery
+133,1,121.5410135,25.04153286,2020-09-25,16:41,,3,七見櫻堂(板新店),【烘焙DIY】自己做 烘焙聚樂部(新北板橋店),桂舍 Kuei Fleur,Saizeriya,Tokiya MRT Xinpu Station,food,bakery,florist,restaurant,restaurant
+134,1,121.4686255,25.0236953,2020-09-25,16:50,,3,【烘焙DIY】自己做 烘焙聚樂部(新北板橋店),Tokiya MRT Xinpu Station,12 Hotpot,『 兩餐 』두끼韓國年糕火鍋吃到飽-板橋店,YouBike 1.0,bakery,restaurant,restaurant,restaurant,point_of_interest
+135,1,121.4701013,25.0226062,2020-09-25,16:59,,6,HOME,1,,,,Home,entering myPlace,,,
+136,1,121.4703602,25.02267479,2020-09-25,17:02,,6,漁網居酒屋,翁林.林Café,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,restaurant,restaurant,point_of_interest,restaurant,supermarket
+137,1,121.4703598,25.02267458,2020-09-25,17:03,,6,漁網居酒屋,翁林.林Café,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,restaurant,restaurant,point_of_interest,restaurant,supermarket
+138,1,121.4703598,25.02267456,2020-09-25,23:54,,6,漁網居酒屋,翁林.林Café,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),桌遊二三事 Board Game Trivia,restaurant,restaurant,point_of_interest,restaurant,point_of_interest
+139,1,121.4706233,25.02301555,2020-09-26,11:06,,7,中山公園,翁林.林Café,全聯福利中心-新埔捷運店,漁網居酒屋,八方雲集 (板橋莊敬店),park,restaurant,supermarket,restaurant,restaurant
+140,1,121.471412,25.02271569,2020-09-26,11:06,,7,台灣彩券,麥味登 莊敬店,中山公園,一鍋鯖白魚米粉,臨洋港生猛活海鮮(萬板店),point_of_interest,restaurant,park,restaurant,restaurant
+141,1,121.4708878,25.02290118,2020-09-26,17:36,,7,中山公園,漁網居酒屋,台灣彩券,臨洋港生猛活海鮮(萬板店),八方雲集 (板橋莊敬店),park,restaurant,point_of_interest,restaurant,restaurant
+142,1,121.4701768,25.02266246,2020-09-26,17:56,,7,吃啥冰品(民生店),漁網居酒屋,PIPACO,翁林.林,臨洋港生猛活海鮮(萬板店),point_of_interest,restaurant,food,restaurant,restaurant
+143,1,121.4701013,25.0226062,2020-09-26,17:57,,7,HOME,1,,,,Home,exiting myPlace,,,
+144,1,121.4696912,25.02185911,2020-09-26,17:57,,7,元榆牧場｜板橋新埔店,臨洋港生猛活海鮮(萬板店),桌遊二三事 Board Game Trivia,板橋花市,Oyami Cafe 新埔店,food,restaurant,point_of_interest,transit_station,restaurant
+145,1,121.4671952,25.02173738,2020-09-26,18:02,,7,50嵐,茶湯會,Sunmerry 聖瑪莉,康是美,摩斯漢堡 板橋新埔店,point_of_interest,point_of_interest,bakery,drugstore,restaurant
+146,1,121.4658948,25.02185735,2020-09-26,18:02,,7,星馬廚房,Café Wanderer咖啡浪遊,C1 形象美學沙龍,致理科技大學,萊爾富便利商店 北縣板明店,restaurant,cafe,hair_care,university,convenience_store
+147,1,121.4653414,25.02161767,2020-09-26,18:07,,7,致理科技大學,Café Wanderer咖啡浪遊,忠誠新村自治會,BabyView嚴選布布童鞋-板橋新埔門市,星馬廚房,university,cafe,point_of_interest,shoe_store,restaurant
+148,1,121.4657321,25.02066531,2020-09-26,18:07,,7,星馬廚房,珍煮丹 板橋致理店,致理專業影印,致理科技大學,八方雲集 (板橋致理店),restaurant,point_of_interest,point_of_interest,university,restaurant
+149,1,121.4649237,25.01870579,2020-09-26,19:22,,7,義美食品,文化小吃,すき家Sukiya 板橋新埔店,賈絲、筆咧– Juspirit-鋼筆、墨水、紙,文化視障按摩,grocery_or_supermarket,food,restaurant,point_of_interest,spa
+150,1,121.464356,25.01789799,2020-09-26,19:25,,7,全國電子板橋館門市,韓家香韓式料理,品客牛排,麵麵牛肉麵,宏佳騰智慧電車 板橋文化,electronics_store,restaurant,restaurant,restaurant,point_of_interest
+151,1,121.464191,25.01755998,2020-09-26,19:26,,7,全國電子板橋館門市,韓家香韓式料理,品客牛排,麵麵牛肉麵,不萊梅劇團排練場,electronics_store,restaurant,restaurant,restaurant,point_of_interest
+152,1,121.4777143,25.02465066,2020-09-26,19:32,,7,黑白泓生猛活海鮮,Mr.Lee Hair Salon,永安公園活動中心,永安公園,萬板橋下平面停車場,restaurant,hair_care,point_of_interest,park,parking
+153,1,121.4792261,25.02005041,2020-09-26,19:33,,7,順益汽車板橋服務廠,DOTEL板橋 咖啡廳/共享辦公空間,大家發食品原料廣場,台灣中油 埔墘站(直營&自助),貴族世家-三民店,car_dealer,food,grocery_or_supermarket,gas_station,restaurant
+154,1,121.4793073,25.01741803,2020-09-26,19:34,,7,家樂福 板橋店,85度C咖啡蛋糕飲料(板橋三民店),G+9鮮釀餐廳(板橋三民店) 板橋美食/尾牙/包場/板橋餐廳/慶生餐廳/新北耶誕城/可用三倍券振興券,社團法人新北市牙醫師公會,內政部移民署北區事務大隊,supermarket,cafe,restaurant,point_of_interest,point_of_interest
+155,1,121.4793073,25.01741803,2020-09-26,20:39,,7,家樂福 板橋店,85度C咖啡蛋糕飲料(板橋三民店),G+9鮮釀餐廳(板橋三民店) 板橋美食/尾牙/包場/板橋餐廳/慶生餐廳/新北耶誕城/可用三倍券振興券,社團法人新北市牙醫師公會,內政部移民署北區事務大隊,supermarket,cafe,restaurant,point_of_interest,point_of_interest
+156,1,121.4792124,25.01957158,2020-09-26,20:50,,7,三民菡生產後護理之家,好樂迪KTV埔墘店,嘉寶產後護理之家,順益汽車板橋服務廠,花旗銀行板橋分行,health,night_club,health,car_dealer,bank
+157,1,121.4770143,25.02553458,2020-09-26,20:51,,7,八德公園,泰王雲南泰式料理,風和樹,世界名貓坊 ButterCat,福隆鄉野便當板橋分店,park,restaurant,real_estate_agency,pet_store,restaurant
+158,1,121.4727619,25.02395951,2020-09-26,20:53,,7,愛焙 烘焙材料行,美廉社 板橋莒光店,全家便利商店 板橋莒安店,長青連鎖藥局,寶貝家族A+婦幼生活館,food,supermarket,convenience_store,pharmacy,home_goods_store
+159,1,121.4712166,25.02437839,2020-09-26,20:54,,7,CoCo都可~板橋莊敬,7-ELEVEN 華翠門市,茶朵木,蔡家牛排,阿達師牛肉麵,point_of_interest,convenience_store,point_of_interest,restaurant,restaurant
+160,1,121.4701013,25.0226062,2020-09-26,20:56,,7,HOME,1,,,,Home,entering myPlace,,,
+161,1,121.4712057,25.02333467,2020-09-26,22:57,,7,中山公園,八方雲集 (板橋莊敬店),孫東寶-莒光店,嘉義冷凍芋頭冰,土地公(埤墘福德宮),park,restaurant,restaurant,food,place_of_worship
+162,1,121.4707602,25.02277338,2020-09-27,11:06,,1,中山公園,翁林.林,台灣彩券,漁網居酒屋,八方雲集 (板橋莊敬店),park,restaurant,point_of_interest,restaurant,restaurant
+163,1,121.4706196,25.02270634,2020-09-27,11:08,,1,翁林.林,漁網居酒屋,吃啥冰品飲料店,全聯福利中心-新埔捷運店,臨洋港生猛活海鮮(萬板店),restaurant,restaurant,point_of_interest,supermarket,restaurant
+164,1,121.4705223,25.022746,2020-09-27,16:17,,1,翁林.林,漁網居酒屋,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,restaurant,restaurant,point_of_interest,restaurant,supermarket
+165,1,121.4711968,25.02282379,2020-09-27,21:43,,1,中山公園,台灣彩券,孫東寶-莒光店,嘉義冷凍芋頭冰,麥味登 莊敬店,park,point_of_interest,restaurant,food,restaurant
+166,1,121.4710733,25.02287316,2020-09-28,11:41,,2,中山公園,台灣彩券,臨洋港生猛活海鮮(萬板店),鴻陞堂車業,全聯福利中心-新埔捷運店,park,point_of_interest,restaurant,car_repair,supermarket
+167,1,121.4700422,25.02273416,2020-09-28,11:43,,2,翁林.林Café,吃啥冰品飲料店,桌遊二三事 Board Game Trivia,漁網居酒屋,全聯福利中心-新埔捷運店,restaurant,point_of_interest,point_of_interest,restaurant,supermarket
+168,1,121.4701013,25.0226062,2020-09-28,18:20,,2,HOME,1,,,,Home,exiting myPlace,,,
+169,1,121.4690213,25.02268987,2020-09-28,18:20,,2,爭鮮迴轉壽司-新埔店,歐德系統傢俱連鎖事業(板橋店),7-11新埔站門市,Oyami Cafe 新埔店,誠和 證件快照機 水啦!,restaurant,general_contractor,store,restaurant,point_of_interest
+170,1,121.508598,25.04202537,2020-09-28,18:35,,2,捷運西門站,捷運西門站,Mister Donut統一多拿滋-捷運西門站門市,JASONS MARKET PLACE Baoqing Store,糖村SUGAR&SPICE 台北西門町店(遠百寶慶),subway_station,point_of_interest,bakery,supermarket,bakery
+171,1,121.533962,25.01519601,2020-09-28,18:54,,2,茉莉二手書店 台大店,台北公館郵局,Bravo Burger發福廚房公館台大店,youbike捷運公館站(2號出口,公館站,book_store,post_office,restaurant,point_of_interest,subway_station
+172,1,121.5346079,25.01447812,2020-09-28,18:55,,2,麥當勞,youbike捷運公館站(2號出口,公館站,World Gym世界健身俱樂部 台北公館店,Mister Donut新公館門市,restaurant,point_of_interest,subway_station,gym,bakery
+173,1,121.5352829,25.01376506,2020-09-28,18:56,,2,水源市場,水源劇場,臺北市大安區銘傳國民小學,台北公館夜市,索菲烤布蕾公館店,tourist_attraction,point_of_interest,primary_school,point_of_interest,restaurant
+174,1,121.5367041,25.01201453,2020-09-28,19:04,,2,臺灣法國文化協會(臺北),國立臺灣大學 進修推廣學院,Taiwan Power Research Institute,百老匯影城,桌兔子桌上遊戲休閒空間,point_of_interest,university,point_of_interest,movie_theater,point_of_interest
+175,1,121.5370191,25.01154064,2020-09-28,19:39,,2,臺灣法國文化協會(臺北),國立臺灣大學 進修推廣學院,百老匯影城,Taiwan Power Research Institute,THE WALL 公館,point_of_interest,university,movie_theater,point_of_interest,point_of_interest
+176,1,121.5361312,25.01293291,2020-09-28,21:59,,2,茗香園冰室 - 公館店,Lacuz 泰式無限,迷客夏milkshop 臺北公館店,哈啦星球,東南亞秀泰影城,restaurant,restaurant,point_of_interest,point_of_interest,movie_theater
+177,1,121.5353529,25.01352433,2020-09-28,22:02,,2,MINISO名創優品 台北公館店,光南大批發 臺北公館店,水源市場,水源劇場,公館夜市【素食鹹酥雞】,grocery_or_supermarket,point_of_interest,tourist_attraction,point_of_interest,restaurant
+178,1,121.4683152,25.02323292,2020-09-28,22:38,,2,新埔市場,【烘焙DIY】自己做 烘焙聚樂部(新北板橋店),古銅助曬達人板橋峇里館,肯德基 KFC - 板橋新埔餐廳,全家便利商店 板橋金巨蛋店,point_of_interest,bakery,point_of_interest,restaurant,convenience_store
+179,1,121.4701013,25.0226062,2020-09-28,22:39,,2,HOME,1,,,,Home,entering myPlace,,,
+180,1,121.4703602,25.02267479,2020-09-28,22:45,,2,漁網居酒屋,翁林.林Café,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,restaurant,restaurant,point_of_interest,restaurant,supermarket
+181,1,121.4703598,25.02267458,2020-09-28,22:45,,2,漁網居酒屋,翁林.林Café,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),全聯福利中心-新埔捷運店,restaurant,restaurant,point_of_interest,restaurant,supermarket
+182,1,121.4703598,25.02267456,2020-09-29,10:04,,3,漁網居酒屋,翁林.林Café,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),桌遊二三事 Board Game Trivia,restaurant,restaurant,point_of_interest,restaurant,point_of_interest
+183,1,121.4703598,25.02267456,2020-09-29,10:09,,3,漁網居酒屋,翁林.林Café,吃啥冰品飲料店,臨洋港生猛活海鮮(萬板店),桌遊二三事 Board Game Trivia,restaurant,restaurant,point_of_interest,restaurant,point_of_interest
+184,1,121.4701013,25.0226062,2020-09-29,11:20,,3,HOME,1,,,,Home,exiting myPlace,,,
+185,1,121.4687323,25.02226355,2020-09-29,11:21,,3,Oyami Cafe 新埔店,板橋花市,創價學會板橋藝文中心,爭鮮迴轉壽司-新埔店,全家便利商店 板橋文興店,restaurant,point_of_interest,point_of_interest,restaurant,convenience_store
+186,1,121.5436817,25.04066569,2020-09-29,11:59,,3,鼎泰豐 復興店,頂呱呱復興店,City’Super 復興SOGO店,成真咖啡台北sogo復興店,點水樓(復興店),restaurant,restaurant,supermarket,cafe,restaurant
+187,1,121.5436817,25.04066569,2020-09-29,12:06,,3,台北福華大飯店The Howard Plaza Hotel Taipei,丹堤咖啡,Plants,葛鎂診所,花園大道(自助餐) Park Avenue-台北福華大飯店,lodging,cafe,grocery_or_supermarket,health,restaurant
+188,1,121.5568103,25.0043122,2020-09-29,12:10,,3,7-ELEVEn 辛亥站門市,滑遍天下滑雪小舖(沒有夏天),信義房屋 捷運辛亥店,環遊市,滑雪小舖,convenience_store,point_of_interest,real_estate_agency,point_of_interest,point_of_interest
+189,1,121.5796858,24.99836141,2020-09-29,12:18,,3,動物園站,臺北市立動物園,木柵動物園停車場（河川高灘地）,葡而飛街角複合式簡餐,臺北市立動物園臺灣動物區,subway_station,zoo,parking,restaurant,zoo
+190,1,121.5767944,24.99029874,2020-09-29,12:30,,3,Taibeishiwenshanquwanxing Elementary School,萬興國小運動中心-恆動力萬興營業所,Da Cheng High School,Dacheng High School,神奇山莊社區,primary_school,point_of_interest,school,transit_station,point_of_interest
+192,1,121.5760445,24.9875223,2020-09-29,12:33,,3,國立政治大學,政大,米塔義式廚房-政大店,Louisa Coffee,全家(興政店),university,school,restaurant,cafe,convenience_store
+193,1,121.5760964,24.98656139,2020-09-29,12:43,,3,National Chengchi University,NCCU College of Commerce,NCCU Main Library,政大四維堂,政大行政大樓,university,university,library,school,school
+194,1,121.5768691,24.98719969,2020-09-29,14:51,,3,NCCU College of Commerce,National Chengchi University,NCCU International MBA,Hilife,逸仙樓,university,university,point_of_interest,convenience_store,school
+195,1,121.5760584,24.98783024,2020-09-29,15:10,,3,NCCU College of Commerce,National Chengchi University,Hilife,國立政治大學商學院圖書分館,NCCU International MBA,university,university,convenience_store,library,point_of_interest
+196,1,121.577282,24.98662911,2020-09-29,17:50,,3,DORM,2,,,,Dorm,entering myPlace,,,
+197,1,121.5772574,24.986628,2020-09-29,17:50,,3,National Chengchi University,政大莊敬一舍,NCCU College of Commerce,Zhengda Library,全家便利商店 政富店,university,school,university,transit_station,convenience_store
+198,1,121.5772472,24.9864528,2020-09-29,17:51,,3,National Chengchi University,NCCU College of Commerce,政大莊敬一舍,素還真 政大店,政大,university,university,school,restaurant,school
+199,1,121.5774279,24.98662848,2020-09-29,17:52,,3,National Chengchi University,政大莊敬一舍,NCCU College of Commerce,全家便利商店 政富店,外交學系,university,school,university,convenience_store,school
+200,1,121.577282,24.98662911,2020-09-29,22:02,,3,DORM,2,,,,Dorm,exiting myPlace,,,
+201,1,121.5760964,24.98656139,2020-09-29,22:09,,3,National Chengchi University,NCCU College of Commerce,NCCU Main Library,政大四維堂,政大行政大樓,university,university,library,school,school
+202,1,121.577282,24.98662911,2020-09-29,23:53,,3,DORM,2,,,,Dorm,entering myPlace,,,
+203,1,121.5774279,24.98662848,2020-09-30,12:34,,4,National Chengchi University,政大莊敬一舍,NCCU College of Commerce,全家便利商店 政富店,外交學系,university,school,university,convenience_store,school
+204,1,121.5781116,24.98609441,2020-09-30,0:36,,5,National Chengchi University,The Affiliated Experimental Kindergarten of NCCU,金鮨日式料理,政大莊敬一舍,政治大學附實驗國小附幼兒園,university,school,restaurant,school,point_of_interest
+205,1,121.5781116,24.98609441,2020-09-30,3:15,,5,National Chengchi University,The Affiliated Experimental Kindergarten of NCCU,金鮨日式料理,政大莊敬一舍,政治大學附實驗國小附幼兒園,university,school,restaurant,school,point_of_interest
+206,1,121.577408,24.98648699,2020-09-30,3:17,,4,National Chengchi University,政大莊敬一舍,金鮨日式料理,滇味廚房,NCCU College of Commerce,university,school,restaurant,restaurant,university
+207,1,121.577408,24.98648699,2020-09-30,8:42,,4,National Chengchi University,政大莊敬一舍,金鮨日式料理,滇味廚房,NCCU College of Commerce,university,school,restaurant,restaurant,university
+208,1,121.5764097,24.98668584,2020-09-30,8:43,,4,國立政治大學商學院,國立政治大學,萊爾富便利商店,國立政治大學商學院圖書分館,逸仙樓,university,university,convenience_store,library,school
+209,1,121.577282,24.98662911,2020-09-30,9:14,,4,DORM,2,,,,Dorm,exiting myPlace,,,
+210,1,121.5764097,24.98668584,2020-09-30,10:10,,4,國立政治大學商學院,國立政治大學,萊爾富便利商店,國立政治大學商學院圖書分館,逸仙樓,university,university,convenience_store,library,school
+211,1,121.5768393,24.98644452,2020-09-30,10:12,,4,National Chengchi University,NCCU College of Commerce,Hilife,NCCU Main Library,國立政治大學商學院圖書分館,university,university,convenience_store,library,library
+212,1,121.5767221,24.9863831,2020-09-30,11:30,,4,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,政大,university,university,library,convenience_store,transit_station
+213,1,121.5772574,24.986628,2020-09-29,11:50,,3,National Chengchi University,政大莊敬一舍,NCCU College of Commerce,Zhengda Library,全家便利商店 政富店,university,school,university,transit_station,convenience_store
+214,1,121.577282,24.98662911,2020-09-29,11:50,,3,DORM,2,,,,Dorm,entering myPlace,,,
+215,1,121.577282,24.98662911,2020-09-29,22:02,,3,DORM,2,,,,Dorm,exiting myPlace,,,
+216,1,121.5767221,24.9863831,2020-09-30,11:35,,4,國立政治大學,國立政治大學商學院,國立政治大學圖書館,萊爾富便利商店,政大,university,university,library,convenience_store,transit_station
+217,1,121.5759396,24.98720623,2020-09-30,16:36,,4,國立政治大學,米塔義式廚房-政大店,國立政治大學商學院,政大一,國立政治大學校警隊,university,restaurant,university,transit_station,point_of_interest
+218,1,121.5739741,24.99447309,2020-09-30,16:38,,4,道南萬壽壘球場,Wanshou Bridge (Xinguang Rd.),龐家肉羹,Ruins Coffee Roasters,桌遊星球-政大店/文山區桌遊店/台北桌遊/文山區室內活動/文山區休閒桌遊/文山區室內活動桌遊推薦/文山區下雨天行程桌遊,point_of_interest,transit_station,restaurant,cafe,cafe
+219,1,121.5811373,25.00211425,2020-09-30,16:42,,4,风动石圣公庙,Taipei Zoo,賴桑香腸,有間車行,富邦建材有限公司,place_of_worship,zoo,food,car_repair,point_of_interest
+220,1,121.5815306,25.0128861,2020-09-30,16:49,,4,Fude Cemetery,土地公嶺古道,富德公墓第四區,Fude Cemetery,磊駿開發股份有限公司,transit_station,tourist_attraction,cemetery,transit_station,point_of_interest
+221,1,121.5721958,25.03222746,2020-09-30,16:51,,4,松德臨時平面停車場,Xiangshan Station,樹蛙保育區,御兒產後護理之家,Xiangshan Park,parking,transit_station,park,health,park
+222,1,121.5659064,25.03301446,2020-09-30,16:59,,4,Xinyi Plaza,信義廣場地下停車場圍籬式自行車停放區,松煙會館,YouBike,Diamond Tony's Italian Restaurant 101,point_of_interest,parking,museum,point_of_interest,restaurant
+223,1,121.5661644,25.04040452,2020-09-30,17:03,,4,羅撒蛋糕專櫃,台灣聯通停車場-市府轉運站場,W Taipei,台灣聯通停車場-誠品信義場,莫爾頓牛排館 Morton's The Steakhouse,bakery,parking,lodging,parking,restaurant
+224,1,121.5205319,25.04540102,2020-09-30,17:04,,4,Control Yuan,台北山水戶外休閒用品專門店,Executive Yuan,喜來登,Guest House,tourist_attraction,point_of_interest,point_of_interest,restaurant,restaurant
+225,1,121.4756025,25.03152732,2020-09-30,17:12,,4,KDM Hotel,Zhongxiao Xinsheng Station,樂田麵包屋(忠孝新生門市),久年營造股份有限公司,均岱鍋具 - 台北 遠東SOGO忠孝店,lodging,subway_station,bakery,point_of_interest,furniture_store
+226,1,121.47509,25.03167269,2020-09-30,17:14,,4,Family Mart,八方雲集仁化店,小喬新疆羊肉串,Banqiao Jiangcui Post Office,霸味薑母鴨,convenience_store,restaurant,restaurant,post_office,restaurant
+227,1,121.475267,25.03323842,2020-09-30,17:23,,4,潮粥府沙鍋粥,Masala Zone Indian Restaurant,Hilife,Taiwan Cooperative Bank,7-Eleven,restaurant,restaurant,convenience_store,bank,convenience_store
+228,1,121.4719693,25.02946989,2020-09-30,17:33,,4,YouBike,Carrefour Market Banqiao Wenhua Store,Ikari Coffee,金磚烤鴨板橋店,CITY PARKING 城市車旅停車場,point_of_interest,supermarket,cafe,restaurant,parking
+229,1,121.4677279,25.02262211,2020-09-30,17:34,,4,Xin Bu Market,KFC Xinpu,『 兩餐 』두끼韓國年糕火鍋吃到飽-板橋店,初牛 板橋新埔店,老蔡水煎包 新埔店,point_of_interest,restaurant,restaurant,restaurant,restaurant
+230,1,121.4701013,25.0226062,2020-09-30,17:36,,4,HOME,1,,,,Home,entering myPlace,,,
+231,1,121.4701013,25.0226062,2020-09-30,17:37,,4,吃啥冰品飲料店,漁網居酒屋,翁林.林Café,桌遊二三事 Board Game Trivia,全聯福利中心-新埔捷運店,point_of_interest,restaurant,restaurant,point_of_interest,supermarket
+232,1,121.4701013,25.0226062,2020-09-30,18:14,,4,HOME,1,,,,Home,exiting myPlace,,,
+233,1,121.4690213,25.02268987,2020-09-30,18:15,,4,爭鮮迴轉壽司-新埔店,歐德系統傢俱連鎖事業(板橋店),7-11新埔站門市,Oyami Cafe 新埔店,誠和 證件快照機 水啦!,restaurant,general_contractor,store,restaurant,point_of_interest
+234,1,121.5510207,25.04141499,2020-09-30,18:32,,4,ZARA 台北統領店,爭鮮迴轉壽司 忠孝店,忠孝敦化站,明曜百貨公司,問鼎 麻辣鍋 養生鍋-忠孝店,Clothing store,Conveyor belt sushi restaurant,Subway station,Department store,Hot pot restaurant
+235,1,121.5547155,25.04201177,2020-09-30,18:41,,4,大師兄銷魂麵舖-忠孝店,麵屋壹の穴 ICHI,HRC舞蹈生活館（忠孝本館）,Subway忠孝延吉店,龍門大廈,Noodle shop,Ramen restaurant,Dance school,Hoagie restaurant,Building
+236,1,121.5540671,25.04245764,2020-09-30,18:47,,4,廖嬌米粉湯,日好甜廚,不一樣乾麵,甘蔗の媽媽台北延吉店,三角三韓國道地烤肉-延吉店,Deli,Noodle shop,Dessert restaurant,Bubble tea store,restaurant
+237,1,121.5513523,25.04256972,2020-09-30,20:49,,4,AIR SPACE,Plan B 歐陸街頭市集小酒館,屯京拉麵 敦化南路店,瘋茶館,茶街,Clothing store,Tapas bar,restaurant,restaurant,restaurant
+238,1,121.5477628,25.04297301,2020-09-30,20:51,,4,Terminal One - TPE,WA-SHU 和酒,燒肉-殿,糖村 SUGER&SPICE 台北敦南店,咖啡弄(忠孝店),Bar,Cocktail bar,Bar & grill,Gift basket store,Cafe
+239,1,121.5477628,25.04297301,2020-09-30,20:51,,4,Terminal One - TPE,WA-SHU 和酒,燒肉-殿,糖村 SUGER&SPICE 台北敦南店,咖啡弄(忠孝店),Bar,Cocktail bar,Bar & grill,Gift basket store,Cafe
+240,1,121.5477628,25.04297301,2020-10-01,2:29,,5,串燒-殿,溫古咖啡 Wengu cafe,Terminal One - TPE,WA-SHU 和酒,燒肉-殿,Restaurant,Cafe,Bar,Cocktail bar,Bar & grill
+241,1,121.5477628,25.04297301,2020-10-01,2:31,,5,Terminal One - TPE,WA-SHU 和酒,燒肉-殿,糖村 SUGER&SPICE 台北敦南店,咖啡弄(忠孝店),Bar,Cocktail bar,Bar & grill,Gift basket store,Cafe
+242,1,121.5489445,25.04547906,2020-10-01,2:42,,2,Mitsui Cuisine,Ji Pin Seafood Restaurant,村子口,敦南會館,陸光小館,restaurant,restaurant,restaurant,night_club,restaurant
+243,1,121.544184,25.04112875,2020-10-01,3:00,,2,PARTYWORLD Sogo Store,[JJ HAIR SALON 髮型沙龍],啜飲室大安 - Taihu Craft Beer Tasting Room,（BEAU HAIR 台北）東區忠孝復興 推薦剪髮燙髮染髮沙龍 男女都服務,7-ELEVEN 錢忠門市,night_club,beauty_salon,bar,hair_care,convenience_store
+244,1,121.5297353,25.04287607,2020-10-01,3:05,,2,台灣聯通停車場-華山場,Huashan 1914 Creative Park,停車場,華山藝文特區,WOW玩行旅台北分館,parking,tourist_attraction,parking,tourist_attraction,lodging
+245,1,121.5238142,25.04459396,2020-10-01,3:11,,2,McDonald's,Shandao Temple Station,善導寺站,松鼠Bonbon手作甜點 (ssbonbon),PXMart Huashan Store,restaurant,subway_station,point_of_interest,food,supermarket
+246,1,121.471004,25.02284376,2020-10-01,3:15,,6,中山公園,台灣彩券,漁網居酒屋,臨洋港生猛活海鮮(萬板店),中山公園(莊敬路),park,point_of_interest,restaurant,restaurant,transit_station
+247,1,121.4701013,25.0226062,2020-10-01,3:15,,5,HOME,1,,,,Home,entering myPlace,,,
+248,1,121.470655,25.02276245,2020-10-01,3:23,,5,漁網居酒屋,中山公園,臨洋港生猛活海鮮(萬板店),桌遊二三事 Board Game Trivia,全聯福利中心-新埔捷運店,restaurant,park,restaurant,point_of_interest,supermarket
+249,1,121.4706793,25.02276968,2020-10-01,3:23,,5,漁網居酒屋,中山公園,臨洋港生猛活海鮮(萬板店),桌遊二三事 Board Game Trivia,全聯福利中心-新埔捷運店,restaurant,park,restaurant,point_of_interest,supermarket
+250,1,121.4701013,25.0226062,2020-10-01,10:03,,5,HOME,1,,,,Home,exiting myPlace,,,
+251,1,121.4703577,25.01928227,2020-10-01,10:12,,5,板橋共利車業（PGO 比雅久）,夏慕尼新香榭鐵板燒 板橋民生店,老味噌居酒屋 板橋-新埔店,莊敬公園,明星租車,Motorcycle repair shop,Teppanyaki restaurant,Izakaya restaurant,Park,Car rental agency
+252,1,121.4785397,25.01106345,2020-10-01,10:19,,5,正隆麗池,小林麻辣火鍋,中油 正隆站,ViVi PARK中和員山停車場,阿育哥大腸麵線,Apartment complex,Hot pot restaurant,Gas station,Parking lot,Deli
+253,1,121.4848527,25.00178813,2020-10-01,10:23,,5,揚日式料理,HYUNDAI-中和展示中心/服務廠,欣格汽車,錢都日式涮涮鍋-中和中正店,拉亞漢堡-中和民樂,Restaurant,Hyundai dealer,Car inspection station,Hot pot restaurant,Brunch restaurant
+254,1,121.4671347,24.97926899,2020-10-01,10:35,,5,大清水運動公園,新北市政府土城區廷寮市民活動中心,慈濟道院,智盛裝訂股份有限公司,手信坊創意和菓子文化館,Park,Event venue,Taoist temple,Packaging company,Tourist attraction
+255,1,121.4456933,24.97207341,2020-10-01,10:40,,5,捷運土城站,饗饌台灣小吃 土城店,開心農場,輝要無毒菜園,全國宴會館,Subway station,Taiwanese restaurant,Night club,Farm,Wedding venue
+256,1,121.4355657,24.96156875,2020-10-01,10:46,,5,延宗車業（超級賽車工廠）,明堂傢俱有限公司,金華鴻廚櫃配件有限公司,禮莊食品,新北市私立土農幼兒園,Car repair and maintenance,Furniture manufacturer,Furniture accessories,Wedding bakery,School
+257,1,121.3879384,24.95222134,2020-10-01,10:52,,5,祥玉染整企業股份有限公司,鉦盛汽車服務中心,樹林柑園郵局板橋87支局,僑營橡膠工業股份有限公司,新北市立圖書館樹林柑園圖書閱覽室,Superfund site,Auto repair shop,Post office,Rubber products supplier,Library
+258,1,121.336844,24.9378266,2020-10-01,10:55,,5,利隆興實業股份有限公司,7-ELEVEN,新北市立鶯歌高級工商職業學校,吉米汽車鈑金凹痕修復中心 - 鶯歌創始店,新北市立圖書館二甲閱覽室,Industrial equipment supplier,Convenience store,Trade school,Auto dent removal service,Library
+259,1,121.2815526,24.90745975,2020-10-01,10:59,,5,大溪埔頂公園,思夢樂流行服飾館-大溪店,善心緣蔬食餐廳,弋果美語大溪仁善校/全美語/補習班/安親班,綠灣創藝餐館,Park,Clothing store,Health food restaurant,Cramming school,Taiwanese restaurant
+260,1,121.2003467,24.84854185,2020-10-01,11:07,,5,新澔豐通運股份有限公司,三立傢俱楊銅店,7-Eleven,美廉社龍潭中原店,龍潭高原郵局,Logistics service,Furniture store,Convenience store,Supermarket,Post office
+261,1,121.156868,24.80763381,2020-10-01,11:15,,5,捷邦國際科技股份有限公司,吳厝柿餅,隆億工業股份有限公司,,,Manufacturer,Produce wholesaler,,,
+262,1,121.136615,24.80296526,2020-10-01,11:21,,5,Free World B&B,鋁記企業有限公司,泰詠水電材料行,泰詠企業有限公司,鑫鑫機器廠,lodging,point_of_interest,point_of_interest,point_of_interest,point_of_interest
+263,1,121.0032187,24.75583908,2020-10-01,11:24,,5,福德祠,東昌玻璃行,白沙屯外省牛肉麵,萬善祠,武德宮,Place of worship,Glass shop,restaurant,Place of worship,Place of worship
+264,1,121.0032187,24.75583908,2020-10-01,11:25,,5,CPC Yilan Zhongzheng South Road,捷勝機車行,CPC,立昌電機行（立昌汽車保養廠）,順豐不動產顧問有限公司│二胎│借款│債務整合,gas_station,car_repair,gas_station,car_repair,finance
+265,1,120.8163817,24.60796464,2020-10-01,11:29,,5,童玩年代包棟別墅,柴柴屋,廣宜建材有限公司,廣角 空間設計‧工程,禾一興業有限公司,lodging,lodging,point_of_interest,general_contractor,point_of_interest
+266,1,120.7636923,24.58140928,2020-10-01,11:36,,5,福勝紡織股份有限公司,佳皇紙業股份有限公司,上升岡企業有限公司,West Shanhua,莉久股份有限公司,point_of_interest,point_of_interest,point_of_interest,transit_station,point_of_interest
+267,1,120.688742,24.50789389,2020-10-01,11:45,,5,均緯科技有限公司,國楨垃圾收納中心,信佳祥機械有限公司,綠的國際企業股份有限公司 臺南倉,阿勇家餐飲事業 - 漂亮莊園,point_of_interest,point_of_interest,point_of_interest,point_of_interest,restaurant
+268,1,120.649202,24.29233395,2020-10-01,11:51,,5,金極雷藏寺,多電工業股份有限公司,大龍棧餐飲事業,祥雲工具股份有限公司,高將精機廠股份有限公司,Buddhist temple,Industrial equipment supplier,Restaurant,Corporate office,Machining manufacturer
+269,1,120.6899252,24.24556313,2020-10-01,11:57,,5,中工機械,榮慶企業社,至豐興業有限公司,東澄工業有限公司,倉禾工具股份有限公司,Machine shop,Company,Steel distributor,Manufacturer,Woodworking supply store
+270,1,120.6370171,24.18853793,2020-10-01,11:59,,5,全加機車行,JL Motor 佶輪車業有限公司,明松行,一福堂 環二店,B-plus攀岩館,Motorcycle shop,Scooter repair shop,Grocery store,Chinese bakery,Rock climbing gym
+271,1,120.6338796,24.17285051,2020-10-01,12:06,,5,高速公路局中區養護工程分局,台灣佳光電訊 西屯服務點,赫里翁傳奇,中港THE ONE住商兩用租賃服務大樓,享溫馨KTV台中店,Government office,Internet service provider,Condominium complex,Business administration service,Karaoke bar
+272,1,120.685186,24.16791962,2020-10-01,12:15,,5,Carrefour Chung Teh Store,這一鍋 台中崇德殿,OU JYI Black Tea Shop,段純貞-台中崇德店,聖德科斯 台中崇德門市,supermarket,restaurant,cafe,restaurant,grocery_or_supermarket
+273,1,120.6853912,24.17050386,2020-10-01,12:16,,5,水舞饌 茶餐廳 崇德店,輕井澤鍋物-新崇德店,Mr.38 curry Chongde branch,勝博殿 Express,屈臣氏Watsons,restaurant,restaurant,restaurant,restaurant,drugstore
+274,1,120.6853912,24.17050386,2020-10-01,13:30,,5,輕井澤鍋物-新崇德店,水舞饌 茶餐廳 崇德店,Mr.38 curry Chongde branch,勝博殿 Express,屈臣氏Watsons,restaurant,restaurant,restaurant,restaurant,drugstore
+275,1,120.6377509,24.15148568,2020-10-01,14:41,,5,惠文國小,真鍋珈琲生活館-公益店,強森乳酪蛋糕,森森燒肉 Mori Mori Yakiniku,太子龍公寓大廈,Elementary school,Coffee shop,Cake shop,Yakiniku restaurant,Building
+276,1,120.6175439,24.10872498,2020-10-01,14:43,,5,霖記甕缸雞 烏日旗艦店,小時候的大餅（烏日店）,卷卷烘焙 烏日店,烏日車站,摩斯漢堡 高鐵台中店,Taiwanese restaurant,Deli,Dessert shop,Train station,Fast food restaurant
+277,1,120.67881,24.049853,2020-10-01,14:50,,5,丁台社區認養園地(花博小展場),品樺花屋,全家便利商店-霧峰五福店,臺中市霧峰區丁台里里活動中心,花媽髮型工作室,City park,Dried flower shop,Convenience store,Senior citizen center,Hairdresser
+278,1,120.6646452,23.95373235,2020-10-01,14:56,,5,見成建材行,宏茂五金行,台亞石油,茶一日式午餐,吃口味,Home goods store,Hardware store,Gas station,Restaurant,Restaurant
+279,1,120.6823176,23.92395175,2020-10-01,15:03,,5,川偉汽車修配廠,民章企業股份有限公司,台灣宅配通 南投營業所,川偉汽車修配廠,粉紅櫃檳榔攤,Auto repair shop,Building materials store,Courier service,Auto repair shop,Winery
+280,1,120.6993273,23.8015269,2020-10-01,15:08,,5,林內水門,經濟部水利署第四河川局機具保管場,元金砂礫股份有限公司,菇王食品企業有限公司,溫河砂石有限公司,Park,Government office,,Food manufacturing supply,Manufacturer
+281,1,120.6361485,23.77565339,2020-10-01,15:14,,5,裕豐草莓園,林內幸福草莓園,原立事業有限公司,焢番薯、玉米,重興犬舍,Dude ranch,Orchard,Company,Restaurant,Pet store
+282,1,120.5448044,23.60876723,2020-10-01,15:23,,5,古坑服務區,台灣中油-古坑服務區站,興昌國小,新興通天宮,道聖府,Toll road rest stop,Gas station,School,Place of worship,Place of worship
+283,1,120.5024826,23.56835591,2020-10-01,16:02,,5,南華大學,南華大學中道樓,Nanhua University Library,7-ELEVEN 妙禎門市,南華大學學海堂,Private university,University department,University library,Convenience store,University
+284,1,120.4854566,23.51432516,2020-10-01,16:09,,5,三興國小,民雄金桔觀光工廠,琪琪健康舖,旺萊山鳳梨文化園區,橙舍,Elementary school,Tourist attraction,Dessert shop,Tourist attraction,Student dormitory
+285,1,120.494297,23.49240637,2020-10-01,16:14,,5,明儀養鹿農場,鹿鳴山養生事業,玄聖宮-天上聖母,將爺廟,會家厝,Livestock breeder,store,Place of worship,Place of worship,Place of worship
+286,1,120.4895593,23.4568995,2020-10-01,16:16,,5,幸福農場,虎頭崁埤風景區,酵母寶寶的異想世界,興昌工業社,北天宮-北極玄天上帝,Orchard,Scenic spot,Tourist attraction,Manufacturer,Place of worship
+287,1,120.4782292,23.45167283,2020-10-01,16:20,,5,嘉義酒廠,玉山高粱酒文化園區,高育生物科技有限公司,三太造機廠股份有限公司,光泉牧場股份有限公司 嘉義廠,,Corporate office,Biotechnology company,Corporate office,Food manufacturer
+288,1,120.4721433,23.45280133,2020-10-01,16:23,,5,好食早餐,𩵚魠風味魚羹,Amma's Kitchen (South Indian Restaurant),Taishin International Bank,山焙 SUNBAY（和平臥龍店）,restaurant,restaurant,restaurant,bank,cafe
+289,1,120.4607171,23.45176783,2020-10-01,16:28,,5,京城銀行中埔分行,台北鵝肉-20年老店,7-ELEVEN 中埔門市,御可香手作茶,阿惠火雞肉飯,Bank,Restaurant,Convenience store,Ice cream and drink shop,Restaurant
+290,1,120.4591079,23.44903862,2020-10-01,16:33,,5,85度C咖啡蛋糕飲料烘焙-嘉義中埔店,禾馨火雞肉飯,好了啦紅茶冰 嘉義中埔店,汎優造型髮軒,台灣彩券,Cafe,Restaurant,Ice cream and drink shop,Hair salon,Lottery retailer
+291,1,120.4566088,23.44574128,2020-10-01,16:44,,5,湯野精品旅館 中埔館,素齋麵食館(素食),全家(中埔中華店),芭那那早餐,3-star hotel,Bakery,Restaurant,Convenience store,Restaurant,Park
+292,1,120.4568935,23.44587303,2020-10-01,19:15,,5,芭那那早餐,素齋麵食館(素食),全家(中埔中華店),湯野精品旅館 中埔館,Sanhe Park,Restaurant,Restaurant,Convenience store,3-star hotel,Park
+293,1,120.4565506,23.44596472,2020-10-01,19:29,,5,素齋麵食館(素食),芭那那早餐,嘉陽電腦剌繡,全家(中埔中華店),湯野精品旅館 中埔館,Restaurant,Restaurant,Embroidery service,Convenience store,Bakery
+294,1,120.4568215,23.44564908,2020-10-01,19:43,,5,芭那那早餐,素齋麵食館(素食),嘉陽電腦剌繡,湯野精品旅館 中埔館,Sanhe Park,Restaurant,Restaurant,Embroidery service,3-star hotel,Park
+295,1,120.4568086,23.44563132,2020-10-01,21:56,,5,芭那那早餐,素齋麵食館(素食),平實乙村,Sanhe Park,湯野精品旅館 中埔館,Restaurant,Restaurant,Townhouse complex,Park,3-star hotel

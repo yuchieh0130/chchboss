@@ -32,6 +32,11 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
             make.leading.equalTo(100)
             make.trailing.equalTo(-100)
         }
+        
+        let user_name = UserDefaults.standard.string(forKey: "user_name")
+        userName.text = user_name
+        let user_id = UserDefaults.standard.integer(forKey: "user_id")
+        userID.text = "ID: \(user_id)"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,21 +46,21 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch  indexPath {
+//        case [0,0]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "changeUsernameCell", for: indexPath) as! changeUsernameCell
+//            cell.selectionStyle = .none
+//            return cell
+//        case [0,1]:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as! changePasswordCell
+//            cell.selectionStyle = .none
+//            return cell
         case [0,0]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "changeUsernameCell", for: indexPath) as! changeUsernameCell
-            cell.selectionStyle = .none
-            return cell
-        case [0,1]:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "changePasswordCell", for: indexPath) as! changePasswordCell
-            cell.selectionStyle = .none
-            return cell
-        case [0,2]:
             let cell = tableView.dequeueReusableCell(withIdentifier: "editMyplaceCell", for: indexPath) as! editMyplaceCell
             cell.selectionStyle = .none
             cell.accessoryType = .disclosureIndicator

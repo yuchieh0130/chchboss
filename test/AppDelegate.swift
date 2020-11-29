@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self){
-            print(myLocationManager.monitoredRegions)
+            //print(myLocationManager.monitoredRegions)
         }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         print("BunnyTrack Active")
@@ -295,8 +295,7 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
     }
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         // makeNotification(String: "didStartMonitoringFor")
-        // print(region)
-        print("region:\(region)")
+        //print("region:\(region)")
     }
     
     // 當用戶退出一個 region

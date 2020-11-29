@@ -294,7 +294,7 @@ class mapViewController: UIViewController, UITableViewDataSource,CLLocationManag
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        if indexPath.row == 0 && txtSearch.text!.isEmpty{
             performSegue(withIdentifier: "showMyPlace", sender: nil)
         }
     }

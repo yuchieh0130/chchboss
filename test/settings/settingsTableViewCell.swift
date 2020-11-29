@@ -33,4 +33,7 @@ class friendListCell: UITableViewCell{
 }
 class pendingFriendListCell: UITableViewCell {
     @IBOutlet var pendingFriendName: UILabel!
+    @IBOutlet weak var confirmBtn: UIButton!
+    @IBOutlet weak var deleteBtn: UIButton!
+    
 }
