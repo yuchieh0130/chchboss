@@ -6,8 +6,8 @@ location_id,user_id,longitude,latitude,start_date,start_time,duration,weekday,na
 1992,2,121.5585251,24.99861145,2020-08-20,12:51,,5,85度c,Louisa Coffee 路易．莎咖啡(萬芳醫院店),Cut髮院 百元剪髮專門店 萬芳店,Wanfang Hospital,Wanfang Hospital Station,cafe,cafe,beauty_salon,hospital,subway_station
 1994,2,121.5793655,24.99832418,2020-08-20,12:56,,5,Taipei Zoo Station,Taipei Zoo,木柵動物園停車場（河川高灘地）,葡而飛街角複合式簡餐,Taipei Zoo Formosan Animal Area,subway_station,zoo,parking,restaurant,zoo
 1996,2,121.5737204,24.99718499,2020-08-20,13:01,,5,Mai Hsiang Yuen Handmade Pizza,10NT$ Self Serve Car Wash,上賀建材五金,Muzha Vocational High School,7-ELEVEN 博嘉門市,restaurant,car_wash,hardware_store,school,convenience_store
-2000,2,121.5757804,24.98775648,2020-08-20,13:22,,5,米塔義式廚房-政大店,Louisa Coffee,Starbucks,Juicy Bun Burger 就是棒 美式餐廳 政大店,7-Eleven,restaurant,cafe,cafe,restaurant,convenience_store
-2001,2,121.5757804,24.98775648,2020-08-20,14:14,,5,NCCU College of Commerce,National Chengchi University,國立政治大學商學院圖書分館,Hilife,NCCU International MBA,university,university,library,convenience_store,point_of_interest
+2000,2,121.5757804,24.98775648,2020-08-20,13:06,,5,米塔義式廚房-政大店,Louisa Coffee,Starbucks,Juicy Bun Burger 就是棒 美式餐廳 政大店,7-Eleven,restaurant,cafe,cafe,restaurant,convenience_store
+2001,2,121.5757804,24.98775648,2020-08-20,13:50,,5,NCCU College of Commerce,National Chengchi University,國立政治大學商學院圖書分館,Hilife,NCCU International MBA,university,university,library,convenience_store,point_of_interest
 2002,2,121.5757804,24.98775648,2020-08-20,14:20,,5,NCCU College of Commerce,National Chengchi University,國立政治大學商學院圖書分館,Hilife,NCCU International MBA,university,university,library,convenience_store,point_of_interest
 2003,2,121.5757804,24.98775648,2020-08-20,14:21,,5,National Chengchi University,NCCU College of Commerce,Hilife,國立政治大學商學院圖書分館,NCCU Main Library,university,university,convenience_store,library,library
 2004,2,121.5757804,24.98775648,2020-08-20,14:22,,5,NCCU College of Commerce,National Chengchi University,Hilife,國立政治大學商學院圖書分館,NCCU International MBA,university,university,convenience_store,library,point_of_interest
@@ -24,14 +24,16 @@ location_id,user_id,longitude,latitude,start_date,start_time,duration,weekday,na
 2035,2,121.5757804,24.98775648,2020-08-20,16:13,,5,NCCU College of Commerce,National Chengchi University,Hilife,國立政治大學商學院圖書分館,NCCU International MBA,university,university,convenience_store,library,point_of_interest
 2065,2,121.5737853,24.99249128,2020-08-20,18:04,,5,戰略新光店(駭客),仲工車業行,桌遊星球-政大店/文山區桌遊店/台北桌遊/文山區室內活動/文山區休閒桌遊/文山區室內活動桌遊推薦/文山區下雨天行程桌遊,HOYDEA,艾蜜莉寵物美容,point_of_interest,car_repair,cafe,bar,point_of_interest
 2068,2,121.5779881,25.00137911,2020-08-20,18:12,,5,土地公嶺古道,Fude Cemetery,Tennis Court,Fude Cemetery Area 14,Fude Cemetery,tourist_attraction,transit_station,transit_station,transit_station,transit_station
-2071,2,121.5690834,25.03367935,2020-08-20,18:14,,5,Xiangshan Station,WuPaoChun Bakery Taipei,Xiangshan Station,MRT Xiangshan Station,JOYCE EAST,transit_station,bakery,point_of_interest,bus_station,restaurant
+2071,2,121.5690834,25.03367935,2020-08-20,18:30,,5,JOYCE EAST,WuPaoChun Bakery Taipei,Xiangshan Station,MRT Xiangshan Station,JOYCE EAST,restaurant,bakery,point_of_interest,bus_station,restaurant
 2087,2,121.5670427,25.03782589,2020-08-20,20:23,,5,Shin Kong Mitsukoshi Taipei Xinyi Place A8,Saboten,7-ELEVEN 新光門市,Ng Ah Sio Bak Kut Teh,McDonald's Shin Kong Mitsukoshi Xinyi A8,department_store,restaurant,convenience_store,restaurant,restaurant
-2093,2,121.5489603,25.04471308,2020-08-20,21:52,,5,陸光小館,永固便利停車,SUGAR & SPICE Dunnan Store,7-Eleven,The Day Before Bistro & Flavor,restaurant,parking,bakery,convenience_store,bar
-2095,2,121.5491893,25.05016933,2020-08-20,22:05,,5,Taipei Arena,Cheogajip,MOS BURGER Taipei Arena Shop,Dunhua Elementary School,Taiwan Tech Arena,shopping_mall,meal_delivery,restaurant,primary_school,point_of_interest
-2096,2,121.5442651,25.06198145,2020-08-20,22:10,,5,Dante Coffee,ELIZA LADY PLAZA,World Gym 世界健身俱樂部 台北民權東店,台灣博報堂,躼腳日式料理,cafe,spa,gym,point_of_interest,restaurant
-2098,2,121.5445123,25.07934029,2020-08-20,22:15,,5,Taipei Municipal Dazhi High School,大昌機車有限公司,日本A5和牛專賣,金吉利寵物精品（大直店）,Dazhi Police Station,secondary_school,car_repair,food,point_of_interest,police
+2093,2,121.5489603,25.04471308,2020-08-20,21:36,,5,陸光小館,永固便利停車,SUGAR & SPICE Dunnan Store,7-Eleven,The Day Before Bistro & Flavor,restaurant,parking,bakery,convenience_store,bar
+2095,2,121.5491893,25.05016933,2020-08-20,21:45,,5,Taipei Arena,Cheogajip,MOS BURGER Taipei Arena Shop,Dunhua Elementary School,Taiwan Tech Arena,shopping_mall,meal_delivery,restaurant,primary_school,point_of_interest
+2096,2,121.5442651,25.06198145,2020-08-20,21:54,,5,Dante Coffee,ELIZA LADY PLAZA,World Gym 世界健身俱樂部 台北民權東店,台灣博報堂,躼腳日式料理,cafe,spa,gym,point_of_interest,restaurant
+2098,2,121.5445123,25.07934029,2020-08-20,22:02,,5,Taipei Municipal Dazhi High School,大昌機車有限公司,日本A5和牛專賣,金吉利寵物精品（大直店）,Dazhi Police Station,secondary_school,car_repair,food,point_of_interest,police
+2098,2,121.5445123,25.07934029,2020-08-20,22:11,,5,Taipei Municipal Dazhi High School,大昌機車有限公司,日本A5和牛專賣,金吉利寵物精品（大直店）,Dazhi Police Station,secondary_school,car_repair,food,point_of_interest,police
 2099,2,121.5587072,25.08294771,2020-08-20,22:20,,5,Carrefour DaZhi Store,Miramar Ferris Wheel,Tairroir,San Ho Yan Dazhi,Miramar Cinemas,supermarket,point_of_interest,restaurant,restaurant,movie_theater
-2100,2,121.5630813,25.08737435,2020-08-20,22:46,,5,Family Mart,阿華食堂,7-Eleven,全聯福利中心Pxmart 內湖文湖,赫里翁 - 接待中心,convenience_store,restaurant,convenience_store,supermarket,real_estate_agency
+2330,2,121.5630813,25.08737435,2020-08-20,22:46,,5,mo家,,,,,entering,,,,
+2100,2,121.5630813,25.08737435,2020-08-20,22:50,,5,Family Mart,阿華食堂,7-Eleven,全聯福利中心Pxmart 內湖文湖,赫里翁 - 接待中心,convenience_store,restaurant,convenience_store,supermarket,real_estate_agency
 2101,2,121.5630813,25.08737435,2020-08-20,23:26,,5,Family Mart,軟訊資訊有限公司,阿華食堂,7-Eleven,小鳥不吃肉,convenience_store,electronics_store,restaurant,convenience_store,restaurant
 2105,2,121.5630813,25.08737435,2020-08-21,1:32,,6,Family Mart,阿華食堂,7-Eleven,軟訊資訊有限公司,Ho'Me,convenience_store,restaurant,convenience_store,electronics_store,restaurant
 2107,2,121.5630813,25.08737435,2020-08-21,1:43,,6,Family Mart,阿華食堂,軟訊資訊有限公司,7-Eleven,小鳥不吃肉,convenience_store,restaurant,electronics_store,convenience_store,restaurant
@@ -61,9 +63,10 @@ location_id,user_id,longitude,latitude,start_date,start_time,duration,weekday,na
 2141,2,121.5630813,25.08737435,2020-08-21,12:04,,6,阿華食堂,Family Mart,軟訊資訊有限公司,小鳥不吃肉,蔓花居,restaurant,convenience_store,electronics_store,restaurant,florist
 2143,2,121.5630813,25.08737435,2020-08-21,12:51,,6,阿華食堂,軟訊資訊有限公司,Family Mart,7-Eleven,TOYOTA 內湖營業所,restaurant,electronics_store,convenience_store,convenience_store,car_dealer
 2144,2,121.5630813,25.08737435,2020-08-21,12:53,,6,軟訊資訊有限公司,阿華食堂,Family Mart,TOYOTA 內湖營業所,德明財經科技大學推廣教育中心,electronics_store,restaurant,convenience_store,car_dealer,school
+2330,2,121.5493979,25.0845803,2020-08-21,12:53,,6,mo家,,,,,exiting,,,,
 2145,2,121.5580521,25.0850563,2020-08-21,13:09,,6,Taiwanzhongyoudazhizhan Station,全聯福利中心Pxmart 大直實踐,Ta-chih Presbyterian Church,大直黑丸嫩仙草,寶吉祥咖啡,gas_station,supermarket,church,point_of_interest,cafe
 2146,2,121.5493979,25.0845803,2020-08-21,13:09,,6,全聯福利中心Pxmart 大直實踐,Taiwanzhongyoudazhizhan Station,Ta-chih Presbyterian Church,太平洋閣廈A區管理委員會,大直黑丸嫩仙草,supermarket,gas_station,church,point_of_interest,point_of_interest
-2147,2,121.5475031,25.08037202,2020-08-21,13:15,,6,一直咖啡 Izhi Coffee,好奇營養豆花 大直店,安德斯葡式蛋撻-總店,北安專業涼麵,Dazhi Elementary School,cafe,food,food,restaurant,primary_school
+2147,2,121.5475031,25.08037202,2020-08-21,13:15,,6,愛手愛腳,好奇營養豆花 大直店,安德斯葡式蛋撻-總店,北安專業涼麵,Dazhi Elementary School,nail salon,food,food,restaurant,primary_school
 2150,2,121.5475031,25.08037202,2020-08-21,14:32,,6,一直咖啡 Izhi Coffee,Dazhi Station,大直小館,Ba Fang Yun Ji Dumpling,Dazhi Station,cafe,subway_station,restaurant,restaurant,point_of_interest
 2151,2,121.5475031,25.08037202,2020-08-21,14:33,,6,一直咖啡 Izhi Coffee,Dazhi Station,Dazhi Elementary School,Dazhi Station,大直小館,cafe,subway_station,primary_school,point_of_interest,restaurant
 2152,2,121.5475031,25.08037202,2020-08-21,14:39,,6,一直咖啡 Izhi Coffee,Dazhi Station,大直小館,Ba Fang Yun Ji Dumpling,Dazhi Station,cafe,subway_station,restaurant,restaurant,point_of_interest
@@ -75,8 +78,8 @@ location_id,user_id,longitude,latitude,start_date,start_time,duration,weekday,na
 2158,2,121.5475031,25.08037202,2020-08-21,14:40,,6,一直咖啡 Izhi Coffee,Dazhi Station,大直小館,Ba Fang Yun Ji Dumpling,Dazhi Station,cafe,subway_station,restaurant,restaurant,point_of_interest
 2159,2,121.5475031,25.08037202,2020-08-21,14:42,,6,一直咖啡 Izhi Coffee,Dazhi Station,Dazhi Elementary School,大直小館,Ba Fang Yun Ji Dumpling,cafe,subway_station,primary_school,restaurant,restaurant
 2160,2,121.5469971,25.07994842,2020-08-21,15:18,,6,一直咖啡 Izhi Coffee,Dazhi Station,Dazhi Elementary School,Dazhi Station,Ba Fang Yun Ji Dumpling,cafe,point_of_interest,primary_school,subway_station,restaurant
-2166,2,121.5260773,25.10301208,2020-08-21,16:04,,6,臺北市私立怡寶托嬰中心,甫月fuyue,Boulangerie Nogami Tianmu,POYA Shilin Zhishan,富創餐飲設備有限公司,school,point_of_interest,bakery,point_of_interest,point_of_interest
-2167,2,121.5260773,25.10301208,2020-08-21,16:08,,6,臺北市私立怡寶托嬰中心,甫月fuyue,安晴Angeline,富創餐飲設備有限公司,POYA Shilin Zhishan,school,point_of_interest,beauty_salon,point_of_interest,point_of_interest
+2166,2,121.5260773,25.10301208,2020-08-21,17:04,,6,臺北市私立怡寶托嬰中心,甫月fuyue,Boulangerie Nogami Tianmu,POYA Shilin Zhishan,富創餐飲設備有限公司,school,point_of_interest,bakery,point_of_interest,point_of_interest
+2167,2,121.5260773,25.10301208,2020-08-21,17:08,,6,臺北市私立怡寶托嬰中心,甫月fuyue,安晴Angeline,富創餐飲設備有限公司,POYA Shilin Zhishan,school,point_of_interest,beauty_salon,point_of_interest,point_of_interest
 2170,2,121.5442244,25.06084925,2020-08-21,17:34,,6,Zhongshan Junior High School Station,Taiwan Stock Museum,Uptown Pastry Shop,degugu 果果迪特調水果茶飲,YanikeYTMzhongshanguozhong Station,subway_station,museum,bakery,point_of_interest,food
 2171,2,121.5442244,25.06084925,2020-08-21,17:34,,6,Zhongshan Junior High School Station,Taiwan Stock Museum,Uptown Pastry Shop,degugu 果果迪特調水果茶飲,YanikeYTMzhongshanguozhong Station,subway_station,museum,bakery,point_of_interest,food
 2172,2,121.5434059,25.04099049,2020-08-21,17:39,,6,Din Tai Fung Fuxing Restaurant,MUJI Sogo Fuxing Store,City’Super Sogo Fuxing Store,[JJ HAIR SALON 髮型沙龍],Y-3 Taipei Sogo BR4,restaurant,home_goods_store,supermarket,beauty_salon,point_of_interest
