@@ -647,12 +647,13 @@ def linelogin():
         cur.close()
 
         cur = conn.cursor()
-        sql = "SELECT user_id FROM user WHERE user_lineid = %s"
-        adr = (user_lineid,)
+        sql = "SELECT user_id,user_name FROM user WHERE user_lineid = %s"
+        adr = (user_lineid)
         cur.execute(sql, adr)
         fetch_data = cur.fetchall()
         cur.close()
-        return jsonify({"status_code": 200, "user_id":fetch_data[0][0]})
+        return jsonify({"status_code": 200, "user_id":fetch_data[0][0], "user_name":fetch_data[0][1]})
+
 @app.route("/insertCategory", methods=["POST"])
 def insertCategory():
     import mysql.connector
@@ -684,21 +685,26 @@ def searchFriendList():
     user_id = data["user_id"]
     
     cur = conn.cursor()
-    sql = "SELECT friend.*, user.user_id, user.user_name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
-    adr = (user_id, True)
+    # sql = "SELECT friend.*, user.user_id, user.user_name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT friend.*, user.user_id, user.user_name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s "
+    sql = "SELECT user.user_id, user.user_name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT user.user_id, user.user_name, user.liked, user.heart, user.mad FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
+    adr = (user_id, True, user_id, True )
     cur.execute(sql, adr)
     confirm_friend = cur.fetchall()
+
     cur.close()
+    print(confirm_friend)
     cur = conn.cursor()
-    sql = "SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
-    adr = (user_id, False)
+    # sql = "SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
+    sql = "SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
+    adr = (user_id, False, user_id, False)
     cur.execute(sql, adr)
     unconfirm_friend = cur.fetchall()
+    #if(unconfirm):
+    #    unconfirm_friend = unconfirm
+    #    return jsonify({"status_code": 200, "confirm_friendlist": confirm_friend, "unconfirm_friendlist": unconfirm_friend})
+    print(unconfirm_friend)
     cur.close()
-    # if(confirm_friend):
-    #     return jsonify({"status_code": 400})
-    # else:
-    return jsonify({"status_code": 200, "confirm_friendlist": confirm_friend[0], "unconfirm_friendlist": unconfirm_friend[0]})
+    return jsonify({"status_code": 200, "confirm_friendlist": confirm_friend, "unconfirm_friendlist": unconfirm_friend})
 
 
 @app.route("/searchFriend", methods=["POST"])
@@ -759,8 +765,8 @@ def insertFriend():
     friend_id = data["friend_id"]
 
     cur = conn.cursor()
-    sql = "UPDATE user SET confirm_status = %s WHERE user_id = %s and friend_id = %s"
-    adr = (True, user_id, friend_id)
+    sql = "UPDATE friend SET confirm_status = %s WHERE (user_id = %s and friend_id = %s) OR (user_id = %s and friend_id = %s)"
+    adr = (True, user_id, friend_id, friend_id, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
@@ -777,8 +783,8 @@ def deleteFriend():
     friend_id = data["friend_id"]
 
     cur = conn.cursor()
-    sql = "DELETE * FROM user WHERE (user_id = %s and friend_id = %s) OR (user_id = %s and friend_id = %s)"
-    adr = (True, user_id, friend_id, friend_id, user_id)
+    sql = "DELETE FROM friend WHERE (user_id = %s and friend_id = %s) OR (user_id = %s and friend_id = %s)"
+    adr = (user_id, friend_id, friend_id, user_id)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
@@ -813,46 +819,51 @@ def addEmoji():
     user_id = data["user_id"]
 
     if(emoji == "mad"):
+        # cur = conn.cursor()
+        # sql = "SELECT mad FROM user WHERE user_id = %s"
+        #adr = (user_id)
+        #cur.execute(sql, adr)
+        #fetch_data = cur.fetchall()[0][0]
+        #cur.close()
         cur = conn.cursor()
-        sql = "SELECT mad FROM user WHERE user_id = %s"
-        adr = (user_id)
+        sql = "UPDATE user SET mad = mad+1 WHERE user_id = %s"
+        adr = (user_id,)
         cur.execute(sql, adr)
-        fetch_data = cur.fetchall()[0][0]
-        cur.close()
-        
-        cur = conn.cursor()
-        sql = "UPDATE user SET mad = %s WHERE user_id = %s"
-        adr = (fetch_data+1, user_id)
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
+
     elif(emoji == "heart"):
-        cur = conn.cursor()
-        sql = "SELECT heart FROM user WHERE user_id = %s"
-        adr = (user_id)
-        cur.execute(sql, adr)
-        fetch_data = cur.fetchall()[0][0]
-        cur.close()
+        #cur = conn.cursor()
+        #sql = "SELECT heart FROM user WHERE user_id = %s"
+        #adr = (user_id)
+        #cur.execute(sql, adr)
+        #fetch_data = cur.fetchall()[0][0]
+        #cur.close()
 
         cur = conn.cursor()
-        sql = "UPDATE user SET heart = %s WHERE user_id = %s"
-        adr = (fetch_data+1, user_id)
+        sql = "UPDATE user SET heart = heart+1 WHERE user_id = %s"
+        adr = (user_id,)
+        cur.execute(sql, adr)
         conn.commit()
         cur.close()
         return jsonify({"status_code": 200})
+
     elif(emoji == "liked"):
-        cur = conn.cursor()
-        sql = "SELECT liked FROM user WHERE user_id = %s"
-        adr = (user_id)
-        cur.execute(sql, adr)
-        fetch_data = cur.fetchall()[0][0]
-        cur.close()
+        #cur = conn.cursor()
+        #sql = "SELECT liked FROM user WHERE user_id = %s"
+        #adr = (user_id)
+        #cur.execute(sql, adr)
+        #fetch_data = cur.fetchall()[0][0]
+        #cur.close()
         
         cur = conn.cursor()
-        sql = "UPDATE user SET liked = %s WHERE user_id = %s"
-        adr = (fetch_data+1, user_id)
+        sql = "UPDATE user SET liked = liked+1 WHERE user_id = %s"
+        adr = (user_id,)
+        cur.execute(sql, adr)
         conn.commit()
         cur.close()
+
         return jsonify({"status_code": 200})
 
 @app.route("/rank", methods=["POST"])
@@ -865,18 +876,21 @@ def rank():
     data = request.get_json()
 
     category = data["category"]
-    current_time = data["currenttime"]
+    # current_time = data["currenttime"]
+    user_id = data["user_id"]
     
-    timelist = re.split("/|:", current_time)
+    # timelist = re.split("/|:", current_time)
 
-    current_datetime = datetime.datetime(int(timelist[0]), int(timelist[1]), int(timelist[2]), int(timelist[3]), int(timelist[4]), 00)
-    week = current_datetime + datetime.timedelta(days=7)
-    week = str(week).replace(" ","")
-    current_time = str(current_time).replace(" ","")
+    # current_datetime = datetime.datetime(int(timelist[0]), int(timelist[1]), int(timelist[2]), int(timelist[3]), int(timelist[4]), 00)
+    # week = current_datetime + datetime.timedelta(days=7)
+    # week = str(week).replace(" ","")
+    # current_time = str(current_time).replace(" ","")
 
     cur = conn.cursor()
-    sql = "SELECT user_id ,duration FROM track WHERE category = %s and CONCAT(end_date, end_time) BETWEEN %s and %s" 
-    adr = (category, current_time, week)
+    # sql = "SELECT user_id ,duration FROM track WHERE category = %s and CONCAT(end_date, end_time) BETWEEN %s and %s" 
+    sql = "SELECT mo.user.user_id, mo.user.user_name, mo.track.category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as percent FROM mo.track RIGHT JOIN mo.user on mo.track.user_id = mo.user.user_id  where mo.track.category_id = %s and start_date >= date_sub(now(), interval 200 day) and (mo.track.user_id = %s or (mo.track.user_id in ( select friend_id from mo.friend where mo.friend.user_id = %s and confirm_status = 1)) or (mo.track.user_id in( select user_id from mo.friend where mo.friend.friend_id = %s and confirm_status = 1))) group by mo.track.user_id order by percent DESC limit 5;"
+    adr = (category, user_id, user_id, user_id)
+    #時間先暫時用過去的全部，因為沒有資料
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
@@ -889,7 +903,7 @@ def rank():
     sortedlist = sortedlist[0:5]
 
     # sortedlist = [('user1', '20'), ('user3', '40'), ('user2', '50')]
-    return jsonify({"status_code": 200, "sortedlist": sortedlist})
+    return jsonify({"status_code": 200, "rank": fetch_data })
 
 
 
@@ -940,14 +954,14 @@ def login():
     password = data["password"]
     # print(email,password)
     cur = conn.cursor()
-    sql = "SELECT user_id FROM user WHERE email = %s and password = %s"
+    sql = "SELECT user_id,user_name FROM user WHERE email = %s and password = %s"
     adr = (email, password)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
     print(fetch_data[0][0])
     if fetch_data:
-        return jsonify({"status_code": 200, "user_id": fetch_data[0][0]})
+        return jsonify({"status_code": 200, "user_id": fetch_data[0][0], "user_name": fetch_data[0][1]})
     else:
         return jsonify({"status_code": 400, "user_id": 0})
 
