@@ -20,7 +20,7 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //搜尋好友btn
+        //搜尋好友
 //        net.searchFriend(user_id: "3"){ (return_list) in
 //            if let status_code = return_list?[0],
 //                let friend = return_list?[1] as? [AnyObject]{
@@ -35,14 +35,15 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
 //            }
 //        }
         
-        //加好友btn
+        
+        //加好友
 //        net.addFriendRequest(friendId: "1"){ statusCode in
 //            if statusCode == 200{
 //                print("好友邀請送出")
-//                //好友邀請送出看要做點啥
+//                //好友邀請送出看要做點啥，跳個通知之類
 //            }else if statusCode == 400{
 //                print("已經加過好友")
-//                //已經加過好友看要做點啥
+//                //已經加過好友看要做點啥，跳個通知之類
 //            }else{
 //                print("addFriendRequest error")
 //            }
