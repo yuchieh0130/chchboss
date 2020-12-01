@@ -1622,11 +1622,17 @@
                                         <rect key="frame" x="26" y="247" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="emoji-thumb"/>
+                                        <connections>
+                                            <action selector="emojiThumb:" destination="aUL-Xg-JXa" eventType="touchUpInside" id="XOo-3d-8Rd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dap-ji-SD9">
                                         <rect key="frame" x="147" y="247" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="emoji-heart"/>
+                                        <connections>
+                                            <action selector="emojiHeart:" destination="aUL-Xg-JXa" eventType="touchUpInside" id="JAJ-ms-hUU"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Red Xin Rou" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUB-J6-mwE">
                                         <rect key="frame" x="191" y="57" width="120" height="34"/>
@@ -1696,6 +1702,9 @@
                                         <rect key="frame" x="268" y="247" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="emoji-angry"/>
+                                        <connections>
+                                            <action selector="emojiAngry:" destination="aUL-Xg-JXa" eventType="touchUpInside" id="bmA-Rx-rmP"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" fixedFrame="YES" image="crown2" translatesAutoresizingMaskIntoConstraints="NO" id="nOb-Lp-uFE">
                                         <rect key="frame" x="153" y="50" width="46" height="41"/>
@@ -1994,7 +2003,7 @@
                     <connections>
                         <outlet property="emojiAngry" destination="R26-hz-wxG" id="aPa-p2-zeh"/>
                         <outlet property="emojiHeart" destination="dap-ji-SD9" id="afP-pU-xr4"/>
-                        <outlet property="emojiThumb" destination="xMe-fV-uah" id="yZg-J1-pFv"/>
+                        <outlet property="emojiThumb" destination="xMe-fV-uah" id="OH3-OW-JF4"/>
                         <outlet property="exitBtn" destination="CmG-ZH-BsD" id="qeJ-WM-kXi"/>
                         <outlet property="gifImgView" destination="lGo-lQ-sdo" id="fQa-6b-heZ"/>
                         <outlet property="rankView" destination="lUE-tn-ZM8" id="i60-Mo-Jcr"/>

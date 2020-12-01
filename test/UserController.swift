@@ -72,15 +72,18 @@ class UserController {
                                                     DispatchQueue.main.async {
                                                         
                                                         print(sampleType)
-                                                        myAnchor = newAnchor!
-                                                        
-                                                        guard let result = samplesOrNil else {
-                                                            print("Nil for", sampleType)
-                                                            completion(nil, errorOrNil)
-                                                            return
+                                                        if(newAnchor != nil){
+                                                            myAnchor = newAnchor!
+                                                            
+                                                            guard let result = samplesOrNil else {
+                                                                print("Nil for", sampleType)
+                                                                completion(nil, errorOrNil)
+                                                                return
+                                                            }
+                                                            print("Not nil for", sampleType)
+                                                            completion(result, nil)
                                                         }
-                                                        print("Not nil for", sampleType)
-                                                        completion(result, nil)
+                                                        
                                                     }
         }
         anchorQuery.updateHandler = { (query, samplesOrNil, deletedObjectsOrNil, newAnchor, errorOrNil) in

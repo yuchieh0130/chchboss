@@ -56,7 +56,6 @@ class friendProfileViewController: UIViewController {
         profileImage.clipsToBounds = true
     }
     
-    
     @IBAction func swipeDownGesture(_ sender: UIPanGestureRecognizer) {
         let touchPoint = sender.location(in: self.view?.window)
         if sender.state == UIGestureRecognizer.State.began{
