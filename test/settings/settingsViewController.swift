@@ -79,6 +79,10 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
             if let VC = segue.destination as? myPlaceViewController{
                 VC.hidesBottomBarWhenPushed = true
             }
+        case "settingsToFriend":
+            if let VC = segue.destination as? friendsListViewController{
+                VC.hidesBottomBarWhenPushed = true
+            }
         default:
             print("")
         }
