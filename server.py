@@ -789,7 +789,7 @@ def searchFriendList():
     # sql = "SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
     # sql = "SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
     sql = "SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s"
-    adr = (user_id, False, user_id, False)
+    adr = (user_id, False)
     cur.execute(sql, adr)
     unconfirm_friend = cur.fetchall()
     #if(unconfirm):
