@@ -214,6 +214,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let controller = segue.destination as? friendProfileViewController
         let indexPath = self.tableView.indexPathForSelectedRow
+        controller?.frinedId = showCheckedFriends![indexPath!.row].friendId ?? 0
         controller?.name = showCheckedFriends![indexPath!.row].name
         controller?.like  = showCheckedFriends![indexPath!.row].like
         controller?.heart = showCheckedFriends![indexPath!.row].heart
