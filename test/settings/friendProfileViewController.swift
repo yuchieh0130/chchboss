@@ -51,8 +51,6 @@ class friendProfileViewController: UIViewController {
         backBtn.layer.cornerRadius = 0.2*backBtn.bounds.size.height
         backBtn.layer.shadowOpacity = 0.3
         backBtn.layer.shadowOffset = .zero
-//        backBtn.layer.borderWidth = 1
-//        backBtn.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
         
         friendName.layer.cornerRadius = 10.0
         friendName.clipsToBounds = true

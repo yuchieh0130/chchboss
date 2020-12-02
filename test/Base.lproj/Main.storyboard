@@ -1396,9 +1396,6 @@
                             <constraint firstItem="TjT-s1-4ar" firstAttribute="leading" secondItem="253-oW-sIv" secondAttribute="trailing" constant="92" id="mVx-SI-myE"/>
                             <constraint firstItem="wK8-7z-h8L" firstAttribute="bottom" secondItem="q7H-hP-JpJ" secondAttribute="bottom" constant="386" id="r8F-bt-Xzt"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="ZIh-Jl-a5y" appends="YES" id="bgI-FG-jZM"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="sun-eM-VDf"/>
                     <connections>
@@ -1414,12 +1411,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GwU-jK-3i4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="ZIh-Jl-a5y">
-                    <connections>
-                        <action selector="swipeDownGesture:" destination="PUM-oV-ltd" id="EOL-1Q-wUT"/>
-                        <outlet property="delegate" destination="PUM-oV-ltd" id="mNS-td-u2u"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="13540.579710144928" y="776.78571428571422"/>
         </scene>
