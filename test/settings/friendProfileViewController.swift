@@ -14,6 +14,8 @@ class friendProfileViewController: UIViewController {
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var friendName: UILabel!
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
+    var frinedId: Int32 = 0
+    var friend: Int32?
     var name: String?
     var like: Int32?
     var heart: Int32?
@@ -54,6 +56,8 @@ class friendProfileViewController: UIViewController {
         profileImage.layer.borderWidth = 2
         profileImage.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
         profileImage.clipsToBounds = true
+        
+        profileImage.image = UIImage(named: "user\(frinedId)")
     }
     
     @IBAction func swipeDownGesture(_ sender: UIPanGestureRecognizer) {
