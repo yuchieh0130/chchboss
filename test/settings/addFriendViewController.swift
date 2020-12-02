@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class addFriendViewController: UIViewController,UISearchBarDelegate {
     
@@ -16,39 +17,15 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
     @IBOutlet var addBtn: UIButton!
     @IBOutlet var searchBtn: UIButton!
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var cancelAddBtn: UIButton!
+    
+    var addName: String = ""
+    var addId: Int? = nil
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //搜尋好友
-//        net.searchFriend(user_id: "3"){ (return_list) in
-//            if let status_code = return_list?[0],
-//                let friend = return_list?[1] as? [AnyObject]{
-//                if status_code as! Int == 200{
-//                    print(friend[0]) //friend[0]是那個人的名字！
-//                }else{
-//                    print("searchFriend statusCode \(status_code)")
-//                }
-//
-//            }else{
-//                print("searchFriend error")
-//            }
-//        }
-        
-        
-        //加好友
-//        net.addFriendRequest(friendId: "1"){ statusCode in
-//            if statusCode == 200{
-//                print("好友邀請送出")
-//                //好友邀請送出看要做點啥，跳個通知之類
-//            }else if statusCode == 400{
-//                print("已經加過好友")
-//                //已經加過好友看要做點啥，跳個通知之類
-//            }else{
-//                print("addFriendRequest error")
-//            }
-//        }
-       
         
         navigationItem.title = "Add Friend"
         searchBar.delegate = self
@@ -58,8 +35,10 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         
         searchBtn.isHidden = false
         addBtn.isHidden = true
+        cancelAddBtn.isHidden = true
         profileImage.isHidden = true
         nameLabel.isHidden = true
+        nameLabel.textAlignment = .center
         
         searchBar.layer.borderWidth = 1
         searchBar.layer.borderColor = UIColor.white.cgColor
@@ -74,6 +53,18 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         
         addBtn.layer.cornerRadius = 10.0
         addBtn.clipsToBounds = true
+        
+        cancelAddBtn.layer.cornerRadius = 10.0
+        cancelAddBtn.clipsToBounds = true
+        
+        nameLabel.text = addName
+        
+        profileImage.snp.makeConstraints { (make) in
+            make.height.width.equalTo(150)
+        }
+        nameLabel.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,14 +74,92 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 255/255, green: 218/255, blue: 119/255, alpha: 1)]
     }
     
-    @IBAction func search(_ sender: Any) {
-        searchBtn.isHidden = true
-        addBtn.isHidden = false
-        profileImage.isHidden = false
-        nameLabel.isHidden = false
-        searchBar.resignFirstResponder()
+    @IBAction func addFriend(_ sender: Any) {
+        net.addFriendRequest(friendId: "1"){ statusCode in
+            if statusCode == 200 {
+                print("好友邀請送出")
+                //好友邀請送出看要做點啥，跳個通知之類
+                self.friendRequestSent()
+                
+            }else if statusCode == 400{
+                print("已經加過好友")
+                //已經加過好友看要做點啥，跳個通知之類
+                self.friendAlreadyAdded()
+            }else{
+                print("addFriendRequest error")
+            }
+        }
     }
     
+    @IBAction func search(_ sender: Any) {
+        net.searchFriend(user_id: searchBar.text ?? ""){ (return_list) in
+            if let status_code = return_list?[0],
+                let friend = return_list?[1] as? [AnyObject]{
+                if status_code as! Int == 200{
+                    self.showResult()
+                    self.addName = friend[0] as! String
+//                    self.addId = friend[1] ?? 0
+                    print(friend) //friend[0]是那個人的名字！
+                }else{
+                    print("searchFriend statusCode \(status_code)")
+                }
+
+            }else{
+                print("searchFriend error")
+                self.notFound()
+            }
+        }
+    }
+    
+    func showResult() {
+        DispatchQueue.main.async {
+            self.profileImage.image = UIImage(named: "user\(self.searchBar.text ?? "100")")
+            self.searchBtn.isHidden = true
+            self.cancelAddBtn.isHidden = false
+            self.addBtn.isHidden = false
+            self.profileImage.isHidden = false
+            self.nameLabel.isHidden = false
+            self.nameLabel.text = self.addName
+            self.searchBar.resignFirstResponder()
+        }
+    }
+    
+    func notFound() {
+        DispatchQueue.main.async {
+            self.nameLabel.isHidden = false
+            self.nameLabel.text = "User not found."
+        }
+    }
+    
+    func friendRequestSent() {
+        DispatchQueue.main.async {
+            self.nameLabel.isHidden = false
+            self.nameLabel.text = "Request sent."
+            self.cancelAddBtn.isHidden = false
+            self.cancelAddBtn.setTitle("OK", for: .normal)
+            self.addBtn.isHidden = true
+        }
+    }
+    
+    func friendAlreadyAdded() {
+        DispatchQueue.main.async {
+            self.nameLabel.isHidden = false
+            self.nameLabel.adjustsFontSizeToFitWidth = true
+            self.nameLabel.text = "User is already your friend."
+            self.cancelAddBtn.isHidden = false
+            self.cancelAddBtn.setTitle("OK", for: .normal)
+            self.addBtn.isHidden = true
+        }
+    }
+    
+    @IBAction func cancelAdd(_ sender: Any) {
+        searchBtn.isHidden = false
+        cancelAddBtn.isHidden = true
+        addBtn.isHidden = true
+        profileImage.isHidden = true
+        nameLabel.isHidden = true
+        searchBar.text = ""
+    }
     
     @objc func cancel(){
         self.dismiss(animated: true, completion: nil)
