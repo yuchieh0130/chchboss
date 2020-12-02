@@ -69,6 +69,7 @@ class LoginViewController: UIViewController {
                     UserDefaults.standard.set(user_name, forKey: "user_name")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     print("last_track_id : \(last_track_id)")
+                    
                     let savedPlaceData = ["user_id":String(user_id)]
                     net.pushSavedPlaceData(data: savedPlaceData){
                         (return_list) in
@@ -76,12 +77,13 @@ class LoginViewController: UIViewController {
                             let data = return_list?[1] as? [[AnyObject]]{
                             if status_code as! Int == 200{
                                 for i in 0...data.count-1{
-                                    let modelInfo = PlaceModel(placeId: 0, placeName: data[i][1] as! String, placeCategory: data[i][2] as! String, placeLongitude: data[i][3] as! Double, placeLatitude: data[i][4] as! Double, regionRadius: data[i][6] as! Double, myPlace: data[i][5] as! Bool)
-                                    let id = DBManager.getInstance().addPlace_noBackServer(modelInfo)
+                                    let modelInfo = PlaceModel(placeId: data[i][0] as! Int32, placeName: data[i][1] as! String, placeCategory: data[i][2] as! String, placeLongitude: data[i][3] as! Double, placeLatitude: data[i][4] as! Double, regionRadius: data[i][6] as! Double, myPlace: data[i][5] as! Bool)
+                                    DBManager.getInstance().insertsavePlace(modelInfo)
+                                    //let id = DBManager.getInstance().addPlace_noBackServer(modelInfo)
                                     if modelInfo.myPlace{
                                         let coordinate = CLLocationCoordinate2DMake(modelInfo.placeLatitude, modelInfo.placeLongitude)
                                         let regionRadius = modelInfo.regionRadius
-                                        let title = "\(id)"
+                                        let title = "\(modelInfo.placeId ?? 0)"
                                         let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
                                         myLocationManager.startMonitoring(for: region)
                                     }
@@ -93,6 +95,36 @@ class LoginViewController: UIViewController {
                             print("pushSavedPlaceData error")
                         }
                     }
+                    
+                    
+                    let locationData = ["user_id":String(user_id)]
+                    net.pushLocationData(data: locationData){
+                        (return_list) in
+                        if let status_code = return_list?[0],
+                            let data = return_list?[1] as? [[AnyObject]]{
+                            if status_code as! Int == 200{
+                                print(data[0])
+                                for i in 0...data.count-1{
+                                    let modelInfo = LocationModel(locationId: data[i][0] as! Int32, longitude: data[i][2] as! Double, latitude: data[i][3] as! Double, startDate: data[i][4] as! String, startTime: data[i][5] as! String, weekday: data[i][7] as! Int32, duration: 0, name1: data[i][8] as! String, name2: data[i][9] as! String, name3: data[i][10] as! String, name4: data[i][11] as! String, name5: data[i][12] as! String, category1: data[i][13] as! String, category2: data[i][14] as! String, category3: data[i][15] as! String, category4: data[i][16] as! String, category5: data[i][17] as! String)
+                                    DBManager.getInstance().insertLocation(modelInfo)
+                                }
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
+                                }
+                            }else{
+                                print("pushLocationData \(status_code)")
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
+                                }
+                            }
+                        }else{
+                            print("pushLocationData error")
+                            DispatchQueue.main.async{
+                                self.goHomepage()
+                            }
+                        }
+                    }
+                    
                     let trackData = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
                     net.pushTrackData(data: trackData){
                         (return_list) in
@@ -106,22 +138,22 @@ class LoginViewController: UIViewController {
                                     DBManager.getInstance().addTrack(modelInfo)
                                     
                                 }
-                                self.monitiorCommonPlace()
-                                DispatchQueue.main.async{
-                                    self.goHomepage()
-                                }
+                                //self.monitiorCommonPlace()
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
                             }
                             else{
                                 print("pushTrackData \(status_code)")
-                                DispatchQueue.main.async{
-                                    self.goHomepage()
-                                }
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
                             }
                         }else{
                             print("pushTrackData error")
-                            DispatchQueue.main.async{
-                                self.goHomepage()
-                            }
+                            //                            DispatchQueue.main.async{
+                            //                                self.goHomepage()
+                            //                            }
                         }
                     }
                 }
@@ -359,6 +391,7 @@ extension LoginViewController: LoginButtonDelegate {
                     UserDefaults.standard.set(user_name, forKey: "user_name")
                     let last_track_id = UserDefaults.standard.integer(forKey: "last_track_id")
                     print("last_track_id : \(last_track_id)")
+                    
                     let savedPlaceData = ["user_id":String(user_id)]
                     net.pushSavedPlaceData(data: savedPlaceData){
                         (return_list) in
@@ -366,12 +399,13 @@ extension LoginViewController: LoginButtonDelegate {
                             let data = return_list?[1] as? [[AnyObject]]{
                             if status_code as! Int == 200{
                                 for i in 0...data.count-1{
-                                    let modelInfo = PlaceModel(placeId: 0, placeName: data[i][1] as! String, placeCategory: data[i][2] as! String, placeLongitude: data[i][3] as! Double, placeLatitude: data[i][4] as! Double, regionRadius: data[i][6] as! Double, myPlace: data[i][5] as! Bool)
-                                    let id = DBManager.getInstance().addPlace_noBackServer(modelInfo)
+                                    let modelInfo = PlaceModel(placeId: data[i][0] as! Int32, placeName: data[i][1] as! String, placeCategory: data[i][2] as! String, placeLongitude: data[i][3] as! Double, placeLatitude: data[i][4] as! Double, regionRadius: data[i][6] as! Double, myPlace: data[i][5] as! Bool)
+                                    DBManager.getInstance().insertsavePlace(modelInfo)
+                                    //let id = DBManager.getInstance().addPlace_noBackServer(modelInfo)
                                     if modelInfo.myPlace{
                                         let coordinate = CLLocationCoordinate2DMake(modelInfo.placeLatitude, modelInfo.placeLongitude)
                                         let regionRadius = modelInfo.regionRadius
-                                        let title = "\(id)"
+                                        let title = "\(modelInfo.placeId ?? 0)"
                                         let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
                                         myLocationManager.startMonitoring(for: region)
                                     }
@@ -395,7 +429,7 @@ extension LoginViewController: LoginButtonDelegate {
                                     let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
                                     DBManager.getInstance().addTrack(modelInfo)
                                 }
-                                self.monitiorCommonPlace()
+                                //self.monitiorCommonPlace()
                                 DispatchQueue.main.async{
                                     self.goHomepage()
                                 }
@@ -441,20 +475,20 @@ extension LoginViewController: LoginButtonDelegate {
 extension LoginViewController {
     private func authorizeHealthKit() {
         HealthKitAuthorization.authorizeHealthKit { (authorized, error, check) in
-        guard authorized else {
-          let baseMessage = "HealthKit Authorization Failed"
-          if let error = error {
-            print("\(baseMessage). Reason: \(error.localizedDescription)")
-          } else {
-            print(baseMessage)
-          }
-          if check == true {
-            self.authCheck = true
-          } else {
-            self.authCheck = false
-          }
-          return
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                if check == true {
+                    self.authCheck = true
+                } else {
+                    self.authCheck = false
+                }
+                return
+            }
         }
-      }
     }
 }

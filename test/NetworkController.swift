@@ -109,29 +109,29 @@ class NetworkController {
     }
     
     func pushSavedPlaceData (data: [String: String], completion: @escaping([Any]?) -> Void) {
-           let savedPlaceURL = baseURL.appendingPathComponent("pushSavedplace")
-           var request = URLRequest(url: savedPlaceURL)
-           request.httpMethod = "POST"
-           request.setValue("application/json", forHTTPHeaderField:
-               "Content-Type")
-           let jsonEncoder = JSONEncoder()
-           let jsonData = try? jsonEncoder.encode(data)
-           request.httpBody = jsonData
-           let task = URLSession.shared.dataTask(with: request)
-           { (data, response, error) in
-               if let data = data,
-                   let jsonDictionary = try?
-                   JSONSerialization.jsonObject(with: data) as? [String:Any],
-                   let status_code = jsonDictionary["status_code"],
-                   let user_data = jsonDictionary["data"] as? [[Any]]{
-                   completion([status_code,user_data])
-                   //print(jsonDictionary)
-               } else {
-                   completion(nil)
-               }
-           }
-           task.resume( )
-       }
+        let savedPlaceURL = baseURL.appendingPathComponent("pushSavedplace")
+        var request = URLRequest(url: savedPlaceURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as? [String:Any],
+                let status_code = jsonDictionary["status_code"],
+                let user_data = jsonDictionary["data"] as? [[Any]]{
+                completion([status_code,user_data])
+                //print(jsonDictionary)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
     
     func pushTrackData (data: [String: String], completion: @escaping([Any]?) -> Void) {
         let trackURL = baseURL.appendingPathComponent("pushTrack")
@@ -146,11 +146,36 @@ class NetworkController {
         { (data, response, error) in
             if let data = data,
                 let jsonDictionary = try?
-                JSONSerialization.jsonObject(with: data) as? [String:Any],
+                    JSONSerialization.jsonObject(with: data) as? [String:Any],
                 let status_code = jsonDictionary["status_code"],
                 let user_data = jsonDictionary["data"] as? [[Any]],
                 let last_track_id = jsonDictionary["last_track_id"]{
                 completion([status_code,user_data, last_track_id])
+                //print(jsonDictionary)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
+    func pushLocationData (data: [String: String], completion: @escaping([Any]?) -> Void) {
+        let trackURL = baseURL.appendingPathComponent("pushLocation")
+        var request = URLRequest(url: trackURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as? [String:Any],
+                let status_code = jsonDictionary["status_code"],
+                let user_data = jsonDictionary["data"] as? [[Any]]{
+                completion([status_code,user_data])
                 //print(jsonDictionary)
             } else {
                 completion(nil)
@@ -212,22 +237,22 @@ class NetworkController {
         var request = URLRequest(url: sleepURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField:
-           "Content-Type")
+            "Content-Type")
         let data: [String: String] = ["session_id": session_id ,"in_bed": String(inBed), "start_date": startDate, "end_date": endDate]
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request)
         { (data, response, error) in
-                if let data = data,
-                    let jsonDictionary = try?
+            if let data = data,
+                let jsonDictionary = try?
                     JSONSerialization.jsonObject(with: data) as?
-                    [String: Int],
-                    let status_code = jsonDictionary["status_code"] {
-                            completion(status_code)
-                    } else {
-                        completion(nil)
-                    }
+                        [String: Int],
+                let status_code = jsonDictionary["status_code"] {
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
         }
         task.resume( )
     }
@@ -406,8 +431,8 @@ class NetworkController {
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request)
         { (data, response, error) in
-//            print("data!")
-//            print(String(data: data!, encoding: .utf8))
+            //            print("data!")
+            //            print(String(data: data!, encoding: .utf8))
             if let data = data,
                 let jsonDictionary = try?
                     JSONSerialization.jsonObject(with: data) as?

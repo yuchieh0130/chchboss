@@ -157,15 +157,15 @@ class DBManager: NSObject {
         for friend in modelInfo {
             shareInstance.database?.executeUpdate("INSERT INTO friendList (friendId,name,like,heart,mad,isChecked) VALUES (?,?,?,?,?,?)" ,withArgumentsIn: [friend.friendId,friend.name,friend.like,friend.heart,friend.mad,friend.isChecked])
         }
-
+        
         shareInstance.database?.close()
         
     }
     
     func getCheckedFriendList() -> [FriendModel]!{
-
+        
         var friends : [FriendModel]!
-
+        
         shareInstance.database?.open()
         let sqlString = "SELECT * FROM friendList WHERE isChecked = true";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
@@ -191,9 +191,9 @@ class DBManager: NSObject {
     }
     
     func getUncheckedFriendList() -> [FriendModel]!{
-
+        
         var friends : [FriendModel]!
-
+        
         shareInstance.database?.open()
         let sqlString = "SELECT * FROM friendList WHERE isChecked = false";
         let set = try? shareInstance.database?.executeQuery(sqlString, values: [])
@@ -239,7 +239,7 @@ class DBManager: NSObject {
     func saveLocation(_ modelInfo: LocationModel) -> Int32 {
         shareInstance.database?.open()
         var id : Int32!
-        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5,speed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration!,modelInfo.name1!,modelInfo.category1!,modelInfo.name2!,modelInfo.category2!,modelInfo.name3!,modelInfo.category3!,modelInfo.name4!,modelInfo.category4!,modelInfo.name5!,modelInfo.category5!,modelInfo.speed])
+        let isAdded = shareInstance.database?.executeUpdate("INSERT INTO location (longitude,latitude,start_date,start_time,weekday,duration,name1,category1,name2,category2,name3,category3,name4,category4,name5,category5) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.longitude ,modelInfo.latitude,modelInfo.startDate,modelInfo.startTime,modelInfo.weekday,modelInfo.duration,modelInfo.name1!,modelInfo.category1!,modelInfo.name2!,modelInfo.category2!,modelInfo.name3!,modelInfo.category3!,modelInfo.name4!,modelInfo.category4!,modelInfo.name5!,modelInfo.category5!])
         if isAdded!{
             let sqlString1 = "SELECT MAX(location_id) AS Id FROM location";
             let set = try?shareInstance.database?.executeQuery(sqlString1, values: [])
@@ -299,6 +299,20 @@ class DBManager: NSObject {
     //        return location
     //    }
     
+    func insertLocation(_ modelInfo: LocationModel){
+        shareInstance.database?.open()
+        shareInstance.database?.executeUpdate("INSERT INTO location (location_id,longitude,latitude,start_date,start_time,weekday,duration,name1,name2,name3, name4,name5,category1,category2,category3,category4,category5) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.locationId,modelInfo.longitude,modelInfo.latitude,modelInfo.startDate, modelInfo.startTime, modelInfo.weekday, modelInfo.duration, modelInfo.name1, modelInfo.name2, modelInfo.name3, modelInfo.name4, modelInfo.name5, modelInfo.category1, modelInfo.category2, modelInfo.category3, modelInfo.category4, modelInfo.category5])
+        shareInstance.database?.close()
+    }
+    
+    //    func insertLocation(_ modelInfo: LocationModel) {
+    //
+    //        shareInstance.database?.open()
+    //        shareInstance.database?.executeUpdate("INSERT INTO location (location_id,longitude,latitude, start_date, start_time, weekday, duration, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.locationId ?? 0,modelInfo.longitude,modelInfo.latitude,modelInfo.startDate, modelInfo.startTime, modelInfo.weekday, modelInfo.duration, modelInfo.name1 ?? "", modelInfo.name2 ?? "", modelInfo.name3 ?? "", modelInfo.name4 ?? "", modelInfo.name5 ?? "", modelInfo.category1 ?? "", modelInfo.category2 ?? "", modelInfo.category3 ?? "", modelInfo.category4 ?? "", modelInfo.category5 ?? ""])
+    //        shareInstance.database?.close()
+    //
+    //    }
+    
     func getLocation(Int: Int32) -> LocationModel!{
         
         var location : LocationModel!
@@ -324,9 +338,9 @@ class DBManager: NSObject {
             let l = set?.string(forColumn: "category4")
             let m = set?.string(forColumn: "name5")
             let n = set?.string(forColumn: "category5")
-            let o = set?.double(forColumn: "speed")
+            //let o = set?.double(forColumn: "speed")
             
-            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday: c2!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday: c2!, duration: d ?? 0, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n)
         }
         set?.close()
         return location
@@ -357,9 +371,9 @@ class DBManager: NSObject {
             let l = set?.string(forColumn: "category4")
             let m = set?.string(forColumn: "name5")
             let n = set?.string(forColumn: "category5")
-            let o = set?.double(forColumn: "speed")
+            //let o = set?.double(forColumn: "speed")
             
-            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday: c2!, duration: d, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n,speed: o!)
+            location = LocationModel(locationId: id!, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday: c2!, duration: d ?? 0, name1: e, name2: g, name3: i, name4: k, name5: m, category1: f,category2: h, category3: j,category4: l, category5: n)
         }
         set?.close()
         return location
@@ -374,43 +388,52 @@ class DBManager: NSObject {
     
     /*func for savePlace*/
     func addPlace(_ modelInfo: PlaceModel) -> Int32{
-        var id : Int32!
+        var id :Int32 = 0
         shareInstance.database?.open()
-        let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,regionRadius,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude),\(modelInfo.regionRadius), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
-        let isAdded = shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.regionRadius,modelInfo.myPlace])
-        if isAdded!{
+        let sqlString2 = "SELECT place_id AS Id FROM savedPlace WHERE place_name = '\(modelInfo.placeName)'";
+        let set = try?shareInstance.database?.executeQuery(sqlString2, values: [])
+        while ((set?.next())!) {
+            let a = set?.int(forColumn: "Id")
+            id = a ?? 0
+        }
+        set?.close()
+        
+        if id == 0{
+            let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,regionRadius,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude),\(modelInfo.regionRadius), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
+            shareInstance.database?.executeUpdate(sqlString, withArgumentsIn:[modelInfo.placeName ,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.regionRadius,modelInfo.myPlace])
+            
             let sqlString1 = "SELECT MAX(place_id) AS Id FROM savedPlace";
             let set = try?shareInstance.database?.executeQuery(sqlString1, values: [])
             while ((set?.next())!) {
                 let a = set?.int(forColumn: "Id")
-                id = a
+                id = a ?? 0
+                
                 var isMyPlace = "0"
-                if modelInfo.myPlace{
+                if modelInfo.myPlace == true {
                     isMyPlace = "1"
                 }
                 let data = ["user_id":String(user_id),"user_place_id":String(id),"place_name":String(modelInfo.placeName),"place_category":String(modelInfo.placeCategory),"place_longitude":String(modelInfo.placeLongitude),"place_latitude":String(modelInfo.placeLatitude),"region_radius":String(modelInfo.regionRadius),"my_place":isMyPlace]
+                
                 net.addSavedplaceData(data: data){
                     (status_code) in
                     if (status_code != nil) {
                         print("addSavedplaceData\(status_code!)")
                     }
                 }
-            }
-        }else{
-            let sqlString2 = "SELECT place_id AS Id FROM savedPlace WHERE place_name = '\(modelInfo.placeName)'";
-            let set = try?shareInstance.database?.executeQuery(sqlString2, values: [])
-            while ((set?.next())!) {
-                let a = set?.int(forColumn: "Id")
-                id = a
+                
             }
         }
-        shareInstance.database?.close()
-
-        return id!
-        //return isAdded!
+        return id
     }
     
-   func addPlace_noBackServer(_ modelInfo: PlaceModel) -> Int32{
+    //給login從server抓下來的savePlace放進去要照以前的id用
+    func insertsavePlace(_ modelInfo: PlaceModel){
+        shareInstance.database?.open()
+        shareInstance.database?.executeUpdate("INSERT INTO savedPlace (place_id, place_name,place_category,place_longitude,place_latitude,regionRadius,my_place) VALUES (?,?,?,?,?,?,?)", withArgumentsIn:[modelInfo.placeId ?? 0,modelInfo.placeName,modelInfo.placeCategory,modelInfo.placeLongitude,modelInfo.placeLatitude,modelInfo.regionRadius,modelInfo.myPlace])
+        shareInstance.database?.close()
+    }
+    
+    func addPlace_noBackServer(_ modelInfo: PlaceModel) -> Int32{
         var id : Int32!
         shareInstance.database?.open()
         let sqlString = "INSERT INTO savedPlace (place_name,place_category,place_longitude,place_latitude,regionRadius,my_place) SELECT * FROM (SELECT '\(modelInfo.placeName)', '\(modelInfo.placeCategory)', \(modelInfo.placeLongitude), \(modelInfo.placeLatitude),\(modelInfo.regionRadius), \(modelInfo.myPlace)) AS tmp WHERE NOT EXISTS (SELECT * FROM savedPlace WHERE place_name = '\(modelInfo.placeName)') ";
@@ -431,7 +454,7 @@ class DBManager: NSObject {
             }
         }
         shareInstance.database?.close()
-
+        
         return id!
         //return isAdded!
     }
@@ -940,7 +963,7 @@ class DBManager: NSObject {
         var tracks: [TrackModel]!
         shareInstance.database?.open()
         let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(Year) \(Week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(Year) \(Week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
-       
+        
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -973,7 +996,7 @@ class DBManager: NSObject {
         var tracks: [TrackModel]!
         shareInstance.database?.open()
         let sqlString =  "select * from track where (strftime('%Y-%m',start_date)='\(select)' or strftime('&Y-%m',end_date)='\(select)') AND category_id = \(Category)"
-       
+        
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
         while ((set?.next())!) {
@@ -1002,36 +1025,36 @@ class DBManager: NSObject {
     
     //get selected date當年的track for certain category
     func getYearTracks_category(Year: String, Category: Int) -> [TrackModel]!{
-           let select = "\(Year)"
-           var tracks: [TrackModel]!
-           shareInstance.database?.open()
-           let sqlString =  "select * from track where (strftime('%Y',start_date)='\(select)' or strftime('%Y',end_date)='\(select)') AND category_id = \(Category)"
-           
-           let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
-           
-           while ((set?.next())!) {
-               let i = set?.int(forColumn: "track_id")
-               let a = set?.string(forColumn: "start_date")
-               let b = set?.string(forColumn: "start_time")
-               let w = set?.int(forColumn: "weekDay")
-               let c = set?.string(forColumn: "end_date")
-               let d = set?.string(forColumn: "end_time")
-               let e = set?.int(forColumn: "category_id")
-               let f = set?.int(forColumn: "location_id")
-               let g = set?.int(forColumn: "place_id")
-               
-               let track: TrackModel
-               
-               if tracks == nil{
-                   tracks = [TrackModel]()
-               }
-               
-               track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
-               tracks.append(track)
-           }
-           set?.close()
-           return tracks
-       }
+        let select = "\(Year)"
+        var tracks: [TrackModel]!
+        shareInstance.database?.open()
+        let sqlString =  "select * from track where (strftime('%Y',start_date)='\(select)' or strftime('%Y',end_date)='\(select)') AND category_id = \(Category)"
+        
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
+        while ((set?.next())!) {
+            let i = set?.int(forColumn: "track_id")
+            let a = set?.string(forColumn: "start_date")
+            let b = set?.string(forColumn: "start_time")
+            let w = set?.int(forColumn: "weekDay")
+            let c = set?.string(forColumn: "end_date")
+            let d = set?.string(forColumn: "end_time")
+            let e = set?.int(forColumn: "category_id")
+            let f = set?.int(forColumn: "location_id")
+            let g = set?.int(forColumn: "place_id")
+            
+            let track: TrackModel
+            
+            if tracks == nil{
+                tracks = [TrackModel]()
+            }
+            
+            track = TrackModel(trackId: i!, startDate: a!, startTime: b!, weekDay: w! ,endDate: c!, endTime: d!,categoryId: e!, locationId: f!, placeId: g!)
+            tracks.append(track)
+        }
+        set?.close()
+        return tracks
+    }
     
     
     //    func deleteTrackPlace(id: Int32) -> Bool{
@@ -1077,41 +1100,41 @@ class DBManager: NSObject {
         //沒改時間
         if newStart == oldStart && newEnd == oldEnd{
             shareInstance.database?.executeUpdate("UPDATE track SET category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(newModelInfo.trackId!)", withArgumentsIn: [])
-        }else if newStart < oldStart && newEnd < oldEnd{
+        }else if newStart < oldStart && newEnd < oldEnd{ //
             //6-9改成5-8
             //刪掉包含在5-8的
             //shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //結束時間在5-8中間的UPDATE成5
             shareInstance.database?.executeUpdate("UPDATE track SET end_date = '\(newModelInfo.startDate)',end_time = '\(newModelInfo.startTime)' WHERE (end_date || ' ' || end_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)' ",withArgumentsIn:[])
             //UPDATE該筆資料6-9改成5-8
-            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
+            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',weekDay = \(newModelInfo.weekDay), end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
             //新增一筆8-9第19類
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[newModelInfo.endDate,newModelInfo.endTime,newModelInfo.weekDay,oldModelInfo.endDate,oldModelInfo.endTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
-        }else if newStart > oldStart && newEnd > oldEnd {
+        }else if newStart > oldStart && newEnd > oldEnd { //
             //6-9改成7-10
             //刪掉包含在7-10的
             shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //開始時間在7-10中間的UPDATE成10
-            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.endDate)',start_time = '\(newModelInfo.endTime)' WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (start_date || ' ' || start_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)' ",withArgumentsIn:[])
+            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.endDate)',start_time = '\(newModelInfo.endTime)' , weekDay = \(newModelInfo.weekDay) WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (start_date || ' ' || start_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)' ",withArgumentsIn:[])
             //UPDATE該筆資料6-9改成7-10
             shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
             //新增一筆6-7第19類
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,oldModelInfo.locationId,oldModelInfo.placeId!])
-        }else if (newStart < oldStart && newEnd > oldEnd) || (newStart <= oldStart && newEnd > oldEnd) || (newStart < oldStart && newEnd >= oldEnd){
+        }else if (newStart < oldStart && newEnd > oldEnd) || (newStart <= oldStart && newEnd > oldEnd) || (newStart < oldStart && newEnd >= oldEnd){ //
             //6-9改成5-10
             //刪掉包含在5-10的
             shareInstance.database?.executeUpdate("DELETE FROM track WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)'",withArgumentsIn:[newModelInfo.startDate+" "+newModelInfo.startTime,newModelInfo.endDate+" "+newModelInfo.endTime])
             //結束時間在5-10中間的UPDATE成5
             shareInstance.database?.executeUpdate("UPDATE track SET end_date = '\(newModelInfo.startDate)',end_time = '\(newModelInfo.startTime)' WHERE (end_date || ' ' || end_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (end_date || ' ' || end_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)' ",withArgumentsIn:[])
             //開始時間在5-10中間的UPDATE成10
-            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.endDate)',start_time = '\(newModelInfo.endTime)' WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (start_date || ' ' || start_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)' ",withArgumentsIn:[])
+            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.endDate)',start_time = '\(newModelInfo.endTime)',weekDay = \(newModelInfo.weekDay) WHERE (start_date || ' ' || start_time) >= '\(newModelInfo.startDate+" "+newModelInfo.startTime)' and (start_date || ' ' || start_time) <= '\(newModelInfo.endDate+" "+newModelInfo.endTime)' ",withArgumentsIn:[])
             //新增一筆5-10
             shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?) ",withArgumentsIn:[newModelInfo.startDate,newModelInfo.startTime,newModelInfo.weekDay,newModelInfo.endDate,newModelInfo.endTime,newModelInfo.categoryId,newModelInfo.locationId,newModelInfo.placeId!])
             
-        }else if (newStart > oldStart && newEnd < oldEnd) || (newStart >= oldStart && newEnd < oldEnd) || (newStart > oldStart && newEnd <= oldEnd){
+        }else if (newStart > oldStart && newEnd < oldEnd) || (newStart >= oldStart && newEnd < oldEnd) || (newStart > oldStart && newEnd <= oldEnd){ //
             //6-9改成7-8
             //UPDATE該筆資料6-9改成7-8
-            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
+            shareInstance.database?.executeUpdate("UPDATE track SET start_date = '\(newModelInfo.startDate)',start_time = '\(newModelInfo.startTime)',weekDay = \(newModelInfo.weekDay),end_date = '\(newModelInfo.endDate)',end_time = '\(newModelInfo.endTime)',category_id = \(newModelInfo.categoryId),place_id = \(newModelInfo.placeId!) WHERE track_id = \(oldModelInfo.trackId!)",withArgumentsIn:[])
             if newStart != oldStart{
                 //新增一筆6-7
                 shareInstance.database?.executeUpdate("INSERT INTO track (start_date,start_time,weekDay,end_date,end_time,category_id,location_id,place_id) VALUES (?,?,?,?,?,?,?,?)",withArgumentsIn:[oldModelInfo.startDate,oldModelInfo.startTime,oldModelInfo.weekDay,newModelInfo.startDate,newModelInfo.startTime,19,newModelInfo.locationId,newModelInfo.placeId!])
@@ -1122,7 +1145,7 @@ class DBManager: NSObject {
             }
         }
         shareInstance.database?.close()
-    
+        
         
     }
     
@@ -1131,18 +1154,18 @@ class DBManager: NSObject {
         shareInstance.database?.executeUpdate("UPDATE track SET category_id = 19 WHERE track_id = \(Int) ", withArgumentsIn:[Int])
         
         let sqlString = "SELECT * FROM track WHERE track_id = \(Int)";
-               let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
-               
+        let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
+        
         while ((set?.next())!) {
             let sd = set?.string(forColumn: "start_date")
             let st = set?.string(forColumn: "start_time")
             let data = ["user_id":String(user_id),"start_date":String(sd!),"start_time":String(st!)]
-                   net.deleteTrackData(data: data){
-                       (status_code) in
-                       if (status_code != nil) {
-                           print("deleteTrackData\(status_code!)")
-                       }
-                   }
+            net.deleteTrackData(data: data){
+                (status_code) in
+                if (status_code != nil) {
+                    print("deleteTrackData\(status_code!)")
+                }
+            }
             
         }
         set?.close()
@@ -1171,14 +1194,14 @@ class DBManager: NSObject {
             let g = set?.string(forColumn: "name3")
             let h = set?.string(forColumn: "name4")
             let j = set?.string(forColumn: "name5")
-            let k = set?.double(forColumn: "speed")
+            //let k = set?.double(forColumn: "speed")
             
             let location: LocationModel
             
             if locations == nil{
                 locations = [LocationModel]()
             }
-            location = LocationModel(locationId: i, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday:c2!, duration: d!, name1: e, name2: f, name3: g, name4: h, name5: j, category1: "", category2: "", category3: "", category4: "", category5: "", speed: k!)
+            location = LocationModel(locationId: i, longitude: a!, latitude: b!, startDate: c!, startTime: c1!, weekday:c2!, duration: d!, name1: e, name2: f, name3: g, name4: h, name5: j, category1: "", category2: "", category3: "", category4: "", category5: "")
             locations.append(location)
         }
         set?.close()
@@ -1187,29 +1210,29 @@ class DBManager: NSObject {
     
     
     func logOut(){
-//        if let myPlaces = DBManager.getInstance().getMyPlaces(){
-//            for i in 0...myPlaces.count-1{
-//                let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
-//                let regionRadius = myPlaces[i].regionRadius
-//                let title = "\(myPlaces[i].placeId!)"
-//                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
-//                myLocationManager.stopMonitoring(for: region)
-//            }
-//        }
+        //        if let myPlaces = DBManager.getInstance().getMyPlaces(){
+        //            for i in 0...myPlaces.count-1{
+        //                let coordinate = CLLocationCoordinate2DMake(myPlaces[i].placeLatitude, myPlaces[i].placeLongitude)
+        //                let regionRadius = myPlaces[i].regionRadius
+        //                let title = "\(myPlaces[i].placeId!)"
+        //                let region = CLCircularRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude ,longitude:coordinate.longitude), radius: regionRadius, identifier: title)
+        //                myLocationManager.stopMonitoring(for: region)
+        //            }
+        //        }
         for region in myLocationManager.monitoredRegions{
             myLocationManager.stopMonitoring(for: region)
         }
         
-//        for i in 0...myLocationManager.monitoredRegions.count-1{
-//            let regionRadius = myLocationManager.monitoredRegions<i>.radius
-//            let title = "\(myLocationManager.monitoredRegions<i>.identifer)"
-//            let region = CLCircularRegion(center: myLocationManager.monitoredRegions<i>.center), radius: regionRadius, identifier: title)
-//            myLocationManager.stopMonitoring(for: region)
-//        }
+        //        for i in 0...myLocationManager.monitoredRegions.count-1{
+        //            let regionRadius = myLocationManager.monitoredRegions<i>.radius
+        //            let title = "\(myLocationManager.monitoredRegions<i>.identifer)"
+        //            let region = CLCircularRegion(center: myLocationManager.monitoredRegions<i>.center), radius: regionRadius, identifier: title)
+        //            myLocationManager.stopMonitoring(for: region)
+        //        }
         
         shareInstance.database?.open()
         //let table = ["savedPlace","track","event","task"]
-        let table = ["savedPlace","track","friendList"]
+        let table = ["savedPlace","track","friendList","location"]
         for i in 0...table.count-1{
             shareInstance.database?.executeUpdate("DELETE FROM \(table[i])", withArgumentsIn:[])
             shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])

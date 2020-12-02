@@ -15,7 +15,7 @@ struct LocationModel{
     let startDate: String
     let startTime: String
     let weekday: Int32
-    let duration: Double?
+    let duration: Double
     let name1: String?
     let name2: String?
     let name3: String?
@@ -26,5 +26,4 @@ struct LocationModel{
     let category3: String?
     let category4: String?
     let category5: String?
-    let speed: Double
 }
