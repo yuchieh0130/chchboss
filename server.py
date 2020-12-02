@@ -184,29 +184,22 @@ def pushLocation():
     conn = mysql.connector.Connect(
         host='localhost', user='root', password='chchboss', database='mo')
     data = request.get_json()
-    user_id = int(data["user_id"])
+
+    user_id = data["user_id"]
 
     cur = conn.cursor()
     sql = "SELECT * FROM location_test WHERE user_id = %s"
-    adr = (user_id)
+    adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
+    cur.close()
     if(fetch_data):
         location_data = fetch_data
-        cur.close()
-
-    # cur = conn.cursor()
-    # sql = "UPDATE track SET record = %s WHERE user_id = %s AND record = %s"
-    # adr = (True, user_id, False)
-    # cur.execute(sql, adr)
-    # conn.commit()
-    # cur.close()
-
         return jsonify({"status_code": 200,
-                        "data": location})
+                        "data": location_data})
     else:
         return jsonify({"status_code": 400})
-
+ 
 
 # @app.route("/insertTrack", methods=["POST"])
 # def insertTrack():
@@ -794,7 +787,8 @@ def searchFriendList():
     print(confirm_friend)
     cur = conn.cursor()
     # sql = "SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT friend.friend_id, user.user_name FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
-    sql = "SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
+    # sql = "SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s union SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.friend_id = user.user_id WHERE friend.user_id = %s and friend.confirm_status = %s"
+    sql = "SELECT user.user_id, user.user_name FROM friend LEFT JOIN user ON friend.user_id = user.user_id WHERE friend.friend_id = %s and friend.confirm_status = %s"
     adr = (user_id, False, user_id, False)
     cur.execute(sql, adr)
     unconfirm_friend = cur.fetchall()
