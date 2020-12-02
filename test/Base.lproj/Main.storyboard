@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17502"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1148,7 +1148,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="h35-ly-VCw">
-                                <rect key="frame" x="164" y="81" width="86" height="74"/>
+                                <rect key="frame" x="164" y="81" width="86" height="73.999999999999986"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
@@ -1364,6 +1364,14 @@
                                 <rect key="frame" x="155" y="558" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqu-4s-pEy">
+                                <rect key="frame" x="308" y="80" width="66" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Ｘ"/>
+                                <connections>
+                                    <action selector="backBtn:" destination="PUM-oV-ltd" eventType="touchUpInside" id="C4Q-AE-KNe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wK8-7z-h8L"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1394,6 +1402,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="sun-eM-VDf"/>
                     <connections>
+                        <outlet property="backBtn" destination="xqu-4s-pEy" id="8MM-i2-n88"/>
                         <outlet property="emojiAngry" destination="ROM-KE-pRf" id="YhS-aq-O13"/>
                         <outlet property="emojiHeart" destination="ufe-lg-dvu" id="WFi-6m-E8V"/>
                         <outlet property="emojiThumb" destination="V5q-KA-Pa5" id="8Xv-CE-IjJ"/>
