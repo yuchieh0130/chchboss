@@ -99,6 +99,17 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         gifImgView.image = animatedImage
     }
     
+    @IBAction func emojiThumb(_ sender: Any) {
+        addEmoji(user_id: String(rankList[0].id), emoji: "liked")
+    }
+    @IBAction func emojiHeart(_ sender: Any) {
+        addEmoji(user_id: String(rankList[0].id), emoji: "heart")
+    }
+    @IBAction func emojiAngry(_ sender: Any) {
+        addEmoji(user_id: String(rankList[0].id), emoji: "mad")
+    }
+    
+    
     @IBAction func startSelect(_ sender: UIButton) {
         for option in options{
             UIView.animate(withDuration: 0.3, animations: {
