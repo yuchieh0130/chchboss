@@ -1,0 +1,146 @@
+category1,map_id
+home,1
+school,2
+work place,3
+dorm,4
+gym,5
+others,6
+,
+Coffee store,7
+coffee shop,7
+cafe,7
+bakery,8
+food,8
+restaurant,8
+Taiwanese restaurant,8
+Chinese restaurant,8
+Breakfast restaurant,8
+Deli,8
+Fast food restaurant,8
+Korean restaurant,8
+Ramen restaurant,8
+Seafood restaurant,8
+Noodle shop,8
+Thai restaurant,8
+Asian restaurant,8
+pasta shop,8
+Hot pot restaurant,8
+Italian restaurant,8
+Gyudon restaurant,8
+Dessert shop,8
+Night market,8
+nightmarket,8
+Dessert restaurant,8
+Ramen restaurant,8
+Conveyor belt sushi restaurant,8
+Japanese curry restaurant,8
+Dumpling restaurant,8
+Shanghainese restaurant,8
+Tonkatsu restaurant,8
+Yakiniku restaurant,8
+Shabu-shabu restaurant,8
+Hamburger restaurant,8
+Teppanyaki restaurant,8
+Pizza takeaway,8
+Steak house,8
+Tea house,8
+Hong Kong style fast food restaurant,8
+Dim sum restaurant,8
+American restaurant,8
+Mexican restaurant,8
+Authentic Japanese restaurant,8
+Sukiyaki and Shabu Shabu restaurant,8
+Yakitori restaurant,8
+Store,9
+Outlet mall,9
+Bead store,9
+shopping mall,9
+shopping_mall,9
+Fashion accessories store,9
+department store,9
+department_store,9
+Sporting goods store,9
+Clothing store,9
+Do-it-yourself shop,9
+convenience_store,9
+Hypermarket,9
+harehouse store,9
+harehouse club,9
+Drug store,9
+supermarket,9
+home_goods_store,9
+home goods store,9
+grocery_or_supermarket,9
+electronics_store,9
+gym,11
+stadium,11
+sport complex,11
+indoor swimming pool,11
+Place of worship,11
+Sprots  complex,11
+school,12
+Business school,12
+Cramming school,12
+cram school,12
+Building,12
+Technical university,12
+tea shop,13
+tea store,13
+ice cream and drink shop,13
+soft drink shop,13
+3-star hotel,14
+4-star hotel,14
+5-star hotel,14
+hotel,14
+lodging,14
+aquarium,16
+theme park,16
+Tourist attraction,16
+tourist_attraction,16
+National park,16
+Visitor center,16
+Cultural center,16
+Scenic spot,16
+Art museum,16
+museum,16
+university,16
+point_of_interest,16
+Fairground,16
+Art center,16
+Ecological park,16
+Garden,16
+hair_care,17
+hair salon,17
+nail salon,17
+beauty_salon,17
+Waxing hair removal service,17
+Beauty salon,17
+Hairdresser,17
+movie_theater,18
+Karaoke bar,18
+Video karaoke,18
+Movie theater,18
+Department of motor vehicles,19
+beach,20
+Otolaryngology clinic,21
+clinic,21
+park,22
+Book store,23
+Convenience store,24
+Bar & grill,25
+bar,25
+pub,25
+Night club,25
+Post office,26
+Subway station,27
+Dental clinic,28
+bridge,29
+Harbor,29
+Pagoda,31
+parking,31
+subway_station,99
+station,99
+bus_station,99
+Train station,99
+commute,99
+train_station,99
