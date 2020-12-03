@@ -26,7 +26,7 @@ class editMyPlaceViewController: UIViewController,CLLocationManagerDelegate, GMS
     var id: Int32 = 0
     var myPlaceLongitude: Double! = 0
     var myPlaceLatitude: Double! = 0
-    var regionRadius: Double! = 200
+    var regionRadius: Double! = 50
     var myPlace: PlaceModel?
     
     var resultsArray:[Dictionary<String, AnyObject>] = Array()
