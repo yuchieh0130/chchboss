@@ -17,36 +17,37 @@ line_bot_api = LineBotApi(
 handler = WebhookHandler('fd75bd7b8acf53ad43072efcbd358226')
 
 
-def changecategory(userid, category, trackid):
+def changestarttime(userid, date, time):
     conn = mysql.connector.Connect(
-        host='localhost', user='root', password='chchboss', database='mo')
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
     cur = conn.cursor()
 
-    sql = "UPDATE track SET category = %s WHERE user_id = %s, track_id = %s"
-    adr = (category, userid, trackid)
-    cur.execute(sql, adr)
-    conn.commit()
-    cur.close()
-
-def changeendtime(userid, date, time, trackid):
-    conn = mysql.connector.Connect(
-        host='localhost', user='root', password='chchboss', database='mo')
-    cur = conn.cursor()
-
-    sql = "UPDATE track SET end_date = %s, end_time = %s WHERE user_id = %s, track_id = %s"
-    adr = (date, time, userid, trackid)
+    sql = "UPDATE track SET start_date = %s, start_time = %s WHERE user_id = %s"
+    adr = (date, time, userid)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
 
 
-def changestarttime(userid, date, time, trackid):
+def changeendtime(userid, date, time):
     conn = mysql.connector.Connect(
-        host='localhost', user='root', password='chchboss', database='mo')
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
     cur = conn.cursor()
 
-    sql = "UPDATE track SET start_date = %s, start_time = %s WHERE user_id = %s, , track_id = %s"
-    adr = (date, time, userid, trackid)
+    sql = "UPDATE track SET end_date = %s, end_time = %s WHERE user_id = %s"
+    adr = (date, time, userid)
+    cur.execute(sql, adr)
+    conn.commit()
+    cur.close()
+
+
+def changestarttime(userid, date, time):
+    conn = mysql.connector.Connect(
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
+    cur = conn.cursor()
+
+    sql = "UPDATE track SET start_date = %s, start_time = %s WHERE user_id = %s"
+    adr = (date, time, userid)
     cur.execute(sql, adr)
     conn.commit()
     cur.close()
@@ -54,7 +55,7 @@ def changestarttime(userid, date, time, trackid):
 
 def checkstatus(userid):
     conn = mysql.connector.Connect(
-        host='localhost', user='root', password='chchboss', database='mo')
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
     cur = conn.cursor()
 
     sql = "SELECT status FROM userstatus Where user_id = %s"
@@ -68,7 +69,7 @@ def checkstatus(userid):
 
 def changestatus(userid, userstatus):
     conn = mysql.connector.Connect(
-        host='localhost', user='root', password='chchboss', database='mo')
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
     cur = conn.cursor()
 
     sql = "UPDATE userstatus SET status = %s WHERE user_id = %s"
@@ -111,19 +112,19 @@ def handle_message(event):
                 thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
                 actions=[
                     PostbackTemplateAction(
-                        label='Yesterday',
-                        text='Yesterday',
-                        data='Yesterday'
+                        label='DAY',
+                        text='DAY',
+                        data='DAY'
                     ),
                     PostbackTemplateAction(
-                        label='Last Week',
-                        text='Last Week',
-                        data='Last Week'
+                        label='WEEK',
+                        text='WEEK',
+                        data='WEEK'
                     ),
                     PostbackTemplateAction(
-                        label='Last Month',
-                        text='Last Month',
-                        data='Last Month'
+                        label='MONTH',
+                        text='MONTH',
+                        data='MONTH'
                     )
                 ]
             )
@@ -136,7 +137,6 @@ def handle_message(event):
             latitude=24.986893,
             longitude=121.577033
         )
-        # track_id = 
         confirm_template_message = TemplateSendMessage(
             alt_text='Confirm template',
             template=ConfirmTemplate(
@@ -150,7 +150,7 @@ def handle_message(event):
                     PostbackAction(
                         label='Wrong',
                         display_text='Wrong',
-                        data='wrong'+ str(track_id)
+                        data='wrong'
                     )
                 ]
             )
@@ -210,13 +210,10 @@ def handle_message(event):
 
 @handler.add(PostbackEvent)
 def handler_postback(event):
-    categoryitem = ["food", 'home', 'sleep', 'lesson', 'study', 'schoolwork', 'work', 'activities', 'entertainment', 'sport',
-                    'exercise', 'work out', 'leisure', 'hangout', 'dating', 'shopping', 'meeting', 'trip', 'health', 'beauty', 'commute', 'others']
     postback = event.postback.data
     user_id = event.source.user_id
-    if("wrong" in postback):
+    if(postback == "wrong"):
         status = checkstatus(user_id)
-        track_id = postback.replace("wrong", "")
         if(status == "confirmstatus"):
         buttons_template = TemplateSendMessage(
             alt_text='Buttons Template',
@@ -226,7 +223,7 @@ def handler_postback(event):
                 actions=[
                     DatetimePickerTemplateAction(
                         label='Start time',
-                        data='start_time'+str(track_id),
+                        data='start_time',
                         mode='datetime',
                         initial='2017-04-01t00:00',
                         min='2017-04-01t00:00',
@@ -234,7 +231,7 @@ def handler_postback(event):
                     ),
                     DatetimePickerTemplateAction(
                         label='End time',
-                        data='end_time'+str(track_id),
+                        data='end_time',
                         mode='datetime',
                         initial='2017-04-01t00:00',
                         min='2017-04-01t00:00',
@@ -243,7 +240,7 @@ def handler_postback(event):
                     PostbackTemplateAction(
                         label='Category',
                         text='Category',
-                        data='category'+str(track_id)
+                        data='category'
                     )
                 ]
             )
@@ -254,231 +251,327 @@ def handler_postback(event):
 
         else:
             line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='你回錯啦傻逼'))
+                event.reply_token, TextSendMessage(text=''))
     elif(postback == "right"):
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=' Perfect!'))
         userstatus = "default"
         changestatus(user_id, userstatus)
 
-    elif("start_time" in postback):
+    elif(postback == "start_time"):
         start_time = event.postback.params
         start_date, start_time = start_time.split("T")
         status = checkstatus(user_id)
-        track_id = postback.replace("start_time", "")
         if(status == "wrongstatus"):
-            changestarttime(user_id, start_date, start_time, track_id)
+            changestarttime(user_id, start_date, start_time)
             line_bot_api.reply_message(
                 event.reply_token, TextSendMessage(text='Changed successfully!'))
             userstatus = "default"
             changestatus(user_id, userstatus)
         else:
             line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='你回錯啦傻逼'))
+                event.reply_token, TextSendMessage(text=''))
 
-    elif("end_time" in postback):
+    elif(postback == "end_time"):
         end_time = event.postback.params
         end_date, end_time = end_time.split("T")
         status = checkstatus(user_id)
-        track_id = postback.replace("end_time", "")
         if(status == "wromgstatus"):
-            changeendtime(user_id, end_date, end_time, track_id)
+            changeendtime(user_id, end_date, end_time)
             line_bot_api.reply_message(
                 event.reply_token, TextSendMessage(text='Changed successfully!'))
             userstatus = "default"
             changestatus(user_id, userstatus)
         else:
             line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='你回錯啦傻逼'))
-    elif("category" in postback):
+                event.reply_token, TextSendMessage(text=''))
+    elif(postback == "category"):
         status = checkstatus(user_id)
-        track_id = postback.replace("category", "")
-        if(status == "wromgstatus"):
-            carousel_template_message = TemplateSendMessage(
-                alt_text='Carousel template',
-                template=CarouselTemplate(
-                    columns=[
-                        CarouselColumn(
-                            thumbnail_image_url='https://upload.cc/i1/2020/10/12/HLGQzn.png',
-                            title='Category',
-                            text='Change your Category',
-                            actions=[
-                                PostbackAction(
-                                    label='Food',
-                                    display_text='Changed successfully!',
-                                    data = "food" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Home',
-                                    display_text='Changed successfully!',
-                                    data = "home" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Sleep',
-                                    display_text='Changed successfully!',
-                                    data = "sleep" + str(track_id)
-                                )
-                            ]
-                        ),
-                        CarouselColumn(
-                            thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
-                            title='Category',
-                            text='Change your Category',
-                            actions=[
-                                PostbackAction(
-                                    label='Study',
-                                    display_text='Changed successfully!',
-                                    data = "study"  + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Lesson',
-                                    display_text='Changed successfully!',
-                                    data = "lesson" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Schoolwork',
-                                    display_text='Changed successfully!',
-                                    data = "schoolwork" + str(track_id)
-                                )
-                            ]
-                        ),
-                        CarouselColumn(
-                            thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
-                            title='Category',
-                            text='Change your Category',
-                            actions=[
-                                PostbackAction(
-                                    label='Work',
-                                    display_text='Changed successfully!',
-                                    data = "work" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Activities',
-                                    display_text='Changed successfully!',
-                                    data = "activities" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Entertainment',
-                                    display_text='Changed successfully!',
-                                    data = "entertainment"  + str(track_id)
-                                )
-                            ]
-                        ),
-                        CarouselColumn(
-                            thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
-                            title='Category',
-                            text='Change your Category',
-                            actions=[
-                                PostbackAction(
-                                    label='Sport',
-                                    display_text='Changed successfully!',
-                                    data = "sport" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Exercise',
-                                    display_text='Changed successfully!',
-                                    data = "exercise" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Work out',
-                                    display_text='Changed successfully!',
-                                    data = "work out" + str(track_id)
-                                )
-                            ]
-                        ),
-                        CarouselColumn(
-                            thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
-                            title='Category',
-                            text='Change your Category',
-                            actions=[
-                                PostbackAction(
-                                    label='Leisure',
-                                    display_text='Changed successfully!',
-                                    data = "leisure" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Hangout',
-                                    display_text='Changed successfully!',
-                                    data = "hangout" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Dating',
-                                    display_text='Changed successfully!',
-                                    data = "dating" + str(track_id)
-                                )
-                            ]
-                        ),
-                        CarouselColumn(
-                            thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
-                            title='Category',
-                            text='Change your Category',
-                            actions=[
-                                PostbackAction(
-                                    label='Shopping',
-                                    display_text='Changed successfully!',
-                                    data = "shopping" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Meeting',
-                                    display_text='Changed successfully!', 
-                                    data = "meeting" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Trip',
-                                    display_text='Changed successfully!',
-                                    data = "trip" + str(track_id)
-                                )
-                            ]
-                        ),
-                        CarouselColumn(
-                            thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
-                            title='Category',
-                            text='Change your Category',
-                            actions=[
-                                PostbackAction(
-                                    label='Health',
-                                    display_text='Changed successfully!',
-                                    data = "health" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Beauty',
-                                    display_text='Changed successfully!',
-                                    data = "beauty" + str(track_id)
-                                ),
-                                PostbackAction(
-                                    label='Commute',
-                                    display_text='Changed successfully!',
-                                    data = "commute" + str(track_id)
-                                )
-                            ]
-                        ),
-                    ]
-                )
+        if(status ==
+        carousel_template_message=TemplateSendMessage(
+            alt_text='Carousel template',
+            template=CarouselTemplate(
+                columns=[
+                    CarouselColumn(
+                        thumbnail_image_url='https://upload.cc/i1/2020/10/12/HLGQzn.png',
+                        title='Category',
+                        text='Change your Category',
+                        actions=[
+                            MessageAction(
+                                label='Food',
+                                text='Changed successfully!',
+                            ),
+                            MessageAction(
+                                label='Home',
+                                text='Changed successfully!'
+                            ),
+                            MessageAction(
+                                label='Sleep',
+                                text='Changed successfully!'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
+                        title='Category',
+                        text='Change your Category',
+                        actions=[
+                            MessageAction(
+                                label='Study',
+                                text='Changed successfully!',
+                            ),
+                            MessageAction(
+                                label='Lesson',
+                                text='Changed successfully!'
+                            ),
+                            MessageAction(
+                                label='Schoolwork',
+                                text='Changed successfully!'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
+                        title='Category',
+                        text='Change your Category',
+                        actions=[
+                            MessageAction(
+                                label='Work',
+                                text='Changed successfully!',
+                            ),
+                            MessageAction(
+                                label='Activities',
+                                text='Changed successfully!'
+                            ),
+                            MessageAction(
+                                label='Study',
+                                text='Changed successfully!'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
+                        title='Category',
+                        text='Change your Category',
+                        actions=[
+                            MessageAction(
+                                label='Sport',
+                                text='Changed successfully!',
+                            ),
+                            MessageAction(
+                                label='Exercise',
+                                text='Changed successfully!'
+                            ),
+                            MessageAction(
+                                label='Work out',
+                                text='Changed successfully!'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
+                        title='Category',
+                        text='Change your Category',
+                        actions=[
+                            MessageAction(
+                                label='Leisure',
+                                text='Changed successfully!',
+                            ),
+                            MessageAction(
+                                label='Hangout',
+                                text='Changed successfully!'
+                            ),
+                            MessageAction(
+                                label='Dating',
+                                text='Changed successfully!'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
+                        title='Category',
+                        text='Change your Category',
+                        actions=[
+                            MessageAction(
+                                label='Shopping',
+                                text='Changed successfully!',
+                            ),
+                            MessageAction(
+                                label='Meeting',
+                                text='Changed successfully!'
+                            ),
+                            MessageAction(
+                                label='Trip',
+                                text='Changed successfully!'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://upload.cc/i1/2020/10/12/OJdsnB.png',
+                        title='Category',
+                        text='Change your Category',
+                        actions=[
+                            MessageAction(
+                                label='Health',
+                                text='Changed successfully!',
+                            ),
+                            MessageAction(
+                                label='Beauty',
+                                text='Changed successfully!'
+                            ),
+                            MessageAction(
+                                label='Commute',
+                                text='Changed successfully!'
+                            )
+                        ]
+                    ),
+                ]
             )
-            line_bot_api.reply_message(
-                event.reply_token, carousel_template_message)
-            userstatus = "default"
-            changestatus(user_id, userstatus)
-        else:
-            line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='你回錯啦傻逼'))
-    elif(postback == "Yesterday"):
+        )
         line_bot_api.reply_message(
-            event.reply_token, line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='Food（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）\nStudy（0 hrs）（⬇️）\nWork（0 hrs）\nMeeting（0 hrs）\nActivities（0 hrs）\nExercise（2.5 hrs）（⬆️）\nEntertainment（0 hrs）\nLeisure （3 hrs）（⬆️）\nHangout（0 hrs）\nShopping（0 hrs）（⬇️）\nHealth（0 hrs）\nTrip（0 hrs）'))
-    elif any(s for s in categoryitem if s in postback):
-        category = [s for s in categoryitem if s in postback][0]
-        track_id = postback.replace(category, "")
-        changecategory(user_id, category, track_id)
-        line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='Changed sucessfully!'))
+            event.reply_token, carousel_template_message)
+    elif(postback == "DAY"):
+        line_user_id=event.source.user_id
+        conn=mysql.connector.Connect(
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
+        cur=conn.cursor()
+        sql="SELECT user_id from mo.user WHERE user_lineid = %s"
+        adr=(line_user_id)
+        cur.execute(sql, adr)
+        user_id=cur.fetchall()
+        cur.close
 
+
+        if(user_id):
+            category_list=""
+            status_list=""
+            for i in category_list:
+                conn=mysql.connector.Connect(
+                host='140.119.19.42', user='app', password='chchboss', database='mo')
+                cur=conn.cursor()
+
+               sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date = curdate()"
+               adr=(user_id, i)
+              cur.execute(sql, adr)
+                 now=cur.fetchall()
+                cur.close()
+
+                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date = date_sub(curdate(),interval 1 day)"
+                adr=(user_id, i)
+                cur.execute(sql, adr)
+                past=cur.fetchall()
+                cur.close()
+
+                if(now - past > 0):
+                    status_list.append("⬆️  "+i+"\n")
+                elif(now - past == 0):
+                    status_list.append("⏹ "+i+"\n")
+                elif(now - past < 0):
+                    status_list.append("⬇️  "+i+"\n")
+            line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(status_list))
+        else:
+            status_list = "您尚未加入Bunny Track!!!加入後才能啟用本功能喔!\n以下是分析範例\nFood（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）"
+            line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(status_list))
+
+    elif(postback == "WEEK"):
+        line_user_id=event.source.user_id
+        conn=mysql.connector.Connect(
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
+        cur=conn.cursor()
+        sql="SELECT user_id from mo.user WHERE user_lineid = %s"
+        adr=(line_user_id)
+        cur.execute(sql, adr)
+        user_id=cur.fetchall()
+        cur.close
+        print(user_id)
+
+        if(user_id):
+            category_list=""
+            status_list=""
+            for i in category_list:
+                conn=mysql.connector.Connect(
+                host='140.119.19.42', user='app', password='chchboss', database='mo')
+                cur=conn.cursor()
+
+                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 7 day) and curdate()"
+                adr=(user_id, i)
+                cur.execute(sql, adr)
+                now=cur.fetchall()
+                cur.close()
+
+                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 14 day) and date_sub(curdate(),interval 7 day)"
+                adr=(user_id, i)
+                cur.execute(sql, adr)
+                past=cur.fetchall()
+                cur.close()
+
+                if(now - past > 0):
+                    status_list.append("⬆  "+i+"\n")
+                elif(now - past == 0):
+                    status_list.append("⏹ "+i+"\n")
+                elif(now - past < 0):
+                    status_list.append("⬇  "+i+"\n")
+
+            line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(status_list))
+        else:
+            status_list = "您尚未加入Bunny Track!!!加入後才能啟用本功能喔!\n以下是分析範例\nFood（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）"
+            line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(status_list))
+    elif(postback == "MONTH"):
+        line_user_id=event.source.user_id
+        conn=mysql.connector.Connect(
+        host='140.119.19.42', user='app', password='chchboss', database='mo')
+        cur=conn.cursor()
+        sql="SELECT user_id from mo.user WHERE user_lineid = %s"
+        adr=(line_user_id)
+        cur.execute(sql, adr)
+        user_id=cur.fetchall()
+        cur.close
+
+        if(user_id):
+            category_list=""
+            status_list=""
+            for i in category_list:
+                conn=mysql.connector.Connect(
+                host='140.119.19.42', user='app', password='chchboss', database='mo')
+                cur=conn.cursor()
+
+                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 30 day) and curdate()"
+                adr=(user_id, i)
+                cur.execute(sql, adr)
+                now=cur.fetchall()
+                cur.close()
+
+                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 60 day) and date_sub(curdate(),interval 30 day)"
+                adr=(user_id, i)
+                cur.execute(sql, adr)
+                past=cur.fetchall()
+                cur.close()
+
+                if(now - past > 0):
+                    status_list.append("⬆  "+i+"\n")
+                elif(now - past == 0):
+                    status_list.append("⏹ "+i+"\n")
+                elif(now - past < 0):
+                    status_list.append("⬇  "+i+"\n")
+
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(status_list))
+        else:
+            status_list = "您尚未加入Bunny Track!!!加入後才能啟用本功能喔!\n以下是分析範例\nFood（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）"
+            line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(status_list))
     else:
         print(88888888888)
 
 
+# def trackReply(postback):
+#     if(postback)
 
-@app.route('/')
+@ app.route('/')
 def index():
     return 'Hello World'
 
