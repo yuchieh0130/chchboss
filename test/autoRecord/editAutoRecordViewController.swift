@@ -394,8 +394,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             savePlace = VC?.savePlace
             locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
             
-            print(track!.placeId!)
-            print(savePlace)
+            //print(track!.placeId!)
+            //print(savePlace)
             //tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
         }
     }
