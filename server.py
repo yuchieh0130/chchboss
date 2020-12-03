@@ -77,7 +77,7 @@ def insertLocation():
     user_location_id = data["user_location_id"]
 
     cur = conn.cursor()
-    sql = "INSERT INTO location_test (longitude, latitude, start_date, start_time, weekday, duration, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id, user_location_id) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO locationall_test (longitude, latitude, start_date, start_time, weekday, duration, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id, user_location_id) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     adr = (longitude, latitude, start_date, start_time, weekday, duration, name1, name2,
            name3, name4, name5, category1, category2, category3, category4, category5, user_id, user_location_id)
     cur.execute(sql, adr)
@@ -810,13 +810,13 @@ def searchFriend():
     user_id = data["user_id"]
     
     cur = conn.cursor()
-    sql = "SELECT user_name FROM user WHERE user_id = %s"
+    sql = "SELECT user_name,user_id FROM user WHERE user_id = %s"
     adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()
     cur.close()
     if(fetch_data):
-        return jsonify({"status_code": 200, "friend": fetch_data[0]})
+        return jsonify({"status_code": 200, "friend": fetch_data})
     else:
         return jsonify({"status_code": 400})
 
