@@ -127,8 +127,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }()
     
     @objc func pressedStartTimeBtn(sender: UIButton!) {
-        print(s)
-        print(sender.titleLabel)
         performSegue(withIdentifier: "editAutoStart", sender: self)
     }
     @objc func pressedEndTimeBtn(sender: UIButton!) {
@@ -259,7 +257,6 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     func handletime(){
-        print(tag)
         let interval = e.timeIntervalSince(s)
         if tag == "editAutoStart"{
             s = date
