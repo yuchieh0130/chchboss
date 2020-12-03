@@ -127,6 +127,8 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }()
     
     @objc func pressedStartTimeBtn(sender: UIButton!) {
+        print(s)
+        print(sender.titleLabel)
         performSegue(withIdentifier: "editAutoStart", sender: self)
     }
     @objc func pressedEndTimeBtn(sender: UIButton!) {
@@ -257,6 +259,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
     }
     
     func handletime(){
+        print(tag)
         let interval = e.timeIntervalSince(s)
         if tag == "editAutoStart"{
             s = date
@@ -374,15 +377,23 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         if tag == "editAutoStart"{
             handletime()
             //startTimeBtn.setTitle("\(showDateformatterForBtn.string(from: s))", for: .normal)
-            startTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: s))"
-            endTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: e))"
+            DispatchQueue.main.async{
+                self.startTimeBtn.setTitle("\(self.showDateformatterForBtn.string(from: self.s))", for: .normal)
+                self.endTimeBtn.setTitle("\(self.showDateformatterForBtn.string(from: self.e))", for: .normal)
+                //self.startTimeBtn.titleLabel?.text = "\(self.showDateformatterForBtn.string(from: self.s))"
+                //self.endTimeBtn.titleLabel?.text = "\(self.showDateformatterForBtn.string(from: self.e))"
+            }
             //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
             //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }else if tag == "editAutoEnd"{
             handletime()
             //endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
-            startTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: s))"
-            endTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: e))"
+            DispatchQueue.main.async{
+                self.startTimeBtn.setTitle("\(self.showDateformatterForBtn.string(from: self.s))", for: .normal)
+                self.endTimeBtn.setTitle("\(self.showDateformatterForBtn.string(from: self.e))", for: .normal)
+            }
+//            startTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: s))"
+//            endTimeBtn.titleLabel?.text = "\(showDateformatterForBtn.string(from: e))"
             //tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .none)
             //tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .none)
         }

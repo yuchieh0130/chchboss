@@ -51,7 +51,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let rankmodel = rankModel(id:i[0] as! Int,name:i[1] as! String,percent: percent)
                         self.rankList.append(rankmodel)
                     }
-                    print(self.rankList)
+//                    print(self.rankList)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                         self.reloadWinner()
