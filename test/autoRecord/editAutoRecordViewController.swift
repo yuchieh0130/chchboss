@@ -205,7 +205,7 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
         endTimeBtn.setTitle("\(showDateformatterForBtn.string(from: e))", for: .normal)
         
         categoryBtn.setTitle("Category    \(category.categoryName)", for: .normal)
-        locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+        locationBtn.setTitle("Location    \(savePlace?.placeName ?? "（查看地圖）")", for: .normal)
         
         view.addSubview(timeContainerView)
         timeContainerView.addSubview(startTimeBtn)
@@ -393,6 +393,9 @@ class editAutoRecordViewController: UIViewController,CLLocationManagerDelegate, 
             let VC = segue.source as? mapViewController
             savePlace = VC?.savePlace
             locationBtn.setTitle("Location    \(savePlace!.placeName)", for: .normal)
+            
+            print(track!.placeId!)
+            print(savePlace)
             //tableView.reloadRows(at: [IndexPath.init(row: 3, section: 0)], with: .none)
         }
     }

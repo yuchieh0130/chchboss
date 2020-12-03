@@ -61,7 +61,7 @@ def insertLocation():
     start_date = data["start_date"]
     start_time = data["start_time"]
     duration = data["duration"]
-    speed = data["speed"]
+    #speed = data["speed"]
     name1 = data["name1"]
     name2 = data["name2"]
     name3 = data["name3"]
@@ -77,8 +77,8 @@ def insertLocation():
     user_location_id = data["user_location_id"]
 
     cur = conn.cursor()
-    sql = "INSERT INTO location (longitude, latitude, start_date, start_time, weekday, duration, speed, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id, user_location_id) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    adr = (longitude, latitude, start_date, start_time, weekday, duration, speed, name1, name2,
+    sql = "INSERT INTO location_test (longitude, latitude, start_date, start_time, weekday, duration, name1, name2, name3, name4, name5, category1, category2, category3, category4, category5, user_id, user_location_id) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    adr = (longitude, latitude, start_date, start_time, weekday, duration, name1, name2,
            name3, name4, name5, category1, category2, category3, category4, category5, user_id, user_location_id)
     cur.execute(sql, adr)
     conn.commit()
@@ -188,7 +188,7 @@ def pushLocation():
     user_id = data["user_id"]
 
     cur = conn.cursor()
-    sql = "SELECT * FROM location_test WHERE user_id = %s"
+    sql = "SELECT * FROM location WHERE user_id = %s"
     adr = (user_id,)
     cur.execute(sql, adr)
     fetch_data = cur.fetchall()

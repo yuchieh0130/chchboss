@@ -166,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 if status_code as! Int == 200{
                     UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
                     for i in 0...data.count-1{
-                        let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+                        let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: (data[i][10] as! NSNumber).int32Value, placeId: (data[i][9] as! NSNumber).int32Value)
                         DBManager.getInstance().addTrack(modelInfo)
                     }
                 }
@@ -269,7 +269,6 @@ extension AppDelegate: CLLocationManagerDelegate, UNUserNotificationCenterDelega
             
             let modelInfo = LocationModel(locationId: 0, longitude: longitude, latitude: latitude, startDate: startDate, startTime: startTime, weekday: Int32(weekday), duration: 0, name1: name1, name2: name2, name3: name3, name4: name4, name5: name5, category1: category1, category2: category2, category3: category3, category4: category4, category5: category5)
             let id = DBManager.getInstance().saveLocation(modelInfo)
-            
             let data : [String: String] = ["user_location_id":String(id),"longitude":String(modelInfo.longitude), "latitude":String(modelInfo.latitude), "start_date":modelInfo.startDate, "start_time":modelInfo.startTime,"weekday":String(modelInfo.weekday), "duration":"0", "name1":modelInfo.name1!, "name2":modelInfo.name2!, "name3":modelInfo.name3!, "name4":modelInfo.name4!, "name5":modelInfo.name5!, "category1":modelInfo.category1!, "category2":modelInfo.category2!, "category3":modelInfo.category3!, "category4":modelInfo.category4!, "category5":modelInfo.category5!, "user_id":String(user_id) ]
             
             net.postLocationData(data: data){

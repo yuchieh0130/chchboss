@@ -20,7 +20,7 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
     @IBOutlet var cancelAddBtn: UIButton!
     
     var addName: String = ""
-    var addId: Int? = nil
+    var addId: Int?
     
     
     
@@ -75,7 +75,7 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
     }
     
     @IBAction func addFriend(_ sender: Any) {
-        net.addFriendRequest(friendId: "1"){ statusCode in
+        net.addFriendRequest(friendId: "\(addId!)"){ statusCode in
             if statusCode == 200 {
                 print("好友邀請送出")
                 //好友邀請送出看要做點啥，跳個通知之類
@@ -94,11 +94,12 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
     @IBAction func search(_ sender: Any) {
         net.searchFriend(user_id: searchBar.text ?? ""){ (return_list) in
             if let status_code = return_list?[0],
-                let friend = return_list?[1] as? [AnyObject]{
+                let friend = return_list?[1] as? [[AnyObject]]{
                 if status_code as! Int == 200{
                     self.showResult()
-                    self.addName = friend[0] as! String
-//                    self.addId = friend[1] ?? 0
+                    self.addName = friend[0][0] as! String
+                    self.addId = friend[0][1] as! Int
+                    //self.addId = Int(self.searchBar.text ?? "0")
                     print(friend) //friend[0]是那個人的名字！
                 }else{
                     print("searchFriend statusCode \(status_code)")

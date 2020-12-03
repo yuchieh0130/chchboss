@@ -45,12 +45,12 @@ class timeline : UIViewController, UIScrollViewDelegate, UIGestureRecognizerDele
     
     override func viewDidLoad(){
         fullSize = UIScreen.main.bounds.size
-        hourSize = Int(fullSize.height/6)
+        hourSize = Int(fullSize.height/5)
         myScrollView = UIScrollView()
         //可見視圖範圍
         myScrollView.frame = CGRect(x: 0, y: 60, width: fullSize.width,height: fullSize.height - 20)
         //實際視圖範圍
-        myScrollView.contentSize = CGSize(width: fullSize.width,height:fullSize.height/6*24+80)
+        myScrollView.contentSize = CGSize(width: fullSize.width,height:fullSize.height/5*24+80)
         //滑動條
         myScrollView.showsVerticalScrollIndicator = true
         myScrollView.showsHorizontalScrollIndicator = false

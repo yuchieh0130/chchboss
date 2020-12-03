@@ -382,7 +382,7 @@ class NetworkController {
                     JSONSerialization.jsonObject(with: data) as?
                         [String: Any],
                 let status_code = jsonDictionary["status_code"],
-                let friend = jsonDictionary["friend"] as? [Any] {
+                let friend = jsonDictionary["friend"] as? [[Any]] {
                 completion([status_code,friend])
             } else {
                 completion(nil)
