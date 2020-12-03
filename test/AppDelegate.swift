@@ -166,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 if status_code as! Int == 200{
                     UserDefaults.standard.set(last_track_id, forKey: "last_track_id")
                     for i in 0...data.count-1{
-                        let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: 1, placeId: 1)
+                        let modelInfo = TrackModel(trackId: 0, startDate: data[i][2] as! String, startTime: data[i][3] as! String, weekDay: (data[i][4] as! NSNumber).int32Value, endDate: data[i][5] as! String, endTime: data[i][6]  as! String, categoryId: (data[i][7] as! NSNumber).int32Value, locationId: (data[i][10] as! NSNumber).int32Value, placeId: (data[i][9] as! NSNumber).int32Value)
                         DBManager.getInstance().addTrack(modelInfo)
                     }
                 }

@@ -96,7 +96,6 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
             if let status_code = return_list?[0],
                 let friend = return_list?[1] as? [[AnyObject]]{
                 if status_code as! Int == 200{
-                    print(friend)
                     self.showResult()
                     self.addName = friend[0][0] as! String
                     self.addId = friend[0][1] as! Int
