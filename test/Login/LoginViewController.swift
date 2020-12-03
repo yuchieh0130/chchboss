@@ -105,7 +105,7 @@ class LoginViewController: UIViewController {
                             if status_code as! Int == 200{
                                 print(data[0])
                                 for i in 0...data.count-1{
-                                    let modelInfo = LocationModel(locationId: data[i][0] as! Int32, longitude: data[i][2] as! Double, latitude: data[i][3] as! Double, startDate: data[i][4] as! String, startTime: data[i][5] as! String, weekday: data[i][7] as! Int32, duration: 0, name1: data[i][8] as! String, name2: data[i][9] as! String, name3: data[i][10] as! String, name4: data[i][11] as! String, name5: data[i][12] as! String, category1: data[i][13] as! String, category2: data[i][14] as! String, category3: data[i][15] as! String, category4: data[i][16] as! String, category5: data[i][17] as! String)
+                                    let modelInfo = LocationModel(locationId: data[i][1] as! Int32, longitude: data[i][3] as! Double, latitude: data[i][4] as! Double, startDate: data[i][5] as! String, startTime: data[i][6] as! String, weekday: data[i][8] as! Int32, duration: 0, name1: data[i][9] as! String, name2: data[i][10] as! String, name3: data[i][11] as! String, name4: data[i][12] as! String, name5: data[i][13] as! String, category1: data[i][14] as! String, category2: data[i][15] as! String, category3: data[i][16] as! String, category4: data[i][17] as! String, category5: data[i][18] as! String)
                                     DBManager.getInstance().insertLocation(modelInfo)
                                 }
                                 DispatchQueue.main.async{
@@ -417,6 +417,35 @@ extension LoginViewController: LoginButtonDelegate {
                             print("pushSavedPlaceData error")
                         }
                     }
+                    
+                    let locationData = ["user_id":String(user_id)]
+                    net.pushLocationData(data: locationData){
+                        (return_list) in
+                        if let status_code = return_list?[0],
+                            let data = return_list?[1] as? [[AnyObject]]{
+                            if status_code as! Int == 200{
+                                print(data[0])
+                                for i in 0...data.count-1{
+                                    let modelInfo = LocationModel(locationId: data[i][1] as! Int32, longitude: data[i][3] as! Double, latitude: data[i][4] as! Double, startDate: data[i][5] as! String, startTime: data[i][6] as! String, weekday: data[i][8] as! Int32, duration: 0, name1: data[i][9] as! String, name2: data[i][10] as! String, name3: data[i][11] as! String, name4: data[i][12] as! String, name5: data[i][13] as! String, category1: data[i][14] as! String, category2: data[i][15] as! String, category3: data[i][16] as! String, category4: data[i][17] as! String, category5: data[i][18] as! String)
+                                    DBManager.getInstance().insertLocation(modelInfo)
+                                }
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
+                                }
+                            }else{
+                                print("pushLocationData \(status_code)")
+                                DispatchQueue.main.async{
+                                    self.goHomepage()
+                                }
+                            }
+                        }else{
+                            print("pushLocationData error")
+                            DispatchQueue.main.async{
+                                self.goHomepage()
+                            }
+                        }
+                    }
+                    
                     let trackData = ["user_id":String(user_id),"last_track_id":String(last_track_id)]
                     net.pushTrackData(data: trackData){
                         (return_list) in
@@ -430,21 +459,21 @@ extension LoginViewController: LoginButtonDelegate {
                                     DBManager.getInstance().addTrack(modelInfo)
                                 }
                                 //self.monitiorCommonPlace()
-                                DispatchQueue.main.async{
-                                    self.goHomepage()
-                                }
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
                             }
                             else{
                                 print("pushTrackData \(status_code)")
-                                DispatchQueue.main.async{
-                                    self.goHomepage()
-                                }
+                                //                                DispatchQueue.main.async{
+                                //                                    self.goHomepage()
+                                //                                }
                             }
                         }else{
                             print("pushTrackData error")
-                            DispatchQueue.main.async{
-                                self.goHomepage()
-                            }
+                            //                            DispatchQueue.main.async{
+                            //                                self.goHomepage()
+                            //                            }
                         }
                     }
                 }
