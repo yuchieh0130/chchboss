@@ -94,7 +94,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
         
         showCategory = DBManager.getInstance().getAllCategory()
-        titleBtn.setTitle("Ranking - Food", for: UIControl.State.normal)
+        titleBtn.setTitle("Ranking - Food 🔽", for: UIControl.State.normal)
         animatedImage = UIImage.animatedImageNamed("\(showCategory[0].categoryName)-", duration: 1)
         gifImgView.image = animatedImage
     }
@@ -131,7 +131,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //        winnerIcon.image = UIImage(named: "Image-2")
 //        winnerName.text = "宛先先"
         let categoryName = sender.currentTitle ?? ""
-        titleBtn.setTitle("Ranking - \(categoryName)", for: UIControl.State.normal)
+        titleBtn.setTitle("Ranking - \(categoryName) 🔽", for: UIControl.State.normal)
         animatedImage = UIImage.animatedImageNamed("\(showCategory[sender.tag-1].categoryName)-", duration: 1)
         gifImgView.image = animatedImage
     }
