@@ -1238,7 +1238,16 @@ class DBManager: NSObject {
             shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])
         }
         shareInstance.database?.close()
+        
+        net.logout() {
+            (status_code) in
+            if (status_code != nil) {
+                print("logout\(status_code!)")
+            }
+        }
+        
         UserDefaults.standard.set(0, forKey: "last_track_id")
+        
     }
     
     

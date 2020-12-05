@@ -555,5 +555,31 @@ class NetworkController {
         task.resume( )
     }
     
+    func logout (completion: @escaping(Int?) -> Void) {
+        let loginURL = baseURL.appendingPathComponent("resetTrack")
+        var request = URLRequest(url: loginURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField:
+            "Content-Type")
+        let user_id = "\(UserDefaults.standard.integer(forKey: "user_id"))"
+        let data: [String: String] = ["user_id": user_id]
+        let jsonEncoder = JSONEncoder( )
+        let jsonData = try? jsonEncoder.encode(data)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request)
+        { (data, response, error) in
+            if let data = data,
+                let jsonDictionary = try?
+                    JSONSerialization.jsonObject(with: data) as?
+                        [String: Any],
+                let status_code = jsonDictionary["status_code"] as? Int{
+                completion(status_code)
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume( )
+    }
+    
     
 }
