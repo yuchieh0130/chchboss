@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class rankViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
@@ -22,6 +23,8 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var gifImgView: UIImageView!
     @IBOutlet var titleBtn: UIButton!
     @IBOutlet var options: [UIButton]!
+    @IBOutlet weak var crown: UIImageView!
+    @IBOutlet weak var optionStackView: UIStackView!
     
     var animatedImage: UIImage!
     var showCategory = [CategoryModel]()
@@ -31,7 +34,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpConstraint()
         setupUI()
         getRank(category: "1")
         
@@ -73,21 +76,21 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         titleBtn.clipsToBounds = true
         titleBtn.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        winnerIcon.layer.cornerRadius = 0.5*winnerIcon.bounds.size.width
+        winnerIcon.layer.cornerRadius = 0.5*winnerIcon.bounds.size.height
         winnerIcon.layer.borderWidth = 2
         winnerIcon.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
         winnerIcon.clipsToBounds = true
         
-        emojiAngry.layer.cornerRadius = 0.5*emojiAngry.bounds.size.width
+        //emojiAngry.layer.cornerRadius = 0.5*emojiAngry.bounds.size.height
         emojiAngry.clipsToBounds = true
-        emojiThumb.layer.cornerRadius = 0.5*emojiThumb.bounds.size.width
+        //emojiThumb.layer.cornerRadius = 0.5*emojiThumb.bounds.size.height
         emojiThumb.clipsToBounds = true
-        emojiHeart.layer.cornerRadius = 0.5*emojiHeart.bounds.size.width
+        //emojiHeart.layer.cornerRadius = 0.5*emojiHeart.bounds.size.height
         emojiHeart.clipsToBounds = true
         
         exitBtn.backgroundColor = UIColor(red: 247/255, green: 199/255, blue: 88/255, alpha: 1)
         exitBtn.tintColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 1)
-        exitBtn.layer.cornerRadius = 10.0
+        //exitBtn.layer.cornerRadius = 10.0
         exitBtn.clipsToBounds = true
         exitBtn.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         exitBtn.addTarget(self, action: #selector(exit), for: .touchUpInside)
@@ -97,6 +100,107 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         animatedImage = UIImage.animatedImageNamed("\(showCategory[0].categoryName)-", duration: 1)
         gifImgView.image = animatedImage
     }
+    
+    func setUpConstraint(){
+        rankView.translatesAutoresizingMaskIntoConstraints = false
+        exitBtn.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        winnerIcon.translatesAutoresizingMaskIntoConstraints = false
+        winnerName.translatesAutoresizingMaskIntoConstraints = false
+        emojiAngry.translatesAutoresizingMaskIntoConstraints = false
+        emojiThumb.translatesAutoresizingMaskIntoConstraints = false
+        emojiHeart.translatesAutoresizingMaskIntoConstraints = false
+        gifImgView.translatesAutoresizingMaskIntoConstraints = false
+        titleBtn.translatesAutoresizingMaskIntoConstraints = false
+        crown.translatesAutoresizingMaskIntoConstraints = false
+         
+        rankView.snp.makeConstraints{ (item) in
+            item.centerX.equalToSuperview()
+            item.centerY.equalToSuperview()
+            item.width.equalToSuperview().multipliedBy(0.8)
+            item.height.equalToSuperview().multipliedBy(0.9)
+        }
+        rankView.layer.cornerRadius = 10.0
+        
+        exitBtn.snp.makeConstraints{ (item) in
+            item.width.equalTo(rankView.snp.width)
+            item.height.equalTo(rankView.snp.height).dividedBy(15)
+            item.centerX.equalToSuperview()
+            item.bottom.equalTo(rankView.snp.bottom)
+        }
+        exitBtn.layer.cornerRadius = 10.0
+        
+        titleBtn.snp.makeConstraints{ (item) in
+            item.top.equalTo(rankView.snp.top)
+            item.height.equalTo(rankView.snp.height).dividedBy(14)
+            item.width.equalTo(rankView.snp.width)
+            item.centerX.equalTo(rankView.snp.centerX)
+        }
+        titleBtn.layer.cornerRadius = 10.0
+        
+       
+        for option in options{
+            option.snp.makeConstraints{ (item) in
+                item.width.equalTo(titleBtn.snp.width)
+                item.height.equalTo(titleBtn.snp.height).multipliedBy(0.75)
+            }
+        }
+        
+        winnerIcon.snp.makeConstraints{ (item) in
+            item.width.equalTo(rankView.snp.height).dividedBy(6)
+            item.height.equalTo(rankView.snp.height).dividedBy(6)
+            item.leading.equalToSuperview().offset(20)
+            item.top.equalTo(titleBtn.snp.bottom).offset(60)
+        }
+        winnerIcon.layer.cornerRadius = winnerIcon.bounds.size.height/2
+        
+        crown.snp.makeConstraints{ (item) in
+            item.size.equalTo(50)
+            item.leading.equalTo(winnerIcon.snp.trailing).offset(20)
+            item.top.equalTo(titleBtn.snp.bottom).offset(25)
+        }
+        
+        winnerName.snp.makeConstraints{ (item) in
+            item.bottom.equalTo(crown.snp.bottom)
+            item.leading.equalTo(crown.snp.trailing).offset(30)
+        }
+        
+        gifImgView.snp.makeConstraints{ (item) in
+            item.size.equalTo(winnerIcon)
+            item.centerX.equalTo(crown.snp.trailing).offset(10)
+            item.top.equalTo(winnerName.snp.bottom).offset(10)
+        }
+        
+        emojiThumb.snp.makeConstraints{ (item) in
+            item.leading.equalToSuperview().offset(20)
+            item.size.equalTo(rankView.snp.width).dividedBy(4)
+            item.top.equalTo(gifImgView.snp.bottom).offset(20)
+        }
+        emojiThumb.layer.cornerRadius = 0.5*emojiThumb.bounds.size.height
+        
+        emojiHeart.snp.makeConstraints{ (item) in
+            item.centerX.equalTo(rankView.snp.centerX)
+            item.size.equalTo(rankView.snp.width).dividedBy(4)
+            item.top.equalTo(gifImgView.snp.bottom).offset(20)
+        }
+        emojiHeart.layer.cornerRadius = 0.5*emojiHeart.bounds.size.height
+        
+        emojiAngry.snp.makeConstraints{ (item) in
+            item.trailing.equalTo(rankView.snp.trailing).offset(-20)
+            item.size.equalTo(rankView.snp.width).dividedBy(4)
+            item.top.equalTo(gifImgView.snp.bottom).offset(20)
+        }
+        emojiAngry.layer.cornerRadius = 0.5*emojiAngry.bounds.size.height
+        
+        tableView.snp.makeConstraints{ (item) in
+            item.top.equalTo(emojiHeart.snp.bottom).offset(20)
+            item.centerX.equalTo(rankView.snp.centerX)
+            item.width.equalTo(rankView.snp.width)
+            item.height.equalTo(rankView.snp.width).dividedBy(3)
+        }
+        
+    }
+    
     
     @IBAction func emojiThumb(_ sender: Any) {
         addEmoji(user_id: String(rankList[0].id), emoji: "liked")
@@ -192,9 +296,13 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "rankTableViewCell", for: indexPath) as! rankTableViewCell
             cell.name.text = rankList[indexPath.row].name
             cell.rank.text = "\(indexPath.row+1)"
-            cell.percentage.text = "\(rankList[indexPath.row].percent) %"
+            cell.percentage.text = "\(rankList[indexPath.row].percent) %" ?? ""
             cell.selectionStyle = .none
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return rankView.bounds.size.height/8
     }
 }
