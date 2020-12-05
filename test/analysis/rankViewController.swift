@@ -51,7 +51,6 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let rankmodel = rankModel(id:i[0] as! Int,name:i[1] as! String,percent: percent)
                         self.rankList.append(rankmodel)
                     }
-//                    print(self.rankList)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                         self.reloadWinner()
@@ -128,7 +127,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         self.rankList = []
         getRank(category: "\(sender.tag)")
-//        winnerIcon.image = UIImage(named: "Image-2")
+//        winnerIcon.image = UIImage(named: "user\()")
 //        winnerName.text = "宛先先"
         let categoryName = sender.currentTitle ?? ""
         titleBtn.setTitle("Ranking - \(categoryName) 🔽", for: UIControl.State.normal)
@@ -151,6 +150,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func reloadWinner(){
         if rankList.count > 0{
             self.winnerName.text = self.rankList[0].name
+            self.winnerIcon.image = UIImage(named: "user\(self.rankList[0].id)")
         }
     }
     
