@@ -103,7 +103,6 @@ class LoginViewController: UIViewController {
                         if let status_code = return_list?[0],
                             let data = return_list?[1] as? [[AnyObject]]{
                             if status_code as! Int == 200{
-                                print(data[0])
                                 for i in 0...data.count-1{
                                     let modelInfo = LocationModel(locationId: data[i][1] as! Int32, longitude: data[i][3] as! Double, latitude: data[i][4] as! Double, startDate: data[i][5] as! String, startTime: data[i][6] as! String, weekday: data[i][8] as! Int32, duration: 0, name1: data[i][9] as! String, name2: data[i][10] as! String, name3: data[i][11] as! String, name4: data[i][12] as! String, name5: data[i][13] as! String, category1: data[i][14] as! String, category2: data[i][15] as! String, category3: data[i][16] as! String, category4: data[i][17] as! String, category5: data[i][18] as! String)
                                     DBManager.getInstance().insertLocation(modelInfo)
