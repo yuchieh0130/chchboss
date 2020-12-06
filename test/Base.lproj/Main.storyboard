@@ -1110,21 +1110,24 @@
                                     <outlet property="delegate" destination="GWz-O0-t96" id="TRX-Vd-drN"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bunny Bunny" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sse-uI-zAC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bunny Bunny" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sse-uI-zAC">
                                 <rect key="frame" x="145" y="173" width="124" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.13472521309999999" green="0.1748577952" blue="0.39610034230000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" red="0.13333333333333333" green="0.1748577952" blue="0.39610034230000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID : bunnythebunny" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9w-ck-vHo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ID : bunnythebunny" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9w-ck-vHo">
                                 <rect key="frame" x="137" y="205" width="140" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoG-9U-nQC">
-                                <rect key="frame" x="261" y="143" width="31" height="28"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoG-9U-nQC">
+                                <rect key="frame" x="164" y="77" width="86" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
@@ -1147,37 +1150,24 @@
                                     <action selector="logOutBtn:" destination="GWz-O0-t96" eventType="touchUpInside" id="owK-OX-pRK"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="h35-ly-VCw">
-                                <rect key="frame" x="164" y="81" width="86" height="73.999999999999986"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="h35-ly-VCw">
+                                <rect key="frame" x="164" y="77" width="86" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hbu-F2-bMp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="trailing" secondItem="h35-ly-VCw" secondAttribute="trailing" constant="164" id="1kQ-DK-geL"/>
-                            <constraint firstItem="h35-ly-VCw" firstAttribute="leading" secondItem="Hbu-F2-bMp" secondAttribute="leading" constant="164" id="6rc-bM-e5c"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="leading" secondItem="kY9-Kq-4zx" secondAttribute="leading" id="8uI-SB-0X1"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="centerX" secondItem="pD0-ue-cbQ" secondAttribute="centerX" id="Akp-1o-DhV"/>
-                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="trailing" secondItem="KoG-9U-nQC" secondAttribute="trailing" constant="122" id="ExO-7T-K8i"/>
-                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="bottom" secondItem="sse-uI-zAC" secondAttribute="bottom" constant="562" id="G2E-mT-hX5"/>
-                            <constraint firstItem="s9w-ck-vHo" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" constant="149" id="GD8-2y-hbu"/>
-                            <constraint firstItem="h35-ly-VCw" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" constant="24" id="Gvr-Dj-lO1"/>
-                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="bottom" secondItem="s9w-ck-vHo" secondAttribute="bottom" constant="536" id="IZk-eE-BqW"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="trailing" secondItem="Hbu-F2-bMp" secondAttribute="trailing" id="O1T-iC-oFu"/>
                             <constraint firstItem="kY9-Kq-4zx" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" id="P7R-pM-yPJ"/>
-                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="bottom" secondItem="KoG-9U-nQC" secondAttribute="bottom" constant="588" id="RK9-zR-B8Z"/>
-                            <constraint firstItem="Hbu-F2-bMp" firstAttribute="bottom" secondItem="h35-ly-VCw" secondAttribute="bottom" constant="603.66666666666674" id="SCK-2s-Ebh"/>
                             <constraint firstItem="NE9-60-boC" firstAttribute="centerX" secondItem="pD0-ue-cbQ" secondAttribute="centerX" id="TSW-P9-PPV"/>
                             <constraint firstItem="Hbu-F2-bMp" firstAttribute="bottom" secondItem="NE9-60-boC" secondAttribute="bottom" constant="40" id="Txk-BG-zpf"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="leading" secondItem="Hbu-F2-bMp" secondAttribute="leading" id="atP-wI-IQd"/>
                             <constraint firstItem="Hbu-F2-bMp" firstAttribute="bottom" secondItem="hih-qg-ZUN" secondAttribute="bottom" constant="105" id="c8j-cc-YDu"/>
-                            <constraint firstItem="KoG-9U-nQC" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" constant="87" id="cUb-VB-PPf"/>
-                            <constraint firstItem="KoG-9U-nQC" firstAttribute="leading" secondItem="Hbu-F2-bMp" secondAttribute="leading" constant="261" id="fXy-ih-3Ym"/>
-                            <constraint firstItem="sse-uI-zAC" firstAttribute="centerX" secondItem="pD0-ue-cbQ" secondAttribute="centerX" id="fna-1z-NII"/>
-                            <constraint firstItem="hih-qg-ZUN" firstAttribute="top" secondItem="s9w-ck-vHo" secondAttribute="bottom" constant="31" id="o4C-1L-16m"/>
-                            <constraint firstItem="sse-uI-zAC" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" constant="117" id="qIv-Z1-Vxl"/>
-                            <constraint firstItem="s9w-ck-vHo" firstAttribute="centerX" secondItem="pD0-ue-cbQ" secondAttribute="centerX" id="qcW-b7-KEr"/>
+                            <constraint firstItem="hih-qg-ZUN" firstAttribute="top" secondItem="Hbu-F2-bMp" secondAttribute="top" constant="198" id="kyd-0h-Nh5"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="trailing" secondItem="Hbu-F2-bMp" secondAttribute="trailing" id="rGD-jc-8X9"/>
                             <constraint firstItem="hih-qg-ZUN" firstAttribute="leading" secondItem="Hbu-F2-bMp" secondAttribute="leading" id="skT-Su-e1G"/>
                             <constraint firstItem="Hbu-F2-bMp" firstAttribute="bottom" secondItem="kY9-Kq-4zx" secondAttribute="bottom" constant="492" id="uRh-dz-Ded"/>

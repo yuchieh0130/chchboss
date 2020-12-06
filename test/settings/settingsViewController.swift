@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class settingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -37,6 +38,31 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         userName.text = user_name
         let user_id = UserDefaults.standard.integer(forKey: "user_id")
         userID.text = "ID: \(user_id)"
+    }
+    
+    func setupUI(){
+        userIcon.snp.makeConstraints{ (make) in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(86)
+            make.width.equalTo(86)
+        }
+        addPhotoBtn.snp.makeConstraints{ (make) in
+            make.height.equalTo(userIcon.snp.height)
+            make.width.equalTo(userIcon.snp.width)
+            make.top.equalTo(userIcon.snp.top)
+            make.centerX.equalToSuperview()
+        }
+        userName.snp.makeConstraints{ (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(userID.snp.bottom).offset(10)
+            make.height.equalTo(24)
+        }
+        userID.snp.makeConstraints{ (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(userName.snp.bottom).offset(8)
+            make.height.equalTo(18)
+            make.bottom.equalTo(tableView.snp.top).offset(31)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
