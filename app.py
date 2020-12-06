@@ -290,7 +290,7 @@ def handler_postback(event):
     elif(postback == "category"):
         status = checkstatus(user_id)
         if(status == "wromgstatus"):
-            carousel_template_message=TemplateSendMessage(
+            carousel_template_message = TemplateSendMessage(
                 alt_text='Carousel template',
                 template=CarouselTemplate(
                     columns=[
@@ -433,52 +433,77 @@ def handler_postback(event):
         line_bot_api.reply_message(
             event.reply_token, carousel_template_message)
     elif(postback == "DAY"):
-        line_user_id=event.source.user_id
-        conn=mysql.connector.Connect(
-        host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
-        cur=conn.cursor()
-        sql="SELECT user_id from mo.user WHERE user_lineid = %s"
-        adr=(line_user_id, )
+        line_user_id = event.source.user_id
+        conn = mysql.connector.Connect(
+            host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
+        cur = conn.cursor()
+        sql = "SELECT user_id from mo.user WHERE user_lineid = %s"
+        adr = (line_user_id, )
         cur.execute(sql, adr)
-        user_id=cur.fetchall()
-        cur.close
-
-
+        user_id = cur.fetchall()
         if(user_id):
-            category_list=""
-            status_list=""
-            for i in range(1,18):
-                conn=mysql.connector.Connect(
+            user_id = user_id[0][0]
+        cur.close
+        category_list = {1: "Food", 2: "Home", 3: "Sleep", 4: "Lesson", 5: "Study", 6: "work", 7: "Activities", 8: "Entertainment", 9: "Exercise",
+                         10: "Leisure", 11: "Hangout", 12: "Shopping", 13: "Meeting", 14: "Trip", 15: "Health", 16: "Beauty", 17: "Commute", 18: "Others", 19: "Unknown time"}
+        if(user_id):
+
+            conn = mysql.connector.Connect(
                 host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
-                cur=conn.cursor()
+            cur = conn.cursor()
+            sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=%s and start_date = curdate() group by category_id"
+            # sql = "SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date = curdate()"
+            adr = (user_id, )
+            cur.execute(sql, adr)
+            now = cur.fetchall()
+            now = now
+            cur.close()
+            cur = conn.cursor()
+            sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=%s and start_date = date_sub(curdate(),interval 1 day)  group by category_id"
+            # sql = "SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date = date_sub(curdate(),interval 1 day)"
+            adr = (user_id, )
+            cur.execute(sql, adr)
+            past = cur.fetchall()
+            past = past
+            cur.close()
 
-                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date = curdate()"
-                adr=(user_id, i)
-                cur.execute(sql, adr)
-                now=cur.fetchall()
-                now = now[0][0]
-                cur.close()
-                cur=conn.cursor()
+            past_list = []
+            now_list = []
 
-                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date = date_sub(curdate(),interval 1 day)"
-                adr=(user_id, i)
-                cur.execute(sql, adr)
-                past=cur.fetchall()
-                past = past[0][0]
-                cur.close()
+            for i in past:
+                past_list.append([i[0], int(i[1])])
+            for i in now:
+                now_list.append([i[0], int(i[1])])
 
-                if(now - past > 0):
-                    status_list+=("⬆️  "+"\n")
-                elif(now - past == 0):
-                    status_list+=("⏹ "+"\n")
-                elif(now - past < 0):
-                    status_list+=("⬇️  "+"\n")
+            status_list = []
+            for i in past_list:
+                tof = 0
+                for n in now_list:
+                    if(i[0] == n[0]):
+                        n[1] -= i[1]
+                        tof += 1
+                if(tof == 0):
+                    now_list.append([i[0], -i[1]])
+
+            print(now_list)
+
+            answer = ""
+            for i in now_list:
+                if(i[1] > 0):
+                    answer = answer + "⬆️" + \
+                        str(round(i[1]/60, 1))+"小時  " + \
+                        str(category_list[i[0]]) + "\n"
+                elif(i[1] < 0):
+                    answer = answer + "⬇️" + \
+                        str(round(-i[1]/60, 1))+"小時  " + \
+                        str(category_list[i[0]]) + "\n"
+
             line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(status_list))
+                event.reply_token, TextSendMessage(answer))
         else:
             status_list = "您尚未加入Bunny Track!!!加入後才能啟用本功能喔!\n以下是分析範例\nFood（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）"
             line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(status_list))
+                event.reply_token, TextSendMessage(status_list))
 
     elif(postback == "WEEK"):
         line_user_id=event.source.user_id
@@ -489,103 +514,148 @@ def handler_postback(event):
         adr=(line_user_id, )
         cur.execute(sql, adr)
         user_id=cur.fetchall()
-        user_id = user_id[0][0]
+        if(user_id):
+            user_id = user_id[0][0]
         cur.close
         print(user_id)
 
+        
+        category_list = {1: "Food", 2: "Home", 3: "Sleep", 4: "Lesson", 5: "Study", 6: "work", 7: "Activities", 8: "Entertainment", 9: "Exercise",
+                         10: "Leisure", 11: "Hangout", 12: "Shopping", 13: "Meeting", 14: "Trip", 15: "Health", 16: "Beauty", 17: "Commute", 18: "Others", 19: "Unknown time"}
         if(user_id):
-            status_list=""
-            for i in range(1,18):
-                conn=mysql.connector.Connect(
+            status_list = ""
+
+            conn = mysql.connector.Connect(
                 host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
-                cur=conn.cursor()
-                sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=%s and (start_date between date_sub(curdate(),interval 14 day) and date_sub(curdate(),interval 7 day)) group by category_id;"
-                # sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 7 day) and curdate()"
-                adr=(user_id, )
-                cur.execute(sql, adr)
-                now=cur.fetchall()
-                now = now[0]
-                if(now):
-                    now = int(now)
-                else:
-                    now = 0
-                cur.close()
+            cur = conn.cursor()
+            sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=%s and (start_date between date_sub(curdate(),interval 7 day) and curdate()) group by category_id"
+            # sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 7 day) and curdate()"
+            adr = (user_id, )
+            cur.execute(sql, adr)
+            now = cur.fetchall()
+            now = now
+            print(now)
+            cur.close()
 
-                cur=conn.cursor()
-                sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=5 and (start_date between date_sub(curdate(),interval 14 day) and date_sub(curdate(),interval 7 day) or start_date between date_sub(curdate(),interval 7 day) and curdate()) group by category_id;"
-                # sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 14 day) and date_sub(curdate(),interval 7 day)"
-                adr=(user_id, i)
-                cur.execute(sql, adr)
-                past=cur.fetchall()
-                past = past[0][0]
-                if(past):
-                    past = int(past)
-                else:
-                    past = 0
-                cur.close()
-                
+            cur = conn.cursor()
+            sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=%s and (start_date between date_sub(curdate(),interval 14 day) and date_sub(curdate(),interval 7 day)) group by category_id"
+            # sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 14 day) and date_sub(curdate(),interval 7 day)"
+            adr = (user_id, )
+            cur.execute(sql, adr)
+            past = cur.fetchall()
+            past = past
+            print(past)
+            cur.close()
+            past_list = []
+            now_list = []
 
+            for i in past:
+                past_list.append([i[0], int(i[1])])
+            for i in now:
+                now_list.append([i[0], int(i[1])])
 
-                
-                if(now - past > 0):
-                    status_list+=("⬆️  "+"\n")
-                elif(now - past == 0):
-                    status_list+=("⏹ "+"\n")
-                elif(now - past < 0):
-                    status_list+=("⬇️  "+"\n")
-            print(status_list)
-            print(type(status_list))
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(status_list))
+            status_list = []
+            for i in past_list:
+                tof = 0
+                for n in now_list:
+                    if(i[0] == n[0]):
+                        n[1] -= i[1]
+                        tof += 1
+                if(tof == 0):
+                    now_list.append([i[0], -i[1]])
+
+            print(now_list)
+
+            answer = ""
+            for i in now_list:
+                if(i[1] > 0):
+                    answer = answer + "⬆️" + \
+                        str(round(i[1]/60, 1))+"小時  " + \
+                        str(category_list[i[0]]) + "\n"
+                elif(i[1] < 0):
+                    answer = answer + "⬇️" + \
+                        str(round(-i[1]/60, 1))+"小時  " + \
+                        str(category_list[i[0]]) + "\n"
+
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(answer))
         else:
             status_list = "您尚未加入Bunny Track!!!加入後才能啟用本功能喔!\n以下是分析範例\nFood（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）"
-            line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(status_list))
-    elif(postback == "MONTH"):
-        line_user_id=event.source.user_id
-        conn=mysql.connector.Connect(
-        host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
-        cur=conn.cursor()
-        sql="SELECT user_id from mo.user WHERE user_lineid = %s"
-        adr=(line_user_id, )
-        cur.execute(sql, adr)
-        user_id=cur.fetchall()
-        cur.close
-
-        if(user_id):
-            status_list=""
-            for i in range(1,18):
-                conn=mysql.connector.Connect(
-                host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
-                cur=conn.cursor()
-
-                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 30 day) and curdate()"
-                adr=(user_id, i)
-                cur.execute(sql, adr)
-                now=cur.fetchall()
-                now = now[0][0]
-                cur.close()
-                cur=conn.cursor()
-
-                sql="SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 60 day) and date_sub(curdate(),interval 30 day)"
-                adr=(user_id, i)
-                cur.execute(sql, adr)
-                past=cur.fetchall()
-                past = past[0][0]
-                cur.close()
-
-                if(now - past > 0):
-                    status_list+=("⬆️  "+"\n")
-                elif(now - past == 0):
-                    status_list+=("⏹ "+"\n")
-                elif(now - past < 0):
-                    status_list+=("⬇️  "+"\n")
-
             line_bot_api.reply_message(
                 event.reply_token, TextSendMessage(status_list))
+    elif(postback == "MONTH"):
+        line_user_id = event.source.user_id
+        conn = mysql.connector.Connect(
+            host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
+        cur = conn.cursor()
+        sql = "SELECT user_id from mo.user WHERE user_lineid = %s"
+        adr = (line_user_id, )
+        cur.execute(sql, adr)
+        user_id = cur.fetchall()
+        if(user_id):
+            user_id = user_id[0][0]
+        cur.close
+        
+        category_list = {1: "Food", 2: "Home", 3: "Sleep", 4: "Lesson", 5: "Study", 6: "work", 7: "Activities", 8: "Entertainment", 9: "Exercise",
+                         10: "Leisure", 11: "Hangout", 12: "Shopping", 13: "Meeting", 14: "Trip", 15: "Health", 16: "Beauty", 17: "Commute", 18: "Others", 19: "Unknown time"}
+        if(user_id):
+            status_list = ""
+
+            conn = mysql.connector.Connect(
+                host='140.119.19.42', user='APP', password='bunnytrack', database='mo')
+            cur = conn.cursor()
+            sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=%s and (start_date between date_sub(curdate(),interval 30 day) and curdate()) group by category_id"
+            # sql = "SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 30 day) and curdate()"
+            adr = (user_id, )
+            cur.execute(sql, adr)
+            now = cur.fetchall()
+            now = now
+            cur.close()
+            cur = conn.cursor()
+            sql = "select category_id, SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) as total_time from mo.track where user_id=%s and (start_date between date_sub(curdate(),interval 60 day) and date_sub(curdate(),interval 30 day)) group by category_id"
+            # sql = "SELECT SUM(timestampdiff( minute ,CONCAT(start_date,' ' ,start_time), CONCAT(end_date,' ' , end_time))) from mo.track where user_id = %s and category_id = %s and start_date between date_sub(curdate(),interval 60 day) and date_sub(curdate(),interval 30 day)"
+            adr = (user_id, )
+            cur.execute(sql, adr)
+            past = cur.fetchall()
+            past = past
+            cur.close()
+            past_list = []
+            now_list = []
+
+            for i in past:
+                past_list.append([i[0], int(i[1])])
+            for i in now:
+                now_list.append([i[0], int(i[1])])
+
+            status_list = []
+            for i in past_list:
+                tof = 0
+                for n in now_list:
+                    if(i[0] == n[0]):
+                        n[1] -= i[1]
+                        tof += 1
+                if(tof == 0):
+                    now_list.append([i[0], -i[1]])
+
+            print(now_list)
+
+            answer = ""
+            for i in now_list:
+                if(i[1] > 0):
+                    answer = answer + "⬆️" + \
+                        str(round(i[1]/60, 1))+"小時  " + \
+                        str(category_list[i[0]]) + "\n"
+                elif(i[1] < 0):
+                    answer = answer + "⬇️" + \
+                        str(round(-i[1]/60, 1))+"小時  " + \
+                        str(category_list[i[0]]) + "\n"
+
+            line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(answer))
         else:
             status_list = "您尚未加入Bunny Track!!!加入後才能啟用本功能喔!\n以下是分析範例\nFood（3 hrs）（⬆️）\nHome（1 hrs）（⬆️）\nSleep（8 hrs）（⬆️）\nBeauty（0.5 hrs）\nCommute（1 hrs）\nLesson（3.5 hrs）（⬇️）"
             line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(status_list))
+                event.reply_token, TextSendMessage(status_list))
     else:
         print(88888888888)
 
