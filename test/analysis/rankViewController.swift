@@ -179,6 +179,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             item.leading.equalToSuperview().offset(20)
             item.size.equalTo(rankView.snp.width).dividedBy(4)
             item.centerY.equalTo(rankView.snp.centerY)
+            
         }
         emojiThumb.layer.cornerRadius = 0.5*emojiThumb.bounds.size.height
         
@@ -203,6 +204,8 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //            item.height.equalTo(rankView.snp.width).dividedBy(3)
             item.bottom.equalTo(exitBtn.snp.top)
         }
+        
+        viewDidLayoutSubviews()
         
     }
     

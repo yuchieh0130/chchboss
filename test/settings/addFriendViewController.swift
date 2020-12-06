@@ -46,11 +46,6 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         searchBtn.layer.cornerRadius = 10.0
         searchBtn.clipsToBounds = true
         
-        profileImage.layer.cornerRadius = 0.5*profileImage.bounds.size.width
-        profileImage.layer.borderWidth = 2
-        profileImage.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
-        profileImage.clipsToBounds = true
-        
         addBtn.layer.cornerRadius = 10.0
         addBtn.clipsToBounds = true
         
@@ -60,10 +55,16 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         nameLabel.text = addName
         
         profileImage.snp.makeConstraints { (make) in
-            make.height.width.equalTo(150)
+            make.height.width.equalTo(140)
             make.centerX.equalToSuperview()
             make.top.equalTo(searchBar).offset(50)
         }
+        //profileImage.layer.cornerRadius = 0.5*profileImage.bounds.size.width
+        profileImage.layer.cornerRadius = 70
+        profileImage.layer.borderWidth = 2
+        profileImage.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+        profileImage.clipsToBounds = true
+        
         nameLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(profileImage.snp.bottom).offset(40)
