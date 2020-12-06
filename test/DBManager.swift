@@ -962,7 +962,7 @@ class DBManager: NSObject {
     func getWeekTracks_category(Year: String, Week: Int, Category: Int) -> [TrackModel]!{
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(Year) \(Week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(Year) \(Week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
+        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(Year) \(Week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(Year) \(Week-1)' AND strftime('%Y %W',end_date) = '0')) AND category_id = \(Category) "
         
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
