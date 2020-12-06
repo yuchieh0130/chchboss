@@ -18,14 +18,17 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var userID: UILabel!
     @IBOutlet var addPhotoBtn: UIButton!
     @IBOutlet var logOutBtn: UIButton!
+    @IBOutlet var profileBack: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         title = "Settings"
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
         userIcon.layer.cornerRadius = userIcon.frame.size.width/2.0
         userIcon.clipsToBounds = true
+        
         logOutBtn.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 128/255, alpha: 0.7)
         logOutBtn.layer.cornerRadius = logOutBtn.frame.height/2
         logOutBtn.clipsToBounds = true
@@ -38,11 +41,16 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
         userName.text = user_name
         let user_id = UserDefaults.standard.integer(forKey: "user_id")
         userID.text = "ID: \(user_id)"
+        userIcon.image = UIImage(named: "user\(user_id)")
     }
     
     func setupUI(){
+        profileBack.snp.makeConstraints { (make) in
+            make.bottom.equalTo(tableView.snp.top)
+        }
         userIcon.snp.makeConstraints{ (make) in
             make.centerX.equalToSuperview()
+            make.bottom.equalTo(userName.snp.top).offset(-5)
             make.height.equalTo(86)
             make.width.equalTo(86)
         }
@@ -61,7 +69,7 @@ class settingsViewController: UIViewController, UITableViewDelegate, UITableView
             make.centerX.equalToSuperview()
             make.top.equalTo(userName.snp.bottom).offset(8)
             make.height.equalTo(18)
-            make.bottom.equalTo(tableView.snp.top).offset(31)
+            make.bottom.equalTo(tableView.snp.top).offset(-20)
         }
     }
     

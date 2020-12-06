@@ -200,7 +200,8 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             item.top.equalTo(emojiHeart.snp.bottom).offset(10)
             item.centerX.equalTo(rankView.snp.centerX)
             item.width.equalTo(rankView.snp.width)
-            item.height.equalTo(rankView.snp.width).dividedBy(3)
+//            item.height.equalTo(rankView.snp.width).dividedBy(3)
+            item.bottom.equalTo(exitBtn.snp.top)
         }
         
     }

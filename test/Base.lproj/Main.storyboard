@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8kr-6C-ze8">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1178,6 +1178,7 @@
                     <connections>
                         <outlet property="addPhotoBtn" destination="KoG-9U-nQC" id="e00-wG-Bcb"/>
                         <outlet property="logOutBtn" destination="NE9-60-boC" id="y4n-8s-LTt"/>
+                        <outlet property="profileBack" destination="kY9-Kq-4zx" id="rml-dW-EAn"/>
                         <outlet property="tableView" destination="hih-qg-ZUN" id="B9V-Bk-isk"/>
                         <outlet property="userID" destination="s9w-ck-vHo" id="mfo-a4-QJi"/>
                         <outlet property="userIcon" destination="h35-ly-VCw" id="UOx-rd-sgU"/>
