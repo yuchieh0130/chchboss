@@ -29,7 +29,7 @@ class PickerViewWeekViewController: UIViewController{
         super.viewDidLoad()
         pickerViewWeek.translatesAutoresizingMaskIntoConstraints = false
         pickerViewWeek.reloadComponent(0)
-        pickerViewWeek.selectRow(currentWeek-2, inComponent: 0, animated: true)
+        pickerViewWeek.selectRow(currentWeek-1, inComponent: 0, animated: true)
         
         let start = dateFormat.string(from: pickerViewWeek.satOfWeek)
         let end = dateFormat.string(from: pickerViewWeek.sunOfWeek)

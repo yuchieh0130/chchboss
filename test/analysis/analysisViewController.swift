@@ -124,18 +124,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         let rankBtn = UIBarButtonItem(image: UIImage(named: "trophy-2")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(rankBtn(_:)))
         navigationItem.rightBarButtonItems = [categoryBtn]
         navigationItem.leftBarButtonItems = [rankBtn]
-//        let categoryTotal = values0.reduce(0, +)
-//        total = categoryTotal
-//        let categoryPercentage = values0.map{(round(($0/total)*1000))/10}
-//        percentage = categoryPercentage
-//
-//        會直接取代原本array裡面的value
-//        for (index, value) in categoryValues.enumerated(){
-//            print("Item \(index + 1): \((round((value/total)*1000))/10)")
-//        }
-//        categoryPercentage.enumerated().forEach{index, value in
-//            categoryPercentage[index] = (round((value/total)*1000))/10
-//        }
 
         showCategory = DBManager.getInstance().getAllCategory()
         for i in 0...showCategory.count-2{
@@ -700,13 +688,25 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         showTrack = DBManager.getInstance().getYearTracks(Year: selectedYear)
         var startYear = ""
         var endYear = ""
-        let yearSelected = selectedYear
         for i in 0...showTrack.count-1{
-            if showTrack[i].startDate.contains("\(selectedYear)") == true && showTrack[i].endDate.contains("\(selectedYear)") == false{
-                
+            startYear = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
+            endYear = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
+            if i == 0{
+                if showTrack[i].startDate.contains("\(selectedYear)") == false && showTrack[i].endDate.contains("\(selectedYear)") == true{
+                    startYear = "\(showTrack[i].endDate) 00:00"
+                }
             }
-            if showTrack[i].startDate.contains("\(selectedYear)") == false && showTrack[i].endDate.contains("\(selectedYear)") == true{
-                
+            if i == showTrack.count-1{
+                if showTrack[i].startDate.contains("\(selectedYear)") == true && showTrack[i].endDate.contains("\(selectedYear)") == false{
+                    endYear = "\(showTrack[i].startDate) 23:59"
+                }
+            }
+            
+            let trackTimeYear = round(10*(showDateformatter.date(from: endYear)?.timeIntervalSince(showDateformatter.date(from: startYear)!))!/3600)/10
+            valuesYear.enumerated().forEach{index, value in
+                if showTrack[i].categoryId-1 == index{
+                    valuesYear[index] = (value+trackTimeYear).rounding(toDecimal: 1)
+                }
             }
         }
     }
@@ -828,6 +828,31 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 tag = vc?.tag
                 if tag == "analysisYear"{
                     showTimeLabel = vc!.pickerViewYear.dateYear
+                    showCategory = DBManager.getInstance().getAllCategory()
+                    selectedYear = "\(currentYear)"
+                    for (index, value) in valuesYear.enumerated(){
+                        valuesYear[index] = value*0
+                    }
+                    showCategoryStr.enumerated().forEach{index, value in
+                        showCategoryStr = [String]()
+                    }
+                    for i in 0...showCategory.count-2{
+                        showCategoryStr.append(showCategory[i].categoryName)
+                    }
+                    if DBManager.getInstance().getYearTracks(Year: selectedYear) != nil{
+                        getTrackTimeYear()
+                        showCategoryStr.enumerated().forEach{index, value in
+                            if valuesYear[index] == 0.0{
+                                showCategoryStr[index] = ""
+                            }
+                        }
+                        customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
+                        pieChartYear.isHidden = false
+                        noDataLabel.isHidden = true
+                    }else{
+                        pieChartYear.isHidden = true
+                        noDataLabel.isHidden = false
+                    }
                 }
             }
             self.tableView.reloadData()
