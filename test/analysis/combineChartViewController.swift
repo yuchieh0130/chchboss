@@ -697,20 +697,19 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                     }
                 }
             }else if segConIndex == 2{
-                let vc = segue.source as? PickerViewYearController
-                tag = vc?.tag
-                if tag == "combineChartYear"{
-                    showTimeLabel = vc!.pickerViewYear.dateYear
-                    let data = CombinedChartData()
-                    selectedYear = "\(vc!.pickerViewYear.dateYear)"
-                    selectedCategory = Int(category)
-                    selectedMonth = "01"
-                    for (index, value) in valueForYear.enumerated(){
-                        valueForYear[index] = value*0
-                    }
-                    for i in selectedMonthString{
-                        selectedMonth = i
-                        if DBManager.getInstance().getYearTracks_category(Year: selectedYear, Category: selectedCategory) != nil{
+                for (index, value) in selectedMonthString.enumerated(){
+                    let vc = segue.source as? PickerViewYearController
+                    tag = vc?.tag
+                    if tag == "combineChartYear"{
+                        showTimeLabel = vc!.pickerViewYear.dateYear
+                        let data = CombinedChartData()
+                        selectedYear = "\(vc!.pickerViewYear.dateYear)"
+                        selectedCategory = Int(category)
+                        selectedMonth = value
+                        for (index, value) in valueForYear.enumerated(){
+                            valueForYear[index] = value*0
+                        }
+                        if DBManager.getInstance().getMonthTracks_category(Year: selectedYear, Month: selectedMonth, Category: selectedCategory) != nil{
                             combineChart.isHidden = false
                             timeLabel.isHidden = true
                             getTrackTimeYear()

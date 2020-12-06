@@ -87,6 +87,7 @@ class WeekPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource
         
         let weekSelected = self.selectedRow(inComponent: 0)
         selectedRow = weekSelected
+        pickerView.selectRow(weekSelected, inComponent: 0, animated: true)
         print(weekSelected)
         if let block = onDateSelected {
             block(weekSelected)
