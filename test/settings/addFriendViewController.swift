@@ -61,9 +61,12 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         
         profileImage.snp.makeConstraints { (make) in
             make.height.width.equalTo(150)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchBar).offset(50)
         }
         nameLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
+            make.top.equalTo(profileImage.snp.bottom).offset(40)
         }
     }
     
