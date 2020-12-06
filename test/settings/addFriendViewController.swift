@@ -71,8 +71,18 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         searchBar.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(searchBar.snp.width).multipliedBy(0.2)
+            make.height.equalTo(self.view.snp.width).multipliedBy(0.1)
             make.top.equalToSuperview().offset(100)
+        }
+        
+        if #available(iOS 13.0, *) {
+            searchBar.searchTextField.snp.makeConstraints { (make) in
+                make.centerX.equalToSuperview()
+                make.width.equalToSuperview().multipliedBy(0.9)
+                make.height.equalTo(self.view.snp.width).multipliedBy(0.1)
+            }
+        } else {
+            // Fallback on earlier versions
         }
         print(searchBar.bounds.size)
         
@@ -80,14 +90,13 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.5)
             make.height.equalTo(searchBtn.snp.width).multipliedBy(0.3)
-            //make.top.equalTo(searchBar.snp.bottom).offset(30)
-            make.top.equalToSuperview().offset(200)
+            make.top.equalTo(searchBar.snp.bottom).offset(50)
+            //make.top.equalToSuperview().offset(200)
         }
-        print(searchBtn.bounds.size)
         
         profileImage.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(searchBar.snp.bottom).offset(30)
+            make.top.equalTo(searchBar.snp.bottom).offset(100)
         }
     
         nameLabel.snp.makeConstraints { (make) in
