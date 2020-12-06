@@ -56,6 +56,25 @@ class categoryViewController: UIViewController,UICollectionViewDataSource, UICol
         return showCategory.count-1
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let yourWidth = collectionView.bounds.width/3.0
+        let yourHeight = yourWidth
+
+        return CGSize(width: yourWidth, height: yourHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //        if indexPath.row == showCategory.count{
         //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCategoryCell", for: indexPath) as! addCategoryViewCell
