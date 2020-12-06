@@ -153,7 +153,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             item.width.equalTo(rankView.snp.height).dividedBy(6)
             item.height.equalTo(rankView.snp.height).dividedBy(6)
             item.leading.equalToSuperview().offset(20)
-            item.top.equalTo(titleBtn.snp.bottom).offset(60)
+            item.top.equalTo(titleBtn.snp.bottom).offset(40)
         }
         winnerIcon.layer.cornerRadius = winnerIcon.bounds.size.height/2
         
@@ -161,7 +161,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             item.width.equalTo(50)
             item.height.equalTo(40)
             item.leading.equalTo(winnerIcon.snp.trailing).offset(20)
-            item.top.equalTo(titleBtn.snp.bottom).offset(25)
+            item.bottom.equalTo(winnerIcon.snp.centerY).offset(-20)
         }
         
         winnerName.snp.makeConstraints{ (item) in
@@ -178,21 +178,21 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         emojiThumb.snp.makeConstraints{ (item) in
             item.leading.equalToSuperview().offset(20)
             item.size.equalTo(rankView.snp.width).dividedBy(4)
-            item.top.equalTo(gifImgView.snp.bottom).offset(20)
+            item.centerY.equalTo(rankView.snp.centerY)
         }
         emojiThumb.layer.cornerRadius = 0.5*emojiThumb.bounds.size.height
         
         emojiHeart.snp.makeConstraints{ (item) in
             item.centerX.equalTo(rankView.snp.centerX)
             item.size.equalTo(rankView.snp.width).dividedBy(4)
-            item.top.equalTo(gifImgView.snp.bottom).offset(15)
+            item.top.equalTo(emojiThumb.snp.top)
         }
         emojiHeart.layer.cornerRadius = 0.5*emojiHeart.bounds.size.height
         
         emojiAngry.snp.makeConstraints{ (item) in
             item.trailing.equalTo(rankView.snp.trailing).offset(-20)
             item.size.equalTo(rankView.snp.width).dividedBy(4)
-            item.top.equalTo(gifImgView.snp.bottom).offset(15)
+            item.top.equalTo(emojiThumb.snp.top)
         }
         emojiAngry.layer.cornerRadius = 0.5*emojiAngry.bounds.size.height
         
