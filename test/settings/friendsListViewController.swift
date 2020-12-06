@@ -248,7 +248,9 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "friendProfile", sender: self)
+        if indexPath.section == 0{
+            performSegue(withIdentifier: "friendProfile", sender: self)
+        }
     }
     
 }

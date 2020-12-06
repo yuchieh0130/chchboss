@@ -12,7 +12,7 @@ import SnapKit
 
 class addFriendViewController: UIViewController,UISearchBarDelegate {
     
-    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var addBtn: UIButton!
     @IBOutlet var searchBtn: UIButton!
@@ -65,10 +65,52 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         profileImage.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
         profileImage.clipsToBounds = true
         
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.clipsToBounds = true
+        //searchBar.frame.size.height = 35
+        searchBar.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(searchBar.snp.width).multipliedBy(0.2)
+            make.top.equalToSuperview().offset(100)
+        }
+        print(searchBar.bounds.size)
+        
+        searchBtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(searchBtn.snp.width).multipliedBy(0.3)
+            //make.top.equalTo(searchBar.snp.bottom).offset(30)
+            make.top.equalToSuperview().offset(200)
+        }
+        print(searchBtn.bounds.size)
+        
+        profileImage.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom).offset(30)
+        }
+    
         nameLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(profileImage.snp.bottom).offset(40)
+            make.top.equalTo(profileImage.snp.bottom).offset(30)
         }
+        
+        addBtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(searchBtn.snp.width).multipliedBy(0.2)
+            make.top.equalTo(nameLabel.snp.bottom).offset(30)
+        }
+        
+        cancelAddBtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(searchBtn.snp.width).multipliedBy(0.2)
+            make.top.equalTo(addBtn.snp.bottom).offset(10)
+        }
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
