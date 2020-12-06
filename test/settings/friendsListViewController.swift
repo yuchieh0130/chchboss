@@ -69,6 +69,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc func addFriend(_ sender: Any){
         performSegue(withIdentifier: "addFriend", sender: self)
+//        performSegue(withIdentifier: "addFriend", sender: self)
     }
     
     func refreshFriend(){
