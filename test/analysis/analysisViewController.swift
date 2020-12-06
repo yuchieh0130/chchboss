@@ -165,13 +165,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChart.isHidden = false
             noDataLabel.isHidden = true
         }else if DBManager.getInstance().getDateTasks(String: selectedDay) == nil{
-            showTrack = [TrackModel]()
-            showCategoryStr.enumerated().forEach{index, value in
-                if valuesDay[index] == 0.0{
-                    showCategoryStr[index] = ""
-                }
-            }
-            customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
             pieChart.isHidden = true
             noDataLabel.isHidden = false
         }
@@ -206,6 +199,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
         segConIndex = getIndex
         if getIndex == 0{
             noDataLabel.isHidden = true
+            pieChart.centerAttributedText = NSAttributedString(string: "")
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
@@ -233,13 +227,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 pieChart.isHidden = false
                 noDataLabel.isHidden = true
             }else{
-                showTrack = [TrackModel]()
-                customizeCategoryChart(dataPoints: showCategoryStr, values: valuesDay)
-                pieChart.isHidden = false
-                noDataLabel.isHidden = true
+                pieChart.isHidden = true
+                noDataLabel.isHidden = false
             }
         }else if getIndex == 1{
             pieChart.isHidden = true
+            pieChartWeek.centerAttributedText = NSAttributedString(string: "")
             pieChartMonth.isHidden = true
             pieChartYear.isHidden = true
             noDataLabel.isHidden = true
@@ -270,13 +263,12 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 pieChartWeek.isHidden = false
                 noDataLabel.isHidden = true
             }else{
-                showTrack = [TrackModel]()
-                customizeCategoryChartWeek(dataPoints: showCategoryStr, values: valuesWeek)
-                pieChartWeek.isHidden = false
-                noDataLabel.isHidden = true
+                pieChartWeek.isHidden = true
+                noDataLabel.isHidden = false
             }
         }else if getIndex == 2{
             pieChart.isHidden = true
+            pieChartMonth.centerAttributedText = NSAttributedString(string: "")
             pieChartWeek.isHidden = true
             pieChartYear.isHidden = true
             gifImgView.isHidden = true
@@ -307,8 +299,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 pieChartMonth.isHidden = false
                 noDataLabel.isHidden = true
             }else{
-                showTrack = [TrackModel]()
-                customizeCategoryChartMonth(dataPoints: showCategoryStr, values: valuesMonth)
                 pieChartMonth.isHidden = true
                 noDataLabel.isHidden = false
             }
@@ -317,6 +307,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             pieChart.isHidden = true
             pieChartWeek.isHidden = true
             pieChartMonth.isHidden = true
+            pieChartYear.centerAttributedText = NSAttributedString(string: "")
             gifImgView.isHidden = true
             noDataLabel.isHidden = true
             showTimeLabel = "\(currentYear)"
@@ -342,8 +333,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 pieChartYear.isHidden = false
                 noDataLabel.isHidden = true
             }else{
-                showTrack = [TrackModel]()
-                customizeCategoryChartYear(dataPoints: showCategoryStr, values: valuesYear)
                 pieChartYear.isHidden = true
                 noDataLabel.isHidden = false
             }
@@ -504,7 +493,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 gifImgView.center = pieChart.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexDay].categoryName)\n\(valuesDay[indexDay])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\n\(showCategory[indexDay].categoryName)\n\(valuesDay[indexDay]) hrs", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChart.centerAttributedText = string
             }
         }else if segConIndex == 1{
@@ -517,7 +506,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 gifImgView.center = pieChartWeek.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek]) hrs", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\n\(showCategory[indexWeek].categoryName)\n\(valuesWeek[indexWeek]) hrs", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartWeek.centerAttributedText = string
              }
         }else if segConIndex == 2{
@@ -530,9 +519,9 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 gifImgView.center = pieChartMonth.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\n\(showCategory[indexMonth].categoryName)\n\(valuesMonth[indexMonth]) hrs", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartMonth.centerAttributedText = string
-                compareLabel.isHidden = false
+                compareLabel.isHidden = true
                 let stringOne = "You spent more time on Exercise\nthan 11% of the users."
                 let stringTwo = "11%"
                 let range = (stringOne as NSString).range(of: stringTwo)
@@ -551,11 +540,10 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
                 gifImgView.center = pieChartYear.center
                 let style = NSMutableParagraphStyle()
                 style.alignment = NSTextAlignment.center
-                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear])", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
+                let string = NSAttributedString(string: "\n\n\n\n\n\n\n\n\(showCategory[indexYear].categoryName)\n\(valuesYear[indexYear]) hrs", attributes: [NSAttributedString.Key.paragraphStyle: style, NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20.0)!])
                 pieChartYear.centerAttributedText = string
              }
         }
-//        performSegue(withIdentifier: "analysisToCombineChart", sender: self)
     }
     
     private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
@@ -569,28 +557,6 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         tag = nil
-//        if (segue.identifier == "analysisToCombineChart"){
-//            if let vc = segue.destination as? combineChartViewController{
-//                vc.hidesBottomBarWhenPushed = true
-//                if segConIndex == 0{
-//                    vc.name = "\(showCategory[indexDay].categoryName)"
-//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexDay].categoryColor)")
-//                    vc.time = "\(valuesDay[indexDay])"
-//                }else if segConIndex == 1{
-//                    vc.name = "\(showCategory[indexWeek].categoryName)"
-//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexWeek].categoryColor)")
-//                    vc.time = "\(valuesWeek[indexWeek])"
-//                }else if segConIndex == 2{
-//                    vc.name = "\(showCategory[indexMonth].categoryName)"
-//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexMonth].categoryColor)")
-//                    vc.time = "\(valuesMonth[indexMonth])"
-//                }else if segConIndex == 3{
-//                    vc.name = "\(showCategory[indexYear].categoryName)"
-//                    vc.color = hexStringToUIColor (hex:"\(showCategory[indexYear].categoryColor)")
-//                    vc.time = "\(valuesYear[indexYear])"
-//                }
-//            }
-//        }
         if (segue.identifier == "analysisDatePopUp"){
             if let vc = segue.destination as? DatePopupViewController{
                 vc.tag = "analysis"
@@ -661,7 +627,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             let trackTimeDay = round(10*(showTimeformatter.date(from: endDay)?.timeIntervalSince(showTimeformatter.date(from: startDay)!))!/3600)/10
             valuesDay.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
-                    valuesDay[index] = value+trackTimeDay
+                    valuesDay[index] = (value+trackTimeDay).rounding(toDecimal: 1)
                 }
             }
         }
@@ -695,7 +661,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             let trackTimeWeek = round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
             valuesWeek.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
-                    valuesWeek[index] = value+trackTimeWeek
+                    valuesWeek[index] = (value+trackTimeWeek).rounding(toDecimal: 1)
                 }
             }
         }
@@ -724,7 +690,7 @@ class analysisViewController: UIViewController, ChartViewDelegate, UITableViewDa
             let trackTimeMonth = round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
             valuesMonth.enumerated().forEach{index, value in
                 if showTrack[i].categoryId-1 == index{
-                    valuesMonth[index] = value+trackTimeMonth
+                    valuesMonth[index] = (value+trackTimeMonth).rounding(toDecimal: 1)
                 }
             }
         }

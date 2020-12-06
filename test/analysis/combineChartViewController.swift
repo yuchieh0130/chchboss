@@ -371,7 +371,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                         }
                         valueForWeek[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
                     }
-                    valueForWeek[index] += trackTimeWeek
+                    valueForWeek[index] += (trackTimeWeek).rounding(toDecimal: 1)
                 }
             }
         }
@@ -434,7 +434,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                         }
                         valueForMonth_Line[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
                     }
-                    valueForMonth_Line[index] += trackTimeMonth
+                    valueForMonth_Line[index] += (trackTimeMonth).rounding(toDecimal: 1)
                 }
             }
         }
@@ -492,7 +492,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                         }
                         valueForMonth_Bar[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
                     }
-                    valueForMonth_Bar[index] += trackTimeWeek
+                    valueForMonth_Bar[index] += (trackTimeWeek).rounding(toDecimal: 1)
                 }
             }
         }
@@ -555,7 +555,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                         }
                         valueForYear[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endYear)?.timeIntervalSince(showDateformatter.date(from: startYear)!))!/3600)/10
                     }
-                    valueForYear[index] = value+trackTimeMonth
+                    valueForYear[index] = (value+trackTimeMonth).rounding(toDecimal: 1)
                 }
             }
         }
@@ -830,4 +830,3 @@ extension combineChartViewController: IAxisValueFormatter {
         return years[Int(moduMonth)]
         }
 }
-
