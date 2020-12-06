@@ -38,6 +38,7 @@ class PickerViewWeekViewController: UIViewController{
         }else if tag == "combineChartWeek"{
             pickerViewWeek.dateWeek = "\(start) ~ \(end)"
         }
+        
     }
     
     @IBAction func saveBtn(_ sender: Any) {
@@ -45,7 +46,4 @@ class PickerViewWeekViewController: UIViewController{
     @IBAction func cancelBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
 }

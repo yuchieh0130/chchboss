@@ -792,7 +792,7 @@ class DBManager: NSObject {
         var tracks: [TrackModel]!
         shareInstance.database?.open()
         
-        let sqlString = "SELECT * FROM track WHERE (start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' or (end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )' "
+        let sqlString = "SELECT * FROM track WHERE ((start_date || ' ' || start_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )') or ((end_date || ' ' || end_time) BETWEEN '\(String+" 00:00" )' and '\(String+" 23:59" )') or ('\(String+" 00:00" )' >= (start_date || ' ' || start_time) and '\(String+" 23:59" )' <= (end_date || ' ' || end_time)) "
         
         //let sqlString = "SELECT * FROM track WHERE start_date <= '\(String)' and end_date >= '\(String)' ORDER BY start_date ASC,start_time ASC";
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
@@ -962,7 +962,7 @@ class DBManager: NSObject {
     func getWeekTracks_category(Year: String, Week: Int, Category: Int) -> [TrackModel]!{
         var tracks: [TrackModel]!
         shareInstance.database?.open()
-        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(Year) \(Week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(Year) \(Week-1)' AND strftime('%w',end_date) = '0')) AND category_id = \(Category) "
+        let sqlString = "select * from track where ((strftime('%Y %W',start_date)='\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',end_date) = '\(Year) \(Week)' and weekday != 1) or (strftime('%Y %W',start_date) = '\(Year) \(Week-1)' AND weekday = 1) or  (strftime('%Y %W',end_date) = '\(Year) \(Week-1)' AND strftime('%Y %W',end_date) = '0')) AND category_id = \(Category) "
         
         let set = try?shareInstance.database?.executeQuery(sqlString, values: [])
         
@@ -1238,7 +1238,16 @@ class DBManager: NSObject {
             shareInstance.database?.executeUpdate("UPDATE sqlite_sequence set seq=0 where name= '\(table[i])'", withArgumentsIn:[])
         }
         shareInstance.database?.close()
+        
+        net.logout() {
+            (status_code) in
+            if (status_code != nil) {
+                print("logout\(status_code!)")
+            }
+        }
+        
         UserDefaults.standard.set(0, forKey: "last_track_id")
+        
     }
     
     

@@ -12,7 +12,7 @@ import SnapKit
 
 class addFriendViewController: UIViewController,UISearchBarDelegate {
     
-    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var addBtn: UIButton!
     @IBOutlet var searchBtn: UIButton!
@@ -46,11 +46,6 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         searchBtn.layer.cornerRadius = 10.0
         searchBtn.clipsToBounds = true
         
-        profileImage.layer.cornerRadius = 0.5*profileImage.bounds.size.width
-        profileImage.layer.borderWidth = 2
-        profileImage.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
-        profileImage.clipsToBounds = true
-        
         addBtn.layer.cornerRadius = 10.0
         addBtn.clipsToBounds = true
         
@@ -60,11 +55,71 @@ class addFriendViewController: UIViewController,UISearchBarDelegate {
         nameLabel.text = addName
         
         profileImage.snp.makeConstraints { (make) in
-            make.height.width.equalTo(150)
+            make.height.width.equalTo(140)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchBar).offset(50)
         }
+        //profileImage.layer.cornerRadius = 0.5*profileImage.bounds.size.width
+        profileImage.layer.cornerRadius = 70
+        profileImage.layer.borderWidth = 2
+        profileImage.layer.borderColor = UIColor(red: 34/255, green: 45/255, blue: 101/255, alpha: 0.8).cgColor
+        profileImage.clipsToBounds = true
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.clipsToBounds = true
+        //searchBar.frame.size.height = 35
+        searchBar.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(self.view.snp.width).multipliedBy(0.1)
+            make.top.equalToSuperview().offset(100)
+        }
+        
+        if #available(iOS 13.0, *) {
+            searchBar.searchTextField.snp.makeConstraints { (make) in
+                make.centerX.equalToSuperview()
+                make.width.equalToSuperview().multipliedBy(0.9)
+                make.height.equalTo(self.view.snp.width).multipliedBy(0.1)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        print(searchBar.bounds.size)
+        
+        searchBtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(searchBtn.snp.width).multipliedBy(0.3)
+            make.top.equalTo(searchBar.snp.bottom).offset(50)
+            //make.top.equalToSuperview().offset(200)
+        }
+        
+        profileImage.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom).offset(100)
+        }
+    
         nameLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
+            make.top.equalTo(profileImage.snp.bottom).offset(30)
         }
+        
+        addBtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(searchBtn.snp.width).multipliedBy(0.2)
+            make.top.equalTo(nameLabel.snp.bottom).offset(30)
+        }
+        
+        cancelAddBtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(searchBtn.snp.width).multipliedBy(0.2)
+            make.top.equalTo(addBtn.snp.bottom).offset(10)
+        }
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

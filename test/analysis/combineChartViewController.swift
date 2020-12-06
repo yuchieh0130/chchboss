@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Charts
+import SnapKit
 
 class combineChartViewController: UIViewController, ChartViewDelegate, UITableViewDelegate, UITableViewDataSource{
     
@@ -44,8 +45,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     var monthDays: [String] = []
     var weekMonthDays: [String] = []
     var valueForWeek = [7.5, 7.0, 7.2, 5.9, 5.4, 4.5, 4.3]
-    var valueForMonth_Line = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
-    var valueForMonth_Bar = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    var valueForMonth = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
     var valueForYear = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
     
     var selectedWeek: Int!
@@ -53,6 +53,21 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     var selectedYear = ""
     var selectedCategory: Int!
     var selectedMonthString = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    
+    @IBOutlet var lockImage: UIImageView!
+    
+    var label1 : UILabel = {
+        let label = UILabel()
+        label.text = "Upgrade to PRO"
+        label.isHidden = true
+        return label
+    }()
+    var label2 : UILabel = {
+        let label = UILabel()
+        label.text = "and check out more analysis data!"
+        label.isHidden = true
+        return label
+    }()
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -101,6 +116,27 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         }
     }
     
+    func setupUI(){
+        lockImage.snp.makeConstraints{ (item) in
+            item.centerX.equalToSuperview()
+            item.centerY.equalToSuperview()
+            item.size.equalTo(130)
+        }
+        
+        self.view.addSubview(label1)
+        self.view.addSubview(label2)
+        label1.snp.makeConstraints{ (item) in
+            item.centerX.equalToSuperview()
+            item.top.equalTo(lockImage.snp.bottom).offset(15)
+        }
+        
+        label2.snp.makeConstraints{ (item) in
+            item.centerX.equalToSuperview()
+            item.top.equalTo(label1.snp.bottom).offset(5)
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         segCon.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +145,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        
+        setupUI()
         
         navigationItem.title = name
         
@@ -126,6 +164,10 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             }
         }
         self.years = years
+        
+        for (index, value) in valueForWeek.enumerated(){
+            valueForWeek[index] = value*0
+        }
 
         timeLabel.text = time
         selectedWeek = currentWeek
@@ -190,6 +232,9 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
 //            combineChart.isHidden = true
 //            showTimeLabel = showDayformatter.string(from: Date())
         if getIndex == 0{
+            label1.isHidden = true
+            label2.isHidden = true
+            lockImage.isHidden = true
             let data = CombinedChartData()
             let startWeekDay = showDayformatter.string(from: startOfWeek!)
             let endWeekDay = showDayformatter.string(from: endOfWeek!)
@@ -204,7 +249,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 combineChart.isHidden = false
                 timeLabel.isHidden = true
                 getTrackTimeWeek()
-//                data.lineData = generateLineData(dataPoints: days, values: valueForWeek)
                 data.barData = generateBarData(dataPoints: days, values: valueForWeek)
                 combineChart.data = data
                 //x axis
@@ -222,12 +266,15 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 timeLabel.isHidden = false
             }
         }else if getIndex == 1{
+            label1.isHidden = false
+            label2.isHidden = false
+            lockImage.isHidden = false
             showTimeLabel = monthsFullName[currentMonth - 1] + " \(currentYear)"
-            selectedMonth = "\(currentMonth)"
+            selectedMonth = "\(currentMonth-1)"
             selectedYear = "\(currentYear)"
             selectedCategory = Int(category)
-            for (index, value) in valueForMonth_Bar.enumerated(){
-                valueForMonth_Bar[index] = value*0
+            for (index, value) in valueForMonth.enumerated(){
+                valueForMonth[index] = value*0
             }
             let data = CombinedChartData()
             let dateComponents = DateComponents(year: currentYear, month: currentMonth)
@@ -244,11 +291,9 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             }
             if DBManager.getInstance().getMonthTracks_category(Year: selectedYear, Month: selectedMonth, Category: selectedCategory) != nil{
                 timeLabel.isHidden = true
-                combineChart.isHidden = false
-                getTrackTimeMonth_Bar()
-                getTrackTimeMonth_Line()
-                data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth_Line)
-//                data.barData = generateBarData(dataPoints: monthDays, values: valueForMonth_Bar)
+                combineChart.isHidden = true
+                getTrackTimeMonth()
+                data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth)
                 combineChart.data = data
                 //x axis
                 combineChart.xAxis.labelPosition = .bothSided
@@ -261,7 +306,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 combineChart.xAxis.labelCount = numDays+1
                 combineChart.xAxis.valueFormatter = self
             }else{
-                timeLabel.isHidden = false
+                timeLabel.isHidden = true
                 combineChart.isHidden = true
             }
         }else if getIndex == 2{
@@ -275,8 +320,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             if DBManager.getInstance().getYearTracks_category(Year: selectedYear, Category: selectedCategory) != nil{
                 combineChart.isHidden = false
                 timeLabel.isHidden = true
-//                getTrackTimeYear()
-//                data.lineData = generateLineData(dataPoints: months, values: valueForYear)
+                getTrackTimeYear()
                 data.barData = generateBarData(dataPoints: months, values: valueForYear)
                 combineChart.data = data
                 //x axis
@@ -314,7 +358,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         if segConIndex == 0{
             performSegue(withIdentifier: "combineChartWeek", sender: self)
         }else if segConIndex == 1{
-            performSegue(withIdentifier: "combineChartMonthYear", sender: self)
+//            performSegue(withIdentifier: "combineChartMonthYear", sender: self)
         }else if segConIndex == 2{
             performSegue(withIdentifier: "combineChartYear", sender: self)
         }
@@ -334,54 +378,44 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
             let startWeekday = Calendar.current.component(.weekday, from: startStringDate)
             let endWeekday = Calendar.current.component(.weekday, from: endStringDate)
             
-            guard let year = Int(selectedYear), let weekOfYear = selectedWeek else {return}
-            let components = DateComponents(weekOfYear: weekOfYear+1, yearForWeekOfYear: year)
-            guard let date = Calendar.current.date(from: components) else {return}
-            let s = showDayformatter.string(from: date)
-            var dateComponent = DateComponents()
-            dateComponent.day = 6
-            let end = Calendar.current.date(byAdding: dateComponent, to: date)
-            let e = showDayformatter.string(from: end!)
             if i == 0{
-                if startWeek.contains("\(s)") == false{
-                    startWeek = "\(s) 00:00"
+                if startWeek.contains("\(showTrack[i].endDate)") == false{
+                    startWeek = "\(showTrack[i].endDate) 00:00"
                 }
             }
             if i == showTrack.count-1{
-                if endWeek.contains("\(e)") == false{
-                    endWeek = "\(e) 23:59"
+                if endWeek.contains("\(showTrack[i].startDate)") == false{
+                    endWeek = "\(showTrack[i].startDate) 23:59"
                 }
             }
-            if i != 0 && i != showTrack.count-1{
-                if startWeekday != endWeekday{
-                    if showTrack[i].endTime != "23:59"{
-                        startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
-                        endWeek = "\(showTrack[i].startDate) 23:59"
-                    }
-                }
-            }
+//            if i != 0 && i != showTrack.count-1{
+//                if startWeekday != endWeekday{
+//                        startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
+//                        endWeek = "\(showTrack[i].startDate) 23:59"
+//                }
+//            }
             
             let trackTimeWeek = round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
             valueForWeek.enumerated().forEach{index, value in
                 if showTrack[i].weekDay-1 == index{ //把日期轉成weekday
-                    if startWeekday != endWeekday{
-                        if showTrack[i].startTime != "00:00"{
-                            startWeek = "\(showTrack[i].endDate) 00:00"
-                            endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
-                        }
-                        valueForWeek[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
-                    }
-                    valueForWeek[index] += trackTimeWeek
+//                    if startWeekday != endWeekday{
+//                        if showTrack[i].startTime != "00:00"{
+//                            startWeek = "\(showTrack[i].endDate) 00:00"
+//                            endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
+//                        }
+//                        valueForWeek[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
+//                    }
+                    valueForWeek[index] += (trackTimeWeek).rounding(toDecimal: 1)
                 }
             }
         }
     }
     
-    func getTrackTimeMonth_Line(){
+    func getTrackTimeMonth(){
         showTrack = DBManager.getInstance().getMonthTracks_category(Year: selectedYear, Month: selectedMonth, Category: selectedCategory)
         var startMonth = ""
         var endMonth = ""
-        let monthSelected = selectedYear+"-"+selectedMonth
+//        let monthSelected = selectedYear+"-"+selectedMonth
         for i in 0...showTrack.count-1{
             startMonth = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
             endMonth = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
@@ -402,97 +436,39 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 }
             }
             
-            if i != 0 && i != showTrack.count-1{
-                if startWeekday != endWeekday{
-                    if showTrack[i].endTime != "23:59"{
-                        startMonth = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
-                        endMonth = "\(showTrack[i].startDate) 23:59"
-                    }
-                }
-            }
+//            if i != 0 && i != showTrack.count-1{
+//                if startWeekday != endWeekday{
+//                        startMonth = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
+//                        endMonth = "\(showTrack[i].startDate) 23:59"
+//                }
+//            }
             
-            if showTrack[i].startDate.contains("-\(selectedMonth)-") == false{
-                let components = NSCalendar.current.dateComponents(Set<Calendar.Component>([.year, .month]),from: showMonthformatter.date(from: monthSelected)!)
-                let s = NSCalendar.current.date(from: components)!
-                startMonth = showDateformatter.string(from: s)
-            }
-            if showTrack[i].endDate.contains("-\(selectedMonth)-") == false{
-                var com = DateComponents()
-                com.month = 1
-                com.second = -1
-                let e = NSCalendar.current.date(byAdding: com, to: showMonthformatter.date(from: monthSelected)!)!
-                endMonth = showDateformatter.string(from: e)
-            }
+//            if showTrack[i].startDate.contains("-\(selectedMonth)-") == false{
+//                let components = NSCalendar.current.dateComponents(Set<Calendar.Component>([.year, .month]),from: showMonthformatter.date(from: monthSelected)!)
+//                let s = NSCalendar.current.date(from: components)!
+//                startMonth = showDateformatter.string(from: s)
+//            }
+//
+//            if showTrack[i].endDate.contains("-\(selectedMonth)-") == false{
+//                var com = DateComponents()
+//                com.month = 1
+//                com.second = -1
+//                let e = NSCalendar.current.date(byAdding: com, to: showMonthformatter.date(from: monthSelected)!)!
+//                endMonth = showDateformatter.string(from: e)
+//            }
+            
             let trackTimeMonth = round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
-            print(trackTimeMonth)
-            valueForMonth_Line.enumerated().forEach{index, value in
+            
+            valueForMonth.enumerated().forEach{index, value in
                 if showTrack[i].startDate.contains("\(selectedYear)-\(selectedMonth)-\(index+1)"){
-                    if startWeekday != endWeekday{
-                        if showTrack[i].startTime != "00:00"{
-                            startMonth = "\(showTrack[i].endDate) 00:00"
-                            endMonth = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
-                        }
-                        valueForMonth_Line[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10
-                    }
-                    valueForMonth_Line[index] += trackTimeMonth
-                }
-            }
-        }
-    }
-    
-    func getTrackTimeMonth_Bar(){
-        showTrack = DBManager.getInstance().getWeekTracks_category(Year: selectedYear, Week: selectedWeek, Category: selectedCategory)
-        var startWeek = ""
-        var endWeek = ""
-        for i in 0...showTrack.count-1{
-            startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
-            endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
-            
-            let startStringDate = showDayformatter.date(from: showTrack[i].startDate)!
-            let endStringDate = showDayformatter.date(from: showTrack[i].endDate)!
-            let startWeekday = Calendar.current.component(.weekday, from: startStringDate)
-            let endWeekday = Calendar.current.component(.weekday, from: endStringDate)
-            let week = Calendar.current.component(.weekOfMonth, from: startStringDate)
-            print(week)
-            
-            guard let year = Int(selectedYear), let weekOfYear = selectedWeek else {return}
-            let components = DateComponents(weekOfYear: weekOfYear+1, yearForWeekOfYear: year)
-            guard let date = Calendar.current.date(from: components) else {return}
-            let s = showDayformatter.string(from: date)
-            var dateComponent = DateComponents()
-            dateComponent.day = 6
-            let end = Calendar.current.date(byAdding: dateComponent, to: date)
-            let e = showDayformatter.string(from: end!)
-            if i == 0{
-                if startWeek.contains("\(s)") == false{
-                    startWeek = "\(s) 00:00"
-                }
-            }
-            if i == showTrack.count-1{
-                if endWeek.contains("\(e)") == false{
-                    endWeek = "\(e) 23:59"
-                }
-            }
-            if i != 0 && i != showTrack.count-1{
-                if startWeekday != endWeekday{
-                    if showTrack[i].endTime != "23:59"{
-                        startWeek = "\(showTrack[i].startDate) \(showTrack[i].startTime)"
-                        endWeek = "\(showTrack[i].startDate) 23:59"
-                    }
-                }
-            }
-            
-            let trackTimeWeek = round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
-            valueForMonth_Bar.enumerated().forEach{index, value in
-                if showTrack[i].weekDay-1 == index{ //把日期轉成weekday
-                    if startWeekday != endWeekday{
-                        if showTrack[i].startTime != "00:00"{
-                            startWeek = "\(showTrack[i].endDate) 00:00"
-                            endWeek = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
-                        }
-                        valueForMonth_Bar[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endWeek)?.timeIntervalSince(showDateformatter.date(from: startWeek)!))!/3600)/10
-                    }
-                    valueForMonth_Bar[index] += trackTimeWeek
+//                    if startWeekday != endWeekday{
+//                        if showTrack[i].startTime != "00:00"{
+//                            startMonth = "\(showTrack[i].endDate) 00:00"
+//                            endMonth = "\(showTrack[i].endDate) \(showTrack[i].endTime)"
+//                        }
+//                        valueForMonth[Int(showTrack[i].weekDay)] += (round(10*(showDateformatter.date(from: endMonth)?.timeIntervalSince(showDateformatter.date(from: startMonth)!))!/3600)/10).rounding(toDecimal: 1)
+//                    }
+                    valueForMonth[index] += (trackTimeMonth).rounding(toDecimal: 1)
                 }
             }
         }
@@ -545,7 +521,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 endYear = showDateformatter.string(from: e)
             }
             let trackTimeMonth = round(10*(showDateformatter.date(from: endYear)?.timeIntervalSince(showDateformatter.date(from: startYear)!))!/3600)/10
-            print(trackTimeMonth)
             valueForYear.enumerated().forEach{index, value in
                 if showTrack[i].startDate.contains("\(selectedYear)-\(selectedMonth)"){
                     if startWeekday != endWeekday{
@@ -555,7 +530,7 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                         }
                         valueForYear[Int(showTrack[i].weekDay)] += round(10*(showDateformatter.date(from: endYear)?.timeIntervalSince(showDateformatter.date(from: startYear)!))!/3600)/10
                     }
-                    valueForYear[index] = value+trackTimeMonth
+                    valueForYear[index] = (value+trackTimeMonth).rounding(toDecimal: 1)
                 }
             }
         }
@@ -588,15 +563,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     
     @IBAction func TimeSegueBack(segue: UIStoryboardSegue){
         if segue.identifier == "timeSegueBack"{
-//            if segConIndex == 0{
-//                let vc = segue.source as? DatePopupViewController
-//                date = vc!.datePicker.date
-//                tag = vc?.tag
-//                if tag == "combineChart"{
-//                    showCategory = DBManager.getInstance().getAllCategory()
-//                    showTimeLabel = showDayformatter.string(from: date)
-//                }
-//            }else
             if segConIndex == 0{
                 let vc = segue.source as? PickerViewWeekViewController
                 tag = vc?.tag
@@ -615,7 +581,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                         timeLabel.isHidden = true
                         getTrackTimeWeek()
                         
-//                        data.lineData = generateLineData(dataPoints: days, values: valueForWeek)
                         data.barData = generateBarData(dataPoints: days, values: valueForWeek)
                         
                         combineChart.data = data
@@ -646,8 +611,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                     }
                     selectedYear = "\(vc!.pickerViewMonthYear.year)"
                     selectedCategory = Int(category)
-                    for (index, value) in valueForMonth_Bar.enumerated(){
-                        valueForMonth_Bar[index] = value*0
+                    for (index, value) in valueForMonth.enumerated(){
+                        valueForMonth[index] = value*0
                     }
                     let data = CombinedChartData()
                     let dateComponents = DateComponents(year: vc?.pickerViewMonthYear.year, month: vc?.pickerViewMonthYear.month)
@@ -676,10 +641,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                     if DBManager.getInstance().getMonthTracks_category(Year: selectedYear, Month: selectedMonth, Category: selectedCategory) != nil{
                         timeLabel.isHidden = true
                         combineChart.isHidden = false
-                        getTrackTimeMonth_Bar()
-                        getTrackTimeMonth_Line()
-                        data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth_Line)
-//                        data.barData = generateBarData(dataPoints: weekMonthDays, values: valueForMonth_Bar)
+                        getTrackTimeMonth()
+                        data.lineData = generateLineData(dataPoints: monthDays, values: valueForMonth)
                         combineChart.data = data
                         //x axis
                         combineChart.xAxis.labelPosition = .bothSided
@@ -697,24 +660,22 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                     }
                 }
             }else if segConIndex == 2{
-                let vc = segue.source as? PickerViewYearController
-                tag = vc?.tag
-                if tag == "combineChartYear"{
-                    showTimeLabel = vc!.pickerViewYear.dateYear
-                    let data = CombinedChartData()
-                    selectedYear = "\(vc!.pickerViewYear.dateYear)"
-                    selectedCategory = Int(category)
-                    selectedMonth = "01"
-                    for (index, value) in valueForYear.enumerated(){
-                        valueForYear[index] = value*0
-                    }
-                    for i in selectedMonthString{
-                        selectedMonth = i
-                        if DBManager.getInstance().getYearTracks_category(Year: selectedYear, Category: selectedCategory) != nil{
+                for (index, value) in selectedMonthString.enumerated(){
+                    let vc = segue.source as? PickerViewYearController
+                    tag = vc?.tag
+                    if tag == "combineChartYear"{
+                        showTimeLabel = vc!.pickerViewYear.dateYear
+                        let data = CombinedChartData()
+                        selectedYear = "\(vc!.pickerViewYear.dateYear)"
+                        selectedCategory = Int(category)
+                        selectedMonth = value
+                        for (index, value) in valueForYear.enumerated(){
+                            valueForYear[index] = value*0
+                        }
+                        if DBManager.getInstance().getMonthTracks_category(Year: selectedYear, Month: selectedMonth, Category: selectedCategory) != nil{
                             combineChart.isHidden = false
                             timeLabel.isHidden = true
                             getTrackTimeYear()
-    //                        data.lineData = generateLineData(dataPoints: months, values: valueForYear)
                             data.barData = generateBarData(dataPoints: months, values: valueForYear)
                             combineChart.data = data
                             //x axis
@@ -777,10 +738,6 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         print("chartValueSelected : x = \(highlight.x)")
     }
     
-    func chartValueNothingSelected(_ chartView: ChartViewBase) {
-        print("chartValueNothingSelected")
-    }
-    
     private func colorsOfCategory(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
         for _ in 0...numbersOfColor-1{
@@ -830,4 +787,3 @@ extension combineChartViewController: IAxisValueFormatter {
         return years[Int(moduMonth)]
         }
 }
-

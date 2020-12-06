@@ -69,6 +69,7 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc func addFriend(_ sender: Any){
         performSegue(withIdentifier: "addFriend", sender: self)
+//        performSegue(withIdentifier: "addFriend", sender: self)
     }
     
     func refreshFriend(){
@@ -247,7 +248,9 @@ class friendsListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "friendProfile", sender: self)
+        if indexPath.section == 0{
+            performSegue(withIdentifier: "friendProfile", sender: self)
+        }
     }
     
 }
