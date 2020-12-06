@@ -118,7 +118,7 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
             item.centerX.equalToSuperview()
             item.centerY.equalToSuperview()
             item.width.equalToSuperview().multipliedBy(0.8)
-            item.height.equalToSuperview().multipliedBy(0.9)
+            item.height.equalToSuperview().multipliedBy(0.85)
         }
         rankView.layer.cornerRadius = 10.0
         
@@ -181,19 +181,19 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
         emojiHeart.snp.makeConstraints{ (item) in
             item.centerX.equalTo(rankView.snp.centerX)
             item.size.equalTo(rankView.snp.width).dividedBy(4)
-            item.top.equalTo(gifImgView.snp.bottom).offset(20)
+            item.top.equalTo(gifImgView.snp.bottom).offset(15)
         }
         emojiHeart.layer.cornerRadius = 0.5*emojiHeart.bounds.size.height
         
         emojiAngry.snp.makeConstraints{ (item) in
             item.trailing.equalTo(rankView.snp.trailing).offset(-20)
             item.size.equalTo(rankView.snp.width).dividedBy(4)
-            item.top.equalTo(gifImgView.snp.bottom).offset(20)
+            item.top.equalTo(gifImgView.snp.bottom).offset(15)
         }
         emojiAngry.layer.cornerRadius = 0.5*emojiAngry.bounds.size.height
         
         tableView.snp.makeConstraints{ (item) in
-            item.top.equalTo(emojiHeart.snp.bottom).offset(20)
+            item.top.equalTo(emojiHeart.snp.bottom).offset(10)
             item.centerX.equalTo(rankView.snp.centerX)
             item.width.equalTo(rankView.snp.width)
             item.height.equalTo(rankView.snp.width).dividedBy(3)
@@ -303,6 +303,6 @@ class rankViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return rankView.bounds.size.height/8
+        return rankView.bounds.size.height/15
     }
 }
