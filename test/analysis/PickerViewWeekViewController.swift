@@ -29,7 +29,7 @@ class PickerViewWeekViewController: UIViewController{
         super.viewDidLoad()
         pickerViewWeek.translatesAutoresizingMaskIntoConstraints = false
         pickerViewWeek.reloadComponent(0)
-        pickerViewWeek.selectRow(currentWeek-1, inComponent: 0, animated: true)
+        pickerViewWeek.selectRow(currentWeek-2, inComponent: 0, animated: true)
         
         let start = dateFormat.string(from: pickerViewWeek.satOfWeek)
         let end = dateFormat.string(from: pickerViewWeek.sunOfWeek)
@@ -38,6 +38,7 @@ class PickerViewWeekViewController: UIViewController{
         }else if tag == "combineChartWeek"{
             pickerViewWeek.dateWeek = "\(start) ~ \(end)"
         }
+        
     }
     
     @IBAction func saveBtn(_ sender: Any) {
@@ -45,7 +46,4 @@ class PickerViewWeekViewController: UIViewController{
     @IBAction func cancelBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
 }
