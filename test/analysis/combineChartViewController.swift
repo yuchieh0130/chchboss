@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Charts
+import SnapKit
 
 class combineChartViewController: UIViewController, ChartViewDelegate, UITableViewDelegate, UITableViewDataSource{
     
@@ -54,7 +55,19 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
     var selectedMonthString = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
     
     @IBOutlet var lockImage: UIImageView!
-    @IBOutlet var upgradeLabel: UILabel!
+    
+    var label1 : UILabel = {
+        let label = UILabel()
+        label.text = "Upgrade to PRO"
+        label.isHidden = true
+        return label
+    }()
+    var label2 : UILabel = {
+        let label = UILabel()
+        label.text = "and check out more analysis data!"
+        label.isHidden = true
+        return label
+    }()
     
     var showDateformatter: DateFormatter {
         let formatter = DateFormatter()
@@ -103,6 +116,27 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         }
     }
     
+    func setupUI(){
+        lockImage.snp.makeConstraints{ (item) in
+            item.centerX.equalToSuperview()
+            item.centerY.equalToSuperview()
+            item.size.equalTo(130)
+        }
+        
+        self.view.addSubview(label1)
+        self.view.addSubview(label2)
+        label1.snp.makeConstraints{ (item) in
+            item.centerX.equalToSuperview()
+            item.top.equalTo(lockImage.snp.bottom).offset(15)
+        }
+        
+        label2.snp.makeConstraints{ (item) in
+            item.centerX.equalToSuperview()
+            item.top.equalTo(label1.snp.bottom).offset(5)
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         segCon.translatesAutoresizingMaskIntoConstraints = false
@@ -111,6 +145,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        
+        setupUI()
         
         navigationItem.title = name
         
@@ -196,7 +232,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
 //            combineChart.isHidden = true
 //            showTimeLabel = showDayformatter.string(from: Date())
         if getIndex == 0{
-            upgradeLabel.isHidden = true
+            label1.isHidden = true
+            label2.isHidden = true
             lockImage.isHidden = true
             let data = CombinedChartData()
             let startWeekDay = showDayformatter.string(from: startOfWeek!)
@@ -229,7 +266,8 @@ class combineChartViewController: UIViewController, ChartViewDelegate, UITableVi
                 timeLabel.isHidden = false
             }
         }else if getIndex == 1{
-            upgradeLabel.isHidden = false
+            label1.isHidden = false
+            label2.isHidden = false
             lockImage.isHidden = false
             showTimeLabel = monthsFullName[currentMonth - 1] + " \(currentYear)"
             selectedMonth = "\(currentMonth-1)"
