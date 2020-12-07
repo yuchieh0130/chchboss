@@ -658,7 +658,12 @@ def handler_postback(event):
                 event.reply_token, TextSendMessage(status_list))
     else:
         print(88888888888)
-
+@handler.add(FollowEvent)
+def handle_follow():
+    answer1 = "您好!歡迎加入BunnyTrack官方帳號,在使用BunnyTrack之前,請先下載BunnyTrack應用程式,才能給予最精準的分析哦!!!"
+    answer2 = "以下是我們的Facebook影片連結,歡迎點閱觀賞,按讚分享!\nhttps://www.facebook.com/1053169871379031/videos/446365026493576"
+    line_bot_api.reply_message(
+                event.reply_token, TextSendMessage((answer1, answer2)))
 
 # def trackReply(postback):
 #     if(postback)
